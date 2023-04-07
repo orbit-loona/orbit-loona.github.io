@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>an orbit's cool page</title>
+		<link rel="stylesheet" href="main.css"/>
+		<script>
+			bigintValue = 0n;
+			lifetimeBigintValue = 0n;
+			showedMessage = false;
+			superUpgradeVisible = false;
+			
+			clickUpgrades = [
+				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
+				{type: "+",		value: 4n,		cost: 40n,		level: 0n},
+				{type: "+",		value: 10n,		cost: 100n,		level: 0n},
+				{type: "+",		value: 50n,		cost: 1000n,	level: 0n},
+				{type: "*",		value: 2n,		cost: 10000n,	level: 0n,	max: 5n},
+				{type: "+",		value: 5000n,	cost: 75000n,	level: 0n},
+				{type: "**",	value: 2n,		cost: 1000000n,	level: 0n,	max: 1n},
+				{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
+			];
+			
+			/*function saveBigints() {
+				object = {
+					number: bigintValue,
+					lifetimeNumber: lifetimeBigintValue,
+					reachedBigNumber: showedMessage,
+					upgrades: clickUpgrades,
+					showUpgradeOT12: superUpgradeVisible
+				};
+				localStorage.setItem("number",JSON.stringify(object));
+			};
+
+			function loadBigints() {
+				object = JSON.parse(localStorage.number); 
+				bigintValue = object.number;
+				lifetimeBigintValue = object.lifetimeNumber;
+				showedMessage = object.reachedBigNumber;
+				superUpgradeVisible = object.showUpgradeOT12;
+				
+				if(superUpgradeVisible) {
+					unlockSecret();
+				};
+			};
+			
+			function resetBigints() {
+				bigintValue = 0;
+				lifetimeBigintValue = 0;
+				showedMessage = false;
+				superUpgradeVisible = false;
+				clickUpgrades = [
+					{type: "+",		value: 1n,		cost: 10n,		level: 0n},
+					{type: "+",		value: 4n,		cost: 40n,		level: 0n},
+					{type: "+",		value: 10n,		cost: 100n,		level: 0n},
+					{type: "+",		value: 50n,		cost: 1000n,	level: 0n},
+					{type: "*",		value: 2n,		cost: 10000n,	level: 0n,	max: 5n},
+					{type: "+",		value: 5000n,	cost: 75000n,	level: 0n},
+					{type: "**",	value: 2n,		cost: 1000000n,	level: 0n,	max: 1n},
+					{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
+				];
+				relockSecret();
+				updateCounters();
+				localStorage.removeItem("number");
+			};*/
+
+			function getClickValue() {
+				var value = 1n;
+				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
+					var upgrade = clickUpgrades[flipThat];
+					//console.log(flipThat,upgrade)
+					if(upgrade.type == "+") {
+						value += (upgrade.value * upgrade.level);
+					} else if(upgrade.type == "*") {
+						if(upgrade.level > 0) { value *= (upgrade.value ** upgrade.level) };
+					} else if(upgrade.type == "**") {
+						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
+					} else {
+						console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
+					};
+					//console.log(value);
+				};
+				return value;
+			};
+			
+			function buyUpgrade(index,updateCounts=true) {
+				var upgrade = clickUpgrades[index];
+				var cost = upgrade.cost;
+
+				if(bigintValue < cost) {
+					return false;
+				};
+
+				if(upgrade.max && (upgrade.level >= upgrade.max)) {
+					return false;
+				};
+				
+				upgrade.level++;
+				bigintValue -= cost;
+				if(updateCounts) {
+					updateCounters();
+				};
+				
+				if(index == 6) {
+					unlockSecret();
+				};
+				
+				return true;
+			};
+
+			function unlockSecret() {
+				var secretSpan = document.getElementById("up7");
+				if(secretSpan && secretSpan.style.display == "none") {
+					secretSpan.style.display = "unset";
+				};
+				superUpgradeVisible = true;
+			};
+			
+			function relockSecret() {
+				var secretSpan = document.getElementById("up7");
+				if(secretSpan && secretSpan.style.display == "" || ecretSpan.style.display == "unset") {
+					secretSpan.style.display = "none";
+				};
+				superUpgradeVisible = false;
+			};
+			
+			function increment(updateCounts=true) {
+				bigintValue += getClickValue();
+				lifetimeBigintValue += getClickValue();
+				if(updateCounts) {
+					updateCounters();
+				};
+			};
+			
+			function updateCounters() {
+				if(lifetimeBigintValue >= (10n**11n)) {
+					unlockSecret();
+				};
+				
+				if(!showedMessage && bigintValue >= (10n**112n)) {
+					alert("congartulations you have reached 10 short scale octotrigintilllion orbit");
+					showedMessage = true;
+				};
+			
+				var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
+				for(i = 0; i < counters.length; i++) {
+					var counter = counters[i];
+					var format = counter.getAttribute("countTemplate");
+					var numberText = bigintValue.toString().replaceAll(/(?<=\d)(?=(\d\d\d)+(?!\d))/g,",");
+					var newText = format.replaceAll("<@@>",numberText);
+					counter.innerText = newText;
+				};
+				
+				//saveBigints();
+			};
+			
+			function dumbBruh() {
+				try {
+					var audio = new Audio("bruh.mp3");
+					audio.onended = function() {
+						delete(this);
+					};
+					audio.play();
+				} catch (error) {
+					alert("Could not play bruh sound");
+					return false;
+				};
+				return true;
+			};
+
+			document.addEventListener("keypress", function(event) {
+				if (event.key === " ") {
+					increment(true);
+					return true;
+				} else if(event.key.match(/\d/)) {
+					var upgrade = parseInt(event.key);
+					if(isNaN(upgrade)) {
+						return false;
+					};
+					if(upgrade >= clickUpgrades.length) {
+						return false;
+					};
+					return buyUpgrade(upgrade);
+				};
+			});
+		</script>
+		<style>
+			@keyframes loonaonethird {
+			  00.00%	{ color:#FF007F; }
+			  12.50%	{ color:#FF007F; }
+
+			  25.00%	{ color:#FFFF00; }
+			  37.50%	{ color:#FFFF00; }
+
+			  50.00%	{ color:#00BF00; }
+			  62.50%	{ color:#00BF00; }
+			  68.75%	{ color:#AABBDD; }
+			  75.00%	{ color:#FFBFFF; }
+			  87.50%	{ color:#FFBFFF; }
+
+			  100.0%	{ color:#FF007F; }
+			}
+
+			@keyframes loonaoddeyecircle {
+			  00.00%	{ color:#FF2222; }
+			  16.66%	{ color:#FF2222; }
+
+			  33.33%	{ color:#3333FF; }
+			  50.00%	{ color:#3333FF; }
+
+			  66.67%	{ color:#C027D0; }
+			  83.33%	{ color:#C027D0; }
+
+			  100.0%	{ color:#FF2222; }
+			}
+
+			@keyframes loonayouthyouthbyyoung {
+			  00.00%	{ color:#8F082F; }
+			  12.50%	{ color:#8F082F; }
+
+			  25.00%	{ color:#FF9F7F; }
+			  37.50%	{ color:#FF9F7F; }
+
+			  50.00%	{ color:#3FDF9F; }
+			  62.50%	{ color:#3FDF9F; }
+
+			  75.00%	{ color:#9F9F9F; }
+			  87.50%	{ color:#9F9F9F; }
+
+			  100.0%	{ color:#8F082F; }
+			}
+
+			@keyframes loonaot12 {
+			  00.00% { color:#FF007F; }
+			  04.17% { color:#FF007F; }
+			  08.33% { color:#FFFF00; }
+			  12.50% { color:#FFFF00; }
+			  16.67% { color:#00BF00; }
+			  20.83% { color:#00BF00; }
+			  25.00% { color:#FF7F00; }
+			  29.17% { color:#FF7F00; }
+			  33.33% { color:#FFBFFF; }
+			  37.50% { color:#FFBFFF; }
+			  41.67% { color:#FF2222; }
+			  45.83% { color:#FF2222; }
+			  50.00% { color:#3333FF; }
+			  54.17% { color:#3333FF; }
+			  58.33% { color:#C027D0; }
+			  62.50% { color:#C027D0; }
+			  66.67% { color:#8F082F; }
+			  70.83% { color:#8F082F; }
+			  75.00% { color:#FF9F7F; }
+			  79.17% { color:#FF9F7F; }
+			  83.33% { color:#3FDF9F; }
+			  87.50% { color:#3FDF9F; }
+			  91.67% { color:#9F9F9F; }
+			  95.83% { color:#9F9F9F; }
+			  100.0% { color:#FF007F; }
+			}
+
+			@keyframes fade-in {
+			  from { opacity: 0 }
+			  to { opacity: 1 }
+			}
+
+			@keyframes blink {
+			  0% { opacity: 0 }
+			  49.999999999% { opacity: 0 }
+			  50.000000001% { opacity: 1 }
+			  100% { opacity: 1 }
+			}
+
+			.third { animation: loonaonethird 3s linear 0s infinite normal none; }
+			.circle  { animation: loonaoddeyecircle 3s linear 0s infinite normal none; }
+			.youth { animation: loonayouthyouthbyyoung 3s linear 0s infinite normal none; }
+			.ot12 { animation: loonaot12 6s linear 0s infinite normal none; }
+			.yeojin, a.yeojin, a.yeojin:visited { color: #FF7F00; }
+			.blink { animation: blink 1s linear 0s infinite normal none; }
+
+			.hoverTest {
+				opacity: 0;
+			}
+			.hoverTest:hover {
+				opacity: 1;
+				animation: 0.35s linear 0s 1 normal fade-in
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<marquee class="ot12" style="font-size:130%; font-weight:bold;" direction="right" scrolldelay="60" behavior="alternate">helo this is my github page i really love loona and kpop</marquee>
+		</div>
+		
+		<div id="main">
+			<p>hi i'm an orbit and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
+			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
+			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias)</span><br/>
+			<span onclick="increment(true);" countTemplate="i wish there were <@@>,000,000 orbits">i love orbits</span><br/>
+			<span onclick="buyUpgrade(0)" title="up0">loona</span> <span onclick="buyUpgrade(6)" title="up6">ot12</span> <span onclick="buyUpgrade(4)"  title="up4">forever</span><span onclick="buyUpgrade(7)" class="ot12" id="up7" title="up7" style="display: none"> (super-special secret eighth upgrade)</span></p>
+		
+			<h2 class="ot12">my epic pages with great quality code</h2>
+				<a href="random-loona.html" class="third">loona permuter</a><br/>
+				<a href="modded-char8/index.html" class="yeojin">heavily modded char8.js</a><br/>
+				<a href="starbound.html" class="circle">starbound color text renderer</a><br/>
+				<a href="mp3.html" class="youth">ersatz mp3 player</a><br/>
+				<a href="thirds.html" class="third">two-way extension of seconds and thirds</a><br/>
+				<a href="bbc.json" class="yeojin">(.json file) blockberry creative save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+				<a href="bbc.html" class="yeojin">(html/click-to-copy) blockberry creative save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+				<a href="illions.html" class="circle">pseudo-bowers illion name generator</a><br/>
+
+			<h3 class="ot12">not epic code</h3>
+				<span class="third">groups: <strong>loona</strong> (ult) <code class="yeojin">//TODO: stan more groups</code></span><br/>
+				<span class="yeojin">antis, akgaes dni<span class="hoverTest"> (especially bahiyyih antis)</span></span><br/>
+			
+			<br/><br/>
+			<span class="blink" countTemplate="this page would be <@@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span>
+		</div>
+	</body>
+</html>

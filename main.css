@@ -1,0 +1,61 @@
+/*
+@font-face {
+	font-family: "Comic Sans";
+	src: url('comicsans/comic.eot'); 
+	src: url('comicsans/comic.eot?#iefix') format('embedded-opentype'), 
+	url('comicsans/comic.woff2') format('woff2'), 
+	url('comicsans/comic.woff') format('woff'), 
+	url('comicsans/comic.ttf')  format('truetype'), 
+	url('comicsans/comic.svg#svgFontName') format('svg'); 
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Comic Sans";
+	src: url('comicsans/comicbd.eot'); 
+	src: url('comicsans/comicbd.eot?#iefix') format('embedded-opentype'), 
+	url('comicsans/comicbd.woff2') format('woff2'), 
+	url('comicsans/comicbd.woff') format('woff'), 
+	url('comicsans/comicbd.ttf')  format('truetype'), 
+	url('comicsans/comicbd.svg#svgFontName') format('svg'); 
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Comic Sans";
+	src: url('comicsans/comici.eot'); 
+	src: url('comicsans/comici.eot?#iefix') format('embedded-opentype'), 
+	url('comicsans/comici.woff2') format('woff2'), 
+	url('comicsans/comici.woff') format('woff'), 
+	url('comicsans/comici.ttf')  format('truetype'), 
+	url('comicsans/comici.svg#svgFontName') format('svg'); 
+	font-style: italic, oblique;
+}
+
+@font-face {
+	font-family: "Comic Sans";
+	src: url('comicsans/comicz.eot'); 
+	src: url('comicsans/comicz.eot?#iefix') format('embedded-opentype'), 
+	url('comicsans/comicz.woff2') format('woff2'), 
+	url('comicsans/comicz.woff') format('woff'), 
+	url('comicsans/comicz.ttf')  format('truetype'), 
+	url('comicsans/comicz.svg#svgFontName') format('svg'); 
+	font-weight: bold;
+	font-style: italic, oblique;
+}
+*/
+
+body {
+	font-family: "Courier New", Courier, "courier new", courier, monospace;
+	font-size: 110%;
+	background-color: black;
+	color: white;
+}
+
+a {
+	color: #0ff;
+}
+
+a:visited {
+	color: #f0f;
+}

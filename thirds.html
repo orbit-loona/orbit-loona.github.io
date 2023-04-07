@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Base 60 time extension</title>
+		<link rel="stylesheet" href="main.css"/>
+		<style>
+			.t3 {
+			  color: darkgray; /*lighter than "gray" due to a standard's historical quirks*/
+			}
+
+			.t2 {
+			  color: #1da;
+			}
+
+			.t1 {
+			  color: #fb8;
+			}
+
+			.t0 {
+			  color: #614;
+			}
+
+			.tM1 {
+			  color: purple;
+			}
+
+			.tM2 {
+			  color: #26f;
+			}
+
+			.tM3 {
+			  color: red;
+			}
+
+			.tM4 {
+			  color: #faf;
+			}
+
+			.tM5 {
+			  color: orange;
+			}
+
+			.tM6 {
+			  color: #0c0;
+			}
+
+			.tM7 {
+			  color: yellow;
+			}
+
+			.tM8 {
+			  color: #f08;
+			}
+
+			.tM9 {
+			  color: white;
+			}
+
+			.divider {
+			  color: white;
+			}
+
+			/*
+			...
+			[negative ordinals would either be impractically long or sound like the N-word]
+			zeroth (hour)
+			first (minute)
+			second
+			third
+			*/
+		</style>
+		<script>
+			//https://stackoverflow.com/a/48020189
+			function copyDivToClipboard() {
+				var range = document.createRange();
+				range.selectNode(document.getElementById("json"));
+				window.getSelection().removeAllRanges(); // clear current selection
+				window.getSelection().addRange(range); // to select text
+				document.execCommand("copy");
+				window.getSelection().removeAllRanges();// to deselect
+			}		
+		</script>
+	</head>
+	<body>
+		<h2>Time since Unix epoch</h2>
+		<span class="pointless">This is pointless</span><br/><br/>
+
+		<div id="main">If you can still read this, something has gone wrong.</div>
+
+		<span class="t2">gowon color = seconds</span><br/>
+		<span class="t3">thirds have some inaccuracy</span>
+	
+		<script>
+			subdivisionFactor = 60;
+
+			var time = 1000/subdivisionFactor;  
+
+			mainDiv = document.getElementById("main");
+
+			function p(textIn) {
+			  
+			  var text = textIn;
+			  var negative = false;
+			  
+			  if(typeof(text) !== "string") {
+				text = text.toString()
+			  };
+			  
+			  if(text.startsWith("-")) {
+				text = text.substring(1);
+				negative = true;
+			  };
+			  
+			  if(text == "") {
+				return "00";
+			  };
+			  
+			  if(text.length == 1) {
+				return (negative ? "-" : "") + "0" + text;
+			  };
+			  
+			  return (negative ? "-" : "") + text;
+			};
+
+			function ttswc(textIn,classIn) {
+			  return `<span class="${classIn}">${p(textIn)}</span>`;
+			}; //textToSpanWithClass
+
+			var divider = '<span class="divider">:</span>';
+
+			function main() {
+			  var millis = Date.now();
+			  
+			  //mainSpan.innerText = millis;
+			 
+			  var milliseconds = millis % 1000;
+			  
+			  var overflow = Math.floor(millis/(1000*subdivisionFactor**11));
+			  
+			  var nEighths = Math.floor(millis/(1000*subdivisionFactor**10) % subdivisionFactor);
+			  
+			  var nSevenths = Math.floor(millis/(1000*subdivisionFactor**9) % subdivisionFactor);
+			  
+			  var nSixths = Math.floor(millis/(1000*subdivisionFactor**8) % subdivisionFactor);
+			  
+			  var nFifths = Math.floor(millis/(1000*subdivisionFactor**7) % subdivisionFactor);
+			  
+			  var nFourths = Math.floor(millis/(1000*subdivisionFactor**6) % subdivisionFactor); //12960000 hours (540000 days)
+			  
+			  var nThirds = Math.floor(millis/(1000*subdivisionFactor**5) % subdivisionFactor); //216000 hours (9000 days)
+			  
+			  var nSeconds = Math.floor(millis/(1000*subdivisionFactor**4) % subdivisionFactor); //3600 hours (150 days)
+			  
+			  var nFirsts = Math.floor(millis/(1000*subdivisionFactor**3) % subdivisionFactor); //60 hours (2.5 days)
+			  
+			  var zeroths = Math.floor(millis/(1000*subdivisionFactor**2) % subdivisionFactor); //hours
+			  
+			  var firsts = Math.floor(millis/(1000*subdivisionFactor) % subdivisionFactor); //minutes
+			  
+			  var seconds = Math.floor(millis/1000) % subdivisionFactor;
+			  
+			  var thirds = Math.round(milliseconds / time);
+			  
+			  mainDiv.innerHTML = [ttswc(overflow,"tM9"),ttswc(nEighths,"tM8"),ttswc(nSevenths,"tM7"),ttswc(nSixths,"tM6"),ttswc(nFifths,"tM5"),ttswc(nFourths,"tM4"),ttswc(nThirds,"tM3"),ttswc(nSeconds,"tM2"),ttswc(nFirsts,"tM1"),ttswc(zeroths,"t0"),ttswc(firsts,"t1"),ttswc(seconds,"t2"),ttswc(thirds,"t3")].join(divider);
+			};
+
+			setInterval(main, time);
+		</script>
+	</body>
+
+	<br/><br/><a href="index.html"><small>go to main page</small></a>
+</html>
