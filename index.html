@@ -22,36 +22,55 @@ try {
 				{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
 			];
 			
-			/*function saveBigints() {
+
+BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
+
+function bigintReviver (key, value) {
+	if(value.startsWith("<@BI>")) {
+		var bi = value.substring(5);
+    return BigInt(bi);
+	};
+	return value;
+};
+
+			function saveBigints() {
 				object = {
 					number: bigintValue,
 					lifetimeNumber: lifetimeBigintValue,
 					reachedBigNumber: showedMessage,
 					upgrades: clickUpgrades,
-					showUpgradeOT12: superUpgradeVisible
+					showUpgradeOT12: superUpgradeVisible,
+					modhaus: bigintRebirths
 				};
 				localStorage.setItem("number",JSON.stringify(object));
 			};
 
-			function resetBigints() {
-				bigintValue = 0;
-				lifetimeBigintValue = 0;
+			function resetBigints(removeSave=false) {
+				bigintValue = 0n;
+				lifetimeBigintValue = 0n;
 				showedMessage = false;
 				superUpgradeVisible = false;
-				clickUpgrades = [
-					{type: "+",		value: 1n,		cost: 10n,		level: 0n},
-					{type: "+",		value: 4n,		cost: 40n,		level: 0n},
-					{type: "+",		value: 10n,		cost: 100n,		level: 0n},
-					{type: "+",		value: 50n,		cost: 1000n,	level: 0n},
-					{type: "*",		value: 2n,		cost: 10000n,	level: 0n,	max: 5n},
-					{type: "+",		value: 5000n,	cost: 75000n,	level: 0n},
-					{type: "**",	value: 2n,		cost: 1000000n,	level: 0n,	max: 1n},
-					{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
-				];
+				bigintRebirths = 0n;
+				for(hash = 0; hash < clickUpgrades.length; hash++) {
+					clickUpgrades[hash].level = 0n;
+				};
 				relockSecret();
 				updateCounters();
-				localStorage.removeItem("number");
-			};*/
+				if(removeSave) { localStorage.removeItem("number") }; return true;
+			};
+
+			function loadBigints() {
+				if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
+				bigintValue = object.number;
+				lifetimeBigintValue = object.lifetimeNumber;
+				showedMessage = object.reachedBigNumber;
+				superUpgradeVisible = object.showUpgradeOT12;
+				bigintRebirths = object.modhaus;
+				
+				if(superUpgradeVisible) {
+					unlockSecret();
+				}; return true;
+			};
 
 			function rebirth(updateCounts=true) {
 				if(bigintValue < (10n**112n)) {
