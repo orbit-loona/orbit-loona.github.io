@@ -162,7 +162,7 @@ try {
 					var textTitle = clickText.getAttribute("title");
 					var newButton = document.createElement("button");
 					newButton.setAttribute("onclick",clickCode);
-					newButton.setAttribute("title",textTitle);
+					newButton.innerText = textTitle;
 					clickText.after(newButton);
 				};
 				return true;
