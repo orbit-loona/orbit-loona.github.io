@@ -9,6 +9,7 @@ try {
 			lifetimeBigintValue = 0n;
 			showedMessage = false;
 			superUpgradeVisible = false;
+			bigintRebirths = 0n;
 			
 			clickUpgrades = [
 				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
@@ -32,18 +33,6 @@ try {
 				localStorage.setItem("number",JSON.stringify(object));
 			};
 
-			function loadBigints() {
-				object = JSON.parse(localStorage.number); 
-				bigintValue = object.number;
-				lifetimeBigintValue = object.lifetimeNumber;
-				showedMessage = object.reachedBigNumber;
-				superUpgradeVisible = object.showUpgradeOT12;
-				
-				if(superUpgradeVisible) {
-					unlockSecret();
-				};
-			};
-			
 			function resetBigints() {
 				bigintValue = 0;
 				lifetimeBigintValue = 0;
@@ -64,6 +53,18 @@ try {
 				localStorage.removeItem("number");
 			};*/
 
+			function rebirth(updateCounts=true) {
+				if(bigintValue < (10n**112n)) {
+					return false;
+				};
+				bigintValue = 0n;
+				bigintRebirths += 1n;
+				if(updateCounts) {
+					updateCounters();
+				};
+				return true;
+			};
+
 			function getClickValue() {
 				var value = 1n;
 				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
@@ -80,7 +81,8 @@ try {
 					};
 					//console.log(value);
 				};
-				return value;
+				var rebirthExponent = 2n ** bigintRebirths;
+				return value * rebirthExponent;
 			};
 			
 			function buyUpgrade(index,updateCounts=true,amount=1n) {
@@ -118,7 +120,7 @@ try {
 			
 			function relockSecret() {
 				var secretSpan = document.getElementById("up7");
-				if(secretSpan && secretSpan.style.display == "" || ecretSpan.style.display == "unset") {
+				if(secretSpan && secretSpan.style.display == "" || secretSpan.style.display == "unset") {
 					secretSpan.style.display = "none";
 				};
 				superUpgradeVisible = false;
@@ -186,8 +188,10 @@ try {
 				if (event.key === " ") {
 					increment(true);
 					return true;
-				} else if (event.key === "%") {
+				} else if (event.key === "t") {
 					return buyUpgrade(5,true,25n);
+				} else else if (event.key === "%") {
+					return buyUpgrade(5,true,625n);
 				} else if(event.key.match(/\d/)) {
 					var upgrade = parseInt(event.key);
 					if(isNaN(upgrade)) {
