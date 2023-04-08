@@ -69,10 +69,9 @@ try {
 			};
 
 			function getClickValue() {
-				var value = 1n;
+				var value = 2n ** bigintRebirths;
 				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
 					var upgrade = clickUpgrades[flipThat];
-					//console.log(flipThat,upgrade)
 					if(upgrade.type == "+") {
 						value += (upgrade.value * upgrade.level);
 					} else if(upgrade.type == "*") {
@@ -82,10 +81,8 @@ try {
 					} else {
 						console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
 					};
-					//console.log(value);
 				};
-				var rebirthExponent = 2n ** bigintRebirths;
-				return value * rebirthExponent;
+				return value;
 			};
 			
 			function buyUpgrade(index,updateCounts=true,amount=1n) {
