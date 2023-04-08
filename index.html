@@ -171,6 +171,7 @@ function bigintReviver (key, value) {
 					var counter = counters[i];
 					var format = counter.getAttribute("countTemplate");
 					var numberText = bigintValue.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
+					if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
 					var newText = format.replaceAll("<@@>",numberText);
 					counter.innerText = newText;
 				};
