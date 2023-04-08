@@ -83,19 +83,19 @@ try {
 				return value;
 			};
 			
-			function buyUpgrade(index,updateCounts=true) {
+			function buyUpgrade(index,updateCounts=true,amount=1n) {
 				var upgrade = clickUpgrades[index];
-				var cost = upgrade.cost;
+				var cost = upgrade.cost * amount;
 
 				if(bigintValue < cost) {
 					return false;
 				};
 
-				if(upgrade.max && (upgrade.level >= upgrade.max)) {
+				if(upgrade.max && (upgrade.level > (upgrade.max - amount))) {
 					return false;
 				};
 				
-				upgrade.level++;
+				upgrade.level += amount;
 				bigintValue -= cost;
 				if(updateCounts) {
 					updateCounters();
@@ -186,6 +186,8 @@ try {
 				if (event.key === " ") {
 					increment(true);
 					return true;
+				} else if (event.key === "%") {
+					return buyUpgrade(5,true,25n);
 				} else if(event.key.match(/\d/)) {
 					var upgrade = parseInt(event.key);
 					if(isNaN(upgrade)) {
