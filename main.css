@@ -59,10 +59,10 @@ body {
 	color: white;
 }
 
-a {
+a:link {
 	color: #0ff;
 }
 
-a:visited {
+a.not(.heejin,.hyunjin,.haseul,.yeojin,.vivi,.kimlip,.jinsoul,.choerry,.yves,.chuu,.gowon,.hyeju,.oliviahye):visited {
 	color: #f0f;
 }
