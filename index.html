@@ -226,6 +226,11 @@ function bigintReviver (key, value) {
 					return buyUpgrade(upgrade);
 				};
 			});
+
+window.onload = function() {
+  loadBigints();
+};
+
 } catch(error) {
     alert(error);
 };
