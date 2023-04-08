@@ -58,6 +58,9 @@ try {
 					return false;
 				};
 				bigintValue = 0n;
+				for(hash = 0; hash < clickUpgrades.length; hash++) {
+					clickUpgrades[hash].level = 0n;
+				};
 				bigintRebirths += 1n;
 				if(updateCounts) {
 					updateCounters();
@@ -190,7 +193,9 @@ try {
 					return true;
 				} else if (event.key === "t") {
 					return buyUpgrade(5,true,25n);
-				} else else if (event.key === "%") {
+				} else if (event.key === "r") {
+					return rebirth();
+				} else if (event.key === "%") {
 					return buyUpgrade(5,true,625n);
 				} else if(event.key.match(/\d/)) {
 					var upgrade = parseInt(event.key);
@@ -237,7 +242,7 @@ try {
 		</div>
 		
 		<div id="main">
-			<p>hi i'm an orbit and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
+			<p>hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
 			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
 			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias)</span><br/>
 			<span title="orbits" onclick="increment(true);" countTemplate="i wish there were <@@>,000,000 orbits">i love orbits</span><br/>
