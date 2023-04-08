@@ -10,6 +10,7 @@ try {
 			showedMessage = false;
 			superUpgradeVisible = false;
 			bigintRebirths = 0n;
+			saveModulo = 0;
 			
 			clickUpgrades = [
 				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
@@ -174,7 +175,13 @@ function bigintReviver (key, value) {
 					counter.innerText = newText;
 				};
 				
-				if(doSave) { saveBigints() };
+if(doSave) { //Save on every fifth update
+  saveModulo++;
+  if(saveModulo % 5 == 0) {
+    saveBigints();
+    saveModulo = 0;
+  };
+};
 			};
 			
 			function generateButtonsForTitledClickables() {
@@ -229,6 +236,7 @@ function bigintReviver (key, value) {
 
 window.onload = function() {
   loadBigints();
+  setInterval(saveBigints, 10000);
 };
 
 } catch(error) {
