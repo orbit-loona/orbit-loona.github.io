@@ -94,19 +94,19 @@ a:visited {
 	color: #f0f;
 }
 
-.heejin		{ color: #FF00BF; }
-.hyunjin	{ color: #FFEF00; }
-.haseul		{ color: #0FBF00; }
-.yeojin		{ color: #FF7F00; }
-.vivi		{ color: #DFBFFF; }
-.kimlip		{ color: #00FF00; }
-.jinsoul	{ color: #005FFF; }
-.choerry	{ color: #AF0097; }
-.yves		{ color: #9F0F4F; }
-.chuu		{ color: #FFBF7F; }
-.gowon		{ color: #2FEF87; }
-.hyeju		{ color: #9F9F9F; }
-.third		{ animation: loonaonethird 3s linear 0s infinite normal none; }
-.circle		{ animation: loonaoddeyecircle 3s linear 0s infinite normal none; }
-.youth		{ animation: loonayouthyouthbyyoung 3s linear 0s infinite normal none; }
-.ot12		{ animation: loonaot12 6s linear 0s infinite normal none; }
+.heejin, a.heejin:visited	{ color: #FF00BF; }
+.hyunjin, a.hyunjin:visited	{ color: #FFEF00; }
+.haseul, a.haseul:visited	{ color: #0FBF00; }
+.yeojin, a.yeojin:visited	{ color: #FF7F00; }
+.vivi, a.vivi:visited		{ color: #DFBFFF; }
+.kimlip, a.kimlip:visited	{ color: #00FF00; }
+.jinsoul, a.jinsoul:visited	{ color: #005FFF; }
+.choerry, a.choerry:visited	{ color: #AF0097; }
+.yves, a.yves:visited		{ color: #9F0F4F; }
+.chuu, a.chuu:visited		{ color: #FFBF7F; }
+.gowon, a.gowon:visited		{ color: #2FEF87; }
+.hyeju, a.hyeju:visited		{ color: #9F9F9F; }
+.third, a.third:visited		{ animation: loonaonethird 3s linear 0s infinite normal none; }
+.circle, a.circle:visited	{ animation: loonaoddeyecircle 3s linear 0s infinite normal none; }
+.youth, a.youth:visited		{ animation: loonayouthyouthbyyoung 3s linear 0s infinite normal none; }
+.ot12, a.ot12:visited		{ animation: loonaot12 6s linear 0s infinite normal none; }
