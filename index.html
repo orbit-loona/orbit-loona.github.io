@@ -26,7 +26,7 @@ try {
 BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
 
 function bigintReviver (key, value) {
-	if(value.startsWith("<@BI>")) {
+	if(typeof(value) == "string" && value.startsWith("<@BI>")) {
 		var bi = value.substring(5);
     return BigInt(bi);
 	};
