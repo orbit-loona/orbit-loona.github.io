@@ -69,13 +69,14 @@ try {
 			};
 
 			function getClickValue() {
-				var value = 2n ** bigintRebirths;
+				var rebirthedBase = 2n ** bigintRebirths;
+				var value = rebirthedBase;
 				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
 					var upgrade = clickUpgrades[flipThat];
 					if(upgrade.type == "+") {
-						value += (upgrade.value * upgrade.level);
+						value += ((upgrade.value * rebirthedBase) * upgrade.level);
 					} else if(upgrade.type == "*") {
-						if(upgrade.level > 0) { value *= (upgrade.value ** upgrade.level) };
+						if(upgrade.level > 0) { value *= ((upgrade.value * rebirthedBase) ** upgrade.level) };
 					} else if(upgrade.type == "**") {
 						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
 					} else {
