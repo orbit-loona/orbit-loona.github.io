@@ -219,10 +219,12 @@ if(doSave) { //Save on every fifth update
 					return true;
 				} else if (event.key === "t") {
 					return buyUpgrade(5,true,25n);
+				} else if (event.key === "T") {
+					return buyUpgrade(5,true,625n);
+				} else if (event.key === "%") {
+					return buyUpgrade(5,true,15625n);
 				} else if (event.key === "r") {
 					return rebirth();
-				} else if (event.key === "%") {
-					return buyUpgrade(5,true,625n);
 				} else if(event.key.match(/\d/)) {
 					var upgrade = parseInt(event.key);
 					if(isNaN(upgrade)) {
