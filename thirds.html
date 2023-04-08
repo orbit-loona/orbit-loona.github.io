@@ -4,55 +4,7 @@
 		<title>Base 60 time extension</title>
 		<link rel="stylesheet" href="main.css"/>
 		<style>
-			.t3 {
-			  color: darkgray; /*lighter than "gray" due to a standard's historical quirks*/
-			}
-
-			.t2 {
-			  color: #1da;
-			}
-
-			.t1 {
-			  color: #fb8;
-			}
-
-			.t0 {
-			  color: #614;
-			}
-
-			.tM1 {
-			  color: purple;
-			}
-
-			.tM2 {
-			  color: #26f;
-			}
-
-			.tM3 {
-			  color: red;
-			}
-
-			.tM4 {
-			  color: #faf;
-			}
-
-			.tM5 {
-			  color: orange;
-			}
-
-			.tM6 {
-			  color: #0c0;
-			}
-
-			.tM7 {
-			  color: yellow;
-			}
-
-			.tM8 {
-			  color: #f08;
-			}
-
-			.tM9 {
+			.overflow {
 			  color: white;
 			}
 
@@ -161,7 +113,7 @@
 			  
 			  var thirds = Math.round(milliseconds / time);
 			  
-			  mainDiv.innerHTML = [ttswc(overflow,"tM9"),ttswc(nEighths,"tM8"),ttswc(nSevenths,"tM7"),ttswc(nSixths,"tM6"),ttswc(nFifths,"tM5"),ttswc(nFourths,"tM4"),ttswc(nThirds,"tM3"),ttswc(nSeconds,"tM2"),ttswc(nFirsts,"tM1"),ttswc(zeroths,"t0"),ttswc(firsts,"t1"),ttswc(seconds,"t2"),ttswc(thirds,"t3")].join(divider);
+			  mainDiv.innerHTML = [ttswc(overflow,"overflow"),ttswc(nEighths,"heejin"),ttswc(nSevenths,"hyunjin"),ttswc(nSixths,"haseul"),ttswc(nFifths,"yeojin"),ttswc(nFourths,"vivi"),ttswc(nThirds,"kimlip"),ttswc(nSeconds,"jinsoul"),ttswc(nFirsts,"choerry"),ttswc(zeroths,"yves"),ttswc(firsts,"chuu"),ttswc(seconds,"gowon"),ttswc(thirds,"hyeju")].join(divider);
 			};
 
 			setInterval(main, time);
