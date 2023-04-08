@@ -48,7 +48,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
 
 body {
-	font-family: "Nanum Gothic Coding", "Courier New", Courier, "courier new", courier, monospace;
+	font-family: "Nanum Gothic Coding", Arial, "Courier New", Courier, "courier new", courier, monospace;
 	font-size: 110%;
 	background-color: black;
 	color: white;
