@@ -146,7 +146,7 @@ try {
 				for(i = 0; i < counters.length; i++) {
 					var counter = counters[i];
 					var format = counter.getAttribute("countTemplate");
-					var numberText = bigintValue.toString().replaceAll(/(?<=\d)(?=(\d\d\d)+(?!\d))/g,",");
+					var numberText = bigintValue.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
 					var newText = format.replaceAll("<@@>",numberText);
 					counter.innerText = newText;
 				};
