@@ -4,6 +4,7 @@
 		<title>an orbit's cool page</title>
 		<link rel="stylesheet" href="main.css"/>
 		<script>
+try {
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
 			showedMessage = false;
@@ -153,7 +154,6 @@
 				//saveBigints();
 			};
 			
-try {
 			function generateButtonsForTitledClickables() {
 				var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
 				for(i = 0; i < clickables.length; i++) {
@@ -167,9 +167,6 @@ try {
 				};
 				return true;
 			};
-} catch(error) {
-    alert(error);
-};
 
 			function dumbBruh() {
 				try {
@@ -200,6 +197,9 @@ try {
 					return buyUpgrade(upgrade);
 				};
 			});
+} catch(error) {
+    alert(error);
+};
 		</script>
 		<style>
 			@keyframes loonaonethird {
