@@ -45,8 +45,11 @@
 }
 */
 
+@import url('https://fonts.googleapis.com/css2?family=FAMILY_NAME:wght@WEIGHT_OR_RANGE&display=swap');
+
 body {
-	font-family: "Courier New", Courier, "courier new", courier, monospace;
+	@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+	font-family: "Nanum Gothic Coding", "Courier New", Courier, "courier new", courier, monospace;
 	font-size: 110%;
 	background-color: black;
 	color: white;
