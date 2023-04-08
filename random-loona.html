@@ -4,84 +4,6 @@
 		<title>Random Loona picker</title>
 		<link rel="stylesheet" href="main.css"/>
 		<style>
-			@keyframes loonaonethird {
-			  00.00%	{ color:#FF007F; }
-			  12.50%	{ color:#FF007F; }
-
-			  25.00%	{ color:#FFFF00; }
-			  37.50%	{ color:#FFFF00; }
-
-			  50.00%	{ color:#00BF00; }
-			  62.50%	{ color:#00BF00; }
-			  68.75%	{ color:#AABBDD; }
-			  75.00%	{ color:#FFBFFF; }
-			  87.50%	{ color:#FFBFFF; }
-
-			  100.0%	{ color:#FF007F; }
-			}
-
-			@keyframes loonaoddeyecircle {
-			  00.00%	{ color:#FF2222; }
-			  16.66%	{ color:#FF2222; }
-
-			  33.33%	{ color:#3333FF; }
-			  50.00%	{ color:#3333FF; }
-
-			  66.67%	{ color:#C027D0; }
-			  83.33%	{ color:#C027D0; }
-
-			  100.0%	{ color:#FF2222; }
-			}
-
-			@keyframes loonayouthyouthbyyoung {
-			  00.00%	{ color:#8F082F; }
-			  12.50%	{ color:#8F082F; }
-
-			  25.00%	{ color:#FF9F7F; }
-			  37.50%	{ color:#FF9F7F; }
-
-			  50.00%	{ color:#3FDF9F; }
-			  62.50%	{ color:#3FDF9F; }
-
-			  75.00%	{ color:#9F9F9F; }
-			  87.50%	{ color:#9F9F9F; }
-
-			  100.0%	{ color:#8F082F; }
-			}
-
-			@keyframes loonaot12 {
-			  00.00% { color:#FF007F; }
-			  04.17% { color:#FF007F; }
-			  08.33% { color:#FFFF00; }
-			  12.50% { color:#FFFF00; }
-			  16.67% { color:#00BF00; }
-			  20.83% { color:#00BF00; }
-			  25.00% { color:#FF7F00; }
-			  29.17% { color:#FF7F00; }
-			  33.33% { color:#FFBFFF; }
-			  37.50% { color:#FFBFFF; }
-			  41.67% { color:#FF2222; }
-			  45.83% { color:#FF2222; }
-			  50.00% { color:#3333FF; }
-			  54.17% { color:#3333FF; }
-			  58.33% { color:#C027D0; }
-			  62.50% { color:#C027D0; }
-			  66.67% { color:#8F082F; }
-			  70.83% { color:#8F082F; }
-			  75.00% { color:#FF9F7F; }
-			  79.17% { color:#FF9F7F; }
-			  83.33% { color:#3FDF9F; }
-			  87.50% { color:#3FDF9F; }
-			  91.67% { color:#9F9F9F; }
-			  95.83% { color:#9F9F9F; }
-			  100.0% { color:#FF007F; }
-			}
-
-			.third { animation: loonaonethird 4s linear 0s infinite normal none; }
-			.circle  { animation: loonaoddeyecircle 4s linear 0s infinite normal none; }
-			.youth { animation: loonayouthyouthbyyoung 4s linear 0s infinite normal none; }
-			a:visited, em { color: #FF7F00; }
-
 			.small {
 			  font-size: 80%;
 			}
@@ -128,8 +50,8 @@
 
 		<p id="list"></p>
 
-		<p class="small">Most data from {<a class="third" href="https://kprofiles.com/loona-discography/">kprofiles.com</a> by <em>YoonTaeKyung</em> & <em>sorrysweetie</em>,
-		with thanks to <em>g.eorgiiee 127</em> and additional compilation from the commenter <em>Jaehyun</em>}<br/>
+		<p class="small">Most data from {<a class="third" href="https://kprofiles.com/loona-discography/">kprofiles.com</a> by <em class="yeojin">YoonTaeKyung</em> & <em class="yeojin">sorrysweetie</em>,
+		with thanks to <em class="yeojin">g.eorgiiee 127</em> and additional compilation from the commenter <em class="yeojin">Jaehyun</em>}<br/>
 		  Array shuffler code <a class="circle" href="https://stackoverflow.com/a/12646864">by StackOverflow user Laurens Holst</a><br/>
 		  Deduplication code <a class="youth" href="https://stackoverflow.com/a/9229821">by other StackOveflow users</a></p>
 		<script>
