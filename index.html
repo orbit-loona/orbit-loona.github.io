@@ -157,7 +157,7 @@
 			function generateButtonsForTitledClickables() {
 				var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
 				for(i = 0; i < clickables.length; i++) {
-					var clickText = counters[i];
+					var clickText = clickables[i];
 					var clickCode = clickText.getAttribute("onclick");
 					var textTitle = clickText.getAttribute("title");
 					var newButton = document.createElement("button");
