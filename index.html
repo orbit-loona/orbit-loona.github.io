@@ -70,7 +70,7 @@ function bigintReviver (key, value) {
 
 				if(superUpgradeVisible) {
 					unlockSecret();
-				}; return true;
+				}; updateCounters(false); return true;
 			};
 
 			function rebirth(updateCounts=true) {
@@ -155,7 +155,7 @@ function bigintReviver (key, value) {
 				};
 			};
 			
-			function updateCounters() {
+			function updateCounters(doSave=true) {
 				if(lifetimeBigintValue >= (10n**11n)) {
 					unlockSecret();
 				};
@@ -174,7 +174,7 @@ function bigintReviver (key, value) {
 					counter.innerText = newText;
 				};
 				
-				//saveBigints();
+				if(doSave) { saveBigints() };
 			};
 			
 			function generateButtonsForTitledClickables() {
