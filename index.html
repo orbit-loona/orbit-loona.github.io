@@ -94,7 +94,7 @@ function bigintReviver (key, value) {
 				showedMessage = object.reachedBigNumber;
 				superUpgradeVisible = object.showUpgradeOT12;
 				bigintRebirths = object.modhaus;
-				for(ptt = 0; ptt < upgradeLevels.length; ptt++) { clickUpgrades[ptt].level = clickLevels[ptt] };
+				var levels = object.upgradeLevels; for(ptt = 0; ptt < levels.length; ptt++) { clickUpgrades[ptt].level = levels[ptt] };
 
 				if(superUpgradeVisible) {
 					unlockSecret();
