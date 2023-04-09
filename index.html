@@ -105,14 +105,14 @@ function bigintReviver (key, value) {
 			};
 
 			function rebirth(updateCounts=true) {
-				if(bigintValue < (10n**112n)) {
+				if(getBigintMagnitude(bigintValue) < 112n) {
 					return false;
-				};
+				}; var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n; if(rebirths < 1n) { return false };
 				bigintValue = 0n; showedMessage = false;
 				for(hash = 0; hash < clickUpgrades.length; hash++) {
 					clickUpgrades[hash].level = 0n;
 				};
-				bigintRebirths += 1n;
+				bigintRebirths += rebirths;
 				if(updateCounts) {
 					buildUpgradeInfoList(); updateCounters();
 				};
