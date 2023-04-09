@@ -22,6 +22,25 @@ try {
 				{type: "**",	value: 2n,		cost: 1000000n,	level: 0n,	max: 1n},
 				{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
 			];
+
+buyKeys = {};
+
+var letters = "pqwertyu";
+/*TODO: AZERTY and QWERTZ support*/
+var upperLetters = letters.toUpperCase();
+var shiftNumbers = ")!@#$%^&";
+
+for(var number = 0; number < letters.length; number++) {
+  shiftNumber = shiftNumbers[number];
+  letter = letters[number];
+  uLetter = upperLetters[mumber];
+
+  buyKeys[number] = [number, 0n];
+  buyKeys[shiftNumber] = [number, 1n];
+  buyKeys[letter] = [number, 2n];
+  buyKeys[uLetter] = [number, 3n];
+};
+
 			
 
 BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
@@ -287,23 +306,11 @@ if(doSave) { //Save on every fifth update
 				if (event.key === " ") {
 					increment(true);
 					return true;
-				} else if (event.key === "t") {
-					return buyUpgrade(5,true,25n);
-				} else if (event.key === "T") {
-					return buyUpgrade(5,true,625n);
-				} else if (event.key === "%") {
-					return buyUpgrade(5,true,15625n);
-				} else if (event.key === "r") {
+				} else if (event.key === "b") {
 					return rebirth();
-				} else if(event.key.match(/\d/)) {
-					var upgrade = parseInt(event.key);
-					if(isNaN(upgrade)) {
-						return false;
-					};
-					if(upgrade >= clickUpgrades.length) {
-						return false;
-					};
-					return buyUpgrade(upgrade);
+				} else if (buyKeys.includes(event.key)) {
+					purchaseData = buyKeys[event.key];
+					return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
 				};
 			});
 
