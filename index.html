@@ -84,7 +84,7 @@ function bigintReviver (key, value) {
 				};
 				bigintRebirths += 1n;
 				if(updateCounts) {
-					updateCounters();
+					buildUpgradeInfoList(); updateCounters();
 				};
 				return true;
 			};
@@ -102,7 +102,7 @@ function getUpgradeInfo(index) {
       upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
       break;
     case "*":
-      benefitPrefix = "×";
+      benefitPrefix = "x";
       upgradeValue = (rebirthModifier * upgrade.value) ** upgrade.level;
       break;
     case "**":
@@ -125,7 +125,7 @@ function buildUpgradeInfoList() {
   element.textContent = "";
   rebirthSpan = document.createElement("span");
   rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
-  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (×2 to + and × upgrades, total ×${2n ** bigintRebirths})`;
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + and x upgrades, total x${2n ** bigintRebirths})`;
   element.appendChild(rebirthSpan);
   element.appendChild(document.createElement("br"));
   var bound = clickUpgrades.length;
