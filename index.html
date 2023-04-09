@@ -270,9 +270,9 @@ function getBigintMagnitude(bigint) {
 				for(i = 0; i < counters.length; i++) {
 					var counter = counters[i];
 					var format = counter.getAttribute("countTemplate");
-					var mangitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
-					var numberText = bigintCommas(bigintValue * (10n ** templateMagnitudeOffset));
-					var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** templateMagnitudeOffset)));
+					var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
+					var numberText = bigintCommas(bigintValue * (10n ** magnitudeOffset));
+					var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** magnitudeOffset)));
 					var newText = format.replaceAll("<@N@>",numberText).replaceAll("<@E@>",numberMagnitudeText);
 					counter.innerText = newText;
 				};
