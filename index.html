@@ -125,7 +125,7 @@ function buildUpgradeInfoList() {
   element.textContent = "";
   rebirthSpan = document.createElement("span");
   rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
-  rebirthSpan.innerText = `${bigintRebirths} rebirths`;
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (×2 to + and × upgrades, total ×${2n ** bigintRebirths})`;
   element.appendChild(rebirthSpan);
   element.appendChild(document.createElement("br"));
   var bound = clickUpgrades.length;
