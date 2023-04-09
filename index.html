@@ -126,15 +126,16 @@ function buildUpgradeInfoList() {
   var bound = clickUpgrades.length;
   var br = document.createElement("br");
   for(l = 0; l < bound; l++) {
-    alert(l);
+    //alert(l);
     infoRow = document.createElement("span");
     infoRow.setAttribute("class","upgradeInfo");
     infoRow.innerText = getUpgradeInfo(l);
     element.appendChild(infoRow);
-    if(l < bound - 1) {
+    if(l < (bound - 1)) {
+      alert(`upgrade index ${l}, inserting <br/>`);
       element.appendChild(br);
     };
-    alert(infoRow.innerText);
+    //alert(infoRow.innerText);
   };
 };
 
