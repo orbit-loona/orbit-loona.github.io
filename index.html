@@ -17,24 +17,26 @@ try {
 				{type: "+",		value: 5n,		cost: 40n,		level: 0n},
 				{type: "+",		value: 12n,		cost: 100n,		level: 0n},
 				{type: "+",		value: 150n,		cost: 1000n,	level: 0n},
-				{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 5n},
+				{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 4n},
 				{type: "+",		value: 15000n,	cost: 75000n,	level: 0n},
 				{type: "**",	value: 2n,		cost: 10n**7n,	level: 0n,	max: 1n},
-				{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
+				{type: "**",	value: 3n,		cost: 10n**14n,	level: 0n,	max: 1n},
+				{type: "**",	value: 4n,		cost: 10n**21n,	level: 0n,	max: 1n}
 			];
 
 buyKeys = {};
 
-var letters = "pqwertyu";
-var letters2 = "lasdfghj";
+var letters = "pqweㅇt";
+var letters2 = "lasdㅇg";
 /*TODO: AZERTY and QWERTZ support*/
 var upperLetters = letters.toUpperCase();
 var upperLetters2 = letters2.toUpperCase();
-var shiftNumbers = ")!@#$%^&";
+var shiftNumbers = ")!@#ㅇ%";
 
 for(var number = 0; number < letters.length; number++) {
   shiftNumber = shiftNumbers[number];
   letter = letters[number];
+  if(letter == "ㅇ") { continue };
   uLetter = upperLetters[number];
   letter2 = letters2[number];
   uLetter2 = upperLetters2[number];
