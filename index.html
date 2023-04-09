@@ -125,7 +125,7 @@ function getUpgradeMaximum(index) {
     return null;
   } else {
     if(upgrade.increaseByRebirth) {
-      return upgrade.max * (upgrade.increaseByRebirth * bigintRebirths);
+      return upgrade.max + (upgrade.increaseByRebirth * bigintRebirths);
     } else { return upgrade.max };
   };
 };
