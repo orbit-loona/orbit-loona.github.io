@@ -26,19 +26,25 @@ try {
 buyKeys = {};
 
 var letters = "pqwertyu";
+var letters2 = "lasdfghj";
 /*TODO: AZERTY and QWERTZ support*/
 var upperLetters = letters.toUpperCase();
+var upperLetters2 = letters2.toUpperCase();
 var shiftNumbers = ")!@#$%^&";
 
 for(var number = 0; number < letters.length; number++) {
   shiftNumber = shiftNumbers[number];
   letter = letters[number];
   uLetter = upperLetters[number];
+  letter2 = letters2[number];
+  uLetter2 = upperLetters2[number];
 
   buyKeys[number] = [number, 0n];
   buyKeys[shiftNumber] = [number, 1n];
   buyKeys[letter] = [number, 2n];
   buyKeys[uLetter] = [number, 3n];
+  buyKeys[letter2] = [number, 4n];
+  buyKeys[uLetter2] = [number, 5n];
 };
 
 			
@@ -157,7 +163,7 @@ function buildUpgradeInfoList() {
   };
   resultSpan = document.createElement("span");
   resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${getBigintMagnitude(CV)}] ${CV}`;
+  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
   element.appendChild(resultSpan);
 };
 
@@ -329,7 +335,7 @@ if(doSave) { //Save on every fifth update
 window.onload = function() {
   loadBigints();
   buildUpgradeInfoList();
-  setInterval(saveBigints, 10000);
+  setInterval(saveBigints, 5000);
   if(getClickValue() > 1) { buildUpgradeInfoList(); unlockUplist() };
 };
 
