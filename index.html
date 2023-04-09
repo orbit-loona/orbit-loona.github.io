@@ -120,6 +120,22 @@ function getUpgradeInfo(index) {
   return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
 };
 
+function buildUpgradeInfoList() {
+  var element = document.getElementById("upList");
+  element.textContent = "";
+  var bound = clickUpgrades.length;
+  var br = document.createElement("br");
+  for(l = 0; l < bound; l++) {
+    infoRow = document.createElement("span");
+    infoRow.setAttribute("class","upgradeInfo");
+    infoRow.innerText = getUpgradeInfo(l);
+    element.appendChild(infoRow);
+    if(l < bound - 1) {
+      element.appendChild("br");
+    };
+  };
+};
+
 			function getClickValue() {
 				var rebirthedBase = 2n ** bigintRebirths;
 				var value = rebirthedBase;
@@ -154,6 +170,7 @@ function getUpgradeInfo(index) {
 				bigintValue -= cost;
 				if(updateCounts) {
 					updateCounters();
+					buildUpgradeInfoList();
 				};
 				
 				if(index == 6) {
@@ -270,6 +287,7 @@ if(doSave) { //Save on every fifth update
 
 window.onload = function() {
   loadBigints();
+  buildUpgradeInfoList();
   setInterval(saveBigints, 10000);
 };
 
@@ -330,7 +348,8 @@ window.onload = function() {
 			
 			<br/><br/>
 			<button id="buttonButton" onclick="alert(generateButtonsForTitledClickables())">Buttons</button> and a <input title="useless textbox" placeholder="useless textbox"/><br/>
-			<span class="blink" title="click to bruh" countTemplate="this page would be <@@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span>
+			<span class="blink" title="click to bruh" countTemplate="this page would be <@@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
+                        <div id="upList" style="display: none;">Upgrade list goes here</div>
 		</div>
 	</body>
 </html>
