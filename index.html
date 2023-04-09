@@ -78,7 +78,7 @@ function bigintReviver (key, value) {
 				if(bigintValue < (10n**112n)) {
 					return false;
 				};
-				bigintValue = 0n;
+				bigintValue = 0n; showedMessage = false;
 				for(hash = 0; hash < clickUpgrades.length; hash++) {
 					clickUpgrades[hash].level = 0n;
 				};
