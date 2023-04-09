@@ -26,27 +26,30 @@ try {
 
 buyKeys = {};
 
-var letters = "pqweㅇt";
-var letters2 = "lasdㅇg";
+var letters = "pqwert";
+var letters2 = "lasdfg";
 /*TODO: AZERTY and QWERTZ support*/
 var upperLetters = letters.toUpperCase();
 var upperLetters2 = letters2.toUpperCase();
-var shiftNumbers = ")!@#ㅇ%";
+var shiftNumbers = ")!@#$%";
 
 for(var number = 0; number < letters.length; number++) {
   shiftNumber = shiftNumbers[number];
   letter = letters[number];
-  if(letter == "ㅇ") { continue };
   uLetter = upperLetters[number];
   letter2 = letters2[number];
   uLetter2 = upperLetters2[number];
 
   buyKeys[number] = [number, 0n];
-  buyKeys[shiftNumber] = [number, 1n];
-  buyKeys[letter] = [number, 2n];
-  buyKeys[uLetter] = [number, 3n];
-  buyKeys[letter2] = [number, 4n];
-  buyKeys[uLetter2] = [number, 5n];
+  if(
+    !(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
+  ) {
+    buyKeys[shiftNumber] = [number, 1n];
+    buyKeys[letter] = [number, 2n];
+    buyKeys[uLetter] = [number, 3n];
+    buyKeys[letter2] = [number, 4n];
+    buyKeys[uLetter2] = [number, 5n];
+  };
 };
 
 doNotAlertRebirth = false;			
