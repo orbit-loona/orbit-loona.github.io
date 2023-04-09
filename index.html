@@ -125,7 +125,7 @@ function buildUpgradeInfoList() {
   element.textContent = "";
   rebirthSpan = document.createElement("span");
   rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
-  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + and x upgrades, total x${2n ** bigintRebirths})`;
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + and x upgrades and to base click, total x${2n ** bigintRebirths})`;
   element.appendChild(rebirthSpan);
   element.appendChild(document.createElement("br"));
   var bound = clickUpgrades.length;
@@ -138,7 +138,7 @@ function buildUpgradeInfoList() {
   };
   resultSpan = document.createElement("span");
   resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-  resultSpan.innerText = `Final click increase: ${getClickValue()}`;
+  resultSpan.innerText = `Final click value: ${getClickValue()}`;
   element.appendChild(resultSpan);
 };
 
@@ -232,7 +232,7 @@ function buildUpgradeInfoList() {
 				};
 				
 				if(!showedMessage && bigintValue >= (10n**112n)) {
-					alert("congartulations you have reached 10 short scale octotrigintilllion orbit");
+					alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
 					showedMessage = true;
 				};
 			
