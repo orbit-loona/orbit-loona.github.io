@@ -14,12 +14,12 @@ try {
 			
 			clickUpgrades = [
 				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
-				{type: "+",		value: 4n,		cost: 40n,		level: 0n},
-				{type: "+",		value: 10n,		cost: 100n,		level: 0n},
-				{type: "+",		value: 50n,		cost: 1000n,	level: 0n},
-				{type: "*",		value: 2n,		cost: 10000n,	level: 0n,	max: 5n},
-				{type: "+",		value: 5000n,	cost: 75000n,	level: 0n},
-				{type: "**",	value: 2n,		cost: 1000000n,	level: 0n,	max: 1n},
+				{type: "+",		value: 5n,		cost: 40n,		level: 0n},
+				{type: "+",		value: 12n,		cost: 100n,		level: 0n},
+				{type: "+",		value: 150n,		cost: 1000n,	level: 0n},
+				{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 5n},
+				{type: "+",		value: 15000n,	cost: 75000n,	level: 0n},
+				{type: "**",	value: 2n,		cost: 10n**7n,	level: 0n,	max: 1n},
 				{type: "**",	value: 3n,		cost: 10n**11n,	level: 0n,	max: 3n}
 			];
 
@@ -64,7 +64,7 @@ function bigintReviver (key, value) {
 					number: bigintValue,
 					lifetimeNumber: lifetimeBigintValue,
 					reachedBigNumber: showedMessage,
-					upgrades: clickUpgrades,
+					upgradeLevels: clickUpgrades.map(x => x.level),
 					showUpgradeOT12: superUpgradeVisible,
 					modhaus: bigintRebirths
 				};
@@ -92,7 +92,7 @@ function bigintReviver (key, value) {
 				showedMessage = object.reachedBigNumber;
 				superUpgradeVisible = object.showUpgradeOT12;
 				bigintRebirths = object.modhaus;
-				clickUpgrades = object.upgrades;
+				for(ptt = 0; ptt < upgradeLevels.length; ptt++) { clickUpgrades[ptt].level = clickLevels[ptt] };
 
 				if(superUpgradeVisible) {
 					unlockSecret();
