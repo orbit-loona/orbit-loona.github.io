@@ -308,7 +308,7 @@ if(doSave) { //Save on every fifth update
 					return true;
 				} else if (event.key === "b") {
 					return rebirth();
-				} else if (buyKeys.includes(event.key)) {
+				} else if (Object.keys(buyKeys).includes(event.key)) {
 					purchaseData = buyKeys[event.key];
 					return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
 				};
