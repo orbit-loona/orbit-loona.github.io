@@ -89,6 +89,37 @@ function bigintReviver (key, value) {
 				return true;
 			};
 
+function getUpgradeInfo(index) {
+  var upgrade = clickUpgrades[index];
+
+  var amountText = upgrade.max ? `${upgrade.level}/${upgrade.max}` : upgrade.level.toString();
+
+  var rebirthModifier = 2n ** bigintRebirths;
+  var benefitPrefix, upgradeValue;
+  switch(upgrade.type) {
+    case "+":
+      benefitPrefix = "+";
+      upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
+      break;
+    case "*":
+      benefitPrefix = "×";
+      upgradeValue = (rebirthModifier * upgrade.value) ** upgrade.level;
+      break;
+    case "**":
+      benefitPrefix = "^";
+      upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
+      break;
+  };
+
+  var benefitText = `${benefitPrefix}${upgradeValue}`
+
+  var baseBenefit = `${benefitPrefix}${upgrade.value}`
+
+  var cost = upgrade.cost;
+
+  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
+};
+
 			function getClickValue() {
 				var rebirthedBase = 2n ** bigintRebirths;
 				var value = rebirthedBase;
