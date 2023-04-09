@@ -128,7 +128,7 @@ function getUpgradeInfo(index) {
       break;
     case "*":
       benefitPrefix = "x";
-      upgradeValue = (rebirthModifier * upgrade.value) ** upgrade.level;
+      upgradeValue = (upgrade.value + bigintRebirths) ** upgrade.level;
       break;
     case "**":
       benefitPrefix = "^";
@@ -150,7 +150,7 @@ function buildUpgradeInfoList() {
   element.textContent = "";
   rebirthSpan = document.createElement("span");
   rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
-  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + and x upgrades and to base click, total x${2n ** bigintRebirths})`;
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + upgrades and base click, +1 to x upgrades; total +x${2n ** bigintRebirths} and x+${bigintRebirths})`;
   element.appendChild(rebirthSpan);
   element.appendChild(document.createElement("br"));
   var bound = clickUpgrades.length;
@@ -175,7 +175,7 @@ function buildUpgradeInfoList() {
 					if(upgrade.type == "+") {
 						value += ((upgrade.value * rebirthedBase) * upgrade.level);
 					} else if(upgrade.type == "*") {
-						if(upgrade.level > 0) { value *= ((upgrade.value * rebirthedBase) ** upgrade.level) };
+						if(upgrade.level > 0) { value *= ((upgrade.value + bigintRebirths) ** upgrade.level) };
 					} else if(upgrade.type == "**") {
 						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
 					} else {
