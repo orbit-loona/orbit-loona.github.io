@@ -47,7 +47,7 @@ for(var number = 0; number < letters.length; number++) {
   buyKeys[uLetter2] = [number, 5n];
 };
 
-			
+doNotAlertRebirth = false;			
 
 BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
 
@@ -267,7 +267,7 @@ function getBigintMagnitude(bigint) {
 					unlockSecret();
 				};
 				
-				if(!showedMessage && bigintValue >= (10n**112n)) {
+				if(!showedMessage && bigintValue >= (10n**112n) && (!doNotAlertRebirth)) {
 					alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
 					showedMessage = true;
 				};
