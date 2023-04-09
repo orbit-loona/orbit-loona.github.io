@@ -123,6 +123,11 @@ function getUpgradeInfo(index) {
 function buildUpgradeInfoList() {
   var element = document.getElementById("upList");
   element.textContent = "";
+  rebirthSpan = document.createElement("span");
+  rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
+  rebirthSpan.innerText = `${bigintRebirths} rebirths`;
+  element.appendChild(rebirthSpan);
+  element.appendChild(document.createElement("br"));
   var bound = clickUpgrades.length;
   for(l = 0; l < bound; l++) {
     infoRow = document.createElement("span");
