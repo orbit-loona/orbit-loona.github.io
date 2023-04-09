@@ -129,10 +129,12 @@ function buildUpgradeInfoList() {
     infoRow.setAttribute("class","upgradeInfo");
     infoRow.innerText = getUpgradeInfo(l);
     element.appendChild(infoRow);
-    if(l < (bound - 1)) {
-      element.appendChild(document.createElement("br"));
-    };
+    element.appendChild(document.createElement("br"));
   };
+  resultSpan = document.createElement("span");
+  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
+  resultSpan.innerText = `Final click increase: ${getClickValue()}`;
+  element.appendChild(resultSpan);
 };
 
 			function getClickValue() {
@@ -174,7 +176,7 @@ function buildUpgradeInfoList() {
 				
 				if(index == 6) {
 					unlockSecret();
-				};
+				}; unlockUplist();
 				
 				return true;
 			};
@@ -189,11 +191,27 @@ function buildUpgradeInfoList() {
 			
 			function relockSecret() {
 				var secretSpan = document.getElementById("up7");
-				if(secretSpan && secretSpan.style.display == "" || secretSpan.style.display == "unset") {
+				if(secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
 					secretSpan.style.display = "none";
 				};
 				superUpgradeVisible = false;
 			};
+
+			function unlockUplist() {
+				var secretDiv = document.getElementById("upList");
+                                if(!secretDiv) { return }; buildUpgradeInfoList();
+				if(secretDiv && secretDiv.style.display == "none") {
+					secretDiv.style.display = "unset";
+				};
+			};
+			
+			function relockUplist() {
+				var secretDiv = document.getElementById("upList");
+				if(secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
+					secretDiv.style.display = "none";
+				};
+			};
+
 			
 			function increment(updateCounts=true) {
 				bigintValue += getClickValue();
@@ -288,6 +306,7 @@ window.onload = function() {
   loadBigints();
   buildUpgradeInfoList();
   setInterval(saveBigints, 10000);
+  if(getClickValue() > 1) { buildUpgradeInfoList(); unlockUplist() };
 };
 
 } catch(error) {
