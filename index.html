@@ -157,7 +157,7 @@ function buildUpgradeInfoList() {
   };
   resultSpan = document.createElement("span");
   resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-  resultSpan.innerText = `Final click value: ${getClickValue()}`;
+  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${getBigintMagnitude(CV)}] ${CV}`;
   element.appendChild(resultSpan);
 };
 
@@ -244,7 +244,18 @@ function buildUpgradeInfoList() {
 					updateCounters();
 				};
 			};
-			
+
+			function bigintCommas(bigint) {
+				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
+				if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
+				return numberText;
+			};
+
+function getBigintMagnitude(bigint) {
+  var bString = bigint.toString();
+  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
+};
+
 			function updateCounters(doSave=true) {
 				if(lifetimeBigintValue >= (10n**11n)) {
 					unlockSecret();
@@ -259,12 +270,13 @@ function buildUpgradeInfoList() {
 				for(i = 0; i < counters.length; i++) {
 					var counter = counters[i];
 					var format = counter.getAttribute("countTemplate");
-					var numberText = bigintValue.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
-					if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
-					var newText = format.replaceAll("<@@>",numberText);
+					var mangitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
+					var numberText = bigintCommas(bigintValue * (10n ** templateMagnitudeOffset));
+					var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** templateMagnitudeOffset)));
+					var newText = format.replaceAll("<@N@>",numberText).replaceAll("<@E@>",numberMagnitudeText);
 					counter.innerText = newText;
 				};
-				
+
 if(doSave) { //Save on every fifth update
   saveModulo++;
   if(saveModulo % 5 == 0) {
@@ -358,8 +370,8 @@ window.onload = function() {
 			<p>hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
 			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
 			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias)</span><br/>
-			<span title="orbits" onclick="increment(true);" countTemplate="i wish there were <@@>,000,000 orbits">i love orbits</span><br/>
-			<span onclick="buyUpgrade(0)" title="up0">loona</span> <span onclick="buyUpgrade(6)" title="up6">ot12</span> <span onclick="buyUpgrade(4)"  title="up4">forever</span><span onclick="buyUpgrade(7)" class="ot12" id="up7" title="up7" style="display: none"> (super-special secret eighth upgrade)</span></p>
+			<span title="orbits" onclick="increment(true);" countTemplate="i wish there were [*e<@E@>] <@N@> orbits" templateMagnitudeOffset="6">i love orbits</span><br/>
+			<span onclick="buyUpgrade(0)" title="up0">loona</span> <span onclick="buyUpgrade(6)" title="up6">ot12</span> <span onclick="buyUpgrade(4)" title="up4">forever</span><span onclick="buyUpgrade(7)" class="ot12" id="up7" title="up7" style="display: none"> (super-special secret eighth upgrade)</span></p>
 		
 			<h1 class="ot12">my epic pages with great quality code</h1>
 				<a href="random-loona.html" class="third">loona permuter</a><br/>
@@ -379,7 +391,7 @@ window.onload = function() {
 			
 			<br/><br/>
 			<button id="buttonButton" onclick="alert(generateButtonsForTitledClickables())">Buttons</button> and a <input title="useless textbox" placeholder="useless textbox"/><br/>
-			<span class="blink" title="click to bruh" countTemplate="this page would be <@@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
+			<span class="blink" title="click to bruh" countTemplate="this page would be [*e<@E@>] <@N@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
                         <div id="upList" style="display: none;">Upgrade list goes here</div>
 		</div>
 	</body>
