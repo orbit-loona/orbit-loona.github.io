@@ -8,8 +8,10 @@ try {
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
 			showedMessage = false;
+			showingMessage = false;
 			superUpgradeVisible = false;
 			bigintRebirths = 0n;
+			bigintSecondLevelRebirths = 0n;
 			saveModulo = 0;
 			
 			clickUpgrades = [
@@ -71,7 +73,8 @@ function bigintReviver (key, value) {
 					reachedBigNumber: showedMessage,
 					upgradeLevels: clickUpgrades.map(x => x.level),
 					showUpgradeOT12: superUpgradeVisible,
-					modhaus: bigintRebirths
+					modhaus: bigintRebirths,
+					artms: bigintSecondLevelRebirths ?? 0n
 				};
 				localStorage.setItem("number",JSON.stringify(object));
 			};
@@ -82,6 +85,7 @@ function bigintReviver (key, value) {
 				showedMessage = false;
 				superUpgradeVisible = false;
 				bigintRebirths = 0n;
+				bigintSecondLevelRebirths = 0n;
 				for(hash = 0; hash < clickUpgrades.length; hash++) {
 					clickUpgrades[hash].level = 0n;
 				};
@@ -90,18 +94,31 @@ function bigintReviver (key, value) {
 				if(removeSave) { localStorage.removeItem("number") }; return true;
 			};
 
-			function loadBigints() {
+			function loadBigints(updateCounts=true) {
 				if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
 				bigintValue = object.number;
 				lifetimeBigintValue = object.lifetimeNumber;
 				showedMessage = object.reachedBigNumber;
 				superUpgradeVisible = object.showUpgradeOT12;
 				bigintRebirths = object.modhaus;
+				bigintSecondLevelRebirths = object.artms ?? 0n;
 				var levels = object.upgradeLevels; for(ptt = 0; ptt < levels.length; ptt++) { clickUpgrades[ptt].level = levels[ptt] };
 
 				if(superUpgradeVisible) {
 					unlockSecret();
-				}; updateCounters(false); return true;
+				};
+				if(updateCounts) {
+					updateCounters(false);
+				};
+				return true;
+			};
+
+			function getProspectiveRebirths() {
+				return (getBigintMagnitude(bigintValue) + 88n) / 200n;
+			};
+
+			function getProspectiveSecondRebirths() {
+				return (bigintRebirths + 10n) / 20n;
 			};
 
 			function rebirth(updateCounts=true) {
@@ -114,7 +131,26 @@ function bigintReviver (key, value) {
 				};
 				bigintRebirths += rebirths;
 				if(updateCounts) {
-					buildUpgradeInfoList(); updateCounters();
+					buildStats(); updateCounters();
+				};
+				return true;
+			};
+
+			function secondLevelRebirth(updateCounts=true) {
+				if(bigintRebirths < 10) {
+					return false;
+				}; var secondRebirths = (bigintRebirths + 10n) / 20n; if(secondRebirths < 1n) { return false };
+				
+				bigintValue = 0n;
+				bigintRebirths = 0n;
+				showedMessage = false;
+				for(hash = 0; hash < clickUpgrades.length; hash++) {
+					clickUpgrades[hash].level = 0n;
+				};
+
+				bigintSecondLevelRebirths += secondRebirths;
+				if(updateCounts) {
+					buildStats(); updateCounters();
 				};
 				return true;
 			};
@@ -125,7 +161,7 @@ function getUpgradeMaximum(index) {
     return null;
   } else {
     if(upgrade.increaseByRebirth) {
-      return upgrade.max + (upgrade.increaseByRebirth * bigintRebirths);
+      return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
     } else { return upgrade.max };
   };
 };
@@ -135,7 +171,7 @@ function getUpgradeInfo(index) {
 
   var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
 
-  var rebirthModifier = 2n ** bigintRebirths;
+  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
   var benefitPrefix, upgradeValue;
   switch(upgrade.type) {
     case "+":
@@ -144,7 +180,7 @@ function getUpgradeInfo(index) {
       break;
     case "*":
       benefitPrefix = "x";
-      upgradeValue = (upgrade.value + bigintRebirths) ** upgrade.level;
+      upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
       break;
     case "**":
       benefitPrefix = "^";
@@ -161,14 +197,22 @@ function getUpgradeInfo(index) {
   return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
 };
 
-function buildUpgradeInfoList() {
+function buildStats() {
   var element = document.getElementById("upList");
   element.textContent = "";
+
+  secondRebirthSpan = document.createElement("span");
+  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
+  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
+  element.appendChild(secondRebirthSpan);
+  element.appendChild(document.createElement("br"));
+
   rebirthSpan = document.createElement("span");
-  rebirthSpan.setAttribute("class","upgradeInfo rebirths ot12");
-  rebirthSpan.innerText = `Rebirths: ${bigintRebirths} (x2 to + upgrades and base click, +1 to x upgrades; total +x${2n ** bigintRebirths} and x+${bigintRebirths})`;
+  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
   element.appendChild(rebirthSpan);
   element.appendChild(document.createElement("br"));
+
   var bound = clickUpgrades.length;
   for(l = 0; l < bound; l++) {
     infoRow = document.createElement("span");
@@ -181,17 +225,37 @@ function buildUpgradeInfoList() {
   resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
   var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
   element.appendChild(resultSpan);
+  element.appendChild(document.createElement("br"));
+
+  possibleRebirthSpan = document.createElement("span");
+  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
+  newRebirths = getProspectiveRebirths();
+  possibleRebirthSpan.innerText = newRebirths == 0n ? 
+	"You cannot rebirth yet."
+  :
+	`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
+  element.appendChild(possibleRebirthSpan);
+  element.appendChild(document.createElement("br"));
+
+  possibleSecondRebirthSpan = document.createElement("span");
+  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
+  newSecondRebirths = getProspectiveSecondRebirths();
+  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
+	"You cannot second-level rebirth yet."
+  :
+	`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
+  element.appendChild(possibleSecondRebirthSpan);
 };
 
 			function getClickValue() {
-				var rebirthedBase = 2n ** bigintRebirths;
+				var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
 				var value = rebirthedBase;
 				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
 					var upgrade = clickUpgrades[flipThat];
 					if(upgrade.type == "+") {
 						value += ((upgrade.value * rebirthedBase) * upgrade.level);
 					} else if(upgrade.type == "*") {
-						if(upgrade.level > 0) { value *= ((upgrade.value + bigintRebirths) ** upgrade.level) };
+						if(upgrade.level > 0) { value *= ((upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level) };
 					} else if(upgrade.type == "**") {
 						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
 					} else {
@@ -205,6 +269,10 @@ function buildUpgradeInfoList() {
 				var upgrade = clickUpgrades[index];
 				var cost = upgrade.cost * amount;
 
+				if(amount < 1n) {
+					return false;
+				};
+
 				if(bigintValue < cost) {
 					return false;
 				};
@@ -217,7 +285,7 @@ function buildUpgradeInfoList() {
 				bigintValue -= cost;
 				if(updateCounts) {
 					updateCounters();
-					buildUpgradeInfoList();
+					buildStats();
 				};
 				
 				if(index == 6) {
@@ -245,7 +313,7 @@ function buildUpgradeInfoList() {
 
 			function unlockUplist() {
 				var secretDiv = document.getElementById("upList");
-                                if(!secretDiv) { return }; buildUpgradeInfoList();
+                                if(!secretDiv) { return }; buildStats();
 				if(secretDiv && secretDiv.style.display == "none") {
 					secretDiv.style.display = "unset";
 				};
@@ -264,6 +332,38 @@ function buildUpgradeInfoList() {
 				lifetimeBigintValue += getClickValue();
 				if(updateCounts) {
 					updateCounters();
+					buildStats();
+				};
+			};
+			
+			clearSpanTimeoutId = null;
+			
+			function clearLagSpan() {
+				var lagSpan = document.getElementById("lagWarning");
+				if(lagSpan) {
+					lagSpan.innerText = String.fromCharCode(160);
+				};
+				clearSpanTimeoutId = null;
+			};
+			
+			function timedIncrement(updateCounts=true) {
+				if(clearSpanTimeoutId) {
+					console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
+					clearTimeout(clearSpanTimeoutId);
+				};
+				var start = Date.now();
+				increment(updateCounts);
+				var end = Date.now();
+				var difference = end - start;
+				if(difference >= 100) {
+					var lagSpan = document.getElementById("lagWarning");
+					var formattedLength = (difference / 1000).toFixed(2);
+					if(!showingMessage && lagSpan) {
+						lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
+						console.log("Setting timeout");
+						clearSpanTimeoutId = setTimeout(clearLagSpan,2000);
+						console.log("ID: " + clearSpanTimeoutId);
+					};
 				};
 			};
 
@@ -279,13 +379,16 @@ function getBigintMagnitude(bigint) {
 };
 
 			function updateCounters(doSave=true) {
+				//console.error("i want a trace");
 				if(lifetimeBigintValue >= (10n**11n)) {
 					unlockSecret();
 				};
 				
 				if(!showedMessage && bigintValue >= (10n**112n) && (!doNotAlertRebirth)) {
+					showingMessage = true;
 					alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
 					showedMessage = true;
+					showingMessage = false;
 				};
 			
 				var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
@@ -299,13 +402,24 @@ function getBigintMagnitude(bigint) {
 					counter.innerText = newText;
 				};
 
-if(doSave) { //Save on every fifth update
-  saveModulo++;
-  if(saveModulo % 5 == 0) {
-    saveBigints();
-    saveModulo = 0;
-  };
-};
+				var buyWarnSpan = document.getElementById("bigNumWarning");
+				if(getBigintMagnitude(bigintValue) >= 40000) {
+					buyWarnSpan.innerText = `Your numbers are dangerously large, and the game is probably unplayable now. This page probably took a really long time to even load, too. Please rebirth immediately.`
+				} else if(getBigintMagnitude(bigintValue) >= 10000) {
+					buyWarnSpan.innerText = `Your numbers are extremely large, and this will get very laggy. You should rebirth now.`
+				} else if(getBigintMagnitude(bigintValue) >= 2000) {
+					buyWarnSpan.innerText = `Warning: Your numbers are getting very big. Don't try to buy more than 1,000 upgrades, or it'll take too long and the code might hang.`
+				} else if (getBigintMagnitude(bigintValue) < 2000) {
+					buyWarnSpan.innerText = String.fromCharCode(160);
+				};
+
+				if(doSave) { //Save on every fifth update
+				  saveModulo++;
+				  if(saveModulo % 5 == 0) {
+					saveBigints();
+					saveModulo = 0;
+				  };
+				};
 			};
 			
 			function generateButtonsForTitledClickables() {
@@ -338,21 +452,81 @@ if(doSave) { //Save on every fifth update
 
 			document.addEventListener("keypress", function(event) {
 				if (event.key === " ") {
-					increment(true);
+					timedIncrement(true);
 					return true;
 				} else if (event.key === "b") {
 					return rebirth();
+				} else if (event.key === "B") {
+					return secondLevelRebirth();
+				} else if (event.key === "N") {
+					var indPrompt = prompt("Which upgrade to buy?");
+					if(indPrompt == null || indPrompt == "") { return false };
+					var index = parseInt(indPrompt);
+					if(isNaN(index)) {
+						alert("Invalid index!");
+						return false;
+					};
+					if(index < 0 || index > clickUpgrades.length - 1) {
+						alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
+						return false;				
+					};
+
+					var buyPrompt = prompt("How many to buy?");
+					if(buyPrompt == null || buyPrompt == "") { return false };
+					var amount;
+					try {
+						if(/^[\de]+$/.test(buyPrompt)) {
+							buyPrompt = buyPrompt.split("e");
+							for(girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop = 0; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop < buyPrompt.length; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop++) {
+								if(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] == "") {
+									buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = "1";
+								};
+								buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = BigInt(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop]);
+							};
+							try {
+								buyPrompt = buyPrompt.reduceRight((a, b) => b * (10n ** a));
+							} catch (error) {
+								alert("Result too large or other error"); //"Maximum BigInt size exceeded"
+								return false;
+							};
+							amount = buyPrompt;
+						} else {
+							amount = BigInt(buyPrompt);
+						};
+					} catch (error) {
+						alert("Invalid amount!");
+						return false;
+					};
+					if(amount < 1n) {
+						alert("Amount must be greater than 0!");
+						return false;
+					};
+
+					var success = buyUpgrade(index,true,amount);
+					if(success) {
+						alert(`Bought ${amount} of upgrade ${index}`);
+					} else {
+						alert(`Could not buy ${amount} of upgrade ${index}`);
+					};
+					return success;
 				} else if (Object.keys(buyKeys).includes(event.key)) {
 					purchaseData = buyKeys[event.key];
 					return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
 				};
 			});
 
+triedToLoadBigints = false;
 window.onload = function() {
-  loadBigints();
-  buildUpgradeInfoList();
+  if(!triedToLoadBigints) {
+	loadBigints(false);
+	triedToLoadBigints = true;
+  };
+  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+	updateCounters();
+  };
+  buildStats();
   setInterval(saveBigints, 5000);
-  if(getClickValue() > 1) { buildUpgradeInfoList(); unlockUplist() };
+  if(getClickValue() > 1) { buildStats(); unlockUplist() };
 };
 
 } catch(error) {
@@ -385,14 +559,14 @@ window.onload = function() {
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate">helo this is my github page i really love loona and kpop</marquee>
+			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop</span></marquee>
 		</div>
 		
 		<div id="main">
 			<p>hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
 			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
 			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias)</span><br/>
-			<span title="orbits" onclick="increment(true);" countTemplate="i wish there were [*e<@E@>] <@N@> orbits" templateMagnitudeOffset="6">i love orbits</span><br/>
+			<span title="orbits" onclick="timedIncrement(true);" countTemplate="i wish there were [*e<@E@>] <@N@> orbits" templateMagnitudeOffset="6">i love orbits</span><br/>
 			<span onclick="buyUpgrade(0)" title="up0">loona</span> <span onclick="buyUpgrade(6)" title="up6">ot12</span> <span onclick="buyUpgrade(4)" title="up4">forever</span><span onclick="buyUpgrade(7)" class="ot12" id="up7" title="up7" style="display: none"> (super-special secret eighth upgrade)</span></p>
 		
 			<h1 class="ot12">my epic pages with great quality code</h1>
@@ -412,8 +586,10 @@ window.onload = function() {
 				<span class="yeojin">antis, akgaes dni<span class="hoverTest"> (especially bahiyyih antis)</span></span><br/>
 			
 			<br/><br/>
+			<span class="kimlip" id="lagWarning">&nbsp;</span><br/>
+			<span class="kimlip" id="bigNumWarning">&nbsp;</span><br/>
 			<button id="buttonButton" onclick="alert(generateButtonsForTitledClickables())">Buttons</button> and a <input title="useless textbox" placeholder="useless textbox"/><br/>
-			<span class="blink" title="click to bruh" countTemplate="this page would be [*e<@E@>] <@N@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); increment(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
+			<span class="blink" title="click to bruh" countTemplate="this page would be [*e<@E@>] <@N@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); timedIncrement(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
                         <div id="upList" style="display: none;">Upgrade list goes here</div>
 		</div>
 	</body>
