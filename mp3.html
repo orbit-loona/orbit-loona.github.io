@@ -234,7 +234,7 @@
 				lastFileEndedString = null;
 				lastFileEndedUnix = null;
 				allCurrentFileTimes = [];
-				currentFileTimes = {name: null, start: null, end: null};
+				currentFileTimes = {name: null, start: null, end: null, length: null};
 				totalPlays = 0,
 				perFilePlays = {};
 				fileLengths = {};
@@ -1238,17 +1238,21 @@
 				  lastFileEndedString = new Date().toString();
 				  lastFileEndedUnix = Date.now();
 				  currentFileTimes.end = Date.now();
-				  allCurrentFileTimes.push(currentFileTimes);
-				  currentFileTimes = {name: null, start: null, end: null};
+				  var elapsedTime = currentFileTimes.end - currentFileTimes.start;
+				  currentFileTimes.length = elapsedTime;
+				  console.log("threshold time: " + (fileLengths[currentFileName] / 2));
+				  if(elapsedTime >= (fileLengths[currentFileName] * 500)) { //milliseconds
+				    //threshold for acceptance is 50% of gotten file length
+					//this is supposed to prevent random double-counted plays, which appear with absurdly short lengths
+				    allCurrentFileTimes.push(currentFileTimes);
+					perFilePlays[currentFileName] ??= 1;
+					perFilePlays[currentFileName]++;
+				    totalPlays++;
+				  };
+				  currentFileTimes = {name: null, start: null, end: null, length: null};
 				  //console.log(`finished playing ${currentFileName}`);
 				  //console.log(`array stats: i ${arrayIndexIndex}, a ${arrayIndexAmount}`);
 				  var doNotPlay = false;
-				  totalPlays++;
-				  if(perFilePlays[currentFileName] == undefined) {
-					perFilePlays[currentFileName] ??= 1;
-				  } else {
-					perFilePlays[currentFileName]++;
-				  };
 				  savePfpToLocalStorage(sessionStartedUnix.toString());
 				  updateTitle();
 				  updateCurp();
