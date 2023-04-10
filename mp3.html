@@ -1240,12 +1240,12 @@
 				  currentFileTimes.end = Date.now();
 				  var elapsedTime = currentFileTimes.end - currentFileTimes.start;
 				  currentFileTimes.length = elapsedTime;
-				  console.log("threshold time: " + (fileLengths[currentFileName] / 2));
-				  if(elapsedTime >= (fileLengths[currentFileName] * 500)) { //milliseconds
+				  //console.log("threshold time: " + (fileLengths[currentFileName] / 2));
+				  if(elapsedTime >= (fileLengths[currentFileName] * 500)) { //length measured against is in milliseconds
 				    //threshold for acceptance is 50% of gotten file length
 					//this is supposed to prevent random double-counted plays, which appear with absurdly short lengths
 				    allCurrentFileTimes.push(currentFileTimes);
-					perFilePlays[currentFileName] ??= 1;
+					perFilePlays[currentFileName] ??= 0;
 					perFilePlays[currentFileName]++;
 				    totalPlays++;
 				  };
