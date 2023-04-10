@@ -348,7 +348,7 @@ function buildStats() {
 			
 			function timedIncrement(updateCounts=true) {
 				if(clearSpanTimeoutId) {
-					console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
+					//console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
 					clearTimeout(clearSpanTimeoutId);
 				};
 				var start = Date.now();
@@ -360,9 +360,9 @@ function buildStats() {
 					var formattedLength = (difference / 1000).toFixed(2);
 					if(!showingMessage && lagSpan) {
 						lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
-						console.log("Setting timeout");
+						//console.log("Setting timeout");
 						clearSpanTimeoutId = setTimeout(clearLagSpan,2000);
-						console.log("ID: " + clearSpanTimeoutId);
+						//console.log("ID: " + clearSpanTimeoutId);
 					};
 				};
 			};
