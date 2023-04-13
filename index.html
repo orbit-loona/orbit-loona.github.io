@@ -404,11 +404,16 @@ function getBigintMagnitude(bigint) {
 
 				var buyWarnSpan = document.getElementById("bigNumWarning");
 				if(getBigintMagnitude(bigintValue) >= 40000) {
-					buyWarnSpan.innerText = `Your numbers are dangerously large, and the game is probably unplayable now. This page probably took a really long time to even load, too. Please rebirth immediately.`
+					buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
 				} else if(getBigintMagnitude(bigintValue) >= 10000) {
-					buyWarnSpan.innerText = `Your numbers are extremely large, and this will get very laggy. You should rebirth now.`
+					buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
 				} else if(getBigintMagnitude(bigintValue) >= 2000) {
-					buyWarnSpan.innerText = `Warning: Your numbers are getting very big. Don't try to buy more than 1,000 upgrades, or it'll take too long and the code might hang.`
+					buyWarnSpan.textContent = "";
+					buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
+					var newSup = document.createElement("sup");
+						newSup.innerText = "1,000"
+						buyWarnSpan.appendChild(newSup);
+					buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
 				} else if (getBigintMagnitude(bigintValue) < 2000) {
 					buyWarnSpan.innerText = String.fromCharCode(160);
 				};
