@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--title updated dynamically and i'm too scared of breaking it to add a title tag-->
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="ersatz mp3 player" />
+		<meta property="og:url" content="https://orbit-loona.github.io/mp3.html" />
+		<meta property="og:description" content="why" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://orbit-loona.github.io/bin/why.png" />
+		<meta property="og:image:width" content="133" />
+		<meta property="og:image:height" content="87" />
+		<meta property="og:image:alt" content="why" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/why.png" />
+		<meta name="twitter:title" content="ersatz mp3 player" />
+		<meta name="twitter:description" content="why" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<!--page-specific CSS-->
+		<style>
+			.flex-container {
+			  display: -ms-flexbox;
+			  display: -webkit-flex;
+			  display: flex;
+			  -webkit-flex-direction: row;
+			  -ms-flex-direction: row;
+			  flex-direction: row;
+			  -webkit-flex-wrap: nowrap;
+			  -ms-flex-wrap: nowrap;
+			  flex-wrap: nowrap;
+			  -webkit-justify-content: flex-start;
+			  -ms-flex-pack: start;
+			  justify-content: flex-start;
+			  -webkit-align-content: flex-start;
+			  -ms-flex-line-pack: start;
+			  align-content: flex-start;
+			  -webkit-align-items: stretch;
+			  -ms-flex-align: stretch;
+			  align-items: stretch;
+			}
+
+			.flex-container div {
+			  padding: 5px; 
+			}
+
+			.currentFile {
+			  color: yellow;
+			}
+
+			#fileList li::marker {
+			  color: #45d6a3;
+			}
+
+			#lsKeyListOl li::marker {
+			  color: #ff8f2f;
+			}
+
+			ul, ol {
+			   -webkit-padding-start: 20px;
+				margin-left: 0px;
+				padding-left: 20px;
+			}
+
+			.sizeDiv {
+			  opacity: 0.4;
+			  font-size: 80%;
+			  padding-left: 20px;
+			}
+
+			.heck {
+			  letter-spacing: -0.06em;
+			  font-size: 90%;
+			}
+
+			.otherheck {
+			  opacity: 0.4;
+			  font-size: 90%;
+			}
+
+			.arrayGeneratorTable, .indented {
+			  padding-left: 2em;
+			}
+
+			code {
+			  font-size: 120%;
+			}
+
+			code.index {
+			  color: #ccddff;
+			}
+
+			code.random {
+			  color: #ffcccc;
+			}
+
+			code.array {
+			  color: #ccffcc;
+			  font-size: 115%;
+			}
+
+			code.arraygen {
+			  color: #ffddbb;
+			}
+
+			#resetButton {
+			  color: red;
+			}
+
+			.red { color: #f00; }
+			.scarlet { color: #ff3f00; }
+			.orange { color: #ff7f00; }
+			.gold { color: #ffbf00; }
+			.yellow { color: #ff0; }
+			.dark-yellow: { color: #bfa600; }
+			.darker-yellow: { color: #7f6600; }
+		</style>
+	</head>
+	<body>
+		<h4>About</h4>
+		<p style="line-height: 120%;">This is a test to see if JS could loop locally sourced, <del>organic, free-range, non-GMO</del> mp3 files.&nbsp; This is done entirely in the browser.<br/>You have to <ol>
+			<li>upload the file or files in the input below,</li>
+			<li>click "Load File" to ingest it/them into the browser's memory,</li>
+			<li>specify the index of the file you want to play,</li>
+			<li>then click "Load" at the bottom to update the audio player.</li>
+		</ol><!--You can also paste Base64 data, but I don't know how to validate it so I'm just using the honor system. <em>Please only put base64-encoded mp3 files in there.</em>--><br>
+		  If for some reason you actually <em>used</em> this and you want to remove a file, type the file name into the file clearer box for it to be removed from the <code>files</code> object and current file list.<br/>
+		<details id="indexInfo">
+		<summary>About indices:</summary>
+		<dl>
+		  <dt>Normal index</dt>
+		  <dd>A number (like <code class="index">2</code> or <code class="index">3</code>) will load the file at that index (corresponding to its name in the list on the right) for playback. Indices start at 0.</dd>
+		  <dt>Random index</dt>
+		  <dd>Typing <code class="random">random</code> (or <code class="random">r</code>, <code class="random">rand</code>, <code class="random">rnd</code>) will load a random file (choosing one each time playback finishes). This cannot be combined with array indices</dd>
+		  <dt>Array index</dt>
+		  <dd>Giving an "index" of the form <code class="array">[0,1,2:2,3]</code> will play sequentially through those indices. If an index is optionally followed with a colon and a number (without spaces around the colon), the file will be played that many times before moving to the next one.<br/>By default, playback stops after the end of the array (list) is reached, unless "Restart array playback after the last item of array index" (below) is checked.&nbsp; If there is a number after the array (after the closing square bracket, such as in <code class="array">[0,3,4,2]2</code>), the array will play that many times before stopping.&nbsp; Array indices are limited to 1,000 index changes, but that does not apply to repetition from a number at the end.</em></dd>
+		  <dt>Array generator</dt>
+		  <dd>An "index" of <code class="arraygen">f</code>, <code class="arraygen">&gt;</code>, <code class="arraygen">b</code>, <code class="arraygen">&lt;</code>, <code class="arraygen">r</code>, <code class="arraygen">#</code>, <code class="arraygen">s</code>, or <code class="arraygen">@</code> (optionally followed by a number, such as in <code class="arraygen">f3</code>) will transform into an array of all file indices depending on the first character.
+		<table class="arrayGeneratorTable">
+		<thead>
+		  <tr>
+			<th>First character</th>
+			<th>Order through files</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td><code>f</code> or <code>&gt;</code></td>
+			<td>Ascending</td>
+		  </tr>
+		  <tr>
+			<td><code>b</code> or <code>&lt;</code></td>
+			<td>Descending</td>
+		  </tr>
+		  <tr>
+			<td><code>r</code> or <code>#</code></td>
+			<td>Shuffled randomly*</td>
+		  </tr>
+		  <tr>
+			<td><code>s</code> or <code>@</code></td>
+			<td>Shuffled piecewise**</td>
+		  </tr>
+		</tbody>
+		</table><p class="indented">
+			<span>*Shuffled randomly: "Clones" from a number in the generator are all shuffled together; using <code class="arraygen">r2</code> with 4 files, <code class="array">[1,2,1,3,0,3,0,2]</code> is a possible result.</span><br/>
+			<span>**Shuffled piecewise: Each set of "clones" is shuffled individually; using <code class="arraygen">s2</code> with 3 files, <code class="array">[0,2,1,1,0,2]</code> is a possible result, but <code class="array">[2,1,1,0,2,0]</code> is not.</span>
+		</p>
+			For instance, if you have 4 files loaded and type <code class="arraygen">b2</code>, it will become <code class="array">[3,2,1,0,3,2,1,0]</code>. <em>The resulting arrays are subject to the 1,000-change limit for arrays.</em><br/>
+		</dl></details>
+		<h4>Other</h4>
+		If the first bit of the audio is cut off *<em>cough</em> Safari,  <small>particularly noticeable with shorter sounds</small>*, try checking the "Reload file on next play" checkbox (though this will be slow on larger files).<br/>
+		Play numbers refer to completed plays, where the playback is allowed to reach the end of the file.<br/>
+		The "Reset tracking variables" button (asks for confirmation) should save the current session timing and play data to localStorage, then reset said data in memory to null, if you want to do it. It should <em>not</em> remove the loaded files.
+		</p>
+
+		<div class="flex-container">
+		  <div>
+			<h3>Main controls</h3>
+			<p><strong id="fileFormStatus">No file loader status</strong></p>
+			<input type="file" multiple name="Save upload button" id="myfile" accept=".m2a,.m3a,.mp2,.mp2a,.mp3,.mpga,audio/mpeg,audio/mp3,audio/mpeg3,audio/x-mpeg-3"><br>
+		  
+			<button id="fileLoadButton" onclick="loadFile()">Load File</button><br><!--
+		  
+			<p><strong id="textFormStatus">No Base64 loader status</strong></p>
+			<input placeholder="Enter Base64" name="Base64 load field" id="mytext"><br>
+			<button id="textLoadButton" onclick="loadText()">Load Base64 (pretty please only put mp3 data)</button>
+		  
+			--><p><strong id="fileClearerStatus">No file remover status</strong></p>
+			<input placeholder="Enter name of file to remove from memory" name="File remover name field" id="removename"><br>
+			<button id="fileRemoveButton" onclick="removeFile()">Remove File</button><br>
+			
+			<p><strong id="loaderStatus">No loader status</strong></p>
+			<p><strong id="indexStatus">No index setter status</strong></p>
+			<span>Which index? (<code class="index">0</code> = first file) &nbsp; </span><br/>
+			<input name="File index chooser" placeholder="Starts at 0" id="indexInput"></input><br/>
+		  <span>Reload file on next play?</span><input type=checkbox id="reloadCheck"/><br/>
+		  <span>Avoid repeating files when using random index?</span><input type=checkbox id="noRepeatCheck"/><br/>
+		  <span>Do not loop?</span><input type=checkbox id="noLoopCheck"/><br/>
+		  <span>Restart array playback after its last item?</span><input type=checkbox id="restartArray"/><br/>
+		  <button id="dataLoadButton" onclick="resetArrayCounters(); updateLength(loadAudio());">Load</button><br/>
+			
+			<audio id="mainAudio" controls>
+			  <source id="mainSource"></source>
+			</audio><br/>
+			<em class="otherheck">Backup controls:</em></br><!--on safari, the audio element disappears sometimes-->
+			<button onClick="mainAudio.play()">play</button>
+		 <span id="backupSoundLength">No file</span> <button onClick="mainAudio.pause()">pause</button>
+
+			<br/><br/><br/><br/><button id="resetButton" onclick="reset();">Reset tracking variables</button>
+
+		</div>
+
+		  <div>
+			<h3>Play counter</h3>
+			<div id="currentP">No files loaded &#47; played</div>
+		</div>
+
+		  <div>
+			<h3>Currently loaded files</h3>
+			<ol id="fileList" start="0">No files loaded</ol>
+			
+			<p><strong id="arrayWarpStatus">No file list warper status</strong></p>
+			<input placeholder="Enter array warp index map" name="Array warp field" id="warpMapInput"><br>
+			<button id="warpButton" onclick="warpFileList()">Warp file list</button><br>
+
+			<p class="sizeDiv" id="sizeDiv">
+			  Storing <span id="loadedAmount">0</span> characters of base64<br/><span class="heck">(not including file currently loaded to audio tag)</span>
+			</p>
+		  </div>
+		  <div>
+			<h3>Local storage</h3>
+			<p class="otherheck">I'm sick of losing data</p>
+			<ol id="lsKeyListOl" start="0">No keys in localStorage</ol>
+			
+		<p><strong id="lsDownloaderStatus">No localStorage downloader status</strong></p>
+			Which index to download JSON of?<br/><input name="localStorage index chooser" placeholder="Starts at 0" id="lsIndexInput"></input>
+			<button id="dataLoadButton" onclick="downloadSpecifiedLocalStorageValue();">Download</button>
+			</div>
+		</div>
+
+		<button onClick="alert(d())">alert filename and length (debug)</button><br/>
+
+			<!--script needs to load after HTML-->
+			<script>
+				sessionStartedString = null;
+				sessionStartedUnix = null;
+				firstFileStartedString = null;
+				firstFileStartedUnix = null;
+				lastFileEndedString = null;
+				lastFileEndedUnix = null;
+				allCurrentFileTimes = [];
+				currentFileTimes = {name: null, start: null, end: null, length: null};
+				totalPlays = 0,
+				perFilePlays = {};
+				fileLengths = {};
+				var obuListenerAdded = false;
+
+				files = {}
+				flag = true
+				readers = {}
+				orderedNames = [];
+				currentFileName = "(none)";
+
+				indexIsArray = false;
+				arrayIndexIndex = 0;
+				arrayIndexAmount = 0;
+
+				//For the incredibly rare and unlikely scenario in which Safari ejects the session in such a way as to leave a remnant accessible through the browser history which is otherwise functional except for the fatal absence of the CP object
+				/*function emergencyRedefineCodepenObject(overwriteExistingObject=false) {
+					if(window.CP != undefined && !overwriteExistingObject) {
+						return false;
+					};
+					window.CP = {};
+
+					window.CP.exitedLoop = function(E) {
+						window.CP.PenTimer.exitedLoop(E)
+					}
+					window.CP.shouldStopExecution = function(E) {
+						var _ = window.CP.PenTimer.shouldStopLoop(E);
+						return !0 === _ && console.warn("[CodePen]: An infinite loop (or a loop taking too long) was detected, so we stopped its execution. More details at https://blog.codepen.io/2016/06/08/can-adjust-infinite-loop-protection-timing/"), _
+					}
+
+					window.CP.PenTimer = {
+						"programNoLongerBeingMonitored": false,
+						"timeOfFirstCallToShouldStopLoop": 0,
+						"_loopExits": {},
+						"_loopTimers": {},
+						"START_MONITORING_AFTER": 2000,
+						"STOP_ALL_MONITORING_TIMEOUT": 5000,
+						"MAX_TIME_IN_LOOP_WO_EXIT": 2200,
+						"exitedLoop": function(E){this._loopExits[E]=!0},
+						"shouldStopLoop": function(E){if(this.programKilledSoStopMonitoring)return!0;if(this.programNoLongerBeingMonitored)return!1;if(this._loopExits[E])return!1;var _=this._getTime();if(0===this.timeOfFirstCallToShouldStopLoop)return this.timeOfFirstCallToShouldStopLoop=_,!1;var o=_-this.timeOfFirstCallToShouldStopLoop;if(o<this.START_MONITORING_AFTER)return!1;if(o>this.STOP_ALL_MONITORING_TIMEOUT)return this.programNoLongerBeingMonitored=!0,!1;try{this._checkOnInfiniteLoop(E,_)}catch{return this._sendErrorMessageToEditor(),this.programKilledSoStopMonitoring=!0,!0}return!1},
+						"_sendErrorMessageToEditor": function() {
+							try {
+								if(this._shouldPostMessage()) {
+									var E = {
+										topic: HUB_EVENTS.PEN_ERROR_INFINITE_LOOP,
+										data: {
+											line:this._findAroundLineNumber()
+										}
+									};
+									parent.postMessage(E,"*")
+								} else {
+									this._throwAnErrorToStopPen()
+								}
+							} catch {
+								this._throwAnErrorToStopPen()
+							}
+						},
+						"_shouldPostMessage": function(){return document.location.href.match(/boomboom/)},
+						"_throwAnErrorToStopPen": function(){throw"We found an infinite loop in your Pen. We've stopped the Pen from running. More details and workarounds at https://blog.codepen.io/2016/06/08/can-adjust-infinite-loop-protection-timing/"},
+						"_findAroundLineNumber": function(){var E=new Error("ignored"),_=0;if(E.stack){var o=E.stack.match(/boomboom\\S+:(\\d+):\\d+/);o&&(_=o[1])}return _},
+						"_checkOnInfiniteLoop": function(E,_){if(!this._loopTimers[E])return this._loopTimers[E]=_,!1;if(_-this._loopTimers[E]>this.MAX_TIME_IN_LOOP_WO_EXIT)throw"Infinite Loop found on loop: "+E},
+						"_getTime": function(){return Date.now()}
+					};
+					return true;
+				};*/
+
+				function reset() {
+				  confirm = prompt(`Are you sure you want to reset tracking variables? (This should not affect loaded files)
+				Type "yEs" to confirm`);
+				  if(confirm !== "yEs") { 
+					alert("Variables were NOT reset");
+					return false
+				  };
+				  savePfpToLocalStorage(sessionStartedUnix.toString());
+				  sessionStartedString = new Date().toString();
+				  sessionStartedUnix = Date.now();
+				  firstFileStartedString = null;
+				  firstFileStartedUnix = null;
+				  lastFileEndedString = null;
+				  lastFileEndedUnix = null;
+				  allCurrentFileTimes = [];
+				  totalPlays = 0,
+				  perFilePlays = {};
+				  
+				  alert("Variables were reset");
+				  console.log("Variables were reset");
+				  updateCurp();
+				  return true;
+				};
+
+				function parseNumbersStringToArray(string) {
+					var numbers = [...(string.matchAll(/\d+/g))].map(x => parseInt(x[0]));
+					if(!numbers || numbers.includes(NaN)) {
+						return false;
+					};
+					return numbers;
+				};
+
+				function checkIfDuplicateExists(arr) {
+					return new Set(arr).size !== arr.length
+				}
+				  
+				function warpArray(array,indexMap,allowDuplicatesInIndexMap=true,allowLengthMismatch=true,allowUndefinedIndices=false) {
+					if(indexMap.some(i => !Number.isInteger(i))) {
+						/*if indexMap has non-integer values*/
+						throw new Error("Index map must only contain integers");
+					};
+					if(!allowLengthMismatch && (array.length !== indexMap.length)) {
+						throw new Error("Length mismatch disallowed");
+					};
+					if(!array || !indexMap) {
+						throw new TypeError("An array is falsey");
+					};
+					if(!allowDuplicatesInIndexMap && checkIfDuplicateExists(indexMap)) {
+						throw new Error("Duplicate map indices disallowed");
+					};
+					var resultArray = new Array(indexMap.length);
+					for(i = 0; i < indexMap.length; i++) {
+						var positionWithinIndexMap = i;
+						var targetIndexWithinSourceArray = indexMap[i];
+
+						if(!allowUndefinedIndices && (array[targetIndexWithinSourceArray] == undefined)) {
+							throw new Error("Undefined target indices disallowed");
+						};
+						resultArray[positionWithinIndexMap] = array[targetIndexWithinSourceArray];
+					};
+
+					return resultArray;
+				};
+
+				function warpFileList() {
+					var warpInput = document.getElementById("warpMapInput").value;
+					var warpMap = parseNumbersStringToArray(warpInput);
+
+					var statusElement = document.getElementById("arrayWarpStatus");
+					var errored = false;
+					
+					try {
+						newOrderedNames = warpArray(orderedNames,warpMap,false,false,false);
+					} catch(error) {
+						errored = true;
+						statusElement.style.color = "red";
+						if(error.message == "Index map must only contain integers") {
+							statusElement.innerText = "Invalid index map";
+							return false;
+						} else if(error.message == "Length mismatch disallowed") {
+							statusElement.innerText = "Map must be the same length as files"
+							return false;
+						} else if(error.message == "An array is falsey") {
+							statusElement.innerText = "Missing array"
+							return false;
+						} else if(error.message == "Duplicate map indices disallowed") {
+							statusElement.innerText = "Map cannot contain duplicate values"
+							return false;
+						} else if(error.message == "Undefined target indices disallowed") {
+							statusElement.innerText = "Map contains nonexistent indices"
+							return false;
+						} else {
+							statusElement.innerText = "Uncaught error";
+							throw error;
+						};
+					};
+					
+					var newListAlertText = "";
+					for(i = 0; i < newOrderedNames.length; i++) {
+						newListAlertText += `  ${i}. ${newOrderedNames[i]}\n`;
+					};
+					
+					confirm = prompt(`Resulting map is:\n${newListAlertText}\nType "Yes" if this is correct.`);
+					if(confirm !== "Yes") {
+						statusElement.style.color = "yellow";
+						statusElement.innerText = "Warp canceled";
+						alert("File list warp canceled");
+						return false;
+					};
+					
+					statusElement.style.color = "green";
+					statusElement.innerText = "File list warped";
+					orderedNames = newOrderedNames;
+				  generateFileList();
+				  alert("File list warped");
+					return true;
+				};
+
+				function numTwoDigits(numOrStr) {
+					var outStr;
+					if(["number","bigint"].includes(typeof(numOrStr))) {
+						outStr = numOrStr.toString();
+					} else if(typeof(numOrStr) == "string") {
+						 outStr = numOrStr;
+					};
+
+					if(outStr == "") {
+						return "00";
+					};
+					if(outStr.length == 1 || outStr.match(/^\d{1}\.\d*/) || outStr.startsWith(".")) {
+						return "0" + outStr;
+					};
+					return outStr;
+				};
+
+				function formatLengthHhMmSs(seconds,decimal=6) {
+					var result = "";
+					var outHours = Math.floor(seconds / 3600).toString();
+					var outMinutes = numTwoDigits(Math.floor(seconds / 60) % 60);
+					var outSeconds = numTwoDigits((seconds % 60).toFixed(decimal)); /*old regex .replace(/0*$/,"").replace(/\.$/,"")*/
+
+					if(outHours > 0) {
+						result += (outHours + ":");
+					};
+					result += outMinutes + ":" + outSeconds;
+
+					return result;
+				};
+
+				function updateBackupLength() {
+					var blSpan = document.getElementById("backupSoundLength");
+					if(blSpan == null) {
+						return false;
+					};
+
+					var len = d();
+					if(!len) {
+						return false;
+					};
+					len = formatLengthHhMmSs(len[1],1);
+
+					var pos = formatLengthHhMmSs(audio.currentTime,1)
+					blSpan.innerText = `${pos}:${len}`
+					return true;
+				};
+
+				setInterval(function() {
+					if(isNaN(audio.duration)) {
+						return false;
+					};
+					return updateBackupLength();
+				}, 100);
+
+				function colorSizeDivAccordingToSize() {
+				  var size = getTotalLength();
+				  var sizeDiv = document.getElementById("sizeDiv");
+				  if(sizeDiv == null) {
+					console.error("sizeDiv is null!");
+					return false;
+				  } else {
+					if(size > 25e7) {
+					  sizeDiv.style.color = "#f22";
+					} else if(size > 20e7) {
+					  sizeDiv.style.color = "#ff3f17";
+					} else if(size > 15e7) {
+					  sizeDiv.style.color = "#ff7f17";
+					} else if(size > 10e7) {
+					  sizeDiv.style.color = "#ffff17";
+					} else if(size > 7e7) {
+					  sizeDiv.style.color = "#bfa617";
+					} else if(size > 4e7) {
+					  sizeDiv.style.color = "#764";
+					} else if(size <= 4e7) {
+					  sizeDiv.style.color = "unset";
+					};
+				  };
+				  return true;
+				};
+
+				function savePfpToLocalStorage(keyName) {
+					/*if(passInTimeSavedUnixMillis == null || passInTimeSavedUnixMillis == undefined) {
+					  passInTimeSavedUnixMillis = Date.now();
+					};
+					var timeSaved = passInTimeSavedUnixMillis;
+					var timeSavedUnix = new Date(passInTimeSavedUnixMillis).toString();*/
+				  var object = {
+					sessionStart: sessionStartedUnix,
+					firstPlay: firstFileStartedUnix,
+					lastPlay: lastFileEndedUnix,
+					//timeSaved: timeSavedUnix,
+					sessionStartString: sessionStartedString,
+					firstPlayString: firstFileStartedString,
+					lastPlayString: lastFileEndedString,
+					//timeSavedString: timeSaved,
+					lastLoadedFiles: orderedNames,
+					perFilePlays: perFilePlays,
+					fileTimes: allCurrentFileTimes,
+					fileLengths: fileLengths
+				  };
+				  localStorage.setItem(keyName, JSON.stringify(object,null,2));
+				  makeLocalStorageList();
+				};
+
+				function loadFile() {
+				  readers = {};
+				  //Get file from upload input
+				  var theFiles = document.getElementById('myfile').files;
+				  var returns = [];
+				 
+				  //Check for file existence
+				  if(theFiles.length === 0) {
+					if(document.getElementById("fileFormStatus") !== null) {
+					document.getElementById("fileFormStatus").style.color = "red";
+					document.getElementById("fileFormStatus").innerHTML = "No file was uploaded!";
+					};
+					throw new Error("No file was uploaded");
+				  };
+				  
+				  var dupes = 0;
+				  for(i = 0; i < theFiles.length; i++) {
+					var file = theFiles[i];
+					var filename = file.name.replaceAll('"', "_").replaceAll("'", "_");
+				  
+					//Initialize reader
+					readers[filename] = new FileReader();
+					//console.log(`FileReader "${filename}" created`)
+				  
+					//Read as binary
+					readers[filename].readAsBinaryString(file);
+
+				eval(`readers[filename].onload = function(evt) {
+				  files["${filename}"] = btoa(evt.target.result);
+				  updateLength();
+				  delete readers["${filename}"];
+				}`);
+					
+					//document.body.appendChild(document.createTextNode(`loaded and encoded file "${filename}"`));
+					//document.body.appendChild(document.createElement("br"));
+					
+					if(!orderedNames.includes(filename)) {
+					  orderedNames.push(filename)
+					  returns.push(filename)
+					} else {
+					  dupes++;
+					  //console.log(`Skipping duplicate file ${filename}`)
+					};
+				  };
+				  //console.log(dupes)
+				  
+				  var dupeString = "";
+				  if(dupes != 0) {
+					var noun = "file";
+					if(dupes !== 1) { noun = "files" };
+					dupeString = ` (Skipped ${dupes} existing ${noun})`;
+				  };
+
+				  generateFileList();
+
+				  if(document.getElementById("fileFormStatus") !== null) {
+					  document.getElementById("fileFormStatus").style.color = (dupes > 0 ? "yellow" : "green");
+					  var fileAmount = returns.length;
+					  var noun = "file";
+					  if(fileAmount !== 1) { noun = "files" };
+					  document.getElementById("fileFormStatus").innerHTML = `Loaded ${fileAmount} ${noun}${dupeString} (${new Date().toLocaleString()})`;
+				  };
+				  
+				  if(!obuListenerAdded) { //Useless inside the iframe
+					//addText("Adding listener");
+					window.addEventListener('beforeunload', (event) => {
+					  event.returnValue = `Are you sure you want to leave?`;
+					});
+				  }
+				  
+				  sessionStartedString ??= new Date().toString();
+				  sessionStartedUnix ??= Date.now();
+
+				  savePfpToLocalStorage(sessionStartedUnix.toString()); //preserve file listings since those are the most cum bersome to recreate when Safari randomly deletes the seesion
+				  
+				  return returns;
+				};
+
+				 var brTag = document.createElement("br");
+				  function addText(text,addBreak=true) {
+					var newText = document.createTextNode(text);
+					document.body.appendChild(newText);
+					if(addBreak) {
+					  document.body.appendChild(brTag);
+					};
+				  };
+
+				/*function makeid(length) { //https://stackoverflow.com/a/1349426 by StackOverflow user csharptest.net
+					var result           = '';
+					var characters       = '123456ABCDEF';
+					var charactersLength = characters.length;
+					for ( var i = 0; i < length; i++ ) {
+						result += characters.charAt(Math.floor(Math.random() * charactersLength));
+					}
+					return result;
+				};
+
+				function loadText() {
+				  //Get base64 from upload input
+				  var file = document.getElementById('mytext').value;
+
+				  if(file === "" || file === null) {
+					if(document.getElementById("textFormStatus") !== null) {
+					  document.getElementById("textFormStatus").style.color = "red";
+					  document.getElementById("textFormStatus").innerHTML = "No text was present!";
+					};
+					throw new Error("No text was present");
+				  };
+
+				  //Filename prompt and name handling
+				  var fileName = prompt("Enter a name for the data");
+					//no name: default to random name
+				  if(fileName == null || fileName == "") {
+					fileName = makeid(7);
+				  };
+				  
+				  fileName = fileName.replaceAll('"', "_");
+				  
+					//duplicate name: append randoms
+				  if(typeof(files[fileName]) !== "undefined") {
+					while(typeof(files[fileName]) !== "undefined") {
+					  fileName += `_${makeid(1)}`
+					};
+				  };
+
+				  //Assign file data to variable
+				  orderedNames.push(fileName);
+				  files[fileName] = file;
+				  generateFileList();
+				  if(document.getElementById("fileFormStatus") !== null) {
+					document.getElementById("fileFormStatus").style.color = "green";
+					document.getElementById("fileFormStatus").innerHTML = "Base64 was ingested successfully!";
+				  };
+				  
+				  //Alert with resulting filename
+				  alert(`Filed as ${fileName}`);
+				  
+				  return fileName;
+				};*/
+
+				function removeFile() {
+				  //Get name to remove
+				  var name = document.getElementById('removename').value;
+				  //document.body.appendChild(document.createTextNode(`Name found: ${name}; `))
+
+				  //Emptiness handling
+				  if(name === "" || name === null) {
+					if(document.getElementById("fileClearerStatus") !== null) {
+					  document.getElementById("fileClearerStatus").style.color = "red";
+					  document.getElementById("fileClearerStatus").innerHTML = "No name was specified!";
+					};
+					throw new Error("No name was specified");
+				  };
+
+				  //Nonexistence handling
+				  if(typeof(files[name]) === "undefined") {
+					if(document.getElementById("fileClearerStatus") !== null) {
+					  document.getElementById("fileClearerStatus").style.color = "red";
+					  document.getElementById("fileClearerStatus").innerHTML = "No file with that name exists!";
+					};
+					throw new Error("File doesn't exist");
+				  };
+
+				  //document.body.appendChild(document.createTextNode(`Validated name ${name}; `))
+				  
+				  //Actual deletion
+				  //Delete data from files
+				  //document.body.appendChild(document.createTextNode(`deleting ${name}; `))
+				  var fileExistsInFiles = (typeof(files[name]) !== undefined);
+				  //console.log(`files object ${fileExistsInFiles ? "HAS" : "DOES NOT HAVE"} file ${name}`)
+				  //console.log("Deleting file");
+				  delete files[name];
+
+				  //Find name in orderedNames
+				  var targetArrayIndex = orderedNames.indexOf(name);
+				  //console.log(`${name} is in orderedNames at ${targetArrayIndex}`);
+				  //console.log(orderedNames);
+				  //Delete name from orderedNames
+				  //console.log("Deleting filename entry from orderedNames");
+				  if(targetArrayIndex != -1) { orderedNames.splice(targetArrayIndex,1) };
+				  
+				  //document.body.appendChild(document.createTextNode("New files: " + Object.keys(files).join(", ") + "; "));
+				  generateFileList();
+
+				  if(document.getElementById("fileClearerStatus") !== null) {
+					document.getElementById("fileClearerStatus").style.color = "green";
+					document.getElementById("fileClearerStatus").innerHTML = "File was deleted successfully!";
+				  };
+				  
+				  return true;
+				};
+
+					//Random integer from 0 to n
+					function randomIntegerFromZeroToValue(value) {
+						var absoluteValuePlusOne = Math.abs(value) + 1;
+						if(value >= 0) { //Positive case
+							return Math.floor(Math.random() * absoluteValuePlusOne)
+						} else { //Negative case: flip sign
+							return 0 - Math.floor(Math.random() * absoluteValuePlusOne)
+						};
+					};
+
+					//Random thing from array
+					function randomChoice(array) {
+						if(array.length === 0) { throw new Error(`The array ${array} is empty`) };
+						var length = array.length;
+						var randomIndex = randomIntegerFromZeroToValue(length - 1);
+						return array[randomIndex];
+					};
+
+				//this is fucking sandboxels code
+				function shuffleArray(array) {
+					for (let i = array.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[array[i], array[j]] = [array[j], array[i]];
+					}
+				}
+
+				//Generate sequence from file list's length
+				function makeArray(mode="f",clones=1) {
+					var array = [];
+					switch(mode.toLowerCase()) {
+						case ">":
+						case "f":
+							for(h = 0; h < clones; h++) {
+								for(i = 0; i < orderedNames.length; i++) {
+									array.push(i);
+								};
+							};
+							break;
+						case "<":
+						case "b":
+							for(h = 0; h < clones; h++) {
+								for(i = orderedNames.length - 1; i >= 0; i--) {
+									array.push(i);
+								};
+							};
+							break;
+						case "#":
+						case "r":
+							for(h = 0; h < clones; h++) {
+								for(i = 0; i < orderedNames.length; i++) {
+									Math.random() < 0.5 ? array.push(i) : array.unshift(i);
+								};
+								shuffleArray(array);
+							};
+							break;
+						case "@":
+						case "s":
+							for(h = 0; h < clones; h++) {
+								var arraylet = [];
+								for(i = 0; i < orderedNames.length; i++) {
+									Math.random() < 0.5 ? arraylet.push(i) : arraylet.unshift(i);
+								};
+								shuffleArray(arraylet);
+								array = array.concat(arraylet)
+							};
+							break;
+					};
+					return array;
+				};
+
+				function removeValueFromArray(inArray,item) {
+				  var index = inArray.indexOf(item);
+				  if(index == -1) {
+					console.log(`Item ${item} isn't in array`);
+					return "zzzyzyzyscfalse (if you actually put this string in the array you are a butt)";
+				  };
+				  return inArray.splice(index, 1);
+				};
+
+				function normalizeConsecutiveIndices(array) {
+					var tries = 1;
+					var tryLimit = 1001;
+					for(i = 0; i < array.length - 1; i++) {
+						if(array[i][1] == 0) {
+							array.splice(i,1);
+						};
+						if(array[i+1][0] == array[i][0]) {
+							array[i][1] += array[i+1][1];
+							array.splice(i+1,1);
+							i-=1;
+							continue;
+						};
+						tries++;
+						//console.log(`i ${i}, try ${tries}, array ${JSON.stringify(array).replaceAll("],[","], [")}`);
+						if(tries > tryLimit) {
+							throw new Error("Infinite loop or array too big");
+							break;
+						};
+					};
+					return array;
+				};
+
+				function resetArrayCounters() {
+					arrayRepetitions = 0;
+				  arrayRepetitionLimit = 0;
+				  arrayIndexIndex = 0;
+					arrayIndexAmount = 0;
+				};
+
+				function repeatArray(array,times) {
+					if(times < 0) { throw new RangeError("Cannot repeat an array negative times") };
+					if(times == 0) { return [] };
+					var valueToAdd = array;
+					for(i = 0; i < times - 1; i++) {
+						array = array.concat(valueToAdd);
+					};
+					return array;
+				};
+
+				function loadAudio() {
+				  if(orderedNames.length < 1) {
+					if(document.getElementById("loaderStatus") !== null) {
+					  document.getElementById("loaderStatus").style.color = "red";
+					  document.getElementById("loaderStatus").innerHTML = "No file exists!";
+					};
+					throw new Error("No file exists")
+				  };
+				  
+				  //get source file
+				  var fileName;
+				  
+				  var randomAvoidRepeats = getNoRepeatStatus();
+
+				  var loopArrays = getArrayRestartStatus();
+				  
+				  if(getIndex() == "random") {
+					//console.log(`randomAvoidRepeats: ${randomAvoidRepeats}`);
+					//console.log(`orderedNames: [${orderedNames.join(",")}] (L ${orderedNames.length})`);
+					if(randomAvoidRepeats && currentFileName !== "(none)" && orderedNames.length > 1) {
+					  //console.log(`currentFileName: ${currentFileName}`);
+					  //console.log(`orderedNames: [${orderedNames.join(",")}] (L ${orderedNames.length})`);
+					  var orderedNamesWithoutCurrentName = JSON.parse(JSON.stringify(orderedNames));
+					  removeValueFromArray(orderedNamesWithoutCurrentName,currentFileName);
+					  //console.log(`oNWCN: [${orderedNamesWithoutCurrentName.join(",")}]`);
+					  fileName = randomChoice(orderedNamesWithoutCurrentName);
+					  //console.log(`chosen fileName: ${fileName}`);
+					} else {
+					  fileName = randomChoice(orderedNames);
+					};
+				  } else if(getIndex() instanceof Array) {
+					fileName = orderedNames[getIndex()[arrayIndexIndex][0]];
+				  } else {
+					fileName = orderedNames[getIndex()]
+				  };
+				  
+				  currentFileName = fileName;
+
+				  //console.log(fileName);
+
+				  //get source tag
+				  var source = document.getElementById("mainSource");
+
+				  //set source to data: url
+				  source.src = "data:audio/mpeg;base64," + files[fileName];
+
+				  //load audio at element
+				  document.getElementById("mainAudio").load();
+
+				  if(document.getElementById("loaderStatus") !== null) {
+					document.getElementById("loaderStatus").style.color = "green";
+					document.getElementById("loaderStatus").innerHTML = "File was loaded below successfully!";
+				  };
+				  
+				  return true;
+				}
+
+				function getTotalLength() {
+				  var length = 0;
+				  for(file in files) {
+					length += files[file].length;
+				  };
+				  return length;
+				};
+
+				function updateLength() {
+				  var lengthSpan = document.getElementById("loadedAmount");
+				  if(lengthSpan == null) {
+					return false;
+				  };
+				  lengthSpan.innerText = getTotalLength().toLocaleString();
+				  colorSizeDivAccordingToSize();
+				  return true;
+				};
+
+				function generateFileList() {
+				  var list = document.getElementById("fileList");
+				  var html = orderedNames.join("</li><li>");
+				  if(html == "") {
+					html = "No files loaded";
+				  }
+				  list.innerHTML = "<li>" + html + "</li>";
+				  //console.log(orderedNames.length)
+				  updateLength();
+				  return true;
+				};
+
+				function autoAddColonOnes(x) {
+					if(x.includes(":")) { 
+						return x;
+					};
+					return x + ":1";
+				};
+
+				shallowParseIntAll = function(array) {
+					return array.map(x => parseInt(x));
+				};
+
+				function boundIndex(number) {
+					if(number > orderedNames.length - 1) {
+						return orderedNames.length - 1;
+					};
+					if(number < 0) {
+						return 0;
+					};
+					return number;
+				};
+
+				shallowBoundIndex = function(array) {
+				  array[0] = boundIndex(array[0]);
+				  return array;
+				};
+
+				const saveLsValueToFile = (keyName) => { //from https://stackoverflow.com/a/65939108
+					const blob = new Blob([localStorage[keyName]], { type: "text/json" });
+					const link = document.createElement("a");
+
+					link.download = "localStorage " + keyName + ".json";
+					link.href = window.URL.createObjectURL(blob);
+					link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+					const evt = new MouseEvent("click", {
+						view: window,
+						bubbles: true,
+						cancelable: true,
+					});
+
+					link.dispatchEvent(evt);
+					link.remove()
+				};
+
+				function getLsKey() {
+				  var problem = false;
+				  var userIndex = document.getElementById("lsIndexInput");
+					var lsKeys = Object.keys(localStorage);
+					lsKeys = lsKeys.filter(
+						function(keyName) {
+							return !isNaN(parseInt(keyName))
+						}
+					);
+					lsKeys = lsKeys.map(x => parseInt(x));
+					lsKeys = lsKeys.sort(function (a, b) {  return a - b;  });
+					lsKeys = lsKeys.map(x => x.toString());
+
+				  if(userIndex.value && userIndex.value.startsWith("I want to delete the item at index number ")) {
+				  };
+				  if(userIndex == null) {
+					userIndex = 0;
+					if(document.getElementById("lsDownloaderStatus") !== null) {
+					  problem = true;
+					  document.getElementById("lsDownloaderStatus").style.color = "red";
+					  document.getElementById("lsDownloaderStatus").innerHTML = "Index input is absent (defaulting to 0)!";
+					};
+				  } else {
+					userIndex = userIndex.value;
+				  };
+				  
+				  if(isNaN(parseInt(userIndex))) {
+					problem = true;
+					document.getElementById("lsDownloaderStatus").style.color = "yellow";
+					document.getElementById("lsDownloaderStatus").innerHTML = "Non-numeric index (defaulting to 0)!";
+					userIndex = 0;
+				  } else {
+					userIndex = parseInt(userIndex);
+				  };
+
+				  if(lsKeys.length == 0) {
+					problem = true;
+					document.getElementById("lsDownloaderStatus").style.color = "red";
+					document.getElementById("lsDownloaderStatus").innerHTML = "Nothing to download!";
+					return "No files exist";
+				  };
+				  
+				  if(userIndex < 0) {
+					problem = true;
+					userIndex = 0;
+					if(document.getElementById("lsDownloaderStatus") !== null) {
+					  document.getElementById("lsDownloaderStatus").style.color = "yellow";
+					  document.getElementById("lsDownloaderStatus").innerHTML = "Index cannot be negative (defaulting to 0)!";
+					};
+					userIndex = 0;
+				  };
+				  
+				  if(userIndex > (lsKeys.length - 1)) {
+					problem = true;
+					userIndex = lsKeys.length - 1;
+					if(document.getElementById("lsDownloaderStatus") !== null) {
+					  problem = true;
+					  document.getElementById("lsDownloaderStatus").style.color = "yellow";
+					  document.getElementById("lsDownloaderStatus").innerHTML = `Index too high (set to ${lsKeys.length - 1})!`;
+					};
+					userIndex = lsKeys.length - 1;
+				  };
+				  
+				  if(!problem && document.getElementById("lsDownloaderStatus") !== null) {
+					document.getElementById("lsDownloaderStatus").style.color = "green";
+					document.getElementById("lsDownloaderStatus").innerHTML = "Index read successfully!";
+				  };
+				  return userIndex;
+				};
+
+				function getIndex() {
+				  var userIndex = document.getElementById("indexInput");
+				  var problem = false;
+				  if(userIndex == null) {
+					userIndex = 0;
+					if(document.getElementById("indexStatus") !== null) {
+					  problem = true;
+					  document.getElementById("indexStatus").style.color = "red";
+					  document.getElementById("indexStatus").innerHTML = "Index input is absent (defaulting to 0)!";
+					};
+				  } else {
+					userIndex = userIndex.value;
+				  };
+				  //Random index
+				  if(["random","r","rand","rnd"].includes(userIndex.toLowerCase())) {
+					indexIsArray = false;
+					userIndex = "random";
+					document.getElementById("indexStatus").style.color = "green";
+					document.getElementById("indexStatus").innerHTML = "Index (r) read successfully!";
+					return userIndex;
+				  };
+
+				  //Array generator index
+				  if(userIndex.match(/^([fbrs<>#@])(\d*)$/)) {
+					  //console.log("match");
+					  var arrayPregenParams = [
+						  userIndex.match(/^([fbrs<>#@])(\d*)$/)[1],
+						  userIndex.match(/^([fbrs<>#@])(\d*)$/)[2]
+					  ];
+					  //console.log(arrayPregenParams);
+					  var clones = parseInt(arrayPregenParams[1]);
+					  if(isNaN(clones)) {
+						  clones = 1;
+						  arrayPregenParams[1] = 1;
+					  };
+					  var mode = arrayPregenParams[0]
+					  //console.log([mode,clones]);
+					  userIndex = JSON.stringify(makeArray(mode,clones));
+					  console.log("Generated array index: " + userIndex);
+					  //console.log(userIndex);
+					  document.getElementById("indexInput").value = userIndex;
+				  };
+				  
+				  //Array index
+				  if(userIndex.startsWith("[") && userIndex.includes("]")) {
+					arrayRepetitionLimit = parseInt(userIndex.match(/(\d+)$/g) ?? 1);
+					if(userIndex.match(/(\d+)$/g)) {
+					  userIndex = userIndex.slice(0,-(arrayRepetitionLimit.toString().length));
+					};
+					indexIsArray = true;
+					userIndex = normalizeConsecutiveIndices(userIndex.match(/\d+(:(Infinity|\d+))?/g).map(x => autoAddColonOnes(x)).map(x => x.split(":")).map(x => shallowParseIntAll(x)).map(x => shallowBoundIndex(x)));
+					document.getElementById("indexStatus").style.color = "green";
+					document.getElementById("indexStatus").innerHTML = "Index (a) read successfully!";
+					return userIndex;
+				  } else {
+					indexIsArray = false;
+				  };
+
+				  if(isNaN(parseInt(userIndex))) {
+					indexIsArray = false;
+					if(isNaN(parseInt(userIndex))) {
+					  problem = true;
+					  document.getElementById("indexStatus").style.color = "yellow";
+					  document.getElementById("indexStatus").innerHTML = "Non-numeric index (defaulting to 0)!";
+					};
+					userIndex = 0;
+				  } else {
+					userIndex = parseInt(userIndex);
+				  };
+				  
+				  if(userIndex < 0) {
+					userIndex = 0;
+					if(document.getElementById("indexStatus") !== null) {
+					  problem = true;
+					  document.getElementById("indexStatus").style.color = "yellow";
+					  document.getElementById("indexStatus").innerHTML = "Index cannot be negative (defaulting to 0)!";
+					};
+					userIndex = 0;
+				  };
+				  
+				  if(userIndex > (orderedNames.length - 1)) {
+					userIndex = orderedNames.length - 1;
+					if(document.getElementById("indexStatus") !== null) {
+					  problem = true;
+					  document.getElementById("indexStatus").style.color = "yellow";
+					  document.getElementById("indexStatus").innerHTML = `Index too high (set to ${orderedNames.length - 1})!`;
+					};
+					userIndex = orderedNames.length - 1;
+				  };
+				  
+				  if(document.getElementById("indexStatus") !== null) {
+					if(!problem) {
+					  document.getElementById("indexStatus").style.color = "green";
+					  document.getElementById("indexStatus").innerHTML = "Index read successfully!";
+					};
+				  };
+
+				  return userIndex;
+				};
+
+				var loopTest = true;
+				var doReload = false;
+
+				function getReloadStatus(defaultValue=false) {
+				  var checkbox = document.getElementById("reloadCheck");
+				  if(checkbox === null) {
+					console.log("reloadCheck is null");
+					return defaultValue;
+				  } else {
+					return checkbox.checked;
+				  };
+				};
+
+				function getNoRepeatStatus(defaultValue=false) {
+				  var checkbox = document.getElementById("noRepeatCheck");
+				  if(checkbox === null) {
+					console.log("noRepeatCheck is null");
+					return defaultValue;
+				  } else {
+					return checkbox.checked;
+				  };
+				};
+
+				function getNoLoopStatus(defaultValue=false) {
+				  var checkbox = document.getElementById("noLoopCheck");
+				  if(checkbox === null) {
+					console.log("noLoopCheck is null");
+					return defaultValue;
+				  } else {
+					return checkbox.checked;
+				  };
+				};
+
+				function getArrayRestartStatus(defaultValue=false) {
+				  var checkbox = document.getElementById("restartArray");
+				  if(checkbox === null) {
+					console.log("restartArray is null");
+					return defaultValue;
+				  } else {
+					return checkbox.checked;
+				  };
+				};
+
+				var curp = document.getElementById("currentP");
+
+				function updateCurp() {
+				  var spans = [];
+				  for(filename in perFilePlays) {
+					var plays = perFilePlays[filename];
+					if(filename == currentFileName) {
+					  spans.push(`<em class="currentFile">${filename}: ${plays} play${plays == 1 ? "" : "s"}</em>`);
+					} else {
+					  spans.push(`<span class="playedFile">${filename}: ${plays} play${plays == 1 ? "" : "s"}</span>`);
+					};
+				  };
+				  
+				  var html = "(Nothing played)";
+				  
+				  if(spans.length > 0) {
+					html = spans.join("<br/>");
+				  };
+				  
+				  if(curp == null) {
+					return null;
+				  };
+
+				  curp.innerHTML = html;
+				  return spans.length;
+				};
+
+				function updateTitle() {
+				  if(perFilePlays[currentFileName] == undefined) { perFilePlays[currentFileName] = 0 };
+				  var newTitle = `(${perFilePlays[currentFileName]}) ${currentFileName}`;
+				  document.title = newTitle;
+				  //console.log(newTitle);
+				  return newTitle;
+				};
+
+				audio = document.getElementById("mainAudio");
+
+				audio.onplay = function() {
+				  currentFileTimes.name = currentFileName;
+				  currentFileTimes.start = Date.now();
+				  firstFileStartedString ??= new Date().toString();
+				  firstFileStartedUnix ??= Date.now();
+				  updateTitle();
+				  updateCurp();
+				};
+
+				function undefinedIndexSteamroller() {
+					console.log("arrayIndexIndex is somehow undefined again");
+					return [0,0];
+				};
+
+				audio.oncanplaythrough = function() {
+				  fileLengths[currentFileName] ??= d()[1];
+				};
+
+				audio.onended = function() {
+				  lastFileEndedString = new Date().toString();
+				  lastFileEndedUnix = Date.now();
+				  currentFileTimes.end = Date.now();
+				  var elapsedTime = currentFileTimes.end - currentFileTimes.start;
+				  currentFileTimes.length = elapsedTime;
+				  //console.log("threshold time: " + (fileLengths[currentFileName] / 2));
+				  if(elapsedTime >= (fileLengths[currentFileName] * 500)) { //length measured against is in milliseconds
+				    //threshold for acceptance is 50% of gotten file length
+					//this is supposed to prevent random double-counted plays, which appear with absurdly short lengths
+				    allCurrentFileTimes.push(currentFileTimes);
+					perFilePlays[currentFileName] ??= 0;
+					perFilePlays[currentFileName]++;
+				    totalPlays++;
+				  };
+				  currentFileTimes = {name: null, start: null, end: null, length: null};
+				  //console.log(`finished playing ${currentFileName}`);
+				  //console.log(`array stats: i ${arrayIndexIndex}, a ${arrayIndexAmount}`);
+				  var doNotPlay = false;
+				  savePfpToLocalStorage(sessionStartedUnix.toString());
+				  updateTitle();
+				  updateCurp();
+				  if(indexIsArray) {
+					arrayIndexAmount++
+					if(arrayIndexAmount >= getIndex()[arrayIndexIndex][1] ?? undefinedIndexSteamroller()) {
+					  arrayIndexAmount = 0;
+					  arrayIndexIndex++;
+					  if(arrayIndexIndex == getIndex().length) {
+						arrayIndexIndex = 0;
+						//console.log(!getArrayRestartStatus());
+						if(!getArrayRestartStatus()) {
+						  arrayRepetitions++;
+					  if(arrayRepetitions >= arrayRepetitionLimit) {
+						doNotPlay = true;
+					  };
+						};
+					  };
+					  loadAudio();
+					};
+				  };
+				 if(loopTest) {
+				   //console.log(getIndex());
+				   if(getIndex() == "random") { loadAudio() }; //audio element must be reloaded with new element for random file to apply
+				  if(getReloadStatus()) { audio.load() };
+				  if(!doNotPlay && !getNoLoopStatus()) { audio.play() };
+				 };
+				};
+
+				function d() {
+				  var length = audio.duration;
+				  if(isNaN(length) || currentFileName == "(none)") {
+					return false;
+				  };
+				  return [currentFileName, length];
+				};
+
+				window.onload = function() {
+				  makeLocalStorageList();
+				};
+
+				function makeLocalStorageList() {
+					var lsKeys = Object.keys(localStorage);
+					lsKeys = lsKeys.filter(
+						function(keyName) {
+							return !isNaN(parseInt(keyName))
+						}
+					);
+					lsKeys = lsKeys.map(x => parseInt(x));
+					lsKeys = lsKeys.sort(function (a, b) {  return a - b;  });
+					lsKeys = lsKeys.map(x => x.toString());
+					var listOl = document.getElementById("lsKeyListOl");
+					if(listOl == null) {
+						console.log("listOl is missing");
+					return null;
+					};
+					if(lsKeys.length == 0) { 
+						listOl.innerHTML = "No keys in localStorage";
+						return false;
+					};
+					var html = "<li id='lsList'>" + lsKeys.join("</li>\n<li>") + "</li>"
+					listOl.innerHTML = html;
+					return true;
+				};
+
+				function downloadSpecifiedLocalStorageValue() {
+					var lsKeys = Object.keys(localStorage);
+					lsKeys = lsKeys.filter(
+						function(keyName) {
+							return !isNaN(parseInt(keyName))
+						}
+					);
+					lsKeys = lsKeys.map(x => parseInt(x));
+					lsKeys = lsKeys.sort(function (a, b) {  return a - b;  });
+					lsKeys = lsKeys.map(x => x.toString());
+				  var whichKey = getLsKey();
+				  if(["Deleted file","No files exist"].includes(whichKey)) {
+					return false;
+				  };
+				  whichKey = lsKeys[whichKey];
+				  saveLsValueToFile(whichKey);
+				  return true;
+				};
+
+				document.getElementById("indexInput").addEventListener("keypress", function(event) {
+				  if (event.key === "Enter") {
+				    event.preventDefault();
+						document.getElementById("dataLoadButton").click();
+					}
+				});
+			</script>
+
+			<a href="index.html"><small>go to main page</small></a>
+		</body>
+</html>
