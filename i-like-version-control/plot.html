@@ -679,6 +679,12 @@
 					return array.filter(function(x) { return typeof(x) == "number" && !isNaN(x) }).reduce(function(a,b) { return b + a },0);
 				};
 			};
+			downloadCanvas = function() {
+				var link = document.createElement('a');
+				link.download = 'plot.png';
+				link.href = document.getElementById('canvas').toDataURL()
+				link.click();
+			};
 		</script>
 		<script comment="Defines main function">
 			if(amongUsIsAPartyGameOfTeamworkAndBetrayalCrewmatesWorkTogetherToCompleteTasksBeforeOneOrMoreImpostorsCanKillEveryoneAboard) {
@@ -1538,8 +1544,8 @@
 				for(i = nonScriptBodyChildren.length - 1; i >= 0; i--) { //remove nodes in reverse order just in case
 					document.body.removeChild(nonScriptBodyChildren[i]);
 				};
-				//draw canvas
-				main();
+				//draw canvas, download button for mobile
+				main(); var newButton = document.createElement("button"); newButton.innerText = "Download"; newButton.setAttribute("onclick","downloadCanvas();"); newButton.setAttribute("id","downloadButton"); document.body.appendChild(newButton);
 			} else {
 				//begone thot
 				window.location.replace('../index.html');
