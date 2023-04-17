@@ -740,6 +740,25 @@
 				  return true;
 				};
 
+function fuckYou() { //RIP storage
+  try {
+    localStorage.setItem("gehenna",JSON.stringify(files));
+  } catch (error) {
+    alert(error);
+    return false;
+  };
+  localStorage.setitem("hell",JSON.stringify(orderedNames));
+alert(`Saved ${getTotalLength()} bytes to localStorage (good fucking luck)`);
+};
+
+function fuckMe() { //RIP memory
+  orderedNames = JSON.parse(localStorage.getItem("hell");
+  files = JSON.parse(localStorage.getItem("gehenna");
+  generateFileList();
+  savePfpToLocalStorage(sessionStartedUnix.toString());
+};
+
+
 					//Random integer from 0 to n
 					function randomIntegerFromZeroToValue(value) {
 						var absoluteValuePlusOne = Math.abs(value) + 1;
