@@ -77,6 +77,20 @@
 			.images figure {
 				flex: 0 0;
 			}
+			
+			a.footnote, a.footnote:visited {
+				text-decoration: underline;
+				color: #0ff;
+			}
+
+			:target {
+				background-color: #ffff002f;
+				border: 1px solid yellow;
+			}
+			
+			.baseHeight, .baseHeight:visited {
+				color: #aff;
+			}
 		</style>
 		<script>
 			function getSiblingNodes(element,returnArray=true) {
@@ -111,17 +125,40 @@
 				<span><em>Integer</em>: A number without a decimal, such as <code class="rounded">0</code> or <code class="rounded">12</code>.</span>
 			</p>
 
-			<h1><code class="rounded">baseHeight</code></h1>
-			<p><span><code class="rounded">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is 0.5, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and 0.5 is used.</span></br>
-			At values below 0.5, this shifts the world downwards. At values above 0.5, it begins to squish the world up vertically.</p>
+			<h1 id="baseHeight"><code class="rounded baseHeight">baseHeight</code></h1>
+			<p>
+				<span><code class="rounded baseHeight">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is 0.5, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and 0.5 is used.</span></br>
+				At values below 0.5, this shifts the world downwards. At values above 0.5, it begins to squish the world up vertically.
+			</p>
 			<div class="images" id="baseHeightImages">
-				<figure><img src="worldgen/baseHeight 0.png" alt="A grass world with its baseHeight set to 0.000001, with only a few pixels of grass." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 0.000001</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 0.25.png" alt="A grass world with its baseHeight set to 0.25, with the grass and some of the dirt generated." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 0.25</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 0.5.png" alt="A grass world with its baseHeight set to 0.5, showing normal terrain generation." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 0.5</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 0.75.png" alt="A grass world with its baseHeight set to 0.75, showing generation roughly squished into the second fourth down from the top of the canvas." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 0.75</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 1.png" alt="A grass world with its baseHeight set to 1, showing the entire terrain squished into a few sparse places in the upper 2 pixels of the screen." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 1</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 0.03 with gold.png" alt="A grass world with its baseHeight set to 0.03 and a 1 pixel layer of gold added, showing that baseHeight's behavior at or below 0.5 is probably a shift down and not a stretch down." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with baseHeight 0.03 and gold layer added</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.png" alt="A grass world with its baseHeight set to 0.000001, with only a few pixels of grass." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.000001</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.25.png" alt="A grass world with its baseHeight set to 0.25, with the grass and some of the dirt generated." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.25</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.5.png" alt="A grass world with its baseHeight set to 0.5, showing normal terrain generation." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.5</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.75.png" alt="A grass world with its baseHeight set to 0.75, showing generation roughly squished into the second fourth down from the top of the canvas." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.75</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 1.png" alt="A grass world with its baseHeight set to 1, showing the entire terrain squished into a few sparse places in the upper 2 pixels of the screen." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 1</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.03 with gold.png" alt="A grass world with its baseHeight set to 0.03 and a 1 pixel layer of gold added, showing that baseHeight's behavior at or below 0.5 is probably a shift down and not a stretch down." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.03 and gold layer added</figcaption></figure>
 			</div>
+
+			<br/><h1 id="layers"><code class="rounded">layers</code></h1>
+			<p>
+				<span><code class="rounded">layers</code> is an array of arrays that describes the worldgen preset's layers and elements. Each array is of the format <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersElement hyunjin">string</em>]</code> or <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersBottom hyunjin">string</em>, <em class="layersChance yeojin">real number</em>]</code>.
+				
+				<h2 class="layersBottom heejin">First argument</h2>
+				<p>
+				The first item (hereafter <code class="rounded layersBottom heejin">bottom</code><sup><a href="#footnote-1" class="footnote">1</a></sup>), is a number usually between 0 and 1. This number defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. If the <code class="rounded layersBottom heejin">bottom</code> value is 0, it will be changed to a random negative number on world generation; the height that this adds is cut off when generating a world (unless it is revealed by <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> being greater than 0.5).
+				<br/>Layers are listed topmost first, with descending <code class="rounded layersBottom heejin">bottom</code> values. Any layers deviating from this order will override the layers after them.
+				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 1 indicates the midpoint, and a value of 0 indicates the bottom of the canvas. Values below 0 will try to generate pixels below the canvas, which are cut off by the world edge, though this does fill in gaps at the bottom of the world left in by random offsets.
+				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 0.5 will define a section extending, assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of 0.5, from {1/4 above the bottom of the canvas} to {either the vertical midpoint or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (or with how layers are defined, the previous) layer}.
+			</p>
+			<div class="images" id="layersImages">
+
+			</div>
+		</div>
+
+		<br/><div id="footnotes">
+			<ol>
+				<li><span id="footnote-1">The only layer value that is given a name in the code is the second value (<code class="rounded layersElement hyunjin">bottom</code>). The others are only referred to by their indices as <code class="rounded layersBottom heejin">layer[0]</code> and <code class="rounded layersChance yeojin">layer[2]</code>.</span></li>
+			</ol>
 		</div>
 
 		<script>
@@ -132,29 +169,16 @@
 			});
 		</script>
 
-			<h1>Layers</h1>
-			<p>
-				<span>TODO: layers</span><br/>
-				<span>My perception of time is off by a factor greater than fucking 4 again, so I have to go.</span>
-			</p>
-
 		<!--
 			* `layers`: An array describing the world preset's layers.
 				- Layers are listed topmost first.
-				- The `layers` object is an array of arrays, each of the format [`float`, `string`] or [`float`, `string`, `float`].
 				- The first item (hereafter `bottom`†, a decimal number between 0 and 1) defines the lowest position, relative to the vertical midpoint of the canvas, above which the layer's element will be placed.
-					~ If the bottom value is 0, it will be changed to a random negative number on world generation, which is visible if `baseHeight` is changed.
-					~ A bottom value of 1 indicates the midpoint, and a value of 0 indicates the bottom of the canvas.
-					~ A *bottom* value of 0.5 will define a section extending from {1/4 above the bottom of the canvas} to {either the vertical midpoint or the *bottom* value of the next highest (or with how layers are defined, the previous) layer}.
-					~ Layers must be defined from highest world position (highest *bottom* value) first. Otherwise, the out-of-order layer will override the layers after it. See Addendum 1.
 					~ If two layers have the same decimal, the one that is defined first (higher) will apply except in certain cases related to a "chance" value less than 1 (see below and Addendum 1).
 				- The second item ("a string) is the name of the element that will generate.
 					~ This value cannot be an array, and nonexistent elements are ignored.
 				- The third item (also a decimal) is the chance of a pixel being placed, from 0 meaning "never" to 1 meaning "always".
 					~ If it is absent, the value is assumed to be 1.
 						< Due to how this check is implemented, a third value
-
-			† The only layer value that is given a name in the code is the second value (`element`). The others are only referred to by their indices as `layer[0]` and `layer[2]`.
 		-->
 		<br/><br/><a href="index.html"><small>go to main page</small></a>
 	</body>
