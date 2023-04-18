@@ -120,6 +120,7 @@
 	</head>
 	<body>
 		<div id="main">
+			<!--maybe you're not supposed to raw-dog HTML like this-->
 			<h1>Sandboxels worldgen</h1>
 			<p><span>This page aims to describe how Sandboxels defines worldgen presets. This system is really complicated.</span></p>
 
@@ -132,7 +133,7 @@
 			<h1 id="baseHeight"><code class="rounded baseHeight">baseHeight</code></h1>
 			<p>
 				<span><code class="rounded baseHeight">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is 0.5, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and 0.5 is used.</span></br>
-				At values below 0.5, this shifts the world downwards. At values above 0.5, it begins to squish the world up vertically.
+				<s>At values below 0.5, this shifts the world downwards. At values above 0.5, it begins to squish the world up vertically.</s>
 			</p>
 			<div class="images" id="baseHeightImages">
 				<figure><img src="worldgen/baseHeight 0.png" alt="A grass world with its baseHeight set to 0.000001, with only a few pixels of grass." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.000001</figcaption></figure>
@@ -140,19 +141,25 @@
 				<figure><img src="worldgen/baseHeight 0.5.png" alt="A grass world with its baseHeight set to 0.5, showing normal terrain generation." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.5</figcaption></figure>
 				<figure><img src="worldgen/baseHeight 0.75.png" alt="A grass world with its baseHeight set to 0.75, showing generation roughly squished into the second fourth down from the top of the canvas." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.75</figcaption></figure>
 				<figure><img src="worldgen/baseHeight 1.png" alt="A grass world with its baseHeight set to 1, showing the entire terrain squished into a few sparse places in the upper 2 pixels of the screen." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 1</figcaption></figure>
-				<figure><img src="worldgen/baseHeight 0.03 with gold.png" alt="A grass world with its baseHeight set to 0.03 and a 1 pixel layer of gold added, showing that baseHeight's behavior at or below 0.5 is probably a shift down and not a stretch down." tabindex=0 onclick="expandOnclick(this)"width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.03 and gold layer added</figcaption></figure>
 			</div>
 
 			<br/><h1 id="layers"><code class="rounded">layers</code></h1>
 			<p>
 				<span><code class="rounded">layers</code> is an array of arrays that describes the worldgen preset's layers and elements. Each array is of the format <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersElement hyunjin">string</em>]</code> or <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersBottom hyunjin">string</em>, <em class="layersChance yeojin">real number</em>]</code>.
 				
-				<h2 class="layersBottom heejin">First argument</h2>
+				<h2 class="layersBottom heejin" id="layersBottom">First argument</h2>
 				<p>
-				The first item (hereafter <code class="rounded layersBottom heejin">bottom</code><sup><a href="#footnote-1" class="footnote">1</a></sup>), is a number usually between 0 and 1. This number defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. If the <code class="rounded layersBottom heejin">bottom</code> value is 0, it will be changed to a random negative number on world generation; the height that this adds is cut off when generating a world (unless it is revealed by <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> being greater than 0.5).
-				<br/>Layers are listed topmost first, with descending <code class="rounded layersBottom heejin">bottom</code> values. Any layers deviating from this order will override the layers after them.
-				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 1 indicates the midpoint, and a value of 0 indicates the bottom of the canvas. Values below 0 will try to generate pixels below the canvas, which are cut off by the world edge, though this does fill in gaps at the bottom of the world left in by random offsets.
-				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 0.5 will define a section extending, assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of 0.5, from {1/4 above the bottom of the canvas} to {either the vertical midpoint or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (or with how layers are defined, the previous) layer}.
+				<br/>For instance, a <code class="rounded layersBottom heejin">bottom</code> value of 0.5 will define a section extending, assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of 0.5, from {1/4 above the bottom of the canvas} to {either the vertical midpoint or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (i.e. the previous) layer}.
+				The first item (hereafter <code class="rounded layersBottom heejin">bottom</code><sup><a href="#footnote-1" class="footnote">1</a></sup>) is a number, usually between 0 and 1. &nbsp; <code class="rounded layersBottom heejin">bottom</code> defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. &nbsp; If the <code class="rounded layersBottom heejin">bottom</code> value is 0, it will be changed to a random negative number on world generation.
+				<br/>Layers are listed topmost first, with descending <code class="rounded layersBottom heejin">bottom</code> values. &nbsp; Any layers deviating from this order will override the layers after them.
+				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 1 indicates the midpoint, and a value of 0 indicates the bottom of the canvas. &nbsp; Values below 0 will try to generate pixels below the canvas. &nbsp; Though these pixels do not generate because of the canvas edge, a negative value helps to fill in gaps at the bottom of the world caused by random offsets. &nbsp; The extra material generated below the world will also generated (albeit compressed vertically) if <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> is greater than <code class="rounded">0.5</code>.
+				<br/>If two layers have the same decimal, the one that is defined first (higher) will apply except in certain cases related to a <code class="rounded layersChance yeojin"><a href="#layersChance" class="yeojin">chance</a></code> value less than 1.
+
+				<h2 class="layersElement hyunjin" id="layersElement">Second argument</h2>
+				<p>
+				The second item (hereafter <code class="rounded layersElement hyunjin">element</code>) is a string. This value defines the element (such as <code class="rounded layersElement hyunjin">"dirt"</code> or <code class="rounded layersElement hyunjin">"iron"</code>) that comprises the layer.
+				<br/><code class="rounded layersElement hyunjin">element</code> cannot be an array of element names. Elements that do not exist in the game will be ignored.
+
 			</p>
 			<div class="images" id="layersImages">
 
@@ -175,9 +182,6 @@
 
 		<!--
 			* `layers`: An array describing the world preset's layers.
-				- Layers are listed topmost first.
-				- The first item (hereafter `bottom`†, a decimal number between 0 and 1) defines the lowest position, relative to the vertical midpoint of the canvas, above which the layer's element will be placed.
-					~ If two layers have the same decimal, the one that is defined first (higher) will apply except in certain cases related to a "chance" value less than 1 (see below and Addendum 1).
 				- The second item ("a string) is the name of the element that will generate.
 					~ This value cannot be an array, and nonexistent elements are ignored.
 				- The third item (also a decimal) is the chance of a pixel being placed, from 0 meaning "never" to 1 meaning "always".
