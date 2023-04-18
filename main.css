@@ -16,7 +16,7 @@ html, body, div, span, applet, object, iframe,
 p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+small, strike, strong, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -26,11 +26,21 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
-	padding: 0;
 	border: 0;
 	font-size: 100%;
+	line-height: 110%;
 	font: inherit;
 	vertical-align: baseline;
+}
+
+sup {
+	font-size: 80%;
+	vertical-align: super;
+}
+
+sub {
+	font-size: 80%;
+	vertical-align: sub;
 }
 
 h1, h2, h3, h4, h5, h6, strong {
@@ -71,8 +81,11 @@ body {
 	line-height: 1;
 	padding: 0.5vw;
 }
-ol, ul {
-	list-style: none;
+ol li {
+	list-style-type: decimal;
+}
+ul li {
+	list-style-type: disc;
 }
 blockquote, q {
 	quotes: none;
@@ -101,6 +114,10 @@ input, textarea {
 	font-family: 'Gamja Flower', "Courier New", Courier, "courier new", courier, monospace;
 	font-size: 80%;
 	line-height: 90%;
+}
+
+input[type="file"] {
+	background-color: unset;
 }
 
 @supports not (-webkit-touch-callout: none) {
