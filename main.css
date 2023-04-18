@@ -1,7 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 
+@font-face {
+    font-family: 'Comic Mono';
+    src: url('bin/comic-mono/comicmono-webfont.eot');
+    src: url('bin/comic-mono/comicmono-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bin/comic-mono/comicmono-webfont.woff2') format('woff2'),
+         url('bin/comic-mono/comicmono-webfont.woff') format('woff'),
+         url('bin/comic-mono/comicmono-webfont.ttf') format('truetype'),
+         url('bin/comic-mono/comicmono-webfont.svg#Comic%20Mono') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body, div, span, applet, object, iframe,
+p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 h1, h2, h3, h4, h5, h6, strong {
        font-weight: 500;
+	   line-height: 50%;
+}
+
+h6 {
+	font-size: 60%;
+}
+
+h5 {
+	font-size: 90%;
+}
+
+h4 {
+	font-size: 100%;
+}
+
+h3 {
+	font-size: 120%;
+}
+
+h2 {
+	font-size: 140%;
+}
+
+h1 {
+	font-size: 160%;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	padding: 0.5vw;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 body {
@@ -11,6 +94,45 @@ body {
 	font-weight: normal;
 	background-color: black;
 	color: white;
+}
+
+input, textarea {
+	background-color: #ffe0ff;
+	font-family: 'Gamja Flower', "Courier New", Courier, "courier new", courier, monospace;
+	font-size: 80%;
+	line-height: 90%;
+}
+
+@supports not (-webkit-touch-callout: none) {
+	button {
+		font-family: 'Comic Mono', "Courier New", Courier, "courier new", courier, monospace;
+		font-size: 60%;
+		line-height: 105%;
+		color: #111;
+		background-color: #ffccff;
+		border: 1px solid #aa77aa;
+		
+	}
+}
+
+code {
+	font-family: 'Comic Mono', "Courier New", Courier, "courier new", courier, monospace;
+	font-size: 70%;
+}
+
+pre {
+    font-size: 70%;
+    line-height: 115%;
+}
+
+.rounded {
+    background: #222;
+    border-radius: 0.25em;
+    padding: 2px;
+}
+
+code.rounded {
+	padding: 1px;
 }
 
 @keyframes loonaonethird {
