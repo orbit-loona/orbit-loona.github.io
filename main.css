@@ -33,6 +33,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+i, em {
+	font-style: oblique;
+}
+
 sup {
 	font-size: 80%;
 	vertical-align: super;
@@ -43,9 +47,13 @@ sub {
 	vertical-align: sub;
 }
 
-h1, h2, h3, h4, h5, h6, strong {
+h1, h2, h3, h4, h5, h6 {
        font-weight: 500;
 	   line-height: 50%;
+}
+
+strong, b {
+       font-weight: 500;
 }
 
 h6 {
