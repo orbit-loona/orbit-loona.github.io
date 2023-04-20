@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>an orbit's cool web page</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Unofficial Sandboxels worldgen documentation" />
+		<meta property="og:url" content="https://orbit-loona.github.io/sandboxels-worldgen.html" />
+		<meta property="og:description" content="A description of the rabbit hole that is Sandboxels's worldgen system." />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://orbit-loona.github.io/bin/ot12.png" />
+		<meta property="og:image:width" content="173" />
+		<meta property="og:image:height" content="130" />
+		<meta property="og:image:alt" content="Loona OT12" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/ot12.png" />
+		<meta name="twitter:title" content="Unofficial Sandboxels worldgen documentation" />
+		<meta name="twitter:description" content="A description of the rabbit hole that is Sandboxels's worldgen system." />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<style>
+			code, pre {
+				font-family: "Comic Mono";
+			}
+			
+			pre.smallPre {
+				font-size: 60%;
+			}
+			
+			.expanded pre.smallPre {
+				font-size: 70%;
+			}
+			
+			/*
+			img {
+				border: 1px solid white;
+			}
+
+			img:focus {
+				border: 2px solid yellow;
+			}
+			*/
+			
+			figure {
+				display:table;
+				border: 1px solid white;
+			}
+
+			figure img {
+				border: 1px solid #ffffff7f;
+			}
+			
+			figure img:focus {
+				border: 2px solid yellow;
+			}
+			
+			figcaption.expanded {
+				width: 100%;
+				word-wrap: normal;
+				font-size: 80%;
+				text-align: center;
+			}
+			
+			figcaption {
+				width: 250px;
+				word-wrap: normal;
+				font-size: 80%;
+				text-align: center;
+			}
+			
+			figcaption.smallCaption {
+				width: 250px;
+				word-wrap: normal;
+				font-size: 64%;
+				text-align: center;
+			}
+			
+			figcaption.smallCaption.expanded {
+				width: 100%;
+				max-width: 1000px;
+				word-wrap: normal;
+				font-size: 80%;
+				text-align: center;
+			}
+			
+			figcaption.size2 {
+				width: 159px;
+			}
+			
+			figcaption.size2.expanded {
+				width: 636px;
+			}
+			
+			figcaption pre {
+				text-align: left;
+			}
+			
+			img.expanded {
+				width: unset;
+				height: unset;
+			}
+
+			.images {
+				display: flex;
+				flex-wrap: wrap;
+				padding-left: 0;
+			}
+
+			.images figure {
+				flex: 0 0;
+			}
+			
+			a.footnote, a.footnote:visited {
+				text-decoration: underline;
+				color: #0ff;
+			}
+
+			:target {
+				background-color: #ffff002f;
+				border: 1px solid yellow;
+				padding: 8px;
+			}
+			
+			:target .rounded {
+				background: #550;
+			}
+			
+			li:target {
+				background-color: #ffff002f;
+				border: 1px solid yellow;
+				padding: 4px;
+			}
+			
+			li:target::marker {
+				color: yellow;
+			}
+			
+			p br {
+				height: 8px;
+				display: block;
+				content: "";
+				line-height: 8px;
+			}
+
+			.baseHeight, .baseHeight:visited {
+				color: #aff;
+			}
+			
+			ol, ul {
+				padding-left: 40px;
+			}
+			
+			#corrigenda {
+				padding-left: 20px;
+			}
+		</style>
+		<script>
+			function getSiblingNodes(element,returnArray=true) {
+				var siblings = element.parentElement.childNodes;
+				return returnArray ? Array.from(siblings) : siblings;
+			};
+		
+			function toggleClass(element,className) {
+				var cl = element.classList;
+				cl.contains(className) ? cl.remove(className) : cl.add(className);
+			};
+			
+			function expandOnclick(element) {
+				var siblings = getSiblingNodes(element,true);
+				toggleClass(siblings[0],"expanded");
+				var firstSiblingIsExpanded = siblings[0].classList.contains("expanded");
+				var method = firstSiblingIsExpanded ? "add" : "remove";
+				for(var i in siblings) {
+					siblings[i].classList[method]("expanded");
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="main">
+			<!--maybe you're not supposed to raw-dog HTML like this-->
+			<h1>Sandboxels worldgen</h1>
+			<p><span>This page aims to describe how Sandboxels defines worldgen presets. This system is really complicated.</span></p>
+
+			<h2>Terminology</h2>
+			<p>
+				<span><em>Real number</em>: A number that may have a decimal, such as <code class="rounded">0.1</code> or <code class="rounded">36.7</code>.</span><br/>
+				<span><em>Integer</em>: A number without a decimal, such as <code class="rounded">0</code> or <code class="rounded">12</code>.</span>
+			</p>
+
+			<h1 id="baseHeight"><code class="rounded baseHeight">baseHeight</code></h1>
+			<p>
+				<span><code class="rounded baseHeight">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is <code class="rounded">0.5</code>, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and <code class="rounded">0.5</code> is used.</span></br> Values above or below 0.5 squish the world upwards and stretch it downwards, respectively.
+			</p>
+			<div class="images" id="baseHeightImages">
+				<figure><img src="worldgen/baseHeight 0.png" alt="A grass world with its baseHeight set to 0.000001, with only a few pixels of grass." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.000001</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.25.png" alt="A grass world with its baseHeight set to 0.25, with the grass and some of the dirt generated." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.25</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.5.png" alt="A grass world with its baseHeight set to 0.5, showing normal terrain generation." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.5</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.75 bottom -0.0000001.png" alt="A grass world with its baseHeight set to 0.75 and a non-zero lowermost bottom, showing generation roughly squished into the second fourth down from the top of the canvas." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.75 and the bottom layer's <code class="rounded layersBottom heejin"><a href="#layersBottom" class="heejin">bottom</a></code> set to -0.0000001</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 0.75 bottom 0.png" alt="A grass world with its baseHeight set to 0.75, showing generation roughly squished into the second fourth down from the top of the canvas, and the randomized negative lowermost bottom's added material extending the lowermost layer." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption class="smallCaption">Grass world with <code class="rounded baseHeight">baseHeight</code> 0.75 and the bottom layer's <code class="rounded layersBottom heejin">bottom</code> left at 0, becoming a negative value and creating extra basalt below the world which is brought into existence by the <code class="rounded baseHeight">baseHeight</code>.</figcaption></figure>
+				<figure><img src="worldgen/baseHeight 1.png" alt="A grass world with its baseHeight set to 1, showing the entire terrain squished into a few sparse places in the upper 2 pixels of the screen." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 1</figcaption></figure>
+			</div>
+
+			<br/><h1 id="layers"><code class="rounded">layers</code></h1>
+			<p>
+				<span><code class="rounded">layers</code> is an array of arrays that describes the worldgen preset's layers and elements. Each array is of the format <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersElement hyunjin">string</em>]</code> or <code class="rounded">[<em class="layersBottom heejin">real number</em>, <em class="layersElement hyunjin">string</em>, <em class="layersChance yeojin">real number</em>]</code> (hereafter <code class="rounded layersBottom heejin"><a class="rounded heejin" href="#layersBottom">bottom</a></code>, <code class="rounded layersElement hyunjin"><a class="rounded hyunjin" href="#layersElement">element</a></code>, and <code class="rounded layersChance yeojin"><a class="rounded yeojin" href="#layersChance">chance</a></code><sup><a href="#footnote-1" class="footnote">1</a></sup>)</code>.
+				
+				<h2 class="layersBottom heejin" id="layersBottom">bottom</h2>
+				<p>
+				The first item in the array is a number, usually between 0 and 1. &nbsp; <code class="rounded layersBottom heejin">bottom</code> defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. &nbsp; If the <code class="rounded layersBottom heejin">bottom</code> value is <code class="rounded">0</code>, it will be changed to a random negative number on world generation.
+				<br/>For instance (assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of <code class="rounded">0.5</code>), a <code class="rounded layersBottom heejin">bottom</code> value of <code class="rounded">0.5</code> will define a section extending from <span class="vivi">{1/4 above the bottom of the canvas}</span> to <span class="vivi">{either the middle height of the canvas, or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (i.e. the previous) layer}</span>; likewise, a <code class="rounded layersBottom heejin">bottom</code> value of <code class="rounded">1</code> would indicate a layer that starts and ends at the middle of the canvas (though such a layer wouldn't do anything), and a value of <code class="rounded">0</code> would indicate a layer that starts from the bottom of the canvas (though the value would be changed as described below).
+				<br/><code class="rounded layersBottom heejin">bottom</code> values below <code class="rounded">0</code> will try to generate pixels below the canvas. &nbsp; Though these pixels do not generate because of the canvas edge, a negative value helps to fill in gaps at the bottom of the world caused by the random height offsets. &nbsp; The extra material generated below the world will also generate (albeit compressed vertically) if <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> is greater than 0.5.
+				<br/>Layers are listed topmost first, with descending <code class="rounded layersBottom heejin">bottom</code> values. &nbsp; Any layers deviating from this order will override the layers after them.
+				<br/>If two layers have the same decimal, the one that is defined first (higher) will apply, but if that layer has a <code class="rounded layersChance yeojin">chance</code> value less than 1, its pixels will have a corresponding random chance of being placed over the layer below.
+				</p>
+
+				<h2 class="layersElement hyunjin" id="layersElement">element</h2>
+				<p>
+				The second item is a string. This value defines the element (such as <code class="rounded">"dirt"</code> or <code class="rounded">"iron"</code>) that comprises the layer.
+				<br/><code class="rounded layersElement hyunjin">element</code> <em>cannot</em> be an array of element names. Elements that do not exist in the game will be ignored.
+				</p>
+
+				<h2 class="layersChance yeojin" id="layersChance">chance</h2>
+				<p>
+				The third item is a real number between 0 and 1. This value defines the probability that a layer's pixels will generate, such as <code class="rounded">0</code> (never), <code class="rounded">0.3</code> (30% of the time) or <code class="rounded">1</code> (always).<br/>
+				The default value is <code class="rounded">1</code>. (The game's code also uses <code class="rounded">||</code> to check for a nonexistent value, so a value of <code class="rounded">0</code> is ignored and treated as <code class="rounded">1</code>.)
+				</p>
+
+				<br/><span style="display: block;">The elements "red", "teal", "pink", "lime", and "orange" were modded in specifically for these images.
+				<div class="images" id="layersImages">
+					<figure><img src="worldgen/bottoms 0.5_lime 0_teal.png" alt="A world generated with the layers [[0.5, 'lime'], [0, 'teal']], resulting in a world with an upper lime half and a lower teal half." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded">
+[
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre>generating with an upper lime half and a lower teal half.
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_red 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'red'], [0, 'teal']], resulting in a world with an upper lime half and a lower teal half." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> generating with (from the top down) lime, pink, red, and teal layers, each 1/4 of the world's thickness.
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_lime 0_pink 0.25_red 0.5_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0, 'pink'], [0.25, 'red'], [0.5, 'teal']], resulting in the pink layer, which is out of descending order, replacing all of the layers after it." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> where the pink layer, which is out of order, replaces all of the layers after it (red and teal).
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_orange_0.5 0.25_red 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'orange', 0.5], [0.25, 'red'], [0, 'teal']], resulting in the orange layer generating over the red layer and replacing 50% of its pixels." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded smallPre">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.5</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0.0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> where the orange layer, which has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer after it and has a <code class="rounded layersChance yeojin">chance</code> value of <code class="rounded">0.5</code>. The orange layer randomly replaces half of the pixels from <span class="vivi">{the red layer below it}</span> with orange pixels.
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_red 0.25_orange_0.5 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'red'], [0.25, 'orange', 0.5], [0, 'teal']], resulting in the orange layer doing nothing because the teal layer it is now over has already ended." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded smallPre">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.5</span>],
+   [<span class="layersBottom heejin">0.0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> where the orange layer with <code class="rounded layersChance yeojin">chance</code> <code class="rounded">0.5</code> has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer, but is <em>below</em> it in the array. The orange layer thus applies to the teal layer, but it doesn't do anything because the teal layer already ends at 0.25; the orange layer here has no effect.
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_red 0.15_orange_0.5 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'red'], [0.15, 'orange', 0.5], [0, 'teal']], resulting in the orange layer replacing half of the teal pixels only in the section of teal whose relative height ranges from 0.15 to 0.25." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded smallPre">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0.15</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.5</span>],
+   [<span class="layersBottom heejin">0.0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> where the orange layer with a <code class="rounded layersChance yeojin">chance</code> of 0.5, which is over the teal layer but has a <code class="rounded layersBottom heejin">bottom</code> value of 0.15, is only applied to the range of teal from 0.15 up to the start of red at 0.25.
+					</figcaption></figure>
+					<figure><img src="worldgen/bottoms 0.75_orange_0.4 0.75_lime 0.5_orange_0.2 0.5_pink 0.25_orange_0.1 0.25_red 0_orange_0.05 0_teal.png" alt="A world generated with the layers [[0.75, 'orange', 0.4], [0.75, 'lime], [0.5, 'orange', 0.2], [0.5, 'pink], [0.25, 'orange', 0.1], [0.25, 'red], [0, 'orange', 0.05], [0, 'teal]], resulting in each layer down having half as may orange pixels as the one above it." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
+						A world generated with the layers
+						<pre class="rounded smallPre">
+[
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.4</span>],
+   [<span class="layersBottom heejin">0.75</span>, <span class="layersElement hyunjin">'lime'</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.2</span>],
+   [<span class="layersBottom heejin">0.5</span>, <span class="layersElement hyunjin">'pink'</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.1</span>],
+   [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
+   [<span class="layersBottom heejin">0</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.05</span>],
+   [<span class="layersBottom heejin">0</span>, <span class="layersElement hyunjin">'teal'</span>]
+]</pre> where each layer has an orange layer above it, each with a different (lower) <code class="rounded layersChance yeojin">chance</code>. The concentration of orange pixels decreases with each layer down.
+					</figcaption></figure>
+				</div>
+
+		</div>
+
+		<br/><div id="bottom">
+			<div id="footnotes">
+				<ol>
+					<li id="footnote-1">The only layer value that is given any name in the code is the second value (<code class="rounded layersElement hyunjin">element</code>). The others are only referred to by their indices as <code class="rounded layersBottom heejin">layer[0]</code> and <code class="rounded layersChance yeojin">layer[2]</code>.</li>
+				</ol>
+			</div>
+			<br/>
+			<div id="corrigenda">
+				This page previously stated that <code class="rounded baseHeight">baseHeight</code> values below 0.5 merely shift the world down. That is incorrect, and they actually stretch it downward.
+			</div>
+		</div>
+
+		<script>
+			document.body.addEventListener('keydown', function (e) {
+				if([" ","Enter"].includes(e.key) && document.activeElement.tagName.toLowerCase() == "img") {
+					toggleClass(document.activeElement,"expanded");
+				};
+			});
+		</script>
+
+		<!--
+			* `layers`: An array describing the world preset's layers.
+				- The second item ("a string) is the name of the element that will generate.
+					~ This value cannot be an array, and nonexistent elements are ignored.
+				- The third item (also a decimal) is the chance of a pixel being placed, from 0 meaning "never" to 1 meaning "always".
+					~ If it is absent, the value is assumed to be 1.
+						< Due to how this check is implemented, a third value
+		-->
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+	</body>
+</html>
