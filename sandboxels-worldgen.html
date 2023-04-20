@@ -192,7 +192,7 @@
 
 			<h1 id="baseHeight"><code class="rounded baseHeight">baseHeight</code></h1>
 			<p>
-				<span><code class="rounded baseHeight">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is 0.5, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and 0.5 is used.</span></br> Values above or below 0.5 squish the world upwards and stretch it downwards, respectively.
+				<span><code class="rounded baseHeight">baseHeight</code> is a real number that nominally defines the height of the world's bottom relative to the height of the canvas. The default value is <code class="rounded">0.5</code>, which is assumed if it is not specified (due to how this is checked, a value of <code class="rounded">0</code> is treated as an unspecified value and <code class="rounded">0.5</code> is used.</span></br> Values above or below 0.5 squish the world upwards and stretch it downwards, respectively.
 			</p>
 			<div class="images" id="baseHeightImages">
 				<figure><img src="worldgen/baseHeight 0.png" alt="A grass world with its baseHeight set to 0.000001, with only a few pixels of grass." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>Grass world with <code class="rounded baseHeight">baseHeight</code> 0.000001</figcaption></figure>
@@ -209,23 +209,23 @@
 				
 				<h2 class="layersBottom heejin" id="layersBottom">bottom</h2>
 				<p>
-				The first item in the array is a number, usually between 0 and 1. &nbsp; <code class="rounded layersBottom heejin">bottom</code> defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. &nbsp; If the <code class="rounded layersBottom heejin">bottom</code> value is 0, it will be changed to a random negative number on world generation.
-				<br/>For instance, a <code class="rounded layersBottom heejin">bottom</code> value of 0.5 will define a section extending, assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of 0.5, from {1/4 above the bottom of the canvas} to {either the vertical midpoint or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (i.e. the previous) layer}.
+				The first item in the array is a number, usually between 0 and 1. &nbsp; <code class="rounded layersBottom heejin">bottom</code> defines the bottom start of the layer, or the lowest position (relative to the vertical midpoint of the canvas) above which the layer's element will be placed. &nbsp; If the <code class="rounded layersBottom heejin">bottom</code> value is <code class="rounded">0</code>, it will be changed to a random negative number on world generation.
+				<br/>For instance (assuming a <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> of <code class="rounded">0.5</code>), a <code class="rounded layersBottom heejin">bottom</code> value of <code class="rounded">0.5</code> will define a section extending from <span class="vivi">{1/4 above the bottom of the canvas}</span> to <span class="vivi">{either the middle height of the canvas, or the <code class="rounded layersBottom heejin">bottom</code> value of the next highest (i.e. the previous) layer}</span>; likewise, a <code class="rounded layersBottom heejin">bottom</code> value of <code class="rounded">1</code> would indicate a layer that starts and ends at the middle of the canvas (though such a layer wouldn't do anything), and a value of <code class="rounded">0</code> would indicate a layer that starts from the bottom of the canvas (though the value would be changed as described below).
+				<br/><code class="rounded layersBottom heejin">bottom</code> values below <code class="rounded">0</code> will try to generate pixels below the canvas. &nbsp; Though these pixels do not generate because of the canvas edge, a negative value helps to fill in gaps at the bottom of the world caused by the random height offsets. &nbsp; The extra material generated below the world will also generate (albeit compressed vertically) if <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> is greater than 0.5.
 				<br/>Layers are listed topmost first, with descending <code class="rounded layersBottom heejin">bottom</code> values. &nbsp; Any layers deviating from this order will override the layers after them.
-				<br/>A <code class="rounded layersBottom heejin">bottom</code> value of 1 indicates the midpoint, and a value of 0 indicates the bottom of the canvas. &nbsp; <code class="rounded layersBottom heejin">bottom</code> values below 0 will try to generate pixels below the canvas. &nbsp; Though these pixels do not generate because of the canvas edge, a negative value helps to fill in gaps at the bottom of the world caused by the random height offsets. &nbsp; The extra material generated below the world will also generate (albeit compressed vertically) if <code class="rounded"><a href="#baseHeight" class="baseHeight">baseHeight</a></code> is greater than <code class="rounded">0.5</code>.
-				<br/>If two layers have the same decimal, the one that is defined first (higher) will apply; if the first layer with the decimal has a <code class="rounded layersChance yeojin">chance</code> value less than 1, its pixels will have a corresponding random chance of being placed over the layer below.
+				<br/>If two layers have the same decimal, the one that is defined first (higher) will apply, but if that layer has a <code class="rounded layersChance yeojin">chance</code> value less than 1, its pixels will have a corresponding random chance of being placed over the layer below.
 				</p>
 
 				<h2 class="layersElement hyunjin" id="layersElement">element</h2>
 				<p>
-				The second item is a string. This value defines the element (such as <code class="rounded layersElement hyunjin">"dirt"</code> or <code class="rounded layersElement hyunjin">"iron"</code>) that comprises the layer.
+				The second item is a string. This value defines the element (such as <code class="rounded">"dirt"</code> or <code class="rounded">"iron"</code>) that comprises the layer.
 				<br/><code class="rounded layersElement hyunjin">element</code> <em>cannot</em> be an array of element names. Elements that do not exist in the game will be ignored.
 				</p>
 
 				<h2 class="layersChance yeojin" id="layersChance">chance</h2>
 				<p>
-				The third item is a real number between 0 and 1. This value defines the probability that a layer's pixels will generate, such as 0 (never), 0.3 (30% of the time) or 1 (always).<br/>
-				The default value is 1. (This is also checked with <code class="rounded">||</code>, so a value of <code class="rounded">0</code> is ignored.)
+				The third item is a real number between 0 and 1. This value defines the probability that a layer's pixels will generate, such as <code class="rounded">0</code> (never), <code class="rounded">0.3</code> (30% of the time) or <code class="rounded">1</code> (always).<br/>
+				The default value is <code class="rounded">1</code>. (The game's code also uses <code class="rounded">||</code> to check for a nonexistent value, so a value of <code class="rounded">0</code> is ignored and treated as <code class="rounded">1</code>.)
 				</p>
 
 				<br/><span style="display: block;">The elements "red", "teal", "pink", "lime", and "orange" were modded in specifically for these images.
@@ -267,7 +267,7 @@
    [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.5</span>],
    [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
    [<span class="layersBottom heejin">0.0</span>, <span class="layersElement hyunjin">'teal'</span>]
-]</pre> where the orange layer, which has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer after it and has a <code class="rounded layersChance yeojin">chance</code> value of 0.5, randomly replaces half of the red layer's pixels with orange.
+]</pre> where the orange layer, which has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer after it and has a <code class="rounded layersChance yeojin">chance</code> value of <code class="rounded">0.5</code>. The orange layer randomly replaces half of the pixels from <span class="vivi">{the red layer below it}</span> with orange pixels.
 					</figcaption></figure>
 					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_red 0.25_orange_0.5 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'red'], [0.25, 'orange', 0.5], [0, 'teal']], resulting in the orange layer doing nothing because the teal layer it is now over has already ended." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
 						A world generated with the layers
@@ -278,7 +278,7 @@
    [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'red'</span>],
    [<span class="layersBottom heejin">0.25</span>, <span class="layersElement hyunjin">'orange'</span>, <span class="layersChance yeojin">0.5</span>],
    [<span class="layersBottom heejin">0.0</span>, <span class="layersElement hyunjin">'teal'</span>]
-]</pre> where the orange layer with <code class="rounded layersChance yeojin">chance</code> 0.5 has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer but is <em>below</em> it in the array. The orange layer thus applies to the teal layer, but it doesn't do anything because the teal layer already ends at 0.25; the orange layer here has no effect.
+]</pre> where the orange layer with <code class="rounded layersChance yeojin">chance</code> <code class="rounded">0.5</code> has the same <code class="rounded layersBottom heejin">bottom</code> value as the red layer, but is <em>below</em> it in the array. The orange layer thus applies to the teal layer, but it doesn't do anything because the teal layer already ends at 0.25; the orange layer here has no effect.
 					</figcaption></figure>
 					<figure><img src="worldgen/bottoms 0.75_lime 0.5_pink 0.25_red 0.15_orange_0.5 0_teal.png" alt="A world generated with the layers [[0.75, 'lime'], [0.5, 'pink'], [0.25, 'red'], [0.15, 'orange', 0.5], [0, 'teal']], resulting in the orange layer replacing half of the teal pixels only in the section of teal whose relative height ranges from 0.15 to 0.25." tabindex=0 onclick="expandOnclick(this)" width="159" height="123"/><figcaption class="size2">
 						A world generated with the layers
