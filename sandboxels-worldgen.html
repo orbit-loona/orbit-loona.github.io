@@ -218,14 +218,14 @@
 
 				<h2 class="layersElement hyunjin" id="layersElement">element</h2>
 				<p>
-				The second item is a string. This value defines the element (such as <code class="rounded">"dirt"</code> or <code class="rounded">"iron"</code>) that comprises the layer.
-				<br/><code class="rounded layersElement hyunjin">element</code> <em>cannot</em> be an array of element names. Elements that do not exist in the game will be ignored.
+				The second item is a string. &nbsp; This value defines the element (such as <code class="rounded">"dirt"</code> or <code class="rounded">"iron"</code>) that comprises the layer.
+				<br/><code class="rounded layersElement hyunjin">element</code> <em>cannot</em> be an array of element names. &nbsp; Elements that do not exist in the game will be ignored.
 				</p>
 
 				<h2 class="layersChance yeojin" id="layersChance">chance</h2>
 				<p>
-				The third item is a real number between 0 and 1. This value defines the probability that a layer's pixels will generate, such as <code class="rounded">0</code> (never), <code class="rounded">0.3</code> (30% of the time) or <code class="rounded">1</code> (always).<br/>
-				The default value is <code class="rounded">1</code>. (The game's code also uses <code class="rounded">||</code> to check for a nonexistent value, so a value of <code class="rounded">0</code> is ignored and treated as <code class="rounded">1</code>.)
+				The third item is a real number between 0 and 1. &nbsp; This value defines the probability that a layer's pixels will generate, such as <code class="rounded">0</code> (never), <code class="rounded">0.3</code> (30% of the time) or <code class="rounded">1</code> (always).<br/>
+				The default value is <code class="rounded">1</code>.  &nbsp; (The game's code also uses <code class="rounded">||</code> to check for a nonexistent value, so a value of <code class="rounded">0</code> is ignored and treated as <code class="rounded">1</code>.)
 				</p>
 
 				<br/><span style="display: block;">The elements "red", "teal", "pink", "lime", and "orange" were modded in specifically for these images.
@@ -307,12 +307,51 @@
 					</figcaption></figure>
 				</div>
 
+			<h1><code id="complexity" class="rounded complexity kimlip">complexity</code> and <code id="complexity" class="rounded heightVariance jinsoul">heightVariance</code></h1>
+			<p>
+				<span><code class="rounded complexity kimlip">complexity</code> and <code class="rounded heightVariance jinsoul">heightVariance</code> are values that determine the roughness/unevenness of the world. &nbsp; <code class="rounded complexity kimlip">complexity</code> is an integer<sup><a href="#footnote-2" class="footnote">2</a></sup> with a default value of <code class="rounded">20</code>, and <code class="rounded heightVariance jinsoul">heightVariance</code> is a real number with a default value of <code class="rounded">0.5</code>.
+				<br/>Complexity determines how many times to iterate the random height offsets, and heightVariance determines the size of these offsets.
+			</p>
+			<div class="images" id="heightVarianceComplexityImages">
+				<figure><img src="worldgen/hvc/hv 1e-23 comp 20.png" alt="A world with heightVariance of 10 to the negative 23rd power. It is perfectly flat." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 10<span style="font-size:0"> to the </span><sup>-23</sup> and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 10.png" alt="A world with heightVariance 0.2 and complexity 10. It is slightly rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 10</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 20.png" alt="A world with heightVariance 0.2 and complexity 20. It is slightly rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 50.png" alt="A world with heightVariance 0.2 and complexity 50. It is slightly rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 50</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 100.png" alt="A world with heightVariance 0.2 and complexity 100. It is somewhat rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 100</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 200.png" alt="A world with heightVariance 0.2 and complexity 200. It is rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 200</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.2 comp 500.png" alt="A world with heightVariance 0.2 and complexity 500. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.2 and complexity 500</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 10.png" alt="A world with heightVariance 0.5 and complexity 10. It is somewhat rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 10</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 20.png" alt="A world with heightVariance 0.5 and complexity 20. It is rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 50.png" alt="A world with heightVariance 0.5 and complexity 50. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 50</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 100.png" alt="A world with heightVariance 0.5 and complexity 100. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 100</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 200.png" alt="A world with heightVariance 0.5 and complexity 200. It is extremely rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 200</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.5 comp 500.png" alt="A world with heightVariance 0.5 and complexity 500. It is extremely rough, to the point of being covered erratically in long, thin spikes and holes." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.5 and complexity 500</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 10.png" alt="A world with heightVariance 0.7 and complexity 10. It is somewhat rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 10</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 20.png" alt="A world with heightVariance 0.7 and complexity 20. It is between the 0.5/20 world and the 0.5/50 world in terms of roughness." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 50.png" alt="A world with heightVariance 0.7 and complexity 50. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 50</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 100.png" alt="A world with heightVariance 0.7 and complexity 100. It is about as rough as the 0.5/200 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 100</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 200.png" alt="A world with heightVariance 0.7 and complexity 200. It is about as rough as the 0.5/500 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 200</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 0.7 comp 500.png" alt="A world with heightVariance 0.7 and complexity 500. It is extremely rough, even more so than the 0.5/500 world; it is covered in long, thin spikes extending as high as 1/8 of the canvas, and these spikes often surround deep, single-pixel holes." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 0.7 and complexity 500</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 10.png" alt="A world with heightVariance 1.0 and complexity 10. It is about as rough as the 0.2/200 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 10</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 20.png" alt="A world with heightVariance 1.0 and complexity 20. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 50.png" alt="A world with heightVariance 1.0 and complexity 50. It is very rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 50</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 100.png" alt="A world with heightVariance 1.0 and complexity 100. It is extremely rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 100</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 200.png" alt="A world with heightVariance 1.0 and complexity 200. It is between the 0.7/200 and 0.7/500 worlds in roughness, with many spikes and even more holes." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 200</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.0 comp 500.png" alt="A world with heightVariance 1.0 and complexity 500. It has huge spikes, one 1/4 of the canvas in height. The ground is almost entirely tall spikes and deep holes, to the point where it is difficult to regard it as ground. Several spikes often appear next to each other and make a bigger spike." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.0 and complexity 500</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 10.png" alt="A world with heightVariance 1.5 and complexity 10. It is slightly rougher than the 0.5/100 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 10</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 20.png" alt="A world with heightVariance 1.5 and complexity 20. It is extremely rough." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 20</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 50.png" alt="A world with heightVariance 1.5 and complexity 50. It is slightly rougher than the 1.0/100 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 50</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 100.png" alt="A world with heightVariance 1.5 and complexity 100. It is slightly rougher than the 1.0/200 world." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 100</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 200.png" alt="A world with heightVariance 1.5 and complexity 200. It is rougher than the 1.0/500 world, with even more spikes which are often close together and separated by deep holes." tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 200</figcaption></figure>
+				<figure><img src="worldgen/hvc/hv 1.5 comp 500.png" alt="A world with heightVariance 1.5 and complexity 500. It is even rougher, with nothing but spikes and holes which sometimes approach the vertical edges of the canvas. Is this even ground anymore?" tabindex=0 onclick="expandOnclick(this)" width="250" height="125"/><figcaption>A world with heightVariance 1.5 and complexity 500</figcaption></figure>
+			</div>
 		</div>
 
 		<br/><div id="bottom">
 			<div id="footnotes">
 				<ol>
 					<li id="footnote-1">The only layer value that is given any name in the code is the second value (<code class="rounded layersElement hyunjin">element</code>). The others are only referred to by their indices as <code class="rounded layersBottom heejin">layer[0]</code> and <code class="rounded layersChance yeojin">layer[2]</code>.</li>
+					<li id="footnote-2"><code class="rounded complexity kimlip">complexity</code> is used as the bound in a for loop incremented by 1, so a real <code class="rounded complexity kimlip">complexity</code> would be equivalent to the next highest integer (e.g. <code class="rounded">20.1</code> would be equivalent to <code class="rounded">21</code>).</li>
 				</ol>
 			</div>
 			<br/>
