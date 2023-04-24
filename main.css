@@ -77,7 +77,7 @@ h2 {
 }
 
 h1 {
-	font-size: 160%;
+	font-size: 180%;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -146,6 +146,7 @@ code {
 }
 
 pre {
+	font-family: 'Comic Mono', "Courier New", Courier, "courier new", courier, monospace;
     font-size: 70%;
     line-height: 115%;
 }
