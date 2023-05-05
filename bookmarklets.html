@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--Reddit non-preview image appender bookmarklet--><title>JavaScript bookmarklets</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Bookmarklets" />
+		<meta property="og:url" content="https://orbit-loona.github.io/bookmarklets.html" />
+		<meta property="og:description" content="Because running JavaScript from random sites on the web is fun." />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://orbit-loona.github.io/bin/1337-pwned.png" />
+		<meta property="og:image:width" content="57" />
+		<meta property="og:image:height" content="57" />
+		<meta property="og:image:alt" content="image" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/1337-pwned.png" />
+		<meta name="twitter:title" content="Bookmarklets" />
+		<meta name="twitter:description" content="Because running JavaScript from random sites on the web is fun." />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<style>
+			.rounded {
+				background: #141414;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Eval bookmarklet</h1>
+		<p>This bookmarklet lets you run a line of JS without the console and see the result.<br/>
+		<em></em></p><br/>
+		
+		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><span class="heejin">javascript:</span><span class="vivi">longAlert ??= function(textIn) { text = textIn.match(/[\s\S]{1,1000}/g) || [""]; for(var i in text) { i = parseInt(i); var isLast = (i == text.length - 1); if(isLast) { alert(text[i]) } else { var showNext = confirm(text[i]); if(!showNext) { break } } } }; BigInt.prototype.toJSON ??= function() { return `&lt;BigInt ${this.toString()}&gt;` }; var evalStatement = prompt("Enter JavaScript"); if(evalStatement !== null) { var evalResult; try { evalResult = eval(evalStatement) } catch(error) { evalResult = error }; var resultString = evalResult.toString(); longAlert(resultString) };</span></code>
+
+
+		<h1>YouTube speed changer</h1>
+		<p>This bookmarklet lets you set the speed of a YouTube playback within the range [0,16]. It uses <a href="https://dev.to/walternascimentobarroso/youtube-speed-control-with-javascript-4mfb">code from Walter Nascimento</a>.<br/>
+		<em></em></p><br/>
+		
+		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><span class="heejin">javascript:</span><span class="vivi">var speed = prompt("Enter video speed"); if(speed !== null && speed !== "") { var speedFloat = parseFloat(speed); if(isNaN(speedFloat)) { alert("Please enter a valid speed") } else { if(speedFloat &gt;= 0 && speedFloat &lt;= 16) { document.getElementsByClassName("video-stream html5-main-video")[0].playbackRate = speedFloat; alert(`Speed set to ${speedFloat}`); } else { alert("Speed is out of bounds"); } } };</span></code>
+
+
+		<div style="opacity:0.9; font-size: 94%">
+		<h1><!--Get a Reddit post's non-preview images and place them in the body-->Change preview.redd.it image URLs to i.redd.it</h1>
+		<p><!--This bookmarklet tries to find a Reddit post's image preview URLs and place the images on the page as i.redd.it URLs so that you can right-click save those less-compressed versions. Run this monstrosity as a bookmarklet while on the Reddit post whose non-preview images you want to get, and (depending on new/old/sh.reddit URL type and post gallery status) either wait for the images to download or right-click save them to your heart's content.-->This bookmarklet tries to change the low-quality <code>preview.redd.it</code> URLs on a Reddit page to higher-quality <code>i.redd.it</code> images, so that you can just right-click save without fiddling with the URL. It doesn't always work.<br/>
+		<span>It does nothing in Mobile Reddit-viewed galleries. You'll have to switch to Old Reddit for those.</span>
+		<em></em></p><br/>
+		
+		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><!--Old code suddenly stopped working due to CORS
+		javascript:function previewDotRedditLinkToImageDotReddit(url) { var regexed = url.match(/(([A-Za-z0-9])+\.(png|jpg|webp|gif))/); if(!regexed) { return false }; var filename = regexed[0]; return `https://i.redd.it/${filename}` }; function findRedditImageFilename(url) { var regexed = url.match(/(([A-Za-z0-9])+\.(png|jpg|webp|gif))/); return regexed ? regexed[0] : false }; function truncateText(text,length=40) { return text.length &lt; length ? text : text.substring(0,length) + "..." }; /*Following function from https://dev.to/sbodi10/download-images-using-javascript-51a9 and slightly modified*/ async function downloadImage(filename="image",imageSrc) { const image = await fetch(imageSrc); const imageBlog = await image.blob(); const imageURL = URL.createObjectURL(imageBlog); const link = document.createElement('a'); link.href = imageURL; link.download = filename; document.body.appendChild(link); link.click(); document.body.removeChild(link) }; /*End of Sapan Bodiwala's code*/ var canFetch = true; function getGalleryURLs() { /*Shreddit gallery*/ canFetch = true; var shredditCarousel = document.getElementsByTagName("gallery-carousel"); if(shredditCarousel.length > 0) { return Array.from(shredditCarousel[0].getElementsByTagName("ul")[0].getElementsByTagName("li")).map(x => x.getElementsByTagName("img")[0].getAttribute("src")).filter(function(src) { return !!src }).map(url => previewDotRedditLinkToImageDotReddit(url)).flat() }; /*New Reddit gallery*/ canFetch = true; if(!!(window.location.href.includes("/new.reddit.com/"))) { alert("Some images may fail to download the first time on New Reddit. If this happens. try running it again and deleting the duplicates.") }; var newRedditLinks = Array.from(new Set(Array.from(document.querySelectorAll('div[data-adclicklocation="media"] img')).map(node => node.getAttribute("src")).filter(function(src) { return !!src }).map(url => previewDotRedditLinkToImageDotReddit(url)))); if(newRedditLinks.length > 0) { return newRedditLinks.flat() }; /*Old Reddit gallery*/ canFetch = true; var oldRedditLinks = Array.from(new Set(Array.from(document.querySelectorAll('img.preview')).map(node => node.getAttribute("src")).filter(function(src) { return !!src }).map(url => previewDotRedditLinkToImageDotReddit(url)))); if(oldRedditLinks.length > 0) { return oldRedditLinks.flat() }; /*Shreddit single image*/ canFetch = false; var shredditImage = document.getElementById("post-image"); if(shredditImage) { return [previewDotRedditLinkToImageDotReddit(shredditImage.getAttribute("src"))].flat() }; /*Old/New Reddit single image*/ canFetch = false; console.log("Trying New/Old Reddit"); var singleImageNR = document.querySelectorAll('[rel="noopener noreferrer"]'); if(singleImageNR.length > 0) { return [Array.from(new Set(Array.from(singleImageNR).map(x => x.href)))].flat() }; alert("Could not find/reach the image"); return false }; var iredditUrls = getGalleryURLs(); /*Download images*/ if(iredditUrls) { if(canFetch) { for(var j = 0; j &lt; iredditUrls.length; j++) { var redditOriginalName = findRedditImageFilename(iredditUrls[j]); var postTitle = document.title.replaceAll(/[\/\\:\*\?\"\&lt;\>\|\']/g,"_"); var paddedNumber = (j + 1).toString().padStart(iredditUrls.length.toString().length,"0"); newFileName = `(${paddedNumber}) ${postTitle} - ${redditOriginalName}`; downloadImage(newFileName,iredditUrls[j]) } } else { alert("Images could not be downloaded automatically due to CORS issues and have instead been placed on the page. Please right-click/long press and save them."); if(typeof(imageList) == "undefined") { var imageList = document.createElement("ol"); document.body.firstChild.before(imageList) }; if(!!(window.location.href.includes("/new.reddit.com/"))) { imageList.setAttribute("style","display: block; position: absolute; top: 0px; left: 0px; opacity: 1; visibility: visible; z-index: 5;") }; imageList.textContent = ""; for(var j = 0; j &lt; iredditUrls.length; j++) { var newLi = document.createElement("li"); var newImg = document.createElement("img"); newImg.setAttribute("src",iredditUrls[j]); newLi.appendChild(newImg); imageList.appendChild(newLi) } } };--><span class="heejin">javascript:</span><span class="vivi">function previewDotRedditLinkToImageDotReddit(url) { var regexed = url.match(/(([A-Za-z0-9])+\.(png|jpg|webp|gif))/); if(!regexed) { return false }; var filename = regexed[0]; return `https://i.redd.it/${filename}` }; var images = Array.from(document.querySelectorAll("img")); for(var i in images) { var image = images[i]; var oldSrc = image.getAttribute("src"); var newSrc = previewDotRedditLinkToImageDotReddit(oldSrc); if(newSrc) { image.setAttribute("src",newSrc) } }; var priLinks = Array.from(document.querySelectorAll('a[href^="https://preview.redd.it/"]')); for(var j in priLinks) { var link = priLinks[j]; var oldHref = link.getAttribute("href"); var newHref = previewDotRedditLinkToImageDotReddit(oldHref); if(newHref) { link.setAttribute("href",newHref) } }; var thingsWithSrcset = Array.from(document.querySelectorAll('[srcset]')); for(var k in thingsWithSrcset) { var srcsetThing = thingsWithSrcset[k]; srcsetThing.setAttribute("srcset",srcsetThing.getAttribute("srcset").split(" ").map(x => previewDotRedditLinkToImageDotReddit(x) || x).join(" ")) };</span></code>
+		</div>
+		
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+	</body>
+</html>
