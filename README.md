@@ -1,7 +1,7 @@
 # o-01-67.github.io
 hi im an orbit and i really love loona and kpop
-loona is my ult gruop and i love all 12 of them and every one of their songs too
+loona and kep1er are my ult gruops and i love all 21 of them and every one of their songs too
 
 this is the super cool readme for my epic github page
 
-stan loona
+stan loona and kep1er
