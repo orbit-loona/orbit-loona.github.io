@@ -32,7 +32,7 @@
 		<p>This bookmarklet lets you run a line of JS without the console and see the result.<br/>
 		<em></em></p><br/>
 		
-		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><span class="heejin">javascript:</span><span class="vivi">longAlert ??= function(textIn) { text = textIn.match(/[\s\S]{1,1000}/g) || [""]; for(var i in text) { i = parseInt(i); var isLast = (i == text.length - 1); if(isLast) { alert(text[i]) } else { var showNext = confirm(text[i]); if(!showNext) { break } } } }; BigInt.prototype.toJSON ??= function() { return `&lt;BigInt ${this.toString()}&gt;` }; var evalStatement = prompt("Enter JavaScript"); if(evalStatement !== null) { var evalResult; try { evalResult = eval(evalStatement) } catch(error) { evalResult = error }; var resultString = evalResult.toString(); longAlert(resultString) };</span></code>
+		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><span class="heejin">javascript:</span><span class="vivi">longAlert = function(textIn) { text = textIn.match(/[\s\S]{1,1000}/g) || [""]; for(var i in text) { i = parseInt(i); var isLast = (i == text.length - 1); if(isLast) { alert(text[i]) } else { var showNext = confirm(text[i]); if(!showNext) { break } } } }; BigInt.prototype.toJSON ??= function() { return `&lt;BigInt ${this.toString()}&gt;` }; var evalStatement = prompt("Enter JavaScript"); if(evalStatement !== null) { var evalResult; try { evalResult = eval(evalStatement) } catch(error) { evalResult = error }; var resultString = evalResult.toString(); longAlert(resultString) };</span></code>
 
 
 		<h1>YouTube speed changer</h1>
@@ -44,8 +44,7 @@
 
 		<div style="opacity:0.9; font-size: 94%">
 		<h1><!--Get a Reddit post's non-preview images and place them in the body-->Change preview.redd.it image URLs to i.redd.it</h1>
-		<p><!--This bookmarklet tries to find a Reddit post's image preview URLs and place the images on the page as i.redd.it URLs so that you can right-click save those less-compressed versions. Run this monstrosity as a bookmarklet while on the Reddit post whose non-preview images you want to get, and (depending on new/old/sh.reddit URL type and post gallery status) either wait for the images to download or right-click save them to your heart's content.-->This bookmarklet tries to change the low-quality <code>preview.redd.it</code> URLs on a Reddit page to higher-quality <code>i.redd.it</code> images, so that you can just right-click save without fiddling with the URL. It doesn't always work.<br/>
-		<span>It does nothing in Mobile Reddit-viewed galleries. You'll have to switch to Old Reddit for those.</span>
+		<p><!--This bookmarklet tries to find a Reddit post's image preview URLs and place the images on the page as i.redd.it URLs so that you can right-click save those less-compressed versions. Run this monstrosity as a bookmarklet while on the Reddit post whose non-preview images you want to get, and (depending on new/old/sh.reddit URL type and post gallery status) either wait for the images to download or right-click save them to your heart's content.-->This bookmarklet tries to change the low-quality <code>preview.redd.it</code> URLs on a Reddit page to higher-quality <code>i.redd.it</code> images, so that you can just right-click save without fiddling with the URL.<br/>
 		<em></em></p><br/>
 		
 		<code class="rounded" style="width: 98vw; overflow-wrap: break-word; word-wrap: break-word;"><!--Old code suddenly stopped working due to CORS
