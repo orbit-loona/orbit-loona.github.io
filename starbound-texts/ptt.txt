@@ -22,7 +22,7 @@
 
 ^#0b813c;Go go^reset;
 ^#0b813c;Let us put on a show show^reset;
-^#eeee01;dareun geol weonhae More &amp; more^reset;
+^#eeee01;dareun geol weonhae More & more^reset;
 ^#eeee01;geumgireul kkaego Roll roll^reset;
 ^#1155cc;We don't stop until the sun goes up^reset;
 ^#1155cc;da naeryeonoko chumeul chweo^reset;
