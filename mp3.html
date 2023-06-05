@@ -1090,7 +1090,7 @@ function fuckMe() { //RIP memory
 					  document.getElementById("indexStatus").innerHTML = "Index input is absent (defaulting to 0)!";
 					};
 				  } else {
-					userIndex = userIndex.value;
+					userIndex = userIndex.value.replaceAll(/(\r\n|\r|\n)/g,"");
 				  };
 				  //Random index
 				  if(["random","r","rand","rnd"].includes(userIndex.toLowerCase())) {
@@ -1297,8 +1297,6 @@ function fuckMe() { //RIP memory
 				  //console.log(`array stats: i ${arrayIndexIndex}, a ${arrayIndexAmount}`);
 				  var doNotPlay = false;
 				  savePfpToLocalStorage(sessionStartedUnix.toString());
-				  updateTitle();
-				  updateCurp();
 				  if(indexIsArray) {
 					arrayIndexAmount++
 					if(arrayIndexAmount >= getIndex()[arrayIndexIndex][1] ?? undefinedIndexSteamroller()) {
@@ -1317,12 +1315,14 @@ function fuckMe() { //RIP memory
 					  loadAudio();
 					};
 				  };
-				 if(loopTest) {
-				   //console.log(getIndex());
-				   if(getIndex() == "random") { loadAudio() }; //audio element must be reloaded with new element for random file to apply
-				  if(getReloadStatus()) { audio.load() };
-				  if(!doNotPlay && !getNoLoopStatus()) { audio.play() };
-				 };
+				  updateTitle();
+				  updateCurp();
+				  if(loopTest) {
+				    //console.log(getIndex());
+				    if(getIndex() == "random") { loadAudio() }; //audio element must be reloaded with new element for random file to apply
+				    if(getReloadStatus()) { audio.load() };
+				    if(!doNotPlay && !getNoLoopStatus()) { audio.play() };
+				  };
 				};
 
 				function d() {
@@ -1382,7 +1382,7 @@ function fuckMe() { //RIP memory
 
 				document.getElementById("indexInput").addEventListener("keypress", function(event) {
 				  if (event.key === "Enter") {
-				    event.preventDefault();
+				    event.preventDefault();
 						document.getElementById("dataLoadButton").click();
 					}
 				});
