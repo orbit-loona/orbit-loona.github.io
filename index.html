@@ -23,7 +23,7 @@
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
-try {
+		try {
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
 			showedMessage = false;
@@ -45,45 +45,45 @@ try {
 				{type: "**",	value: 4n,		cost: 10n**21n,	level: 0n,	max: 1n}
 			];
 
-buyKeys = {};
+			buyKeys = {};
 
-var letters = "pqwert";
-var letters2 = "lasdfg";
-/*TODO: AZERTY and QWERTZ support*/
-var upperLetters = letters.toUpperCase();
-var upperLetters2 = letters2.toUpperCase();
-var shiftNumbers = ")!@#$%";
+			var letters = "pqwert";
+			var letters2 = "lasdfg";
+			/*TODO: AZERTY and QWERTZ support*/
+			var upperLetters = letters.toUpperCase();
+			var upperLetters2 = letters2.toUpperCase();
+			var shiftNumbers = ")!@#$%";
 
-for(var number = 0; number < letters.length; number++) {
-  shiftNumber = shiftNumbers[number];
-  letter = letters[number];
-  uLetter = upperLetters[number];
-  letter2 = letters2[number];
-  uLetter2 = upperLetters2[number];
+			for(var number = 0; number < letters.length; number++) {
+			  shiftNumber = shiftNumbers[number];
+			  letter = letters[number];
+			  uLetter = upperLetters[number];
+			  letter2 = letters2[number];
+			  uLetter2 = upperLetters2[number];
 
-  buyKeys[number] = [number, 0n];
-  if(
-    !(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
-  ) {
-    buyKeys[shiftNumber] = [number, 1n];
-    buyKeys[letter] = [number, 2n];
-    buyKeys[uLetter] = [number, 3n];
-    buyKeys[letter2] = [number, 4n];
-    buyKeys[uLetter2] = [number, 5n];
-  };
-}; buyKeys[6] = [6, 0n]; buyKeys[4] = [4, 0n]; buyKeys[7] = [7, 0n]; buyKeys[8] = [8, 0n];
+			  buyKeys[number] = [number, 0n];
+			  if(
+				!(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
+			  ) {
+				buyKeys[shiftNumber] = [number, 1n];
+				buyKeys[letter] = [number, 2n];
+				buyKeys[uLetter] = [number, 3n];
+				buyKeys[letter2] = [number, 4n];
+				buyKeys[uLetter2] = [number, 5n];
+			  };
+			}; buyKeys[6] = [6, 0n]; buyKeys[4] = [4, 0n]; buyKeys[7] = [7, 0n]; buyKeys[8] = [8, 0n];
 
-doNotAlertRebirth = false;			
+			doNotAlertRebirth = false;			
 
-BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
+			BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
 
-function bigintReviver (key, value) {
-	if(typeof(value) == "string" && value.startsWith("<@BI>")) {
-		var bi = value.substring(5);
-    return BigInt(bi);
-	};
-	return value;
-};
+			function bigintReviver (key, value) {
+				if(typeof(value) == "string" && value.startsWith("<@BI>")) {
+					var bi = value.substring(5);
+				return BigInt(bi);
+				};
+				return value;
+			};
 
 			function saveBigints() {
 				object = {
@@ -174,97 +174,97 @@ function bigintReviver (key, value) {
 				return true;
 			};
 
-function getUpgradeMaximum(index) {
-  var upgrade = clickUpgrades[index];
-  if(!upgrade.max) {
-    return null;
-  } else {
-    if(upgrade.increaseByRebirth) {
-      return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
-    } else { return upgrade.max };
-  };
-};
+			function getUpgradeMaximum(index) {
+			  var upgrade = clickUpgrades[index];
+			  if(!upgrade.max) {
+				return null;
+			  } else {
+				if(upgrade.increaseByRebirth) {
+				  return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
+				} else { return upgrade.max };
+			  };
+			};
 
-function getUpgradeInfo(index) {
-  var upgrade = clickUpgrades[index];
+			function getUpgradeInfo(index) {
+			  var upgrade = clickUpgrades[index];
 
-  var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
+			  var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
 
-  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
-  var benefitPrefix, upgradeValue;
-  switch(upgrade.type) {
-    case "+":
-      benefitPrefix = "+";
-      upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
-      break;
-    case "*":
-      benefitPrefix = "x";
-      upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
-      break;
-    case "**":
-      benefitPrefix = "^";
-      upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
-      break;
-  };
+			  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+			  var benefitPrefix, upgradeValue;
+			  switch(upgrade.type) {
+				case "+":
+				  benefitPrefix = "+";
+				  upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
+				  break;
+				case "*":
+				  benefitPrefix = "x";
+				  upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
+				  break;
+				case "**":
+				  benefitPrefix = "^";
+				  upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
+				  break;
+			  };
 
-  var benefitText = `${benefitPrefix}${upgradeValue}`
+			  var benefitText = `${benefitPrefix}${upgradeValue}`
 
-  var baseBenefit = `${benefitPrefix}${upgrade.value}`
+			  var baseBenefit = `${benefitPrefix}${upgrade.value}`
 
-  var cost = upgrade.cost;
+			  var cost = upgrade.cost;
 
-  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
-};
+			  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
+			};
 
-function buildStats() {
-  var element = document.getElementById("upList");
-  element.textContent = "";
+			function buildStats() {
+			  var element = document.getElementById("upList");
+			  element.textContent = "";
 
-  secondRebirthSpan = document.createElement("span");
-  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
-  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
-  element.appendChild(secondRebirthSpan);
-  element.appendChild(document.createElement("br"));
+			  secondRebirthSpan = document.createElement("span");
+			  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
+			  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
+			  element.appendChild(secondRebirthSpan);
+			  element.appendChild(document.createElement("br"));
 
-  rebirthSpan = document.createElement("span");
-  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
-  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
-  element.appendChild(rebirthSpan);
-  element.appendChild(document.createElement("br"));
+			  rebirthSpan = document.createElement("span");
+			  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
+			  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
+			  element.appendChild(rebirthSpan);
+			  element.appendChild(document.createElement("br"));
 
-  var bound = clickUpgrades.length;
-  for(l = 0; l < bound; l++) {
-    infoRow = document.createElement("span");
-    infoRow.setAttribute("class","upgradeInfo");
-    infoRow.innerText = getUpgradeInfo(l);
-    element.appendChild(infoRow);
-    element.appendChild(document.createElement("br"));
-  };
-  resultSpan = document.createElement("span");
-  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
-  element.appendChild(resultSpan);
-  element.appendChild(document.createElement("br"));
+			  var bound = clickUpgrades.length;
+			  for(l = 0; l < bound; l++) {
+				infoRow = document.createElement("span");
+				infoRow.setAttribute("class","upgradeInfo");
+				infoRow.innerText = getUpgradeInfo(l);
+				element.appendChild(infoRow);
+				element.appendChild(document.createElement("br"));
+			  };
+			  resultSpan = document.createElement("span");
+			  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
+			  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
+			  element.appendChild(resultSpan);
+			  element.appendChild(document.createElement("br"));
 
-  possibleRebirthSpan = document.createElement("span");
-  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
-  newRebirths = getProspectiveRebirths();
-  possibleRebirthSpan.innerText = newRebirths == 0n ? 
-	"You cannot rebirth yet."
-  :
-	`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
-  element.appendChild(possibleRebirthSpan);
-  element.appendChild(document.createElement("br"));
+			  possibleRebirthSpan = document.createElement("span");
+			  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
+			  newRebirths = getProspectiveRebirths();
+			  possibleRebirthSpan.innerText = newRebirths == 0n ? 
+				"You cannot rebirth yet."
+			  :
+				`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
+			  element.appendChild(possibleRebirthSpan);
+			  element.appendChild(document.createElement("br"));
 
-  possibleSecondRebirthSpan = document.createElement("span");
-  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
-  newSecondRebirths = getProspectiveSecondRebirths();
-  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
-	"You cannot second-level rebirth yet."
-  :
-	`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
-  element.appendChild(possibleSecondRebirthSpan);
-};
+			  possibleSecondRebirthSpan = document.createElement("span");
+			  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
+			  newSecondRebirths = getProspectiveSecondRebirths();
+			  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
+				"You cannot second-level rebirth yet."
+			  :
+				`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
+			  element.appendChild(possibleSecondRebirthSpan);
+			};
 
 			function getClickValue() {
 				var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
@@ -380,7 +380,7 @@ function buildStats() {
 					if(!showingMessage && lagSpan) {
 						lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
 						//console.log("Setting timeout");
-						clearSpanTimeoutId = setTimeout(clearLagSpan,2000);
+						clearSpanTimeoutId = setTimeout(clearLagSpan,3000);
 						//console.log("ID: " + clearSpanTimeoutId);
 					};
 				};
@@ -392,10 +392,10 @@ function buildStats() {
 				return numberText;
 			};
 
-function getBigintMagnitude(bigint) {
-  var bString = bigint.toString();
-  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
-};
+			function getBigintMagnitude(bigint) {
+			  var bString = bigint.toString();
+			  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
+			};
 
 			function updateCounters(doSave=true) {
 				//console.error("i want a trace");
@@ -539,23 +539,63 @@ function getBigintMagnitude(bigint) {
 				};
 			});
 
-triedToLoadBigints = false;
-window.onload = function() {
-  if(!triedToLoadBigints) {
-	loadBigints(false);
-	triedToLoadBigints = true;
-  };
-  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
-	updateCounters();
-  };
-  buildStats();
-  setInterval(saveBigints, 5000);
-  if(getClickValue() > 1) { buildStats(); unlockUplist() };
-};
+			triedToLoadBigints = false;
+			window.onload = function() {
+				/*populate group list*/
+				var groupElem = document.getElementById("groups")
+				groupElem.textContent = "";
+				
+				var groups = [
+					{name: "LOONA",		type: "ult",	order: 1},
+					{name: "Kep1er",	type: "normal",	order: 2},
+					{name: "BLACKPINK",	type: "less",	order: 3},
+					{name: "STAYC",		type: "less",	order: 4},
+					{name: "EVERGLOW",	type: "noob",	order: 5}
+				];
+				
+				var titles = {
+					ult: "(ult group)",
+					less: "(i don't know if i'm even so much as a casual)",
+					noob: "(i am a total noob)"
+				}
 
-} catch(error) {
-    alert(error);
-};
+				var framing = {
+					noob: ["(",")"]
+				}
+				
+				groups = groups.sort(function(o1,o2) { return o1.order - o2.order });
+				for(var i in groups) {
+					var data = groups[i];
+					var newElem = document.createElement(data.type == "ult" ? "u" : "span");
+
+						var fr = framing[data.type]; var f1 = ""; var f2 = ""; if(fr) { f1 = fr[0]; f2 = fr[1] };
+						newElem.innerText = f1 + data.name + f2;
+
+						newElem.classList.add(data.type);
+
+						if(titles[data.type]) {
+							newElem.setAttribute("title",titles[data.type])
+						};
+					groupElem.appendChild(newElem);
+					groupElem.appendChild(document.createTextNode(i < groups.length - 1 ? ", " : " "));
+				};
+
+			  /*load game*/
+			  if(!triedToLoadBigints) {
+				loadBigints(false);
+				triedToLoadBigints = true;
+			  };
+			  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+				updateCounters();
+			  };
+			  buildStats();
+			  setInterval(saveBigints, 5000);
+			  if(getClickValue() > 1) { buildStats(); unlockUplist() };
+			};
+
+			} catch(error) {
+				alert(error);
+			};
 		</script>
 		<style>
 			@keyframes fade-in {
@@ -587,6 +627,10 @@ window.onload = function() {
 			
 			body {
 				background-color: #300436;
+			}
+			
+			.less, .noob {
+				opacity: 0.8;
 			}
 		</style>
 	</head>
@@ -620,11 +664,10 @@ window.onload = function() {
 				<a href="roman.html" class="youth">Roman numeral thing</a><br/>
 
 			<h1 class="ot12">not epic code</h1>
-				<span class="third">groups: <strong>Loona</strong><span class="groupParen"> (ult)</span>, <strong>Kep1er</strong>, BLACKPINK <code class="yeojin">//TODO: stan more groups</code></span><br/><!--like red velvet, stayc, dreamcatcher, le sserafim, wjsn, twice, aespa, ive, itzy, gwsn, blackpink, iz*one, (g)i-dle, fromis_9, billlie, weeekly, everglow, woo!ah!, fifty fifty, rocket punch, cherry bullet, hashtag, dreamnote, snsd, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, csr, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, apink, dia, april, gugudan, weki meki, exid, miss a, lovelyz, cignature, tripleS, ladies code, purple kiss, elris/alice, limelight, and clc; also soloists like iu, lee chaeyeon, and yukika-->
+				<span class="third">groups: <span id="groups"><u>Loona</u><span class="groupParen"> (ult)</span>, <em>Kep1er</em>, BLACKPINK...</span><code class="yeojin">//TODO: stan more groups</code></span><br/><!--like red velvet, dreamcatcher, le sserafim, wjsn, twice, aespa, ive, itzy, gwsn, blackpink, iz*one, (g)i-dle, fromis_9, billlie, weeekly, woo!ah!, fifty fifty, rocket punch, cherry bullet, hashtag, dreamnote, snsd, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, csr, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, apink, dia, april, gugudan, weki meki, exid, miss a, lovelyz, cignature, tripleS, ladies code, purple kiss, elris/alice, limelight, and clc; also soloists like iu, lee chaeyeon, and yukika-->
 				<span class="yeojin">antis, akgaes dni <em>(especially <!--fucking--> bahiyyih antis)</em></span><br/>
-			        <span>Happy <span class="hyunjin">Hyun</span><span class="vivi">Vi</span> injunctions!</span></br>
 			
-			<br/><br/>
+			<br/>
 			<span class="kimlip" id="lagWarning">&nbsp;</span><br/>
 			<span class="kimlip" id="bigNumWarning">&nbsp;</span><br/>
 			<button id="buttonButton" onclick="alert(generateButtonsForTitledClickables())">Buttons</button> and a <input title="useless textbox" placeholder="useless textbox"/><br/>
