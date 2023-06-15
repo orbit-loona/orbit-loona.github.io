@@ -23,8 +23,63 @@
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
+		//safari moment
+		class GreatValueUrlSearchParams {
+			constructor(queryStringLike) {
+				var wlsArray = queryStringLike.split("&").map(x => x.split("="));
+				wlsArray[0][0] = wlsArray[0][0].substring(1);
+				for(var aindex in wlsArray) {
+					this.append(wlsArray[aindex][0], (wlsArray[aindex][1] ?? ""))
+				};
+			};
+			disallowedNames = ["getAll","get","append","disallowedNames","jail"];
+			jail = {};
+			append(name,value) {
+				if(value == undefined) {
+					throw new TypeError(`Failed to execute 'append': 2 arguments required, but only ${name ? "1" : "0"} present.`)
+				};
+				var destinationPlace = this.disallowedNames.includes(name) ? this.jail : this;
+				var destination = destinationPlace[name];
+				if(destination == undefined) {
+					destinationPlace[name] = value;
+				} else {
+					if(!(destination instanceof Array)) {
+						destinationPlace[name] = [destination]
+					};
+					destinationPlace[name].push(value)
+				}
+			};
+			get(param) {
+				var value = this.disallowedNames.includes(param) ? this.jail[param] : this[param];
+				if(typeof(value) == "undefined") {
+					return null
+				};
+				if(value instanceof Array) {
+					 return value[0];   
+				};
+				return value
+			};
+			delete(param) {
+				var destinationPlace = this.disallowedNames.includes(param) ? this.jail : this;
+				if(typeof(destinationPlace[param]) != "undefined") {
+					delete destinationPlace[param]
+				};
+			};
+			getAll(param) {
+				var value = this.disallowedNames.includes(param) ? this.jail[param] : this[param];
+				if(typeof(value) == "undefined") {
+					return []
+				};
+				if(value instanceof Array) {
+					 return value;
+				};
+				return [value]
+			};
+		}
+
+		urlParams = new GreatValueUrlSearchParams(window.location.search);
+		
 		try {
-			const urlParams = new URLSearchParams(window.location.search);
 		
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
