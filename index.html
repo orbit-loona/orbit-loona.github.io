@@ -24,6 +24,8 @@
 		<meta charset="UTF-8">
 		<script>
 		try {
+			const urlParams = new URLSearchParams(window.location.search);
+		
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
 			showedMessage = false;
@@ -562,12 +564,12 @@
 
 				//LOONA
 					//official colors, exact shades vary
-				"19-10": {member: "HeeJin", color: "rgb(255,0,146)"},
-				"15-11": {member: "HyunJin", color: "rgb(255,224,0)"},
+				"19-10": {member: "HeeJin", color: "rgb(255,0,143)"},
+				"15-11": {member: "HyunJin", color: "rgb(255,234,0)"},
 				"18-08": {member: "HaSeul", color: "rgb(0,166,81)"},
 				"11-11": {member: "YeoJin", color: "rgb(244,111,31)"},
 				"09-12": [/*shared by ViVi and J*/],
-				"10-02": {member: "Kim Lip", color: "rgb(234,2,1)"},
+				"10-02": [/*shared by Kim Lip and Sooyoung*/],
 				"13-06": {member: "JinSoul", color: "rgb(20,36,176)"},
 				"04-06": {member: "Choerry", color: "rgb(92,44,146)"},
 				"24-05": {member: "Yves", color: "rgb(125,0,30)"},
@@ -592,7 +594,7 @@
 				"16-01": {member: "Jennie", color: "rgb(204,108,169)"},
 				"27-03": {member: "Lisa", color: "rgb(255,250,0)"},
 				"03-01": {member: "Jisoo", color: "rgb(159,0,191)"},
-				"11-02": {member: "Rosé", color: "rgb(0,94,255)"},
+				"11-02": {member: "Rose'", color: "rgb(0,94,255)"},
 
 				//EVERGLOW
 					//from everglow.fandom
@@ -607,14 +609,14 @@
 					//from wiki i forgot
 				"13-03": {member: "Sumin", color: "rgb(255,192,203)"},
 				"14-04": {member: "Yoon", color: "rgb(50,205,50)"},
-				"01-08": [/*shared by Sieun and Chaewon*/],
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
 				"23-01": {member: "Isa", color: "rgb(0,0,0)"},
 				"14-06": [/*shared by Seeun and Tzuyu*/],
 				"09-12": [/*shared by ViVi and J*/],
 
 				//TWICE
 					//from https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
-				"22-09": {member: "Nayeon", color: "rgb(128,202,241)"},
+				"22-09": [/*shared by Nayeon and Hyoyeon*/],
 				"01-11": {member: "Jeongyeon", color: "rgb(188,215,118)"},
 				"09-11": {member: "Momo", color: "rgb(248,207,215)"},
 				"29-12": [/*shared by Sana and Yiren*/],
@@ -644,8 +646,8 @@
 				//[Yujin is in IVE]
 				"18-06": {member: "Nako", color: "rgb(183,211,233)"},
 				"27-09": {member: "Eunbi", color: "rgb(187,176,220)"},
-				"06-10": {member: "Hitomi", color: "rgb(241,195,170)"},
-				"01-08": [/*shared by Sieun and Chaewon*/],
+				"06-10": [/*shared by Hitomi and Hanni*/],
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
 				"05-02": {member: "Minju", color: "rgb(255,255,255)"},
 				"11-01": {member: "Chaeyeon", color: "rgb(166,220,222)"},
 
@@ -660,28 +662,49 @@
 
 				//SNSD
 					//https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
-				"10-02": {member: "Sooyoung", color: "rgb(255,92,205)"},
+				"10-02": [/*shared by Kim Lip and Sooyoung*/],
 				"09-03": {member: "Taeyeon", color: "rgb(100,149,237)"},
 				"18-04": {member: "Jessica", color: "rgb(209,0,86)"},
-				"15-05": {member: "Sunny", color: "rgb(107,142,35)"},
+				"15-05": [/*shared by Sunny and Haerin*/],
 				"30-05": {member: "Yoona", color: "rgb(0,105,148)"},
 				"28-06": {member: "Seohyun", color: "rgb(251,206,177)"},
-				"01-08": {member: "Tiffany", color: "rgb(169,32,62)"},
-				"22-09": {member: "Hyoyeon", color: "rgb(147,197,114)"},
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
+				"22-09": [/*shared by Nayeon and Hyoyeon*/],
 				"05-12": {member: "Yuri", color: "rgb(0,51,102)"},
 
 				//NewJeans
 					//tends to shuffle
 				"07-05": {member: "Minji", color: "rgb(255,248,31)"},
-				"06-10": {member: "Hanni", color: "rgb(255,191,255)"},
+				"06-10": [/*shared by Hitomi and Hanni*/],
 				"11-04": {member: "Danielle", color: "rgb(0,238,0)"},
-				"15-05": {member: "Haerin", color: "rgb(255,255,255)"},
+				"15-05": [/*shared by Sunny and Haerin*/],
 				"21-04": {member: "Hyein", color: "rgb(31,95,255)"} //2008 wtf was hybe thinking
 			};
 
 			idolBdData["01-08"] = [
 				{member: "Sieun", color: "rgb(255,255,255)"},
-				{member: "Chaewon", color: "rgb(206,229,213)"}
+				{member: "Chaewon", color: "rgb(206,229,213)"},
+				{member: "Tiffany", color: "rgb(169,32,62)"}
+			];
+
+			idolBdData["15-05"] = [
+				{member: "Sunny", color: "rgb(107,142,35)"},
+				{member: "Haerin", color: "rgb(255,255,255)"}
+			];
+
+			idolBdData["06-10"] = [
+				{member: "Hitomi", color: "rgb(241,195,170)"},
+				{member: "Hanni", color: "rgb(255,191,255)"}
+			];
+
+			idolBdData["10-02"] = [
+				{member: "Kim Lip", color: "rgb(234,2,1)"},
+				{member: "Sooyoung", color: "rgb(255,92,205)"}
+			];
+
+			idolBdData["22-09"] = [
+				{member: "Nayeon", color: "rgb(128,202,241)"},
+				{member: "Hyoyeon", color: "rgb(147,197,114)"}
 			];
 
 			idolBdData["09-12"] = [
@@ -709,13 +732,38 @@
 			};
 
 			function getLocalDayMonth() {
-				return new Date().toLocaleString("en-GB").replace("/","-").substring(0,5);
+				var fd = parseInt(urlParams.get("fakeDateUnix"));
+				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
 			};
 
 			function getKstDayMonth() {
-				return new Date().toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
+				var fd = urlParams.get("fakeDateUnix"); if(fd) { return fd };
+				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
 			};
 			
+			function getLuminance(R,G,B) {
+				return (0.2126*R + 0.7152*G + 0.0722*B);
+			};
+
+			//https://stackoverflow.com/a/2450976
+			function shuffle(array) {
+			  let currentIndex = array.length,  randomIndex;
+
+			  // While there remain elements to shuffle.
+			  while (currentIndex != 0) {
+
+				// Pick a remaining element.
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex--;
+
+				// And swap it with the current element.
+				[array[currentIndex], array[randomIndex]] = [
+				  array[randomIndex], array[currentIndex]];
+			  }
+
+			  return array;
+			}			
+
 			triedToLoadBigints = false;
 			window.onload = function() {
 				/*loona stan length updater interval*/
@@ -727,7 +775,9 @@
 				var kst = idolBdData[getKstDayMonth()];
 				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
 				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
 				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
+				console.log(currentBirthdayDatas,currentBirthdayDatas.length);
 				if(currentBirthdayDatas.length > 0) {
 					var birthdayText = document.createElement("span");
 					birthdayText.classList.add("birthdays");
@@ -736,16 +786,16 @@
 						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
 						var coloredName = document.createElement("span");
 						var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
-						if(color.includes("(0,0,0)")) {
-							coloredName.style.color = "rgb(32,32,32)"
-						} else {
-							coloredName.style.color = color
-						}
+						var colorValues = color.match(/\d+/g).map(x => parseInt(x));
+						var bgLum = getLuminance(...colorValues);
+						coloredName.style["background-color"] = color;
+						coloredName.style.color = bgLum > 159 ? "black" : "white"
 						coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
+						coloredName.classList.add("bdIdolName");
 						birthdayText.appendChild(coloredName);
-						var joiner = ", ";
+						var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
 						if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
-							birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? ", and " : ", "))
+							birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner))
 						}
 					};
 					birthdayText.appendChild(document.createTextNode("."));
@@ -848,6 +898,15 @@
 			
 			.noob {
 				font-size: 80%;
+			}
+
+			.bdIdolName {
+				padding: 1px;
+				border: 1px solid #ccc;
+			}
+			
+			#birthdays {
+				line-height: 125%;
 			}
 		</style>
 	</head>
