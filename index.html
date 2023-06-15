@@ -23,846 +23,2474 @@
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
-		try {
-			const urlParams = new URLSearchParams(window.location.search);
-		
-			bigintValue = 0n;
-			lifetimeBigintValue = 0n;
-			showedMessage = false;
-			showingMessage = false;
-			superUpgradeVisible = false;
-			bigintRebirths = 0n;
-			bigintSecondLevelRebirths = 0n;
-			saveModulo = 0;
-			
-			clickUpgrades = [
-				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
-				{type: "+",		value: 5n,		cost: 40n,		level: 0n},
-				{type: "+",		value: 12n,		cost: 100n,		level: 0n},
-				{type: "+",		value: 150n,		cost: 1000n,	level: 0n},
-				{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 4n, increaseByRebirth: 1n},
-				{type: "+",		value: 15000n,	cost: 75000n,	level: 0n},
-				{type: "**",	value: 2n,		cost: 10n**7n,	level: 0n,	max: 1n},
-				{type: "**",	value: 3n,		cost: 10n**14n,	level: 0n,	max: 1n},
-				{type: "**",	value: 4n,		cost: 10n**21n,	level: 0n,	max: 1n}
-			];
-
-			buyKeys = {};
-
-			var letters = "pqwert";
-			var letters2 = "lasdfg";
-			/*TODO: AZERTY and QWERTZ support*/
-			var upperLetters = letters.toUpperCase();
-			var upperLetters2 = letters2.toUpperCase();
-			var shiftNumbers = ")!@#$%";
-
-			for(var number = 0; number < letters.length; number++) {
-			  shiftNumber = shiftNumbers[number];
-			  letter = letters[number];
-			  uLetter = upperLetters[number];
-			  letter2 = letters2[number];
-			  uLetter2 = upperLetters2[number];
-
-			  buyKeys[number] = [number, 0n];
-			  if(
-				!(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
-			  ) {
-				buyKeys[shiftNumber] = [number, 1n];
-				buyKeys[letter] = [number, 2n];
-				buyKeys[uLetter] = [number, 3n];
-				buyKeys[letter2] = [number, 4n];
-				buyKeys[uLetter2] = [number, 5n];
+			//run code in js-source.js through babel because it works in chrome but not safari
+			try {
+			  const urlParams = new URLSearchParams(window.location.search);
+			  bigintValue = 0n;
+			  lifetimeBigintValue = 0n;
+			  showedMessage = false;
+			  showingMessage = false;
+			  superUpgradeVisible = false;
+			  bigintRebirths = 0n;
+			  bigintSecondLevelRebirths = 0n;
+			  saveModulo = 0;
+			  clickUpgrades = [{
+				type: "+",
+				value: 1n,
+				cost: 10n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 5n,
+				cost: 40n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 12n,
+				cost: 100n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 150n,
+				cost: 1000n,
+				level: 0n
+			  }, {
+				type: "*",
+				value: 2n,
+				cost: 50000n,
+				level: 0n,
+				max: 4n,
+				increaseByRebirth: 1n
+			  }, {
+				type: "+",
+				value: 15000n,
+				cost: 75000n,
+				level: 0n
+			  }, {
+				type: "**",
+				value: 2n,
+				cost: 10n ** 7n,
+				level: 0n,
+				max: 1n
+			  }, {
+				type: "**",
+				value: 3n,
+				cost: 10n ** 14n,
+				level: 0n,
+				max: 1n
+			  }, {
+				type: "**",
+				value: 4n,
+				cost: 10n ** 21n,
+				level: 0n,
+				max: 1n
+			  }];
+			  buyKeys = {};
+			  var letters = "pqwert";
+			  var letters2 = "lasdfg";
+			  /*TODO: AZERTY and QWERTZ support*/
+			  var upperLetters = letters.toUpperCase();
+			  var upperLetters2 = letters2.toUpperCase();
+			  var shiftNumbers = ")!@#$%";
+			  for (var number = 0; number < letters.length; number++) {
+				shiftNumber = shiftNumbers[number];
+				letter = letters[number];
+				uLetter = upperLetters[number];
+				letter2 = letters2[number];
+				uLetter2 = upperLetters2[number];
+				buyKeys[number] = [number, 0n];
+				if (!((clickUpgrades[parseInt(number)].max ?? Infinity) < 25n)) {
+				  buyKeys[shiftNumber] = [number, 1n];
+				  buyKeys[letter] = [number, 2n];
+				  buyKeys[uLetter] = [number, 3n];
+				  buyKeys[letter2] = [number, 4n];
+				  buyKeys[uLetter2] = [number, 5n];
+				}
+				;
+			  }
+			  ;
+			  buyKeys[6] = [6, 0n];
+			  buyKeys[4] = [4, 0n];
+			  buyKeys[7] = [7, 0n];
+			  buyKeys[8] = [8, 0n];
+			  doNotAlertRebirth = false;
+			  BigInt.prototype.toJSON = function () {
+				return "<@BI>" + this.toString();
 			  };
-			}; buyKeys[6] = [6, 0n]; buyKeys[4] = [4, 0n]; buyKeys[7] = [7, 0n]; buyKeys[8] = [8, 0n];
-
-			doNotAlertRebirth = false;			
-
-			BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
-
-			function bigintReviver (key, value) {
-				if(typeof(value) == "string" && value.startsWith("<@BI>")) {
-					var bi = value.substring(5);
-				return BigInt(bi);
-				};
+			  function bigintReviver(key, value) {
+				if (typeof value == "string" && value.startsWith("<@BI>")) {
+				  var bi = value.substring(5);
+				  return BigInt(bi);
+				}
+				;
 				return value;
-			};
-
-			function saveBigints() {
+			  }
+			  ;
+			  function saveBigints() {
 				object = {
-					number: bigintValue,
-					lifetimeNumber: lifetimeBigintValue,
-					reachedBigNumber: showedMessage,
-					upgradeLevels: clickUpgrades.map(x => x.level),
-					showUpgradeOT12: superUpgradeVisible,
-					modhaus: bigintRebirths,
-					artms: bigintSecondLevelRebirths ?? 0n
+				  number: bigintValue,
+				  lifetimeNumber: lifetimeBigintValue,
+				  reachedBigNumber: showedMessage,
+				  upgradeLevels: clickUpgrades.map(x => x.level),
+				  showUpgradeOT12: superUpgradeVisible,
+				  modhaus: bigintRebirths,
+				  artms: bigintSecondLevelRebirths ?? 0n
 				};
-				localStorage.setItem("number",JSON.stringify(object));
-			};
-
-			function resetBigints(removeSave=false) {
+				localStorage.setItem("number", JSON.stringify(object));
+			  }
+			  ;
+			  function resetBigints(removeSave) {
+				if (removeSave === void 0) {
+				  removeSave = false;
+				}
 				bigintValue = 0n;
 				lifetimeBigintValue = 0n;
 				showedMessage = false;
 				superUpgradeVisible = false;
 				bigintRebirths = 0n;
 				bigintSecondLevelRebirths = 0n;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
 				relockSecret();
 				updateCounters();
-				if(removeSave) { localStorage.removeItem("number") }; return true;
-			};
-
-			function loadBigints(updateCounts=true) {
-				if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
+				if (removeSave) {
+				  localStorage.removeItem("number");
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function loadBigints(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (!localStorage.number) {
+				  return false;
+				}
+				;
+				object = JSON.parse(localStorage.number, bigintReviver);
 				bigintValue = object.number;
 				lifetimeBigintValue = object.lifetimeNumber;
 				showedMessage = object.reachedBigNumber;
 				superUpgradeVisible = object.showUpgradeOT12;
 				bigintRebirths = object.modhaus;
 				bigintSecondLevelRebirths = object.artms ?? 0n;
-				var levels = object.upgradeLevels; for(ptt = 0; ptt < levels.length; ptt++) { clickUpgrades[ptt].level = levels[ptt] };
-
-				if(superUpgradeVisible) {
-					unlockSecret();
-				};
-				if(updateCounts) {
-					updateCounters(false);
-				};
+				var levels = object.upgradeLevels;
+				for (ptt = 0; ptt < levels.length; ptt++) {
+				  clickUpgrades[ptt].level = levels[ptt];
+				}
+				;
+				if (superUpgradeVisible) {
+				  unlockSecret();
+				}
+				;
+				if (updateCounts) {
+				  updateCounters(false);
+				}
+				;
 				return true;
-			};
-
-			function getProspectiveRebirths() {
+			  }
+			  ;
+			  function getProspectiveRebirths() {
 				return (getBigintMagnitude(bigintValue) + 88n) / 200n;
-			};
-
-			function getProspectiveSecondRebirths() {
+			  }
+			  ;
+			  function getProspectiveSecondRebirths() {
 				return (bigintRebirths + 10n) / 20n;
-			};
-
-			function rebirth(updateCounts=true) {
-				if(getBigintMagnitude(bigintValue) < 112n) {
-					return false;
-				}; var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n; if(rebirths < 1n) { return false };
-				bigintValue = 0n; showedMessage = false;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
+			  }
+			  ;
+			  function rebirth(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (getBigintMagnitude(bigintValue) < 112n) {
+				  return false;
+				}
+				;
+				var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n;
+				if (rebirths < 1n) {
+				  return false;
+				}
+				;
+				bigintValue = 0n;
+				showedMessage = false;
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
 				bigintRebirths += rebirths;
-				if(updateCounts) {
-					buildStats(); updateCounters();
-				};
+				if (updateCounts) {
+				  buildStats();
+				  updateCounters();
+				}
+				;
 				return true;
-			};
-
-			function secondLevelRebirth(updateCounts=true) {
-				if(bigintRebirths < 10) {
-					return false;
-				}; var secondRebirths = (bigintRebirths + 10n) / 20n; if(secondRebirths < 1n) { return false };
-				
+			  }
+			  ;
+			  function secondLevelRebirth(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (bigintRebirths < 10) {
+				  return false;
+				}
+				;
+				var secondRebirths = (bigintRebirths + 10n) / 20n;
+				if (secondRebirths < 1n) {
+				  return false;
+				}
+				;
 				bigintValue = 0n;
 				bigintRebirths = 0n;
 				showedMessage = false;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
-
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
 				bigintSecondLevelRebirths += secondRebirths;
-				if(updateCounts) {
-					buildStats(); updateCounters();
-				};
+				if (updateCounts) {
+				  buildStats();
+				  updateCounters();
+				}
+				;
 				return true;
-			};
-
-			function getUpgradeMaximum(index) {
-			  var upgrade = clickUpgrades[index];
-			  if(!upgrade.max) {
-				return null;
-			  } else {
-				if(upgrade.increaseByRebirth) {
-				  return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
-				} else { return upgrade.max };
-			  };
-			};
-
-			function getUpgradeInfo(index) {
-			  var upgrade = clickUpgrades[index];
-
-			  var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
-
-			  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
-			  var benefitPrefix, upgradeValue;
-			  switch(upgrade.type) {
-				case "+":
-				  benefitPrefix = "+";
-				  upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
-				  break;
-				case "*":
-				  benefitPrefix = "x";
-				  upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
-				  break;
-				case "**":
-				  benefitPrefix = "^";
-				  upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
-				  break;
-			  };
-
-			  var benefitText = `${benefitPrefix}${upgradeValue}`
-
-			  var baseBenefit = `${benefitPrefix}${upgrade.value}`
-
-			  var cost = upgrade.cost;
-
-			  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
-			};
-
-			function buildStats() {
-			  var element = document.getElementById("upList");
-			  element.textContent = "";
-
-			  secondRebirthSpan = document.createElement("span");
-			  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
-			  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
-			  element.appendChild(secondRebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  rebirthSpan = document.createElement("span");
-			  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
-			  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
-			  element.appendChild(rebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  var bound = clickUpgrades.length;
-			  for(l = 0; l < bound; l++) {
-				infoRow = document.createElement("span");
-				infoRow.setAttribute("class","upgradeInfo");
-				infoRow.innerText = getUpgradeInfo(l);
-				element.appendChild(infoRow);
+			  }
+			  ;
+			  function getUpgradeMaximum(index) {
+				var upgrade = clickUpgrades[index];
+				if (!upgrade.max) {
+				  return null;
+				} else {
+				  if (upgrade.increaseByRebirth) {
+					return upgrade.max + upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths);
+				  } else {
+					return upgrade.max;
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function getUpgradeInfo(index) {
+				var upgrade = clickUpgrades[index];
+				var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
+				var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+				var benefitPrefix, upgradeValue;
+				switch (upgrade.type) {
+				  case "+":
+					benefitPrefix = "+";
+					upgradeValue = rebirthModifier * upgrade.value * upgrade.level;
+					break;
+				  case "*":
+					benefitPrefix = "x";
+					upgradeValue = (upgrade.value + (bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)) ** upgrade.level;
+					break;
+				  case "**":
+					benefitPrefix = "^";
+					upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
+					break;
+				}
+				;
+				var benefitText = `${benefitPrefix}${upgradeValue}`;
+				var baseBenefit = `${benefitPrefix}${upgrade.value}`;
+				var cost = upgrade.cost;
+				return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
+			  }
+			  ;
+			  function buildStats() {
+				var element = document.getElementById("upList");
+				element.textContent = "";
+				secondRebirthSpan = document.createElement("span");
+				secondRebirthSpan.setAttribute("class", "upgradeInfo secondRebirths ot12");
+				secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
+				element.appendChild(secondRebirthSpan);
 				element.appendChild(document.createElement("br"));
-			  };
-			  resultSpan = document.createElement("span");
-			  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-			  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
-			  element.appendChild(resultSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  possibleRebirthSpan = document.createElement("span");
-			  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
-			  newRebirths = getProspectiveRebirths();
-			  possibleRebirthSpan.innerText = newRebirths == 0n ? 
-				"You cannot rebirth yet."
-			  :
-				`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
-			  element.appendChild(possibleRebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  possibleSecondRebirthSpan = document.createElement("span");
-			  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
-			  newSecondRebirths = getProspectiveSecondRebirths();
-			  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
-				"You cannot second-level rebirth yet."
-			  :
-				`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
-			  element.appendChild(possibleSecondRebirthSpan);
-			};
-
-			function getClickValue() {
+				rebirthSpan = document.createElement("span");
+				rebirthSpan.setAttribute("class", "upgradeInfo rebirths youth");
+				rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
+				element.appendChild(rebirthSpan);
+				element.appendChild(document.createElement("br"));
+				var bound = clickUpgrades.length;
+				for (l = 0; l < bound; l++) {
+				  infoRow = document.createElement("span");
+				  infoRow.setAttribute("class", "upgradeInfo");
+				  infoRow.innerText = getUpgradeInfo(l);
+				  element.appendChild(infoRow);
+				  element.appendChild(document.createElement("br"));
+				}
+				;
+				resultSpan = document.createElement("span");
+				resultSpan.setAttribute("class", "upgradeInfo totalClick ot12");
+				var CV = getClickValue();
+				resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
+				element.appendChild(resultSpan);
+				element.appendChild(document.createElement("br"));
+				possibleRebirthSpan = document.createElement("span");
+				possibleRebirthSpan.setAttribute("class", "upgradeInfo rebirth1 youth");
+				newRebirths = getProspectiveRebirths();
+				possibleRebirthSpan.innerText = newRebirths == 0n ? "You cannot rebirth yet." : `If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
+				element.appendChild(possibleRebirthSpan);
+				element.appendChild(document.createElement("br"));
+				possibleSecondRebirthSpan = document.createElement("span");
+				possibleSecondRebirthSpan.setAttribute("class", "upgradeInfo rebirth2 ot12");
+				newSecondRebirths = getProspectiveSecondRebirths();
+				possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? "You cannot second-level rebirth yet." : `If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
+				element.appendChild(possibleSecondRebirthSpan);
+			  }
+			  ;
+			  function getClickValue() {
 				var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
 				var value = rebirthedBase;
-				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
-					var upgrade = clickUpgrades[flipThat];
-					if(upgrade.type == "+") {
-						value += ((upgrade.value * rebirthedBase) * upgrade.level);
-					} else if(upgrade.type == "*") {
-						if(upgrade.level > 0) { value *= ((upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level) };
-					} else if(upgrade.type == "**") {
-						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
-					} else {
-						console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
-					};
-				};
+				for (flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
+				  var upgrade = clickUpgrades[flipThat];
+				  if (upgrade.type == "+") {
+					value += upgrade.value * rebirthedBase * upgrade.level;
+				  } else if (upgrade.type == "*") {
+					if (upgrade.level > 0) {
+					  value *= (upgrade.value + (bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)) ** upgrade.level;
+					}
+					;
+				  } else if (upgrade.type == "**") {
+					if (upgrade.level > 0) {
+					  value = value ** (upgrade.value * upgrade.level);
+					}
+					;
+				  } else {
+					console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
+				  }
+				  ;
+				}
+				;
 				return value;
-			};
-			
-			function buyUpgrade(index,updateCounts=true,amount=1n) {
+			  }
+			  ;
+			  function buyUpgrade(index, updateCounts, amount) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (amount === void 0) {
+				  amount = 1n;
+				}
 				var upgrade = clickUpgrades[index];
 				var cost = upgrade.cost * amount;
-
-				if(amount < 1n) {
-					return false;
-				};
-
-				if(bigintValue < cost) {
-					return false;
-				};
-
-				if(upgrade.max && (upgrade.level > (getUpgradeMaximum(index)-amount) )) {
-					return false;
-				};
-				
+				if (amount < 1n) {
+				  return false;
+				}
+				;
+				if (bigintValue < cost) {
+				  return false;
+				}
+				;
+				if (upgrade.max && upgrade.level > getUpgradeMaximum(index) - amount) {
+				  return false;
+				}
+				;
 				upgrade.level += amount;
 				bigintValue -= cost;
-				if(updateCounts) {
-					updateCounters();
-					buildStats();
-				};
-				
-				if(index == 6) {
-					unlockSecret();
-				}; unlockUplist();
-				
+				if (updateCounts) {
+				  updateCounters();
+				  buildStats();
+				}
+				;
+				if (index == 6) {
+				  unlockSecret();
+				}
+				;
+				unlockUplist();
 				return true;
-			};
-
-			function unlockSecret() {
+			  }
+			  ;
+			  function unlockSecret() {
 				var secretSpan = document.getElementById("up7");
-				if(secretSpan && secretSpan.style.display == "none") {
-					secretSpan.style.display = "unset";
-				};
+				if (secretSpan && secretSpan.style.display == "none") {
+				  secretSpan.style.display = "unset";
+				}
+				;
 				superUpgradeVisible = true;
-			};
-			
-			function relockSecret() {
+			  }
+			  ;
+			  function relockSecret() {
 				var secretSpan = document.getElementById("up7");
-				if(secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
-					secretSpan.style.display = "none";
-				};
+				if (secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
+				  secretSpan.style.display = "none";
+				}
+				;
 				superUpgradeVisible = false;
-			};
-
-			function unlockUplist() {
+			  }
+			  ;
+			  function unlockUplist() {
 				var secretDiv = document.getElementById("upList");
-                                if(!secretDiv) { return }; buildStats();
-				if(secretDiv && secretDiv.style.display == "none") {
-					secretDiv.style.display = "unset";
-				};
-			};
-			
-			function relockUplist() {
+				if (!secretDiv) {
+				  return;
+				}
+				;
+				buildStats();
+				if (secretDiv && secretDiv.style.display == "none") {
+				  secretDiv.style.display = "unset";
+				}
+				;
+			  }
+			  ;
+			  function relockUplist() {
 				var secretDiv = document.getElementById("upList");
-				if(secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
-					secretDiv.style.display = "none";
-				};
-			};
-
-			
-			function increment(updateCounts=true) {
+				if (secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
+				  secretDiv.style.display = "none";
+				}
+				;
+			  }
+			  ;
+			  function increment(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
 				bigintValue += getClickValue();
 				lifetimeBigintValue += getClickValue();
-				if(updateCounts) {
-					updateCounters();
-					buildStats();
-				};
-			};
-			
-			clearSpanTimeoutId = null;
-			
-			function clearLagSpan() {
+				if (updateCounts) {
+				  updateCounters();
+				  buildStats();
+				}
+				;
+			  }
+			  ;
+			  clearSpanTimeoutId = null;
+			  function clearLagSpan() {
 				var lagSpan = document.getElementById("lagWarning");
-				if(lagSpan) {
-					lagSpan.innerText = String.fromCharCode(160);
-				};
+				if (lagSpan) {
+				  lagSpan.innerText = String.fromCharCode(160);
+				}
+				;
 				clearSpanTimeoutId = null;
-			};
-			
-			function timedIncrement(updateCounts=true) {
-				if(clearSpanTimeoutId) {
-					//console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
-					clearTimeout(clearSpanTimeoutId);
-				};
+			  }
+			  ;
+			  function timedIncrement(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (clearSpanTimeoutId) {
+				  //console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
+				  clearTimeout(clearSpanTimeoutId);
+				}
+				;
 				var start = Date.now();
 				increment(updateCounts);
 				var end = Date.now();
 				var difference = end - start;
-				if(difference >= 100) {
-					var lagSpan = document.getElementById("lagWarning");
-					var formattedLength = (difference / 1000).toFixed(2);
-					if(!showingMessage && lagSpan) {
-						lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
-						//console.log("Setting timeout");
-						clearSpanTimeoutId = setTimeout(clearLagSpan,3000);
-						//console.log("ID: " + clearSpanTimeoutId);
-					};
-				};
-			};
-
-			function bigintCommas(bigint) {
-				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
-				if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
+				if (difference >= 100) {
+				  var lagSpan = document.getElementById("lagWarning");
+				  var formattedLength = (difference / 1000).toFixed(2);
+				  if (!showingMessage && lagSpan) {
+					lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`;
+					//console.log("Setting timeout");
+					clearSpanTimeoutId = setTimeout(clearLagSpan, 3000);
+					//console.log("ID: " + clearSpanTimeoutId);
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function bigintCommas(bigint) {
+				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g, ",");
+				if (numberText.startsWith(",")) {
+				  numberText = numberText.substring(1);
+				}
+				;
 				return numberText;
-			};
-
-			function getBigintMagnitude(bigint) {
-			  var bString = bigint.toString();
-			  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
-			};
-
-			function updateCounters(doSave=true) {
+			  }
+			  ;
+			  function getBigintMagnitude(bigint) {
+				var bString = bigint.toString();
+				return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
+			  }
+			  ;
+			  function updateCounters(doSave) {
+				if (doSave === void 0) {
+				  doSave = true;
+				}
 				//console.error("i want a trace");
-				if(lifetimeBigintValue >= (10n**11n)) {
-					unlockSecret();
-				};
-				
-				if(!showedMessage && bigintValue >= (10n**112n) && (!doNotAlertRebirth)) {
-					showingMessage = true;
-					alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
-					showedMessage = true;
-					showingMessage = false;
-				};
-			
+				if (lifetimeBigintValue >= 10n ** 11n) {
+				  unlockSecret();
+				}
+				;
+				if (!showedMessage && bigintValue >= 10n ** 112n && !doNotAlertRebirth) {
+				  showingMessage = true;
+				  alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
+				  showedMessage = true;
+				  showingMessage = false;
+				}
+				;
 				var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
-				for(i = 0; i < counters.length; i++) {
-					var counter = counters[i];
-					var format = counter.getAttribute("countTemplate");
-					var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
-					var numberText = bigintCommas(bigintValue * (10n ** magnitudeOffset));
-					var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** magnitudeOffset)));
-					var newText = format.replaceAll("<@N@>",numberText).replaceAll("<@E@>",numberMagnitudeText);
-					counter.innerText = newText;
-				};
-
+				for (i = 0; i < counters.length; i++) {
+				  var counter = counters[i];
+				  var format = counter.getAttribute("countTemplate");
+				  var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
+				  var numberText = bigintCommas(bigintValue * 10n ** magnitudeOffset);
+				  var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * 10n ** magnitudeOffset));
+				  var newText = format.replaceAll("<@N@>", numberText).replaceAll("<@E@>", numberMagnitudeText);
+				  counter.innerText = newText;
+				}
+				;
 				var buyWarnSpan = document.getElementById("bigNumWarning");
-				if(getBigintMagnitude(bigintValue) >= 40000) {
-					buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
-				} else if(getBigintMagnitude(bigintValue) >= 10000) {
-					buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
-				} else if(getBigintMagnitude(bigintValue) >= 2000) {
-					buyWarnSpan.textContent = "";
-					buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
-					var newSup = document.createElement("sup");
-						newSup.innerText = "1,000"
-						buyWarnSpan.appendChild(newSup);
-					buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
+				if (getBigintMagnitude(bigintValue) >= 40000) {
+				  buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
+				} else if (getBigintMagnitude(bigintValue) >= 10000) {
+				  buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
+				} else if (getBigintMagnitude(bigintValue) >= 2000) {
+				  buyWarnSpan.textContent = "";
+				  buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
+				  var newSup = document.createElement("sup");
+				  newSup.innerText = "1,000";
+				  buyWarnSpan.appendChild(newSup);
+				  buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
 				} else if (getBigintMagnitude(bigintValue) < 2000) {
-					buyWarnSpan.innerText = String.fromCharCode(160);
-				};
-
-				if(doSave) { //Save on every fifth update
+				  buyWarnSpan.innerText = String.fromCharCode(160);
+				}
+				;
+				if (doSave) {
+				  //Save on every fifth update
 				  saveModulo++;
-				  if(saveModulo % 5 == 0) {
+				  if (saveModulo % 5 == 0) {
 					saveBigints();
 					saveModulo = 0;
-				  };
-				};
-			};
-			
-			function generateButtonsForTitledClickables() {
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function generateButtonsForTitledClickables() {
 				var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
-				for(i = 0; i < clickables.length; i++) {
-					var clickText = clickables[i];
-					var clickCode = clickText.getAttribute("onclick");
-					var textTitle = clickText.getAttribute("title");
-					var newButton = document.createElement("button");
-					newButton.setAttribute("onclick",clickCode);
-					newButton.innerText = textTitle;
-					clickText.after(newButton);
-				};
+				for (i = 0; i < clickables.length; i++) {
+				  var clickText = clickables[i];
+				  var clickCode = clickText.getAttribute("onclick");
+				  var textTitle = clickText.getAttribute("title");
+				  var newButton = document.createElement("button");
+				  newButton.setAttribute("onclick", clickCode);
+				  newButton.innerText = textTitle;
+				  clickText.after(newButton);
+				}
+				;
 				return true;
-			};
-
-			function dumbBruh() {
+			  }
+			  ;
+			  function dumbBruh() {
 				try {
-					var audio = new Audio("bin/bruh.mp3");
-					audio.onended = function() {
-						delete(this);
-					};
-					audio.play();
+				  var audio = new Audio("bin/bruh.mp3");
+				  audio.onended = function () {
+					delete this;
+				  };
+				  audio.play();
 				} catch (error) {
-					alert("Could not play bruh sound");
-					return false;
-				};
+				  alert("Could not play bruh sound");
+				  return false;
+				}
+				;
 				return true;
-			};
-
-			document.addEventListener("keypress", function(event) {
+			  }
+			  ;
+			  document.addEventListener("keypress", function (event) {
 				if (event.key === " ") {
-					timedIncrement(true);
-					return true;
+				  timedIncrement(true);
+				  return true;
 				} else if (event.key === "b") {
-					return rebirth();
+				  return rebirth();
 				} else if (event.key === "B") {
-					return secondLevelRebirth();
+				  return secondLevelRebirth();
 				} else if (event.key === "N") {
-					var indPrompt = prompt("Which upgrade to buy?");
-					if(indPrompt == null || indPrompt == "") { return false };
-					var index = parseInt(indPrompt);
-					if(isNaN(index)) {
-						alert("Invalid index!");
+				  var indPrompt = prompt("Which upgrade to buy?");
+				  if (indPrompt == null || indPrompt == "") {
+					return false;
+				  }
+				  ;
+				  var index = parseInt(indPrompt);
+				  if (isNaN(index)) {
+					alert("Invalid index!");
+					return false;
+				  }
+				  ;
+				  if (index < 0 || index > clickUpgrades.length - 1) {
+					alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
+					return false;
+				  }
+				  ;
+				  var buyPrompt = prompt("How many to buy?");
+				  if (buyPrompt == null || buyPrompt == "") {
+					return false;
+				  }
+				  ;
+				  var amount;
+				  try {
+					if (/^[\de]+$/.test(buyPrompt)) {
+					  buyPrompt = buyPrompt.split("e");
+					  for (girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop = 0; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop < buyPrompt.length; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop++) {
+						if (buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] == "") {
+						  buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = "1";
+						}
+						;
+						buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = BigInt(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop]);
+					  }
+					  ;
+					  try {
+						buyPrompt = buyPrompt.reduceRight((a, b) => b * 10n ** a);
+					  } catch (error) {
+						alert("Result too large or other error"); //"Maximum BigInt size exceeded"
 						return false;
-					};
-					if(index < 0 || index > clickUpgrades.length - 1) {
-						alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
-						return false;				
-					};
-
-					var buyPrompt = prompt("How many to buy?");
-					if(buyPrompt == null || buyPrompt == "") { return false };
-					var amount;
-					try {
-						if(/^[\de]+$/.test(buyPrompt)) {
-							buyPrompt = buyPrompt.split("e");
-							for(girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop = 0; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop < buyPrompt.length; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop++) {
-								if(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] == "") {
-									buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = "1";
-								};
-								buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = BigInt(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop]);
-							};
-							try {
-								buyPrompt = buyPrompt.reduceRight((a, b) => b * (10n ** a));
-							} catch (error) {
-								alert("Result too large or other error"); //"Maximum BigInt size exceeded"
-								return false;
-							};
-							amount = buyPrompt;
-						} else {
-							amount = BigInt(buyPrompt);
-						};
-					} catch (error) {
-						alert("Invalid amount!");
-						return false;
-					};
-					if(amount < 1n) {
-						alert("Amount must be greater than 0!");
-						return false;
-					};
-
-					var success = buyUpgrade(index,true,amount);
-					if(success) {
-						alert(`Bought ${amount} of upgrade ${index}`);
+					  }
+					  ;
+					  amount = buyPrompt;
 					} else {
-						alert(`Could not buy ${amount} of upgrade ${index}`);
-					};
-					return success;
+					  amount = BigInt(buyPrompt);
+					}
+					;
+				  } catch (error) {
+					alert("Invalid amount!");
+					return false;
+				  }
+				  ;
+				  if (amount < 1n) {
+					alert("Amount must be greater than 0!");
+					return false;
+				  }
+				  ;
+				  var success = buyUpgrade(index, true, amount);
+				  if (success) {
+					alert(`Bought ${amount} of upgrade ${index}`);
+				  } else {
+					alert(`Could not buy ${amount} of upgrade ${index}`);
+				  }
+				  ;
+				  return success;
 				} else if (Object.keys(buyKeys).includes(event.key)) {
-					purchaseData = buyKeys[event.key];
-					return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
-				};
-			});
-
-    		loonaStartUnix = 1661127423000;
-			/*video length from debug data has millisecond precision (215.201),
-			but reddit comments are only have second precision from the API (as
-			1661127638.0 except that the decimal is always 0)*/
-			function secondsSinceLoona(formatString=false) {
+				  purchaseData = buyKeys[event.key];
+				  return buyUpgrade(purchaseData[0], true, 25n ** purchaseData[1]);
+				}
+				;
+			  });
+			  loonaStartUnix = 1661127423000;
+			  /*video length from debug data has millisecond precision (215.201),
+			  but reddit comments are only have second precision from the API (as
+			  1661127638.0 except that the decimal is always 0)*/
+			  function secondsSinceLoona(formatString) {
+				if (formatString === void 0) {
+				  formatString = false;
+				}
 				return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
-			};
-			
-			function updateLoonaTime() {
+			  }
+			  ;
+			  function updateLoonaTime() {
 				var text = document.getElementById("loonaTime");
-				if(!text) {
-					return false
-				};
+				if (!text) {
+				  return false;
+				}
+				;
 				var value = secondsSinceLoona();
-				text.innerText = value.toLocaleString('en-US')
-			};
-
-			idolBdData = {
+				text.innerText = value.toLocaleString('en-US');
+			  }
+			  ;
+			  idolBdData = {
 				//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
 				//Sometimes hex codes are given and sometimes it's only generic color words.
 
 				//LOONA
-					//official colors, exact shades vary
-				"19-10": {member: "HeeJin", color: "rgb(255,0,143)"},
-				"15-11": {member: "HyunJin", color: "rgb(255,234,0)"},
-				"18-08": {member: "HaSeul", color: "rgb(0,191,0)"},
-				"11-11": {member: "YeoJin", color: "rgb(244,111,31)"},
+				//official colors, exact shades vary
+				"19-10": {
+				  member: "HeeJin",
+				  color: "rgb(255,0,143)"
+				},
+				"15-11": {
+				  member: "HyunJin",
+				  color: "rgb(255,234,0)"
+				},
+				"18-08": {
+				  member: "HaSeul",
+				  color: "rgb(0,191,0)"
+				},
+				"11-11": {
+				  member: "YeoJin",
+				  color: "rgb(244,111,31)"
+				},
 				"09-12": [/*shared by ViVi and J*/],
 				"10-02": [/*shared by Kim Lip and Sooyoung*/],
-				"13-06": {member: "JinSoul", color: "rgb(20,36,176)"},
-				"04-06": {member: "Choerry", color: "rgb(92,44,146)"},
-				"24-05": {member: "Yves", color: "rgb(125,0,30)"},
-				"20-10": {member: "Chuu", color: "rgb(246,144,126)"},
-				"19-11": {member: "Go Won", color: "rgb(48,225,146)"},
-				"13-11": {member: "Olivia Hye", color: "rgb(143,143,143)"},
-
+				"13-06": {
+				  member: "JinSoul",
+				  color: "rgb(20,36,176)"
+				},
+				"04-06": {
+				  member: "Choerry",
+				  color: "rgb(92,44,146)"
+				},
+				"24-05": {
+				  member: "Yves",
+				  color: "rgb(125,0,30)"
+				},
+				"20-10": {
+				  member: "Chuu",
+				  color: "rgb(246,144,126)"
+				},
+				"19-11": {
+				  member: "Go Won",
+				  color: "rgb(48,225,146)"
+				},
+				"13-11": {
+				  member: "Olivia Hye",
+				  color: "rgb(143,143,143)"
+				},
 				//Kep1er
-					//Fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
-				"26-04": {member: "Chaehyun", color:"rgb(255,183,206)"},
-				"27-07": {member: "Huening Bahiyyih", color:"rgb(255,177,109)"},
-				"12-08": {member: "Choi Yujin", color:"rgb(249,123,144)"}, //from sample, as hex code => rgb(188,188,226) doesn't match + is too similar to Yeseo
-				"02-03": {member: "Dayeon", color: "rgb(100,150,235)"},
-				"27-12": {member: "Youngeun", color:"rgb(147,197,114)"},
-				"22-08": {member: "Yeseo", color:"rgb(162,207,254)"},
-				"12-03": {member: "Hikaru", color:"rgb(251,234,140)"},
-				"16-12": {member: "Mashiro", color:"rgb(253,238,244)"},
-				"12-11": {member: "Xiaoting", color:"rgb(195,142,199)"},
-
+				//Fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
+				"26-04": {
+				  member: "Chaehyun",
+				  color: "rgb(255,183,206)"
+				},
+				"27-07": {
+				  member: "Huening Bahiyyih",
+				  color: "rgb(255,177,109)"
+				},
+				"12-08": {
+				  member: "Choi Yujin",
+				  color: "rgb(249,123,144)"
+				},
+				//from sample, as hex code => rgb(188,188,226) doesn't match + is too similar to Yeseo
+				"02-03": {
+				  member: "Dayeon",
+				  color: "rgb(100,150,235)"
+				},
+				"27-12": {
+				  member: "Youngeun",
+				  color: "rgb(147,197,114)"
+				},
+				"22-08": {
+				  member: "Yeseo",
+				  color: "rgb(162,207,254)"
+				},
+				"12-03": {
+				  member: "Hikaru",
+				  color: "rgb(251,234,140)"
+				},
+				"16-12": {
+				  member: "Mashiro",
+				  color: "rgb(253,238,244)"
+				},
+				"12-11": {
+				  member: "Xiaoting",
+				  color: "rgb(195,142,199)"
+				},
 				//BLACKPINK
-					//taken from uncited blackpink.fandom forum post, and probably made up but whatever
-				"16-01": {member: "Jennie", color: "rgb(204,108,169)"},
-				"27-03": {member: "Lisa", color: "rgb(255,250,0)"},
-				"03-01": {member: "Jisoo", color: "rgb(159,0,191)"},
-				"11-02": {member: "Rose'", color: "rgb(0,94,255)"},
-
+				//taken from uncited blackpink.fandom forum post, and probably made up but whatever
+				"16-01": {
+				  member: "Jennie",
+				  color: "rgb(204,108,169)"
+				},
+				"27-03": {
+				  member: "Lisa",
+				  color: "rgb(255,250,0)"
+				},
+				"03-01": {
+				  member: "Jisoo",
+				  color: "rgb(159,0,191)"
+				},
+				"11-02": {
+				  member: "Rose'",
+				  color: "rgb(0,94,255)"
+				},
 				//EVERGLOW
-					//from everglow.fandom
-				"19-05": {member: "E:U", color: "rgb(107,86,163)"},
-				"05-08": {member: "Sihyeon", color: "rgb(199,210,167)"},
-				"13-01": {member: "Mia", color: "rgb(103,5,6)"},
-				"18-05": {member: "Onda", color: "rgb(179,4,105)"},
-				"21-07": {member: "Aisha", color: "rgb(0,0,0)"},
+				//from everglow.fandom
+				"19-05": {
+				  member: "E:U",
+				  color: "rgb(107,86,163)"
+				},
+				"05-08": {
+				  member: "Sihyeon",
+				  color: "rgb(199,210,167)"
+				},
+				"13-01": {
+				  member: "Mia",
+				  color: "rgb(103,5,6)"
+				},
+				"18-05": {
+				  member: "Onda",
+				  color: "rgb(179,4,105)"
+				},
+				"21-07": {
+				  member: "Aisha",
+				  color: "rgb(0,0,0)"
+				},
 				"29-12": [/*shared by Sana and Yiren*/],
-
 				//STAYC
-					//from wiki i forgot
-				"13-03": {member: "Sumin", color: "rgb(255,192,203)"},
-				"14-04": {member: "Yoon", color: "rgb(50,205,50)"},
+				//from wiki i forgot
+				"13-03": {
+				  member: "Sumin",
+				  color: "rgb(255,192,203)"
+				},
+				"14-04": {
+				  member: "Yoon",
+				  color: "rgb(50,205,50)"
+				},
 				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
-				"23-01": {member: "Isa", color: "rgb(0,0,0)"},
+				"23-01": {
+				  member: "Isa",
+				  color: "rgb(0,0,0)"
+				},
 				"14-06": [/*shared by Seeun and Tzuyu*/],
 				"09-12": [/*shared by ViVi and J*/],
-
 				//TWICE
-					//from https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
+				//from https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
 				"22-09": [/*shared by Nayeon and Hyoyeon*/],
-				"01-11": {member: "Jeongyeon", color: "rgb(188,215,118)"},
-				"09-11": {member: "Momo", color: "rgb(248,207,215)"},
+				"01-11": {
+				  member: "Jeongyeon",
+				  color: "rgb(188,215,118)"
+				},
+				"09-11": {
+				  member: "Momo",
+				  color: "rgb(248,207,215)"
+				},
 				"29-12": [/*shared by Sana and Yiren*/],
-				"01-02": {member: "Jihyo", color: "rgb(250,200,87)"},
-				"24-03": {member: "Mina", color: "rgb(111,197,194)"},
-				"28-05": {member: "Dahyun", color: "rgb(255,255,255)"},
-				"23-04": {member: "Chaeyoung", color: "rgb(232,25,51)"},
+				"01-02": {
+				  member: "Jihyo",
+				  color: "rgb(250,200,87)"
+				},
+				"24-03": {
+				  member: "Mina",
+				  color: "rgb(111,197,194)"
+				},
+				"28-05": {
+				  member: "Dahyun",
+				  color: "rgb(255,255,255)"
+				},
+				"23-04": {
+				  member: "Chaeyoung",
+				  color: "rgb(232,25,51)"
+				},
 				"14-06": [/*shared by Seeun and Tzuyu*/],
-				
 				//Dreamcatcher
-					//https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
-				"17-05": {member: "JiU", color: "rgb(255,255,255)"},
-				"10-08": {member: "SuA", color: "rgb(255,0,0)"},
-				"01-10": {member: "Siyeon", color: "rgb(15,47,255)"},
-				"26-03": {member: "Handong", color: "rgb(0,0,0)"},
-				"07-01": {member: "Yoohyeon", color: "rgb(31,237,21)"},
-				"07-03": {member: "Dami", color: "rgb(255, 244, 15)"},
+				//https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
+				"17-05": {
+				  member: "JiU",
+				  color: "rgb(255,255,255)"
+				},
+				"10-08": {
+				  member: "SuA",
+				  color: "rgb(255,0,0)"
+				},
+				"01-10": {
+				  member: "Siyeon",
+				  color: "rgb(15,47,255)"
+				},
+				"26-03": {
+				  member: "Handong",
+				  color: "rgb(0,0,0)"
+				},
+				"07-01": {
+				  member: "Yoohyeon",
+				  color: "rgb(31,237,21)"
+				},
+				"07-03": {
+				  member: "Dami",
+				  color: "rgb(255, 244, 15)"
+				},
 				"03-02": [/*shared by Gahyeon and Rei*/],
-				
 				//IZ*ONE
-					//from iz*one wiki
+				//from iz*one wiki
 				//[Wonyoung is in IVE]
-				"19-03": {member: "Sakura", color: "rgb(241,210,231)"},
-				"05-07": {member: "Hyewon", color: "rgb(219,112,108)"},
-				"22-10": {member: "Jo Yuri", color: "rgb(243,170,81)"},
-				"29-09": {member: "Yena", color: "rgb(252,246,149)"},
+				"19-03": {
+				  member: "Sakura",
+				  color: "rgb(241,210,231)"
+				},
+				"05-07": {
+				  member: "Hyewon",
+				  color: "rgb(219,112,108)"
+				},
+				"22-10": {
+				  member: "Jo Yuri",
+				  color: "rgb(243,170,81)"
+				},
+				"29-09": {
+				  member: "Yena",
+				  color: "rgb(252,246,149)"
+				},
 				//[Yujin is in IVE]
-				"18-06": {member: "Nako", color: "rgb(183,211,233)"},
-				"27-09": {member: "Eunbi", color: "rgb(187,176,220)"},
+				"18-06": {
+				  member: "Nako",
+				  color: "rgb(183,211,233)"
+				},
+				"27-09": {
+				  member: "Eunbi",
+				  color: "rgb(187,176,220)"
+				},
 				"06-10": [/*shared by Hitomi and Hanni*/],
 				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
-				"05-02": {member: "Minju", color: "rgb(255,255,255)"},
-				"11-01": {member: "Chaeyeon", color: "rgb(166,220,222)"},
-
+				"05-02": {
+				  member: "Minju",
+				  color: "rgb(255,255,255)"
+				},
+				"11-01": {
+				  member: "Chaeyeon",
+				  color: "rgb(166,220,222)"
+				},
 				//IVE
-					//ive wiki I think
-				"01-09": {member: "An Yujin", color: "rgb(255,57,154)"}, //conflict with IZ*ONE color rgb(86,122,206)
-				"24-09": {member: "Gaeul", color: "rgb(0,85,168)"},
-				"31-08": {member: "Wonyoung", color: "rgb(255,0,30)"}, //conflict with IZ*ONE color rgb(217,89,140)
-				"21-11": {member: "Liz", color: "rgb(0,195,245)"},
+				//ive wiki I think
+				"01-09": {
+				  member: "An Yujin",
+				  color: "rgb(255,57,154)"
+				},
+				//conflict with IZ*ONE color rgb(86,122,206)
+				"24-09": {
+				  member: "Gaeul",
+				  color: "rgb(0,85,168)"
+				},
+				"31-08": {
+				  member: "Wonyoung",
+				  color: "rgb(255,0,30)"
+				},
+				//conflict with IZ*ONE color rgb(217,89,140)
+				"21-11": {
+				  member: "Liz",
+				  color: "rgb(0,195,245)"
+				},
 				"03-02": [/*shared by Gahyeon and Rei*/],
-				"21-02": {member: "Leeseo", color: "rgb(255,240,1)"},
-
+				"21-02": {
+				  member: "Leeseo",
+				  color: "rgb(255,240,1)"
+				},
 				//SNSD
-					//https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
+				//https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
 				"10-02": [/*shared by Kim Lip and Sooyoung*/],
-				"09-03": {member: "Taeyeon", color: "rgb(100,149,237)"},
-				"18-04": {member: "Jessica", color: "rgb(209,0,86)"},
+				"09-03": {
+				  member: "Taeyeon",
+				  color: "rgb(100,149,237)"
+				},
+				"18-04": {
+				  member: "Jessica",
+				  color: "rgb(209,0,86)"
+				},
 				"15-05": [/*shared by Sunny and Haerin*/],
-				"30-05": {member: "Yoona", color: "rgb(0,105,148)"},
-				"28-06": {member: "Seohyun", color: "rgb(251,206,177)"},
+				"30-05": {
+				  member: "Yoona",
+				  color: "rgb(0,105,148)"
+				},
+				"28-06": {
+				  member: "Seohyun",
+				  color: "rgb(251,206,177)"
+				},
 				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
 				"22-09": [/*shared by Nayeon and Hyoyeon*/],
-				"05-12": {member: "Kwon Yuri", color: "rgb(0,51,102)"},
-
+				"05-12": {
+				  member: "Kwon Yuri",
+				  color: "rgb(0,51,102)"
+				},
 				//NewJeans
-					//tends to shuffle
-				"07-05": {member: "Minji", color: "rgb(255,248,31)"},
+				//tends to shuffle
+				"07-05": {
+				  member: "Minji",
+				  color: "rgb(255,248,31)"
+				},
 				"06-10": [/*shared by Hitomi and Hanni*/],
-				"11-04": {member: "Danielle", color: "rgb(0,238,0)"},
+				"11-04": {
+				  member: "Danielle",
+				  color: "rgb(0,238,0)"
+				},
 				"15-05": [/*shared by Sunny and Haerin*/],
-				"21-04": {member: "Hyein", color: "rgb(31,95,255)"} //2008 wtf was hybe thinking
-			};
+				"21-04": {
+				  member: "Hyein",
+				  color: "rgb(31,95,255)"
+				} //2008 wtf was hybe thinking
+			  };
 
-			idolBdData["01-08"] = [
-				{member: "Sieun", color: "rgb(255,255,255)"},
-				{member: "Chaewon", color: "rgb(206,229,213)"},
-				{member: "Tiffany", color: "rgb(169,32,62)"}
-			];
-
-			idolBdData["15-05"] = [
-				{member: "Sunny", color: "rgb(107,142,35)"},
-				{member: "Haerin", color: "rgb(255,255,255)"}
-			];
-
-			idolBdData["06-10"] = [
-				{member: "Hitomi", color: "rgb(241,195,170)"},
-				{member: "Hanni", color: "rgb(255,191,255)"}
-			];
-
-			idolBdData["10-02"] = [
-				{member: "Kim Lip", color: "rgb(234,2,1)"},
-				{member: "Sooyoung", color: "rgb(255,92,205)"}
-			];
-
-			idolBdData["22-09"] = [
-				{member: "Nayeon", color: "rgb(128,202,241)"},
-				{member: "Hyoyeon", color: "rgb(147,197,114)"}
-			];
-
-			idolBdData["09-12"] = [
-				{member: "ViVi", color: "rgb(255,152,180)"},
-				{member: "J", color: "rgb(255,0,0)"}
-			];
-
-			idolBdData["14-06"] = [
-				{member: "Seeun", color: "rgb(135,206,235)"},
-				{member: "Tzuyu", color: "rgb(1,108,186)"}
-			]
-
-			idolBdData["29-12"] = [
-				{member: "Sana", color: "rgb(156,158,207)"},
-				{member: "Yiren", color: "rgb(255,255,255)"},
-			]
-
-			idolBdData["03-02"] = [
-				{member: "Gahyeon", color: "rgb(186,9,191)"},
-				{member: "Rei", color: "rgb(105,195,45)"},
-			]
-
-			for(var date in idolBdData) {
-				if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
-			};
-
-			function getLocalDayMonth() {
-				var fd = urlParams.get("fakeDateUnix"); if(fd) { return fd };
-				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
-			};
-
-			function getKstDayMonth() {
-				var fd = urlParams.get("fakeDateUnix"); if(fd) { return fd };
-				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
-			};
-			
-			function getLuminance(R,G,B) {
-				return (0.2126*R + 0.7152*G + 0.0722*B);
-			};
-
-			//https://stackoverflow.com/a/2450976
-			function shuffle(array) {
-			  let currentIndex = array.length,  randomIndex;
-
-			  // While there remain elements to shuffle.
-			  while (currentIndex != 0) {
-
-				// Pick a remaining element.
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex--;
-
-				// And swap it with the current element.
-				[array[currentIndex], array[randomIndex]] = [
-				  array[randomIndex], array[currentIndex]];
+			  idolBdData["01-08"] = [{
+				member: "Sieun",
+				color: "rgb(255,255,255)"
+			  }, {
+				member: "Chaewon",
+				color: "rgb(206,229,213)"
+			  }, {
+				member: "Tiffany",
+				color: "rgb(169,32,62)"
+			  }];
+			  idolBdData["15-05"] = [{
+				member: "Sunny",
+				color: "rgb(107,142,35)"
+			  }, {
+				member: "Haerin",
+				color: "rgb(255,255,255)"
+			  }];
+			  idolBdData["06-10"] = [{
+				member: "Hitomi",
+				color: "rgb(241,195,170)"
+			  }, {
+				member: "Hanni",
+				color: "rgb(255,191,255)"
+			  }];
+			  idolBdData["10-02"] = [{
+				member: "Kim Lip",
+				color: "rgb(234,2,1)"
+			  }, {
+				member: "Sooyoung",
+				color: "rgb(255,92,205)"
+			  }];
+			  idolBdData["22-09"] = [{
+				member: "Nayeon",
+				color: "rgb(128,202,241)"
+			  }, {
+				member: "Hyoyeon",
+				color: "rgb(147,197,114)"
+			  }];
+			  idolBdData["09-12"] = [{
+				member: "ViVi",
+				color: "rgb(255,152,180)"
+			  }, {
+				member: "J",
+				color: "rgb(255,0,0)"
+			  }];
+			  idolBdData["14-06"] = [{
+				member: "Seeun",
+				color: "rgb(135,206,235)"
+			  }, {
+				member: "Tzuyu",
+				color: "rgb(1,108,186)"
+			  }];
+			  idolBdData["29-12"] = [{
+				member: "Sana",
+				color: "rgb(156,158,207)"
+			  }, {
+				member: "Yiren",
+				color: "rgb(255,255,255)"
+			  }];
+			  idolBdData["03-02"] = [{
+				member: "Gahyeon",
+				color: "rgb(186,9,191)"
+			  }, {
+				member: "Rei",
+				color: "rgb(105,195,45)"
+			  }];
+			  for (var date in idolBdData) {
+				if (!(idolBdData[date] instanceof Array)) {
+				  idolBdData[date] = [idolBdData[date]];
+				}
+				; //array wrap
 			  }
+			  ;
+			  function getLocalDayMonth() {
+				var fd = urlParams.get("fakeDateUnix");
+				if (fd) {
+				  return fd;
+				}
+				;
+				return (!isNaN(fd) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/", "-").substring(0, 5);
+			  }
+			  ;
+			  function getKstDayMonth() {
+				var fd = urlParams.get("fakeDateUnix");
+				if (fd) {
+				  return fd;
+				}
+				;
+				return (!isNaN(fd) ? new Date(fd) : new Date()).toLocaleString("en-GB", {
+				  timeZone: "Asia/Seoul"
+				}).replace("/", "-").substring(0, 5);
+			  }
+			  ;
+			  function getLuminance(R, G, B) {
+				return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+			  }
+			  ;
 
-			  return array;
-			}			
+			  //https://stackoverflow.com/a/2450976
+			  function shuffle(array) {
+				let currentIndex = array.length,
+				  randomIndex;
 
-			triedToLoadBigints = false;
-			window.onload = function() {
+				// While there remain elements to shuffle.
+				while (currentIndex != 0) {
+				  // Pick a remaining element.
+				  randomIndex = Math.floor(Math.random() * currentIndex);
+				  currentIndex--;
+
+				  // And swap it with the current element.
+				  [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+				}
+				return array;
+			  }
+			  triedToLoadBigints = false;
+			  window.onload = function () {
 				/*loona stan length updater interval*/
 				loonaInterval = setInterval(updateLoonaTime, 100);
-				
+
 				/*handle birthdays*/
 				var currentBirthdayDatas = [];
 				var local = idolBdData[getLocalDayMonth()];
 				var kst = idolBdData[getKstDayMonth()];
-				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
-				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
-				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
-				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
-				console.log(currentBirthdayDatas,currentBirthdayDatas.length);
-				if(currentBirthdayDatas.length > 0) {
-					var birthdayText = document.createElement("span");
-					birthdayText.classList.add("birthdays");
-					birthdayText.appendChild(document.createTextNode("Happy birthday to "));
-					for(var ibdCurrentDataIndex in currentBirthdayDatas) {
-						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
-						var coloredName = document.createElement("span");
-						var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
-						var colorValues = color.match(/\d+/g).map(x => parseInt(x));
-						var bgLum = getLuminance(...colorValues);
-						coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
-						coloredName.style.color = bgLum > 159 ? "black" : "white"
-						coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
-						coloredName.classList.add("bdIdolName");
-						birthdayText.appendChild(coloredName);
-						var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
-						if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
-							birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner))
-						}
-					};
-					birthdayText.appendChild(document.createTextNode("."));
-					document.getElementById("birthdays").textContent = "";
-					document.getElementById("birthdays").appendChild(birthdayText);
-				};
+				if (local) {
+				  currentBirthdayDatas = currentBirthdayDatas.concat(local);
+				}
+				if (kst) {
+				  currentBirthdayDatas = currentBirthdayDatas.concat(kst);
+				}
+				if (urlParams.get("fakeDateUnix") == "chaos") {
+				  currentBirthdayDatas = Object.values(idolBdData).flat();
+				  shuffle(currentBirthdayDatas);
+				}
+				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas));
+				console.log(currentBirthdayDatas, currentBirthdayDatas.length);
+				if (currentBirthdayDatas.length > 0) {
+				  var birthdayText = document.createElement("span");
+				  birthdayText.classList.add("birthdays");
+				  birthdayText.appendChild(document.createTextNode("Happy birthday to "));
+				  for (var ibdCurrentDataIndex in currentBirthdayDatas) {
+					ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
+					var coloredName = document.createElement("span");
+					var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
+					var colorValues = color.match(/\d+/g).map(x => parseInt(x));
+					var bgLum = getLuminance(...colorValues);
+					coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
+					coloredName.style.color = bgLum > 159 ? "black" : "white";
+					coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
+					coloredName.classList.add("bdIdolName");
+					birthdayText.appendChild(coloredName);
+					var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
+					if (ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
+					  birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner));
+					}
+				  }
+				  ;
+				  birthdayText.appendChild(document.createTextNode("."));
+				  document.getElementById("birthdays").textContent = "";
+				  document.getElementById("birthdays").appendChild(birthdayText);
+				}
+				;
 
 				/*populate group list*/
-				var groupElem = document.getElementById("groups")
+				var groupElem = document.getElementById("groups");
 				groupElem.textContent = "";
-				
-				let dc = "Dreamcatcher"; let gg = "Girls' Generation";
-				var groups = [
-					{name: "LOONA",		type: "ult",	order: 1},
-					{name: "Kep1er",	type: "less",	order: 2},
-					{name: "BLACKPINK",	type: "noob",	order: 6},
-					{name: "STAYC",		type: "noob",	order: 5},
-					{name: "EVERGLOW",	type: "noob",	order: 3},
-					{name: "IVE",		type: "noob",	order: 7},
-					{name: "NewJeans",	type: "noob",	order: 8},
-					{name: dc,			type: "noob",	order: 10},
-					{name: "TWICE",		type: "noob",	order: 9},
-					{name: gg,			type: "noob",	order: 4}
-				];
-				
+				let dc = "Dreamcatcher";
+				let gg = "Girls' Generation";
+				var groups = [{
+				  name: "LOONA",
+				  type: "ult",
+				  order: 1
+				}, {
+				  name: "Kep1er",
+				  type: "less",
+				  order: 2
+				}, {
+				  name: "BLACKPINK",
+				  type: "noob",
+				  order: 6
+				}, {
+				  name: "STAYC",
+				  type: "noob",
+				  order: 5
+				}, {
+				  name: "EVERGLOW",
+				  type: "noob",
+				  order: 3
+				}, {
+				  name: "IVE",
+				  type: "noob",
+				  order: 7
+				}, {
+				  name: "NewJeans",
+				  type: "noob",
+				  order: 8
+				}, {
+				  name: dc,
+				  type: "noob",
+				  order: 10
+				}, {
+				  name: "TWICE",
+				  type: "noob",
+				  order: 9
+				}, {
+				  name: gg,
+				  type: "noob",
+				  order: 4
+				}];
 				var titles = {
-					ult: "(ult group)",
-					less: "(idk if i'm even a casual)",
-					noob: "(total noob)"
-				}
-
-				var framing = {
-					noob: ["(",")"]
-				}
-				
-				groups = groups.sort(function(o1,o2) { return o1.order - o2.order });
-				for(var i in groups) {
-					var data = groups[i];
-					var newElem = document.createElement(data.type == "ult" ? "u" : "span");
-
-						var fr = framing[data.type]; var f1 = ""; var f2 = ""; if(fr) { f1 = fr[0]; f2 = fr[1] };
-						newElem.innerText = f1 + data.name + f2;
-
-						newElem.classList.add(data.type);
-
-						if(titles[data.type]) {
-							newElem.setAttribute("title",titles[data.type])
-						};
-					groupElem.appendChild(newElem);
-					groupElem.appendChild(document.createTextNode(i < groups.length - 1 ? ", " : " "));
+				  ult: "(ult group)",
+				  less: "(idk if i'm even a casual)",
+				  noob: "(total noob)"
 				};
+				var framing = {
+				  noob: ["(", ")"]
+				};
+				groups = groups.sort(function (o1, o2) {
+				  return o1.order - o2.order;
+				});
+				for (var i in groups) {
+				  var data = groups[i];
+				  var newElem = document.createElement(data.type == "ult" ? "u" : "span");
+				  var fr = framing[data.type];
+				  var f1 = "";
+				  var f2 = "";
+				  if (fr) {
+					f1 = fr[0];
+					f2 = fr[1];
+				  }
+				  ;
+				  newElem.innerText = f1 + data.name + f2;
+				  newElem.classList.add(data.type);
+				  if (titles[data.type]) {
+					newElem.setAttribute("title", titles[data.type]);
+				  }
+				  ;
+				  groupElem.appendChild(newElem);
+				  groupElem.appendChild(document.createTextNode(i < groups.length - 1 ? ", " : " "));
+				}
+				;
 
 				/*load game*/
-				if(!triedToLoadBigints) {
+				if (!triedToLoadBigints) {
 				  loadBigints(false);
-					triedToLoadBigints = true;
-				  };
-				  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
-					updateCounters();
-				  };
+				  triedToLoadBigints = true;
+				}
+				;
+				if (bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+				  updateCounters();
+				}
+				;
+				buildStats();
+				setInterval(saveBigints, 5000);
+				if (getClickValue() > 1) {
 				  buildStats();
-				  setInterval(saveBigints, 5000);
-				  if(getClickValue() > 1) { buildStats(); unlockUplist() };
-			};
-			} catch(error) {
-				alert(error);
-			};
+				  unlockUplist();
+				}
+				;
+			  };
+			} catch (error) {
+			  alert(error);
+			}
+			;try {
+			  const urlParams = new URLSearchParams(window.location.search);
+			  bigintValue = 0n;
+			  lifetimeBigintValue = 0n;
+			  showedMessage = false;
+			  showingMessage = false;
+			  superUpgradeVisible = false;
+			  bigintRebirths = 0n;
+			  bigintSecondLevelRebirths = 0n;
+			  saveModulo = 0;
+			  clickUpgrades = [{
+				type: "+",
+				value: 1n,
+				cost: 10n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 5n,
+				cost: 40n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 12n,
+				cost: 100n,
+				level: 0n
+			  }, {
+				type: "+",
+				value: 150n,
+				cost: 1000n,
+				level: 0n
+			  }, {
+				type: "*",
+				value: 2n,
+				cost: 50000n,
+				level: 0n,
+				max: 4n,
+				increaseByRebirth: 1n
+			  }, {
+				type: "+",
+				value: 15000n,
+				cost: 75000n,
+				level: 0n
+			  }, {
+				type: "**",
+				value: 2n,
+				cost: 10n ** 7n,
+				level: 0n,
+				max: 1n
+			  }, {
+				type: "**",
+				value: 3n,
+				cost: 10n ** 14n,
+				level: 0n,
+				max: 1n
+			  }, {
+				type: "**",
+				value: 4n,
+				cost: 10n ** 21n,
+				level: 0n,
+				max: 1n
+			  }];
+			  buyKeys = {};
+			  var letters = "pqwert";
+			  var letters2 = "lasdfg";
+			  /*TODO: AZERTY and QWERTZ support*/
+			  var upperLetters = letters.toUpperCase();
+			  var upperLetters2 = letters2.toUpperCase();
+			  var shiftNumbers = ")!@#$%";
+			  for (var number = 0; number < letters.length; number++) {
+				shiftNumber = shiftNumbers[number];
+				letter = letters[number];
+				uLetter = upperLetters[number];
+				letter2 = letters2[number];
+				uLetter2 = upperLetters2[number];
+				buyKeys[number] = [number, 0n];
+				if (!((clickUpgrades[parseInt(number)].max ?? Infinity) < 25n)) {
+				  buyKeys[shiftNumber] = [number, 1n];
+				  buyKeys[letter] = [number, 2n];
+				  buyKeys[uLetter] = [number, 3n];
+				  buyKeys[letter2] = [number, 4n];
+				  buyKeys[uLetter2] = [number, 5n];
+				}
+				;
+			  }
+			  ;
+			  buyKeys[6] = [6, 0n];
+			  buyKeys[4] = [4, 0n];
+			  buyKeys[7] = [7, 0n];
+			  buyKeys[8] = [8, 0n];
+			  doNotAlertRebirth = false;
+			  BigInt.prototype.toJSON = function () {
+				return "<@BI>" + this.toString();
+			  };
+			  function bigintReviver(key, value) {
+				if (typeof value == "string" && value.startsWith("<@BI>")) {
+				  var bi = value.substring(5);
+				  return BigInt(bi);
+				}
+				;
+				return value;
+			  }
+			  ;
+			  function saveBigints() {
+				object = {
+				  number: bigintValue,
+				  lifetimeNumber: lifetimeBigintValue,
+				  reachedBigNumber: showedMessage,
+				  upgradeLevels: clickUpgrades.map(x => x.level),
+				  showUpgradeOT12: superUpgradeVisible,
+				  modhaus: bigintRebirths,
+				  artms: bigintSecondLevelRebirths ?? 0n
+				};
+				localStorage.setItem("number", JSON.stringify(object));
+			  }
+			  ;
+			  function resetBigints(removeSave) {
+				if (removeSave === void 0) {
+				  removeSave = false;
+				}
+				bigintValue = 0n;
+				lifetimeBigintValue = 0n;
+				showedMessage = false;
+				superUpgradeVisible = false;
+				bigintRebirths = 0n;
+				bigintSecondLevelRebirths = 0n;
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
+				relockSecret();
+				updateCounters();
+				if (removeSave) {
+				  localStorage.removeItem("number");
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function loadBigints(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (!localStorage.number) {
+				  return false;
+				}
+				;
+				object = JSON.parse(localStorage.number, bigintReviver);
+				bigintValue = object.number;
+				lifetimeBigintValue = object.lifetimeNumber;
+				showedMessage = object.reachedBigNumber;
+				superUpgradeVisible = object.showUpgradeOT12;
+				bigintRebirths = object.modhaus;
+				bigintSecondLevelRebirths = object.artms ?? 0n;
+				var levels = object.upgradeLevels;
+				for (ptt = 0; ptt < levels.length; ptt++) {
+				  clickUpgrades[ptt].level = levels[ptt];
+				}
+				;
+				if (superUpgradeVisible) {
+				  unlockSecret();
+				}
+				;
+				if (updateCounts) {
+				  updateCounters(false);
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function getProspectiveRebirths() {
+				return (getBigintMagnitude(bigintValue) + 88n) / 200n;
+			  }
+			  ;
+			  function getProspectiveSecondRebirths() {
+				return (bigintRebirths + 10n) / 20n;
+			  }
+			  ;
+			  function rebirth(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (getBigintMagnitude(bigintValue) < 112n) {
+				  return false;
+				}
+				;
+				var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n;
+				if (rebirths < 1n) {
+				  return false;
+				}
+				;
+				bigintValue = 0n;
+				showedMessage = false;
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
+				bigintRebirths += rebirths;
+				if (updateCounts) {
+				  buildStats();
+				  updateCounters();
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function secondLevelRebirth(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (bigintRebirths < 10) {
+				  return false;
+				}
+				;
+				var secondRebirths = (bigintRebirths + 10n) / 20n;
+				if (secondRebirths < 1n) {
+				  return false;
+				}
+				;
+				bigintValue = 0n;
+				bigintRebirths = 0n;
+				showedMessage = false;
+				for (hash = 0; hash < clickUpgrades.length; hash++) {
+				  clickUpgrades[hash].level = 0n;
+				}
+				;
+				bigintSecondLevelRebirths += secondRebirths;
+				if (updateCounts) {
+				  buildStats();
+				  updateCounters();
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function getUpgradeMaximum(index) {
+				var upgrade = clickUpgrades[index];
+				if (!upgrade.max) {
+				  return null;
+				} else {
+				  if (upgrade.increaseByRebirth) {
+					return upgrade.max + upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths);
+				  } else {
+					return upgrade.max;
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function getUpgradeInfo(index) {
+				var upgrade = clickUpgrades[index];
+				var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
+				var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+				var benefitPrefix, upgradeValue;
+				switch (upgrade.type) {
+				  case "+":
+					benefitPrefix = "+";
+					upgradeValue = rebirthModifier * upgrade.value * upgrade.level;
+					break;
+				  case "*":
+					benefitPrefix = "x";
+					upgradeValue = (upgrade.value + (bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)) ** upgrade.level;
+					break;
+				  case "**":
+					benefitPrefix = "^";
+					upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
+					break;
+				}
+				;
+				var benefitText = `${benefitPrefix}${upgradeValue}`;
+				var baseBenefit = `${benefitPrefix}${upgrade.value}`;
+				var cost = upgrade.cost;
+				return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
+			  }
+			  ;
+			  function buildStats() {
+				var element = document.getElementById("upList");
+				element.textContent = "";
+				secondRebirthSpan = document.createElement("span");
+				secondRebirthSpan.setAttribute("class", "upgradeInfo secondRebirths ot12");
+				secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
+				element.appendChild(secondRebirthSpan);
+				element.appendChild(document.createElement("br"));
+				rebirthSpan = document.createElement("span");
+				rebirthSpan.setAttribute("class", "upgradeInfo rebirths youth");
+				rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
+				element.appendChild(rebirthSpan);
+				element.appendChild(document.createElement("br"));
+				var bound = clickUpgrades.length;
+				for (l = 0; l < bound; l++) {
+				  infoRow = document.createElement("span");
+				  infoRow.setAttribute("class", "upgradeInfo");
+				  infoRow.innerText = getUpgradeInfo(l);
+				  element.appendChild(infoRow);
+				  element.appendChild(document.createElement("br"));
+				}
+				;
+				resultSpan = document.createElement("span");
+				resultSpan.setAttribute("class", "upgradeInfo totalClick ot12");
+				var CV = getClickValue();
+				resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
+				element.appendChild(resultSpan);
+				element.appendChild(document.createElement("br"));
+				possibleRebirthSpan = document.createElement("span");
+				possibleRebirthSpan.setAttribute("class", "upgradeInfo rebirth1 youth");
+				newRebirths = getProspectiveRebirths();
+				possibleRebirthSpan.innerText = newRebirths == 0n ? "You cannot rebirth yet." : `If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
+				element.appendChild(possibleRebirthSpan);
+				element.appendChild(document.createElement("br"));
+				possibleSecondRebirthSpan = document.createElement("span");
+				possibleSecondRebirthSpan.setAttribute("class", "upgradeInfo rebirth2 ot12");
+				newSecondRebirths = getProspectiveSecondRebirths();
+				possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? "You cannot second-level rebirth yet." : `If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
+				element.appendChild(possibleSecondRebirthSpan);
+			  }
+			  ;
+			  function getClickValue() {
+				var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+				var value = rebirthedBase;
+				for (flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
+				  var upgrade = clickUpgrades[flipThat];
+				  if (upgrade.type == "+") {
+					value += upgrade.value * rebirthedBase * upgrade.level;
+				  } else if (upgrade.type == "*") {
+					if (upgrade.level > 0) {
+					  value *= (upgrade.value + (bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)) ** upgrade.level;
+					}
+					;
+				  } else if (upgrade.type == "**") {
+					if (upgrade.level > 0) {
+					  value = value ** (upgrade.value * upgrade.level);
+					}
+					;
+				  } else {
+					console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
+				  }
+				  ;
+				}
+				;
+				return value;
+			  }
+			  ;
+			  function buyUpgrade(index, updateCounts, amount) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (amount === void 0) {
+				  amount = 1n;
+				}
+				var upgrade = clickUpgrades[index];
+				var cost = upgrade.cost * amount;
+				if (amount < 1n) {
+				  return false;
+				}
+				;
+				if (bigintValue < cost) {
+				  return false;
+				}
+				;
+				if (upgrade.max && upgrade.level > getUpgradeMaximum(index) - amount) {
+				  return false;
+				}
+				;
+				upgrade.level += amount;
+				bigintValue -= cost;
+				if (updateCounts) {
+				  updateCounters();
+				  buildStats();
+				}
+				;
+				if (index == 6) {
+				  unlockSecret();
+				}
+				;
+				unlockUplist();
+				return true;
+			  }
+			  ;
+			  function unlockSecret() {
+				var secretSpan = document.getElementById("up7");
+				if (secretSpan && secretSpan.style.display == "none") {
+				  secretSpan.style.display = "unset";
+				}
+				;
+				superUpgradeVisible = true;
+			  }
+			  ;
+			  function relockSecret() {
+				var secretSpan = document.getElementById("up7");
+				if (secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
+				  secretSpan.style.display = "none";
+				}
+				;
+				superUpgradeVisible = false;
+			  }
+			  ;
+			  function unlockUplist() {
+				var secretDiv = document.getElementById("upList");
+				if (!secretDiv) {
+				  return;
+				}
+				;
+				buildStats();
+				if (secretDiv && secretDiv.style.display == "none") {
+				  secretDiv.style.display = "unset";
+				}
+				;
+			  }
+			  ;
+			  function relockUplist() {
+				var secretDiv = document.getElementById("upList");
+				if (secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
+				  secretDiv.style.display = "none";
+				}
+				;
+			  }
+			  ;
+			  function increment(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				bigintValue += getClickValue();
+				lifetimeBigintValue += getClickValue();
+				if (updateCounts) {
+				  updateCounters();
+				  buildStats();
+				}
+				;
+			  }
+			  ;
+			  clearSpanTimeoutId = null;
+			  function clearLagSpan() {
+				var lagSpan = document.getElementById("lagWarning");
+				if (lagSpan) {
+				  lagSpan.innerText = String.fromCharCode(160);
+				}
+				;
+				clearSpanTimeoutId = null;
+			  }
+			  ;
+			  function timedIncrement(updateCounts) {
+				if (updateCounts === void 0) {
+				  updateCounts = true;
+				}
+				if (clearSpanTimeoutId) {
+				  //console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
+				  clearTimeout(clearSpanTimeoutId);
+				}
+				;
+				var start = Date.now();
+				increment(updateCounts);
+				var end = Date.now();
+				var difference = end - start;
+				if (difference >= 100) {
+				  var lagSpan = document.getElementById("lagWarning");
+				  var formattedLength = (difference / 1000).toFixed(2);
+				  if (!showingMessage && lagSpan) {
+					lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`;
+					//console.log("Setting timeout");
+					clearSpanTimeoutId = setTimeout(clearLagSpan, 3000);
+					//console.log("ID: " + clearSpanTimeoutId);
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function bigintCommas(bigint) {
+				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g, ",");
+				if (numberText.startsWith(",")) {
+				  numberText = numberText.substring(1);
+				}
+				;
+				return numberText;
+			  }
+			  ;
+			  function getBigintMagnitude(bigint) {
+				var bString = bigint.toString();
+				return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
+			  }
+			  ;
+			  function updateCounters(doSave) {
+				if (doSave === void 0) {
+				  doSave = true;
+				}
+				//console.error("i want a trace");
+				if (lifetimeBigintValue >= 10n ** 11n) {
+				  unlockSecret();
+				}
+				;
+				if (!showedMessage && bigintValue >= 10n ** 112n && !doNotAlertRebirth) {
+				  showingMessage = true;
+				  alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
+				  showedMessage = true;
+				  showingMessage = false;
+				}
+				;
+				var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
+				for (i = 0; i < counters.length; i++) {
+				  var counter = counters[i];
+				  var format = counter.getAttribute("countTemplate");
+				  var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
+				  var numberText = bigintCommas(bigintValue * 10n ** magnitudeOffset);
+				  var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * 10n ** magnitudeOffset));
+				  var newText = format.replaceAll("<@N@>", numberText).replaceAll("<@E@>", numberMagnitudeText);
+				  counter.innerText = newText;
+				}
+				;
+				var buyWarnSpan = document.getElementById("bigNumWarning");
+				if (getBigintMagnitude(bigintValue) >= 40000) {
+				  buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
+				} else if (getBigintMagnitude(bigintValue) >= 10000) {
+				  buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
+				} else if (getBigintMagnitude(bigintValue) >= 2000) {
+				  buyWarnSpan.textContent = "";
+				  buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
+				  var newSup = document.createElement("sup");
+				  newSup.innerText = "1,000";
+				  buyWarnSpan.appendChild(newSup);
+				  buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
+				} else if (getBigintMagnitude(bigintValue) < 2000) {
+				  buyWarnSpan.innerText = String.fromCharCode(160);
+				}
+				;
+				if (doSave) {
+				  //Save on every fifth update
+				  saveModulo++;
+				  if (saveModulo % 5 == 0) {
+					saveBigints();
+					saveModulo = 0;
+				  }
+				  ;
+				}
+				;
+			  }
+			  ;
+			  function generateButtonsForTitledClickables() {
+				var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
+				for (i = 0; i < clickables.length; i++) {
+				  var clickText = clickables[i];
+				  var clickCode = clickText.getAttribute("onclick");
+				  var textTitle = clickText.getAttribute("title");
+				  var newButton = document.createElement("button");
+				  newButton.setAttribute("onclick", clickCode);
+				  newButton.innerText = textTitle;
+				  clickText.after(newButton);
+				}
+				;
+				return true;
+			  }
+			  ;
+			  function dumbBruh() {
+				try {
+				  var audio = new Audio("bin/bruh.mp3");
+				  audio.onended = function () {
+					delete this;
+				  };
+				  audio.play();
+				} catch (error) {
+				  alert("Could not play bruh sound");
+				  return false;
+				}
+				;
+				return true;
+			  }
+			  ;
+			  document.addEventListener("keypress", function (event) {
+				if (event.key === " ") {
+				  timedIncrement(true);
+				  return true;
+				} else if (event.key === "b") {
+				  return rebirth();
+				} else if (event.key === "B") {
+				  return secondLevelRebirth();
+				} else if (event.key === "N") {
+				  var indPrompt = prompt("Which upgrade to buy?");
+				  if (indPrompt == null || indPrompt == "") {
+					return false;
+				  }
+				  ;
+				  var index = parseInt(indPrompt);
+				  if (isNaN(index)) {
+					alert("Invalid index!");
+					return false;
+				  }
+				  ;
+				  if (index < 0 || index > clickUpgrades.length - 1) {
+					alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
+					return false;
+				  }
+				  ;
+				  var buyPrompt = prompt("How many to buy?");
+				  if (buyPrompt == null || buyPrompt == "") {
+					return false;
+				  }
+				  ;
+				  var amount;
+				  try {
+					if (/^[\de]+$/.test(buyPrompt)) {
+					  buyPrompt = buyPrompt.split("e");
+					  for (girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop = 0; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop < buyPrompt.length; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop++) {
+						if (buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] == "") {
+						  buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = "1";
+						}
+						;
+						buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = BigInt(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop]);
+					  }
+					  ;
+					  try {
+						buyPrompt = buyPrompt.reduceRight((a, b) => b * 10n ** a);
+					  } catch (error) {
+						alert("Result too large or other error"); //"Maximum BigInt size exceeded"
+						return false;
+					  }
+					  ;
+					  amount = buyPrompt;
+					} else {
+					  amount = BigInt(buyPrompt);
+					}
+					;
+				  } catch (error) {
+					alert("Invalid amount!");
+					return false;
+				  }
+				  ;
+				  if (amount < 1n) {
+					alert("Amount must be greater than 0!");
+					return false;
+				  }
+				  ;
+				  var success = buyUpgrade(index, true, amount);
+				  if (success) {
+					alert(`Bought ${amount} of upgrade ${index}`);
+				  } else {
+					alert(`Could not buy ${amount} of upgrade ${index}`);
+				  }
+				  ;
+				  return success;
+				} else if (Object.keys(buyKeys).includes(event.key)) {
+				  purchaseData = buyKeys[event.key];
+				  return buyUpgrade(purchaseData[0], true, 25n ** purchaseData[1]);
+				}
+				;
+			  });
+			  loonaStartUnix = 1661127423000;
+			  /*video length from debug data has millisecond precision (215.201),
+			  but reddit comments are only have second precision from the API (as
+			  1661127638.0 except that the decimal is always 0)*/
+			  function secondsSinceLoona(formatString) {
+				if (formatString === void 0) {
+				  formatString = false;
+				}
+				return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
+			  }
+			  ;
+			  function updateLoonaTime() {
+				var text = document.getElementById("loonaTime");
+				if (!text) {
+				  return false;
+				}
+				;
+				var value = secondsSinceLoona();
+				text.innerText = value.toLocaleString('en-US');
+			  }
+			  ;
+			  idolBdData = {
+				//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
+				//Sometimes hex codes are given and sometimes it's only generic color words.
+
+				//LOONA
+				//official colors, exact shades vary
+				"19-10": {
+				  member: "HeeJin",
+				  color: "rgb(255,0,143)"
+				},
+				"15-11": {
+				  member: "HyunJin",
+				  color: "rgb(255,234,0)"
+				},
+				"18-08": {
+				  member: "HaSeul",
+				  color: "rgb(0,191,0)"
+				},
+				"11-11": {
+				  member: "YeoJin",
+				  color: "rgb(244,111,31)"
+				},
+				"09-12": [/*shared by ViVi and J*/],
+				"10-02": [/*shared by Kim Lip and Sooyoung*/],
+				"13-06": {
+				  member: "JinSoul",
+				  color: "rgb(20,36,176)"
+				},
+				"04-06": {
+				  member: "Choerry",
+				  color: "rgb(92,44,146)"
+				},
+				"24-05": {
+				  member: "Yves",
+				  color: "rgb(125,0,30)"
+				},
+				"20-10": {
+				  member: "Chuu",
+				  color: "rgb(246,144,126)"
+				},
+				"19-11": {
+				  member: "Go Won",
+				  color: "rgb(48,225,146)"
+				},
+				"13-11": {
+				  member: "Olivia Hye",
+				  color: "rgb(143,143,143)"
+				},
+				//Kep1er
+				//Fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
+				"26-04": {
+				  member: "Chaehyun",
+				  color: "rgb(255,183,206)"
+				},
+				"27-07": {
+				  member: "Huening Bahiyyih",
+				  color: "rgb(255,177,109)"
+				},
+				"12-08": {
+				  member: "Choi Yujin",
+				  color: "rgb(249,123,144)"
+				},
+				//from sample, as hex code => rgb(188,188,226) doesn't match + is too similar to Yeseo
+				"02-03": {
+				  member: "Dayeon",
+				  color: "rgb(100,150,235)"
+				},
+				"27-12": {
+				  member: "Youngeun",
+				  color: "rgb(147,197,114)"
+				},
+				"22-08": {
+				  member: "Yeseo",
+				  color: "rgb(162,207,254)"
+				},
+				"12-03": {
+				  member: "Hikaru",
+				  color: "rgb(251,234,140)"
+				},
+				"16-12": {
+				  member: "Mashiro",
+				  color: "rgb(253,238,244)"
+				},
+				"12-11": {
+				  member: "Xiaoting",
+				  color: "rgb(195,142,199)"
+				},
+				//BLACKPINK
+				//taken from uncited blackpink.fandom forum post, and probably made up but whatever
+				"16-01": {
+				  member: "Jennie",
+				  color: "rgb(204,108,169)"
+				},
+				"27-03": {
+				  member: "Lisa",
+				  color: "rgb(255,250,0)"
+				},
+				"03-01": {
+				  member: "Jisoo",
+				  color: "rgb(159,0,191)"
+				},
+				"11-02": {
+				  member: "Rose'",
+				  color: "rgb(0,94,255)"
+				},
+				//EVERGLOW
+				//from everglow.fandom
+				"19-05": {
+				  member: "E:U",
+				  color: "rgb(107,86,163)"
+				},
+				"05-08": {
+				  member: "Sihyeon",
+				  color: "rgb(199,210,167)"
+				},
+				"13-01": {
+				  member: "Mia",
+				  color: "rgb(103,5,6)"
+				},
+				"18-05": {
+				  member: "Onda",
+				  color: "rgb(179,4,105)"
+				},
+				"21-07": {
+				  member: "Aisha",
+				  color: "rgb(0,0,0)"
+				},
+				"29-12": [/*shared by Sana and Yiren*/],
+				//STAYC
+				//from wiki i forgot
+				"13-03": {
+				  member: "Sumin",
+				  color: "rgb(255,192,203)"
+				},
+				"14-04": {
+				  member: "Yoon",
+				  color: "rgb(50,205,50)"
+				},
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
+				"23-01": {
+				  member: "Isa",
+				  color: "rgb(0,0,0)"
+				},
+				"14-06": [/*shared by Seeun and Tzuyu*/],
+				"09-12": [/*shared by ViVi and J*/],
+				//TWICE
+				//from https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
+				"22-09": [/*shared by Nayeon and Hyoyeon*/],
+				"01-11": {
+				  member: "Jeongyeon",
+				  color: "rgb(188,215,118)"
+				},
+				"09-11": {
+				  member: "Momo",
+				  color: "rgb(248,207,215)"
+				},
+				"29-12": [/*shared by Sana and Yiren*/],
+				"01-02": {
+				  member: "Jihyo",
+				  color: "rgb(250,200,87)"
+				},
+				"24-03": {
+				  member: "Mina",
+				  color: "rgb(111,197,194)"
+				},
+				"28-05": {
+				  member: "Dahyun",
+				  color: "rgb(255,255,255)"
+				},
+				"23-04": {
+				  member: "Chaeyoung",
+				  color: "rgb(232,25,51)"
+				},
+				"14-06": [/*shared by Seeun and Tzuyu*/],
+				//Dreamcatcher
+				//https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
+				"17-05": {
+				  member: "JiU",
+				  color: "rgb(255,255,255)"
+				},
+				"10-08": {
+				  member: "SuA",
+				  color: "rgb(255,0,0)"
+				},
+				"01-10": {
+				  member: "Siyeon",
+				  color: "rgb(15,47,255)"
+				},
+				"26-03": {
+				  member: "Handong",
+				  color: "rgb(0,0,0)"
+				},
+				"07-01": {
+				  member: "Yoohyeon",
+				  color: "rgb(31,237,21)"
+				},
+				"07-03": {
+				  member: "Dami",
+				  color: "rgb(255, 244, 15)"
+				},
+				"03-02": [/*shared by Gahyeon and Rei*/],
+				//IZ*ONE
+				//from iz*one wiki
+				//[Wonyoung is in IVE]
+				"19-03": {
+				  member: "Sakura",
+				  color: "rgb(241,210,231)"
+				},
+				"05-07": {
+				  member: "Hyewon",
+				  color: "rgb(219,112,108)"
+				},
+				"22-10": {
+				  member: "Jo Yuri",
+				  color: "rgb(243,170,81)"
+				},
+				"29-09": {
+				  member: "Yena",
+				  color: "rgb(252,246,149)"
+				},
+				//[Yujin is in IVE]
+				"18-06": {
+				  member: "Nako",
+				  color: "rgb(183,211,233)"
+				},
+				"27-09": {
+				  member: "Eunbi",
+				  color: "rgb(187,176,220)"
+				},
+				"06-10": [/*shared by Hitomi and Hanni*/],
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
+				"05-02": {
+				  member: "Minju",
+				  color: "rgb(255,255,255)"
+				},
+				"11-01": {
+				  member: "Chaeyeon",
+				  color: "rgb(166,220,222)"
+				},
+				//IVE
+				//ive wiki I think
+				"01-09": {
+				  member: "An Yujin",
+				  color: "rgb(255,57,154)"
+				},
+				//conflict with IZ*ONE color rgb(86,122,206)
+				"24-09": {
+				  member: "Gaeul",
+				  color: "rgb(0,85,168)"
+				},
+				"31-08": {
+				  member: "Wonyoung",
+				  color: "rgb(255,0,30)"
+				},
+				//conflict with IZ*ONE color rgb(217,89,140)
+				"21-11": {
+				  member: "Liz",
+				  color: "rgb(0,195,245)"
+				},
+				"03-02": [/*shared by Gahyeon and Rei*/],
+				"21-02": {
+				  member: "Leeseo",
+				  color: "rgb(255,240,1)"
+				},
+				//SNSD
+				//https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
+				"10-02": [/*shared by Kim Lip and Sooyoung*/],
+				"09-03": {
+				  member: "Taeyeon",
+				  color: "rgb(100,149,237)"
+				},
+				"18-04": {
+				  member: "Jessica",
+				  color: "rgb(209,0,86)"
+				},
+				"15-05": [/*shared by Sunny and Haerin*/],
+				"30-05": {
+				  member: "Yoona",
+				  color: "rgb(0,105,148)"
+				},
+				"28-06": {
+				  member: "Seohyun",
+				  color: "rgb(251,206,177)"
+				},
+				"01-08": [/*shared by Sieun, Chaewon, and Tiffany*/],
+				"22-09": [/*shared by Nayeon and Hyoyeon*/],
+				"05-12": {
+				  member: "Kwon Yuri",
+				  color: "rgb(0,51,102)"
+				},
+				//NewJeans
+				//tends to shuffle
+				"07-05": {
+				  member: "Minji",
+				  color: "rgb(255,248,31)"
+				},
+				"06-10": [/*shared by Hitomi and Hanni*/],
+				"11-04": {
+				  member: "Danielle",
+				  color: "rgb(0,238,0)"
+				},
+				"15-05": [/*shared by Sunny and Haerin*/],
+				"21-04": {
+				  member: "Hyein",
+				  color: "rgb(31,95,255)"
+				} //2008 wtf was hybe thinking
+			  };
+
+			  idolBdData["01-08"] = [{
+				member: "Sieun",
+				color: "rgb(255,255,255)"
+			  }, {
+				member: "Chaewon",
+				color: "rgb(206,229,213)"
+			  }, {
+				member: "Tiffany",
+				color: "rgb(169,32,62)"
+			  }];
+			  idolBdData["15-05"] = [{
+				member: "Sunny",
+				color: "rgb(107,142,35)"
+			  }, {
+				member: "Haerin",
+				color: "rgb(255,255,255)"
+			  }];
+			  idolBdData["06-10"] = [{
+				member: "Hitomi",
+				color: "rgb(241,195,170)"
+			  }, {
+				member: "Hanni",
+				color: "rgb(255,191,255)"
+			  }];
+			  idolBdData["10-02"] = [{
+				member: "Kim Lip",
+				color: "rgb(234,2,1)"
+			  }, {
+				member: "Sooyoung",
+				color: "rgb(255,92,205)"
+			  }];
+			  idolBdData["22-09"] = [{
+				member: "Nayeon",
+				color: "rgb(128,202,241)"
+			  }, {
+				member: "Hyoyeon",
+				color: "rgb(147,197,114)"
+			  }];
+			  idolBdData["09-12"] = [{
+				member: "ViVi",
+				color: "rgb(255,152,180)"
+			  }, {
+				member: "J",
+				color: "rgb(255,0,0)"
+			  }];
+			  idolBdData["14-06"] = [{
+				member: "Seeun",
+				color: "rgb(135,206,235)"
+			  }, {
+				member: "Tzuyu",
+				color: "rgb(1,108,186)"
+			  }];
+			  idolBdData["29-12"] = [{
+				member: "Sana",
+				color: "rgb(156,158,207)"
+			  }, {
+				member: "Yiren",
+				color: "rgb(255,255,255)"
+			  }];
+			  idolBdData["03-02"] = [{
+				member: "Gahyeon",
+				color: "rgb(186,9,191)"
+			  }, {
+				member: "Rei",
+				color: "rgb(105,195,45)"
+			  }];
+			  for (var date in idolBdData) {
+				if (!(idolBdData[date] instanceof Array)) {
+				  idolBdData[date] = [idolBdData[date]];
+				}
+				; //array wrap
+			  }
+			  ;
+			  function getLocalDayMonth() {
+				var fd = parseInt(urlParams.get("fakeDateUnix"));
+				return (!isNaN(fd) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/", "-").substring(0, 5);
+			  }
+			  ;
+			  function getKstDayMonth() {
+				var fd = urlParams.get("fakeDateUnix");
+				if (fd) {
+				  return fd;
+				}
+				;
+				return (!isNaN(fd) ? new Date(fd) : new Date()).toLocaleString("en-GB", {
+				  timeZone: "Asia/Seoul"
+				}).replace("/", "-").substring(0, 5);
+			  }
+			  ;
+			  function getLuminance(R, G, B) {
+				return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+			  }
+			  ;
+
+			  //https://stackoverflow.com/a/2450976
+			  function shuffle(array) {
+				let currentIndex = array.length,
+				  randomIndex;
+
+				// While there remain elements to shuffle.
+				while (currentIndex != 0) {
+				  // Pick a remaining element.
+				  randomIndex = Math.floor(Math.random() * currentIndex);
+				  currentIndex--;
+
+				  // And swap it with the current element.
+				  [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+				}
+				return array;
+			  }
+			  triedToLoadBigints = false;
+			  window.onload = function () {
+				/*loona stan length updater interval*/
+				loonaInterval = setInterval(updateLoonaTime, 100);
+
+				/*handle birthdays*/
+				var currentBirthdayDatas = [];
+				var local = idolBdData[getLocalDayMonth()];
+				var kst = idolBdData[getKstDayMonth()];
+				if (local) {
+				  currentBirthdayDatas = currentBirthdayDatas.concat(local);
+				}
+				if (kst) {
+				  currentBirthdayDatas = currentBirthdayDatas.concat(kst);
+				}
+				if (urlParams.get("fakeDateUnix") == "chaos") {
+				  currentBirthdayDatas = Object.values(idolBdData).flat();
+				  shuffle(currentBirthdayDatas);
+				}
+				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas));
+				console.log(currentBirthdayDatas, currentBirthdayDatas.length);
+				if (currentBirthdayDatas.length > 0) {
+				  var birthdayText = document.createElement("span");
+				  birthdayText.classList.add("birthdays");
+				  birthdayText.appendChild(document.createTextNode("Happy birthday to "));
+				  for (var ibdCurrentDataIndex in currentBirthdayDatas) {
+					ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
+					var coloredName = document.createElement("span");
+					var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
+					var colorValues = color.match(/\d+/g).map(x => parseInt(x));
+					var bgLum = getLuminance(...colorValues);
+					coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
+					coloredName.style.color = bgLum > 159 ? "black" : "white";
+					coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
+					coloredName.classList.add("bdIdolName");
+					birthdayText.appendChild(coloredName);
+					var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
+					if (ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
+					  birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner));
+					}
+				  }
+				  ;
+				  birthdayText.appendChild(document.createTextNode("."));
+				  document.getElementById("birthdays").textContent = "";
+				  document.getElementById("birthdays").appendChild(birthdayText);
+				}
+				;
+
+				/*populate group list*/
+				var groupElem = document.getElementById("groups");
+				groupElem.textContent = "";
+				let dc = "Dreamcatcher";
+				let gg = "Girls' Generation";
+				var groups = [{
+				  name: "LOONA",
+				  type: "ult",
+				  order: 1
+				}, {
+				  name: "Kep1er",
+				  type: "less",
+				  order: 2
+				}, {
+				  name: "BLACKPINK",
+				  type: "noob",
+				  order: 6
+				}, {
+				  name: "STAYC",
+				  type: "noob",
+				  order: 5
+				}, {
+				  name: "EVERGLOW",
+				  type: "noob",
+				  order: 3
+				}, {
+				  name: "IVE",
+				  type: "noob",
+				  order: 7
+				}, {
+				  name: "NewJeans",
+				  type: "noob",
+				  order: 8
+				}, {
+				  name: dc,
+				  type: "noob",
+				  order: 10
+				}, {
+				  name: "TWICE",
+				  type: "noob",
+				  order: 9
+				}, {
+				  name: gg,
+				  type: "noob",
+				  order: 4
+				}];
+				var titles = {
+				  ult: "(ult group)",
+				  less: "(idk if i'm even a casual)",
+				  noob: "(total noob)"
+				};
+				var framing = {
+				  noob: ["(", ")"]
+				};
+				groups = groups.sort(function (o1, o2) {
+				  return o1.order - o2.order;
+				});
+				for (var i in groups) {
+				  var data = groups[i];
+				  var newElem = document.createElement(data.type == "ult" ? "u" : "span");
+				  var fr = framing[data.type];
+				  var f1 = "";
+				  var f2 = "";
+				  if (fr) {
+					f1 = fr[0];
+					f2 = fr[1];
+				  }
+				  ;
+				  newElem.innerText = f1 + data.name + f2;
+				  newElem.classList.add(data.type);
+				  if (titles[data.type]) {
+					newElem.setAttribute("title", titles[data.type]);
+				  }
+				  ;
+				  groupElem.appendChild(newElem);
+				  groupElem.appendChild(document.createTextNode(i < groups.length - 1 ? ", " : " "));
+				}
+				;
+
+				/*load game*/
+				if (!triedToLoadBigints) {
+				  loadBigints(false);
+				  triedToLoadBigints = true;
+				}
+				;
+				if (bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+				  updateCounters();
+				}
+				;
+				buildStats();
+				setInterval(saveBigints, 5000);
+				if (getClickValue() > 1) {
+				  buildStats();
+				  unlockUplist();
+				}
+				;
+			  };
+			} catch (error) {
+			  alert(error);
+			}
+			;
 		</script>
 		<style>
 			@keyframes fade-in {
