@@ -539,24 +539,242 @@
 				};
 			});
 
+    		loonaStartUnix = 1661127423000;
+			/*video length from debug data has millisecond precision (215.201),
+			but reddit comments are only have second precision from the API (as
+			1661127638.0 except that the decimal is always 0)*/
+			function secondsSinceLoona(formatString=false) {
+				return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
+			};
+			
+			function updateLoonaTime() {
+				var text = document.getElementById("loonaTime");
+				if(!text) {
+					return false
+				};
+				var value = secondsSinceLoona();
+				text.innerText = value.toLocaleString('en-US')
+			};
+
+			idolBdData = {
+				//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
+				//Sometimes hex codes are given and sometimes it's only generic color words.
+
+				//LOONA
+					//official colors, exact shades vary
+				"19-10": {member: "HeeJin", color: "rgb(255,0,146)"},
+				"15-11": {member: "HyunJin", color: "rgb(255,224,0)"},
+				"18-08": {member: "HaSeul", color: "rgb(0,166,81)"},
+				"11-11": {member: "YeoJin", color: "rgb(244,111,31)"},
+				"09-12": [/*shared by ViVi and J*/],
+				"10-02": {member: "Kim Lip", color: "rgb(234,2,1)"},
+				"13-06": {member: "JinSoul", color: "rgb(20,36,176)"},
+				"04-06": {member: "Choerry", color: "rgb(92,44,146)"},
+				"24-05": {member: "Yves", color: "rgb(125,0,30)"},
+				"20-10": {member: "Chuu", color: "rgb(246,144,126)"},
+				"19-11": {member: "Go Won", color: "rgb(48,195,156)"},
+				"13-11": {member: "Olivia Hye", color: "rgb(143,143,143)"},
+
+				//Kep1er
+					//Fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
+				"26-04": {member: "Chaehyun", color:"rgb(255,183,206)"},
+				"27-07": {member: "Huening Bahiyyih", color:"rgb(255,177,109)"},
+				"12-08": {member: "Choi Yujin", color:"rgb(249,123,144)"}, //from sample, as hex code => rgb(188,188,226) doesn't match + is too similar to Yeseo
+				"02-03": {member: "Dayeon", color: "rgb(100,150,235)"},
+				"27-12": {member: "Youngeun", color:"rgb(147,197,114)"},
+				"22-08": {member: "Yeseo", color:"rgb(162,207,254)"},
+				"12-03": {member: "Hikaru", color:"rgb(251,234,140)"},
+				"16-12": {member: "Mashiro", color:"rgb(253,238,244)"},
+				"12-11": {member: "Xiaoting", color:"rgb(195,142,199)"},
+
+				//BLACKPINK
+					//taken from uncited blackpink.fandom forum post, and probably made up but whatever
+				"16-01": {member: "Jennie", color: "rgb(204,108,169)"},
+				"27-03": {member: "Lisa", color: "rgb(255,250,0)"},
+				"03-01": {member: "Jisoo", color: "rgb(159,0,191)"},
+				"11-02": {member: "Rosé", color: "rgb(0,94,255)"},
+
+				//EVERGLOW
+					//from everglow.fandom
+				"19-05": {member: "E:U", color: "rgb(107,86,163)"},
+				"05-08": {member: "Sihyeon", color: "rgb(199,210,167)"},
+				"13-01": {member: "Mia", color: "rgb(103,5,6)"},
+				"18-05": {member: "Onda", color: "rgb(179,4,105)"},
+				"21-07": {member: "Aisha", color: "rgb(0,0,0)"},
+				"29-12": [/*shared by Sana and Yiren*/],
+
+				//STAYC
+					//from wiki i forgot
+				"13-03": {member: "Sumin", color: "rgb(255,192,203)"},
+				"14-04": {member: "Yoon", color: "rgb(50,205,50)"},
+				"01-08": [/*shared by Sieun and Chaewon*/],
+				"23-01": {member: "Isa", color: "rgb(0,0,0)"},
+				"14-06": [/*shared by Seeun and Tzuyu*/],
+				"09-12": [/*shared by ViVi and J*/],
+
+				//TWICE
+					//from https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
+				"22-09": {member: "Nayeon", color: "rgb(128,202,241)"},
+				"01-11": {member: "Jeongyeon", color: "rgb(188,215,118)"},
+				"09-11": {member: "Momo", color: "rgb(248,207,215)"},
+				"29-12": [/*shared by Sana and Yiren*/],
+				"01-02": {member: "Jihyo", color: "rgb(250,200,87)"},
+				"24-03": {member: "Mina", color: "rgb(111,197,194)"},
+				"28-05": {member: "Dahyun", color: "rgb(255,255,255)"},
+				"23-04": {member: "Chaeyoung", color: "rgb(232,25,51)"},
+				"14-06": [/*shared by Seeun and Tzuyu*/],
+				
+				//Dreamcatcher
+					//https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
+				"17-05": {member: "JiU", color: "rgb(255,255,255)"},
+				"10-08": {member: "SuA", color: "rgb(255,0,0)"},
+				"01-10": {member: "Siyeon", color: "rgb(15,47,255)"},
+				"26-03": {member: "Handong", color: "rgb(0,0,0)"},
+				"07-01": {member: "Yoohyeon", color: "rgb(31,237,21)"},
+				"07-03": {member: "Dami", color: "rgb(255, 244, 15)"},
+				"03-02": [/*shared by Gahyeon and Rei*/],
+				
+				//IZ*ONE
+					//from iz*one wiki
+				//[Wonyoung is in IVE]
+				"19-03": {member: "Sakura", color: "rgb(241,210,231)"},
+				"05-07": {member: "Hyewon", color: "rgb(219,112,108)"},
+				"22-10": {member: "Yuri", color: "rgb(243,170,81)"},
+				"29-09": {member: "Yena", color: "rgb(252,246,149)"},
+				//[Yujin is in IVE]
+				"18-06": {member: "Nako", color: "rgb(183,211,233)"},
+				"27-09": {member: "Eunbi", color: "rgb(187,176,220)"},
+				"06-10": {member: "Hitomi", color: "rgb(241,195,170)"},
+				"01-08": [/*shared by Sieun and Chaewon*/],
+				"05-02": {member: "Minju", color: "rgb(255,255,255)"},
+				"11-01": {member: "Chaeyeon", color: "rgb(166,220,222)"},
+
+				//IVE
+					//ive wiki I think
+				"01-09": {member: "An Yujin", color: "rgb(255,57,154)"}, //conflict with IZ*ONE color rgb(86,122,206)
+				"24-09": {member: "Gaeul", color: "rgb(0,85,168)"},
+				"31-08": {member: "Wonyoung", color: "rgb(255,0,30)"}, //conflict with IZ*ONE color rgb(217,89,140)
+				"21-11": {member: "Liz", color: "rgb(0,195,245)"},
+				"03-02": [/*shared by Gahyeon and Rei*/],
+				"21-02": {member: "Leeseo", color: "rgb(255,240,1)"},
+
+				//SNSD
+					//https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
+				"10-02": {member: "Sooyoung", color: "rgb(255,92,205)"},
+				"09-03": {member: "Taeyeon", color: "rgb(100,149,237)"},
+				"18-04": {member: "Jessica", color: "rgb(209,0,86)"},
+				"15-05": {member: "Sunny", color: "rgb(107,142,35)"},
+				"30-05": {member: "Yoona", color: "rgb(0,105,148)"},
+				"28-06": {member: "Seohyun", color: "rgb(251,206,177)"},
+				"01-08": {member: "Tiffany", color: "rgb(169,32,62)"},
+				"22-09": {member: "Hyoyeon", color: "rgb(147,197,114)"},
+				"05-12": {member: "Yuri", color: "rgb(0,51,102)"},
+
+				//NewJeans
+					//tends to shuffle
+				"07-05": {member: "Minji", color: "rgb(255,248,31)"},
+				"06-10": {member: "Hanni", color: "rgb(255,191,255)"},
+				"11-04": {member: "Danielle", color: "rgb(0,238,0)"},
+				"15-05": {member: "Haerin", color: "rgb(255,255,255)"},
+				"21-04": {member: "Hyein", color: "rgb(31,95,255)"} //2008 wtf was hybe thinking
+			};
+
+			idolBdData["01-08"] = [
+				{member: "Sieun", color: "rgb(255,255,255)"},
+				{member: "Chaewon", color: "rgb(206,229,213)"}
+			];
+
+			idolBdData["09-12"] = [
+				{member: "ViVi", color: "rgb(255,152,180)"},
+				{member: "J", color: "rgb(255,0,0)"}
+			];
+
+			idolBdData["14-06"] = [
+				{member: "Seeun", color: "rgb(135,206,235)"},
+				{member: "Tzuyu", color: "rgb(1,108,186)"}
+			]
+
+			idolBdData["29-12"] = [
+				{member: "Sana", color: "rgb(156,158,207)"},
+				{member: "Yiren", color: "rgb(255,255,255)"},
+			]
+
+			idolBdData["03-02"] = [
+				{member: "Gahyeon", color: "rgb(186,9,191)"},
+				{member: "Rei", color: "rgb(105,195,45)"},
+			]
+
+			for(var date in idolBdData) {
+				if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
+			};
+
+			function getLocalDayMonth() {
+				return new Date().toLocaleString("en-GB").replace("/","-").substring(0,5);
+			};
+
+			function getKstDayMonth() {
+				return new Date().toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
+			};
+			
 			triedToLoadBigints = false;
 			window.onload = function() {
+				/*loona stan length updater interval*/
+				loonaInterval = setInterval(updateLoonaTime, 100);
+				
+				/*handle birthdays*/
+				var currentBirthdayDatas = [];
+				var local = idolBdData[getLocalDayMonth()];
+				var kst = idolBdData[getKstDayMonth()];
+				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
+				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
+				if(currentBirthdayDatas.length > 0) {
+					var birthdayText = document.createElement("span");
+					birthdayText.classList.add("birthdays");
+					birthdayText.appendChild(document.createTextNode("Happy birthday to "));
+					for(var ibdCurrentDataIndex in currentBirthdayDatas) {
+						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
+						var coloredName = document.createElement("span");
+						var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
+						if(color.includes("(0,0,0)")) {
+							coloredName.style.color = "rgb(32,32,32)"
+						} else {
+							coloredName.style.color = color
+						}
+						coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
+						birthdayText.appendChild(coloredName);
+						var joiner = ", ";
+						if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
+							birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? ", and " : ", "))
+						}
+					};
+					birthdayText.appendChild(document.createTextNode("."));
+					document.getElementById("birthdays").textContent = "";
+					document.getElementById("birthdays").appendChild(birthdayText);
+				};
+
 				/*populate group list*/
 				var groupElem = document.getElementById("groups")
 				groupElem.textContent = "";
 				
+				let dc = "Dreamcatcher"; let gg = "Girls' Generation";
 				var groups = [
 					{name: "LOONA",		type: "ult",	order: 1},
-					{name: "Kep1er",	type: "normal",	order: 2},
-					{name: "BLACKPINK",	type: "less",	order: 3},
-					{name: "STAYC",		type: "less",	order: 4},
-					{name: "EVERGLOW",	type: "noob",	order: 5}
+					{name: "Kep1er",	type: "less",	order: 2},
+					{name: "BLACKPINK",	type: "noob",	order: 6},
+					{name: "STAYC",		type: "noob",	order: 5},
+					{name: "EVERGLOW",	type: "noob",	order: 3},
+					{name: "IVE",		type: "noob",	order: 7},
+					{name: "NewJeans",	type: "noob",	order: 8},
+					{name: dc,			type: "noob",	order: 10},
+					{name: "TWICE",		type: "noob",	order: 9},
+					{name: gg,			type: "noob",	order: 4}
 				];
 				
 				var titles = {
 					ult: "(ult group)",
-					less: "(i don't know if i'm even so much as a casual)",
-					noob: "(i am a total noob)"
+					less: "(idk if i'm even a casual)",
+					noob: "(total noob)"
 				}
 
 				var framing = {
@@ -580,19 +798,18 @@
 					groupElem.appendChild(document.createTextNode(i < groups.length - 1 ? ", " : " "));
 				};
 
-			  /*load game*/
-			  if(!triedToLoadBigints) {
-				loadBigints(false);
-				triedToLoadBigints = true;
-			  };
-			  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
-				updateCounters();
-			  };
-			  buildStats();
-			  setInterval(saveBigints, 5000);
-			  if(getClickValue() > 1) { buildStats(); unlockUplist() };
+				/*load game*/
+				if(!triedToLoadBigints) {
+				  loadBigints(false);
+					triedToLoadBigints = true;
+				  };
+				  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+					updateCounters();
+				  };
+				  buildStats();
+				  setInterval(saveBigints, 5000);
+				  if(getClickValue() > 1) { buildStats(); unlockUplist() };
 			};
-
 			} catch(error) {
 				alert(error);
 			};
@@ -625,12 +842,12 @@
 				animation: 0.35s linear 0s 1 normal fade-in
 			}
 			
-			body {
-				background-color: #300436;
-			}
-			
 			.less, .noob {
 				opacity: 0.8;
+			}
+			
+			.noob {
+				font-size: 80%;
 			}
 		</style>
 	</head>
@@ -640,7 +857,8 @@
 		</div>
 		
 		<div id="main">
-			<p>hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
+			<p id="birthdays">&nbsp;</p><br/>
+			<p id="opening">hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
 			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
 			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias <span class="hoverTest"> but my current bias line is <span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span></span>)</span><br/>
 			<span title="orbits" onclick="timedIncrement(true);" countTemplate="i wish there were [*e<@E@>] <@N@> orbits" templateMagnitudeOffset="6">i love orbits</span><br/>
@@ -666,6 +884,7 @@
 			<h1 class="ot12">not epic code</h1>
 				<span class="third">groups: <span id="groups"><u>Loona</u><span class="groupParen"> (ult)</span>, <em>Kep1er</em>, BLACKPINK...</span><code class="yeojin">//TODO: stan more groups</code></span><br/><!--like red velvet, dreamcatcher, le sserafim, wjsn, twice, aespa, ive, itzy, gwsn, blackpink, iz*one, (g)i-dle, fromis_9, billlie, weeekly, woo!ah!, fifty fifty, rocket punch, cherry bullet, hashtag, dreamnote, snsd, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, csr, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, apink, dia, april, gugudan, weki meki, exid, miss a, lovelyz, cignature, tripleS, ladies code, purple kiss, elris/alice, limelight, and clc; also soloists like iu, lee chaeyeon, and yukika-->
 				<span class="yeojin">antis, akgaes dni <em>(especially <!--fucking--> bahiyyih antis)</em></span><br/>
+				<span class="circle">i have stanned loona for about <span id="loonaTime">a lot of</span> seconds</span><br/>
 			
 			<br/>
 			<span class="kimlip" id="lagWarning">&nbsp;</span><br/>
@@ -674,5 +893,13 @@
 			<span class="blink" title="click to bruh" countTemplate="this page would be [*e<@E@>] <@N@> times more obnoxious if we still had &lt;blink&gt; tags" onclick="dumbBruh(); timedIncrement(true);">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
                         <div id="upList" style="display: none;">Upgrade list goes here</div>
 		</div>
+		<script>
+			/*of course checking if it's april 19th in korea has to be a pain in the ass*/
+			if(new Date().toLocaleString("en-US", {timeZone: "Asia/Seoul"}).startsWith("4/19")) {
+				document.body.style["background-color"] = "#300436"
+			} else {
+				document.body.style["background-color"] = "#000000"
+			};
+		</script>
 	</body>
 </html>
