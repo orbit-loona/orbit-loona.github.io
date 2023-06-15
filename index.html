@@ -775,12 +775,14 @@
 				var currentBirthdayDatas = [];
 				alert(1.2);
 				var local = idolBdData[getLocalDayMonth()];
+				alert(local);
 				alert(1.3);
 				var kst = idolBdData[getKstDayMonth()];
+				alert(kst);
 				alert(1.4);
-				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
+				if(typeof(local) !== "undefined") { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
 				alert(1.5);
-				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+				if(typeof(kst) !== "undefined") { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
 				alert(1.6);
 				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
 				alert(1.7);
