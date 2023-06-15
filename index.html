@@ -24,8 +24,9 @@
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
+		urlParams = new URLSearchParams(window.location.search);
+
 		try {
-			const urlParams = new URLSearchParams(window.location.search);
 		
 			bigintValue = 0n;
 			lifetimeBigintValue = 0n;
