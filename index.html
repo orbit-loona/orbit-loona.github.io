@@ -824,35 +824,19 @@
 				/*loona stan length updater interval*/
 				loonaInterval = setInterval(updateLoonaTime, 100);
 				
-				alert(1);
 				/*handle birthdays*/
-				alert(1.1);
 				var currentBirthdayDatas = [];
-				alert(1.2);
 				var local = idolBdData[getLocalDayMonth()];
-				alert(local);
-				alert(1.3);
 				var kst = idolBdData[getKstDayMonth()];
-				alert(kst);
-				alert(1.4);
 				if(typeof(local) !== "undefined") { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
-				alert(1.5);
 				if(typeof(kst) !== "undefined") { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
-				alert(1.6);
 				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
-				alert(1.7);
 				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
-				alert(1.8);
 				console.log(currentBirthdayDatas,currentBirthdayDatas.length);
-				alert(1.9);
 				if(currentBirthdayDatas.length > 0) {
-					alert(2);
 					var birthdayText = document.createElement("span");
-					alert(2.1);
 					birthdayText.classList.add("birthdays");
-					alert(2.2);
 					birthdayText.appendChild(document.createTextNode("Happy birthday to "));
-					alert(2.3);
 					for(var ibdCurrentDataIndex in currentBirthdayDatas) {
 						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
 						var coloredName = document.createElement("span");
@@ -874,7 +858,6 @@
 					document.getElementById("birthdays").appendChild(birthdayText);
 				};
 
-				alert(2);
 				/*populate group list*/
 				var groupElem = document.getElementById("groups")
 				groupElem.textContent = "";
