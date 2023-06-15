@@ -732,7 +732,7 @@
 			};
 
 			function getLocalDayMonth() {
-				var fd = parseInt(urlParams.get("fakeDateUnix"));
+				var fd = urlParams.get("fakeDateUnix"); if(fd) { return fd };
 				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
 			};
 
