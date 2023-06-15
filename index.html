@@ -788,7 +788,7 @@
 						var color = currentBirthdayDatas[ibdCurrentDataIndex].color;
 						var colorValues = color.match(/\d+/g).map(x => parseInt(x));
 						var bgLum = getLuminance(...colorValues);
-						coloredName.style["background-color"] = color;
+						coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
 						coloredName.style.color = bgLum > 159 ? "black" : "white"
 						coloredName.innerText = currentBirthdayDatas[ibdCurrentDataIndex].member;
 						coloredName.classList.add("bdIdolName");
