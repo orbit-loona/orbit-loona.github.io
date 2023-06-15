@@ -776,14 +776,16 @@
 				var kst = idolBdData[getKstDayMonth()];
 				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
 				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+				alert(1.25);
 				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
 				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
 				console.log(currentBirthdayDatas,currentBirthdayDatas.length);
+				alert(1.5);
 				if(currentBirthdayDatas.length > 0) {
 					var birthdayText = document.createElement("span");
 					birthdayText.classList.add("birthdays");
 					birthdayText.appendChild(document.createTextNode("Happy birthday to "));
-					alert(1.5);
+					alert(1.75);
 					for(var ibdCurrentDataIndex in currentBirthdayDatas) {
 						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
 						var coloredName = document.createElement("span");
