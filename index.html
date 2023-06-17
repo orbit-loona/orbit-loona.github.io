@@ -807,6 +807,12 @@
 				/*loona stan length updater interval*/
 				loonaInterval = setInterval(updateLoonaTime, 100);
 				
+				if((getLocalDayMonth() == "16-06") || (getKstDayMonth() == "16-06")) {
+					var marquee = document.getElementById("headerMarquee");
+					marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
+					marquee.style.fontSize = "120%"
+				};
+
 				/*handle birthdays*/
 				var currentBirthdayDatas = [];
 				var local = idolBdData[getLocalDayMonth()];
@@ -954,11 +960,16 @@
 			#birthdays {
 				line-height: 125%;
 			}
+			
+			#headerMarquee {
+				overflow: visible;
+				line-height: 100%;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop</span></marquee>
+			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate" id="headerMarquee">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop</span></marquee>
 		</div>
 		
 		<div id="main">
