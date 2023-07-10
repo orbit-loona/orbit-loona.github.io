@@ -53,6 +53,8 @@
 
 		<div id="mojiOutput"></div>
 		
+		<details id="mojiNames" title="List of emoji names (requires JavaScript)"></details>
+		
 		<script>
 			/*Manual update procedure:
 				//sugar
@@ -83,6 +85,9 @@
 			
 			var emojiNames = Object.keys(R74mojiData);
 
+			var mn = document.getElementById("mojiNames"); for(var i = 0; i < emojiNames.length; i++) { var newCode = document.createElement("code"); newCode.innerText = emojiNames[i]; mn.appendChild(newCode); if(i < emojiNames.length - 1) { mn.appendChild(document.createTextNode(", ")) } };
+			var sum = document.createElement("summary"); sum.innerText = "Click to show list of emoji names"; mn.appendChild(sum);
+		
 			function setStyleAttributeOfOutputDisplay(attribute,value) {
 				var output = document.getElementById("mojiOutput");
 				if(!output) {
