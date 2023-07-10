@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>R74moji renderer</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="R74moji renderer" />
+		<meta property="og:url" content="https://orbit-loona.github.io/R74moji.html" />
+		<meta property="og:description" content="Type and render R74moji in HTML" />
+		<meta property="og:locale" content="en_US" />
+		<!--
+			<meta property="og:image" content="https://orbit-loona.github.io/bin/pinkblack.png" />
+			<meta property="og:image:width" content="412" />
+			<meta property="og:image:height" content="39" />
+			<meta property="og:image:alt" content="BLACKPINK in your area" />
+			<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/pinkblack.png" />
+		-->
+		<meta name="twitter:title" content="R74moji renderer" />
+		<meta name="twitter:description" content="Type and render R74moji in HTML" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<script src="https://R74n.com/moji/load.js"></script>
+		<meta charset="UTF-8">
+		<style>
+			.R74mojiImg {
+				width: 1.75em;
+				height: 1.75em;
+				min-width: 1em;
+				min-height: 1em;
+				display: inline-block;
+				vertical-align: middle;
+				margin-bottom: 0.3em;
+				cursor: text;
+				-webkit-user-drag: none;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="starbound-texts/index.html">test files</a><br/><br/>
+
+		<textarea placeholder="Enter text with R74moji (as Discord-style :shortcodes:) here" id="originalText"></textarea><br/>
+		<button onclick="doR74moji();">Show text with moji</button>
+
+		<br/><br/>
+
+		<input id="widthInput" placeholder="Enter width of output in pixels"/> <button onclick="setOutputWidthPx()">Set width</button><br/>
+		<input id="fontInput" placeholder="Enter font size of output in pixels"/> <button onclick="setOutputFontPx()">Set size</button><br/>
+		<input type="color" id="displayBackground" placeholder="Pick the output background color"/> <button onclick="setOutputColorBg()">Set background color</button><br/>
+		<input type="color" id="displayForeground" placeholder="Pick the output default text color"/> <button onclick="setOutputColorFg()">Set default text color</button><br/>
+
+
+		<div id="mojiOutput"></div>
+		
+		<script>
+			/*Manual update procedure:
+				//sugar
+				function p(node) { //shorten parentElement chain
+					return node.parentElement
+				};
+
+				//make object of emoji names
+				emoji = document.getElementsByTagName("emoji");
+				emojiObject = {};
+				for(i = 0; i < emoji.length; i++) {
+					var emojiIcon = emoji[i];
+					var emojiUrl = emojiIcon.childNodes[0].getAttribute("src");
+					var emojiName = p(p(p(emojiIcon))).childNodes[1].innerText;
+					emojiObject[emojiName] = emojiUrl
+				};
+
+				//check for emoji names different from filenames
+				Object.entries(emojiObject).filter(
+					function(pair) {
+						var filename = pair[1].match(/moji\/\w+\/([A-Za-z0-9-_]+)/)[1];
+						return filename !== pair[0]
+					}
+				)
+				
+				//Take the JSON and paste it here
+			*/
+			
+			var emojiNames = Object.keys(R74mojiData);
+
+			function setStyleAttributeOfOutputDisplay(attribute,value) {
+				var output = document.getElementById("mojiOutput");
+				if(!output) {
+					return false;
+				};
+				output.style[attribute] = value;
+				return true;
+			};
+
+			function setOutputWidthPx() {
+				var widthInput = document.getElementById("widthInput");
+				if(!widthInput) {
+					return false;
+				};
+			  //console.log(widthInput.value);
+				var width = widthInput.value;
+			  //console.log(width);
+			  if(width.toLowerCase().endsWith("px")) {
+				width = width.slice(0,-2);
+			  };
+			  
+			  if(width == "") {
+				return setStyleAttributeOfOutputDisplay("width","unset");
+			  };
+			  
+			  width = parseFloat(width);
+			  
+				if(isNaN(width)) {
+					return false;
+				};
+				return setStyleAttributeOfOutputDisplay("width",width + "px");
+			};
+
+			function setOutputFontPx() {
+				var fontInput = document.getElementById("fontInput");
+				if(!fontInput) {
+					return false;
+				};
+			  //console.log(fontInput.value);
+				var font = fontInput.value;
+			  //console.log(font);
+			  if(font.toLowerCase().endsWith("px")) {
+				font = font.slice(0,-2);
+			  };
+			  
+			  if(font == "") {
+				return setStyleAttributeOfOutputDisplay("font-size","unset");
+			  };
+			  
+			  font = parseFloat(font);
+			  
+				if(isNaN(font)) {
+					return false;
+				};
+				return setStyleAttributeOfOutputDisplay("font-size",font + "px");
+			};
+
+			function setOutputColorFg() {
+				var colorInput1 = document.getElementById("displayForeground");
+				if(!colorInput1) {
+					return false;
+				};
+				setStyleAttributeOfOutputDisplay("color",colorInput1.value);
+				return true;
+			};
+
+			function setOutputColorBg() {
+				var colorInput2 = document.getElementById("displayBackground");
+				if(!colorInput2) {
+					return false;
+				};
+				setStyleAttributeOfOutputDisplay("background-color",colorInput2.value);
+				return true;
+			};
+
+			//sugar
+			function isEmoji(str) {
+			  if(str.match(/:[A-Za-z0-9_-]+:/)) {
+				return emojiNames.includes(str.substring(1,str.length - 1))
+			  } else {
+				return false
+			  }
+			};
+
+			function R74mojiLoad() { //From original R74moji load.js code
+			  var EmojiTagList = document.getElementsByTagName("emoji");
+			  var EmojiNum = 0;
+			  if (EmojiTagList.length > 0) {
+				var style = document.createElement('style');
+				style.type = 'text/css';
+				style.innerHTML = '.R74mojiClass {image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-o-crisp-edges;image-rendering: -webkit-optimize-contrast;image-rendering:pixelated;image-rendering:optimize-contrast;-ms-interpolation-mode:nearest-neighbor;}';
+				document.getElementsByTagName('head')[0].appendChild(style);
+			  }
+			  for (i = 0; i < EmojiTagList.length; ++i) {
+				var OriginalEmojiTag = EmojiTagList[i];
+				var EmojiTag = document.createElement("canvas");
+
+				for(var n in OriginalEmojiTag.attributes){/*transfer relevant attributes*/
+				  var k = OriginalEmojiTag.attributes[n];
+				  if (ValidR74mojiAttributes.includes(k.name)){
+					EmojiTag.setAttribute(k.name,OriginalEmojiTag.getAttribute(k.name));
+					OriginalEmojiTag.removeAttribute("type");
+				  }
+				}
+
+				OriginalEmojiTag.setAttribute("loaded","true");
+
+
+				var EmojiType = EmojiTag.getAttribute("type");
+
+				if (!(R74mojiData[EmojiType]==undefined)) {
+				  var ImageURL = "https://r74n.com/moji/png/"+EmojiType+".png";
+				  var invalid = false
+				}
+				else {var ImageURL = "https://r74n.com/moji/png/replacement.png";var invalid=true}
+				EmojiTag.setAttribute("src",ImageURL);
+				EmojiTag.setAttribute("class","R74mojiImg");
+				//move style to internal CSS .R74mojiImg
+				if (!(invalid)) {
+				  EmojiTag.setAttribute("title",R74mojiData[EmojiType][0]);
+				  if (R74mojiData[EmojiType][1]=="") {
+					EmojiTag.setAttribute("alt","[?]");
+				  }
+				  else {
+					EmojiTag.setAttribute("alt",R74mojiData[EmojiType][1]);
+				  }
+				}
+				else {
+				  EmojiTag.setAttribute("title","Invalid Emoji ("+EmojiType+")");
+				  EmojiTag.setAttribute("alt","[?]");
+				}
+				EmojiTag.style.webkitUserDrag = "none";
+				EmojiTag.style.userDrag = "none";
+
+				EmojiTag.id = "emoji-"+EmojiNum;
+				EmojiNum += 1;
+				var ctx = EmojiTag.getContext("2d");
+				EmojiTag.setAttribute('width', '480');
+				EmojiTag.setAttribute('height', '480');
+
+				//set canvas to image url
+				var img = new Image;
+				img.crossOrigin = "Anonymous";
+				dataOnLoad(img,ctx,ImageURL,EmojiTag);
+
+				OriginalEmojiTag.appendChild(EmojiTag);
+	
+			  }
+			}
+
+			function doR74moji() {
+			  var input = document.getElementById("originalText");
+			  var output = document.getElementById("mojiOutput");
+			  
+			  output.replaceChildren();
+			  
+			  var text = input.value;
+			  //console.log("Read:",text);
+			  
+			  text = text.split(/(:[A-Za-z0-9_-]+:)/); //splits into array, separating out values of the format ":text:"
+			  
+			  text = text.filter(function(string) { return string.length > 0 });
+
+			  var parsedText = [];
+			  for(var i = 0; i < text.length; i++) {
+				var string = JSON.parse(JSON.stringify(text[i]));
+				if(isEmoji(string)) {
+				  parsedText.push(string)
+				} else {
+				  if(parsedText.length == 0) {
+					parsedText.push(string)
+				  } else {
+					var previousString = text[i - 1];
+					if(isEmoji(previousString)) {
+					  parsedText.push(string)
+					} else {
+					  parsedText[i - 1] += string
+					}
+				  }
+				}   
+			  };
+			  //console.log(parsedText);
+
+			  for(jFromSTAYC = 0; jFromSTAYC < text.length; jFromSTAYC++) {
+				var summerUnitHotUnit = text[jFromSTAYC];
+				
+				if(isEmoji(summerUnitHotUnit)) {
+					var image = document.createElement("emoji");
+					var eName = summerUnitHotUnit.substring(1,summerUnitHotUnit.length - 1);
+					image.setAttribute("type",eName)
+					output.appendChild(image)
+				} else {
+					output.appendChild(document.createTextNode(summerUnitHotUnit))
+				}		  
+			  }
+			  
+			  R74mojiLoad()
+			}	
+		</script>
+
+		<a href="index.html"><small>go to main page</small></a>
+	</body>
+</html>
