@@ -267,25 +267,48 @@
 					  parsedText[i - 1] += string
 					}
 				  }
-				}   
+				}
 			  };
 			  //console.log(parsedText);
 
 			  for(jFromSTAYC = 0; jFromSTAYC < text.length; jFromSTAYC++) {
 				var summerUnitHotUnit = text[jFromSTAYC];
+				//console.log(summerUnitHotUnit);	
 				
 				if(isEmoji(summerUnitHotUnit)) {
-					var image = document.createElement("emoji");
-					var eName = summerUnitHotUnit.substring(1,summerUnitHotUnit.length - 1);
-					image.setAttribute("type",eName)
-					output.appendChild(image)
+				  var image = document.createElement("emoji");
+				  var eName = summerUnitHotUnit.substring(1,summerUnitHotUnit.length - 1);
+				  image.setAttribute("type",eName)
+				  output.appendChild(image)
 				} else {
-					output.appendChild(document.createTextNode(summerUnitHotUnit))
-				}		  
+				  summerUnitHotUnit = summerUnitHotUnit.replaceAll(/(\r|\n|\r\n)/g,"\n");
+				  if(summerUnitHotUnit.includes("\n")) {
+					summerUnitHotUnit = summerUnitHotUnit.split("\n");
+					for(var qa = 0; qa < summerUnitHotUnit.length; qa++) {
+					  output.appendChild(document.createTextNode(summerUnitHotUnit[qa]));
+					  if(qa < summerUnitHotUnit.length - 1) {
+					    output.appendChild(document.createElement("br"))
+					  }
+				    }
+				  } else {
+				    output.appendChild(document.createTextNode(summerUnitHotUnit))
+				  }
+				}				  
 			  }
 			  
 			  R74mojiLoad()
-			}	
+			}
+
+			window.onload = function() {
+				//console.log(3);
+				document.getElementById("originalText").addEventListener("keydown", e => {
+					if((e.shiftKey || e.ctrlKey) && e.key == "Enter") {
+						console.log(3);
+						e.preventDefault();
+						doR74moji()
+					}
+				})
+			}
 		</script>
 
 		<a href="index.html"><small>go to main page</small></a>
