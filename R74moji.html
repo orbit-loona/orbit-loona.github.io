@@ -256,10 +256,11 @@
 				  var data = finalEmoji[EmojiType];
 				  var urlFragment = data.url;
 				  if(urlFragment.startsWith("#")) {
-				    ImageURL = "https://orbit-loona.github.io/" + urlFragment
+				    ImageURL = "https://orbit-loona.github.io/" + urlFragment.substring(1);
 				  } else {
 				    ImageURL = "https://r74n.com/" + urlFragment
 				  };
+				  console.log(ImageURL);
 				  var invalid = false
 				}
 				EmojiTag.setAttribute("src",ImageURL);
