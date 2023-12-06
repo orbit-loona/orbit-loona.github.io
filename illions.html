@@ -66,7 +66,7 @@
 		<p>This will generate a name for a specified <em>n</em>-illion, using a made-up system derived from the Bowers illions. <strong>This&nbsp;tool&nbsp;is&nbsp;not&nbsp;authoritative.</strong><br/>Values greater than 10<span class="hidden"> to the power of </span><sup>63</sup>-1 will be capped to 10<span class="hidden"> to the power of </span><sup>63</sup>-1.</p>
 		<h2>Settings</h2>
 		<div id="settings">
-			Generate a name for illion: <input title="-illion textbox" id="whichIllion" type="text" maxlength=63> (decimal integer, non-numeric characters are ignored.) <br/>
+			Generate a name for illion: <input title="-illion textbox" id="whichIllion" type="text" maxlength=64> (decimal integer, non-numeric characters are ignored.) <br/>
 			Capitalize first letter: <input title="Capital checkbox" type="checkbox" id="capitalize" checked/><br/>
 			Show abbreviation: <input title="Abbreviation checkbox" type="checkbox" id="abbreviate" checked><br/>
 			Show value: <input title="Value checkbox"type="checkbox" id="value"><br/>
@@ -345,12 +345,12 @@
 				oneE61sA: ["", "Icgt", "Digt", "Tigt", "Qaigt", "Qiigt", "Sxigt", "Spigt", "Oigt", "Noigt", "ERROR"],
 
 				oneE62s: ["", "cenicos", "ducenicos", "trecenicos", "quadringenicos", "quingenicos", "sescenicos", "septingenicos", "octingenicos", "nongenicos", "ERROR"],
-				oneE62sA: ["", "Cnic", "Dcic", "Tcic", "Qdic", "Qgic", "Scic", "Sgic", "Ogic", "Ngic", "ERROR"]
+				oneE62sA: ["", "Cnic", "Dcic", "Tcic", "Qdic", "Qgic", "Scic", "Sgic", "Ogic", "Ngic", "ERROR"],
 
-				/*oneE63s: ["", "meicos", "dumeicos", "tremeicos", "quadrimeicos", "quintimeicos", "sextimeicos", "septimeicos", "octimeicos", "nonimeicos", "ERROR"],
-				oneE63sA: ["", "
+				oneE63s: ["", "meicos", "dumeicos", "tremeicos", "quadrimeicos", "quintimeicos", "sextimeicos", "septimeicos", "octimeicos", "nonimeicos", "ERROR"],
+				oneE63sA: ["", "Mics"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "mcs")).concat(["ERROR"])
 
-				oneE64s: ["", "meicosgint", "dumeicosgint", "tremeicosgint", "quadrimeicosgint", "quintimeicosgint", "sextimeicosgint", "septimeicosgint", "octimeicosgint", "nonimeicosgint", "ERROR"],
+				/*oneE64s: ["", "meicosgint", "dumeicosgint", "tremeicosgint", "quadrimeicosgint", "quintimeicosgint", "sextimeicosgint", "septimeicosgint", "octimeicosgint", "nonimeicosgint", "ERROR"],
 				oneE64sA: 
 
 				oneE65s: ["", "cenmeicos", "ducenmeicos", "trecenmeicos", "quadringenmeicos", "quingenmeicos", "sescenmeicos", "septingenmeicos", "octingenmeicos", "nongenmeicos", "ERROR"],
