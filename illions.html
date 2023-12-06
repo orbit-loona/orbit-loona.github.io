@@ -66,7 +66,7 @@
 		<p>This will generate a name for a specified <em>n</em>-illion, using a made-up system derived from the Bowers illions. <strong>This&nbsp;tool&nbsp;is&nbsp;not&nbsp;authoritative.</strong><br/>Values greater than 10<span class="hidden"> to the power of </span><sup>63</sup>-1 will be capped to 10<span class="hidden"> to the power of </span><sup>63</sup>-1.</p>
 		<h2>Settings</h2>
 		<div id="settings">
-			Generate a name for illion: <input title="-illion textbox" id="whichIllion" type="text" maxlength=64> (decimal integer, non-numeric characters are ignored.) <br/>
+			Generate a name for illion: <input title="-illion textbox" id="whichIllion" type="text" maxlength=69> (decimal integer, non-numeric characters are ignored.) <br/>
 			Capitalize first letter: <input title="Capital checkbox" type="checkbox" id="capitalize" checked/><br/>
 			Show abbreviation: <input title="Abbreviation checkbox" type="checkbox" id="abbreviate" checked><br/>
 			Show value: <input title="Value checkbox"type="checkbox" id="value"><br/>
@@ -348,24 +348,24 @@
 				oneE62sA: ["", "Cnic", "Dcic", "Tcic", "Qdic", "Qgic", "Scic", "Sgic", "Ogic", "Ngic", "ERROR"],
 
 				oneE63s: ["", "meicos", "dumeicos", "tremeicos", "quadrimeicos", "quintimeicos", "sextimeicos", "septimeicos", "octimeicos", "nonimeicos", "ERROR"],
-				oneE63sA: ["", "Mics"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "mcs")).concat(["ERROR"])
+				oneE63sA: ["", "Mics"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "mcs")).concat(["ERROR"]),
 
-				/*oneE64s: ["", "meicosgint", "dumeicosgint", "tremeicosgint", "quadrimeicosgint", "quintimeicosgint", "sextimeicosgint", "septimeicosgint", "octimeicosgint", "nonimeicosgint", "ERROR"],
-				oneE64sA: 
+				oneE64s: ["", "meicosgint", "dumeicosgint", "tremeicosgint", "quadrimeicosgint", "quintimeicosgint", "sextimeicosgint", "septimeicosgint", "octimeicosgint", "nonimeicosgint", "ERROR"],
+				oneE64sA: ["", "Micg"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "mcg")).concat(["ERROR"]),
 
 				oneE65s: ["", "cenmeicos", "ducenmeicos", "trecenmeicos", "quadringenmeicos", "quingenmeicos", "sescenmeicos", "septingenmeicos", "octingenmeicos", "nongenmeicos", "ERROR"],
-				oneE65sA: 
+				oneE65sA: ["", "Cmcs", "Dcmc", "Tcmc", "Qdmc", "Qgmc", "Scmc", "Sgmc", "Ogmc", "Ngmc", "ERROR"],
 
 				oneE66s: ["", "dueicos", "dudueicos", "tredueicos", "quadridueicos", "quintidueicos", "sextidueicos", "septidueicos", "octidueicos", "nonidueicos", "ERROR"],
-				oneE66sA: 
+				oneE66sA:  ["", "Decs"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "decs")).concat(["ERROR"]), //haha it says dics, laugh all you want; i really don't care at this point
 
 				oneE67s: ["", "dueicosgint", "dudueicosgint", "tredueicosgint", "quadridueicosgint", "quintidueicosgint", "sextidueicosgint", "septidueicosgint", "octidueicosgint", "nonidueicosgint", "ERROR"],
-				oneE67sA: 
+				oneE67sA: ["", "Dicg"].concat(["D","T","Qa","Qi","Sx","Sp","O","N"].map(x => x + "dcg")).concat(["ERROR"]),
 
 				oneE68s: ["", "cendueicos", "ducendueicos", "trecendueicos", "quadringendueicos", "quingendueicos", "sescendueicos", "septingendueicos", "octingendueicos", "nongendueicos", "ERROR"],
-				oneE68sA: 
+				oneE68sA: ["", "Cdcs", "Dcdcs", "Tcdcs", "Qgdcs", "Qgdcs", "Scdcs", "Sgdcs", "Ogdcs", "Ngdcs", "ERROR"]
 
-				oneE69s: ["", "trioicos", "dutrioicos", "tretrioicos", "quadritrioicos", "quintitrioicos", "sextitrioicos", "septitrioicos", "octitrioicos", "nonitrioicos", "ERROR"],
+				/*oneE69s: ["", "trioicos", "dutrioicos", "tretrioicos", "quadritrioicos", "quintitrioicos", "sextitrioicos", "septitrioicos", "octitrioicos", "nonitrioicos", "ERROR"],
 				oneE69sA: 
 
 				oneE70s: ["", "trioicosgint", "dutrioicosgint", "tretrioicosgint", "quadritrioicosgint", "quintitrioicosgint", "sextitrioicosgint", "septitrioicosgint", "octitrioicosgint", "nonitrioicosgint", "ERROR"],
