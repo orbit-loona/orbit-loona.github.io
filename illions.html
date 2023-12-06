@@ -617,7 +617,7 @@
 					_abbrevDivider_ = (showDividers ? "<span class='abbreviation-divider'>|</span>" : "");
 					
 					var illion = Object.values(illionRootList); illion.push(useMyllions ? "yllion" : "illion"); illion = illion.join(_illionDivider_);
-					var abbrevIllion = (useMyllions ? `There are no known abbreviations for myllions${way}` : Object.values(abbrevIllionRootList).join(_abbrevDivider_));
+					var abbrevIllion = Object.values(abbrevIllionRootList).join(_abbrevDivider_) + (useMyllions ? "y" : ""); //abbreviation system (just tack on a y) pulled completely out of my ass because there is no established abbreviation system for -yllions
 					
 					if(capitalizeIllionNames) {
 						illion = capitalizeFirstLetter(illion);
