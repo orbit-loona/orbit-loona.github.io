@@ -507,7 +507,7 @@
 				var illion = "";
 				if(index < 0n) {
 					illion = (useMyllions ? (capitalizeIllionNames ? "Myriad" : "myriad") : (capitalizeIllionNames ? "Thousand" : "thousand"));
-					abbrevIllion = (useMyllions ? `There are no known abbreviations for myllions${way}` : "K");
+					abbrevIllion = (useMyllions ? "M" : "K");
 					illionValue = (useMyllions ? 4n : 3n);
 
 					// if(illionSuffix === null) {
@@ -530,7 +530,7 @@
 					return finalIllion;		
 				} else if(index <= 9n) {
 					illion = (useMyllions ? rootObject.first9M[index] : rootObject.first9[index]);
-					abbrevIllion = (useMyllions ? `There are no known abbreviations for myllions${way}` : rootObject.first9A[index]);
+					abbrevIllion = rootObject.first9A[index] + (useMyllions ? "y" : "");
 					illionValue = (useMyllions ? 2n ** (index + 3n) : (useLongScale ? (6n * (index + 1n)) : (3n * (index + 1n) + 3n)));
 
 					if(capitalizeIllionNames) {
