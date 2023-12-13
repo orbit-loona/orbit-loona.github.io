@@ -2,7 +2,7 @@ var Char8 = (function() {
 /**
  * @preserve
  * char8.js v.1.2.1, (c) 2015-2019 Norbert Landsteiner, www.masswerk.at
- * Virtual character generator based on PET/MZ80 and SuperPET charsets.
+ * [MODIFIED] Virtual character generator based on PET/MZ80 and SuperPET charsets.
  * Implements:
  * Latin + Latin-1 Supplement (ISO 8859-1), Latin Extended-A, Latin Extended-B,
  * Hiragana, Katakana, Greek, common Cyrillic, essential Math, APL, tech,
@@ -16,6 +16,8 @@ var Char8 = (function() {
  * according to https://www.unicode.org/L2/L2019/19025-terminals-prop.pdf
  *
  * v.1.2: unescapeHTML now returns U+FFFD for unresolved numeric entities.
+ *
+ * !! Modified by Alice !!
  */
 "use strict";
 
