@@ -823,7 +823,14 @@
 				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
 				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
 				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
-				console.log(currentBirthdayDatas,currentBirthdayDatas.length);
+				console.log(`${currentBirthdayDatas.length} bdays`);
+				console.log("Happy birthday/anniversary to: " + currentBirthdayDatas.map(function(data) {
+					if(data.isGroup) {
+						return data.member
+					} else {
+						return `${data.member} from ${data.group}`
+					}
+				}).join(", "));
 				if(currentBirthdayDatas.length > 0) {
 					var birthdayText = document.createElement("span");
 					birthdayText.classList.add("birthdays");
