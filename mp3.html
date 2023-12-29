@@ -132,7 +132,7 @@
 			<li>click "Load File" to ingest it/them into the browser's memory,</li>
 			<li>specify the index of the file you want to play,</li>
 			<li>then click "Load" at the bottom to update the audio player.</li>
-		</ol><!--You can also paste Base64 data, but I don't know how to validate it so I'm just using the honor system. <em>Please only put base64-encoded mp3 files in there.</em>--><br>
+		</ol><br>
 		  If for some reason you actually <em>used</em> this and you want to remove a file, type the file name into the file clearer box for it to be removed from the <code>files</code> object and current file list.<br/>
 		<details id="indexInfo">
 		<summary>About indices:</summary>
@@ -932,6 +932,12 @@ function fuckMe() { //RIP memory
 					document.getElementById("loaderStatus").innerHTML = "File was loaded below successfully!";
 				  };
 				  
+				  currentFileTimes.name = currentFileName;
+				  updateTitle();
+				  updateCurp();
+
+				  playPending = true; //playPending flag is used to only set the start date on the play that follows a file load.
+
 				  return true;
 				}
 
@@ -1229,9 +1235,9 @@ function fuckMe() { //RIP memory
 				  for(filename in perFilePlays) {
 					var plays = perFilePlays[filename];
 					if(filename == currentFileName) {
-					  spans.push(`<em class="currentFile">${filename}: ${plays} play${plays == 1 ? "" : "s"}</em>`);
+					  spans.push('<em class="currentFile">' + `${filename}: ${plays} play${plays == 1 ? "" : "s"}` + '</em>'); //has to be done this way or it breaks n++'s syntax highlighter
 					} else {
-					  spans.push(`<span class="playedFile">${filename}: ${plays} play${plays == 1 ? "" : "s"}</span>`);
+					  spans.push('<span class="playedFile">' + `${filename}: ${plays} play${plays == 1 ? "" : "s"}` + '</span>');
 					};
 				  };
 				  
@@ -1260,12 +1266,26 @@ function fuckMe() { //RIP memory
 				audio = document.getElementById("mainAudio");
 
 				audio.onplay = function() {
-				  currentFileTimes.name = currentFileName;
-				  currentFileTimes.start = Date.now();
-				  firstFileStartedString ??= new Date().toString();
-				  firstFileStartedUnix ??= Date.now();
-				  updateTitle();
-				  updateCurp();
+				  if(playPending) {
+				    /*
+					playPending is set to true after a file has just been loaded.
+					the following code sets the logged play entry's start time to the time of execution (when play is clicked).
+					previously it reset like this every time the audio was played from a pause, which is undesirable.
+					now it should only set the start time to now on the play immediately after a file load.
+					this will be enforced by the below code being accompanied by a statement setting playPending to false,
+						precluding a future reset unless a file is loaded into the audio element.
+					playPending is set to true again when the play ends, allowing for the logged play start time to be set
+						to present again when the next play starts.
+					a side effect of this is that plays may appear much longer at times when pausing right after a replay, when
+						using the default behavior of repeating immediately, this is weird, but the code technically still is
+						counting the millis between play start and play end--it's just that paused time still counts towards this.
+					*/
+					currentFileTimes.name = currentFileName;
+					currentFileTimes.start = Date.now();
+					firstFileStartedString ??= new Date().toString();
+					firstFileStartedUnix ??= Date.now();
+					playPending = false
+				  }
 				};
 
 				function undefinedIndexSteamroller() {
@@ -1278,15 +1298,19 @@ function fuckMe() { //RIP memory
 				};
 
 				audio.onended = function() {
+				  /*
+				  set playPending back to true, allowing for the new play's start time to be set to present on the next play
+				  */
+				  playPending = true;
 				  lastFileEndedString = new Date().toString();
 				  lastFileEndedUnix = Date.now();
 				  currentFileTimes.end = Date.now();
 				  var elapsedTime = currentFileTimes.end - currentFileTimes.start;
 				  currentFileTimes.length = elapsedTime;
 				  //console.log("threshold time: " + (fileLengths[currentFileName] / 2));
-				  if(elapsedTime >= (fileLengths[currentFileName] * 500)) { //length measured against is in milliseconds
-				    //threshold for acceptance is 50% of gotten file length
-					//this is supposed to prevent random double-counted plays, which appear with absurdly short lengths
+				  if(elapsedTime >= (fileLengths[currentFileName] * 900)) { //length measured against is in milliseconds
+				    //threshold for acceptance is 90% of gotten file length
+					//this is supposed to prevent ~~random~~ double-counted plays caused by pausing, which appear with absurdly short lengths
 				    allCurrentFileTimes.push(currentFileTimes);
 					perFilePlays[currentFileName] ??= 0;
 					perFilePlays[currentFileName]++;
