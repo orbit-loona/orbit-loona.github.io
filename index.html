@@ -863,31 +863,34 @@
 				var groupElem = document.getElementById("groups")
 				groupElem.textContent = "";
 				
-				let dc = "Dreamcatcher"; let gg = "Girls' Generation";
+				let dc = "Dreamcatcher"; let gg = "Girls' Generation"; let rv = "Red Velvet";
 				var groups = [
-					{name: "LOONA",		type: "ult",	order: 1},
-					{name: "Kep1er",	type: "less",	order: 2},
-					{name: "BLACKPINK",	type: "noob",	order: 6},
-					{name: "STAYC",		type: "noob",	order: 5},
-					{name: "EVERGLOW",	type: "noob",	order: 3},
-					{name: "IVE",		type: "noob",	order: 7},
-				//{name: "NewJeans",	type: "noob",	order: 8},
-					{name: dc,			type: "noob",	order: 8},
-					{name: "TWICE",		type: "noob",	order: 9},
-					{name: gg,			type: "noob",	order: 4}
+					{name: "(G)I-DLE",	type: "noob2"},
+					{name: "BLACKPINK",	type: "noob2"},
+					{name: dc,			type: "noob2"},
+					{name: "EVERGLOW",	type: "noob2"},
+					{name: gg,			type: "noob2"},
+					{name: "IVE",		type: "noob2"},
+					{name: "IZ*ONE",	type: "noob2"},
+					{name: "Kep1er",	type: "noob2"},
+				  //{name: "NewJeans",	type: "noob2"}, //unstanned due to the ETA terrorist thing
+					{name: "LOONA",		type: "ult"},
+					{name: rv,			type: "noob2"},
+					{name: "STAYC",		type: "noob2"},
+					{name: "TWICE",		type: "noob2"}
 				];
 				
 				var titles = {
 					ult: "(ult group)",
-					less: "(idk if i'm even a casual)",
-					noob: "(total noob)"
+					noob: "(trying to get more into them)",
+					noob2: "(i REALLY need to get more into them)"
 				}
 
 				var framing = {
 					noob: ["(",")"]
 				}
 				
-				groups = groups.sort(function(o1,o2) { return o1.order - o2.order });
+				//groups = groups.sort(function(o1,o2) { return o1.order - o2.order });
 				for(var i in groups) {
 					var data = groups[i];
 					var newElem = document.createElement(data.type == "ult" ? "u" : "span");
@@ -1003,7 +1006,7 @@
 				<a href="R74moji.html" class="ot12">R74moji renderer</a><br/>
 
 			<h1 class="ot12">not epic code</h1>
-				<span class="third">groups: <span id="groups"><u>Loona</u><span class="groupParen"> (ult)</span>, <em>Kep1er</em>, BLACKPINK...</span><code class="yeojin">//TODO: stan more groups</code></span><br/><!--like red velvet, dreamcatcher, le sserafim, wjsn, twice, aespa, ive, itzy, gwsn, blackpink, iz*one, (g)i-dle, fromis_9, billlie, weeekly, woo!ah!, fifty fifty, rocket punch, cherry bullet, hashtag, dreamnote, snsd, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, csr, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, apink, dia, april, gugudan, weki meki, exid, miss a, lovelyz, cignature, tripleS, ladies code, purple kiss, elris/alice, limelight, and clc; also soloists like iu, lee chaeyeon, and yukika-->
+				<span class="third">groups: <span id="groups" title="Generated with JavaScript (unless that's disabled)"><u>Loona</u><span class="groupParen"> (ult)</span>, <em>Kep1er</em>, BLACKPINK...</span><code class="yeojin">//TODO: stan more groups</code></span><br/><!--like red velvet, dreamcatcher, le sserafim, wjsn, twice, aespa, ive, itzy, gwsn, blackpink, iz*one, (g)i-dle, fromis_9, billlie, weeekly, woo!ah!, fifty fifty, rocket punch, cherry bullet, hashtag, dreamnote, snsd, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, csr, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, apink, dia, april, gugudan, weki meki, exid, miss a, lovelyz, cignature, tripleS, ladies code, purple kiss, elris/alice, limelight, and clc; also soloists like iu, lee chaeyeon, and yukika-->
 				<span class="yeojin">antis, akgaes dni <em>(especially <!--fucking--> bahiyyih antis)</em></span><br/>
 				<span class="circle">i have stanned loona for about <span id="loonaTime">a lot of</span> seconds</span><br/>
 			
