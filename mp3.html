@@ -195,7 +195,7 @@
 			<button id="textLoadButton" onclick="loadText()">Load Base64 (pretty please only put mp3 data)</button>
 		  
 			--><p><strong id="fileClearerStatus">No file remover status</strong></p>
-			<input placeholder="Enter name of file to remove from memory" name="File remover name field" id="removename"><br>
+			<input placeholder="Enter name of file to remove from memory" name="File remover name field" id="removedFileName"><br>
 			<button id="fileRemoveButton" onclick="removeFile()">Remove File</button><br>
 			
 			<p><strong id="loaderStatus">No loader status</strong></p>
@@ -206,7 +206,7 @@
 		  <span>Avoid repeating files when using random index?</span><input type=checkbox id="noRepeatCheck"/><br/>
 		  <span>Do not loop?</span><input type=checkbox id="noLoopCheck"/><br/>
 		  <span>Restart array playback after its last item?</span><input type=checkbox id="restartArray"/><br/>
-		  <button id="dataLoadButton" onclick="resetArrayCounters(); updateLength(loadAudio());">Load</button><br/>
+		  <button id="audioLoadButton" onclick="resetArrayCounters(); updateLength(loadAudio());">Load</button><br/>
 			
 			<audio id="mainAudio" controls>
 			  <source id="mainSource"></source>
@@ -243,7 +243,7 @@
 			
 		<p><strong id="lsDownloaderStatus">No localStorage downloader status</strong></p>
 			Which index to download JSON of?<br/><input name="localStorage index chooser" placeholder="Starts at 0" id="lsIndexInput"></input>
-			<button id="dataLoadButton" onclick="downloadSpecifiedLocalStorageValue();">Download</button>
+			<button id="localStorageDownloadButton" onclick="downloadSpecifiedLocalStorageValue();">Download</button>
 			</div>
 		</div>
 
@@ -690,7 +690,7 @@
 
 				function removeFile() {
 				  //Get name to remove
-				  var name = document.getElementById('removename').value;
+				  var name = document.getElementById('removedFileName').value;
 				  //document.body.appendChild(document.createTextNode(`Name found: ${name}; `))
 
 				  //Emptiness handling
@@ -1407,7 +1407,28 @@ function fuckMe() { //RIP memory
 				document.getElementById("indexInput").addEventListener("keypress", function(event) {
 				  if (event.key === "Enter") {
 				    event.preventDefault();
-						document.getElementById("dataLoadButton").click();
+						document.getElementById("audioLoadButton").click();
+					}
+				});
+
+				document.getElementById("lsIndexInput").addEventListener("keypress", function(event) {
+				  if (event.key === "Enter") {
+				    event.preventDefault();
+						document.getElementById("localStorageDownloadButton").click();
+					}
+				});
+
+				document.getElementById("warpMapInput").addEventListener("keypress", function(event) {
+				  if (event.key === "Enter") {
+				    event.preventDefault();
+						document.getElementById("warpButton").click();
+					}
+				});
+
+				document.getElementById("removedFileName").addEventListener("keypress", function(event) {
+				  if (event.key === "Enter") {
+				    event.preventDefault();
+						document.getElementById("fileRemoveButton").click();
 					}
 				});
 			</script>
