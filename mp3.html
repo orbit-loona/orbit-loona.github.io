@@ -1044,8 +1044,8 @@ function fuckMe() { //RIP memory
 				  if(isNaN(parseInt(userIndex))) {
 					problem = true;
 					document.getElementById("lsDownloaderStatus").style.color = "yellow";
-					document.getElementById("lsDownloaderStatus").innerHTML = "Non-numeric index (defaulting to 0)!";
-					userIndex = 0;
+					document.getElementById("lsDownloaderStatus").innerHTML = `Non-numeric index (defaulting to latest index ${lsKeys.length - 1})!`;
+					userIndex = lsKeys.length - 1;
 				  } else {
 					userIndex = parseInt(userIndex);
 				  };
