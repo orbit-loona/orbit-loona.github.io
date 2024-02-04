@@ -31,7 +31,7 @@ removalReloadRequirementAlerted = false;
 
 function removeCustomCharacter(codeNumber) {
 	if(customCharacters[codeNumber]) {
-		delete customCharacters(codeNumber);
+		delete customCharacters[codeNumber];
 		saveCustomCharacters();
 		if(!removalReloadRequirementAlerted) {
 			alert("char8.js does not allow for the de-definition of characters. For removals to take effect, you must reload the page.");
