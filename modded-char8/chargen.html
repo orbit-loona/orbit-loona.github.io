@@ -12,8 +12,46 @@ if(typeof(codeStringArray) === "undefined") {
 	codeStringArray = [];
 };
 
-function makeCharCode(define=true) {
-	
+customCharacters = {};
+
+function saveCustomCharacters() {
+	localStorage.setItem("customCharacters", JSON.stringify(customCharacters ?? {}))
+};
+
+function loadCustomCharacters() {
+	customCharacters = JSON.parse(localStorage.getItem("customCharacters"));
+};
+
+function clearCustomCharacters() {
+	customCharacters = {};
+	saveCustomCharacters()
+};
+
+removalReloadRequirementAlerted = false;
+
+function removeCustomCharacter(codeNumber) {
+	if(customCharacters[codeNumber]) {
+		delete customCharacters(codeNumber);
+		saveCustomCharacters();
+		if(!removalReloadRequirementAlerted) {
+			alert("char8.js does not allow for the de-definition of characters. For removals to take effect, you must reload the page.");
+			removalReloadRequirementAlerted = true
+		}
+	} else {
+		console.error(`removeCustomCharacter: No custom character exists at ${codeNumber}.`)
+	}
+};
+
+window.addEventListener("load",function() {
+	if(localStorage.getItem("customCharacters") === null) {
+		saveCustomCharacters()
+	} else {
+		loadCustomCharacters();
+		processCharCodes(true)
+	}
+});
+
+function addCharCode(define=true) {
 	//generateCheckboxArray
 	var checkboxArray = [[],[],[],[],[],[],[],[]]
 	for(y = 0; y < 8; y++) {
@@ -41,29 +79,45 @@ function makeCharCode(define=true) {
 		alert("Codepoint is invalid!");
 		throw 'CK error: Invalid codepoint key!';
 	};
-	var codepoint0x = "0x" + codepoint;
-	var codeString = codepoint0x + ":[" + checkboxArray.toString() + "],";
-	var codepointAsNumber = parseInt(codepoint,16);
 	
-	//outputCheckboxArray
-	
-	codeStringArray.push(codeString);
-	document.getElementById("outputCode").innerHTML = codeStringArray.join("<br/>");
-	
-	//defineCharacter
+	customCharacters[parseInt(codepoint,16)] = checkboxArray;
+	saveCustomCharacters()
+};
 
-	if(define) {
-		var temporaryObject = {
-			"symbols": {
-			}
-		};
-
-		temporaryObject.symbols[codepointAsNumber] = checkboxArray;
-		//JS won't directly substitute the number into the key
-		
-		Char8.define(temporaryObject);
+function processCharCodes(define) {
+	var defineObject = {
+		"symbols": {
+		}
 	};
-}
+
+	for(var i in customCharacters) {
+		//Prepare define
+		if(define) {
+			defineObject.symbols[i] = customCharacters[i];
+		}
+	};
+
+	console.log(defineObject);
+	
+	var displayArray = [];
+	for(var i in defineObject.symbols) {
+		//Prepare display
+		var code = parseInt(i);
+		var character = defineObject.symbols[i];
+		var codeString = "0x" + parseInt(i).toString(16);
+		var arrayEntry = codeString + ":[" + character.toString() + "],";
+		displayArray.push(arrayEntry)
+	};
+	
+	console.log(displayArray);
+
+	//Define
+	Char8.define(defineObject);
+
+	//Display
+	var disp = document.getElementById("outputCode");
+	if(disp) { disp.innerHTML = displayArray.join("<br/>") };
+};
 
 function clearAll() {
 	var checks = document.querySelectorAll('input[type="checkbox"]')
@@ -134,10 +188,93 @@ if(urlParams.get('A') != null) { //null check
 	defA = 255
 }
 
-defaultColorRGBA = `rgb(${defR},${defG},${defB},${defA})`
-
 var globalCPL = 80;
 var globalRows = 150;
+
+function hexStringToDecimal(string) {
+	if(string.startsWith("0")) { string = string.substring(1) };
+	string = string.match(/[0-9a-f]+/i)[0];
+	return parseInt(string,16);
+};
+
+function isHighSurrogate(hex) {
+	if(hex == undefined) { return false };
+	if(typeof(hex) == "string") { hex = hexStringToDecimal(hex) };
+	return(hex >= 55296 && hex <= 56319); 
+};
+
+function isLowSurrogate(hex) {
+	if(hex == undefined) { return false };
+	if(typeof(hex) == "string") { hex = hexStringToDecimal(hex) };
+	return(hex >= 56320 && hex <= 57343); 
+};
+
+function surrogatesToHex(highSurrogate,lowSurrogate) {
+	if(typeof(highSurrogate) == "string") { highSurrogate = hexStringToDecimal(highSurrogate) };
+	if(typeof(lowSurrogate) == "string") { lowSurrogate = hexStringToDecimal(lowSurrogate) };
+	return ((highSurrogate - 0xD800) * 0x400) + (lowSurrogate - 0xDC00) + 0x10000;
+};
+
+function isHighMetasurrogate(hex) {
+	if(hex == undefined) { return false };
+	if(typeof(hex) == "string") { hex = hexStringToDecimal(hex) };
+	return(hex >= 0xf0000 && hex <= 0xf7fff); 
+};
+
+function isLowMetasurrogate(hex) {
+	if(hex == undefined) { return false };
+	if(typeof(hex) == "string") { hex = hexStringToDecimal(hex) };
+	return(hex >= 0xf8000 && hex <= 0xfffff); 
+};
+
+function metaSurrogatesToHex(highMetaSurrogate,lowMetaSurrogate) {
+	if(typeof(highMetaSurrogate) == "string") { highMetaSurrogate = hexStringToDecimal(highMetaSurrogate) };
+	if(typeof(lowMetaSurrogate) == "string") { lowMetaSurrogate = hexStringToDecimal(lowMetaSurrogate) };
+	return ((highMetaSurrogate - 0xf0000) * 0x8000) + (lowMetaSurrogate - 0xf8000) + 0x110000;
+};
+
+function hexToMetaSurrogates(hex) {
+	if(typeof(hex) == "string") { hex = hexStringToDecimal(hex) };
+	var unshiftedHex = hex - 0x110000;
+	var lowMetaSurrogate = (unshiftedHex % 32768) + 0xf8000;
+	var highMetaSurrogate = Math.floor(unshiftedHex / 32768) + 0xf0000;
+	return [highMetaSurrogate, lowMetaSurrogate];
+};
+
+var colors = {
+	defR: 255,
+	defG: 204,
+	defB: 0,
+	defA: 255,
+	true_defR: 255,
+	true_defG: 204,
+	true_defB: 0,
+	true_defA: 255
+};
+
+
+var colorParamNames = ["r","g","b","a"];
+
+for(i = 0; i < colorParamNames.length; i++) {
+	var lower = colorParamNames[i];
+	var upper = colorParamNames[i].toUpperCase();
+	var paramName = `def${upper}`;
+	var trueParamName = `true_${paramName}`;
+
+	if(urlParams.get(lower) !== null) { //null check
+		var temp = urlParams.get(lower);
+		if(isNaN(temp)) { //NaN check
+			temp = colors[trueParamName];
+		} else {
+			temp = Math.min(255,Math.max(parseInt(temp),0));
+		};
+		colors[paramName] = temp;
+	} else {
+		temp = colors[trueParamName];
+	};
+};
+
+defaultColorRGBA = `rgb(${colors.defR},${colors.defG},${colors.defB},${colors.defA})`
 
 function zeroLeftPad(string,number) {
 	while(string.length < number) {
@@ -174,6 +311,9 @@ var intervalId = window.setInterval(function(){
 }, 50);
 */
 
+charsPerLine = 80;
+rows = 60;
+
 function fun() {
 
 	/*if(Math.floor(aa / 6) % 2 == 0) {
@@ -193,7 +333,7 @@ function fun() {
 	// stuff for basic display and rendering
 	// (laid out for comprehensibility, obviously, there's much left to optimize)
 	
-	var charX = 0, charY = 0, charsPerLine = globalCPL, rows = globalRows;
+	var charX = 0, charY = 0;
 	
 	// set up a canvas element and an image buffer
 	canvas = document.getElementsByTagName("canvas")[0];
@@ -201,10 +341,10 @@ function fun() {
 	var imgBuffer = ctx.createImageData(canvas.width, canvas.height);
 	var pixelData = imgBuffer.data;
 	
-	var r = defR
-	var g = defG
-	var b = defB
-	var a = defA
+	var r = colors.defR
+	var g = colors.defG
+	var b = colors.defB
+	var a = colors.defA
 		
 	function setPixel( pixelX, pixelY ) {
 		// set a pixel (in the image buffer)
@@ -267,6 +407,7 @@ function fun() {
 	
 	for (var i = 0; i < charCodes.length; i++) {
 		var code = charCodes[i];
+		//console.log(i,"0x" + code.toString(16));
 		if(code === 0xffff) {
 			code = Math.floor(Math.random() * 65536);
 			if(code === 0xef36 || code === 0xef37) {
@@ -298,9 +439,9 @@ function fun() {
 		} else if (code === 0xef07) {
 			// eighth backspace
 			charX -= 0.125;
-		} else if (code === 0xef08) {
-			// zero-width space
-			noop();
+		} else if (code === 0xef08 || isLowSurrogate(code) || isLowMetasurrogate(code)) {
+			//zwsp and also don't render low surrogates
+			continue;
 		} else if (code === 0xef10) {
 			// vertical space (line feed)
 			charY += 1;
@@ -411,20 +552,61 @@ function fun() {
 			var bold = false;
 		} else if (code === 0xef3f) {
 			// reset color
-			r = defR;
-			g = defG;
-			b = defB;
-			a = defA;
+			r = colors.defR;
+			g = colors.defG;
+			b = colors.defB;
 		} else if (code >= 0xef40 && code <= 0xef7f) {
-			// 64 2-bit color codes
+			//console.log("wow");
+			// 64 2-bit-deep color codes
 			r = Math.round((((code & 0b111111) & 0b110000) >> 4) * (255/3));
 			g = Math.round((((code & 0b111111) & 0b001100) >> 2) * (255/3));
 			b = Math.round(((code & 0b111111) & 0b000011) * (255/3));
-			a = 255;
-		} else {
-			if(code >= 0xe307 && code <= 0xe30b) {
-				charX--;
-			} 
+		} else if (code >= 0x100000 && code <= 0x100fff) {
+			//console.log("uwu");
+			// 4096 4-bit-deep color codes
+			r = Math.round((((code & 0b111111111111) & 0b111100000000) >> 8) * (255/15));
+			g = Math.round((((code & 0b111111111111) & 0b000011110000) >> 4) * (255/15));
+			b = Math.round(((code & 0b111111111111) & 0b000000001111) * (255/15));
+		} else if (code >= 0x30000000 && code <= 0x30ffffff) {
+			//console.log("wheee");
+			// 16777216 8-bit-deep color codes
+			r = Math.round((((code & 0b111111111111111111111111) & 0b111111110000000000000000) >> 16));
+			g = Math.round((((code & 0b111111111111111111111111) & 0b000000001111111100000000) >> 8 ));
+			b = Math.round(( (code & 0b111111111111111111111111) & 0b000000000000000011111111)       );
+		}/* else if (code === 0xef80) {
+			// half-pixel backspace
+			charX -= (0.125 / 2);
+		} else if (code === 0xef81) {
+			// half-pixel space
+			charX += (0.125 / 2);
+		} else if (code === 0xef82) {
+			// 4th-pixel backspace
+			charX -= (0.125 / 4);
+		} else if (code === 0xef83) {
+			// 4th-pixel space
+			charX += (0.125 / 4);
+		}*/ else {
+			/*function toBinaryN4Separated(number) {
+				return number.toString(2).split("").reverse().join("").replaceAll(/(.{4})/g,"$1 ").split("").reverse().join("");
+			};*/
+			var x9y8 = Char8.getSymbol(code)[8] ?? 0;
+			if(x9y8) {
+				//console.log(toBinaryN4Separated(x9y8));
+				var xWidthData =  (x9y8 &      0b01111);
+				var xWidthSign =  (x9y8 &      0b10000) >> 4;
+				var xFinalWidthOffset = (xWidthData / 8) * (xWidthSign ? -1 : 1);
+
+				/*var yOffsetData = (x9y8 & 0b0111100000) >> 5;
+				var yOffsetSign = (x9y8 & 0b1000000000) >> 9;
+				var yFinalOffset = (widthData / 8) * (widthSign ? -1 : 1);*/
+			};
+			//console.log(widthData,widthSign,widthOffset);
+			if(x9y8) {
+				//console.log(widthOffset);
+				if(charX > 0) {
+					charX += xFinalWidthOffset;
+				};
+			};
 			var character = null			
 		    shifted == true ? character = JSON.parse(JSON.stringify(Char8.getSymbol( code + 0xec00 ) || Char8.getSymbol( 0xfffd ))) : character = JSON.parse(JSON.stringify(Char8.getSymbol( code )));
 			if(bold == true) {
@@ -463,13 +645,24 @@ function fun() {
 			renderChar( character );
 			// advance the character position
 			if (++charX === charsPerLine) {
-				charX = 0;
-				charY++;
+				var prevCode = charCodes[i - 1];
+				if(    !(  isLowSurrogate(code) && isHighSurrogate(prevCode)  )    ) {
+					charX = 0;
+					charY++;				
+				};
 			}
+			/*
+			// extend canvas if out of space (too laggy)
+			if (charY === globalRows) {
+				globalRows += 2;
+				document.getElementById("canvas").height = rows * 8;
+			}
+			*/
 		}
 		// if charY === rows, scroll up (not implemented)
 	}
 	
+	//console.log(`charX: ${charX}/${charsPerLine}\ncharY: ${charY}/${rows}`);
 	updateCanvas();
 };
 
@@ -601,7 +794,7 @@ textarea:focus, textarea:hover { background-color: #020202; color:rgb(255,204,0)
 </head>
 <body>
 <h1><a href="https://www.masswerk.at/char8/">Char8.js</a> character generator</h1>
-<p>This is a visual character-code generator for Char8. It is aimed at further directly editing the char8, but symbols are defined with <code>Char8.define()</code> for preview. If you don't copy the code, you will lose it. This thing is very primitive and its code is out-of-date compared to the code in the <a href="index.html">main page</a>.</p>
+<p>This is a visual character-code generator for Char8. It is aimed at further directly editing the char8, but symbols are defined with <code>Char8.define()</code> for preview. This thing is very primitive.</p>
 <h2>Generation Menu</h2>
 
 <table>
@@ -817,7 +1010,7 @@ textarea:focus, textarea:hover { background-color: #020202; color:rgb(255,204,0)
 
 <input id="codepoint" placeholder="e.g. <<3fc6>>"/> <br/>
 
-<button onclick=makeCharCode()>Generate code</button> <br/>
+<button onclick="addCharCode(); processCharCodes(true)">Generate code</button> <br/>
 
 <span id="outputCode">0x????:[?,?,?,?,?,?,?,?],</span> <br/>
 
