@@ -477,6 +477,10 @@ function dumbBruh() {
 	return true;
 };
 
+function wrap(string,start,end=null) {
+	return [start,string,end ?? start].join("");
+};
+
 document.addEventListener("keypress", function(event) {
 	if (event.key === " ") {
 		timedIncrement(true);
@@ -676,7 +680,7 @@ idolBdData = {
 	"22-07": { entity: "NewJeans", color: "rgb(64,89,149)", isGroup: true },
 	"23-07": { entity: "Sua", color: "rgb(0,220,220)", group: "CSR" },
 	"27-07": [ { entity: "Huening Bahiyyih", color: "rgb(255,177,109)", group: "Kep1er"}, { entity: "CSR", color: "rgb(242,105,37)", isGroup: true } ],
-	"01-08": [ {entity: "Sieun", color: "rgb(255,255,255)", group: "STAYC"}, {entity: "Kim Chaewon (IZ*ONE)", color: "rgb(206,229,213)", group: "IZ*ONE"}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation"}, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature" }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true } ],
+	"01-08": [ {entity: "Sieun", color: "rgb(255,255,255)", group: "STAYC"}, {entity: "Kim Chaewon", color: "rgb(206,229,213)", group: "IZ*ONE"}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation"}, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature" }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true } ],
 	"05-08": [ {entity: "Kim Sihyeon", color: "rgb(199,210,167)", group: "Everglow"}, {entity: "Girls' Generation", color: "rgb(254,76,128)", isGroup: true} ],
 	"08-08": { entity: "BlackPink", color: "rgb(255,207,228)", isGroup: true},
 	"09-08": { entity: "Lara", color: "rgb(145,86,255)", group: "DreamNote" },
@@ -723,7 +727,7 @@ idolBdData = {
 	"05-11": { entity: "Lee Yukyung", color: "rgb(55,253,252)", group: "ALICE"},
 	"06-11": { entity: "Seungyeon", color: "rgb(199,3,30)", group: "CLC" },
 	"07-11": { entity: "DreamNote", color: "rgb(0,176,164)", textOverride: "rgb(255,205,5)", isGroup: true },
-	"08-11": { entity: "Kim Chaewon (APRIL)", color: "rgb(255,255,122)", group: "APRIL" },
+	"08-11": { entity: "Kim Chaewon", color: "rgb(255,255,122)", group: "APRIL" },
 	"09-11": { entity: "Momo", color: "rgb(248,207,215)", group: "TWICE"},
 	"10-11": { entity: "Billlie", color: "rgb(148,180,229)", borderOverride: "rgb(197,180,225)", isGroup: true},
 	"11-11": { entity: "YeoJin", color: "rgb(244,111,31)", group: "LOONA"},
@@ -743,7 +747,8 @@ idolBdData = {
 	"16-12": { entity: "Mashiro", color: "rgb(253,238,244)", group: "Kep1er"},
 	"27-12": [ { entity: "Youngeun", color: "rgb(147,197,114)", group: "Kep1er"}, { entity: "Gyuri", color: "rgb(33,150,254)", group: "fromis_9" } ],
 	"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE"}, {entity: "Yiren", color: "rgb(255,255,255)", group: "Everglow"} ],
-	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE"}
+	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE"}/*,
+	"01-13": { entity: "Mary Sue", color: "rgb(191,159,127)", group: null}*/
 };
 
 for(var date in idolBdData) {
@@ -834,14 +839,13 @@ window.onload = function() {
 			coloredName.style.color = bgLum > 159 ? "black" : "white"
 			if(data.textOverride) { coloredName.style.color = data.textOverride };
 			if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
-			var title = "";
-			if(data.group) { title += "From " + data.group } else {
-				if(data.isGroup) { title += "(Group)" };
-				if(data.isGroup && data.title) { title += " " };
-				if(data.title) { title += data.title }
-			};
-			if(title !== "") { coloredName.setAttribute("title",title) }
 			coloredName.innerText = data.entity.replaceAll(" ",String.fromCharCode(0xa0));
+			if(!data.isGroup) {
+				var fromStatement = document.createElement("span");
+				fromStatement.classList.add("artistFrom");
+				fromStatement.innerText = !!data.group ? ` from ${data.group}`.replaceAll(" ",String.fromCharCode(0xa0)) : `${String.fromCharCode(0xa0)}(Soloist)`
+				coloredName.appendChild(fromStatement)
+			};
 			coloredName.classList.add("bdIdolName");
 			birthdayText.appendChild(coloredName);
 			var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
@@ -943,6 +947,10 @@ window.onload = function() {
 			.imageButton {
 				width: 88px;
 				height: 31px;
+			}
+			
+			.artistFrom {
+				font-size: 80%;
 			}
 		</style>
 	</head>
