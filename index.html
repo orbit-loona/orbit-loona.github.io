@@ -19,857 +19,856 @@
 		<link rel="stylesheet" href="main.css"/>
 		<script src="URLSearchParams polyfill.js"></script>
 		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-		<meta name="format-detection" content="telephone=no">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
 		urlParams = new URLSearchParams(window.location.search);
 
+try {
+
+bigintValue = 0n;
+lifetimeBigintValue = 0n;
+showedMessage = false;
+showingMessage = false;
+superUpgradeVisible = false;
+bigintRebirths = 0n;
+bigintSecondLevelRebirths = 0n;
+saveModulo = 0;
+
+clickUpgrades = [
+	{type: "+",		value: 1n,		cost: 10n,		level: 0n},
+	{type: "+",		value: 5n,		cost: 40n,		level: 0n},
+	{type: "+",		value: 12n,		cost: 100n,		level: 0n},
+	{type: "+",		value: 150n,		cost: 1000n,	level: 0n},
+	{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 4n, increaseByRebirth: 1n},
+	{type: "+",		value: 15000n,	cost: 75000n,	level: 0n},
+	{type: "**",	value: 2n,		cost: 10n**7n,	level: 0n,	max: 1n},
+	{type: "**",	value: 3n,		cost: 10n**14n,	level: 0n,	max: 1n},
+	{type: "**",	value: 4n,		cost: 10n**21n,	level: 0n,	max: 1n}
+];
+
+buyKeys = {};
+
+var letters = "pqwert";
+var letters2 = "lasdfg";
+/*TODO: AZERTY and QWERTZ support*/
+var upperLetters = letters.toUpperCase();
+var upperLetters2 = letters2.toUpperCase();
+var shiftNumbers = ")!@#$%";
+
+for(var number = 0; number < letters.length; number++) {
+  shiftNumber = shiftNumbers[number];
+  letter = letters[number];
+  uLetter = upperLetters[number];
+  letter2 = letters2[number];
+  uLetter2 = upperLetters2[number];
+
+  buyKeys[number] = [number, 0n];
+  if(
+	!(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
+  ) {
+	buyKeys[shiftNumber] = [number, 1n];
+	buyKeys[letter] = [number, 2n];
+	buyKeys[uLetter] = [number, 3n];
+	buyKeys[letter2] = [number, 4n];
+	buyKeys[uLetter2] = [number, 5n];
+  };
+}; buyKeys[6] = [6, 0n]; buyKeys[4] = [4, 0n]; buyKeys[7] = [7, 0n]; buyKeys[8] = [8, 0n];
+
+doNotAlertRebirth = false;			
+
+BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
+
+function bigintReviver (key, value) {
+	if(typeof(value) == "string" && value.startsWith("<@BI>")) {
+		var bi = value.substring(5);
+	return BigInt(bi);
+	};
+	return value;
+};
+
+function saveBigints() {
+	object = {
+		number: bigintValue,
+		lifetimeNumber: lifetimeBigintValue,
+		reachedBigNumber: showedMessage,
+		upgradeLevels: clickUpgrades.map(x => x.level),
+		showUpgradeOT12: superUpgradeVisible,
+		modhaus: bigintRebirths,
+		artms: bigintSecondLevelRebirths ?? 0n
+	};
+	localStorage.setItem("number",JSON.stringify(object));
+};
+
+function resetBigints(removeSave=false) {
+	bigintValue = 0n;
+	lifetimeBigintValue = 0n;
+	showedMessage = false;
+	superUpgradeVisible = false;
+	bigintRebirths = 0n;
+	bigintSecondLevelRebirths = 0n;
+	for(hash = 0; hash < clickUpgrades.length; hash++) {
+		clickUpgrades[hash].level = 0n;
+	};
+	relockSecret();
+	updateCounters();
+	if(removeSave) { localStorage.removeItem("number") }; return true;
+};
+
+function loadBigints(updateCounts=true) {
+	if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
+	bigintValue = object.number;
+	lifetimeBigintValue = object.lifetimeNumber;
+	showedMessage = object.reachedBigNumber;
+	superUpgradeVisible = object.showUpgradeOT12;
+	bigintRebirths = object.modhaus;
+	bigintSecondLevelRebirths = object.artms ?? 0n;
+	var levels = object.upgradeLevels; for(ptt = 0; ptt < levels.length; ptt++) { clickUpgrades[ptt].level = levels[ptt] };
+
+	if(superUpgradeVisible) {
+		unlockSecret();
+	};
+	if(updateCounts) {
+		updateCounters(false);
+	};
+	return true;
+};
+
+function getProspectiveRebirths() {
+	return (getBigintMagnitude(bigintValue) + 88n) / 200n;
+};
+
+function getProspectiveSecondRebirths() {
+	return (bigintRebirths + 10n) / 20n;
+};
+
+function rebirth(updateCounts=true) {
+	if(getBigintMagnitude(bigintValue) < 112n) {
+		return false;
+	}; var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n; if(rebirths < 1n) { return false };
+	bigintValue = 0n; showedMessage = false;
+	for(hash = 0; hash < clickUpgrades.length; hash++) {
+		clickUpgrades[hash].level = 0n;
+	};
+	bigintRebirths += rebirths;
+	if(updateCounts) {
+		buildStats(); updateCounters();
+	};
+	return true;
+};
+
+function secondLevelRebirth(updateCounts=true) {
+	if(bigintRebirths < 10) {
+		return false;
+	}; var secondRebirths = (bigintRebirths + 10n) / 20n; if(secondRebirths < 1n) { return false };
+	
+	bigintValue = 0n;
+	bigintRebirths = 0n;
+	showedMessage = false;
+	for(hash = 0; hash < clickUpgrades.length; hash++) {
+		clickUpgrades[hash].level = 0n;
+	};
+
+	bigintSecondLevelRebirths += secondRebirths;
+	if(updateCounts) {
+		buildStats(); updateCounters();
+	};
+	return true;
+};
+
+function getUpgradeMaximum(index) {
+  var upgrade = clickUpgrades[index];
+  if(!upgrade.max) {
+	return null;
+  } else {
+	if(upgrade.increaseByRebirth) {
+	  return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
+	} else { return upgrade.max };
+  };
+};
+
+function getUpgradeInfo(index) {
+  var upgrade = clickUpgrades[index];
+
+  var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
+
+  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+  var benefitPrefix, upgradeValue;
+  switch(upgrade.type) {
+	case "+":
+	  benefitPrefix = "+";
+	  upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
+	  break;
+	case "*":
+	  benefitPrefix = "x";
+	  upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
+	  break;
+	case "**":
+	  benefitPrefix = "^";
+	  upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
+	  break;
+  };
+
+  var benefitText = `${benefitPrefix}${upgradeValue}`
+
+  var baseBenefit = `${benefitPrefix}${upgrade.value}`
+
+  var cost = upgrade.cost;
+
+  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
+};
+
+function buildStats() {
+  var element = document.getElementById("upList");
+  element.textContent = "";
+
+  secondRebirthSpan = document.createElement("span");
+  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
+  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
+  element.appendChild(secondRebirthSpan);
+  element.appendChild(document.createElement("br"));
+
+  rebirthSpan = document.createElement("span");
+  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
+  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
+  element.appendChild(rebirthSpan);
+  element.appendChild(document.createElement("br"));
+
+  var bound = clickUpgrades.length;
+  for(l = 0; l < bound; l++) {
+	infoRow = document.createElement("span");
+	infoRow.setAttribute("class","upgradeInfo");
+	infoRow.innerText = getUpgradeInfo(l);
+	element.appendChild(infoRow);
+	element.appendChild(document.createElement("br"));
+  };
+  resultSpan = document.createElement("span");
+  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
+  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
+  element.appendChild(resultSpan);
+  element.appendChild(document.createElement("br"));
+
+  possibleRebirthSpan = document.createElement("span");
+  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
+  newRebirths = getProspectiveRebirths();
+  possibleRebirthSpan.innerText = newRebirths == 0n ? 
+	"You cannot rebirth yet."
+  :
+	`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
+  element.appendChild(possibleRebirthSpan);
+  element.appendChild(document.createElement("br"));
+
+  possibleSecondRebirthSpan = document.createElement("span");
+  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
+  newSecondRebirths = getProspectiveSecondRebirths();
+  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
+	"You cannot second-level rebirth yet."
+  :
+	`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
+  element.appendChild(possibleSecondRebirthSpan);
+};
+
+function getClickValue() {
+	var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
+	var value = rebirthedBase;
+	for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
+		var upgrade = clickUpgrades[flipThat];
+		if(upgrade.type == "+") {
+			value += ((upgrade.value * rebirthedBase) * upgrade.level);
+		} else if(upgrade.type == "*") {
+			if(upgrade.level > 0) { value *= ((upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level) };
+		} else if(upgrade.type == "**") {
+			if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
+		} else {
+			console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
+		};
+	};
+	return value;
+};
+
+function buyUpgrade(index,updateCounts=true,amount=1n) {
+	var upgrade = clickUpgrades[index];
+	var cost = upgrade.cost * amount;
+
+	if(amount < 1n) {
+		return false;
+	};
+
+	if(bigintValue < cost) {
+		return false;
+	};
+
+	if(upgrade.max && (upgrade.level > (getUpgradeMaximum(index)-amount) )) {
+		return false;
+	};
+	
+	upgrade.level += amount;
+	bigintValue -= cost;
+	if(updateCounts) {
+		updateCounters();
+		buildStats();
+	};
+	
+	if(index == 6) {
+		unlockSecret();
+	}; unlockUplist();
+	
+	return true;
+};
+
+function unlockSecret() {
+	var secretSpan = document.getElementById("up7");
+	if(secretSpan && secretSpan.style.display == "none") {
+		secretSpan.style.display = "unset";
+	};
+	superUpgradeVisible = true;
+};
+
+function relockSecret() {
+	var secretSpan = document.getElementById("up7");
+	if(secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
+		secretSpan.style.display = "none";
+	};
+	superUpgradeVisible = false;
+};
+
+function unlockUplist() {
+	var secretDiv = document.getElementById("upList");
+					if(!secretDiv) { return }; buildStats();
+	if(secretDiv && secretDiv.style.display == "none") {
+		secretDiv.style.display = "unset";
+	};
+};
+
+function relockUplist() {
+	var secretDiv = document.getElementById("upList");
+	if(secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
+		secretDiv.style.display = "none";
+	};
+};
+
+
+function increment(updateCounts=true) {
+	bigintValue += getClickValue();
+	lifetimeBigintValue += getClickValue();
+	if(updateCounts) {
+		updateCounters();
+		buildStats();
+	};
+};
+
+clearSpanTimeoutId = null;
+
+function clearLagSpan() {
+	var lagSpan = document.getElementById("lagWarning");
+	if(lagSpan) {
+		lagSpan.innerText = String.fromCharCode(160);
+	};
+	clearSpanTimeoutId = null;
+};
+
+function timedIncrement(updateCounts=true) {
+	if(clearSpanTimeoutId) {
+		//console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
+		clearTimeout(clearSpanTimeoutId);
+	};
+	var start = Date.now();
+	increment(updateCounts);
+	var end = Date.now();
+	var difference = end - start;
+	if(difference >= 100) {
+		var lagSpan = document.getElementById("lagWarning");
+		var formattedLength = (difference / 1000).toFixed(2);
+		if(!showingMessage && lagSpan) {
+			lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
+			//console.log("Setting timeout");
+			clearSpanTimeoutId = setTimeout(clearLagSpan,3000);
+			//console.log("ID: " + clearSpanTimeoutId);
+		};
+	};
+};
+
+function bigintCommas(bigint) {
+	var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
+	if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
+	return numberText;
+};
+
+function getBigintMagnitude(bigint) {
+  var bString = bigint.toString();
+  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
+};
+
+function updateCounters(doSave=true) {
+	//console.error("i want a trace");
+	if(lifetimeBigintValue >= (10n**11n)) {
+		unlockSecret();
+	};
+	
+	if(!showedMessage && bigintValue >= (10n**112n) && (!doNotAlertRebirth)) {
+		showingMessage = true;
+		alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
+		showedMessage = true;
+		showingMessage = false;
+	};
+
+	var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
+	for(i = 0; i < counters.length; i++) {
+		var counter = counters[i];
+		var format = counter.getAttribute("countTemplate");
+		var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
+		var numberText = bigintCommas(bigintValue * (10n ** magnitudeOffset));
+		var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** magnitudeOffset)));
+		var newText = format.replaceAll("<@N@>",numberText).replaceAll("<@E@>",numberMagnitudeText);
+		counter.innerText = newText;
+	};
+
+	var buyWarnSpan = document.getElementById("bigNumWarning");
+	if(getBigintMagnitude(bigintValue) >= 40000) {
+		buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
+	} else if(getBigintMagnitude(bigintValue) >= 10000) {
+		buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
+	} else if(getBigintMagnitude(bigintValue) >= 2000) {
+		buyWarnSpan.textContent = "";
+		buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
+		var newSup = document.createElement("sup");
+			newSup.innerText = "1,000"
+			buyWarnSpan.appendChild(newSup);
+		buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
+	} else if (getBigintMagnitude(bigintValue) < 2000) {
+		buyWarnSpan.innerText = String.fromCharCode(160);
+	};
+
+	if(doSave) { //Save on every fifth update
+	  saveModulo++;
+	  if(saveModulo % 5 == 0) {
+		saveBigints();
+		saveModulo = 0;
+	  };
+	};
+};
+
+function generateButtonsForTitledClickables() {
+	var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
+	for(i = 0; i < clickables.length; i++) {
+		var clickText = clickables[i];
+		var clickCode = clickText.getAttribute("onclick");
+		var textTitle = clickText.getAttribute("title");
+		var newButton = document.createElement("button");
+		newButton.setAttribute("onclick",clickCode);
+		newButton.innerText = textTitle;
+		clickText.after(newButton);
+	};
+	return true;
+};
+
+function dumbBruh() {
+	try {
+		var audio = new Audio("bin/bruh.mp3");
+		audio.onended = function() {
+			delete(this);
+		};
+		audio.play();
+	} catch (error) {
+		alert("Could not play bruh sound");
+		return false;
+	};
+	return true;
+};
+
+document.addEventListener("keypress", function(event) {
+	if (event.key === " ") {
+		timedIncrement(true);
+		return true;
+	} else if (event.key === "b") {
+		return rebirth();
+	} else if (event.key === "B") {
+		return secondLevelRebirth();
+	} else if (event.key === "N") {
+		var indPrompt = prompt("Which upgrade to buy?");
+		if(indPrompt == null || indPrompt == "") { return false };
+		var index = parseInt(indPrompt);
+		if(isNaN(index)) {
+			alert("Invalid index!");
+			return false;
+		};
+		if(index < 0 || index > clickUpgrades.length - 1) {
+			alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
+			return false;				
+		};
+
+		var buyPrompt = prompt("How many to buy?");
+		if(buyPrompt == null || buyPrompt == "") { return false };
+		var amount;
 		try {
-		
-			bigintValue = 0n;
-			lifetimeBigintValue = 0n;
-			showedMessage = false;
-			showingMessage = false;
-			superUpgradeVisible = false;
-			bigintRebirths = 0n;
-			bigintSecondLevelRebirths = 0n;
-			saveModulo = 0;
-			
-			clickUpgrades = [
-				{type: "+",		value: 1n,		cost: 10n,		level: 0n},
-				{type: "+",		value: 5n,		cost: 40n,		level: 0n},
-				{type: "+",		value: 12n,		cost: 100n,		level: 0n},
-				{type: "+",		value: 150n,		cost: 1000n,	level: 0n},
-				{type: "*",		value: 2n,		cost: 50000n,	level: 0n,	max: 4n, increaseByRebirth: 1n},
-				{type: "+",		value: 15000n,	cost: 75000n,	level: 0n},
-				{type: "**",	value: 2n,		cost: 10n**7n,	level: 0n,	max: 1n},
-				{type: "**",	value: 3n,		cost: 10n**14n,	level: 0n,	max: 1n},
-				{type: "**",	value: 4n,		cost: 10n**21n,	level: 0n,	max: 1n}
-			];
-
-			buyKeys = {};
-
-			var letters = "pqwert";
-			var letters2 = "lasdfg";
-			/*TODO: AZERTY and QWERTZ support*/
-			var upperLetters = letters.toUpperCase();
-			var upperLetters2 = letters2.toUpperCase();
-			var shiftNumbers = ")!@#$%";
-
-			for(var number = 0; number < letters.length; number++) {
-			  shiftNumber = shiftNumbers[number];
-			  letter = letters[number];
-			  uLetter = upperLetters[number];
-			  letter2 = letters2[number];
-			  uLetter2 = upperLetters2[number];
-
-			  buyKeys[number] = [number, 0n];
-			  if(
-				!(  (clickUpgrades[parseInt(number)].max ?? Infinity) < 25n  )
-			  ) {
-				buyKeys[shiftNumber] = [number, 1n];
-				buyKeys[letter] = [number, 2n];
-				buyKeys[uLetter] = [number, 3n];
-				buyKeys[letter2] = [number, 4n];
-				buyKeys[uLetter2] = [number, 5n];
-			  };
-			}; buyKeys[6] = [6, 0n]; buyKeys[4] = [4, 0n]; buyKeys[7] = [7, 0n]; buyKeys[8] = [8, 0n];
-
-			doNotAlertRebirth = false;			
-
-			BigInt.prototype.toJSON = function() { return "<@BI>" + this.toString() }
-
-			function bigintReviver (key, value) {
-				if(typeof(value) == "string" && value.startsWith("<@BI>")) {
-					var bi = value.substring(5);
-				return BigInt(bi);
-				};
-				return value;
-			};
-
-			function saveBigints() {
-				object = {
-					number: bigintValue,
-					lifetimeNumber: lifetimeBigintValue,
-					reachedBigNumber: showedMessage,
-					upgradeLevels: clickUpgrades.map(x => x.level),
-					showUpgradeOT12: superUpgradeVisible,
-					modhaus: bigintRebirths,
-					artms: bigintSecondLevelRebirths ?? 0n
-				};
-				localStorage.setItem("number",JSON.stringify(object));
-			};
-
-			function resetBigints(removeSave=false) {
-				bigintValue = 0n;
-				lifetimeBigintValue = 0n;
-				showedMessage = false;
-				superUpgradeVisible = false;
-				bigintRebirths = 0n;
-				bigintSecondLevelRebirths = 0n;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
-				relockSecret();
-				updateCounters();
-				if(removeSave) { localStorage.removeItem("number") }; return true;
-			};
-
-			function loadBigints(updateCounts=true) {
-				if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
-				bigintValue = object.number;
-				lifetimeBigintValue = object.lifetimeNumber;
-				showedMessage = object.reachedBigNumber;
-				superUpgradeVisible = object.showUpgradeOT12;
-				bigintRebirths = object.modhaus;
-				bigintSecondLevelRebirths = object.artms ?? 0n;
-				var levels = object.upgradeLevels; for(ptt = 0; ptt < levels.length; ptt++) { clickUpgrades[ptt].level = levels[ptt] };
-
-				if(superUpgradeVisible) {
-					unlockSecret();
-				};
-				if(updateCounts) {
-					updateCounters(false);
-				};
-				return true;
-			};
-
-			function getProspectiveRebirths() {
-				return (getBigintMagnitude(bigintValue) + 88n) / 200n;
-			};
-
-			function getProspectiveSecondRebirths() {
-				return (bigintRebirths + 10n) / 20n;
-			};
-
-			function rebirth(updateCounts=true) {
-				if(getBigintMagnitude(bigintValue) < 112n) {
-					return false;
-				}; var rebirths = (getBigintMagnitude(bigintValue) + 88n) / 200n; if(rebirths < 1n) { return false };
-				bigintValue = 0n; showedMessage = false;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
-				bigintRebirths += rebirths;
-				if(updateCounts) {
-					buildStats(); updateCounters();
-				};
-				return true;
-			};
-
-			function secondLevelRebirth(updateCounts=true) {
-				if(bigintRebirths < 10) {
-					return false;
-				}; var secondRebirths = (bigintRebirths + 10n) / 20n; if(secondRebirths < 1n) { return false };
-				
-				bigintValue = 0n;
-				bigintRebirths = 0n;
-				showedMessage = false;
-				for(hash = 0; hash < clickUpgrades.length; hash++) {
-					clickUpgrades[hash].level = 0n;
-				};
-
-				bigintSecondLevelRebirths += secondRebirths;
-				if(updateCounts) {
-					buildStats(); updateCounters();
-				};
-				return true;
-			};
-
-			function getUpgradeMaximum(index) {
-			  var upgrade = clickUpgrades[index];
-			  if(!upgrade.max) {
-				return null;
-			  } else {
-				if(upgrade.increaseByRebirth) {
-				  return upgrade.max + (upgrade.increaseByRebirth * (bigintRebirths + bigintSecondLevelRebirths));
-				} else { return upgrade.max };
-			  };
-			};
-
-			function getUpgradeInfo(index) {
-			  var upgrade = clickUpgrades[index];
-
-			  var amountText = upgrade.max ? `${upgrade.level}/${getUpgradeMaximum(index)}` : upgrade.level.toString();
-
-			  var rebirthModifier = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
-			  var benefitPrefix, upgradeValue;
-			  switch(upgrade.type) {
-				case "+":
-				  benefitPrefix = "+";
-				  upgradeValue = (rebirthModifier * upgrade.value) * upgrade.level;
-				  break;
-				case "*":
-				  benefitPrefix = "x";
-				  upgradeValue = (upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level;
-				  break;
-				case "**":
-				  benefitPrefix = "^";
-				  upgradeValue = upgrade.level == 0 ? 1n : upgrade.value * upgrade.level;
-				  break;
-			  };
-
-			  var benefitText = `${benefitPrefix}${upgradeValue}`
-
-			  var baseBenefit = `${benefitPrefix}${upgrade.value}`
-
-			  var cost = upgrade.cost;
-
-			  return `Upgrade ${index}: ${cost}, ${baseBenefit} (${amountText}, ${benefitText})`;
-			};
-
-			function buildStats() {
-			  var element = document.getElementById("upList");
-			  element.textContent = "";
-
-			  secondRebirthSpan = document.createElement("span");
-			  secondRebirthSpan.setAttribute("class","upgradeInfo secondRebirths ot12");
-			  secondRebirthSpan.innerText = `Second-level rebirths: ${bigintSecondLevelRebirths} (+1 to rebirths' multiplier for base click and + upgrades; to + upgrades and base click, multiplies rebirths' addition to x upgrades; effects of rebirth; resulting modifiers to rebirths: +x+${2n + bigintSecondLevelRebirths} and x+x${1n + bigintSecondLevelRebirths})`;
-			  element.appendChild(secondRebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  rebirthSpan = document.createElement("span");
-			  rebirthSpan.setAttribute("class","upgradeInfo rebirths youth");
-			  rebirthSpan.innerText = `Rebirths: ${bigintRebirths}(+${bigintSecondLevelRebirths})  (x${2n + bigintSecondLevelRebirths} to + upgrades and base click, +${1n + bigintSecondLevelRebirths} to multipliers of x upgrades; second-level rebirths also add to rebirth effects; total with 2LRs +x${(2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths)} and x+${(bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths)})`;
-			  element.appendChild(rebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  var bound = clickUpgrades.length;
-			  for(l = 0; l < bound; l++) {
-				infoRow = document.createElement("span");
-				infoRow.setAttribute("class","upgradeInfo");
-				infoRow.innerText = getUpgradeInfo(l);
-				element.appendChild(infoRow);
-				element.appendChild(document.createElement("br"));
-			  };
-			  resultSpan = document.createElement("span");
-			  resultSpan.setAttribute("class","upgradeInfo totalClick ot12");
-			  var CV = getClickValue(); resultSpan.innerText = `Final click value: [*e${bigintCommas(getBigintMagnitude(CV))}] ${bigintCommas(CV)}`;
-			  element.appendChild(resultSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  possibleRebirthSpan = document.createElement("span");
-			  possibleRebirthSpan.setAttribute("class","upgradeInfo rebirth1 youth");
-			  newRebirths = getProspectiveRebirths();
-			  possibleRebirthSpan.innerText = newRebirths == 0n ? 
-				"You cannot rebirth yet."
-			  :
-				`If you rebirth now, you will get ${newRebirths} ` + (newRebirths == 1n ? "rebirth." : "rebirths.");
-			  element.appendChild(possibleRebirthSpan);
-			  element.appendChild(document.createElement("br"));
-
-			  possibleSecondRebirthSpan = document.createElement("span");
-			  possibleSecondRebirthSpan.setAttribute("class","upgradeInfo rebirth2 ot12");
-			  newSecondRebirths = getProspectiveSecondRebirths();
-			  possibleSecondRebirthSpan.innerText = newSecondRebirths == 0n ? 
-				"You cannot second-level rebirth yet."
-			  :
-				`If you second-level rebirth now, you will get ${newSecondRebirths} ` + (newSecondRebirths == 1n ? "second-level rebirth." : "second-level rebirths.");
-			  element.appendChild(possibleSecondRebirthSpan);
-			};
-
-			function getClickValue() {
-				var rebirthedBase = (2n + bigintSecondLevelRebirths) ** (bigintRebirths + bigintSecondLevelRebirths);
-				var value = rebirthedBase;
-				for(flipThat = 0; flipThat < clickUpgrades.length; flipThat++) {
-					var upgrade = clickUpgrades[flipThat];
-					if(upgrade.type == "+") {
-						value += ((upgrade.value * rebirthedBase) * upgrade.level);
-					} else if(upgrade.type == "*") {
-						if(upgrade.level > 0) { value *= ((upgrade.value + ((bigintRebirths + bigintSecondLevelRebirths) * (1n + bigintSecondLevelRebirths))) ** upgrade.level) };
-					} else if(upgrade.type == "**") {
-						if(upgrade.level > 0) { value = value ** (upgrade.value * upgrade.level) };
-					} else {
-						console.warn(`Unknown upgrade type "${upgrade.type}" for upgrade ${flipThat}`);
+			if(/^[\de]+$/.test(buyPrompt)) {
+				buyPrompt = buyPrompt.split("e");
+				for(gFBOECINTBNFTIUBTFL = 0; gFBOECINTBNFTIUBTFL < buyPrompt.length; gFBOECINTBNFTIUBTFL++) {
+					if(buyPrompt[gFBOECINTBNFTIUBTFL] == "") {
+						buyPrompt[gFBOECINTBNFTIUBTFL] = "1";
 					};
+					buyPrompt[gFBOECINTBNFTIUBTFL] = BigInt(buyPrompt[gFBOECINTBNFTIUBTFL]);
 				};
-				return value;
-			};
-			
-			function buyUpgrade(index,updateCounts=true,amount=1n) {
-				var upgrade = clickUpgrades[index];
-				var cost = upgrade.cost * amount;
-
-				if(amount < 1n) {
-					return false;
-				};
-
-				if(bigintValue < cost) {
-					return false;
-				};
-
-				if(upgrade.max && (upgrade.level > (getUpgradeMaximum(index)-amount) )) {
-					return false;
-				};
-				
-				upgrade.level += amount;
-				bigintValue -= cost;
-				if(updateCounts) {
-					updateCounters();
-					buildStats();
-				};
-				
-				if(index == 6) {
-					unlockSecret();
-				}; unlockUplist();
-				
-				return true;
-			};
-
-			function unlockSecret() {
-				var secretSpan = document.getElementById("up7");
-				if(secretSpan && secretSpan.style.display == "none") {
-					secretSpan.style.display = "unset";
-				};
-				superUpgradeVisible = true;
-			};
-			
-			function relockSecret() {
-				var secretSpan = document.getElementById("up7");
-				if(secretSpan && (secretSpan.style.display == "" || secretSpan.style.display == "unset")) {
-					secretSpan.style.display = "none";
-				};
-				superUpgradeVisible = false;
-			};
-
-			function unlockUplist() {
-				var secretDiv = document.getElementById("upList");
-                                if(!secretDiv) { return }; buildStats();
-				if(secretDiv && secretDiv.style.display == "none") {
-					secretDiv.style.display = "unset";
-				};
-			};
-			
-			function relockUplist() {
-				var secretDiv = document.getElementById("upList");
-				if(secretDiv && (secretDiv.style.display == "" || secretDiv.style.display == "unset")) {
-					secretDiv.style.display = "none";
-				};
-			};
-
-			
-			function increment(updateCounts=true) {
-				bigintValue += getClickValue();
-				lifetimeBigintValue += getClickValue();
-				if(updateCounts) {
-					updateCounters();
-					buildStats();
-				};
-			};
-			
-			clearSpanTimeoutId = null;
-			
-			function clearLagSpan() {
-				var lagSpan = document.getElementById("lagWarning");
-				if(lagSpan) {
-					lagSpan.innerText = String.fromCharCode(160);
-				};
-				clearSpanTimeoutId = null;
-			};
-			
-			function timedIncrement(updateCounts=true) {
-				if(clearSpanTimeoutId) {
-					//console.log("Found timeout with ID "+clearSpanTimeoutId+", clearing");
-					clearTimeout(clearSpanTimeoutId);
-				};
-				var start = Date.now();
-				increment(updateCounts);
-				var end = Date.now();
-				var difference = end - start;
-				if(difference >= 100) {
-					var lagSpan = document.getElementById("lagWarning");
-					var formattedLength = (difference / 1000).toFixed(2);
-					if(!showingMessage && lagSpan) {
-						lagSpan.innerText = `Warning: Last increment took ${formattedLength} seconds. If that wasn't because of the alert(), you should probably rebirth.`
-						//console.log("Setting timeout");
-						clearSpanTimeoutId = setTimeout(clearLagSpan,3000);
-						//console.log("ID: " + clearSpanTimeoutId);
-					};
-				};
-			};
-
-			function bigintCommas(bigint) {
-				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
-				if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
-				return numberText;
-			};
-
-			function getBigintMagnitude(bigint) {
-			  var bString = bigint.toString();
-			  return BigInt(bString.length - (bString.startsWith("-") ? 2 : 1));
-			};
-
-			function updateCounters(doSave=true) {
-				//console.error("i want a trace");
-				if(lifetimeBigintValue >= (10n**11n)) {
-					unlockSecret();
-				};
-				
-				if(!showedMessage && bigintValue >= (10n**112n) && (!doNotAlertRebirth)) {
-					showingMessage = true;
-					alert("congartulations you have reached 10 short scale octotrigintilllion orbit\n(you can now rebirht too)");
-					showedMessage = true;
-					showingMessage = false;
-				};
-			
-				var counters = document.querySelectorAll("[countTemplate]"); //find nodes with a countTemplate
-				for(i = 0; i < counters.length; i++) {
-					var counter = counters[i];
-					var format = counter.getAttribute("countTemplate");
-					var magnitudeOffset = BigInt(counter.getAttribute("templateMagnitudeOffset") ?? "0");
-					var numberText = bigintCommas(bigintValue * (10n ** magnitudeOffset));
-					var numberMagnitudeText = bigintCommas(getBigintMagnitude(bigintValue * (10n ** magnitudeOffset)));
-					var newText = format.replaceAll("<@N@>",numberText).replaceAll("<@E@>",numberMagnitudeText);
-					counter.innerText = newText;
-				};
-
-				var buyWarnSpan = document.getElementById("bigNumWarning");
-				if(getBigintMagnitude(bigintValue) >= 40000) {
-					buyWarnSpan.innerText = "Your numbers are dangerously large, and the game is probably unplayable now. Please rebirth immediately. Do not try to increment again; it will take too long. Do not leave this page without rebirthing.";
-				} else if(getBigintMagnitude(bigintValue) >= 10000) {
-					buyWarnSpan.innerText = "Your numbers are extremely large, and this will get very laggy. If you refresh, loading the page will take a long time. You should rebirth now.";
-				} else if(getBigintMagnitude(bigintValue) >= 2000) {
-					buyWarnSpan.textContent = "";
-					buyWarnSpan.appendChild(document.createTextNode("Warning: Your numbers are getting very big. Don't try to buy more than 10"));
-					var newSup = document.createElement("sup");
-						newSup.innerText = "1,000"
-						buyWarnSpan.appendChild(newSup);
-					buyWarnSpan.appendChild(document.createTextNode(" upgrades, or it'll take too long and the code might hang."));
-				} else if (getBigintMagnitude(bigintValue) < 2000) {
-					buyWarnSpan.innerText = String.fromCharCode(160);
-				};
-
-				if(doSave) { //Save on every fifth update
-				  saveModulo++;
-				  if(saveModulo % 5 == 0) {
-					saveBigints();
-					saveModulo = 0;
-				  };
-				};
-			};
-			
-			function generateButtonsForTitledClickables() {
-				var clickables = document.querySelectorAll("[onclick][title]"); //find nodes with an onclick and a title
-				for(i = 0; i < clickables.length; i++) {
-					var clickText = clickables[i];
-					var clickCode = clickText.getAttribute("onclick");
-					var textTitle = clickText.getAttribute("title");
-					var newButton = document.createElement("button");
-					newButton.setAttribute("onclick",clickCode);
-					newButton.innerText = textTitle;
-					clickText.after(newButton);
-				};
-				return true;
-			};
-
-			function dumbBruh() {
 				try {
-					var audio = new Audio("bin/bruh.mp3");
-					audio.onended = function() {
-						delete(this);
-					};
-					audio.play();
+					buyPrompt = buyPrompt.reduceRight((a, b) => b * (10n ** a));
 				} catch (error) {
-					alert("Could not play bruh sound");
+					alert("Result too large or other error"); //"Maximum BigInt size exceeded"
 					return false;
 				};
-				return true;
+				amount = buyPrompt;
+			} else {
+				amount = BigInt(buyPrompt);
 			};
+		} catch (error) {
+			alert("Invalid amount!");
+			return false;
+		};
+		if(amount < 1n) {
+			alert("Amount must be greater than 0!");
+			return false;
+		};
 
-			document.addEventListener("keypress", function(event) {
-				if (event.key === " ") {
-					timedIncrement(true);
-					return true;
-				} else if (event.key === "b") {
-					return rebirth();
-				} else if (event.key === "B") {
-					return secondLevelRebirth();
-				} else if (event.key === "N") {
-					var indPrompt = prompt("Which upgrade to buy?");
-					if(indPrompt == null || indPrompt == "") { return false };
-					var index = parseInt(indPrompt);
-					if(isNaN(index)) {
-						alert("Invalid index!");
-						return false;
-					};
-					if(index < 0 || index > clickUpgrades.length - 1) {
-						alert(`Index out of range (0-${clickUpgrades.length - 1})!`);
-						return false;				
-					};
+		var success = buyUpgrade(index,true,amount);
+		if(success) {
+			alert(`Bought ${amount} of upgrade ${index}`);
+		} else {
+			alert(`Could not buy ${amount} of upgrade ${index}`);
+		};
+		return success;
+	} else if (Object.keys(buyKeys).includes(event.key)) {
+		purchaseData = buyKeys[event.key];
+		return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
+	};
+});
 
-					var buyPrompt = prompt("How many to buy?");
-					if(buyPrompt == null || buyPrompt == "") { return false };
-					var amount;
-					try {
-						if(/^[\de]+$/.test(buyPrompt)) {
-							buyPrompt = buyPrompt.split("e");
-							for(girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop = 0; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop < buyPrompt.length; girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop++) {
-								if(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] == "") {
-									buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = "1";
-								};
-								buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop] = BigInt(buyPrompt[girlFrontByLoonaOddEyeCircleIsNotTheBestNameForTheIndexUsedByThisForLoop]);
-							};
-							try {
-								buyPrompt = buyPrompt.reduceRight((a, b) => b * (10n ** a));
-							} catch (error) {
-								alert("Result too large or other error"); //"Maximum BigInt size exceeded"
-								return false;
-							};
-							amount = buyPrompt;
-						} else {
-							amount = BigInt(buyPrompt);
-						};
-					} catch (error) {
-						alert("Invalid amount!");
-						return false;
-					};
-					if(amount < 1n) {
-						alert("Amount must be greater than 0!");
-						return false;
-					};
+loonaStartUnix = 1661127423000;
+/*video length from debug data has millisecond precision (215.201),
+but reddit comments are only have second precision from the API (as
+1661127638.0 except that the decimal is always 0)*/
+function secondsSinceLoona(formatString=false) {
+	return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
+};
 
-					var success = buyUpgrade(index,true,amount);
-					if(success) {
-						alert(`Bought ${amount} of upgrade ${index}`);
-					} else {
-						alert(`Could not buy ${amount} of upgrade ${index}`);
-					};
-					return success;
-				} else if (Object.keys(buyKeys).includes(event.key)) {
-					purchaseData = buyKeys[event.key];
-					return buyUpgrade(purchaseData[0],true,25n ** purchaseData[1]);
-				};
-			});
+function updateLoonaTime() {
+	var text = document.getElementById("loonaTime");
+	if(!text) {
+		return false
+	};
+	var value = secondsSinceLoona();
+	text.innerText = value.toLocaleString('en-US')
+};
 
-    		loonaStartUnix = 1661127423000;
-			/*video length from debug data has millisecond precision (215.201),
-			but reddit comments are only have second precision from the API (as
-			1661127638.0 except that the decimal is always 0)*/
-			function secondsSinceLoona(formatString=false) {
-				return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
+var placeholderColor = "rgb(230,230,230)";
+
+idolBdData = {
+	//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
+	//Sometimes hex codes are given and sometimes it's only generic color words.
+
+	//LOONA colors are official but exact shades vary
+	//Kep1er member colors are fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
+		//Dayeon's color is directly from the sample, as hex code => rgb(188,188,226) doesn't match and is too similar to Yeseo
+	//BLACKPINK colors are taken from a random blackpink.fandom forum post, and probably made up but whatever
+	//Everglow, STAYC, IZ*ONE, and IVE colors are from Fandom
+	//TWICE colors are official but may vary; the specific shades were compiled at https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
+	//Dreamcatcher colors are from //https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
+	//SNSD colors are from //https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
+	//NewJeans (tends to shuffle)
+	//(G)I-DLE colors are from kprofiles
+	//2NE1 colors are color-picked from https://aminoapps.com/c/2ne1/page/blog/2ne1s-microphone-infos-facts-meaning-and-etc/vDQj_bDfnu6P0MdQ0XWnKaB07xN4BG2mLG
+	//aespa colors are influenced by https://kprofiles.com/poll-which-colours-do-you-think-fits-each-aespa-member-personality/ but ultimately picked arbitrarily
+	//Apink colors color-picked (but altered) from microphones from https://twitter.com/LegendaryApink/status/1606153363606880256 and https://www.pinterest.com/pin/705587466610023284/ (https://i.pinimg.com/736x/70/dc/60/70dc602675f5bcd86f635b77a5d2e938.jpg)
+	//Billlie colors from kprofiles
+	//ALICE, APRIL, Cherry Bullet, Cignature, CLC, CSR, DIA, DreamNote, and fromis_9 colors taken from colorcodedlyrics because their color assignments seem to be consistent
+	//ALICE group color color-picked arbitrarily from the new header image: https://www.reddit.com/gallery/u0jeqq
+	//cignature group color color-picked arbitrarily from the fanclub name announcement image
+	//CSR group color arbitrarily color-picked from the subreddit icon
+	//fromis_9 group colors are fan-made: https://twitter.com/fromis_9pic/status/1478175338089705472/photo/1
+	//DreamNote colors are official: https://aminoapps.com/c/imedreamnoteofficial/page/blog/dreamnote-offical-colors/aVNW_ewVu0uaxWgV7V33Z6pmpXD7md0owwb
+
+	"01-01": { entity: "Winter", color: "rgb(209,221,236)", group: "aespa"},
+	"03-01": [ { entity: "Jisoo", color: "rgb(159,0,191)", group: "BlackPink" }, { entity: "Kep1er", color: "rgb(193,167,226)", isGroup: true } ],
+	"05-01": { entity: "Karin", color: "rgb(238,18,137)", group: "ALICE"},
+	"06-01": [ { entity: "Shuhua", color: "rgb(255,255,153)", group: "(G)I-DLE"}, { entity: "Chloe", color: "rgb(219,244,167)", group: "cignature" }, { entity: "Eunbin", color: "rgb(255,215,0)", group: "CLC" } ],
+	"07-01": [ { entity: "Yoohyeon", color: "rgb(31,237,21)", group: "Dreamcatcher"}, { entity: "Saerom", color: "rgb(254,66,4)", group: "fromis_9" } ],
+	"10-01": { entity: "Haeyoon", color: "rgb(246,145,125)", group: "Cherry Bullet" },
+	"11-01": { entity: "Lee Chaeyeon", color: "rgb(166,220,222)", group: "IZ*ONE"},
+	"13-01": [ {entity: "Mia", color: "rgb(103,5,6)", group: "Everglow"}, {entity: "Dreamcatcher", color: "rgb(138,42,43)", isGroup: true, textOverride: "rgb(242,199,99)", borderOverride: "rgb(16,24,32)"}, { entity: "Haram", color: "rgb(255,153,204)", group: "Billlie"} ],
+	"15-01": { entity: "Suhyeon", color: "rgb(63,196,96)", group: "Billlie"},
+	"16-01": { entity: "Jennie", color: "rgb(204,108,169)", group: "BlackPink"},
+	"18-01": { entity: "Minzy", color: "rgb(195,108,230)", group: "2NE1"},
+	"21-01": { entity: "Cherry Bullet", color: "rgb(238,43,43)", isGroup: true },
+	"22-01": { entity: "Lee Seoyeon", color: "rgb(0,83,133)", group: "fromis_9" },
+	"23-01": { entity: "Isa", color: "rgb(0,0,0)", group: "STAYC"},
+	"24-01": { entity: "fromis_9", color: "rgb(188,150,187)", textOverride: "rgb(176,238,161)", isGroup: true },
+	"26-01": { entity: "Somyi", color: "rgb(199,56,164)", group: "DIA" },
+	"28-01": { entity: "Sheon", color: "rgb(255,153,0)", group: "Billlie"},
+	"30-01": { entity: "Haruna", color: "rgb(9,151,222)", group: "Billlie"},
+	"31-01": { entity: "Miyeon", color: "rgb(0,0,0)", group: "(G)I-DLE"},
+	"01-02": { entity: "Jihyo", color: "rgb(250,200,87)", group: "TWICE"},
+	"02-02": { entity: "Do-A", color: "rgb(204,0,255)", group: "ALICE"},
+	"03-02": [ {entity: "Gahyeon", color: "rgb(186,9,191)", group: "Dreamcatcher"}, {entity: "Rei", color: "rgb(105,195,45)", group: "IVE"}, { entity: "cignature", color: "rgb(176,3,9)", isGroup: true } ],
+	"05-02": [ { entity: "Minju", color: "rgb(255,255,255)", group: "IZ*ONE"}, { entity: "Hyunjoo", color: "rgb(100,190,193)", group: "APRIL" } ],
+	"07-02": { entity: "Sunn", color: "rgb(255,173,173)", group: "cignature" },
+	"10-02": [ {entity: "Kim Lip", color: "rgb(234,2,1)", group: "LOONA"}, {entity: "Sooyoung", color: "rgb(255,92,205)", group: "Girls' Generation"}, { entity: "Son Naeun", color: "rgb(196,179,107)", group: "Apink" }, { entity: "Irene", color: "rgb(255,251,0)", group: "Red Velvet"} ],
+	"11-02": { entity: "Rose'", color: "rgb(0,94,255)", group: "BlackPink"},
+	"16-02": { entity: "Siyoon", color: "rgb(255,255,0)", group: "Billlie"},
+	"21-02": [ { entity: "Leeseo", color: "rgb(255,240,1)", group: "IVE"}, { entity: "Wendy", color: "rgb(0,95,255)", group: "Red Velvet"} ],
+	"26-02": { entity: "CL", color: "rgb(226,217,137)", group: "2NE1"},
+	"02-03": { entity: "Dayeon", color: "rgb(100,150,235)", group: "Kep1er"},
+	"03-03": [ { entity: "Chorong", color: "rgb(230,0,86)", group: "Apink" }, { entity: "Bora", color: "rgb(122,205,233)", group: "Cherry Bullet" } ],
+	"04-03": { entity: "Geumhee", color: "rgb(4,173,87)", group: "CSR" },
+	"05-03": [ { entity: "Yuju", color: "rgb(134,4,148)", group: "Cherry Bullet" }, { entity: "Yeri", color: "rgb(159,31,191)", group: "Red Velvet" } ],
+	"07-03": [ { entity: "Dami", color: "rgb(255, 244, 15)", group: "Dreamcatcher"}, { entity: "Eunjo", color: "rgb(86,255,89)", group: "DreamNote" } ],
+	"09-03": [ { entity: "Taeyeon", color: "rgb(100,149,237)", group: "Girls' Generation"}, { entity: "Soojin", color: "rgb(247,152,141)", group: "Girls' Generation"} ],
+	"10-03": { entity: "HaBin", color: "rgb(86,255,204)", group: "DreamNote" },
+	"12-03": [ { entity: "Hikaru", color: "rgb(251,234,140)", group: "Kep1er"}, { entity: "Hwang Sihyeon", color: "rgb(4,182,243)", group: "CSR" } ],
+	"13-03": [ { entity: "Bae Sumin", color: "rgb(255,192,203)", group: "STAYC"}, { entity: "Chaerin", color: "rgb(93,52,195)", group: "Cherry Bullet" } ],
+	"18-03": { entity: "Everglow", color: "rgb(209,180,203)", isGroup: true},
+	"19-03": [ { entity: "Sakura", color: "rgb(241,210,231)", group: "IZ*ONE"}, { entity: "CLC", color: "rgb(132,11,85)", textOverride: "rgb(255,205,0)", borderOverride: "rgb(0,95,97)", isGroup: true } ],
+	"20-03": { entity: "Park Jiwon", color: "rgb(134,171,17)", group: "fromis_9" },
+	"24-03": [ { entity: "Mina", color: "rgb(111,197,194)", group: "TWICE"}, { entity: "Bom", color: "rgb(118,212,174)", group: "2NE1"} ],
+	"26-03": [ { entity: "Handong", color: "rgb(0,0,0)", group: "Dreamcatcher"}, { entity: "Mirae", color: "rgb(185,74,214)", group: "Cherry Bullet" }, { entity: "An Seoyeon", color: "rgb(246,98,15)", group: "CSR" } ],
+	"27-03": { entity: "Lisa", color: "rgb(255,250,0)", group: "BlackPink"},
+	"29-03": { entity: "Irene", color: "rgb(255,127,223)", group: "Red Velvet"},
+	"01-04": { entity: "Jeewon", color: "rgb(0,153,148)", group: "cignature" },
+	"10-04": { entity: "Semi", color: "rgb(186,99,247)", group: "cignature" },
+	"11-04": [ { entity: "Danielle", color: "rgb(0,238,0)", group: "NewJeans"}, { entity: "Karina", color: "rgb(168,44,230)", group: "aespa"} ],
+	"14-04": { entity: "Yoon", color: "rgb(50,205,50)", group: "STAYC"},
+	"15-04": { entity: "Namjoo", color: "rgb(203,108,176)", group: "Apink" },
+	"17-04": { entity: "Jiheon", color: "rgb(249,234,77)", group: "fromis_9" },
+	"18-04": { entity: "Jessica", color: "rgb(209,0,86)", group: "Girls' Generation"},
+	"19-04": { entity: "Apink", color: "rgb(232,137,177)", isGroup: true },
+	"21-04": { entity: "Hyein", color: "rgb(31,95,255)", group: "NewJeans"},
+	"23-04": [ { entity: "Son Chaeyoung", color: "rgb(232,25,51)", group: "TWICE"}, { entity: "Yuna", color: "rgb(111,67,164)", group: "CSR" } ],
+	"24-04": { entity: "YOUI", color: "rgb(255,86,86)", group: "DreamNote" },
+	"26-04": [ { entity: "Chaehyun", color: "rgb(255,183,206)", group: "Kep1er"}, { entity: "Remi", color: "rgb(179,249,107)", group: "Cherry Bullet" } ],
+	"28-04": { entity: "Duna", color: "rgb(229,111,182)", group: "CSR" },
+	"02-05": { entity: "(G)I-DLE", color: "rgb(88,14,139)", borderOverride: "rgb(232,0,55)", isGroup: true},
+	"05-05": { entity: "Lee Naeun", color: "rgb(186,76,129)", group: "APRIL" },
+	"07-05": { entity: "Minji", color: "rgb(255,248,31)", group: "NewJeans"},
+	"14-05": { entity: "Lee Chaeyoung", color: "rgb(35,248,84)", group: "fromis_9" },
+	"15-05": [ {entity: "Sunny", color: "rgb(107,142,35)", group: "Girls' Generation"}, {entity: "Haerin", color: "rgb(255,255,255)", group: "NewJeans"} ],
+	"17-05": [ { entity: "JiU", color: "rgb(255,255,255)", group: "Dreamcatcher"}, {entity: "2NE1", color: "rgb(255,0,127)", isGroup: true} ],
+	"18-05": { entity: "Onda", color: "rgb(179,4,105)", group: "Everglow"},
+	"19-05": { entity: "E:U", color: "rgb(107,86,163)", group: "Everglow"},
+	"22-05": { entity: "Yang Yena", color: "rgb(255,178,79)", group: "APRIL" },
+	"24-05": { entity: "Yves", color: "rgb(125,0,30)", group: "LOONA"},
+	"26-05": { entity: "Eunchae", color: "rgb(40,119,255)", group: "DIA" },
+	"28-05": { entity: "Dahyun", color: "rgb(255,255,255)", group: "TWICE"},
+	"30-05": { entity: "Yoona", color: "rgb(0,105,148)", group: "Girls' Generation"},
+	"01-06": [ { entity: "ALICE", color: "rgb(224,203,244)", isGroup: true}, { entity: "Nagyung", color: "rgb(255,145,102)", group: "fromis_9" } ],
+	"03-06": { entity: "Seunghee", color: "rgb(250,55,137)", group: "DIA" },
+	"04-06": { entity: "Choerry", color: "rgb(92,44,146)", group: "LOONA"},
+	"07-06": { entity: "Jueun", color: "rgb(247,183,240)", group: "DIA" },
+	"13-06": { entity: "JinSoul", color: "rgb(20,36,176)", group: "LOONA"},
+	"14-06": [ {entity: "Seeun", color: "rgb(135,206,235)", group: "STAYC"}, {entity: "Tzuyu", color: "rgb(1,108,186)", group: "TWICE"} ],
+	"16-06": { entity: "Huihyeon", color: "rgb(103,78,167)", group: "DIA" },
+	"18-06": { entity: "Nako", color: "rgb(183,211,233)", group: "IZ*ONE"},
+	"20-06": { entity: "Seline", color: "rgb(247,99,215)", group: "cignature" },
+	"28-06": { entity: "Seohyun", color: "rgb(251,206,177)", group: "Girls' Generation"},
+	"05-07": [ { entity: "Hyewon", color: "rgb(219,112,108)", group: "IZ*ONE"}, { entity: "Linlin", color: "rgb(191,27,43)", group: "Cherry Bullet" } ],
+	"07-07": { entity: "Chaekyung", color: "rgb(255,183,197)", group: "APRIL" },
+	"13-07": { entity: "Yebin", color: "rgb(211,0,0)", group: "DIA" },
+	"14-07": { entity: "Chaesol", color: "rgb(100,207,255)", group: "cignature" },
+	"19-07": { entity: "Oh Hayoung", color: "rgb(210,176,160)", group: "Apink" },
+	"21-07": { entity: "Aisha", color: "rgb(0,0,0)", group: "Everglow"},
+	"22-07": { entity: "NewJeans", color: "rgb(64,89,149)", isGroup: true },
+	"23-07": { entity: "Sua", color: "rgb(0,220,220)", group: "CSR" },
+	"27-07": [ { entity: "Huening Bahiyyih", color: "rgb(255,177,109)", group: "Kep1er"}, { entity: "CSR", color: "rgb(242,105,37)", isGroup: true } ],
+	"01-08": [ {entity: "Sieun", color: "rgb(255,255,255)", group: "STAYC"}, {entity: "Kim Chaewon (IZ*ONE)", color: "rgb(206,229,213)", group: "IZ*ONE"}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation"}, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature" }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true } ],
+	"05-08": [ {entity: "Kim Sihyeon", color: "rgb(199,210,167)", group: "Everglow"}, {entity: "Girls' Generation", color: "rgb(254,76,128)", isGroup: true} ],
+	"08-08": { entity: "BlackPink", color: "rgb(255,207,228)", isGroup: true},
+	"09-08": { entity: "Lara", color: "rgb(145,86,255)", group: "DreamNote" },
+	"10-08": [ { entity: "SuA", color: "rgb(255,0,0)", group: "Dreamcatcher"}, { entity: "Yeeun", color: "rgb(194,0,130)", group: "CLC" } ],
+	"12-08": { entity: "Choi Yujin", color: "rgb(249,123,144)", borderOverride: "rgb(247,127,14)", group: "CLC/Kep1er"},
+	"13-08": [ { entity: "EJ", color: "rgb(255,170,66)", group: "ALICE"}, { entity: "Bomi", color: "rgb(188,169,203)", group: "Apink" } ],
+	"18-08": [ { entity: "Eunji", color: "rgb(230,171,71)", group: "Apink" }, { entity: "HaSeul", color: "rgb(0,191,0)", group: "LOONA"} ],
+	"19-08": { entity: "LOONA", color: "rgb(255,0,127)", isGroup: true},
+	"22-08": [ { entity: "Yeseo", color: "rgb(162,207,254)", group: "Kep1er"}, { entity: "Somin", color: "rgb(153,230,179)", group: "APRIL" } ],
+	"24-08": { entity: "APRIL", color: placeholderColor, isGroup: true },
+	"26-08": [ { entity: "Soyeon", color: "rgb(245,176,190)", group: "(G)I-DLE"}, { entity: "Chaejeong", color: "rgb(94,247,140)", group: "ALICE"} ],
+	"28-08": { entity: "Rachel", color: "rgb(84,143,247)", group: "APRIL" },
+	"31-08": [ { entity: "Wonyoung", color: "rgb(255,0,30)", borderOverride: "rgb(217,89,140)", group: "IZ*ONE/IVE"}, { entity: "Eunjin", color: "rgb(255,79,27)", group: "DIA" } ],
+	"01-09": { entity: "An Yujin", color: "rgb(255,57,154)", borderOverride: "rgb(86,122,206)", group: "IZ*ONE/IVE"},
+	"02-09": { entity: "Eunice", color: "rgb(237,157,37)", group: "DIA" },
+	"03-09": { entity: "Joy", color: "rgb(0,223,23)", group: "Red Velvet" },
+	"04-09": { entity: "Huh Jiwon", color: "rgb(234,61,165)", group: "Cherry Bullet" },
+	"07-09": { entity: "Park Sumin", color: "rgb(255,0,255)", group: "DreamNote" },
+	"09-09": { entity: "Moon Sua", color: "rgb(204,153,255)", group: "Billlie"},
+	"14-09": [ { entity: "Jenny", color: "rgb(0,171,219)", group: "DIA" }, { entity: "DIA", color: "rgb(0,171,219)", isGroup: true } ],
+	"21-09": { entity: "Tsuki", color: "rgb(255,153,161)", group: "Billlie"},
+	"22-09": [ {entity: "Nayeon", color: "rgb(128,202,241)", group: "TWICE"}, {entity: "Hyoyeon", color: "rgb(147,197,114)", group: "Girls' Generation"}, { entity: "Hong Yukyung", color: "rgb(212,212,212)", group: "Apink" } ],
+	"23-09": { entity: "Yuqi", color: "rgb(38,201,140)", group: "(G)I-DLE"},
+	"24-09": { entity: "Gaeul", color: "rgb(0,85,168)", group: "IVE"},
+	"27-09": { entity: "Eunbi", color: "rgb(187,176,220)", group: "IZ*ONE"},
+	"29-09": [ { entity: "Choi Yena", color: "rgb(252,246,149)", group: "IZ*ONE"}, { entity: "Song Hayoung", color: "rgb(120,94,253)", group: "fromis_9" } ],
+	"01-10": { entity: "Siyeon", color: "rgb(15,47,255)", group: "Dreamcatcher"},
+	"06-10": [ { entity: "Hitomi", color: "rgb(241,195,170)", group: "IZ*ONE"}, {entity: "Hanni", color: "rgb(255,191,255)", group: "NewJeans"} ],
+	"07-10": { entity: "Yeham", color: "rgb(220,0,147)", group: "CSR" },
+	"09-10": { entity: "Ye Ah", color: "rgb(69,109,255)", group: "cignature" },
+	"10-10": { entity: "Oh Seunghee", color: "rgb(161,107,250)", group: "CLC" },
+	"13-10": { entity: "HanByeol", color: "rgb(255,238,86)", group: "DreamNote" },
+	"15-10": { entity: "Yeonje", color: "rgb(255,227,3)", group: "ALICE" },
+	"19-10": { entity: "HeeJin", color: "rgb(255,0,143)", group: "LOONA"},
+	"20-10": [ { entity: "Chuu", color: "rgb(246,144,126)", group: "LOONA"}, {entity: "TWICE", color: "rgb(248,197,150)", isGroup: true, textOverride: "rgb(252,93,157)"} ],
+	"22-10": { entity: "Jo Yuri", color: "rgb(243,170,81)", group: "IZ*ONE"},
+	"23-10": [ { entity: "Minnie", color: "rgb(155,203,235)", group: "(G)I-DLE"}, { entity: "Ningning", color: "rgb(238,23,43)", group: "aespa"} ],
+	"25-10": { entity: "MISO", color: "rgb(86,168,255)", group: "DreamNote" },
+	"29-10": { entity: "IZ*ONE", color: "rgb(239,83,157)", isGroup: true},
+	"30-10": [ { entity: "Giselle", color: "rgb(3,14,6)", group: "aespa"}, { entity: "BoNi", color: "rgb(255,156,86)", group: "DreamNote" } ],
+	"01-11": [ { entity: "Jeongyeon", color: "rgb(188,215,118)", group: "TWICE"}, { entity: "Kokoro", color: "rgb(0,221,147)", group: "Cherry Bullet" } ],
+	"02-11": { entity: "Elkie", color: "rgb(97,179,41)", group: "CLC" },
+	"03-11": { entity: "Belle", color: "rgb(0,195,26)", group: "cignature" },
+	"05-11": { entity: "Lee Yukyung", color: "rgb(55,253,252)", group: "ALICE"},
+	"06-11": { entity: "Seungyeon", color: "rgb(199,3,30)", group: "CLC" },
+	"07-11": { entity: "DreamNote", color: "rgb(0,176,164)", textOverride: "rgb(255,205,5)", isGroup: true },
+	"08-11": { entity: "Kim Chaewon (APRIL)", color: "rgb(255,255,122)", group: "APRIL" },
+	"09-11": { entity: "Momo", color: "rgb(248,207,215)", group: "TWICE"},
+	"10-11": { entity: "Billlie", color: "rgb(148,180,229)", borderOverride: "rgb(197,180,225)", isGroup: true},
+	"11-11": { entity: "YeoJin", color: "rgb(244,111,31)", group: "LOONA"},
+	"12-11": [ {entity: "Xiaoting", color:"rgb(195,142,199)", group: "Kep1er"}, {entity: "Dara", color:"rgb(244,135,105)", group: "2NE1"}, {entity: "STAYC", color: "rgb(0,0,0)", isGroup: true} ],
+	"13-11": { entity: "Hyeju", color: "rgb(143,143,143)", group: "LOONA"},
+	"15-11": { entity: "HyunJin", color: "rgb(255,234,0)", group: "LOONA"},
+	"16-11": { entity: "May", color: "rgb(252,80,80)", group: "Cherry Bullet" },
+	"17-11": { entity: "aespa", color: "rgb(174,95,160)", borderOverride: "rgb(13,213,173)", isGroup: true},
+	"18-11": { entity: "Sorn", color: "rgb(0,144,199)", group: "CLC" },
+	"19-11": { entity: "Go Won", color: "rgb(48,225,146)", group: "LOONA"},
+	"21-11": { entity: "Liz", color: "rgb(0,195,245)", group: "IVE"},
+	"23-11": { entity: "Jisun", color: "rgb(238,83,146)", group: "fromis_9" },
+	"01-12": [ { entity: "IVE", color: "rgb(241,241,241)", isGroup: true}, { entity: "Jung Chaeyeon", color: "rgb(0,160,21)", group: "DIA" } ],
+	"04-12": { entity: "Jinsol", color: "rgb(205,121,206)", group: "APRIL" },
+	"05-12": { entity: "Kwon Yuri", color: "rgb(0,51,102)", group: "Girls' Generation"},
+	"09-12": [ {entity: "ViVi", color: "rgb(255,152,180)", group: "LOONA"}, {entity: "J", color: "rgb(255,0,0)", group: "STAYC"} ],
+	"16-12": { entity: "Mashiro", color: "rgb(253,238,244)", group: "Kep1er"},
+	"27-12": [ { entity: "Youngeun", color: "rgb(147,197,114)", group: "Kep1er"}, { entity: "Gyuri", color: "rgb(33,150,254)", group: "fromis_9" } ],
+	"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE"}, {entity: "Yiren", color: "rgb(255,255,255)", group: "Everglow"} ],
+	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE"}
+};
+
+for(var date in idolBdData) {
+	if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
+};
+
+function getLocalDayMonth() {
+	var fd = parseInt(urlParams.get("fakeDateUnix"));
+	return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
+};
+
+function getKstDayMonth() {
+	var fd = parseInt(urlParams.get("fakeDateUnix"));
+	return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
+};
+
+function getLuminance(R,G,B) {
+	return (0.2126*R + 0.7152*G + 0.0722*B);
+};
+
+//https://stackoverflow.com/a/2450976
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+	// Pick a remaining element.
+	randomIndex = Math.floor(Math.random() * currentIndex);
+	currentIndex--;
+
+	// And swap it with the current element.
+	[array[currentIndex], array[randomIndex]] = [
+	  array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}			
+
+triedToLoadBigints = false;
+window.onload = function() {
+	/*loona stan length updater interval*/
+	loonaInterval = setInterval(updateLoonaTime, 100);
+	
+	if((getLocalDayMonth() == "16-06") || (getKstDayMonth() == "16-06")) {
+		var marquee = document.getElementById("headerMarquee");
+		marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
+		marquee.style.fontSize = "120%"
+	};
+
+	/*handle birthdays*/
+	var currentBirthdayDatas = [];
+	var local = idolBdData[getLocalDayMonth()];
+	var kst = idolBdData[getKstDayMonth()];
+	if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
+	if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+	if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
+	currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
+	console.log(`${currentBirthdayDatas.length} bdays`);
+	var hasBirthdays = false;
+	var hasAnniversaries = false;
+	console.log("Happy birthday/anniversary to: " + currentBirthdayDatas.map(function(data) {
+		if(data.isGroup) {
+			hasAnniversaries = true;
+			return data.entity
+		} else {
+			hasBirthdays = true;
+			return `${data.entity} from ${data.group}`
+		}
+	}).join(", "));
+	if(currentBirthdayDatas.length > 0) {
+		var birthdayText = document.createElement("span");
+		birthdayText.classList.add("birthdays");
+		var label = [];
+		if(hasBirthdays) { label.push("birthday to") };
+		if(hasAnniversaries) { label.push("anniversary of") };
+		label = label.join("/") + " ";
+		if(label == "") { console.log("Events exist but they are neither birthdays nor anniversaries. Something has gone wrong."); label = "unknown event to" };
+		birthdayText.appendChild(document.createTextNode("Happy " + label));
+		for(var ibdCurrentDataIndex in currentBirthdayDatas) {
+			var data = currentBirthdayDatas[ibdCurrentDataIndex];
+			ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
+			var coloredName = document.createElement("span");
+			var color = data.color;
+			var colorValues = color.match(/\d+/g).map(x => parseInt(x));
+			var bgLum = getLuminance(...colorValues);
+			coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
+			coloredName.style.color = bgLum > 159 ? "black" : "white"
+			if(data.textOverride) { coloredName.style.color = data.textOverride };
+			if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
+			var title = "";
+			if(data.group) { title += "From " + data.group } else {
+				if(data.isGroup) { title += "(Group)" };
+				if(data.isGroup && data.title) { title += " " };
+				if(data.title) { title += data.title }
 			};
-			
-			function updateLoonaTime() {
-				var text = document.getElementById("loonaTime");
-				if(!text) {
-					return false
-				};
-				var value = secondsSinceLoona();
-				text.innerText = value.toLocaleString('en-US')
-			};
+			if(title !== "") { coloredName.setAttribute("title",title) }
+			coloredName.innerText = data.entity.replaceAll(" ",String.fromCharCode(0xa0));
+			coloredName.classList.add("bdIdolName");
+			birthdayText.appendChild(coloredName);
+			var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
+			if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
+				birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner))
+			}
+		};
+		birthdayText.appendChild(document.createTextNode("."));
+		document.getElementById("birthdays").textContent = "";
+		document.getElementById("birthdays").appendChild(birthdayText);
+	};
 
-			var placeholderColor = "rgb(230,230,230)";
-
-			idolBdData = {
-				//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
-				//Sometimes hex codes are given and sometimes it's only generic color words.
-
-				//LOONA colors are official but exact shades vary
-				//Kep1er member colors are fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
-					//Dayeon's color is directly from the sample, as hex code => rgb(188,188,226) doesn't match and is too similar to Yeseo
-				//BLACKPINK colors are taken from a random blackpink.fandom forum post, and probably made up but whatever
-				//Everglow, STAYC, IZ*ONE, and IVE colors are from Fandom
-				//TWICE colors are official but may vary; the specific shades were compiled at https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
-				//Dreamcatcher colors are from //https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
-				//SNSD colors are from //https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
-				//NewJeans (tends to shuffle)
-				//(G)I-DLE colors are from kprofiles
-				//2NE1 colors are color-picked from https://aminoapps.com/c/2ne1/page/blog/2ne1s-microphone-infos-facts-meaning-and-etc/vDQj_bDfnu6P0MdQ0XWnKaB07xN4BG2mLG
-				//aespa colors are influenced by https://kprofiles.com/poll-which-colours-do-you-think-fits-each-aespa-member-personality/ but ultimately picked arbitrarily
-				//Apink colors color-picked (but altered) from microphones from https://twitter.com/LegendaryApink/status/1606153363606880256 and https://www.pinterest.com/pin/705587466610023284/ (https://i.pinimg.com/736x/70/dc/60/70dc602675f5bcd86f635b77a5d2e938.jpg)
-				//Billlie colors from kprofiles
-				//ALICE, APRIL, Cherry Bullet, Cignature, CLC, CSR, DIA, DreamNote, and fromis_9 colors taken from colorcodedlyrics because their color assignments seem to be consistent
-				//ALICE group color color-picked arbitrarily from the new header image: https://www.reddit.com/gallery/u0jeqq
-				//cignature group color color-picked arbitrarily from the fanclub name announcement image
-				//CSR group color arbitrarily color-picked from the subreddit icon
-				//fromis_9 group colors are fan-made: https://twitter.com/fromis_9pic/status/1478175338089705472/photo/1
-				//DreamNote colors are official: https://aminoapps.com/c/imedreamnoteofficial/page/blog/dreamnote-offical-colors/aVNW_ewVu0uaxWgV7V33Z6pmpXD7md0owwb
-
-				"01-01": { entity: "Winter", color: "rgb(209,221,236)", group: "aespa"},
-				"03-01": [ { entity: "Jisoo", color: "rgb(159,0,191)", group: "BlackPink" }, { entity: "Kep1er", color: "rgb(193,167,226)", isGroup: true } ],
-				"05-01": { entity: "Karin", color: "rgb(238,18,137)", group: "ALICE"},
-				"06-01": [ { entity: "Shuhua", color: "rgb(255,255,153)", group: "(G)I-DLE"}, { entity: "Chloe", color: "rgb(219,244,167)", group: "cignature" }, { entity: "Eunbin", color: "rgb(255,215,0)", group: "CLC" } ],
-				"07-01": [ { entity: "Yoohyeon", color: "rgb(31,237,21)", group: "Dreamcatcher"}, { entity: "Saerom", color: "rgb(254,66,4)", group: "fromis_9" } ],
-				"10-01": { entity: "Haeyoon", color: "rgb(246,145,125)", group: "Cherry Bullet" },
-				"11-01": { entity: "Lee Chaeyeon", color: "rgb(166,220,222)", group: "IZ*ONE"},
-				"13-01": [ {entity: "Mia", color: "rgb(103,5,6)", group: "Everglow"}, {entity: "Dreamcatcher", color: "rgb(138,42,43)", isGroup: true, textOverride: "rgb(242,199,99)", borderOverride: "rgb(16,24,32)"}, { entity: "Haram", color: "rgb(255,153,204)", group: "Billlie"} ],
-				"15-01": { entity: "Suhyeon", color: "rgb(63,196,96)", group: "Billlie"},
-				"16-01": { entity: "Jennie", color: "rgb(204,108,169)", group: "BlackPink"},
-				"18-01": { entity: "Minzy", color: "rgb(195,108,230)", group: "2NE1"},
-				"21-01": { entity: "Cherry Bullet", color: "rgb(238,43,43)", isGroup: true },
-				"22-01": { entity: "Lee Seoyeon", color: "rgb(0,83,133)", group: "fromis_9" },
-				"23-01": { entity: "Isa", color: "rgb(0,0,0)", group: "STAYC"},
-				"24-01": { entity: "fromis_9", color: "rgb(188,150,187)", textOverride: "rgb(176,238,161)", isGroup: true },
-				"26-01": { entity: "Somyi", color: "rgb(199,56,164)", group: "DIA" },
-				"28-01": { entity: "Sheon", color: "rgb(255,153,0)", group: "Billlie"},
-				"30-01": { entity: "Haruna", color: "rgb(9,151,222)", group: "Billlie"},
-				"31-01": { entity: "Miyeon", color: "rgb(0,0,0)", group: "(G)I-DLE"},
-				"01-02": { entity: "Jihyo", color: "rgb(250,200,87)", group: "TWICE"},
-				"02-02": { entity: "Do-A", color: "rgb(204,0,255)", group: "ALICE"},
-				"03-02": [ {entity: "Gahyeon", color: "rgb(186,9,191)", group: "Dreamcatcher"}, {entity: "Rei", color: "rgb(105,195,45)", group: "IVE"}, { entity: "cignature", color: "rgb(176,3,9)", isGroup: true } ],
-				"05-02": [ { entity: "Minju", color: "rgb(255,255,255)", group: "IZ*ONE"}, { entity: "Hyunjoo", color: "rgb(100,190,193)", group: "APRIL" } ],
-				"07-02": { entity: "Sunn", color: "rgb(255,173,173)", group: "cignature" },
-				"10-02": [ {entity: "Kim Lip", color: "rgb(234,2,1)", group: "LOONA"}, {entity: "Sooyoung", color: "rgb(255,92,205)", group: "Girls' Generation"}, { entity: "Son Naeun", color: "rgb(196,179,107)", group: "Apink" }, { entity: "Irene", color: "rgb(255,251,0)", group: "Red Velvet"} ],
-				"11-02": { entity: "Rose'", color: "rgb(0,94,255)", group: "BlackPink"},
-				"16-02": { entity: "Siyoon", color: "rgb(255,255,0)", group: "Billlie"},
-				"21-02": [ { entity: "Leeseo", color: "rgb(255,240,1)", group: "IVE"}, { entity: "Wendy", color: "rgb(0,95,255)", group: "Red Velvet"} ],
-				"26-02": { entity: "CL", color: "rgb(226,217,137)", group: "2NE1"},
-				"02-03": { entity: "Dayeon", color: "rgb(100,150,235)", group: "Kep1er"},
-				"03-03": [ { entity: "Chorong", color: "rgb(230,0,86)", group: "Apink" }, { entity: "Bora", color: "rgb(122,205,233)", group: "Cherry Bullet" } ],
-				"04-03": { entity: "Geumhee", color: "rgb(4,173,87)", group: "CSR" },
-				"05-03": [ { entity: "Yuju", color: "rgb(134,4,148)", group: "Cherry Bullet" }, { entity: "Yeri", color: "rgb(159,31,191)", group: "Red Velvet" } ],
-				"07-03": [ { entity: "Dami", color: "rgb(255, 244, 15)", group: "Dreamcatcher"}, { entity: "Eunjo", color: "rgb(86,255,89)", group: "DreamNote" } ],
-				"09-03": [ { entity: "Taeyeon", color: "rgb(100,149,237)", group: "Girls' Generation"}, { entity: "Soojin", color: "rgb(247,152,141)", group: "Girls' Generation"} ],
-				"10-03": { entity: "HaBin", color: "rgb(86,255,204)", group: "DreamNote" },
-				"12-03": [ { entity: "Hikaru", color: "rgb(251,234,140)", group: "Kep1er"}, { entity: "Hwang Sihyeon", color: "rgb(4,182,243)", group: "CSR" } ],
-				"13-03": [ { entity: "Bae Sumin", color: "rgb(255,192,203)", group: "STAYC"}, { entity: "Chaerin", color: "rgb(93,52,195)", group: "Cherry Bullet" } ],
-				"18-03": { entity: "Everglow", color: "rgb(209,180,203)", isGroup: true},
-				"19-03": [ { entity: "Sakura", color: "rgb(241,210,231)", group: "IZ*ONE"}, { entity: "CLC", color: "rgb(132,11,85)", textOverride: "rgb(255,205,0)", borderOverride: "rgb(0,95,97)", isGroup: true } ],
-				"20-03": { entity: "Park Jiwon", color: "rgb(134,171,17)", group: "fromis_9" },
-				"24-03": [ { entity: "Mina", color: "rgb(111,197,194)", group: "TWICE"}, { entity: "Bom", color: "rgb(118,212,174)", group: "2NE1"} ],
-				"26-03": [ { entity: "Handong", color: "rgb(0,0,0)", group: "Dreamcatcher"}, { entity: "Mirae", color: "rgb(185,74,214)", group: "Cherry Bullet" }, { entity: "An Seoyeon", color: "rgb(246,98,15)", group: "CSR" } ],
-				"27-03": { entity: "Lisa", color: "rgb(255,250,0)", group: "BlackPink"},
-				"29-03": { entity: "Irene", color: "rgb(255,127,223)", group: "Red Velvet"},
-				"01-04": { entity: "Jeewon", color: "rgb(0,153,148)", group: "cignature" },
-				"10-04": { entity: "Semi", color: "rgb(186,99,247)", group: "cignature" },
-				"11-04": [ { entity: "Danielle", color: "rgb(0,238,0)", group: "NewJeans"}, { entity: "Karina", color: "rgb(168,44,230)", group: "aespa"} ],
-				"14-04": { entity: "Yoon", color: "rgb(50,205,50)", group: "STAYC"},
-				"15-04": { entity: "Namjoo", color: "rgb(203,108,176)", group: "Apink" },
-				"17-04": { entity: "Jiheon", color: "rgb(249,234,77)", group: "fromis_9" },
-				"18-04": { entity: "Jessica", color: "rgb(209,0,86)", group: "Girls' Generation"},
-				"19-04": { entity: "Apink", color: "rgb(232,137,177)", isGroup: true },
-				"21-04": { entity: "Hyein", color: "rgb(31,95,255)", group: "NewJeans"},
-				"23-04": [ { entity: "Son Chaeyoung", color: "rgb(232,25,51)", group: "TWICE"}, { entity: "Yuna", color: "rgb(111,67,164)", group: "CSR" } ],
-				"24-04": { entity: "YOUI", color: "rgb(255,86,86)", group: "DreamNote" },
-				"26-04": [ { entity: "Chaehyun", color: "rgb(255,183,206)", group: "Kep1er"}, { entity: "Remi", color: "rgb(179,249,107)", group: "Cherry Bullet" } ],
-				"28-04": { entity: "Duna", color: "rgb(229,111,182)", group: "CSR" },
-				"02-05": { entity: "(G)I-DLE", color: "rgb(88,14,139)", borderOverride: "rgb(232,0,55)", isGroup: true},
-				"05-05": { entity: "Lee Naeun", color: "rgb(186,76,129)", group: "APRIL" },
-				"07-05": { entity: "Minji", color: "rgb(255,248,31)", group: "NewJeans"},
-				"14-05": { entity: "Lee Chaeyoung", color: "rgb(35,248,84)", group: "fromis_9" },
-				"15-05": [ {entity: "Sunny", color: "rgb(107,142,35)", group: "Girls' Generation"}, {entity: "Haerin", color: "rgb(255,255,255)", group: "NewJeans"} ],
-				"17-05": [ { entity: "JiU", color: "rgb(255,255,255)", group: "Dreamcatcher"}, {entity: "2NE1", color: "rgb(255,0,127)", isGroup: true} ],
-				"18-05": { entity: "Onda", color: "rgb(179,4,105)", group: "Everglow"},
-				"19-05": { entity: "E:U", color: "rgb(107,86,163)", group: "Everglow"},
-				"22-05": { entity: "Yang Yena", color: "rgb(255,178,79)", group: "APRIL" },
-				"24-05": { entity: "Yves", color: "rgb(125,0,30)", group: "LOONA"},
-				"26-05": { entity: "Eunchae", color: "rgb(40,119,255)", group: "DIA" },
-				"28-05": { entity: "Dahyun", color: "rgb(255,255,255)", group: "TWICE"},
-				"30-05": { entity: "Yoona", color: "rgb(0,105,148)", group: "Girls' Generation"},
-				"01-06": [ { entity: "ALICE", color: "rgb(224,203,244)", isGroup: true}, { entity: "Nagyung", color: "rgb(255,145,102)", group: "fromis_9" } ],
-				"03-06": { entity: "Seunghee", color: "rgb(250,55,137)", group: "DIA" },
-				"04-06": { entity: "Choerry", color: "rgb(92,44,146)", group: "LOONA"},
-				"07-06": { entity: "Jueun", color: "rgb(247,183,240)", group: "DIA" },
-				"13-06": { entity: "JinSoul", color: "rgb(20,36,176)", group: "LOONA"},
-				"14-06": [ {entity: "Seeun", color: "rgb(135,206,235)", group: "STAYC"}, {entity: "Tzuyu", color: "rgb(1,108,186)", group: "TWICE"} ],
-				"16-06": { entity: "Huihyeon", color: "rgb(103,78,167)", group: "DIA" },
-				"18-06": { entity: "Nako", color: "rgb(183,211,233)", group: "IZ*ONE"},
-				"20-06": { entity: "Seline", color: "rgb(247,99,215)", group: "cignature" },
-				"28-06": { entity: "Seohyun", color: "rgb(251,206,177)", group: "Girls' Generation"},
-				"05-07": [ { entity: "Hyewon", color: "rgb(219,112,108)", group: "IZ*ONE"}, { entity: "Linlin", color: "rgb(191,27,43)", group: "Cherry Bullet" } ],
-				"07-07": { entity: "Chaekyung", color: "rgb(255,183,197)", group: "APRIL" },
-				"13-07": { entity: "Yebin", color: "rgb(211,0,0)", group: "DIA" },
-				"14-07": { entity: "Chaesol", color: "rgb(100,207,255)", group: "cignature" },
-				"19-07": { entity: "Oh Hayoung", color: "rgb(210,176,160)", group: "Apink" },
-				"21-07": { entity: "Aisha", color: "rgb(0,0,0)", group: "Everglow"},
-				"22-07": { entity: "NewJeans", color: "rgb(64,89,149)", isGroup: true },
-				"23-07": { entity: "Sua", color: "rgb(0,220,220)", group: "CSR" },
-				"27-07": [ { entity: "Huening Bahiyyih", color: "rgb(255,177,109)", group: "Kep1er"}, { entity: "CSR", color: "rgb(242,105,37)", isGroup: true } ],
-				"01-08": [ {entity: "Sieun", color: "rgb(255,255,255)", group: "STAYC"}, {entity: "Kim Chaewon (IZ*ONE)", color: "rgb(206,229,213)", group: "IZ*ONE"}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation"}, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature" }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true } ],
-				"05-08": [ {entity: "Kim Sihyeon", color: "rgb(199,210,167)", group: "Everglow"}, {entity: "Girls' Generation", color: "rgb(254,76,128)", isGroup: true} ],
-				"08-08": { entity: "BlackPink", color: "rgb(255,207,228)", isGroup: true},
-				"09-08": { entity: "Lara", color: "rgb(145,86,255)", group: "DreamNote" },
-				"10-08": [ { entity: "SuA", color: "rgb(255,0,0)", group: "Dreamcatcher"}, { entity: "Yeeun", color: "rgb(194,0,130)", group: "CLC" } ],
-				"12-08": { entity: "Choi Yujin", color: "rgb(249,123,144)", borderOverride: "rgb(247,127,14)", group: "CLC/Kep1er"},
-				"13-08": [ { entity: "EJ", color: "rgb(255,170,66)", group: "ALICE"}, { entity: "Bomi", color: "rgb(188,169,203)", group: "Apink" } ],
-				"18-08": [ { entity: "Eunji", color: "rgb(230,171,71)", group: "Apink" }, { entity: "HaSeul", color: "rgb(0,191,0)", group: "LOONA"} ],
-				"19-08": { entity: "LOONA", color: "rgb(255,0,127)", isGroup: true},
-				"22-08": [ { entity: "Yeseo", color: "rgb(162,207,254)", group: "Kep1er"}, { entity: "Somin", color: "rgb(153,230,179)", group: "APRIL" } ],
-				"24-08": { entity: "APRIL", color: placeholderColor, isGroup: true },
-				"26-08": [ { entity: "Soyeon", color: "rgb(245,176,190)", group: "(G)I-DLE"}, { entity: "Chaejeong", color: "rgb(94,247,140)", group: "ALICE"} ],
-				"28-08": { entity: "Rachel", color: "rgb(84,143,247)", group: "APRIL" },
-				"31-08": [ { entity: "Wonyoung", color: "rgb(255,0,30)", borderOverride: "rgb(217,89,140)", group: "IZ*ONE/IVE"}, { entity: "Eunjin", color: "rgb(255,79,27)", group: "DIA" } ],
-				"01-09": { entity: "An Yujin", color: "rgb(255,57,154)", borderOverride: "rgb(86,122,206)", group: "IZ*ONE/IVE"},
-				"02-09": { entity: "Eunice", color: "rgb(237,157,37)", group: "DIA" },
-				"03-09": { entity: "Joy", color: "rgb(0,223,23)", group: "Red Velvet" },
-				"04-09": { entity: "Huh Jiwon", color: "rgb(234,61,165)", group: "Cherry Bullet" },
-				"07-09": { entity: "Park Sumin", color: "rgb(255,0,255)", group: "DreamNote" },
-				"09-09": { entity: "Moon Sua", color: "rgb(204,153,255)", group: "Billlie"},
-				"14-09": [ { entity: "Jenny", color: "rgb(0,171,219)", group: "DIA" }, { entity: "DIA", color: "rgb(0,171,219)", isGroup: true } ],
-				"21-09": { entity: "Tsuki", color: "rgb(255,153,161)", group: "Billlie"},
-				"22-09": [ {entity: "Nayeon", color: "rgb(128,202,241)", group: "TWICE"}, {entity: "Hyoyeon", color: "rgb(147,197,114)", group: "Girls' Generation"}, { entity: "Hong Yukyung", color: "rgb(212,212,212)", group: "Apink" } ],
-				"23-09": { entity: "Yuqi", color: "rgb(38,201,140)", group: "(G)I-DLE"},
-				"24-09": { entity: "Gaeul", color: "rgb(0,85,168)", group: "IVE"},
-				"27-09": { entity: "Eunbi", color: "rgb(187,176,220)", group: "IZ*ONE"},
-				"29-09": [ { entity: "Choi Yena", color: "rgb(252,246,149)", group: "IZ*ONE"}, { entity: "Song Hayoung", color: "rgb(120,94,253)", group: "fromis_9" } ],
-				"01-10": { entity: "Siyeon", color: "rgb(15,47,255)", group: "Dreamcatcher"},
-				"06-10": [ { entity: "Hitomi", color: "rgb(241,195,170)", group: "IZ*ONE"}, {entity: "Hanni", color: "rgb(255,191,255)", group: "NewJeans"} ],
-				"07-10": { entity: "Yeham", color: "rgb(220,0,147)", group: "CSR" },
-				"09-10": { entity: "Ye Ah", color: "rgb(69,109,255)", group: "cignature" },
-				"10-10": { entity: "Oh Seunghee", color: "rgb(161,107,250)", group: "CLC" },
-				"13-10": { entity: "HanByeol", color: "rgb(255,238,86)", group: "DreamNote" },
-				"15-10": { entity: "Yeonje", color: "rgb(255,227,3)", group: "ALICE" },
-				"19-10": { entity: "HeeJin", color: "rgb(255,0,143)", group: "LOONA"},
-				"20-10": [ { entity: "Chuu", color: "rgb(246,144,126)", group: "LOONA"}, {entity: "TWICE", color: "rgb(248,197,150)", isGroup: true, textOverride: "rgb(252,93,157)"} ],
-				"22-10": { entity: "Jo Yuri", color: "rgb(243,170,81)", group: "IZ*ONE"},
-				"23-10": [ { entity: "Minnie", color: "rgb(155,203,235)", group: "(G)I-DLE"}, { entity: "Ningning", color: "rgb(238,23,43)", group: "aespa"} ],
-				"25-10": { entity: "MISO", color: "rgb(86,168,255)", group: "DreamNote" },
-				"29-10": { entity: "IZ*ONE", color: "rgb(239,83,157)", isGroup: true},
-				"30-10": [ { entity: "Giselle", color: "rgb(3,14,6)", group: "aespa"}, { entity: "BoNi", color: "rgb(255,156,86)", group: "DreamNote" } ],
-				"01-11": [ { entity: "Jeongyeon", color: "rgb(188,215,118)", group: "TWICE"}, { entity: "Kokoro", color: "rgb(0,221,147)", group: "Cherry Bullet" } ],
-				"02-11": { entity: "Elkie", color: "rgb(97,179,41)", group: "CLC" },
-				"03-11": { entity: "Belle", color: "rgb(0,195,26)", group: "cignature" },
-				"05-11": { entity: "Lee Yukyung", color: "rgb(55,253,252)", group: "ALICE"},
-				"06-11": { entity: "Seungyeon", color: "rgb(199,3,30)", group: "CLC" },
-				"07-11": { entity: "DreamNote", color: "rgb(0,176,164)", textOverride: "rgb(255,205,5)", isGroup: true },
-				"08-11": { entity: "Kim Chaewon (APRIL)", color: "rgb(255,255,122)", group: "APRIL" },
-				"09-11": { entity: "Momo", color: "rgb(248,207,215)", group: "TWICE"},
-				"10-11": { entity: "Billlie", color: "rgb(148,180,229)", borderOverride: "rgb(197,180,225)", isGroup: true},
-				"11-11": { entity: "YeoJin", color: "rgb(244,111,31)", group: "LOONA"},
-				"12-11": [ {entity: "Xiaoting", color:"rgb(195,142,199)", group: "Kep1er"}, {entity: "Dara", color:"rgb(244,135,105)", group: "2NE1"}, {entity: "STAYC", color: "rgb(0,0,0)", isGroup: true} ],
-				"13-11": { entity: "Hyeju", color: "rgb(143,143,143)", group: "LOONA"},
-				"15-11": { entity: "HyunJin", color: "rgb(255,234,0)", group: "LOONA"},
-				"16-11": { entity: "May", color: "rgb(252,80,80)", group: "Cherry Bullet" },
-				"17-11": { entity: "aespa", color: "rgb(174,95,160)", borderOverride: "rgb(13,213,173)", isGroup: true},
-				"18-11": { entity: "Sorn", color: "rgb(0,144,199)", group: "CLC" },
-				"19-11": { entity: "Go Won", color: "rgb(48,225,146)", group: "LOONA"},
-				"21-11": { entity: "Liz", color: "rgb(0,195,245)", group: "IVE"},
-				"23-11": { entity: "Jisun", color: "rgb(238,83,146)", group: "fromis_9" },
-				"01-12": [ { entity: "IVE", color: "rgb(241,241,241)", isGroup: true}, { entity: "Jung Chaeyeon", color: "rgb(0,160,21)", group: "DIA" } ],
-				"04-12": { entity: "Jinsol", color: "rgb(205,121,206)", group: "APRIL" },
-				"05-12": { entity: "Kwon Yuri", color: "rgb(0,51,102)", group: "Girls' Generation"},
-				"09-12": [ {entity: "ViVi", color: "rgb(255,152,180)", group: "LOONA"}, {entity: "J", color: "rgb(255,0,0)", group: "STAYC"} ],
-				"16-12": { entity: "Mashiro", color: "rgb(253,238,244)", group: "Kep1er"},
-				"27-12": [ { entity: "Youngeun", color: "rgb(147,197,114)", group: "Kep1er"}, { entity: "Gyuri", color: "rgb(33,150,254)", group: "fromis_9" } ],
-				"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE"}, {entity: "Yiren", color: "rgb(255,255,255)", group: "Everglow"} ],
-				"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE"}
-			};
-
-			for(var date in idolBdData) {
-				if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
-			};
-
-			function getLocalDayMonth() {
-				var fd = parseInt(urlParams.get("fakeDateUnix"));
-				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
-			};
-
-			function getKstDayMonth() {
-				var fd = parseInt(urlParams.get("fakeDateUnix"));
-				return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
-			};
-			
-			function getLuminance(R,G,B) {
-				return (0.2126*R + 0.7152*G + 0.0722*B);
-			};
-
-			//https://stackoverflow.com/a/2450976
-			function shuffle(array) {
-			  let currentIndex = array.length,  randomIndex;
-
-			  // While there remain elements to shuffle.
-			  while (currentIndex != 0) {
-
-				// Pick a remaining element.
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex--;
-
-				// And swap it with the current element.
-				[array[currentIndex], array[randomIndex]] = [
-				  array[randomIndex], array[currentIndex]];
-			  }
-
-			  return array;
-			}			
-
-			triedToLoadBigints = false;
-			window.onload = function() {
-				/*loona stan length updater interval*/
-				loonaInterval = setInterval(updateLoonaTime, 100);
-				
-				if((getLocalDayMonth() == "16-06") || (getKstDayMonth() == "16-06")) {
-					var marquee = document.getElementById("headerMarquee");
-					marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
-					marquee.style.fontSize = "120%"
-				};
-
-				/*handle birthdays*/
-				var currentBirthdayDatas = [];
-				var local = idolBdData[getLocalDayMonth()];
-				var kst = idolBdData[getKstDayMonth()];
-				if(local) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
-				if(kst) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
-				if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas) }
-				currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
-				console.log(`${currentBirthdayDatas.length} bdays`);
-				var hasBirthdays = false;
-				var hasAnniversaries = false;
-				console.log("Happy birthday/anniversary to: " + currentBirthdayDatas.map(function(data) {
-					if(data.isGroup) {
-						hasAnniversaries = true;
-						return data.entity
-					} else {
-						hasBirthdays = true;
-						return `${data.entity} from ${data.group}`
-					}
-				}).join(", "));
-				if(currentBirthdayDatas.length > 0) {
-					var birthdayText = document.createElement("span");
-					birthdayText.classList.add("birthdays");
-					var label = [];
-					if(hasBirthdays) { label.push("birthday to") };
-					if(hasAnniversaries) { label.push("anniversary of") };
-					label = label.join("/") + " ";
-					if(label == "") { console.log("Events exist but they are neither birthdays nor anniversaries. Something has gone wrong."); label = "unknown event to" };
-					birthdayText.appendChild(document.createTextNode("Happy " + label));
-					for(var ibdCurrentDataIndex in currentBirthdayDatas) {
-						var data = currentBirthdayDatas[ibdCurrentDataIndex];
-						ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
-						var coloredName = document.createElement("span");
-						var color = data.color;
-						var colorValues = color.match(/\d+/g).map(x => parseInt(x));
-						var bgLum = getLuminance(...colorValues);
-						coloredName.style["background-color"] = color; //bg because name in red is a no-no in korea
-						coloredName.style.color = bgLum > 159 ? "black" : "white"
-						if(data.textOverride) { coloredName.style.color = data.textOverride };
-						if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
-						var title = "";
-						if(data.group) { title += "From " + data.group } else {
-							if(data.isGroup) { title += "(Group)" };
-							if(data.isGroup && data.title) { title += " " };
-							if(data.title) { title += data.title }
-						};
-						if(title !== "") { coloredName.setAttribute("title",title) }
-						coloredName.innerText = data.entity.replaceAll(" ",String.fromCharCode(0xa0));
-						coloredName.classList.add("bdIdolName");
-						birthdayText.appendChild(coloredName);
-						var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
-						if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
-							birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner))
-						}
-					};
-					birthdayText.appendChild(document.createTextNode("."));
-					document.getElementById("birthdays").textContent = "";
-					document.getElementById("birthdays").appendChild(birthdayText);
-				};
-
-				/*load game*/
-				if(!triedToLoadBigints) {
-				  loadBigints(false);
-					triedToLoadBigints = true;
-				  };
-				  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
-					updateCounters();
-				  };
-				  buildStats();
-				  setInterval(saveBigints, 5000);
-				  if(getClickValue() > 1) { buildStats(); unlockUplist() };
-				}
-			} catch(error) {
-				alert(error);
-			};
+	/*load game*/
+	if(!triedToLoadBigints) {
+	  loadBigints(false);
+		triedToLoadBigints = true;
+	  };
+	  if(bigintValue > 0n || bigintRebirths > 0n || bigintSecondLevelRebirths > 0n) {
+		updateCounters();
+	  };
+	  buildStats();
+	  setInterval(saveBigints, 5000);
+	  if(getClickValue() > 1) { buildStats(); unlockUplist() };
+	}
+} catch(error) {
+	alert(error);
+};
 		</script>
 		<style>
 			@keyframes fade-in {
@@ -949,13 +948,14 @@
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate" id="headerMarquee">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop</span></marquee>
+			<marquee class="ot12" style="font-size:130%;" direction="right" scrolldelay="60" behavior="alternate" id="headerMarquee">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop :3</span></marquee>
 		</div>
 		
 		<div id="main">
 			<p id="birthdays">&nbsp;</p><br/>
-			<p id="opening">hi i'm an <span title="rebirth" onclick="rebirth()">orbit</span> and i really love loona<span class="hoverTest">; loona is the only thing that keeps me alive every day</span><br/>
-			please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">don't stream</a>; the girls <a href="https://reddit.com/r/LOONA/comments/zrd8di/bbcloona_contract_leads_to_debt_bondage_tables/">don't get anything</a> for it<br/>
+			<p id="opening">Hello. :3 I'm an <span title="rebirth" onclick="rebirth()">Orbit</span> and I really love Loona.<br/>
+			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under Blockberry Creative (BBC), their former agency. Not only do the <em>twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">appealed Chuu's contract nullification again</a>.<br/>
+			As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. This does not apply to songs released under Modhaus, ATRP, CTD ENM, or Paix Per Mil.<br/>
 			<span onclick="buyUpgrade(1)" title="up1">i love all of</span> <span onclick="buyUpgrade(2)" title="up2">the members and</span> <span onclick="buyUpgrade(3)" title="up3">all of their songs</span> <span onclick="buyUpgrade(5)" title="up5">too (and it's too hard to pick a bias <span class="hoverTest"> but my current bias line is <span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span></span>)</span><br/>
 			<span title="orbits" onclick="timedIncrement(true);" countTemplate="i wish there were [*e<@E@>] <@N@> orbits" templateMagnitudeOffset="6">i love orbits</span><br/>
 			<span onclick="buyUpgrade(0)" title="up0">loona</span> <span onclick="buyUpgrade(6)" title="up6">ot12</span> <span onclick="buyUpgrade(4)" title="up4">forever</span><span onclick="buyUpgrade(7)" class="ot12" id="up7" title="up7" style="display: none"> (super-special secret eighth upgrade)</span></p>
@@ -991,7 +991,7 @@
 				</p>
 				<!--like le sserafim, wjsn, itzy, gwsn, weeekly, woo!ah!, fifty fifty, rocket punch, hashtag, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, gugudan, weki meki, exid, miss a, lovelyz, tripleS, saturday, ladies code, purple kiss, limelight; also soloists like iu, lee chaeyeon, and yukika-->
 				<span class="yeojin">antis, akgaes dni <em>(especially bahiyyih and skz antis; member solo stans are fine unless they hate on a group's other members which makes them akgaes)</em></span><br/>
-				<span class="circle">i have stanned loona for about <span id="loonaTime">a lot of</span> seconds</span><br/>
+				<span class="circle">i have stanned loona for about <span id="loonaTime">50 million</span> seconds</span><br/>
 			
 				<h2 class="circle">buttons:</h2>
 					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
