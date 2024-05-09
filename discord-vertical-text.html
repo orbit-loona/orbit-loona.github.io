@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>discord vertical text generator</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="discord vertical text generator" />
+		<meta property="og:url" content="https://orbit-loona.github.io/tone.html" />
+		<meta property="og:description" content="Make cursed sideways text in Discord (why)" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://orbit-loona.github.io/bin/skibidi-toilet.png" />
+		<meta property="og:image:width" content="44" />
+		<meta property="og:image:height" content="316" />
+		<meta property="og:image:alt" content="image" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/skibidi-toilet.png" />
+		<meta name="twitter:title" content="discord vertical text generator" />
+		<meta name="twitter:description" content="Make cursed sideways text in Discord (why)" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<style>
+			.heck { font-size: 80%; opacity: 0.8; }
+			div#warnings { color: #ffafaf; }
+			#preOutput { white-space: pre-wrap; background-color: #222528; border: 1px solid #afafaf; }
+		</style>
+		<script>
+			function arrayToSplit(arr,chunk_size) { //https://stackoverflow.com/a/19679493
+				var groups = arr.map( function(e,i){ 
+					 return i%chunk_size===0 ? arr.slice(i,i+chunk_size) : null; 
+				}).filter(function(e){ return e; });
+				return groups
+			}
+
+			function toTransposed2D(array) { //https://stackoverflow.com/a/17428705
+				return array[0].map((_, colIndex) => array.map(row => row[colIndex]));
+			}
+
+			function logAndReturn(x) {
+				console.log(x);
+				return x
+			};
+
+			function generate(input,maxCharsPerLine) {
+				letters = {
+					A:"<⁚⁚I⁚⁚⁚⁚",
+					B:"/⁚⁚I⁚⁚\\\\",
+					C:"\\\\\\_\\_/",
+					D:"/⁚⁚⁚⁚⁚\\\\",
+					E:"|\\_|\\_|",
+					F:"|\\_|\\_.",
+					G:"\\\\\\_⁚⁚/",
+					H:"⁚⁚⁚⁚I⁚⁚⁚⁚",
+					I:"|---|",
+					J:"\"\"\"\")",
+					K:"⁚⁚⁚v⁚⁚⁚",
+					L:"\\_\\_\\_|",
+					M:"|ΞΞΞ",
+					N:"(⁚⁚⁚⁚⁚⁚⁚",
+					O:"(⁚⁚⁚⁚⁚⁚)",
+					P:"/⁚⁚\\\\\\_.",
+					Q:"(⁚⁚⁚⁚⁚}-'",
+					R:"/⁚\\\\/⁚⁚",
+					S:"\\\\./'\\\\",
+					T:"|----",
+					U:"⁚⁚⁚⁚⁚⁚⁚)",
+					V:"⁚⁚⁚⁚⁚⁚>",
+					W:"ΞΞΞ|",
+					X:"⁚⁚⁚X⁚⁚⁚",
+					Y:"⁚>---",
+					Z:"|\"'-..|",
+					a:" (\"I⁚I",
+					b:"\\_\\_O",
+					c:" \\\\\\_/",
+					d:"\"\"\"O",
+					e:" (⁚I.)",
+					f:"ı\\_ı\\_.",
+					g:" (⁚⁚I')",
+					h:"\\_\\_I⁚⁚",
+					i:". \\_\\_",
+					j:"- --,",
+					k:".\\_⁚v⁚",
+					l:" ---'",
+					m:"  EΞ",
+					n:"  (⁚⁚⁚⁚",
+					o:" (⁚⁚⁚⁚)",
+					p:"O\\_\\_",
+					q:"O\"\"\"",
+					r:"   ı.\\_",
+					s:"   ı.rı",
+					t:"-I--'",
+					u:"   ⁚⁚⁚⁚)",
+					v:"   ⁚⁚>",
+					w:"    ΞI",
+					x:"   ⁚X⁚",
+					y:"  >-.",
+					z:"  |'-.|",
+					1:",---I",
+					2:"/\"\\.I",
+					3:"/\"|\"\\\\",
+					4:"⁚⁚⁚⁚|\"\"'",
+					5:"I./\"\\\\",
+					6:"(..I⁚⁚)",
+					7:"|'`--.",
+					8:"(⁚X⁚⁚)",
+					9:"(⁚⁚I\"')",
+					0:"(⁚⁚\\\\⁚⁚)",
+					"^":"<     ",
+					"<":"   V  ",
+					">":"  /\\\\  ",
+					".":"      .",
+					",":"      -",
+					"-":"    |  ",
+					" ":"**        **",
+					"!":"\\_\\_ ..",
+					"?":"(\\\\. .",
+					"'":"-      ",
+					'"':"=      ",
+					'%':" , \\\\ ' ",
+					'&':"  ı.Ix "
+				};
+
+				var nextMcplIncrement = Math.ceil(input.length / maxCharsPerLine) * maxCharsPerLine;
+				input = input.padEnd(nextMcplIncrement," ");
+				var output = "";
+				var lineJoiner = "    ";
+				result = input.split("").map(x => letters[x] ?? letters["?"]).map(x => x.trim() == "" ? `**${x}**` : x);
+				var linesNeeded = Math.ceil(result.length / maxCharsPerLine);
+				for(var i = 0; i < result.length; i++) {
+					var lineNumber = Math.floor(i / maxCharsPerLine);
+					var positionInLine = i % maxCharsPerLine;
+					if(lineNumber < 1) {
+						output = result[i] + "\n" + output
+					} else {
+						var positionComplement = (maxCharsPerLine - 1) - positionInLine;
+						var outputSplitByNewline = output.split("\n");
+						var indexOfFinalLetter = (lineNumber * maxCharsPerLine) + positionComplement;
+						var finalLetter = result[indexOfFinalLetter];
+						var whileTries = 0;
+						outputSplitByNewline[positionInLine] = outputSplitByNewline[positionInLine] + lineJoiner + finalLetter;
+						output = outputSplitByNewline.join("\n");
+						outputSplitByNewline = null
+					}
+				};
+				var spaceForRegex = letters[" "].replaceAll("*","\\*");
+				var regex = RegExp(lineJoiner + spaceForRegex + "$","gm");
+				output = output.replace(regex,"");
+				if(linesNeeded < 2) { output = output.replace(RegExp("^(" + spaceForRegex + "[\\r\\n]+)*"),"** **") }
+				if(output.startsWith(" ")) { output = output.replace(" ","** **") };
+				return output
+			};
+			
+			function doGeneration() {
+				var input = document.getElementById("textInput")?.value || ""; //I LOVE PARK JIHYO FROM THE GIRL GROUP \"TWICE\"";
+				var maxCharsPerLine = Number(document.getElementById("maxCharsPerLine")?.value ?? "10");
+				var generatorResult = generate(input,maxCharsPerLine);
+				var outputDestination = document.getElementById("preOutput");
+				if(outputDestination) {
+					outputDestination.innerText = generatorResult
+				}
+				return !!outputDestination && !!(input.length > 0)
+			};
+			
+			function copyOutputFromOutputDiv() {
+				var copyText = document.getElementById("preOutput");
+				if(navigator?.clipboard?.writeText) {
+					navigator.clipboard.writeText(copyText.innerText);
+				} else {
+					copyText.select();
+					copyText.setSelectionRange(0, copyText.innerText.length);
+					Document.execCommand("copy")
+				}
+			};
+			
+			function makePermanentLink(input,maxCharsPerLine) {
+				if(!([null,undefined].includes(maxCharsPerLine)) && typeof(maxCharsPerLine) == "number") {
+					maxCharsPerLine = maxCharsPerLine.toString()
+				};
+				var queryParamInput = encodeURIComponent(input);
+				var queryParamMCPL = null; if(maxCharsPerLine) { queryParamMCPL = encodeURIComponent(maxCharsPerLine) };
+				var baseURL = window.location.host + window.location.pathname;
+				var finalURL = `${baseURL}?text=${queryParamInput}`;
+				if(queryParamMCPL) { finalURL += `&mcpl=${queryParamMCPL}` }
+				return finalURL;
+			};
+			
+			function displayPermanentLink(url) {
+				var newLink = document.createElement("a");
+				newLink.setAttribute("href",url);
+				newLink.innerText = url;
+				newLink.setAttribute("target","_blank");
+				var linkDestination = document.getElementById("linkOutput");
+				linkDestination.childNodes.forEach(function(x) { x.parentElement.removeChild(x); x = null });
+				linkDestination.innerText = "";
+				linkDestination.appendChild(newLink)
+			};
+			
+			function doPermanentLinkGeneration() {
+				var input = document.getElementById("textInput")?.value; //I LOVE PARK JIHYO FROM THE GIRL GROUP \"TWICE\"";
+				if(!input || input.length == 0) { return false };
+				var maxCharsPerLine = document.getElementById("maxCharsPerLine")?.value;
+				if(!!maxCharsPerLine) { maxCharsPerLine = Number(maxCharsPerLine) } else { maxCharsPerLine = null };
+				var url = makePermanentLink(input,maxCharsPerLine);
+				displayPermanentLink(url)
+			};
+		</script>
+	</head>
+	<body>
+		<h1>Discord vertical text generator</h1>
+		<div id="warnings">
+			<span>Warnings and Disclaimers:</span>
+			<ol>
+				<li>Please be mindful of servers' rules, and do not use this when it is not allowed (either for spam or accessibility reasons). If a server moderator asks you to stop posting text generated with this page, then stop using it.</li>
+				<li>This is not accessible at all. Screen readers may skip over the generated text or read it as a long sequence of symbols; even then, they certainly wouldn't ever be able to <em>understand</em> it since it's not really made of actual letters. Discord's "Speak Message" feature reads outputs of this generator as a long and unintelligible mess of words that may include "slash", "backslash", "underscore", "dash", "I", "X", and "equals".</li>
+				<li>This can easily flood chats due to its vertical direction. Please minimize disruption by limiting the maximum characters per vertical "line".</li>
+				<li>This text uses Discord formatting and font rendering quirks that may change in the future, which could make the text generated by this tool distorted or even illegible. Note that this generator makes heavy use of the Unicode "two dots" punctuation character "⁚", so this text will be illegible to users whose systems cannot display the character.</li>
+				<li>The text made by this generator is formatted for Discord, including escaping of backslashes "\" and underscores "_". It will be illegible until it is parsed by Discord's Markdown-variant text parser.</li>
+				<li>This page uses code by StackOverflow users <a href="https://stackoverflow.com/a/19679493">Mirodil</a> and <a href="https://stackoverflow.com/a/17428705">Fawad Ghafoor</a>, and is thus licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 license</a>.</li>
+				<li>This generator does not support manual line breaks in the vertical text.</li>
+				<li>Characters not programmed into the generator will display as question marks "?".</li>
+			</ol>
+		</div>
+		<input id="textInput" placeholder="Hello, world!"/><br/>
+		<input id="maxCharsPerLine" type="number" value="10" placeholder="10"/><br/>
+		<button onclick="doGeneration()">Generate text</button>
+		<span id="label">Paste the text below into the Discord message bar</span>
+		<p id="preOutput">&nbsp;</p>
+		<button onclick="copyOutputFromOutputDiv()">Copy</button><br/><br/>
+
+		<button onclick="doPermanentLinkGeneration()">Get link to these values</button><br/><br/>
+		<p id="linkOutput">&nbsp;</p>
+
+		
+		<script>
+			function enterListener(e) {
+				if(e.key == "Enter") {
+					doGeneration()
+				}
+			};
+
+			document.getElementById("textInput").addEventListener("keydown",function(e) { enterListener(e) });
+			document.getElementById("maxCharsPerLine").addEventListener("keydown",function(e) { enterListener(e) });
+
+			urlParams = new URLSearchParams(window.location.search);
+			var urlText = urlParams.get("text");
+			var urlMCPL = Number(urlParams.get("mcpl") ?? "10");
+			if(urlText !== null) {
+				document.getElementById("textInput").value = urlText;
+				document.getElementById("maxCharsPerLine").value = urlMCPL.toString();
+				var generatorResult = generate(urlText,urlMCPL);
+				var outputDestination = document.getElementById("preOutput");
+				if(outputDestination) {
+					outputDestination.innerText = generatorResult
+				}
+			}
+		</script>
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+	</body>
+</html>
