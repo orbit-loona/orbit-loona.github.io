@@ -24,6 +24,15 @@
 			.heck { font-size: 80%; opacity: 0.8; }
 			div#warnings { color: #ffafaf; font-size: 75%; }
 			#preOutput { white-space: pre-wrap; background-color: #222528; border: 1px solid #afafaf; }
+			#lengthWarningSpan { padding: 2px; line-height: 140%; font-size: 110%; }
+			.warning1 { 
+				color: #ff3f2f;
+			}
+			.warning2 { 
+				color: #ff0f0f;
+				font-weight: bold;
+				letter-spacing: 1px;
+			}
 		</style>
 		<script>
 			function arrayToSplit(arr,chunk_size) { //https://stackoverflow.com/a/19679493
@@ -165,10 +174,39 @@
 				return output
 			};
 			
-			function doGeneration() {
-				var input = document.getElementById("textInput")?.value || ""; //I LOVE PARK JIHYO FROM THE GIRL GROUP \"TWICE\"";
-				var maxCharsPerLine = Number(document.getElementById("maxCharsPerLine")?.value ?? "10");
+			function doGeneration(inputOverride=null,mcplOverride=null) {
+				var input = inputOverride ?? (document.getElementById("textInput")?.value || ""); //I LOVE PARK JIHYO FROM THE GIRL GROUP \"TWICE\"";
+				var maxCharsPerLine = mcplOverride ?? (Number(document.getElementById("maxCharsPerLine")?.value ?? "10"));
 				var generatorResult = generate(input,maxCharsPerLine);
+				var lengthWarningSpan = document.getElementById("lengthWarningSpan");
+				console.log(generatorResult.length);
+				if(lengthWarningSpan) {
+					if(generatorResult.length <= 2000) {
+						lengthWarningSpan.innerText = `Length: ${generatorResult.length.toLocaleString()} characters`
+						if(lengthWarningSpan.classList.contains("warning1")) {
+							lengthWarningSpan.classList.remove("warning1")
+						};
+						if(lengthWarningSpan.classList.contains("warning2")) {
+							lengthWarningSpan.classList.remove("warning2")
+						}
+					} else if(generatorResult.length > 4000) {
+						lengthWarningSpan.innerText = `Warning: Message is too long for Discord even with Nitro (${generatorResult.length.toLocaleString()} characters)`;
+						if(lengthWarningSpan.classList.contains("warning1")) {
+							lengthWarningSpan.classList.remove("warning1")
+						};
+						if(!(lengthWarningSpan.classList.contains("warning2"))) {
+							lengthWarningSpan.classList.add("warning2")
+						}
+					} else if(generatorResult.length > 2000) {
+						lengthWarningSpan.innerText = `Warning: Message is too long for Discord without Nitro (${generatorResult.length.toLocaleString()} characters)`;
+						if(!(lengthWarningSpan.classList.contains("warning1"))) {
+							lengthWarningSpan.classList.add("warning1")
+						};
+						if(lengthWarningSpan.classList.contains("warning2")) {
+							lengthWarningSpan.classList.remove("warning2")
+						}
+					}
+				}
 				var outputDestination = document.getElementById("preOutput");
 				if(outputDestination) {
 					outputDestination.innerText = generatorResult
@@ -241,7 +279,7 @@
 		<button onclick="doGeneration()">Generate text</button>
 		<span id="label">Paste the text below into the Discord message bar</span>
 		<p id="preOutput">&nbsp;</p>
-		<button onclick="copyOutputFromOutputDiv()">Copy</button><br/><br/>
+		<button onclick="copyOutputFromOutputDiv()">Copy</button> &nbsp; <span id="lengthWarningSpan">&nbsp;</span><br/><br/>
 
 		<button onclick="doPermanentLinkGeneration()">Get link to these values</button><br/><br/>
 		<p id="linkOutput">&nbsp;</p>
@@ -263,11 +301,7 @@
 			if(urlText !== null) {
 				document.getElementById("textInput").value = urlText;
 				document.getElementById("maxCharsPerLine").value = urlMCPL.toString();
-				var generatorResult = generate(urlText,urlMCPL);
-				var outputDestination = document.getElementById("preOutput");
-				if(outputDestination) {
-					outputDestination.innerText = generatorResult
-				}
+				doGeneration(urlText,urlMCPL);
 			}
 		</script>
 		<br/><br/><a href="index.html"><small>go to main page</small></a>
