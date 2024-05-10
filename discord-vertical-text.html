@@ -231,7 +231,7 @@
 				};
 				var queryParamInput = encodeURIComponent(input);
 				var queryParamMCPL = null; if(maxCharsPerLine) { queryParamMCPL = encodeURIComponent(maxCharsPerLine) };
-				var baseURL = window.location.host + window.location.pathname;
+				var baseURL = window.location.origin + window.location.pathname;
 				var finalURL = `${baseURL}?text=${queryParamInput}`;
 				if(queryParamMCPL) { finalURL += `&mcpl=${queryParamMCPL}` }
 				return finalURL;
