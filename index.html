@@ -116,6 +116,8 @@ function resetBigints(removeSave=false) {
 	if(removeSave) { localStorage.removeItem("number") }; return true;
 };
 
+if(urlParams.get("goofyAhh") !== null) { resetBigints(true) };
+
 function loadBigints(updateCounts=true) {
 	if(!localStorage.number) { return false }; object = JSON.parse(localStorage.number,bigintReviver);
 	bigintValue = object.number;
