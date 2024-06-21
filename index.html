@@ -567,6 +567,210 @@ function updateLoonaTime() {
 
 var placeholderColor = "rgb(230,230,230)";
 
+function hardColorChangeLinearGradientCssGenerator(colorArray) {
+	//colorArray = ["rgb(255,0,0)","rgb(255,255,0)","rgb(0,0,255)","rgb(0,255,0)"];
+	var colorCount = colorArray.length;
+	var fractionUnitPercent = 100/colorCount;
+	var tinyTransitionWidthPercent = fractionUnitPercent/2000;
+	var gradientString = "linear-gradient(to right,";
+	var percent = 0;
+	for(var i = 0; i < colorCount; i++) {
+		var color = colorArray[i];
+		gradientString += `${color} ${percent}%, `;
+		percent += (fractionUnitPercent - tinyTransitionWidthPercent);
+		gradientString += `${color} ${percent}%${i >= (colorCount - 1) ? ")" : ","} `;
+		percent += (tinyTransitionWidthPercent * colorCount);
+	};
+	return gradientString
+};
+
+//F***ING COLOR CODE
+function convertColorFormats(color,outputType="rgb",stripAlpha=false) {
+	if(typeof(color) === "undefined") {
+		//console.log("Warning: An element has an undefined color. Unfortunately, due to how the code is structured, I can't say which one.");
+		//color = "#FF00FF";
+		throw new Error("Color is undefined!");
+	};
+	//console.log("Logged color for convertColorFormats: " + color);
+	var oldColor = color;
+	var bytes,r,g,b,a;
+	if(typeof(color) === "string") {
+		//Hex input case
+		if(/^#?[A-Za-z0-9]{1,8}$/.test(oldColor)) {
+			if(color.startsWith("#")) {
+				oldColor = oldColor.match(/[A-Za-z0-9]{1,8}/)[0];
+			};
+			switch(oldColor.length) {
+				case 0:
+					throw new Error("convertColorFormats: hexadecimal input but color bytes are somehow missing?");
+				case 1: //A => AAAAAA (bs)
+					oldColor = oldColor.repeat(6);
+					break
+				case 2: //AB => AAAAAABB (bs)
+					oldColor = (oldColor[0].repeat(6)) + (oldColor[1].repeat(2));
+					break
+				case 3: //ABC => AABBCC, ABCD => AABBCCDD (real)
+				case 4:
+					oldColor = oldColor.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")
+					break
+				case 5: //ABCDE => AABBCCDE (bs)
+					var _rgb = oldColor.slice(0,3);
+					var _alpha = oldColor.slice(3,5);
+					oldColor = (_rgb.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")) + alpha
+				case 7: //9ABCDEF => 9ABCDEFF (bs)
+					var _rgb = oldColor.slice(0,6);
+					var _alpha = oldColor.slice(6,7);
+					oldColor = _rgb + (_alpha.repeat(2))
+				case 6: //no change
+				case 8: //no change
+					break
+			};
+			bytes = oldColor.toLowerCase().match(/[a-z0-9]{2}/g).map(x => parseInt(x,16));
+			r = bytes[0];
+			g = bytes[1];
+			b = bytes[2];
+			a = stripAlpha ? null : (bytes[3] ?? null);
+			//to JSON for ease of use
+			color = {"r": r, "g": g, "b": b};
+			if(typeof(a) == "number") { color["a"] = a };
+		} else {
+			//otherwise assume rgb() input
+			bytes = color.match(/[\d\.]+/g);
+			if(typeof(bytes?.map) == "undefined") {
+				console.log(bytes);
+				bytes = [255,0,255]
+			} else {
+				bytes = bytes.map(x => Number(x));
+			};
+			r = bytes[0];
+			g = bytes[1];
+			b = bytes[2];
+			a = stripAlpha ? null : (bytes[3] ?? null);
+			//to JSON for ease of use
+			color = {"r": r, "g": g, "b": b}
+			if(typeof(a) == "number") { color["a"] = a };
+		};
+	} else if(Array.isArray(color)) {
+		bytes = color;
+		r = bytes[0];
+		g = bytes[1];
+		b = bytes[2];
+		a = stripAlpha ? null : (bytes[3] ?? null);
+		//to JSON for ease of use
+		color = {"r": r, "g": g, "b": b}
+		if(typeof(a) == "number") { color["a"] = a };
+	} else if(typeof(color) == "object") {
+		//variable mappings only
+		r = color.r;
+		g = color.g;
+		b = color.b;
+		a = stripAlpha ? null : (color.a ?? null);
+	};
+	//Colors are now objects
+	if(a !== null) { a /= 255 };
+	switch(outputType.toLowerCase()) {
+		case "rgb":
+		case "rgba":
+			var _r,_g,_b,_a;
+			_r = r;
+			_g = g;
+			_b = b;
+			if(typeof(a) == "number") { _a = a } else { _a = null };
+			var values;
+			if(stripAlpha || _a == null) {
+				values = [_r,_g,_b];
+			} else {
+				values = [_r,_g,_b,_a];
+			};
+			for(var i = 0; i <= 2; i++) {
+				values[i] = Math.round(values[i])
+			};
+			return (typeof(a) == "number" ? "rgba" : "rgb") + `(${values.join(",")})`
+		case "hex":
+			var _r,_g,_b,_a;
+			_r = r;
+			_g = g;
+			_b = b;
+			if(typeof(a) == "number") { _a = Math.round(a * 255) } else { _a = null };
+			var bytesToBe;
+			if(stripAlpha || _a == null) {
+				bytesToBe = [_r,_g,_b];
+			} else {
+				bytesToBe = [_r,_g,_b,_a];
+			};
+			return "#" + bytesToBe.map(x => Math.round(x).toString(16).padStart(2,"0")).join("");
+		case "json":
+			return color;
+		case "array":
+			return Object.values(color);
+			break;
+		default:
+			throw new Error("outputType must be \"rgb\", \"hex\", \"json\", or \"array\"");
+	}
+};
+
+function rgbHexCatcher(color) {
+	return convertColorFormats(color,"rgb");
+};
+
+function averageRgbPrefixedColorArray(colorArray,returnObject=false) { //array of rgb()s to single rgb() of average color
+	//averageRgbPrefixedColorArray(["rgb(255,0,0)", "rgb(0,0,0)", "rgb(0,0,255)"]);
+	//console.log("Averaging started");
+	var reds = [];
+	var greens = [];
+	var blues = [];
+	for(k = 0; k < colorArray.length; k++) {
+		//console.log("Average function: Executing catcher on " + colorArray);
+		var color = convertColorFormats(colorArray[k]);
+		//console.log("Logged color for aRPCA: " + color);
+		color = color.split(",");
+		var red = parseFloat(color[0].substring(4));
+		reds.push(red)
+		var green = parseFloat(color[1]);
+		greens.push(green)
+		var blue = parseFloat(color[2].slice(0,-1));
+		blues.push(blue)
+	};
+	redAverage = Math.round(averageNumericArray(reds));
+	greenAverage = Math.round(averageNumericArray(greens));
+	blueAverage = Math.round(averageNumericArray(blues));
+	var output;
+	returnObject ? output = {r: redAverage, g: greenAverage, b: blueAverage} : output = `rgb(${redAverage},${greenAverage},${blueAverage})`;
+	//console.log("Averaging finished, product: " + output);
+	return output;
+};
+
+function averageNumericArray(array) {
+	var total = array.reduce(addTwoNumbers,0)
+	return total / array.length
+};
+
+function addTwoNumbers(number1,number2) { //reducer
+	return number1 + number2
+}
+
+var simpleColors = {
+	red: "400",
+	green: "030",
+	white: "444",
+	pink: "414",
+	blue: "004",
+	aqua: "034",
+	yellow: "440",
+	purple: "204",
+	black: "000",
+	orange: "420",
+	lime: "140"
+};
+
+for(var key in simpleColors) {
+	var code = simpleColors[key];
+	code = code.split("").map(x => Math.min(255,Math.max(0,(parseInt(x * 64) - 1))).toString());
+	simpleColors[key] = `rgb(${code.join(",")})`
+};
+
+var sc = simpleColors;
+
 idolBdData = {
 	//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
 	//Sometimes hex codes are given and sometimes it's only generic color words.
@@ -607,14 +811,14 @@ idolBdData = {
 	"08-01": [ { entity: "Seo Dahyun", color: "rgb(255,154,214)", group: "tripleS", year: 2003 }, { entity: "Yeonji", color: "rgb(89,116,255)", group: "tripleS", year: 2008 } ],
 	"10-01": { entity: "Haeyoon", color: "rgb(246,145,125)", group: "Cherry Bullet", year: 1996 },
 	"11-01": { entity: "Lee Chaeyeon", color: "rgb(166,220,222)", group: "IZ*ONE", year: 2000},
-	"13-01": [ {entity: "Mia", color: "rgb(103,5,6)", group: "Everglow", year: 2000}, {entity: "Dreamcatcher", color: "rgb(138,42,43)", isGroup: true, textOverride: "rgb(242,199,99)", borderOverride: "rgb(16,24,32)", year: 2017}, { entity: "Haram", color: "rgb(255,153,204)", group: "Billlie", year: 2001} ],
+	"13-01": [ {entity: "Mia", color: "rgb(103,5,6)", group: "Everglow", year: 2000}, { entity: "Dreamcatcher", color: ["rgb(138,42,43)","rgb(242,199,99)","rgb(16,24,32)"], isGroup: true, year: 2017}, { entity: "Haram", color: "rgb(255,153,204)", group: "Billlie", year: 2001} ],
 	"15-01": [{ entity: "Suhyeon", color: "rgb(63,196,96)", group: "Billlie", year: 2000}, { entity: "Yunah", color: "rgb(255,207,112)", group: "ILLIT", year: 2004 }],
 	"16-01": [{ entity: "Jennie", color: "rgb(204,108,169)", group: "BlackPink", year: 1996}, { entity: "Joobin", color: "rgb(183,245,76)", group: "tripleS", year: 2009 }],
 	"18-01": { entity: "Minzy", color: "rgb(195,108,230)", group: "2NE1", year: 1994 },
 	"21-01": { entity: "Cherry Bullet", color: "rgb(238,43,43)", isGroup: true, year: 2019 },
 	"22-01": { entity: "Lee Seoyeon", color: "rgb(0,83,133)", group: "fromis_9", year: 2000 },
 	"23-01": { entity: "Isa", color: "rgb(0,0,0)", group: "STAYC", year: 2002},
-	"24-01": { entity: "fromis_9", color: "rgb(188,150,187)", textOverride: "rgb(176,238,161)", isGroup: true, year: 2018 },
+	"24-01": { entity: "fromis_9", color: ["rgb(188,150,187)","rgb(176,238,161)"], isGroup: true, year: 2018 },
 	"26-01": { entity: "Somyi", color: "rgb(199,56,164)", group: "DIA", year: 2000 },
 	"28-01": { entity: "Sheon", color: "rgb(255,153,0)", group: "Billlie", year: 2003},
 	"30-01": { entity: "Haruna", color: "rgb(9,151,222)", group: "Billlie", year: 2006},
@@ -643,7 +847,7 @@ idolBdData = {
 	"12-03": [ { entity: "Hikaru", color: "rgb(251,234,140)", group: "Kep1er", year: 2004}, { entity: "Hwang Sihyeon", color: "rgb(4,182,243)", group: "CSR", year: 2005 } ],
 	"13-03": [ { entity: "Bae Sumin", color: "rgb(255,192,203)", group: "STAYC", year: 2001}, { entity: "Chaerin", color: "rgb(93,52,195)", group: "Cherry Bullet", year: 2002 } ],
 	"18-03": { entity: "Everglow", color: "rgb(209,180,203)", isGroup: true, year: 2019},
-	"19-03": [ { entity: "Sakura", color: "rgb(241,210,231)", group: "IZ*ONE", year: 1998}, { entity: "CLC", color: "rgb(132,11,85)", textOverride: "rgb(255,205,0)", borderOverride: "rgb(0,95,97)", isGroup: true, year: 2015 } ],
+	"19-03": [ { entity: "Sakura", color: "rgb(241,210,231)", group: "IZ*ONE", year: 1998}, { entity: "CLC", color: ["rgb(132,11,85)", "rgb(255,205,0)", "rgb(0,95,97)"], isGroup: true, year: 2015 } ],
 	"20-03": { entity: "Park Jiwon", color: "rgb(134,171,17)", group: "fromis_9", year: 1998 },
 	"24-03": [ { entity: "Mina", color: "rgb(111,197,194)", group: "TWICE", year: 1997}, { entity: "Bom", color: "rgb(118,212,174)", group: "2NE1", year: 1984 } ],
 	"25-03": { entity: "ILLIT", color: "rgb(220,180,251)", isGroup: true, year: 2024 },
@@ -666,7 +870,7 @@ idolBdData = {
 	"26-04": [ { entity: "Chaehyun", color: "rgb(255,183,206)", group: "Kep1er", year: 2002}, { entity: "Remi", color: "rgb(179,249,107)", group: "Cherry Bullet", year: 2001 } ],
 	"27-04": { entity: "Fei", color: "rgb(153,87,167)", group: "Miss A", year: 1987 },
 	"28-04": { entity: "Duna", color: "rgb(229,111,182)", group: "CSR", year: 2005 },
-	"02-05": [{ entity: "(G)I-DLE", color: "rgb(88,14,139)", borderOverride: "rgb(232,0,55)", isGroup: true, year: 2018 }, { entity: "Kim Chaewon", color: "rgb(199,163,224)", group: "tripleS", year: 2007 }],
+	"02-05": [{ entity: "(G)I-DLE", color: ["rgb(88,14,139)", "rgb(232,0,55)"], isGroup: true, year: 2018 }, { entity: "Kim Chaewon", color: "rgb(199,163,224)", group: "tripleS", year: 2007 }],
 	"05-05": { entity: "Lee Naeun", color: "rgb(186,76,129)", group: "APRIL", year: 1999 },
 	"06-05": { entity: "2NE1", color: "rgb(255,0,127)", isGroup: true, year: 2009 },
 	"07-05": { entity: "Minji", color: "rgb(255,248,31)", group: "NewJeans", year: 2004},
@@ -716,7 +920,7 @@ idolBdData = {
 	"08-08": { entity: "BlackPink", color: "rgb(255,207,228)", isGroup: true, year: 2016},
 	"09-08": { entity: "Lara", color: "rgb(145,86,255)", group: "DreamNote", year: 2000 },
 	"10-08": [ { entity: "SuA", color: "rgb(255,0,0)", group: "Dreamcatcher", year: 1994 }, { entity: "Yeeun", color: "rgb(194,0,130)", group: "CLC", year: 1998 } ],
-	"12-08": { entity: "Choi Yujin", color: "rgb(249,123,144)", borderOverride: "rgb(247,127,14)", group: "CLC/Kep1er", year: 1996},
+	"12-08": { entity: "Choi Yujin", color: ["rgb(249,123,144)", "rgb(247,127,14)"], group: "CLC/Kep1er", year: 1996},
 	"13-08": [ { entity: "EJ", color: "rgb(255,170,66)", group: "ALICE", year: 1997}, { entity: "Bomi", color: "rgb(188,169,203)", group: "Apink", year: 1993 } ],
 	"18-08": [ { entity: "Eunji", color: "rgb(230,171,71)", group: "Apink", year: 1993 }, { entity: "HaSeul", color: "rgb(0,191,0)", group: "LOONA", year: 1997} ],
 	"19-08": { entity: "LOONA", color: "rgb(255,0,127)", isGroup: true, year: 2018},
@@ -724,8 +928,8 @@ idolBdData = {
 	"24-08": { entity: "APRIL", color: placeholderColor, isGroup: true, year: 2015 },
 	"26-08": [ { entity: "Soyeon", color: "rgb(245,176,190)", group: "(G)I-DLE", year: 1998 }, { entity: "Chaejeong", color: "rgb(94,247,140)", group: "ALICE", year: 1999} ],
 	"28-08": { entity: "Rachel", color: "rgb(84,143,247)", group: "APRIL", year: 2000 },
-	"31-08": [ { entity: "Wonyoung", color: "rgb(255,0,30)", borderOverride: "rgb(217,89,140)", group: "IZ*ONE/IVE", year: 2004}, { entity: "Eunjin", color: "rgb(255,79,27)", group: "DIA", year: 1997 } ],
-	"01-09": { entity: "An Yujin", color: "rgb(255,57,154)", borderOverride: "rgb(86,122,206)", group: "IZ*ONE/IVE", year: 2003},
+	"31-08": [ { entity: "Wonyoung", color: ["rgb(255,0,30)", "rgb(217,89,140)"], group: "IZ*ONE/IVE", year: 2004}, { entity: "Eunjin", color: "rgb(255,79,27)", group: "DIA", year: 1997 } ],
+	"01-09": { entity: "An Yujin", color: ["rgb(255,57,154)", "rgb(86,122,206)"], group: "IZ*ONE/IVE", year: 2003},
 	"02-09": { entity: "Eunice", color: "rgb(237,157,37)", group: "DIA", year: 1991 },
 	"03-09": { entity: "Joy", color: "rgb(0,223,23)", group: "Red Velvet", year: 1996},
 	"04-09": { entity: "Huh Jiwon", color: "rgb(234,61,165)", group: "Cherry Bullet", year: 2000 },
@@ -748,7 +952,7 @@ idolBdData = {
 	"13-10": [{ entity: "HanByeol", color: "rgb(255,238,86)", group: "DreamNote", year: 2003 }, { entity: "Nakyoung", color: "rgb(101,153,164)", group: "tripleS", year: 2002 }, { entity: "Sohyun", color: "rgb(20,35,180)", group: "tripleS", year: 2002 }],
 	"15-10": { entity: "Yeonje", color: "rgb(255,227,3)", group: "ALICE", year: 1999 },
 	"19-10": { entity: "HeeJin", color: "rgb(255,0,143)", group: "LOONA", year: 2000},
-	"20-10": [ { entity: "Chuu", color: "rgb(246,144,126)", group: "LOONA", year: 1999}, {entity: "TWICE", color: "rgb(248,197,150)", isGroup: true, textOverride: "rgb(252,93,157)", year: 2015} ],
+	"20-10": [ { entity: "Chuu", color: "rgb(246,144,126)", group: "LOONA", year: 1999}, {entity: "TWICE", color: ["rgb(248,197,150)","rgb(252,93,157)"], isGroup: true, year: 2015} ],
 	"22-10": { entity: "Jo Yuri", color: "rgb(243,170,81)", group: "IZ*ONE", year: 2001},
 	"23-10": [ { entity: "Minnie", color: "rgb(155,203,235)", group: "(G)I-DLE", year: 1997 }, { entity: "Ningning", color: "rgb(238,23,43)", group: "aespa", year: 2002} ],
 	"24-10": { entity: "Jiwoo", color: "rgb(255,248,1)", group: "tripleS", year: 2005 },
@@ -760,16 +964,16 @@ idolBdData = {
 	"03-11": { entity: "Belle", color: "rgb(0,195,26)", group: "cignature", year: 2001 },
 	"05-11": { entity: "Lee Yukyung", color: "rgb(55,253,252)", group: "ALICE", year: 1999},
 	"06-11": { entity: "Seungyeon", color: "rgb(199,3,30)", group: "CLC", year: 1996 },
-	"07-11": { entity: "DreamNote", color: "rgb(0,176,164)", textOverride: "rgb(255,205,5)", isGroup: true, year: 2018 },
+	"07-11": { entity: "DreamNote", color: ["rgb(0,176,164)", "rgb(255,205,5)"], isGroup: true, year: 2018 },
 	"08-11": { entity: "Kim Chaewon", color: "rgb(255,255,122)", group: "APRIL", year: 1997 },
 	"09-11": { entity: "Momo", color: "rgb(248,207,215)", group: "TWICE", year: 1996 },
-	"10-11": { entity: "Billlie", color: "rgb(148,180,229)", borderOverride: "rgb(197,180,225)", isGroup: true, year: 2021},
+	"10-11": { entity: "Billlie", color: ["rgb(148,180,229)", "rgb(197,180,225)"], isGroup: true, year: 2021},
 	"11-11": { entity: "YeoJin", color: "rgb(244,111,31)", group: "LOONA", year: 2002},
 	"12-11": [ { entity: "Xiaoting", color:"rgb(195,142,199)", group: "Kep1er", year: 1999 }, { entity: "Dara", color:"rgb(244,135,105)", group: "2NE1", year: 1984 }, { entity: "STAYC", color: "rgb(0,0,0)", isGroup: true, year: 2020 } ],
 	"13-11": { entity: "Hyeju", color: "rgb(143,143,143)", group: "LOONA", year: 2001},
 	"15-11": { entity: "HyunJin", color: "rgb(255,234,0)", group: "LOONA", year: 2000},
 	"16-11": { entity: "May", color: "rgb(252,80,80)", group: "Cherry Bullet", year: 2004 },
-	"17-11": { entity: "aespa", color: "rgb(174,95,160)", borderOverride: "rgb(13,213,173)", isGroup: true, year: 2020},
+	"17-11": { entity: "aespa", color: ["rgb(174,95,160)", "rgb(13,213,173)"], isGroup: true, year: 2020},
 	"18-11": { entity: "Sorn", color: "rgb(0,144,199)", group: "CLC", year: 1996},
 	"19-11": { entity: "Go Won", color: "rgb(48,225,146)", group: "LOONA", year: 2000},
 	"21-11": { entity: "Liz", color: "rgb(0,195,245)", group: "IVE", year: 2004},
@@ -785,7 +989,7 @@ idolBdData = {
 	"27-12": [ { entity: "Youngeun", color: "rgb(147,197,114)", group: "Kep1er", year: 2004}, { entity: "Gyuri", color: "rgb(33,150,254)", group: "fromis_9", year: 1997 } ],
 	"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE", year: 1996 }, {entity: "Yiren", color: "rgb(255,255,255)", group: "Everglow", year: 2000} ],
 	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE", year: 1999}/*,
-	"08-06": { entity: "Test", color: "rgb(0,0,0)", borderOverride: "rgb(255,0,255)", textOverride: "rgb(255,0,255)", group: "Debuggers", year: 1970 },
+	"08-06": { entity: "Test", color: ["rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)"], textOverride: "rgb(255,0,255)", group: "Debuggers", year: 1970 },
 	"01-13": { entity: "Mary Sue", color: "rgb(191,159,127)", group: null, year: 1543}*/ //Test
 };
 
@@ -822,7 +1026,7 @@ hinataAddendum = { //not falling for thst f***ing reload button again, not wasti
 	"28-09": { entity: "Hamagishi Hiyori", color: placeholderColor, group: "Hinatazaka46", year: 2002 },
 	"03-10": { entity: "Konishi Nanami", color: placeholderColor, group: "Hinatazaka46", year: 2004 },
 	"02-11": { entity: "Takamoto Ayaka", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
-	"10-11": { entity: "Iguchi Mao", color: placeholderColor, group: "Hinatazaka46", year: 1995 },
+	"10-11": { entity: "Iguchi Mao", color: [sc.red,sc.orange], group: "Hinatazaka46", year: 1995 },
 	"02-12": { entity: "Kakizaki Memi", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
 	"17-12": { entity: "Sasaki Mirei", color: placeholderColor, group: "Hinatazaka46", year: 1999 },
 	"26-12": { entity: "Ushio Sarina", color: placeholderColor, group: "Hinatazaka46", year: 1997 },
@@ -929,7 +1133,8 @@ window.onload = function() {
 	var kst = idolBdData[getKstDayMonth()] ?? [];
 	kst.forEach(function(x) { x.dateModality ??= "kst"; if(x.dateModality == "local") { x.dateModality = "both" } });
 	if(local.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
-	if(kst.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) }
+	if(kst.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) };
+	var incrementAllYears = (urlParams.get("fakeDateUnix") == "chaos");
 	if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas); currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
 	currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
 	console.log(`${currentBirthdayDatas.length} bdays`);
@@ -940,7 +1145,7 @@ window.onload = function() {
 		data.year ??= null;
 		var age = null;
 		if(data.year !== null) {
-			age = currentYear - data.year;
+			age = (currentYear - data.year) + incrementAllYears;
 		};
 		var typeName;
 		if(data.isGroup) {
@@ -996,17 +1201,39 @@ window.onload = function() {
 
 			var color = data.color;
 
-			var colorValues = color.match(/\d+/g).map(x => parseInt(x));
+			var colorValues;
+
+			if(Array.isArray(color)) {
+				var rgbEnsuredColors = color.map(x => rgbHexCatcher(x));
+				var averagedColor = averageRgbPrefixedColorArray(rgbEnsuredColors);
+				colorValues = averagedColor.match(/\d+/g).map(x => parseInt(x));
+			} else {
+				colorValues = color.match(/\d+/g).map(x => parseInt(x));
+			};
 
 			var bgLum = getLuminance(...colorValues);
 
 			var age = null;
 
-			if(data.year !== null) { age = currentYear - data.year };
+			if(data.year !== null) { age = (currentYear - data.year) + incrementAllYears };
 
-			coloredName.style["background-color"] = color; //color the background because writing a person's name in red is a no-no in korea
+			if(Array.isArray(color)) {
+				coloredName.style["background"] = hardColorChangeLinearGradientCssGenerator(color);
+			} else {
+				coloredName.style["background-color"] = color; //color the background because writing a person's name in red is a no-no in korea
+			};
 
-			coloredName.style.color = bgLum > 159 ? "black" : "white"
+			if(bgLum > 159) {
+				coloredName.style.color = "black";
+				if(Array.isArray(color)) {
+					coloredName.classList.add("white-outline")
+				}
+			} else {
+				coloredName.style.color = "white";
+				if(Array.isArray(color)) {
+					coloredName.classList.add("black-outline")
+				};
+			}
 
 			if(data.textOverride) { coloredName.style.color = data.textOverride };
 
@@ -1073,6 +1300,14 @@ window.onload = function() {
 			@keyframes fade-in {
 			  from { opacity: 0 }
 			  to { opacity: 1 }
+			}
+			
+			.black-outline {
+				text-shadow: 0px -1px 1px black, 1px -1px 1px black, 1px 0px 1px black, 1px 1px 1px black, 0px 1px 1px black, -1px 1px 1px black, -1px 0px 1px black, -1px -1px 1px black
+			}
+
+			.white-outline {
+				text-shadow: 0px -1px 1px white, 1px -1px 1px white, 1px 0px 1px white, 1px 1px 1px white, 0px 1px 1px white, -1px 1px 1px white, -1px 0px 1px white, -1px -1px 1px white
 			}
 
 			@keyframes blink {
@@ -1156,8 +1391,8 @@ window.onload = function() {
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" style="display: block; font-size:130%;" direction="right" scrolldelay="60" behavior="alternate" id="headerMarquee">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop* :3</span></marquee>
-			<small style="font-size: 50%">* and also Hinatazaka46</small>
+			<marquee class="ot12" style="display: block; font-size:130%; line-height: 80%;" direction="right" scrolldelay="60" behavior="alternate" id="headerMarquee">helo this is my github page <span title="second rebirth" onclick="secondLevelRebirth()">i really love loona and kpop* :3<br/>
+			<small style="font-size: 50%">* and also Hinatazaka46</small></span></marquee>
 		</div>
 		
 		<div id="main">
