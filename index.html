@@ -557,12 +557,23 @@ function secondsSinceLoona(formatString=false) {
 };
 
 function updateLoonaTime() {
-	var text = document.getElementById("loonaTime");
-	if(!text) {
-		return false
+	var textSeconds = document.getElementById("loonaTimeS");
+	var textDays = document.getElementById("loonaTimeD");
+	var textWeeks = document.getElementById("loonaTimeW");
+	var valueS = secondsSinceLoona();
+	var valueD = valueS / 86400;
+	var valueW = valueD / 7;
+	valueD = Math.round(valueD * 1000) / 1000;
+	valueW = Math.round(valueW * 1000) / 1000;
+	if(textSeconds) {
+		textSeconds.innerText = valueS.toLocaleString('en-US')
 	};
-	var value = secondsSinceLoona();
-	text.innerText = value.toLocaleString('en-US')
+	if(textDays) {
+		textDays.innerText = valueD.toLocaleString('en-US')
+	};
+	if(textWeeks) {
+		textWeeks.innerText = valueW.toLocaleString('en-US')
+	};
 };
 
 var placeholderColor = "rgb(230,230,230)";
@@ -749,7 +760,7 @@ function addTwoNumbers(number1,number2) { //reducer
 	return number1 + number2
 }
 
-var simpleColors = {
+var simpleColors = { //Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
 	red: "400",
 	green: "030",
 	white: "444",
@@ -760,7 +771,8 @@ var simpleColors = {
 	purple: "204",
 	black: "000",
 	orange: "420",
-	lime: "140"
+	lime: "140",
+	magenta: "404"
 };
 
 for(var key in simpleColors) {
@@ -770,6 +782,25 @@ for(var key in simpleColors) {
 };
 
 var sc = simpleColors;
+
+var hinataColors = { //https://anosaka.com/hinatazaka46-glow-stick-color-list
+	purple: "rgb(179,132,255)",
+	yellow: "rgb(255,217,0)",
+	blue: "rgb(0,149,217)",
+	//white: "rgb(255,255,255)",
+	pastelBlue: "rgb(73,189,240)",
+	sakuraPink: "rgb(255,192,203)",
+	emeraldGreen: "rgb(0,164,116)",
+	violet: "rgb(90,68,152)",
+	orange: "rgb(255,165,0)",
+	pearlGreen: "rgb(180,221,192)",
+	red: "rgb(230,0,51)",
+	green: "rgb(62,179,112)",
+	turquoise: "rgb(64,224,208)",
+	skyBlue: "rgb(160,216,239)"
+};
+
+var hc = hinataColors;
 
 idolBdData = {
 	//Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
@@ -799,7 +830,7 @@ idolBdData = {
 	//Mamamoo and Itzy bdays from HallyuIdol
 	//Mamamoo colors picked from 4season album arts ref. Mamamoo Wiki
 	//Hinata46 members and birthdays from Stage48 Wiki and Wikipedia, group color picked from logo
-	//Not doing Hinata46 lightstick (glowstick?) colors (or color combinations?) on mobile
+	//Most Hinata46 colors taken from  https://anosaka.com/hinatazaka46-glow-stick-color-list with some from https://hallyuplus.net/threads/the-official-nogizaka46-%E4%B9%83%E6%9C%A8%E5%9D%8246-sakurazaka46-%E6%AB%BB%E5%9D%8246-hinatazaka46-%E6%97%A5%E5%90%91%E5%9D%8246-thread.516/page-159 (with the former arbitrarily taking precedence)
 	//Most birth years and debut dates taken from K-pop data GitHub repositories I already forgot
 	//1 Seoyeon, 2 Hyerin, 3 Jiwoo, 4 Chaeyeon, 5 Yooyeon, 6 Soomin, 7 Nakyoung, 8 Yubin, 9 Kaede, 10 Seo Dahyun, 11 Kotone, 12 Yeonji, 13 Nien, 14 Sohyun, 15 Xinyu, 16 Mayu, 17 Lynn, 18 Joobin, 19 Hayeon, 20 Shion, 21 Kim Chaewon, 22 Sullin, 23 Seoah, 24 Jiyeon
 
@@ -817,24 +848,24 @@ idolBdData = {
 	"18-01": { entity: "Minzy", color: "rgb(195,108,230)", group: "2NE1", year: 1994 },
 	"21-01": { entity: "Cherry Bullet", color: "rgb(238,43,43)", isGroup: true, year: 2019 },
 	"22-01": { entity: "Lee Seoyeon", color: "rgb(0,83,133)", group: "fromis_9", year: 2000 },
-	"23-01": { entity: "Isa", color: "rgb(0,0,0)", group: "STAYC", year: 2002},
+	"23-01": { entity: "Isa", color: sc.black, group: "STAYC", year: 2002},
 	"24-01": { entity: "fromis_9", color: ["rgb(188,150,187)","rgb(176,238,161)"], isGroup: true, year: 2018 },
 	"26-01": { entity: "Somyi", color: "rgb(199,56,164)", group: "DIA", year: 2000 },
 	"28-01": { entity: "Sheon", color: "rgb(255,153,0)", group: "Billlie", year: 2003},
 	"30-01": { entity: "Haruna", color: "rgb(9,151,222)", group: "Billlie", year: 2006},
-	"31-01": { entity: "Miyeon", color: "rgb(0,0,0)", group: "(G)I-DLE", year: 1997 },
+	"31-01": { entity: "Miyeon", color: sc.black, group: "(G)I-DLE", year: 1997 },
 	"01-02": { entity: "Jihyo", color: "rgb(250,200,87)", group: "TWICE", year: 1997},
 	"02-02": { entity: "Do-A", color: "rgb(204,0,255)", group: "ALICE", year: 1999},
 	"03-02": [ {entity: "Gahyeon", color: "rgb(186,9,191)", group: "Dreamcatcher", year: 1999}, {entity: "Rei", color: "rgb(105,195,45)", group: "IVE", year: 2004}, { entity: "cignature", color: "rgb(176,3,9)", isGroup: true, year: 2020 }, { entity: "Yubin", color: "rgb(255,227,226)", group: "tripleS", year: 2005 }, { entity: "Jia", color: "rgb(104,180,126)", group: "Miss A", year: 1989 } ],
 	"04-02": { entity: "Iroha", color: "rgb(71,145,255)", group: "ILLIT", year: 2008 },
-	"05-02": [ { entity: "Kim Minju", color: "rgb(255,255,255)", group: "IZ*ONE", year: 2001}, { entity: "Hyunjoo", color: "rgb(100,190,193)", group: "APRIL", year: 1998 } ],
+	"05-02": [ { entity: "Kim Minju", color: sc.white, group: "IZ*ONE", year: 2001}, { entity: "Hyunjoo", color: "rgb(100,190,193)", group: "APRIL", year: 1998 } ],
 	"07-02": { entity: "Sunn", color: "rgb(255,173,173)", group: "cignature", year: 2000 },
 	"09-02": { entity: "Yooyeon", color: "rgb(219,12,116)", group: "tripleS", year: 2001 },
 	"10-02": [ {entity: "Kim Lip", color: "rgb(234,2,1)", group: "LOONA", year: 1999}, {entity: "Sooyoung", color: "rgb(255,92,205)", group: "Girls' Generation", year: 1990 }, { entity: "Son Naeun", color: "rgb(196,179,107)", group: "Apink", year: 1994 }, { entity: "Seulgi", color: "rgb(255,251,0)", group: "Red Velvet", year: 1994 } ],
 	"11-02": { entity: "Rose'", color: "rgb(0,94,255)", group: "BlackPink", year: 1997}, //The font I'm using here sadly does not support accents (é)
-	"12-02": { entity: "ITZY", color: "rgb(255,0,255)", isGroup: true, year: 2019 },
-	"13-02": [ { entity: "Jiyeon", color: "rgb(255,171,98)", group: "tripleS", year: 2004 }, { entity: "tripleS", color: "rgb(0,0,0)", isGroup: true, year: 2023 } ],
-	"16-02": { entity: "Siyoon", color: "rgb(255,255,0)", group: "Billlie", year: 2005},
+	"12-02": { entity: "ITZY", color: sc.magenta, isGroup: true, year: 2019 },
+	"13-02": [ { entity: "Jiyeon", color: "rgb(255,171,98)", group: "tripleS", year: 2004 }, { entity: "tripleS", color: sc.black, isGroup: true, year: 2023 } ],
+	"16-02": { entity: "Siyoon", color: sc.yellow, group: "Billlie", year: 2005},
 	"21-02": [ { entity: "Leeseo", color: "rgb(255,240,1)", group: "IVE", year: 2007}, { entity: "Wendy", color: "rgb(0,95,255)", group: "Red Velvet", year: 1994}, { entity: "Solar", color: "rgb(41,55,142)", group: "Mamamoo", year: 1991} ],
 	"26-02": { entity: "CL", color: "rgb(226,217,137)", group: "2NE1", year: 1991 },
 	"02-03": { entity: "Dayeon", color: "rgb(100,150,235)", group: "Kep1er", year: 2003},
@@ -851,7 +882,7 @@ idolBdData = {
 	"20-03": { entity: "Park Jiwon", color: "rgb(134,171,17)", group: "fromis_9", year: 1998 },
 	"24-03": [ { entity: "Mina", color: "rgb(111,197,194)", group: "TWICE", year: 1997}, { entity: "Bom", color: "rgb(118,212,174)", group: "2NE1", year: 1984 } ],
 	"25-03": { entity: "ILLIT", color: "rgb(220,180,251)", isGroup: true, year: 2024 },
-	"26-03": [ { entity: "Handong", color: "rgb(0,0,0)", group: "Dreamcatcher", year: 1996}, { entity: "Mirae", color: "rgb(185,74,214)", group: "Cherry Bullet", year: 1998 }, { entity: "An Seoyeon", color: "rgb(246,98,15)", group: "CSR", year: 2005 } ],
+	"26-03": [ { entity: "Handong", color: sc.black, group: "Dreamcatcher", year: 1996}, { entity: "Mirae", color: "rgb(185,74,214)", group: "Cherry Bullet", year: 1998 }, { entity: "An Seoyeon", color: "rgb(246,98,15)", group: "CSR", year: 2005 } ],
 	"27-03": { entity: "Lisa", color: "rgb(255,250,0)", group: "BlackPink", year: 1997},
 	"29-03": { entity: "Irene", color: "rgb(255,127,223)", group: "Red Velvet", year: 1991},
 	"01-04": { entity: "Jeewon", color: "rgb(0,153,148)", group: "cignature", year: 1999 },
@@ -877,15 +908,15 @@ idolBdData = {
 	"11-05": { entity: "Park Minju", color: "rgb(186,69,69)", group: "ILLIT", year: 2004 },
 	"12-05": { entity: "Mayu", color: "rgb(254,142,118)", group: "tripleS", year: 2002 },
 	"14-05": { entity: "Lee Chaeyoung", color: "rgb(35,248,84)", group: "fromis_9", year: 2000 },
-	"15-05": [ {entity: "Sunny", color: "rgb(107,142,35)", group: "Girls' Generation", year: 1989 }, {entity: "Haerin", color: "rgb(255,255,255)", group: "NewJeans", year: 2006} ],
-	"17-05": { entity: "JiU", color: "rgb(255,255,255)", group: "Dreamcatcher", year: 1994},
+	"15-05": [ {entity: "Sunny", color: "rgb(107,142,35)", group: "Girls' Generation", year: 1989 }, {entity: "Haerin", color: sc.white, group: "NewJeans", year: 2006} ],
+	"17-05": { entity: "JiU", color: sc.white, group: "Dreamcatcher", year: 1994},
 	"18-05": { entity: "Onda", color: "rgb(179,4,105)", group: "Everglow", year: 2000},
 	"19-05": { entity: "E:U", color: "rgb(107,86,163)", group: "Everglow", year: 1998},
 	"22-05": { entity: "Yang Yena", color: "rgb(255,178,79)", group: "APRIL", year: 2000 },
 	"24-05": { entity: "Yves", color: "rgb(125,0,30)", group: "LOONA", year: 1997},
 	"25-05": { entity: "Xinyu", color: "rgb(213,19,19)", group: "tripleS", year: 2002 },
 	"26-05": [ { entity: "Eunchae", color: "rgb(40,119,255)", group: "DIA", year: 1999 }, { entity: "Yeji", color: "rgb(63,175,255)", group: "ITZY", year: 2000 } ],
-	"28-05": { entity: "Kim Dahyun", color: "rgb(255,255,255)", group: "TWICE", year: 1998},
+	"28-05": { entity: "Kim Dahyun", color: sc.white, group: "TWICE", year: 1998},
 	"30-05": { entity: "Yoona", color: "rgb(0,105,148)", group: "Girls' Generation", year: 1990 },
 	"01-06": [ { entity: "ALICE", color: "rgb(224,203,244)", isGroup: true, year: 2017}, { entity: "Nagyung", color: "rgb(255,145,102)", group: "fromis_9", year: 2000 } ],
 	"02-06": { entity: "Nien", color: "rgb(255,149,63)", group: "tripleS", year: 2003 },
@@ -910,16 +941,16 @@ idolBdData = {
 	"14-07": { entity: "Chaesol", color: "rgb(100,207,255)", group: "cignature", year: 1998 },
 	"17-04": { entity: "Ryujin", color: "rgb(175,0,255)", group: "ITZY", year: 2001 },
 	"19-07": { entity: "Oh Hayoung", color: "rgb(210,176,160)", group: "Apink", year: 1996 },
-	"21-07": [ { entity: "Aisha", color: "rgb(0,0,0)", group: "Everglow", year: 2000}, { entity: "Lia", color: "rgb(255,0,0)", group: "ITZY", year: 2000 } ],
+	"21-07": [ { entity: "Aisha", color: sc.black, group: "Everglow", year: 2000}, { entity: "Lia", color: sc.red, group: "ITZY", year: 2000 } ],
 	"22-07": { entity: "NewJeans", color: "rgb(64,89,149)", isGroup: true, year: 2022 },
 	"23-07": [ { entity: "Sua", color: "rgb(0,220,220)", group: "CSR", year: 2005 }, { entity: "Hwasa", color: "rgb(245,205,95)", group: "Mamamoo", year: 1995 } ],
 	"27-07": [ { entity: "Huening Bahiyyih", color: "rgb(255,177,109)", group: "Kep1er", year: 2004}, { entity: "CSR", color: "rgb(242,105,37)", isGroup: true, year: 2022 } ],
-	"01-08": [ {entity: "Sieun", color: "rgb(255,255,255)", group: "STAYC", year: 2001}, {entity: "Kim Chaewon", color: "rgb(206,229,213)", group: "IZ*ONE", year: 2000}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation", year: 1989 }, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature", year: 2002 }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true, year: 2014 }, { entity: "Hayeon", color: "rgb(83,217,190)", group: "tripleS", year: 2007 } ],
+	"01-08": [ {entity: "Sieun", color: sc.white, group: "STAYC", year: 2001}, {entity: "Kim Chaewon", color: "rgb(206,229,213)", group: "IZ*ONE", year: 2000}, {entity: "Tiffany", color: "rgb(169,32,62)", group: "Girls' Generation", year: 1989 }, { entity: "Dohee", color: "rgb(175,27,63)", group: "cignature", year: 2002 }, { entity: "Red Velvet", color: "rgb(255,209,194)", isGroup: true, year: 2014 }, { entity: "Hayeon", color: "rgb(83,217,190)", group: "tripleS", year: 2007 } ],
 	"05-08": [ {entity: "Kim Sihyeon", color: "rgb(199,210,167)", group: "Everglow", year: 1999}, {entity: "Girls' Generation", color: "rgb(254,76,128)", isGroup: true, year: 2007} ],
 	"06-08": { entity: "Yoon Seoyeon", color: "rgb(34,174,255)", group: "tripleS", year: 2003 },
 	"08-08": { entity: "BlackPink", color: "rgb(255,207,228)", isGroup: true, year: 2016},
 	"09-08": { entity: "Lara", color: "rgb(145,86,255)", group: "DreamNote", year: 2000 },
-	"10-08": [ { entity: "SuA", color: "rgb(255,0,0)", group: "Dreamcatcher", year: 1994 }, { entity: "Yeeun", color: "rgb(194,0,130)", group: "CLC", year: 1998 } ],
+	"10-08": [ { entity: "SuA", color: sc.red, group: "Dreamcatcher", year: 1994 }, { entity: "Yeeun", color: "rgb(194,0,130)", group: "CLC", year: 1998 } ],
 	"12-08": { entity: "Choi Yujin", color: ["rgb(249,123,144)", "rgb(247,127,14)"], group: "CLC/Kep1er", year: 1996},
 	"13-08": [ { entity: "EJ", color: "rgb(255,170,66)", group: "ALICE", year: 1997}, { entity: "Bomi", color: "rgb(188,169,203)", group: "Apink", year: 1993 } ],
 	"18-08": [ { entity: "Eunji", color: "rgb(230,171,71)", group: "Apink", year: 1993 }, { entity: "HaSeul", color: "rgb(0,191,0)", group: "LOONA", year: 1997} ],
@@ -933,7 +964,7 @@ idolBdData = {
 	"02-09": { entity: "Eunice", color: "rgb(237,157,37)", group: "DIA", year: 1991 },
 	"03-09": { entity: "Joy", color: "rgb(0,223,23)", group: "Red Velvet", year: 1996},
 	"04-09": { entity: "Huh Jiwon", color: "rgb(234,61,165)", group: "Cherry Bullet", year: 2000 },
-	"07-09": { entity: "Park Sumin", color: "rgb(255,0,255)", group: "DreamNote", year: 2001 },
+	"07-09": { entity: "Park Sumin", color: sc.magenta, group: "DreamNote", year: 2001 },
 	"09-09": { entity: "Moon Sua", color: "rgb(204,153,255)", group: "Billlie", year: 1999},
 	"14-09": [ { entity: "Jenny", color: "rgb(0,171,219)", group: "DIA", year: 1996 }, { entity: "DIA", color: "rgb(0,171,219)", isGroup: true, year: 2015} ],
 	"21-09": { entity: "Tsuki", color: "rgb(255,153,161)", group: "Billlie", year: 2002},
@@ -952,7 +983,7 @@ idolBdData = {
 	"13-10": [{ entity: "HanByeol", color: "rgb(255,238,86)", group: "DreamNote", year: 2003 }, { entity: "Nakyoung", color: "rgb(101,153,164)", group: "tripleS", year: 2002 }, { entity: "Sohyun", color: "rgb(20,35,180)", group: "tripleS", year: 2002 }],
 	"15-10": { entity: "Yeonje", color: "rgb(255,227,3)", group: "ALICE", year: 1999 },
 	"19-10": { entity: "HeeJin", color: "rgb(255,0,143)", group: "LOONA", year: 2000},
-	"20-10": [ { entity: "Chuu", color: "rgb(246,144,126)", group: "LOONA", year: 1999}, {entity: "TWICE", color: ["rgb(248,197,150)","rgb(252,93,157)"], isGroup: true, year: 2015} ],
+	"20-10": [ { entity: "Chuu", color: "rgb(255,191,127)", group: "LOONA", year: 1999}, {entity: "TWICE", color: ["rgb(248,197,150)","rgb(252,93,157)"], isGroup: true, year: 2015} ],
 	"22-10": { entity: "Jo Yuri", color: "rgb(243,170,81)", group: "IZ*ONE", year: 2001},
 	"23-10": [ { entity: "Minnie", color: "rgb(155,203,235)", group: "(G)I-DLE", year: 1997 }, { entity: "Ningning", color: "rgb(238,23,43)", group: "aespa", year: 2002} ],
 	"24-10": { entity: "Jiwoo", color: "rgb(255,248,1)", group: "tripleS", year: 2005 },
@@ -969,7 +1000,7 @@ idolBdData = {
 	"09-11": { entity: "Momo", color: "rgb(248,207,215)", group: "TWICE", year: 1996 },
 	"10-11": { entity: "Billlie", color: ["rgb(148,180,229)", "rgb(197,180,225)"], isGroup: true, year: 2021},
 	"11-11": { entity: "YeoJin", color: "rgb(244,111,31)", group: "LOONA", year: 2002},
-	"12-11": [ { entity: "Xiaoting", color:"rgb(195,142,199)", group: "Kep1er", year: 1999 }, { entity: "Dara", color:"rgb(244,135,105)", group: "2NE1", year: 1984 }, { entity: "STAYC", color: "rgb(0,0,0)", isGroup: true, year: 2020 } ],
+	"12-11": [ { entity: "Xiaoting", color:"rgb(195,142,199)", group: "Kep1er", year: 1999 }, { entity: "Dara", color:"rgb(244,135,105)", group: "2NE1", year: 1984 }, { entity: "STAYC", color: sc.black, isGroup: true, year: 2020 } ],
 	"13-11": { entity: "Hyeju", color: "rgb(143,143,143)", group: "LOONA", year: 2001},
 	"15-11": { entity: "HyunJin", color: "rgb(255,234,0)", group: "LOONA", year: 2000},
 	"16-11": { entity: "May", color: "rgb(252,80,80)", group: "Cherry Bullet", year: 2004 },
@@ -982,55 +1013,56 @@ idolBdData = {
 	"01-12": [ { entity: "IVE", color: "rgb(241,241,241)", isGroup: true, year: 2021}, { entity: "Jung Chaeyeon", color: "rgb(0,160,21)", group: "DIA", year: 1997} ],
 	"04-12": [ { entity: "Jinsol", color: "rgb(205,121,206)", group: "APRIL", year: 2001 }, { entity: "Chaeyeon", color: "rgb(141,191,65)", group: "tripleS", year: 2004 }],
 	"05-12": { entity: "Kwon Yuri", color: "rgb(0,51,102)", group: "Girls' Generation", year: 1989 },
-	"09-12": [ {entity: "ViVi", color: "rgb(255,152,180)", group: "LOONA", year: 1996}, {entity: "J", color: "rgb(255,0,0)", group: "STAYC", year: 2004}, { entity: "Yuna", color: "rgb(255,255,0)", group: "ITZY", year: 2003 } ],
+	"09-12": [ {entity: "ViVi", color: "rgb(255,152,180)", group: "LOONA", year: 1996}, {entity: "J", color: sc.red, group: "STAYC", year: 2004}, { entity: "Yuna", color: sc.yellow, group: "ITZY", year: 2003 } ],
 	"16-12": { entity: "Mashiro", color: "rgb(253,238,244)", group: "Kep1er", year: 1999}, //mashiro soon to be in limelight :(
 	"20-12": { entity: "Kaede", color: "rgb(255,201,53)", group: "tripleS", year: 2005 },
 	"22-12": { entity: "Moonbyul", color: "rgb(181,38,36)", group: "Mamamoo", year: 1992 },
 	"27-12": [ { entity: "Youngeun", color: "rgb(147,197,114)", group: "Kep1er", year: 2004}, { entity: "Gyuri", color: "rgb(33,150,254)", group: "fromis_9", year: 1997 } ],
-	"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE", year: 1996 }, {entity: "Yiren", color: "rgb(255,255,255)", group: "Everglow", year: 2000} ],
-	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE", year: 1999}/*,
+	"29-12": [ { entity: "Sana", color: "rgb(156,158,207)", group: "TWICE", year: 1996 }, {entity: "Yiren", color: sc.white, group: "Everglow", year: 2000} ],
+	"31-12": { entity: "Sohee", color: "rgb(246,110,186)", group: "ALICE", year: 1999}/*, //Test cases
 	"08-06": { entity: "Test", color: ["rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)"], textOverride: "rgb(255,0,255)", group: "Debuggers", year: 1970 },
+	"03-07": { entity: "France", isGroup: true, color: ["rgb(0,35,149)","rgb(255,255,255)","rgb(237,41,57)"], year: 987 },
 	"01-13": { entity: "Mary Sue", color: "rgb(191,159,127)", group: null, year: 1543}*/ //Test
 };
 
 hinataAddendum = { //not falling for thst f***ing reload button again, not wasting time inserting them manually, idgaf about spaghetti code rn, let JavaScript insert them
-	"15-01": { entity: "Shimizu Rio", color: placeholderColor, group: "Hinatazaka46", year: 2005 },
-	"18-01": { entity: "Tomita Suzuka", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
-	"22-01": { entity: "Sasaki Kumi", color: placeholderColor, group: "Hinatazaka46", year: 1996 },
-	"02-02": { entity: "Kato Shiho", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
-	"07-02": { entity: "Watanabe Rina", color: placeholderColor, group: "Hinatazaka46", year: 2009 },
-	"14-02": { entity: "Shogenji Yoko", color: placeholderColor, group: "Hinatazaka46", year: 2007 },
-	"15-02": { entity: "Nibu Akari", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
-	"20-02": { entity: "Takeuchi Kirari", color: placeholderColor, group: "Hinatazaka46", year: 2006 },
-	"23-02": [ { entity: "Morimoto Marie", color: placeholderColor, group: "Hinatazaka46", year: 2004 }, { entity: "Yamaguchi Haruyo", color: placeholderColor, group: "Hinatazaka46", year: 2004 } ],
+	"15-01": { entity: "Shimizu Rio", color: [hc.pearlGreen,hc.orange], group: "Hinatazaka46", year: 2005 },
+	"18-01": { entity: "Tomita Suzuka", color: hc.purple, group: "Hinatazaka46", year: 2001 },
+	"22-01": { entity: "Sasaki Kumi", color: [hc.pastelBlue,hc.purple], group: "Hinatazaka46", year: 1996 },
+	"02-02": { entity: "Kato Shiho", color: hc.blue, group: "Hinatazaka46", year: 1998 },
+	"07-02": { entity: "Watanabe Rina", color: [hc.purple,hc.sakuraPink], group: "Hinatazaka46", year: 2009 },
+	"14-02": { entity: "Shogenji Yoko", color: [hc.orange,hc.red], group: "Hinatazaka46", year: 2007 },
+	"15-02": { entity: "Nibu Akari", color: hc.orange, group: "Hinatazaka46", year: 2001 },
+	"20-02": { entity: "Takeuchi Kirari", color: [hc.yellow,hc.red], group: "Hinatazaka46", year: 2006 },
+	"23-02": [ { entity: "Morimoto Marie", color: [hc.orange,hc.blue], group: "Hinatazaka46", year: 2004 }, { entity: "Yamaguchi Haruyo", color: [hc.pearlGreen,hc.yellow], group: "Hinatazaka46", year: 2004 } ],
 	"24-02": { entity: "Watanabe Miho", color: placeholderColor, group: "Hinatazaka46", year: 2000 },
-	"09-04": { entity: "Hiraoka Mitsuki", color: placeholderColor, group: "Hinatazaka46", year: 2002 },
-	"12-04": { entity: "Kamimura Hinano", color: placeholderColor, group: "Hinatazaka46", year: 2004 },
-	"27-04": { entity: "Matsuda Konoka", color: placeholderColor, group: "Hinatazaka46", year: 1999 },
-	"28-04": { entity: "Miyata Manamo", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
-	"08-05": { entity: "Kageyama Yuka", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
-	"20-05": { entity: "Yamashita Haruka", color: placeholderColor, group: "Hinatazaka46", year: 2003 },
-	"23-07": { entity: "Kawata Hina", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
-	"31-07": { entity: "Hirao Honoka", color: placeholderColor, group: "Hinatazaka46", year: 2003 },
-	"06-08": { entity: "Ishizuka Tamaki", color: placeholderColor, group: "Hinatazaka46", year: 2004 },
-	"07-08": { entity: "Fujishima Kaho", color: placeholderColor, group: "Hinatazaka46", year: 2006 },
+	"09-04": { entity: "Hiraoka Mitsuki", color: [hc.blue,hc.yellow], group: "Hinatazaka46", year: 2002 },
+	"12-04": { entity: "Kamimura Hinano", color: [hc.red,hc.emeraldGreen], group: "Hinatazaka46", year: 2004 },
+	"27-04": { entity: "Matsuda Konoka", color: [hc.sakuraPink,hc.pearlGreen], group: "Hinatazaka46", year: 1999 },
+	"28-04": { entity: "Miyata Manamo", color: [hc.red,hc.sakuraPink], group: "Hinatazaka46", year: 1998 },
+	"08-05": { entity: "Kageyama Yuka", color: hc.red, group: "Hinatazaka46", year: 2001 },
+	"20-05": { entity: "Yamashita Haruka", color: [sc.white,hc.emeraldGreen], group: "Hinatazaka46", year: 2003 },
+	"23-07": { entity: "Kawata Hina", color: [hc.sakuraPink,hc.yellow], group: "Hinatazaka46", year: 2001 },
+	"31-07": { entity: "Hirao Honoka", color: [hc.pastelBlue,hc.orange], group: "Hinatazaka46", year: 2003 },
+	"06-08": { entity: "Ishizuka Tamaki", color: [hc.sakuraPink,hc.orange], group: "Hinatazaka46", year: 2004 },
+	"07-08": { entity: "Fujishima Kaho", color: [hc.sakuraPink,hc.blue], group: "Hinatazaka46", year: 2006 },
 	"10-08": { entity: "Hinatazaka46", color: "rgb(142,196,230)", isGroup: true, year: 2016 },
 	"15-08": { entity: "Kishi Honoka", color: placeholderColor, group: "Hinatazaka46", year: 2004 },
-	"23-08": { entity: "Higashimura Mei", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
+	"23-08": { entity: "Higashimura Mei", color: hc.sakuraPink, group: "Hinatazaka46", year: 1998 },
 	"04-09": { entity: "Neru Nagahama", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
-	"05-09": { entity: "Saito Kyoko", color: placeholderColor, group: "Hinatazaka46", year: 1997 },
-	"07-09": { entity: "Kosaka Nao", color: placeholderColor, group: "Hinatazaka46", year: 2002 },
-	"10-09": { entity: "Kanemura Miku", color: placeholderColor, group: "Hinatazaka46", year: 2002 },
-	"20-09": { entity: "Takase Mana", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
+	"05-09": { entity: "Saito Kyoko", color: sc.white, group: "Hinatazaka46", year: 1997 },
+	"07-09": { entity: "Kosaka Nao", color: [hc.violet,sc.white], group: "Hinatazaka46", year: 2002 },
+	"10-09": { entity: "Kanemura Miku", color: [hc.yellow,hc.pastelBlue], group: "Hinatazaka46", year: 2002 },
+	"20-09": { entity: "Takase Mana", color: [hc.sakuraPink,sc.white], group: "Hinatazaka46", year: 1998 },
 	"27-09": { entity: "Takahashi Mikuni", color: placeholderColor, group: "Hinatazaka46", year: 2003 },
-	"28-09": { entity: "Hamagishi Hiyori", color: placeholderColor, group: "Hinatazaka46", year: 2002 },
-	"03-10": { entity: "Konishi Nanami", color: placeholderColor, group: "Hinatazaka46", year: 2004 },
-	"02-11": { entity: "Takamoto Ayaka", color: placeholderColor, group: "Hinatazaka46", year: 1998 },
-	"10-11": { entity: "Iguchi Mao", color: [sc.red,sc.orange], group: "Hinatazaka46", year: 1995 },
+	"28-09": { entity: "Hamagishi Hiyori", color: [hc.orange,sc.white], group: "Hinatazaka46", year: 2002 },
+	"03-10": { entity: "Konishi Nanami", color: [hc.purple,hc.blue], group: "Hinatazaka46", year: 2004 },
+	"02-11": { entity: "Takamoto Ayaka", color: [hc.emeraldGreen,sc.white], group: "Hinatazaka46", year: 1998 },
+	"10-11": { entity: "Iguchi Mao", color: [hc.red,hc.orange], group: "Hinatazaka46", year: 1995 },
 	"02-12": { entity: "Kakizaki Memi", color: placeholderColor, group: "Hinatazaka46", year: 2001 },
-	"17-12": { entity: "Sasaki Mirei", color: placeholderColor, group: "Hinatazaka46", year: 1999 },
-	"26-12": { entity: "Ushio Sarina", color: placeholderColor, group: "Hinatazaka46", year: 1997 },
-	"31-12": { entity: "Miyachi Sumire", color: placeholderColor, group: "Hinatazaka46", year: 2005 }
+	"17-12": { entity: "Sasaki Mirei", color: hc.yellow, group: "Hinatazaka46", year: 1999 },
+	"26-12": { entity: "Ushio Sarina", color: [hc.purple,hc.yellow], group: "Hinatazaka46", year: 1997 },
+	"31-12": { entity: "Miyachi Sumire", color: [hc.violet,hc.red], group: "Hinatazaka46", year: 2005 }
 };
 
 for(var date in hinataAddendum) {
@@ -1050,14 +1082,22 @@ for(var date in idolBdData) {
 	if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
 };
 
+currentDate = new Date()
+
+fakeDate = parseInt(urlParams.get("fakeDateUnix"));
+if(isNaN(fakeDate)) {
+	fakeDate = null
+} else {
+	fakeDate = new Date(fakeDate)
+};
+
 function getLocalDayMonth() {
-	var fd = parseInt(urlParams.get("fakeDateUnix"));
-	return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB").replace("/","-").substring(0,5);
+	return (fakeDate ?? currentDate).toLocaleString("en-GB").replace("/","-").substring(0,5);
 };
 
 function getKstDayMonth() {
 	var fd = parseInt(urlParams.get("fakeDateUnix"));
-	return (!(isNaN(fd)) ? new Date(fd) : new Date()).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
+	return (fakeDate ?? currentDate).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
 };
 
 function getLuminance(R,G,B) {
@@ -1126,8 +1166,8 @@ window.onload = function() {
 
 	/*handle birthdays*/
 	var currentBirthdayDatas = [];
-	var currentDateObject = new Date();
-	var currentYear = currentDateObject.getFullYear();
+	var currentDateObject = fakeDate ?? currentDate; //this enables the age to be negative which is funnier
+	var currentYear =  currentDateObject.getFullYear();
 	var local = idolBdData[getLocalDayMonth()] ?? [];
 	local.forEach(function(x) { x.dateModality ??= "local"; if(x.dateModality == "kst") { x.dateModality = "both" } });
 	var kst = idolBdData[getKstDayMonth()] ?? [];
@@ -1160,7 +1200,7 @@ window.onload = function() {
 		textString = `Happy `;
 
 		if(age !== null) {
-			textString += `${age.toString()}${englishOrdinalPrefix(age)} `
+			textString += `${age.toLocaleString()}${englishOrdinalPrefix(age)} `
 		};
 
 		textString += `${typeName} to ${data.entity}`;
@@ -1204,7 +1244,13 @@ window.onload = function() {
 			var colorValues;
 
 			if(Array.isArray(color)) {
-				var rgbEnsuredColors = color.map(x => rgbHexCatcher(x));
+				try {
+					var rgbEnsuredColors = color.map(x => rgbHexCatcher(x));
+				} catch(error) {
+					console.error("Error in an entity:");
+					console.error(data);
+					throw error
+				};
 				var averagedColor = averageRgbPrefixedColorArray(rgbEnsuredColors);
 				colorValues = averagedColor.match(/\d+/g).map(x => parseInt(x));
 			} else {
@@ -1239,7 +1285,7 @@ window.onload = function() {
 
 			if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
 
-			if(age !== null) { resultText += `${age.toString()}${englishOrdinalPrefix(age)} `};
+			if(age !== null) { resultText += `${age.toLocaleString()}${englishOrdinalPrefix(age)} `};
 
 			resultText += `${typeName} ${preposition} ${data.entity.replaceAll(" ",String.fromCharCode(0xa0))}`;
 			
@@ -1421,7 +1467,7 @@ window.onload = function() {
 				<a href="kep1er-chatgpt.html" class="third">ChatGPT Kep1er</a> <em style="color: red;" class="warning">Outdated</em><br/>
 				<a href="bookmarklets.html" class="circle">JS bookmarklets</a><br/>
 				<a href="roman.html" class="youth">Roman numeral thing</a><br/>
-				<a href="R74moji.html" class="ot12">R74moji renderer</a>
+				<a href="R74moji.html" class="ot12">R74moji renderer</a><br/>
 				<a href="discord-vertical-text.html" class="heejin">Sideways Discord text generator</a><br/>
 
 			<h1 class="ot12">not epic code</h1>
@@ -1437,7 +1483,7 @@ window.onload = function() {
 				</p>
 				<!--like le sserafim, wjsn, itzy, gwsn, weeekly, woo!ah!, fifty fifty, rocket punch, hashtag, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, gugudan, weki meki, exid, miss a, lovelyz, tripleS, saturday, ladies code, purple kiss, limelight; also soloists like iu, lee chaeyeon, and yukika-->
 				<span class="yeojin">antis, akgaes dni <em>(especially bahiyyih and skz antis; member solo stans are fine unless they hate on a group's other members which makes them akgaes)</em></span><br/>
-				<span class="circle">i have stanned loona for about <span id="loonaTime">50 million</span> seconds</span><br/>
+				<span class="circle">i have stanned loona for about <span id="loonaTimeS">57 million</span> seconds (about <span id="loonaTimeD">669</span> days, or <span id="loonaTimeW">95.6</span> weeks)</span><br/>
 			
 				<h2 class="circle">buttons:</h2>
 					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
