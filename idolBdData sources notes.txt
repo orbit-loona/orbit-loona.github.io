@@ -1,0 +1,30 @@
+Colors may not be official for all groups, and even in groups with official colors, the exact color may vary.
+Sometimes hex codes are given and sometimes it's only generic color words.
+
+LOONA colors are official but exact shades vary
+Kep1er member colors are fan-made colors taken from https://www.reddit.com/r/kep1er/comments/qomf2x/giving_kep1er_member_colours_with_reasoning/
+	Dayeon's color is directly from the sample, as hex code => rgb(188,188,226) doesn't match and is too similar to Yeseo
+BLACKPINK colors are taken from a random blackpink.fandom forum post, and probably made up but whatever
+Everglow, STAYC, IZ*ONE, and IVE colors are from Fandom
+TWICE colors are official but may vary; the specific shades were compiled at https://aminoapps.com/c/once/page/blog/twice-hex-codes-revamped/WJxj_DxnSXuRRgkoavejJjm7b7zokrnBRBb
+Dreamcatcher colors are from //https://www.reddit.com/r/dreamcatcher/comments/lxs6bv/member_colors/
+SNSD colors are from //https://colorcodedstuff.fandom.com/wiki/Girls%27_Generation
+NewJeans (tends to shuffle)
+(G)I-DLE colors are from kprofiles
+2NE1 colors are color-picked from https://aminoapps.com/c/2ne1/page/blog/2ne1s-microphone-infos-facts-meaning-and-etc/vDQj_bDfnu6P0MdQ0XWnKaB07xN4BG2mLG
+aespa colors are influenced by https://kprofiles.com/poll-which-colours-do-you-think-fits-each-aespa-member-personality/ but ultimately picked arbitrarily
+Apink colors color-picked (but altered) from microphones from https://twitter.com/LegendaryApink/status/1606153363606880256 and https://www.pinterest.com/pin/705587466610023284/ (https://i.pinimg.com/736x/70/dc/60/70dc602675f5bcd86f635b77a5d2e938.jpg)
+Billlie colors from kprofiles
+ALICE, APRIL, Cherry Bullet, Cignature, CLC, CSR, DIA, DreamNote, and fromis_9 colors taken from colorcodedlyrics because their color assignments seem to be consistent
+ALICE group color color-picked arbitrarily from the new header image: https://www.reddit.com/gallery/u0jeqq
+cignature group color color-picked arbitrarily from the fanclub name announcement image
+CSR group color arbitrarily color-picked from the subreddit icon
+fromis_9 group colors are fan-made: https://twitter.com/fromis_9pic/status/1478175338089705472/photo/1
+DreamNote colors are official: https://aminoapps.com/c/imedreamnoteofficial/page/blog/dreamnote-offical-colors/aVNW_ewVu0uaxWgV7V33Z6pmpXD7md0owwb
+tripleS colors are taken from the wiki and corrected by color-picking from Welcome To The Haus, but birthdays were compiled by infichandesu on tripleS Discord https://discord.com/channels/968385909730971668/990903693140434964/1231563006731882518
+Mamamoo and Itzy bdays from HallyuIdol
+Mamamoo colors picked from 4season album arts ref. Mamamoo Wiki
+Hinata46 members and birthdays from Stage48 Wiki and Wikipedia, group color picked from logo
+Most Hinata46 colors taken from  https://anosaka.com/hinatazaka46-glow-stick-color-list with some from https://hallyuplus.net/threads/the-official-nogizaka46-%E4%B9%83%E6%9C%A8%E5%9D%8246-sakurazaka46-%E6%AB%BB%E5%9D%8246-hinatazaka46-%E6%97%A5%E5%90%91%E5%9D%8246-thread.516/page-159 (with the former arbitrarily taking precedence)
+Most birth years and debut dates taken from K-pop data GitHub repositories I already forgot
+1 Seoyeon, 2 Hyerin, 3 Jiwoo, 4 Chaeyeon, 5 Yooyeon, 6 Soomin, 7 Nakyoung, 8 Yubin, 9 Kaede, 10 Seo Dahyun, 11 Kotone, 12 Yeonji, 13 Nien, 14 Sohyun, 15 Xinyu, 16 Mayu, 17 Lynn, 18 Joobin, 19 Hayeon, 20 Shion, 21 Kim Chaewon, 22 Sullin, 23 Seoah, 24 Jiyeon
