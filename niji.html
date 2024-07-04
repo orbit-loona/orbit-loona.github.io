@@ -100,6 +100,52 @@
 				font-size: 85%
 			}
 		</style>
+		<script>
+			//https://stackoverflow.com/a/16427747
+			function isLocalStorageAvailable() {
+				var test = 'test';
+				try {
+					localStorage.setItem(test, test);
+					localStorage.removeItem(test);
+					return true;
+				} catch(e) {
+					return false;
+				}
+			};
+			
+			var localStorageIsAvailable = isLocalStorageAvailable();
+			if(!isLocalStorageAvailable) {
+				alert("Local storage is not available. Text will not be saved when you refresh.")
+			};
+
+			function saveText() {
+				if(!isLocalStorageAvailable) {
+					return false
+				};
+				var _textbox = document.getElementById("mainText");
+				if(_textbox) {
+					var text = _textbox.value;
+					localStorage.setItem("text",text);
+					return text.length
+				} else {
+					return false
+				}
+			};
+
+			function loadText() {
+				if(!isLocalStorageAvailable) {
+					return false
+				};
+				var _textbox = document.getElementById("mainText");
+				if(_textbox) {
+					var text = localStorage.getItem("text");
+					_textbox.value = text
+					return text.length
+				} else {
+					return false
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Niji keyboard</h1>
@@ -164,6 +210,16 @@
 			</tbody>
 		</table><br/><br/>
 		<script>
+			var everyFifthInputCounter = 0;
+			function everyFifthInputSaveHandler() {
+				if(everyFifthInputCounter < 0) { everyFifthInputCounter = 0 };
+				everyFifthInputCounter++;
+				if(everyFifthInputCounter >= 5) {
+					saveText();
+					everyFifthInputCounter %= 5
+				}
+			};
+		
 			nijiConversionKey = {
 				[null]: "",
 				"": "",
@@ -225,7 +281,7 @@
 			textbox.addEventListener("click",function(e) {
 				_newCursorSelectionStart = e.target.selectionStart;
 				_newCursorSelectionEnd = e.target.selectionEnd;
-				logEdges()
+				//logEdges()
 			});
 
 			//make arrow presses update the stored cursor position
@@ -234,8 +290,10 @@
 					_newCursorSelectionStart = e.target.selectionStart;
 					_newCursorSelectionEnd = e.target.selectionEnd
 				};
-				logEdges()
+				//logEdges()
 			});
+
+			textbox.addEventListener("focusout",saveText);
 
 			//main roman-to-niji typing code (dirty hacks)
 			textbox.addEventListener("input",function(e) {
@@ -249,6 +307,12 @@
 				var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
 				var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
 				switch(last2) {
+					case "gg": //manual override because for some reason auto-tsuing doesn't work with G specifically
+					case "g":
+						resultingStringBeforeCursor = resultingStringBeforeCursor.replace(/[g]$/,"");
+						this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+						_newCursorSelectionStart++;
+						_newCursorSelectionEnd++;
 					case "sh":
 					case "h":
 					case "ch":
@@ -328,7 +392,8 @@
 						}
 				};
 				textbox.selectionStart = _newCursorSelectionStart;
-				textbox.selectionEnd = _newCursorSelectionEnd
+				textbox.selectionEnd = _newCursorSelectionEnd;
+				if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
 			});
 			
 			var keyboard = document.getElementById("buttons");
@@ -395,12 +460,18 @@
 								_newCursorSelectionEnd = _newCursorSelectionStart
 								textbox.selectionStart = _newCursorSelectionStart;
 								textbox.selectionEnd = _newCursorSelectionEnd;
-							});
-						};
-						
-						
-						
+								if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
+							})
+						}
 					}
+				}
+			};
+
+			if(isLocalStorageAvailable) {
+				if(localStorage.getItem("text") === null) {
+					localStorage.setItem("text","")
+				} else {
+					loadText()
 				}
 			}
 		</script>
