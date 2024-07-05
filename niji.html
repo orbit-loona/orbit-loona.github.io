@@ -152,7 +152,9 @@
 		<div id="description">
 			<p>This is a quick-and-dirty keyboard for the <a href="https://norbertlindenberg.com/2018/03/niji-script/index.html">Norbert Lindenberg's <em>Niji</em> script</a>. Norbert's font (<em>Monnaka Plain</em>) does all of the rendering work (which is impressive). This tool just lets you type in the script.</p><br/>
 			
-			<p>This script is encoded in the <a href="https://en.wikipedia.org/wiki/Private_Use_Areas">Unicode <em>Private Use Area</em></a> and will not render properly on most pages<sup><small class="tiny"> </small><a href="#footnote-1" class="footnote">1</a></sup> unless you <a href="https://norbertlindenberg.com/shared/MonnakaPlain.ttf">install the font</a><sup><small class="tiny"> </small><a href="#footnote-2" class="footnote">2</a></sup></p>
+			<p>This script is encoded in the <a href="https://en.wikipedia.org/wiki/Private_Use_Areas">Unicode <em>Private Use Area</em></a> and will not render properly on most pages<sup><small class="tiny"> </small><a href="#footnote-1" class="footnote">1</a></sup> unless you <a href="https://norbertlindenberg.com/shared/MonnakaPlain.ttf">install the font</a><sup><small class="tiny"> </small><a href="#footnote-2" class="footnote">2</a></sup></p><br/>
+
+			<p>This page does have some bugs which I cannot for the life of me fix. Be warned.</p>
 
 			<div id="bottom">
 				<div id="footnotes">
@@ -254,16 +256,15 @@
 			
 			var englishVowels = "aiueo".split("");
 			
-			var nijiConsonants = Object.entries(nijiConversionKey).filter(pair => !(englishVowels.includes(pair[0]))).map(x => x[1]);
-
-			var nijiConsonantsWithoutY = structuredClone(nijiConsonants);
-			nijiConsonantsWithoutY.splice(nijiConsonantsWithoutY.indexOf(""));
-
-			var nijiConsonantsWithoutN = structuredClone(nijiConsonants);
-			nijiConsonantsWithoutN.splice(nijiConsonantsWithoutN.indexOf(""));
-
-			var nijiVowels = Object.values(nijiConversionKey).filter(letter => !(nijiConsonants.includes(letter)));
+			var nijiVowels = englishVowels.map(x => nijiConversionKey[x]);
 			
+			var isVowelRegex = RegExp(`^[${nijiVowels.join("")}]$`);
+			
+			//for some reason this regex method is necessary or else it Illogically excludes a lot of consonants
+			var nijiConsonants = Array.from(new Set(Object.values(nijiConversionKey))).filter(letter => letter.match(isVowelRegex) === null);
+			
+			var nijiConsonantsAndLengthMark = nijiConsonants.concat("");
+
 			var lastVowelTypedBeforeLengthMark = null;
 			
 			var ZWNJ = "‌";
@@ -307,12 +308,6 @@
 				var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
 				var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
 				switch(last2) {
-					case "gg": //manual override because for some reason auto-tsuing doesn't work with G specifically
-					case "g":
-						resultingStringBeforeCursor = resultingStringBeforeCursor.replace(/[g]$/,"");
-						this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-						_newCursorSelectionStart++;
-						_newCursorSelectionEnd++;
 					case "sh":
 					case "h":
 					case "ch":
@@ -327,19 +322,25 @@
 						_newCursorSelectionEnd--;
 						break;
 					default:
-						if((nijiConsonantsWithoutN.includes(last2[0])) && last2[0] == nijiConversionKey[last1]) {
+						if((nijiConsonants.includes(last2[0])) && (last2[0] !== "") && (last2[0] !== "") && last2[0] == nijiConversionKey[last1]) { //auto-tsuing except for Ns and Ys
 							var regex = RegExp(`${last2[0]}(${last1})$`,"i");
 							//console.log(regex,resultingStringBeforeCursor.match(regex));
 							resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(`${last2[0]}(${last1})$`,"i"),"$1");
+							this.value = resultingStringBeforeCursor+resultingStringAfterCursor
+						} else if(last3.startsWith("")) { //special handling for double Ys
+							resultingStringBeforeCursor = resultingStringBeforeCursor.replace(/(.)/,"$1");
 							this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 						};
+						//console.log(`%c${last2[0]} ${(!(nijiVowels.includes(last2[0]))).toString()} ${(last2[0] !== "").toString()}`, 'font-family: "Monnaka Plain"')
 						switch(last1) {
 							case "y":
-								if(!(nijiConsonantsWithoutY.includes(last2[0]))) {
-									resultingStringBeforeCursor = resultingStringBeforeCursor.slice(0,-1) + "" + resultingStringBeforeCursor.slice(-1);
-									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-									_newCursorSelectionStart++;
-									_newCursorSelectionEnd++;
+								if(last2[0] !== "") { //no Y before Y
+									if((resultingStringBeforeCursor.length < 2) || !(nijiConsonants.includes(last2[0]))) {
+										resultingStringBeforeCursor = resultingStringBeforeCursor.slice(0,-1) + "" + resultingStringBeforeCursor.slice(-1);
+										this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+										_newCursorSelectionStart++;
+										_newCursorSelectionEnd++;
+									}
 								};
 							case "k":
 							case "s":
@@ -455,6 +456,33 @@
 									resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart) + textToAdd;
 									resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
 									_newCursorSelectionStart += textToAdd.length;
+
+									var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
+									var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
+
+									var willBeLengthMark = (nijiVowels.includes(textToAdd) && ((resultingStringBeforeCursor.length > 2) && ((nijiVowels.includes(last2[0])) || (last2[0] == "")) && (lastVowelTypedBeforeLengthMark === textToAdd)));
+									//console.log(willBeLengthMark);
+
+									if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
+										if(last2[0] !== "") {
+											var regex = RegExp(`(${last2[0]})\\1$`,'i');
+											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
+										}
+									};
+									if(nijiVowels.includes(textToAdd)) {
+										if(nijiConsonants.includes(last2[0])) {
+											lastVowelTypedBeforeLengthMark = textToAdd;
+										} else if((resultingStringBeforeCursor.length > 2) && ((nijiVowels.includes(last2[0])) || (last2[0] == "")) && (lastVowelTypedBeforeLengthMark === textToAdd)) {
+											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
+											this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+										} else {
+											lastVowelTypedBeforeLengthMark = textToAdd;
+											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+											this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+											_newCursorSelectionStart++;
+											_newCursorSelectionEnd++;
+										}
+									}
 								};
 								textbox.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 								_newCursorSelectionEnd = _newCursorSelectionStart
@@ -471,7 +499,11 @@
 				if(localStorage.getItem("text") === null) {
 					localStorage.setItem("text","")
 				} else {
-					loadText()
+					loadText();
+					textbox.selectionStart = textbox.value.length;
+					textbox.selectionEnd = textbox.selectionStart;
+					_newCursorSelectionStart = textbox.selectionStart;
+					_newCursorSelectionEnd = textbox.selectionEnd
 				}
 			}
 		</script>
