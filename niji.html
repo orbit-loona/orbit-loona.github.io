@@ -110,6 +110,13 @@
 				padding: 8px;
 			}
 			
+			#noSafariMessage {
+				background-color: #2f0000;
+				color: white;
+				border: 1px solid red;
+				padding: 8px;
+			}
+			
 			small {
 				font-size: 80%;
 			}
@@ -283,7 +290,7 @@
 					<td><button title="Ng"></button></td>
 					<td><button title="L"></button></td>
 					<td><button title="Yi"></button></td>
-					<td><button  title="Yii">‍‍</button></td>
+					<td><button title="Yii">‍‍</button></td>
 				</tr>
 			</tbody>
 		</table><br/><br/>
@@ -361,6 +368,7 @@
 			var lastVowelTypedBeforeLengthMark = null;
 			
 			var zwnj = "‌";
+			var zwj = "‍";
 			
 			var _newCursorSelectionStart = 0;
 			var _newCursorSelectionEnd = 0;
@@ -470,6 +478,12 @@
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 									break;
 								};
+							case "~":
+								if(doCursed) {
+									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),zwj);
+									this.value = resultingStringBeforeCursor+resultingStringAfterCursor
+								};
+								break;
 							/*case "'":
 								if(last2[0] == "") {
 									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),ZWNJ);
@@ -494,7 +508,7 @@
 										resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
 									}
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-								} else if((nijiVowelsAndChouonpu.includes(last2[0])) && (lastVowelTypedBeforeLengthMark === last1)) {
+								} else if((nijiVowelsAndChouonpu.includes(last2[0]) || (doCursed && (last2[0] === zwj))) && (lastVowelTypedBeforeLengthMark === last1)) {
 									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),"");
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 								} else {
@@ -516,128 +530,145 @@
 				return match[1].toUpperCase()
 			};
 			
+			//Unfixable, undebuggable bug causes buttons to just not work on Safari. No error message, they just don't do anything.
+			//https://stackoverflow.com/questions/7944460/detect-safari-browser
+			var isSafari = 
+						   (urlParams.get("safariOverride") !== null) || (
+						   navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+						   navigator.userAgent &&
+						   navigator.userAgent.indexOf('CriOS') == -1 &&
+						   navigator.userAgent.indexOf('FxiOS') == -1 );
+
 			var keyboard = document.getElementById("buttons");
 			if(keyboard) {
-				var rows = keyboard.querySelectorAll('tr[id^="buttonrow"]') ?? [];
-				var rowIndices = Array.from(rows).map(n => n.getAttribute("id").match(/\d+$/)?.[0]).filter(s => !!s).map(x => parseInt(x));
-				if(rowIndices.length > 0) {
-					var highestIndex = Math.max(...rowIndices);
-					var lowestIndex = Math.min(...rowIndices);
-					for(var i = lowestIndex; i <= highestIndex; i++) {
-						//get button and label rows
-						var buttonRow = document.getElementById(`buttonrow${i.toString()}`);
-						var labelRow = document.getElementById(`labelrow${i.toString()}`);
-						
-						//create missing label rows
-						if(!labelRow) {
-							labelRow = document.createElement("tr");
-							labelRow.setAttribute("id",`labelrow${i.toString()}`);
-							buttonRow.before(labelRow)
-						};
-						
-						buttonRow.classList.forEach(className => labelRow.classList.add(className));
-						
-						//clear label row
-						var lrcn = labelRow.childNodes;
-						for(var j = 0; j < lrcn.length; j++) {
-							labelRow.removeChild(lrcn[j]);
-							lrcn[j].outerHTML = "";
-							lrcn[j] = null
-						};
-						
-						//get buttons
-						var buttons = buttonRow.querySelectorAll("button");
-						
-						//make header
-						var labelText = (buttonRow.getAttribute("metaheading") ?? "").replace(/\^(.)/g,_uppercaseCaretFunction)
-						var newHeader = document.createElement("th");
-						newHeader.setAttribute("rowspan","2");
-							newHeader.innerText = labelText;
-						labelRow.appendChild(newHeader);
-						
-						//do buttON stuff
-						for(var j = 0; j < buttons.length; j++) {
-							var button = buttons[j];
+				if(isSafari) {
+					var noSafariMessage = document.createElement("p");
+					noSafariMessage.setAttribute("id","noSafariMessage");
+						noSafariMessage.innerText = "The in-page button keyboard silently fails on Safari, with the buttons just not doing anything. As I don't have a Mac to debug it with, I sadly have to hide the button keyboard instead. You can still type in Niji by clicking on the text box and using the regular keyboard.";
+					keyboard.before(noSafariMessage);
+					keyboard.style.display = "none"
+				} else {
+					var rows = keyboard.querySelectorAll('tr[id^="buttonrow"]') ?? [];
+					var rowIndices = Array.from(rows).map(n => n.getAttribute("id").match(/\d+$/)?.[0]).filter(s => !!s).map(x => parseInt(x));
+					if(rowIndices.length > 0) {
+						var highestIndex = Math.max(...rowIndices);
+						var lowestIndex = Math.min(...rowIndices);
+						for(var i = lowestIndex; i <= highestIndex; i++) {
+							//get button and label rows
+							var buttonRow = document.getElementById(`buttonrow${i.toString()}`);
+							var labelRow = document.getElementById(`labelrow${i.toString()}`);
 							
-							//create labels
-							var labelText = ((button.getAttribute("labeloverride") ?? button.getAttribute("title")) ?? "").toLowerCase();
-							var newLabel = document.createElement("th");
-							button.parentElement.classList.forEach(className => newLabel.classList.add(className));
-								var newDiv = document.createElement("div");
-									newDiv.innerText = labelText;
-								newLabel.appendChild(newDiv)
-							labelRow.appendChild(newLabel)
+							//create missing label rows
+							if(!labelRow) {
+								labelRow = document.createElement("tr");
+								labelRow.setAttribute("id",`labelrow${i.toString()}`);
+								buttonRow.before(labelRow)
+							};
 							
-							//make the buttons actually work
-							button.addEventListener("click",function() {
-								try {
-									var text = textbox.value;
-									
-									var textToAdd = this.getAttribute("textoverride") ?? this.innerText;
-									var isBackspace = (textToAdd == "\x08");
-
-									if(isBackspace) {
-										if(_newCursorSelectionEnd < _newCursorSelectionStart) { _newCursorSelectionEnd = _newCursorSelectionStart };
-										if(_newCursorSelectionEnd == 0) { return };
-										resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart - (_newCursorSelectionStart == _newCursorSelectionEnd));
-										resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
-										_newCursorSelectionStart -= (_newCursorSelectionStart == _newCursorSelectionEnd);
-									} else {
-										resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart) + textToAdd;
-										resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
-										_newCursorSelectionStart += textToAdd.length;
-
-										var last3 = resultingStringBeforeCursor.slice(-3).toLowerCase();
-										var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
-										var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
-
-										var searchArea = resultingStringBeforeCursor.replace(/+$/,"").slice(0,-(textToAdd.length));
-										var lastVowel = findFirstVowelInNijiString(searchArea.split("").toReversed().join(""));
-
-										if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
-											if(last2[0] !== "") {
-												var regex = RegExp(`(${last2[0]})\\1$`,'i');
-												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
-											}
-										};
+							buttonRow.classList.forEach(className => labelRow.classList.add(className));
+							
+							//clear label row
+							var lrcn = labelRow.childNodes;
+							for(var j = 0; j < lrcn.length; j++) {
+								labelRow.removeChild(lrcn[j]);
+								lrcn[j].outerHTML = "";
+								lrcn[j] = null
+							};
+							
+							//get buttons
+							var buttons = buttonRow.querySelectorAll("button");
+							
+							//make header
+							var labelText = (buttonRow.getAttribute("metaheading") ?? "").replace(/\^(.)/g,_uppercaseCaretFunction)
+							var newHeader = document.createElement("th");
+							newHeader.setAttribute("rowspan","2");
+								newHeader.innerText = labelText;
+							labelRow.appendChild(newHeader);
+							
+							//do buttON stuff
+							for(var j = 0; j < buttons.length; j++) {
+								var button = buttons[j];
+								
+								//create labels
+								var labelText = ((button.getAttribute("labeloverride") ?? button.getAttribute("title")) ?? "").toLowerCase();
+								var newLabel = document.createElement("th");
+								button.parentElement.classList.forEach(className => newLabel.classList.add(className));
+									var newDiv = document.createElement("div");
+										newDiv.innerText = labelText;
+									newLabel.appendChild(newDiv)
+								labelRow.appendChild(newLabel)
+								
+								//make the buttons actually work
+								button.addEventListener("click",function() {
+									try {
+										var text = textbox.value;
 										
-										var lastLetterBeforeTTA = resultingStringBeforeCursor.slice(-(textToAdd.length + 2),-(textToAdd.length + 1)) ?? null;
-										//logInTheFont("llbTTA: " + (lastLetterBeforeTTA ?? "null"));
-										//logInTheFont("lastVowel: " + lastVowel);
-										if(findFirstVowelInNijiString(textToAdd) !== null) {
-											//logInTheFont("last2[0]: " + last2[0]);
-											if(nijiConsonants.includes(last2[0]) && (last2[0] !== "")) {
-												//console.log("case 1");
-											} else if((lastVowel === findFirstVowelInNijiString(textToAdd)) && (lastVowel !== null) && (textToAdd.length == 1)) {
-												//console.log("case 2");
-												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
-												this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-											} else {
-												//console.log("case 3");
-												//Automatically places the ieung analog
-												var lastLetter = resultingStringBeforeCursor.slice(-(textToAdd.length + 1), -(textToAdd.length));
-												var condition = (
-													(last3.length < (2 + (textToAdd.length > 1))) ||
-													(!(nijiConsonants.includes(lastLetter)))
-												);
-												if(condition) {
-													resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+										var textToAdd = this.getAttribute("textoverride") ?? this.innerText;
+										var isBackspace = (textToAdd == "\x08");
+
+										if(isBackspace) {
+											if(_newCursorSelectionEnd < _newCursorSelectionStart) { _newCursorSelectionEnd = _newCursorSelectionStart };
+											if(_newCursorSelectionEnd == 0) { return };
+											resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart - (_newCursorSelectionStart == _newCursorSelectionEnd));
+											resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
+											_newCursorSelectionStart -= (_newCursorSelectionStart == _newCursorSelectionEnd);
+										} else {
+											resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart) + textToAdd;
+											resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
+											_newCursorSelectionStart += textToAdd.length;
+
+											var last3 = resultingStringBeforeCursor.slice(-3).toLowerCase();
+											var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
+											var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
+
+											var searchArea = resultingStringBeforeCursor.replace(/+$/,"").slice(0,-(textToAdd.length));
+											var lastVowel = findFirstVowelInNijiString(searchArea.split("").toReversed().join(""));
+
+											if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
+												if(last2[0] !== "") {
+													var regex = RegExp(`(${last2[0]})\\1$`,'i');
+													resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
+												}
+											};
+											
+											var lastLetterBeforeTTA = resultingStringBeforeCursor.slice(-(textToAdd.length + 2),-(textToAdd.length + 1)) ?? null;
+											//logInTheFont("llbTTA: " + (lastLetterBeforeTTA ?? "null"));
+											//logInTheFont("lastVowel: " + lastVowel);
+											if(findFirstVowelInNijiString(textToAdd) !== null) {
+												//logInTheFont("last2[0]: " + last2[0]);
+												if(nijiConsonants.includes(last2[0]) && (last2[0] !== "")) {
+													//console.log("case 1");
+												} else if((lastVowel === findFirstVowelInNijiString(textToAdd)) && (lastVowel !== null) && (textToAdd.length == 1)) {
+													//console.log("case 2");
+													resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
 													this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-													_newCursorSelectionStart++;
-													_newCursorSelectionEnd++
+												} else {
+													//console.log("case 3");
+													//Automatically places the ieung analog
+													var lastLetter = resultingStringBeforeCursor.slice(-(textToAdd.length + 1), -(textToAdd.length));
+													var condition = (
+														(last3.length < (2 + (textToAdd.length > 1))) ||
+														(!(nijiConsonants.includes(lastLetter)))
+													);
+													if(condition) {
+														resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+														this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+														_newCursorSelectionStart++;
+														_newCursorSelectionEnd++
+													}
 												}
 											}
-										}
-									};
-									textbox.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-									_newCursorSelectionEnd = _newCursorSelectionStart
-									textbox.selectionStart = _newCursorSelectionStart;
-									textbox.selectionEnd = _newCursorSelectionEnd;
-									if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
-								} catch(error) {
-									alert(error.stack)
-								}
-							})
+										};
+										textbox.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+										_newCursorSelectionEnd = _newCursorSelectionStart
+										textbox.selectionStart = _newCursorSelectionStart;
+										textbox.selectionEnd = _newCursorSelectionEnd;
+										if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
+									} catch(error) {
+										alert(error.stack)
+									}
+								})
+							}
 						}
 					}
 				}
@@ -662,7 +693,7 @@
 					["span", " 'dj', ", "as in ぢ"],
 					["small","U+ED59-U+ED41 "],
 					["span", " 'yi'", "as in 𛀆"],
-					") and the discretionary ligatures exposed as ZWJ combinations.",
+					") and the discretionary ligatures exposed as ZWJ combinations. You can type a ZWJ by pressing '~'.",
 				];
 				for(var i = 0; i < cpt.length; i++) {
 					var data = cpt[i];
