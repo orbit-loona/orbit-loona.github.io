@@ -570,69 +570,73 @@
 							
 							//make the buttons actually work
 							button.addEventListener("click",function() {
-								var text = textbox.value;
-								
-								var textToAdd = this.getAttribute("textoverride") ?? this.innerText;
-								var isBackspace = (textToAdd == "\x08");
-
-								if(isBackspace) {
-									if(_newCursorSelectionEnd < _newCursorSelectionStart) { _newCursorSelectionEnd = _newCursorSelectionStart };
-									if(_newCursorSelectionEnd == 0) { return };
-									resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart - (_newCursorSelectionStart == _newCursorSelectionEnd));
-									resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
-									_newCursorSelectionStart -= (_newCursorSelectionStart == _newCursorSelectionEnd);
-								} else {
-									resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart) + textToAdd;
-									resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
-									_newCursorSelectionStart += textToAdd.length;
-
-									var last3 = resultingStringBeforeCursor.slice(-3).toLowerCase();
-									var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
-									var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
-
-									var searchArea = resultingStringBeforeCursor.replace(/+$/,"").slice(0,-(textToAdd.length));
-									var lastVowel = findFirstVowelInNijiString(searchArea.split("").toReversed().join(""));
-
-									if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
-										if(last2[0] !== "") {
-											var regex = RegExp(`(${last2[0]})\\1$`,'i');
-											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
-										}
-									};
+								try {
+									var text = textbox.value;
 									
-									var lastLetterBeforeTTA = resultingStringBeforeCursor.slice(-(textToAdd.length + 2),-(textToAdd.length + 1)) ?? null;
-									//logInTheFont("llbTTA: " + (lastLetterBeforeTTA ?? "null"));
-									//logInTheFont("lastVowel: " + lastVowel);
-									if(findFirstVowelInNijiString(textToAdd) !== null) {
-										//logInTheFont("last2[0]: " + last2[0]);
-										if(nijiConsonants.includes(last2[0]) && (last2[0] !== "")) {
-											//console.log("case 1");
-										} else if((lastVowel === findFirstVowelInNijiString(textToAdd)) && (lastVowel !== null) && (textToAdd.length == 1)) {
-											//console.log("case 2");
-											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
-											this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-										} else {
-											//console.log("case 3");
-											//Automatically places the ieung analog
-											var lastLetter = resultingStringBeforeCursor.slice(-(textToAdd.length + 1), -(textToAdd.length));
-											var condition = (
-												(last3.length < (2 + (textToAdd.length > 1))) ||
-												(!(nijiConsonants.includes(lastLetter)))
-											);
-											if(condition) {
-												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+									var textToAdd = this.getAttribute("textoverride") ?? this.innerText;
+									var isBackspace = (textToAdd == "\x08");
+
+									if(isBackspace) {
+										if(_newCursorSelectionEnd < _newCursorSelectionStart) { _newCursorSelectionEnd = _newCursorSelectionStart };
+										if(_newCursorSelectionEnd == 0) { return };
+										resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart - (_newCursorSelectionStart == _newCursorSelectionEnd));
+										resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
+										_newCursorSelectionStart -= (_newCursorSelectionStart == _newCursorSelectionEnd);
+									} else {
+										resultingStringBeforeCursor = text.slice(0,_newCursorSelectionStart) + textToAdd;
+										resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
+										_newCursorSelectionStart += textToAdd.length;
+
+										var last3 = resultingStringBeforeCursor.slice(-3).toLowerCase();
+										var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
+										var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
+
+										var searchArea = resultingStringBeforeCursor.replace(/+$/,"").slice(0,-(textToAdd.length));
+										var lastVowel = findFirstVowelInNijiString(searchArea.split("").toReversed().join(""));
+
+										if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
+											if(last2[0] !== "") {
+												var regex = RegExp(`(${last2[0]})\\1$`,'i');
+												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
+											}
+										};
+										
+										var lastLetterBeforeTTA = resultingStringBeforeCursor.slice(-(textToAdd.length + 2),-(textToAdd.length + 1)) ?? null;
+										//logInTheFont("llbTTA: " + (lastLetterBeforeTTA ?? "null"));
+										//logInTheFont("lastVowel: " + lastVowel);
+										if(findFirstVowelInNijiString(textToAdd) !== null) {
+											//logInTheFont("last2[0]: " + last2[0]);
+											if(nijiConsonants.includes(last2[0]) && (last2[0] !== "")) {
+												//console.log("case 1");
+											} else if((lastVowel === findFirstVowelInNijiString(textToAdd)) && (lastVowel !== null) && (textToAdd.length == 1)) {
+												//console.log("case 2");
+												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
 												this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-												_newCursorSelectionStart++;
-												_newCursorSelectionEnd++
+											} else {
+												//console.log("case 3");
+												//Automatically places the ieung analog
+												var lastLetter = resultingStringBeforeCursor.slice(-(textToAdd.length + 1), -(textToAdd.length));
+												var condition = (
+													(last3.length < (2 + (textToAdd.length > 1))) ||
+													(!(nijiConsonants.includes(lastLetter)))
+												);
+												if(condition) {
+													resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+													this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+													_newCursorSelectionStart++;
+													_newCursorSelectionEnd++
+												}
 											}
 										}
-									}
-								};
-								textbox.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-								_newCursorSelectionEnd = _newCursorSelectionStart
-								textbox.selectionStart = _newCursorSelectionStart;
-								textbox.selectionEnd = _newCursorSelectionEnd;
-								if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
+									};
+									textbox.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+									_newCursorSelectionEnd = _newCursorSelectionStart
+									textbox.selectionStart = _newCursorSelectionStart;
+									textbox.selectionEnd = _newCursorSelectionEnd;
+									if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
+								} catch(error) {
+									alert(error.stack)
+								}
 							})
 						}
 					}
