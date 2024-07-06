@@ -123,7 +123,7 @@
 			}
 		</style>
 		<style id="style2">
-			.cursed {
+			.cursed, .hidden, th.hidden, td.hidden, #buttons th.hidden, #buttons td.hidden {
 				display: none;
 			}
 		</style>
@@ -258,12 +258,12 @@
 					<td><button title="(New line)" labeloverride="⏎" textoverride="&#10;">&nbsp;</button></td>
 					<td><button title="(Backspace)" labeloverride="⌫" textoverride="&#8;" style="font-size: 80%">␈</button></td>
 					<td><button title="(Tab)" labeloverride="⭾" textoverride="&#9;" style="font-size: 80%">⭾</button></td>
-					<td><button title="(Zero-width joiner)" labeloverride="ZWJ" textoverride="&#8205;" style="font-size: 60%; line-height: 80%; text-align: center;">ZW<br/>J</button></td>
+					<td class="hidden"><button title="(Zero-width joiner)" labeloverride="ZWJ" textoverride="&#8205;" style="font-size: 60%; line-height: 80%; text-align: center;">ZW<br/>J</button></td>
 				</tr>
 				<tr id="labelrow2">
 					<td><div class="spacer">&nbsp;</div></td>
 				</tr>
-				<tr id="buttonrow2" metaheading="^long vowel ligatures">
+				<tr id="buttonrow2" class="hidden" metaheading="^long vowel ligatures">
 					<td><button title="Aa">‍</button></td> <!--Ā unsupported-->
 					<td><button title="Ii">‍</button></td> <!--Ī unsupported-->
 					<td><button title="Uu">‍</button></td> <!--Ū unsupported-->
@@ -280,7 +280,7 @@
 				<tr id="buttonrow3" class="cursed" metaheading="^cursed (not in ^niji)">
 					<td><button title="Dj"></button></td>
 					<td><button title="Dz"></button></td>
-					<td><button title="Ng"></button></td>
+					<td><button title="Ng"></button></td>
 					<td><button title="L"></button></td>
 					<td><button title="Yi"></button></td>
 					<td><button  title="Yii">‍‍</button></td>
@@ -464,10 +464,11 @@
 							case "p":
 							case "v":
 							case "l":
-								if(nijiConversionKey[last1]) {
+								var result = nijiConversionKey[last1];
+								if((!!(result)) && (typeof(result) === "string") && (typeof(result) !== "undefined") && (result !== undefined) && ((result + "") !== "undefined")) {
 									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-									break
+									break;
 								};
 							/*case "'":
 								if(last2[0] == "") {
@@ -561,6 +562,7 @@
 							//create labels
 							var labelText = ((button.getAttribute("labeloverride") ?? button.getAttribute("title")) ?? "").toLowerCase();
 							var newLabel = document.createElement("th");
+							button.parentElement.classList.forEach(className => newLabel.classList.add(className));
 								var newDiv = document.createElement("div");
 									newDiv.innerText = labelText;
 								newLabel.appendChild(newDiv)
@@ -612,9 +614,10 @@
 										} else {
 											//console.log("case 3");
 											//Automatically places the ieung analog
+											var lastLetter = resultingStringBeforeCursor.slice(-(textToAdd.length + 1), -(textToAdd.length));
 											var condition = (
 												(last3.length < (2 + (textToAdd.length > 1))) ||
-												(!(nijiConsonants.includes(resultingStringBeforeCursor)))
+												(!(nijiConsonants.includes(lastLetter)))
 											);
 											if(condition) {
 												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
