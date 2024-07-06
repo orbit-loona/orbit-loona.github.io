@@ -39,6 +39,10 @@
 				max-height: 33px;
 			}
 			
+			#buttons tr {
+				width: 100%;
+			}
+			
 			#buttons td, padding: 2px {
 				padding: 2px;
 			}
@@ -72,6 +76,20 @@
 				border-right: unset;
 			}
 
+			#buttons tr.cursed {
+				background-color: #922;
+			}
+
+			span.cursed, p.cursed {
+				color: #e66;
+			}
+
+			#buttons tr.cursed button {
+				color: #400;
+				background-color: #fbb;
+				border: 1px solid #a77;
+			}
+
 			#buttons button, div.spacer {
 				font-size: 110%;
 			}
@@ -92,6 +110,10 @@
 				padding: 8px;
 			}
 			
+			small {
+				font-size: 80%;
+			}
+			
 			.tiny {
 				font-size: 5%
 			}
@@ -100,7 +122,16 @@
 				font-size: 85%
 			}
 		</style>
+		<style id="style2">
+			.cursed {
+				display: none;
+			}
+		</style>
 		<script>
+			var urlParams = new URLSearchParams(window.location.search);
+			
+			var doCursed = (urlParams.get("enableCursed") !== null);
+
 			//https://stackoverflow.com/a/16427747
 			function isLocalStorageAvailable() {
 				var test = 'test';
@@ -144,6 +175,18 @@
 				} else {
 					return false
 				}
+			};
+			
+			function findFirstVowelInNijiString(text) {
+				return text.match(/[]/)?.[0] ?? null
+			};
+			
+			function capitalizeFirstLetter(string,locale=null) {
+				return string[0][locale ? "toLocaleUpperCase" : "toUpperCase"](locale) + string.slice(1)
+			};
+
+			function sfcp(...args) {
+				return String.fromCodePoint(...args)
 			}
 		</script>
 	</head>
@@ -153,6 +196,8 @@
 			<p>This is a quick-and-dirty keyboard for the <a href="https://norbertlindenberg.com/2018/03/niji-script/index.html">Norbert Lindenberg's <em>Niji</em> script</a>. Norbert's font (<em>Monnaka Plain</em>) does all of the rendering work (which is impressive). This tool just lets you type in the script.</p><br/>
 			
 			<p>This script is encoded in the <a href="https://en.wikipedia.org/wiki/Private_Use_Areas">Unicode <em>Private Use Area</em></a> and will not render properly on most pages<sup><small class="tiny"> </small><a href="#footnote-1" class="footnote">1</a></sup> unless you <a href="https://norbertlindenberg.com/shared/MonnakaPlain.ttf">install the font</a><sup><small class="tiny"> </small><a href="#footnote-2" class="footnote">2</a></sup></p><br/>
+
+			<p class="cursed"></p>
 
 			<p>This page does have some bugs which I cannot for the life of me fix. Be warned.</p>
 
@@ -172,7 +217,7 @@
 				<tr id="labelrow0">
 					<td><div class="spacer">&nbsp;</div></td>
 				</tr>
-				<tr id="buttonrow0">
+				<tr id="buttonrow0" metaheading="^consonants">
 					<td><button title="(No consonant)" labeloverride="∅"></button></td>
 					<td><button title="K"></button></td>
 					<td><button title="S"></button></td>
@@ -198,16 +243,47 @@
 				<tr id="labelrow1">
 					<td><div class="spacer">&nbsp;</div></td>
 				</tr>
-				<tr id="buttonrow1">
+				<tr id="buttonrow1" metaheading="^vowels + other">
 					<td><button title="A"></button></td>
 					<td><button title="I"></button></td>
 					<td><button title="U"></button></td>
 					<td><button title="E"></button></td>
 					<td><button title="O"></button></td>
+					<td><button title="Ya"></button></td>
+					<td><button title="Yu"></button></td>
+					<td><button title="Ye"></button></td>
+					<td><button title="Yo"></button></td>
 					<td><button title="Length mark" labeloverride="ー"></button></td>
 					<td><button title="(Space)" labeloverride="⌴" textoverride=" ">&nbsp;</button></td>
 					<td><button title="(New line)" labeloverride="⏎" textoverride="&#10;">&nbsp;</button></td>
 					<td><button title="(Backspace)" labeloverride="⌫" textoverride="&#8;" style="font-size: 80%">␈</button></td>
+					<td><button title="(Tab)" labeloverride="⭾" textoverride="&#9;" style="font-size: 80%">⭾</button></td>
+					<td><button title="(Zero-width joiner)" labeloverride="ZWJ" textoverride="&#8205;" style="font-size: 60%; line-height: 80%; text-align: center;">ZW<br/>J</button></td>
+				</tr>
+				<tr id="labelrow2">
+					<td><div class="spacer">&nbsp;</div></td>
+				</tr>
+				<tr id="buttonrow2" metaheading="^long vowel ligatures">
+					<td><button title="Aa">‍</button></td> <!--Ā unsupported-->
+					<td><button title="Ii">‍</button></td> <!--Ī unsupported-->
+					<td><button title="Uu">‍</button></td> <!--Ū unsupported-->
+					<td><button title="Ei">‍</button></td> <!--Ē unsupported-->
+					<td><button title="Ou">‍</button></td> <!--Ō unsupported-->
+					<td><button title="Yaa">‍‍</button></td>
+					<td><button title="Yuu">‍‍</button></td>
+					<td><button title="Yei">‍‍</button></td>
+					<td><button title="You">‍‍</button></td>
+				</tr>
+				<tr id="labelrow3">
+					<td><div class="spacer">&nbsp;</div></td>
+				</tr>
+				<tr id="buttonrow3" class="cursed" metaheading="^cursed (not in ^niji)">
+					<td><button title="Dj"></button></td>
+					<td><button title="Dz"></button></td>
+					<td><button title="Ng"></button></td>
+					<td><button title="L"></button></td>
+					<td><button title="Yi"></button></td>
+					<td><button  title="Yii">‍‍</button></td>
 				</tr>
 			</tbody>
 		</table><br/><br/>
@@ -254,9 +330,26 @@
 				v: ""
 			};
 			
+			if(doCursed) {
+				var cursedNijiLetters = {
+					"z": "",
+					dz: "",
+					l: "",
+					"g": "",
+					ng: "",
+					"j": "",
+					dj: ""
+				};
+				for(var key in cursedNijiLetters) {
+					nijiConversionKey[key] = cursedNijiLetters[key]
+				}
+			};
+			
 			var englishVowels = "aiueo".split("");
 			
 			var nijiVowels = englishVowels.map(x => nijiConversionKey[x]);
+			
+			var nijiVowelsAndChouonpu = nijiVowels.concat("");
 			
 			var isVowelRegex = RegExp(`^[${nijiVowels.join("")}]$`);
 			
@@ -267,7 +360,7 @@
 
 			var lastVowelTypedBeforeLengthMark = null;
 			
-			var ZWNJ = "‌";
+			var zwnj = "‌";
 			
 			var _newCursorSelectionStart = 0;
 			var _newCursorSelectionEnd = 0;
@@ -276,6 +369,10 @@
 			
 			function logEdges() {
 				console.log(_newCursorSelectionStart,_newCursorSelectionEnd)
+			};
+			
+			function logInTheFont(oneText) {
+				console.log(`%c${oneText}`,'font-family: "Monnaka Plain", Consolas;')
 			};
 			
 			//make clicks update the stored cursor position
@@ -312,15 +409,23 @@
 					case "h":
 					case "ch":
 						if(last3[0] == "c") {
-							resultingStringBeforeCursor = resultingStringBeforeCursor.replace(/cch$/i,"");
+							resultingStringBeforeCursor = resultingStringBeforeCursor.replace(/[ct][c]h?$/i,"");
 						};
 					case "ts":
 					case "s":
-						resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last2 + "$","i"),nijiConversionKey[last2]);
-						this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-						_newCursorSelectionStart--;
-						_newCursorSelectionEnd--;
-						break;
+					case "z":
+					case "dz":
+					case "g":
+					case "ng":
+					case "j":
+					case "dj":
+						if(nijiConversionKey[last2]) {
+							resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last2 + "$","i"),nijiConversionKey[last2]);
+							this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+							_newCursorSelectionStart--;
+							_newCursorSelectionEnd--;
+							break
+						};
 					default:
 						if((nijiConsonants.includes(last2[0])) && (last2[0] !== "") && (last2[0] !== "") && last2[0] == nijiConversionKey[last1]) { //auto-tsuing except for Ns and Ys
 							var regex = RegExp(`${last2[0]}(${last1})$`,"i");
@@ -358,9 +463,12 @@
 							case "b":
 							case "p":
 							case "v":
-								resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
-								this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-								break;
+							case "l":
+								if(nijiConversionKey[last1]) {
+									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
+									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+									break
+								};
 							/*case "'":
 								if(last2[0] == "") {
 									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),ZWNJ);
@@ -377,9 +485,15 @@
 							case "o":
 								if(nijiConsonants.includes(last2[0])) {
 									lastVowelTypedBeforeLengthMark = last1;
-									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
+									if((!doCursed) && last2[0] == "" && last1 == "i") {
+										resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),zwnj + nijiConversionKey[last1]);
+										_newCursorSelectionStart++;
+										_newCursorSelectionEnd++;
+									} else {
+										resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),nijiConversionKey[last1]);
+									}
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-								} else if(((nijiVowels.includes(last2[0])) || (last2[0] == "")) && (lastVowelTypedBeforeLengthMark === last1)) {
+								} else if((nijiVowelsAndChouonpu.includes(last2[0])) && (lastVowelTypedBeforeLengthMark === last1)) {
 									resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(last1 + "$","i"),"");
 									this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 								} else {
@@ -396,6 +510,10 @@
 				textbox.selectionEnd = _newCursorSelectionEnd;
 				if(localStorageIsAvailable) { everyFifthInputSaveHandler() }
 			});
+			
+			var _uppercaseCaretFunction = function(match) {
+				return match[1].toUpperCase()
+			};
 			
 			var keyboard = document.getElementById("buttons");
 			if(keyboard) {
@@ -416,6 +534,8 @@
 							buttonRow.before(labelRow)
 						};
 						
+						buttonRow.classList.forEach(className => labelRow.classList.add(className));
+						
 						//clear label row
 						var lrcn = labelRow.childNodes;
 						for(var j = 0; j < lrcn.length; j++) {
@@ -426,6 +546,13 @@
 						
 						//get buttons
 						var buttons = buttonRow.querySelectorAll("button");
+						
+						//make header
+						var labelText = (buttonRow.getAttribute("metaheading") ?? "").replace(/\^(.)/g,_uppercaseCaretFunction)
+						var newHeader = document.createElement("th");
+						newHeader.setAttribute("rowspan","2");
+							newHeader.innerText = labelText;
+						labelRow.appendChild(newHeader);
 						
 						//do buttON stuff
 						for(var j = 0; j < buttons.length; j++) {
@@ -457,11 +584,12 @@
 									resultingStringAfterCursor = text.slice(_newCursorSelectionEnd);
 									_newCursorSelectionStart += textToAdd.length;
 
+									var last3 = resultingStringBeforeCursor.slice(-3).toLowerCase();
 									var last2 = resultingStringBeforeCursor.slice(-2).toLowerCase();
 									var last1 = resultingStringBeforeCursor.slice(-1).toLowerCase();
 
-									var willBeLengthMark = (nijiVowels.includes(textToAdd) && ((resultingStringBeforeCursor.length > 2) && ((nijiVowels.includes(last2[0])) || (last2[0] == "")) && (lastVowelTypedBeforeLengthMark === textToAdd)));
-									//console.log(willBeLengthMark);
+									var searchArea = resultingStringBeforeCursor.replace(/+$/,"").slice(0,-(textToAdd.length));
+									var lastVowel = findFirstVowelInNijiString(searchArea.split("").toReversed().join(""));
 
 									if(nijiConsonants.includes(last2[0]) && (last2[0] !== "") && (textToAdd !== "") && (last2[0] == last1)) {
 										if(last2[0] !== "") {
@@ -469,18 +597,31 @@
 											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(regex,"$1")
 										}
 									};
-									if(nijiVowels.includes(textToAdd)) {
-										if(nijiConsonants.includes(last2[0])) {
-											lastVowelTypedBeforeLengthMark = textToAdd;
-										} else if((resultingStringBeforeCursor.length > 2) && ((nijiVowels.includes(last2[0])) || (last2[0] == "")) && (lastVowelTypedBeforeLengthMark === textToAdd)) {
+									
+									var lastLetterBeforeTTA = resultingStringBeforeCursor.slice(-(textToAdd.length + 2),-(textToAdd.length + 1)) ?? null;
+									//logInTheFont("llbTTA: " + (lastLetterBeforeTTA ?? "null"));
+									//logInTheFont("lastVowel: " + lastVowel);
+									if(findFirstVowelInNijiString(textToAdd) !== null) {
+										//logInTheFont("last2[0]: " + last2[0]);
+										if(nijiConsonants.includes(last2[0]) && (last2[0] !== "")) {
+											//console.log("case 1");
+										} else if((lastVowel === findFirstVowelInNijiString(textToAdd)) && (lastVowel !== null) && (textToAdd.length == 1)) {
+											//console.log("case 2");
 											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"");
 											this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
 										} else {
-											lastVowelTypedBeforeLengthMark = textToAdd;
-											resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
-											this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
-											_newCursorSelectionStart++;
-											_newCursorSelectionEnd++;
+											//console.log("case 3");
+											//Automatically places the ieung analog
+											var condition = (
+												(last3.length < (2 + (textToAdd.length > 1))) ||
+												(!(nijiConsonants.includes(resultingStringBeforeCursor)))
+											);
+											if(condition) {
+												resultingStringBeforeCursor = resultingStringBeforeCursor.replace(RegExp(textToAdd + "$","i"),"" + textToAdd);
+												this.value = resultingStringBeforeCursor+resultingStringAfterCursor;
+												_newCursorSelectionStart++;
+												_newCursorSelectionEnd++
+											}
 										}
 									}
 								};
@@ -495,6 +636,43 @@
 				}
 			};
 
+			if(doCursed) {
+				var hider = document.getElementById("style2");
+				hider.textContent = "";
+				hider.innerText = "";
+				(document.head ?? document.getElementsByTagName("head")[0]).removeChild(hider);
+				
+				cursedParagraph = document.querySelector("p.cursed");
+				var cpt = [
+					"The font has had some letters added (",
+					["small","U+ED51 "],
+					["span", " 'dz', ", "as in づ"],
+					["small","U+ED5C "],
+					["span", " 'l', ", "as in ら゚"],
+					["small","U+ED5D "],
+					["span", " 'ng', ", "as in か゚"],
+					["small","U+ED5E "],
+					["span", " 'dj', ", "as in ぢ"],
+					["small","U+ED59-U+ED41 "],
+					["span", " 'yi'", "as in 𛀆"],
+					") and the discretionary ligatures exposed as ZWJ combinations.",
+				];
+				for(var i = 0; i < cpt.length; i++) {
+					var data = cpt[i];
+					if((typeof(data) == "string") || (Array.isArray(data) && (data.length == 1))) {
+						cursedParagraph.appendChild(document.createTextNode(data))
+					} else if(Array.isArray(data) && (data.length > 1)) {
+						var newElement = document.createElement(data[0]);
+						newElement.innerText = data[1];
+						if(data[2]) {
+							newElement.setAttribute("title",data[2])
+						};
+						cursedParagraph.appendChild(newElement)
+					}
+				};
+				cursedParagraph.after(document.createElement("br"));
+			}
+			
 			if(isLocalStorageAvailable) {
 				if(localStorage.getItem("text") === null) {
 					localStorage.setItem("text","")
@@ -505,7 +683,7 @@
 					_newCursorSelectionStart = textbox.selectionStart;
 					_newCursorSelectionEnd = textbox.selectionEnd
 				}
-			}
+			};
 		</script>
 		
 		<br/><br/><a href="index.html"><small>go to main page</small></a>
