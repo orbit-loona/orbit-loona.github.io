@@ -153,8 +153,8 @@
 		<script>
 			var glyphs = [];
 			var fontStart = 0xF0100; //Don't change, but not using const because weird Chrome/Safari scoping differences with const bit me in the a** last time
-			var fontEnd = 0xF02A8; //Subject to change if more glyphs are added
-			var baseResult = BigInt(0xF02A8 - (fontStart - 1));
+			var fontEnd = 0xF0325; //Subject to change if more glyphs are added
+			var baseResult = BigInt(fontEnd - (fontStart - 1));
 			for(var i = fontStart; i <= fontEnd; i++) {
 				glyphs.push(String.fromCodePoint(i))
 			};
@@ -167,7 +167,7 @@
 			var twoNonBreakingSpaces = String.fromCharCode(0xA0,0xA0);
 
 			var decimalInputBoxFunction = function() {
-				var value = this.value;
+				var value = decimalInputBox.value;
 				if(value.length === 0) {
 					testOutputField.innerText = twoNonBreakingSpaces;
 					return
