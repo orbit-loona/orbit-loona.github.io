@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>test numerals</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Test numerals" />
+		<meta property="og:url" content="https://orbit-loona.github.io/test-numbers.html" />
+		<meta property="og:description" content="Test numeral system" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://orbit-loona.github.io/bin/test-numbers.png" />
+		<meta property="og:image:width" content="119" />
+		<meta property="og:image:height" content="96" />
+		<meta property="og:image:alt" content="image" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/test-numbers.png" />
+		<meta name="twitter:title" content="Test numerals" />
+		<meta name="twitter:description" content="Test numeral system" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<script>
+			//Needed for the punycode script to work because it's meant for use with a package manager module system
+			module = {
+				exports: {}
+			}
+		</script>
+		<script src="https://cdn.jsdelivr.net/gh/mathiasbynens/punycode.js@main/punycode.js"></script>
+		<style>
+			@font-face {
+				font-family: "Test";
+				src: url("bin/Test.ttf");
+			}
+			
+			body {
+				font-family: 'Gamja Flower', 'Test', 'Arial', 'Comic Mono', sans-serif;
+			}
+			
+			#testNumberOutput {
+				line-height: 120%;
+				font-size: 300%;
+				border: 1px solid white;
+				padding: 3px;
+			}
+			
+			#testNumberOutput, #testNumberInput {
+				font-family: 'Test', 'Arial', 'Comic Mono', sans-serif;
+			}
+			
+			#decimalNumberOutput {
+				line-height: 130%;
+				font-size: 180%;
+				border: 1px solid white;
+				padding: 3px;
+			}
+
+			#decimalNumberOutput, #testNumberOutput {
+				max-width: 97vw;
+				word-wrap: break-word;
+				display: inline-block;
+			}
+			
+			.label, #decimalNumberInput {
+				display: block;
+			}
+			
+			#decimalNumberInput, #testNumberInput {
+				width: 600px;
+			}
+			
+			#testNumberInput {
+				font-size: 160%;
+			}
+			
+			.warning {
+				background-color: #2f0000;
+				color: white;
+				border: 1px solid red;
+				padding: 8px;
+				color: #fcc;
+			}
+
+			.warning a:normal {
+				color: #2eb;
+			}
+
+			.warning a:visited {
+				color: #f0c;
+			}
+		</style>
+		<script>
+			var urlParams = new URLSearchParams(window.location.search);
+			
+			function bigintToBaseFooArray(bigintNumber,bigintBase) {
+				if(bigintNumber < 0n) { bigintNumber *= (-1n) };
+				if(bigintBase < 2n) {
+					throw new RangeError("Base must be greater than 2")
+				};
+				var result = [];
+				if(bigintNumber === 0n) {
+					return [0]
+				} else {
+					while(bigintNumber > 0n) {
+						var moduloResult = bigintNumber % bigintBase;
+						result.unshift(moduloResult);
+						bigintNumber -= moduloResult;
+						bigintNumber /= bigintBase
+					};
+					return result
+				}
+			};
+
+			function bigintCommas(bigint) {
+				var numberText = bigint.toString().replaceAll(/(?=\d)(?=(\d\d\d)+(?!\d))/g,",");
+				if(numberText.startsWith(",")) { numberText = numberText.substring(1) };
+				return numberText;
+			};
+		</script>
+	</head>
+	<body>
+		<h1>Test numerals</h1>
+		<div id="description">
+			<p>This is a fictional number system I made to see how FontForge worked. It is subject to change at any time.</p><br/>
+			
+			<noscript>This page (like nearly every other page on my site) relies heavily on JS. It's useless without it.<br/></noscript>
+			
+			<p>This script is encoded in the <a href="https://en.wikipedia.org/wiki/Private_Use_Areas">Unicode <em>Private Use Area</em></a> and will not render properly anywhere on the Web,&nbsp; unless it embeds the special font as a <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts">web font</a>, or you have the font installed and the website you're on <em>specifically includes it</em> in its stylesheet &nbsp;(which isn't going to happen because I just made it up;&nbsp; if you can install browser extensions, CSS injector extensions such as Stylebot can be used to add such a style to a webpage,&nbsp; but due to the inherent nature of the PUA, only people with the font installed and the same such style would be able to see it).</p><br/>	
+			
+			<p>Current base: <span id="base">a lot</span></p>
+			
+			<p id="noPunycodeWarning" class="warning" style="display: none;">The Test-to-Decimal functionality relies on <a href="https://github.com/mathiasbynens/punycode.js/">Mathias Bynens's <em>Punycode</em> library</a> to properly split the string of non-<a href="https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane">BMP</a> Unicode characters, but it was unable to load for some reason (maybe JSDelivr is down?). Conversion of Test numerals to Decimal will not be available.</p>
+		</div><br/>
+		<div id="main">
+		
+		<div id="decimalToTest">
+			<h3>Decimal to Test Numerals</h3>
+			<span class="label">Enter the input number</span>
+			<input id="decimalNumberInput" type="number"/>
+			<br/>
+			<span class="label">Output:</span>
+			<span id="testNumberOutput">&nbsp;&nbsp;</span><br/>
+		</div>
+
+		<div id="testToDecimal">
+			<h3>Test Numerals to Decimal</h3>
+			<span class="label">Enter the input number</span>
+			<input id="testNumberInput"/>
+			<br/>
+			<span class="label">Output:</span>
+			<span id="decimalNumberOutput">&nbsp;&nbsp;</span><br/>
+		</div>
+		<script>
+			var glyphs = [];
+			var fontStart = 0xF0100; //Don't change, but not using const because weird Chrome/Safari scoping differences with const bit me in the a** last time
+			var fontEnd = 0xF02A8; //Subject to change if more glyphs are added
+			var baseResult = BigInt(0xF02A8 - (fontStart - 1));
+			for(var i = fontStart; i <= fontEnd; i++) {
+				glyphs.push(String.fromCodePoint(i))
+			};
+			
+			document.getElementById("base").innerText = baseResult.toString();
+			
+			var testOutputField = document.getElementById("testNumberOutput");
+			var decimalOutputField = document.getElementById("decimalNumberOutput");
+			
+			var twoNonBreakingSpaces = String.fromCharCode(0xA0,0xA0);
+
+			var decimalInputBoxFunction = function() {
+				var value = this.value;
+				if(value.length === 0) {
+					testOutputField.innerText = twoNonBreakingSpaces;
+					return
+				};
+				//console.log(value);
+				var parseintValue = parseInt(value);
+				if(isNaN(parseintValue)) {
+					return
+				} else {
+					var valueAsBigint = BigInt(value);
+					if(valueAsBigint < 0n) {
+						var wasNegative = true;
+						valueAsBigint = valueAsBigint * (-1n);
+					};
+					var resultArray = bigintToBaseFooArray(valueAsBigint,baseResult);
+					var resultText = resultArray.map(x => glyphs[x]).join("");
+					testOutputField.innerText = (wasNegative ? "-" : "") + resultText
+				}
+			};
+			
+			decimalInputBox = document.getElementById("decimalNumberInput");
+			decimalInputBox.addEventListener("change",decimalInputBoxFunction);
+			decimalInputBox.addEventListener("keyup",decimalInputBoxFunction);
+
+			if(module.exports.ucs2) {
+				var testInputBoxFunction = function() {
+					//module.exports = punycode
+					var value = this.value;
+					if(value.length === 0) {
+						decimalOutputField.innerText = twoNonBreakingSpaces;
+						return
+					};
+					if(value.match(/^(\d+\.|)\d+$/)) {
+						decimalOutputField.innerText = parseInt(value).toLocaleString();
+						return
+					};
+					var splitValue = module.exports.ucs2.decode(value).filter(number => ((number >= fontStart) && (number <= fontEnd))).map(x => String.fromCodePoint(x)).toReversed();
+					if(splitValue.length == 0) { return };
+					var wasNegative = (value.startsWith("-"));
+					var result = 0n;
+					for(var i = 0; i < splitValue.length; i++) {
+						var glyph = splitValue[i];
+						var glyphValue = glyphs.indexOf(glyph);
+						if(glyphValue < 0) { continue };
+						result += BigInt(glyphValue) * (baseResult ** BigInt(i))
+					};
+					decimalOutputField.innerText = (wasNegative ? "-" : "") + (bigintCommas(result))
+				};
+				
+				testInputBox = document.getElementById("testNumberInput");
+				testInputBox.addEventListener("change",testInputBoxFunction);
+				testInputBox.addEventListener("keyup",testInputBoxFunction)
+			} else {
+				var warning = document.getElementById("noPunycodeWarning");
+				warning.style.display = "block";
+				warning.before(document.createElement("br"));
+				var ttdElements = document.getElementById("testToDecimal");
+				var mainDiv = document.getElementById("main");
+				mainDiv.removeChild(ttdElements);
+				ttdElements = null
+			}
+		</script>
+		
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+
+	</body>
+</html>
