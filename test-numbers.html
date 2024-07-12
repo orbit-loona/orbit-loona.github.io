@@ -152,8 +152,8 @@
 		</div>
 		<script>
 			var glyphs = [];
-			var fontStart = 0xF0100; //Don't change, but not using const because weird Chrome/Safari scoping differences with const bit me in the a** last time
-			var fontEnd = 0xF0325; //Subject to change if more glyphs are added
+			var fontStart = 0xF3000; //Don't change, but not using const because weird Chrome/Safari scoping differences with const bit me in the a** last time
+			var fontEnd = 0xF344B; //Subject to change if more glyphs are added
 			var baseResult = BigInt(fontEnd - (fontStart - 1));
 			for(var i = fontStart; i <= fontEnd; i++) {
 				glyphs.push(String.fromCodePoint(i))
