@@ -121,7 +121,7 @@
 	<body>
 		<h1>Test numerals</h1>
 		<div id="description">
-			<p>This is a fictional number system I made to see how FontForge worked. It is subject to change at any time.</p><br/>
+			<p>This is a fictional number system I made to see how FontForge worked. It is probably complete.</p><br/>
 			
 			<noscript>This page (like nearly every other page on my site) relies heavily on JS. It's useless without it.<br/></noscript>
 			
@@ -153,13 +153,13 @@
 		<script>
 			var glyphs = [];
 			var fontStart = 0xF3000; //Don't change, but not using const because weird Chrome/Safari scoping differences with const bit me in the a** last time
-			var fontEnd = 0xF344B; //Subject to change if more glyphs are added
+			var fontEnd = 0xF3577; //Subject to change if more glyphs are added
 			var baseResult = BigInt(fontEnd - (fontStart - 1));
 			for(var i = fontStart; i <= fontEnd; i++) {
 				glyphs.push(String.fromCodePoint(i))
 			};
 			
-			document.getElementById("base").innerText = baseResult.toString();
+			document.getElementById("base").innerText = baseResult.toLocaleString();
 			
 			var testOutputField = document.getElementById("testNumberOutput");
 			var decimalOutputField = document.getElementById("decimalNumberOutput");
@@ -184,7 +184,7 @@
 					};
 					var resultArray = bigintToBaseFooArray(valueAsBigint,baseResult);
 					var resultText = resultArray.map(x => glyphs[x]).join("");
-					testOutputField.innerText = (wasNegative ? "-" : "") + resultText
+					testOutputField.innerText = (wasNegative ? "󳕸" : "") + resultText
 				}
 			};
 			
@@ -200,13 +200,14 @@
 						decimalOutputField.innerText = twoNonBreakingSpaces;
 						return
 					};
-					if(value.match(/^(\d+\.|)\d+$/)) {
-						decimalOutputField.innerText = parseInt(value).toLocaleString();
+					if(value.match(/^(\-|󳕸)?(\d+\.|)\d+$/)) {
+						decimalOutputField.innerText = parseInt(value.replace("󳕸","-")).toLocaleString();
 						return
 					};
-					var splitValue = module.exports.ucs2.decode(value).filter(number => ((number >= fontStart) && (number <= fontEnd))).map(x => String.fromCodePoint(x)).toReversed();
+					var splitValue = module.exports.ucs2.decode(value)
 					if(splitValue.length == 0) { return };
-					var wasNegative = (value.startsWith("-"));
+					var wasNegative = (value.startsWith("-") || value.startsWith("󳕸"));
+					splitValue = splitValue.filter(number => ((number >= fontStart) && (number <= fontEnd))).map(x => String.fromCodePoint(x)).toReversed();
 					var result = 0n;
 					for(var i = 0; i < splitValue.length; i++) {
 						var glyph = splitValue[i];
