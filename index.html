@@ -296,244 +296,261 @@ try {
 	var hc = hinataColors;
 
 	idolBdData = {
-		"01-01": { e: "Winter", c: "rgb(209,221,236)", g: "aespa", y: 2001 },
-		"03-01": [ { e: "Jisoo", c: "rgb(159,0,191)", g: "BlackPink", y: 1995 }, { e: "Kep1er", c: "rgb(193,167,226)", isGroup: true, y: 2022 } ],
-		"05-01": { e: "Karin", c: "rgb(238,18,137)", g: "ALICE", y: 2002 },
-		"06-01": [ { e: "Shuhua", c: "rgb(255,255,153)", g: "(G)I-DLE", y: 2000 }, { e: "Chloe", c: "rgb(219,244,167)", g: "cignature", y: 2001 }, { e: "Eunbin", c: "rgb(255,215,0)", g: "CLC", y: 2000 } ],
-		"07-01": [ { e: "Yoohyeon", c: "rgb(31,237,21)", g: "Dreamcatcher", y: 1997 }, { e: "Saerom", c: "rgb(254,66,4)", g: "fromis_9", y: 1997 } ],
-		"08-01": [ { e: "Seo Dahyun", c: "rgb(255,154,214)", g: "tripleS", y: 2003 }, { e: "Yeonji", c: "rgb(89,116,255)", g: "tripleS", y: 2008 } ],
-		"03-05": { e: "MiU", g: "MADEIN", y: 2003 },
-		"10-01": { e: "Haeyoon", c: "rgb(246,145,125)", g: "Cherry Bullet", y: 1996 },
-		"11-01": { e: "Lee Chaeyeon", c: "rgb(166,220,222)", g: "IZ*ONE", y: 2000},
-		"13-01": [ {e: "Mia", c: "rgb(103,5,6)", g: "Everglow", y: 2000}, { e: "Dreamcatcher", c: ["rgb(138,42,43)","rgb(242,199,99)","rgb(16,24,32)"], isGroup: true, y: 2017}, { e: "Haram", c: "rgb(255,153,204)", g: "Billlie", y: 2001} ],
-		"15-01": [{ e: "Suhyeon", c: "rgb(63,196,96)", g: "Billlie", y: 2000}, { e: "Yunah", c: "rgb(255,207,112)", g: "ILLIT", y: 2004 }],
-		"16-01": [{ e: "Jennie", c: "rgb(204,108,169)", g: "BlackPink", y: 1996}, { e: "Joobin", c: "rgb(183,245,76)", g: "tripleS", y: 2009 }],
-		"18-01": { e: "Minzy", c: "rgb(195,108,230)", g: "2NE1", y: 1994 },
-		"21-01": { e: "Cherry Bullet", c: "rgb(238,43,43)", isGroup: true, y: 2019 },
-		"22-01": { e: "Lee Seoyeon", c: "rgb(0,83,133)", g: "fromis_9", y: 2000 },
-		"23-01": { e: "Isa", c: sc.black, g: "STAYC", y: 2002},
-		"24-01": { e: "fromis_9", c: ["rgb(188,150,187)","rgb(176,238,161)"], isGroup: true, y: 2018 },
-		"26-01": [ { e: "Somyi", c: "rgb(199,56,164)", g: "DIA", y: 2000 }, { e: "Sullyoon", c: "rgb(51,102,255)", g: "NMIXX", y: 2004 } ],
-		"28-01": { e: "Sheon", c: "rgb(255,153,0)", g: "Billlie", y: 2003},
-		"30-01": { e: "Haruna", c: "rgb(9,151,222)", g: "Billlie", y: 2006},
-		"31-01": { e: "Miyeon", c: sc.black, g: "(G)I-DLE", y: 1997 },
-		"01-02": { e: "Jihyo", c: "rgb(250,200,87)", g: "TWICE", y: 1997},
-		"02-02": { e: "Do-A", c: "rgb(204,0,255)", g: "ALICE", y: 1999},
-		"03-02": [ {e: "Gahyun", c: "rgb(186,9,191)", g: "Dreamcatcher", y: 1999}, {e: "Rei", c: "rgb(105,195,45)", g: "IVE", y: 2004}, { e: "cignature", c: "rgb(176,3,9)", isGroup: true, y: 2020 }, { e: "Yubin", c: "rgb(255,227,226)", g: "tripleS", y: 2005 }, { e: "Jia", c: "rgb(104,180,126)", g: "Miss A", y: 1989 } ],
-		"04-02": { e: "Iroha", c: "rgb(71,145,255)", g: "ILLIT", y: 2008 },
-		"05-02": [ { e: "Kim Minju", c: sc.white, g: "IZ*ONE", y: 2001}, { e: "Hyunjoo", c: "rgb(100,190,193)", g: "APRIL", y: 1998 } ],
-		"07-02": { e: "Sunn", c: "rgb(255,173,173)", g: "cignature", y: 2000 },
-		"09-02": { e: "Yooyeon", c: "rgb(219,12,116)", g: "tripleS", y: 2001 },
-		"10-02": [ {e: "Kim Lip", c: "rgb(234,2,1)", g: "LOONA", y: 1999}, {e: "Sooyoung", c: "rgb(255,92,205)", g: "Girls' Generation", y: 1990 }, { e: "Son Naeun", c: "rgb(196,179,107)", g: "Apink", y: 1994 }, { e: "Seulgi", c: "rgb(255,251,0)", g: "Red Velvet", y: 1994 } ],
-		"11-02": { e: "Rose'", c: "rgb(0,94,255)", g: "BlackPink", y: 1997}, //The font I'm using here sadly does not support accents (é)
-		"12-02": { e: "ITZY", c: sc.magenta, isGroup: true, y: 2019 },
-		"13-02": [ { e: "Jiyeon", c: "rgb(255,171,98)", g: "tripleS", y: 2004 }, { e: "tripleS", c: sc.black, isGroup: true, y: 2023 } ],
-		"16-02": { e: "Siyoon", c: sc.yellow, g: "Billlie", y: 2005},
-		"21-02": [ { e: "Leeseo", c: "rgb(255,240,1)", g: "IVE", y: 2007}, { e: "Wendy", c: "rgb(0,95,255)", g: "Red Velvet", y: 1994}, { e: "Solar", c: "rgb(41,55,142)", g: "Mamamoo", y: 1991} ],
-		"22-02": { e: "NMIXX", isGroup: true, y: 2022 },
-		"25-02": { e: "Haewon", c: sc.white, g: "NMIXX", y: 2003 },
-		"26-02": { e: "CL", c: "rgb(226,217,137)", g: "2NE1", y: 1991 },
-		"02-03": { e: "Dayeon", c: "rgb(100,150,235)", g: "Kep1er", y: 2003},
-		"03-03": [ { e: "Chorong", c: "rgb(230,0,86)", g: "Apink", y: 1991 }, { e: "Bora", c: "rgb(122,205,233)", g: "Cherry Bullet", y: 1999 } ],
-		"04-03": { e: "Geumhee", c: "rgb(4,173,87)", g: "CSR", y: 2005},
-		"05-03": [ { e: "Yuju", c: "rgb(134,4,148)", g: "Cherry Bullet", y: 1997}, { e: "Yeri", c: "rgb(159,31,191)", g: "Red Velvet", y: 1999 } ],
-		"07-03": [ { e: "Dami", c: "rgb(255, 244, 15)", g: "Dreamcatcher", y:1997}, { e: "Eunjo", c: "rgb(86,255,89)", g: "DreamNote", y: 2002 } ],
-		"09-03": [ { e: "Taeyeon", c: "rgb(100,149,237)", g: "Girls' Generation", y: 1989 }, { e: "Soojin", c: "rgb(247,152,141)", g: "(G)I-DLE", y: 1998 } ],
-		"10-03": [{ e: "HaBin", c: "rgb(86,255,204)", g: "DreamNote", y: 2002 }, { e: "Kotone", c: "rgb(253,224,0)", g: "tripleS", y: 2004 }],
-		"12-03": [ { e: "Hikaru", c: "rgb(251,234,140)", g: "Kep1er", y: 2004}, { e: "Hwang Sihyeon", c: "rgb(4,182,243)", g: "CSR", y: 2005 } ],
-		"13-03": [ { e: "Bae Sumin", c: "rgb(255,192,203)", g: "STAYC", y: 2001}, { e: "Chaerin", c: "rgb(93,52,195)", g: "Cherry Bullet", y: 2002 } ],
-		"18-03": { e: "Everglow", c: "rgb(209,180,203)", isGroup: true, y: 2019},
-		"19-03": [ { e: "Sakura", c: "rgb(241,210,231)", g: "IZ*ONE", y: 1998}, { e: "CLC", c: ["rgb(132,11,85)", "rgb(255,205,0)", "rgb(0,95,97)"], isGroup: true, y: 2015 } ],
-		"20-03": { e: "Park Jiwon", c: "rgb(134,171,17)", g: "fromis_9", y: 1998 },
-		"24-03": [ { e: "Mina", c: "rgb(111,197,194)", g: "TWICE", y: 1997}, { e: "Bom", c: "rgb(118,212,174)", g: "2NE1", y: 1984 } ],
-		"25-03": { e: "ILLIT", c: "rgb(220,180,251)", isGroup: true, y: 2024 },
-		"26-03": [ { e: "Handong", c: sc.black, g: "Dreamcatcher", y: 1996}, { e: "Mirae", c: "rgb(185,74,214)", g: "Cherry Bullet", y: 1998 }, { e: "An Seoyeon", c: "rgb(246,98,15)", g: "CSR", y: 2005 } ],
-		"27-03": { e: "Lisa", c: "rgb(255,250,0)", g: "BlackPink", y: 1997},
-		"29-03": { e: "Irene", c: "rgb(255,127,223)", g: "Red Velvet", y: 1991},
-		"01-04": { e: "Jeewon", c: "rgb(0,153,148)", g: "cignature", y: 1999 },
-		"03-04": { e: "Shion", c: "rgb(255,66,138)", g: "tripleS", y: 2006 },
-		"10-04": { e: "Semi", c: "rgb(186,99,247)", g: "cignature", y: 2002 },
-		"11-04": [ { e: "Danielle", c: "rgb(0,238,0)", g: "NewJeans", y: 2005 }, { e: "Karina", c: "rgb(168,44,230)", g: "aespa", y: 2000 } ],
-		"12-04": [ { e: "Hyerin", c: "rgb(146,0,255)", g: "tripleS", y: 2007 }, { e: "Lynn", c: "rgb(172,98,183)", g: "tripleS", y: 2006 } ],
-		"13-04": { e: "Kim Jiwoo", c: sc.red, g: "NMIXX", y: 2005 },
-		"14-04": { e: "Yoon", c: "rgb(50,205,50)", g: "STAYC", y: 2004},
-		"15-04": { e: "Namjoo", c: "rgb(203,108,176)", g: "Apink", y: 1995 },
-		"16-04": { e: "Jinni", c: "rgb(204,153,255)", g: "NMIXX", y: 2004 },
-		"17-04": [ { e: "Jiheon", c: "rgb(249,234,77)", g: "fromis_9", y: 2003 }, { e: "Wheein", c: "rgb(251,251,251)", g: "Mamamoo", y: 1995 }, { e: "Ryujin", c: "rgb(175,0,255)", g: "ITZY", y: 2001 } ],
-		"18-04": { e: "Jessica", c: "rgb(209,0,86)", g: "Girls' Generation", y: 1989 },
-		"19-04": { e: "Apink", c: "rgb(232,137,177)", isGroup: true, y: 2011 },
-		"21-04": { e: "Hyein", c: "rgb(31,95,255)", g: "NewJeans", y: 2008},
-		"23-04": [ { e: "Son Chaeyoung", c: "rgb(232,25,51)", g: "TWICE", y: 1999}, { e: "Yuna", c: "rgb(111,67,164)", g: "CSR", y: 2005 } ],
-		"24-04": { e: "YOUI", c: "rgb(255,86,86)", g: "DreamNote", y: 2000 },
-		"26-04": [ { e: "Chaehyun", c: "rgb(255,183,206)", g: "Kep1er", y: 2002}, { e: "Remi", c: "rgb(179,249,107)", g: "Cherry Bullet", y: 2001 } ],
-		"27-04": { e: "Fei", c: "rgb(153,87,167)", g: "Miss A", y: 1987 },
-		"28-04": { e: "Duna", c: "rgb(229,111,182)", g: "CSR", y: 2005 },
-		"02-05": [{ e: "(G)I-DLE", c: ["rgb(88,14,139)", "rgb(232,0,55)"], isGroup: true, y: 2018 }, { e: "Kim Chaewon", c: "rgb(199,163,224)", g: "tripleS", y: 2007 }],
-		"03-05": { e: "Serina", g: "MADEIN", y: 2006 },
-		"05-05": { e: "Lee Naeun", c: "rgb(186,76,129)", g: "APRIL", y: 1999 },
-		"06-05": { e: "2NE1", c: "rgb(255,0,127)", isGroup: true, y: 2009 },
-		"07-05": { e: "Minji", c: "rgb(255,248,31)", g: "NewJeans", y: 2004},
-		"11-05": { e: "Park Minju", c: "rgb(186,69,69)", g: "ILLIT", y: 2004 },
-		"12-05": { e: "Mayu", c: "rgb(254,142,118)", g: "tripleS", y: 2002 },
-		"14-05": { e: "Lee Chaeyoung", c: "rgb(35,248,84)", g: "fromis_9", y: 2000 },
-		"15-05": [ {e: "Sunny", c: "rgb(107,142,35)", g: "Girls' Generation", y: 1989 }, {e: "Haerin", c: sc.white, g: "NewJeans", y: 2006} ],
-		"17-05": { e: "JiU", c: sc.white, g: "Dreamcatcher", y: 1994},
-		"18-05": { e: "Onda", c: "rgb(179,4,105)", g: "Everglow", y: 2000},
-		"19-05": { e: "E:U", c: "rgb(107,86,163)", g: "Everglow", y: 1998},
-		"22-05": { e: "Yang Yena", c: "rgb(255,178,79)", g: "APRIL", y: 2000 },
-		"24-05": { e: "Yves", c: "rgb(125,0,30)", g: "LOONA", y: 1997},
-		"25-05": { e: "Xinyu", c: "rgb(213,19,19)", g: "tripleS", y: 2002 },
-		"26-05": [ { e: "Eunchae", c: "rgb(40,119,255)", g: "DIA", y: 1999 }, { e: "Yeji", c: "rgb(63,175,255)", g: "ITZY", y: 2000 }, { e: "Kyujin", c: sc.pink, g: "NMIXX", y: 2006 } ],
-		"28-05": { e: "Kim Dahyun", c: sc.white, g: "TWICE", y: 1998},
-		"30-05": { e: "Yoona", c: "rgb(0,105,148)", g: "Girls' Generation", y: 1990 },
-		"01-06": [ { e: "ALICE", c: "rgb(224,203,244)", isGroup: true, y: 2017}, { e: "Nagyung", c: "rgb(255,145,102)", g: "fromis_9", y: 2000 } ],
-		"02-06": { e: "Nien", c: "rgb(255,149,63)", g: "tripleS", y: 2003 },
-		"03-06": { e: "Seunghee", c: "rgb(250,55,137)", g: "DIA", y: 1995 },
-		"04-06": { e: "Choerry", c: "rgb(92,44,146)", g: "LOONA", y: 2001},
-		"05-06": { e: "Chaeryeong", c: "rgb(127,255,0)", g: "ITZY", y: 2001 },
-		"07-06": { e: "Jueun", c: "rgb(247,183,240)", g: "DIA", y: 1995 },
-		"11-06": { e: "Seoah", c: "rgb(207,243,255)", g: "tripleS", y: 2010 },
-		"13-06": { e: "JinSoul", c: "rgb(20,36,176)", g: "LOONA", y: 1997},
-		"14-06": [ {e: "Seeun", c: "rgb(135,206,235)", g: "STAYC", y: 2003}, {e: "Tzuyu", c: "rgb(1,108,186)", g: "TWICE", y: 1999} ],
-		"16-06": { e: "Huihyeon", c: "rgb(103,78,167)", g: "DIA", y: 1995 },
-		"18-06": { e: "Nako", c: "rgb(183,211,233)", g: "IZ*ONE", y: 2001},
-		"19-06": { e: "Mamamoo", isGroup: true, y: 2014},
-		"20-06": { e: "Seline", c: "rgb(247,99,215)", g: "cignature", y: 2000 },
-		"21-06": { e: "Min", c: "rgb(102,138,8)", g: "Miss A", y: 1991 },
-		"26-06": { e: "Wonhee", c: "rgb(198,255,217)", g: "ILLIT", y: 2007 },
-		"28-06": { e: "Seohyun", c: "rgb(251,206,177)", g: "Girls' Generation", y: 1991 },
-		"01-07": { e: "Miss A", isGroup: true, y: 2010 },
-		"02-07": { e: "Nagomi", g: "MADEIN", y: 2007 },
-		"05-07": [ { e: "Hyewon", c: "rgb(219,112,108)", g: "IZ*ONE", y: 1999}, { e: "Linlin", c: "rgb(191,27,43)", g: "Cherry Bullet", y: 2003 } ],
-		"07-07": { e: "Chaekyung", c: "rgb(255,183,197)", g: "APRIL", y: 1996 },
-		"13-07": { e: "Yebin", c: "rgb(211,0,0)", g: "DIA", y: 1997 },
-		"14-07": { e: "Chaesol", c: "rgb(100,207,255)", g: "cignature", y: 1998 },
-		"19-07": { e: "Oh Hayoung", c: "rgb(210,176,160)", g: "Apink", y: 1996 },
-		"21-07": [ { e: "Aisha", c: sc.black, g: "Everglow", y: 2000}, { e: "Lia", c: sc.red, g: "ITZY", y: 2000 } ],
-		"22-07": { e: "NewJeans", c: "rgb(64,89,149)", isGroup: true, y: 2022 },
-		"23-07": [ { e: "Sua", c: "rgb(0,220,220)", g: "CSR", y: 2005 }, { e: "Hwasa", c: "rgb(245,205,95)", g: "Mamamoo", y: 1995 } ],
-		"27-07": [ { e: "Huening Bahiyyih", c: "rgb(255,177,109)", g: "Kep1er", y: 2004}, { e: "CSR", c: "rgb(242,105,37)", isGroup: true, y: 2022 } ],
-		"01-08": [ {e: "Sieun", c: sc.white, g: "STAYC", y: 2001}, {e: "Kim Chaewon", c: "rgb(206,229,213)", g: "IZ*ONE", y: 2000}, {e: "Tiffany", c: "rgb(169,32,62)", g: "Girls' Generation", y: 1989 }, { e: "Dohee", c: "rgb(175,27,63)", g: "cignature", y: 2002 }, { e: "Red Velvet", c: "rgb(255,209,194)", isGroup: true, y: 2014 }, { e: "Hayeon", c: "rgb(83,217,190)", g: "tripleS", y: 2007 } ],
-		"05-08": [ {e: "Kim Sihyeon", c: "rgb(199,210,167)", g: "Everglow", y: 1999}, {e: "Girls' Generation", c: "rgb(254,76,128)", isGroup: true, y: 2007} ],
-		"06-08": { e: "Yoon Seoyeon", c: "rgb(34,174,255)", g: "tripleS", y: 2003 },
-		"08-08": { e: "BlackPink", c: "rgb(255,207,228)", isGroup: true, y: 2016},
-		"09-08": { e: "Lara", c: "rgb(145,86,255)", g: "DreamNote", y: 2000 },
-		"10-08": [ { e: "SuA", c: sc.red, g: "Dreamcatcher", y: 1994 }, { e: "Yeeun", c: "rgb(194,0,130)", g: "CLC", y: 1998 } ],
-		"12-08": { e: "Choi Yujin", c: ["rgb(249,123,144)", "rgb(247,127,14)"], g: "CLC/Kep1er", y: 1996},
-		"13-08": [ { e: "EJ", c: "rgb(255,170,66)", g: "ALICE", y: 1997}, { e: "Bomi", c: "rgb(188,169,203)", g: "Apink", y: 1993 } ],
-		"18-08": [ { e: "Eunji", c: "rgb(230,171,71)", g: "Apink", y: 1993 }, { e: "HaSeul", c: "rgb(0,191,0)", g: "LOONA", y: 1997} ],
-		"19-08": { e: "LOONA", c: "rgb(255,0,127)", isGroup: true, y: 2018},
-		"22-08": [ { e: "Yeseo", c: "rgb(162,207,254)", g: "Kep1er/MADEIN", y: 2005}, { e: "Somin", c: "rgb(153,230,179)", g: "APRIL", y: 1996 } ],
-		"24-08": { e: "APRIL", isGroup: true, y: 2015 },
-		"26-08": [ { e: "Soyeon", c: "rgb(245,176,190)", g: "(G)I-DLE", y: 1998 }, { e: "Chaejeong", c: "rgb(94,247,140)", g: "ALICE", y: 1999} ],
-		"28-08": { e: "Rachel", c: "rgb(84,143,247)", g: "APRIL", y: 2000 },
-		"31-08": [ { e: "Wonyoung", c: ["rgb(255,0,30)", "rgb(217,89,140)"], g: "IZ*ONE/IVE", y: 2004}, { e: "Eunjin", c: "rgb(255,79,27)", g: "DIA", y: 1997 } ],
-		"01-09": { e: "An Yujin", c: ["rgb(255,57,154)", "rgb(86,122,206)"], g: "IZ*ONE/IVE", y: 2003},
-		"02-09": { e: "Eunice", c: "rgb(237,157,37)", g: "DIA", y: 1991 },
-		"03-09": [ { e: "Joy", c: "rgb(0,223,23)", g: "Red Velvet", y: 1996 }, { e: "MADEIN", isGroup: true, y: 2024 } ],
-		"04-09": { e: "Huh Jiwon", c: "rgb(234,61,165)", g: "Cherry Bullet", y: 2000 },
-		"07-09": { e: "Park Sumin", c: sc.magenta, g: "DreamNote", y: 2001 },
-		"09-09": { e: "Moon Sua", c: "rgb(204,153,255)", g: "Billlie", y: 1999},
-		"14-09": [ { e: "Jenny", c: "rgb(0,171,219)", g: "DIA", y: 1996 }, { e: "DIA", c: "rgb(0,171,219)", isGroup: true, y: 2015} ],
-		"21-09": { e: "Tsuki", c: "rgb(255,153,161)", g: "Billlie", y: 2002},
-		"22-09": [ {e: "Nayeon", c: "rgb(128,202,241)", g: "TWICE", y: 1995 }, {e: "Hyoyeon", c: "rgb(147,197,114)", g: "Girls' Generation", y: 1989 }, { e: "Hong Yukyung", c: "rgb(212,212,212)", g: "Apink", y: 1994 } ],
-		"23-09": { e: "Yuqi", c: "rgb(38,201,140)", g: "(G)I-DLE", y: 1999 },
-		"24-09": { e: "Gaeul", c: "rgb(0,85,168)", g: "IVE", y: 2002},
-		"27-09": { e: "Eunbi", c: "rgb(187,176,220)", g: "IZ*ONE", y: 1995 },
-		"29-09": [ { e: "Choi Yena", c: "rgb(252,246,149)", g: "IZ*ONE", y: 1999}, { e: "Song Hayoung", c: "rgb(120,94,253)", g: "fromis_9", y: 1997 } ],
-		"01-10": { e: "Siyeon", c: "rgb(15,47,255)", g: "Dreamcatcher", y: 1995},
-		"03-10": { e: "Soomin", c: "rgb(252,131,164)", g: "tripleS", y: 2007 },
-		"06-10": [ { e: "Hitomi", c: "rgb(241,195,170)", g: "IZ*ONE", y: 2001}, {e: "Hanni", c: "rgb(255,191,255)", g: "NewJeans", y: 2004} ],
-		"07-10": { e: "Yeham", c: "rgb(220,0,147)", g: "CSR", y: 2005 },
-		"08-10": { e: "Moka", c: "rgb(216,109,157)", g: "ILLIT", y: 2004 },
-		"09-10": { e: "Ye Ah", c: "rgb(69,109,255)", g: "cignature", y: 1999 },
-		"10-10": [{ e: "Oh Seunghee", c: "rgb(161,107,250)", g: "CLC", y: 1995 }, { e: "Suzy", c: "rgb(187,136,72)", g: "Miss A", y: 1994 } ],
-		"13-10": [{ e: "HanByeol", c: "rgb(255,238,86)", g: "DreamNote", y: 2003 }, { e: "Nakyoung", c: "rgb(101,153,164)", g: "tripleS", y: 2002 }, { e: "Sohyun", c: "rgb(20,35,180)", g: "tripleS", y: 2002 }],
-		"15-10": { e: "Yeonje", c: "rgb(255,227,3)", g: "ALICE", y: 1999 },
-		"17-10": { e: "Lily", c: "rgb(153,204,255)", g: "NMIXX", y: 2002 },
-		"19-10": { e: "HeeJin", c: "rgb(255,0,143)", g: "LOONA", y: 2000},
-		"20-10": [ { e: "Chuu", c: "rgb(255,191,127)", g: "LOONA", y: 1999}, {e: "TWICE", c: ["rgb(248,197,150)","rgb(252,93,157)"], isGroup: true, y: 2015} ],
-		"22-10": { e: "Jo Yuri", c: "rgb(243,170,81)", g: "IZ*ONE", y: 2001},
-		"23-10": [ { e: "Minnie", c: "rgb(155,203,235)", g: "(G)I-DLE", y: 1997 }, { e: "Ningning", c: "rgb(238,23,43)", g: "aespa", y: 2002} ],
-		"24-10": { e: "Lee Jiwoo", c: "rgb(255,248,1)", g: "tripleS", y: 2005 },
-		"25-10": { e: "MISO", c: "rgb(86,168,255)", g: "DreamNote", y: 2000 },
-		"29-10": { e: "IZ*ONE", c: "rgb(239,83,157)", isGroup: true, y: 2018},
-		"30-10": [ { e: "Giselle", c: "rgb(3,14,6)", g: "aespa", y: 2000 }, { e: "BoNi", c: "rgb(255,156,86)", g: "DreamNote", y: 1999 } ],
-		"01-11": [ { e: "Jeongyeon", c: "rgb(188,215,118)", g: "TWICE", y: 1996 }, { e: "Kokoro", c: "rgb(0,221,147)", g: "Cherry Bullet", y: 2000 } ],
-		"02-11": { e: "Elkie", c: "rgb(97,179,41)", g: "CLC", y: 1998 },
-		"03-11": { e: "Belle", c: "rgb(0,195,26)", g: "cignature", y: 2001 },
-		"05-11": { e: "Lee Yukyung", c: "rgb(55,253,252)", g: "ALICE", y: 1999},
-		"06-11": { e: "Seungyeon", c: "rgb(199,3,30)", g: "CLC", y: 1996 },
-		"07-11": { e: "DreamNote", c: ["rgb(0,176,164)", "rgb(255,205,5)"], isGroup: true, y: 2018 },
-		"08-11": [ { e: "Kim Chaewon", c: "rgb(255,255,122)", g: "APRIL", y: 1997 }, { e: "Gaeun", g: "MADEIN", y: 2005 } ],
-		"09-11": { e: "Momo", c: "rgb(248,207,215)", g: "TWICE", y: 1996 },
-		"10-11": { e: "Billlie", c: ["rgb(148,180,229)", "rgb(197,180,225)"], isGroup: true, y: 2021},
-		"11-11": { e: "YeoJin", c: "rgb(244,111,31)", g: "LOONA", y: 2002},
-		"12-11": [ { e: "Xiaoting", c:"rgb(195,142,199)", g: "Kep1er", y: 1999 }, { e: "Dara", c:"rgb(244,135,105)", g: "2NE1", y: 1984 }, { e: "STAYC", c: sc.black, isGroup: true, y: 2020 } ],
-		"13-11": { e: "Hyeju", c: "rgb(143,143,143)", g: "LOONA", y: 2001},
-		"15-11": { e: "HyunJin", c: "rgb(255,234,0)", g: "LOONA", y: 2000},
-		"16-11": { e: "May", c: "rgb(252,80,80)", g: "Cherry Bullet", y: 2004 },
-		"17-11": { e: "aespa", c: ["rgb(174,95,160)", "rgb(13,213,173)"], isGroup: true, y: 2020},
-		"18-11": { e: "Sorn", c: "rgb(0,144,199)", g: "CLC", y: 1996},
-		"19-11": { e: "Go Won", c: "rgb(48,225,146)", g: "LOONA", y: 2000},
-		"21-11": { e: "Liz", c: "rgb(0,195,245)", g: "IVE", y: 2004},
-		"23-11": { e: "Jisun", c: "rgb(238,83,146)", g: "fromis_9", y: 1998 },
-		"30-11": { e: "Sullin", c: "rgb(123,186,141)", g: "tripleS", y: 2006 },
-		"01-12": [ { e: "IVE", c: "rgb(241,241,241)", isGroup: true, y: 2021}, { e: "Jung Chaeyeon", c: "rgb(0,160,21)", g: "DIA", y: 1997} ],
-		"04-12": [ { e: "Jinsol", c: "rgb(205,121,206)", g: "APRIL", y: 2001 }, { e: "Chaeyeon", c: "rgb(141,191,65)", g: "tripleS", y: 2004 }],
-		"05-12": { e: "Kwon Yuri", c: "rgb(0,51,102)", g: "Girls' Generation", y: 1989 },
-		"09-12": [ {e: "ViVi", c: "rgb(255,152,180)", g: "LOONA", y: 1996}, {e: "J", c: sc.red, g: "STAYC", y: 2004}, { e: "Yuna", c: sc.yellow, g: "ITZY", y: 2003 } ],
-		"13-12": { e: "Suhye", g: "MADEIN", y: 2004 },
-		"16-12": { e: "Mashiro", c: "rgb(253,238,244)", g: "Kep1er/MADEIN", y: 1999},
-		"20-12": { e: "Kaede", c: "rgb(255,201,53)", g: "tripleS", y: 2005 },
-		"22-12": { e: "Moonbyul", c: "rgb(181,38,36)", g: "Mamamoo", y: 1992 },
-		"27-12": [ { e: "Youngeun", c: "rgb(147,197,114)", g: "Kep1er", y: 2004}, { e: "Gyuri", c: "rgb(33,150,254)", g: "fromis_9", y: 1997 } ],
-		"28-12": { e: "Bae", c: sc.yellow, g: "NMIXX", y: 2004 },
-		"29-12": [ { e: "Sana", c: "rgb(156,158,207)", g: "TWICE", y: 1996 }, {e: "Yiren", c: sc.white, g: "Everglow", y: 2000} ],
-		"31-12": { e: "Sohee", c: "rgb(246,110,186)", g: "ALICE", y: 1999}/*, //Test cases
-		"08-06": { e: "Test", c: ["rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)"], textOverride: "rgb(255,0,255)", g: "Debuggers", y: 1970 },
-		"03-07": { e: "France", isGroup: true, c: ["rgb(0,35,149)","rgb(255,255,255)","rgb(237,41,57)"], y: 987 },
-		"01-13": { e: "Mary Sue", c: "rgb(191,159,127)", g: null, y: 47}*/ //Test
+		"01-01": {e: "Winter", c: "rgb(209,221,236)", g: "aespa", y: 2001},
+		"03-01": [{e: "Jisoo", c: "rgb(159,0,191)", g: "BlackPink", y: 1995}, {e: "Kep1er", c: "rgb(193,167,226)", isGroup: true, y: 2022}],
+		"05-01": {e: "Karin", c: "rgb(238,18,137)", g: "ALICE", y: 2002},
+		"06-01": [{e: "Shuhua", c: "rgb(255,255,153)", g: "(G)I-DLE", y: 2000}, {e: "Chloe", c: "rgb(219,244,167)", g: "cignature", y: 2001}, {e: "Eunbin", c: "rgb(255,215,0)", g: "CLC", y: 2000}],
+		"07-01": [{e: "Yoohyeon", c: "rgb(31,237,21)", g: "Dreamcatcher", y: 1997}, {e: "Saerom", c: "rgb(254,66,4)", g: "fromis_9", y: 1997}],
+		"08-01": [{e: "Seo Dahyun", c: "rgb(255,154,214)", g: "tripleS", y: 2003}, {e: "Yeonji", c: "rgb(89,116,255)", g: "tripleS", y: 2008}],
+		"09-01": {e: "MiU", g: "MADEIN", y: 2003},
+		"10-01": [{e: "Haeyoon", c: "rgb(246,145,125)", g: "Cherry Bullet", y: 1996}, {e: "Yeoreum", c: "rgb(31,92,244)", g: "WJSN", y: 1999}],
+		"11-01": {e: "Lee Chaeyeon", c: "rgb(166,220,222)", g: "IZ*ONE", y: 2000},
+		"13-01": [{e: "Mia", c: "rgb(103,5,6)", g: "Everglow", y: 2000}, {e: "Dreamcatcher", c: ["rgb(138,42,43)","rgb(242,199,99)","rgb(16,24,32)"], isGroup: true, y: 2017}, {e: "Haram", c: "rgb(255,153,204)", g: "Billlie", y: 2001}],
+		"15-01": [{e: "Suhyeon", c: "rgb(63,196,96)", g: "Billlie", y: 2000}, {e: "Yunah", c: "rgb(255,207,112)", g: "ILLIT", y: 2004}],
+		"16-01": [{e: "Jennie", c: "rgb(204,108,169)", g: "BlackPink", y: 1996}, {e: "Joobin", c: "rgb(183,245,76)", g: "tripleS", y: 2009}],
+		"18-01": {e: "Minzy", c: "rgb(195,108,230)", g: "2NE1", y: 1994},
+		"21-01": {e: "Cherry Bullet", c: "rgb(238,43,43)", isGroup: true, y: 2019},
+		"22-01": {e: "Lee Seoyeon", c: "rgb(0,83,133)", g: "fromis_9", y: 2000},
+		"23-01": {e: "Isa", c: sc.black, g: "STAYC", y: 2002},
+		"24-01": {e: "fromis_9", c: ["rgb(188,150,187)","rgb(176,238,161)"], isGroup: true, y: 2018},
+		"26-01": [{e: "Somyi", c: "rgb(199,56,164)", g: "DIA", y: 2000}, {e: "Sullyoon", c: "rgb(51,102,255)", g: "NMIXX", y: 2004}, {e: "Seoryoung", c: "rgb(0,255,255)", g: "GWSN", y: 2000}],
+		"28-01": {e: "Sheon", c: "rgb(255,153,0)", g: "Billlie", y: 2003},
+		"30-01": {e: "Haruna", c: "rgb(9,151,222)", g: "Billlie", y: 2006},
+		"31-01": {e: "Miyeon", c: sc.black, g: "(G)I-DLE", y: 1997},
+		"01-02": {e: "Jihyo", c: "rgb(250,200,87)", g: "TWICE", y: 1997},
+		"02-02": {e: "Do-A", c: "rgb(204,0,255)", g: "ALICE", y: 1999},
+		"03-02": [{e: "Gahyun", c: "rgb(186,9,191)", g: "Dreamcatcher", y: 1999}, {e: "Rei", c: "rgb(105,195,45)", g: "IVE", y: 2004}, {e: "cignature", c: "rgb(176,3,9)", isGroup: true, y: 2020}, {e: "Yubin", c: "rgb(255,227,226)", g: "tripleS", y: 2005}, {e: "Jia", c: "rgb(104,180,126)", g: "Miss A", y: 1989}],
+		"04-02": {e: "Iroha", c: "rgb(71,145,255)", g: "ILLIT", y: 2008},
+		"05-02": [{e: "Kim Minju", c: sc.white, g: "IZ*ONE", y: 2001}, {e: "Hyunjoo", c: "rgb(100,190,193)", g: "APRIL", y: 1998}],
+		"06-02": {e: "Luda", c: "rgb(255,220,0)", g: "WJSN", y: 1997},
+		"07-02": {e: "Sunn", c: "rgb(255,173,173)", g: "cignature", y: 2000},
+		"09-02": {e: "Yooyeon", c: "rgb(219,12,116)", g: "tripleS", y: 2001},
+		"10-02": [{e: "Kim Lip", c: "rgb(234,2,1)", g: "LOONA", y: 1999}, {e: "Sooyoung", c: "rgb(255,92,205)", g: "Girls' Generation", y: 1990}, {e: "Son Naeun", c: "rgb(196,179,107)", g: "Apink", y: 1994}, {e: "Seulgi", c: "rgb(255,251,0)", g: "Red Velvet", y: 1994}],
+		"11-02": [{e: "Rose'", c: "rgb(0,94,255)", g: "BlackPink", y: 1997}, {e: "Wooyeon", c: "rgb(120,252,76)", g: "woo!ah!", y: 2003}], //The font I'm using here sadly does not support accents (é)
+		"12-02": {e: "ITZY", c: sc.magenta, isGroup: true, y: 2019},
+		"13-02": [{e: "Jiyeon", c: "rgb(255,171,98)", g: "tripleS", y: 2004}, {e: "tripleS", c: sc.black, isGroup: true, y: 2023}],
+		"16-02": {e: "Siyoon", c: sc.yellow, g: "Billlie", y: 2005},
+		"21-02": [{e: "Leeseo", c: "rgb(255,240,1)", g: "IVE", y: 2007}, {e: "Wendy", c: "rgb(0,95,255)", g: "Red Velvet", y: 1994}, {e: "Solar", c: "rgb(41,55,142)", g: "Mamamoo", y: 1991}],
+		"22-02": {e: "NMIXX", isGroup: true, y: 2022},
+		"25-02": [{e: "Haewon", c: sc.white, g: "NMIXX", y: 2003}, {e: "WJSN", c: ["#ffa18a","#003580","#d9d6d1"], isGroup: true, y: 2016}],
+		"26-02": {e: "CL", c: "rgb(226,217,137)", g: "2NE1", y: 1991},
+		"02-03": [{e: "Dayeon", c: "rgb(100,150,235)", g: "Kep1er", y: 2003}, {e: "Jiyoon", c: "rgb(244,218,64)", g: "Weeekly", y: 2002}],
+		"03-03": [{e: "Chorong", c: "rgb(230,0,86)", g: "Apink", y: 1991}, {e: "Bora", c: "rgb(122,205,233)", g: "Cherry Bullet", y: 1999}],
+		"04-03": {e: "Geumhee", c: "rgb(4,173,87)", g: "CSR", y: 2005},
+		"05-03": [{e: "Yuju", c: "rgb(134,4,148)", g: "Cherry Bullet", y: 1997}, {e: "Yeri", c: "rgb(159,31,191)", g: "Red Velvet", y: 1999}],
+		"07-03": [{e: "Dami", c: "rgb(255, 244, 15)", g: "Dreamcatcher", y:1997}, {e: "Eunjo", c: "rgb(86,255,89)", g: "DreamNote", y: 2002}],
+		"09-03": [{e: "Taeyeon", c: "rgb(100,149,237)", g: "Girls' Generation", y: 1989}, {e: "Seo Soojin", c: "rgb(247,152,141)", g: "(G)I-DLE", y: 1998}, {e: "Nana", c: "rgb(252,126,170)", g: "woo!ah!", y: 2001}],
+		"10-03": [{e: "HaBin", c: "rgb(86,255,204)", g: "DreamNote", y: 2002}, {e: "Kotone", c: "rgb(253,224,0)", g: "tripleS", y: 2004}],
+		"11-03": {e: "Kang Minju", c: "rgb(255,227,3)", g: "GWSN", y: 2001},
+		"12-03": [{e: "Hikaru", c: "rgb(251,234,140)", g: "Kep1er", y: 2004}, {e: "Hwang Sihyeon", c: "rgb(4,182,243)", g: "CSR", y: 2005}],
+		"13-03": [{e: "Bae Sumin", c: "rgb(255,192,203)", g: "STAYC", y: 2001}, {e: "Chaerin", c: "rgb(93,52,195)", g: "Cherry Bullet", y: 2002}],
+		"14-03": {e: "Soso", c: "rgb(0,221,147)", g: "GWSN", y: 2001},
+		"18-03": [{e: "Everglow", c: "rgb(209,180,203)", isGroup: true, y: 2019}, {e: "Jaehee", c: "rgb(163,127,255)", g: "Weeekly", y: 2004}],
+		"19-03": [{e: "Sakura", c: "rgb(241,210,231)", g: "IZ*ONE", y: 1998}, {e: "CLC", c: ["rgb(132,11,85)", "rgb(255,205,0)", "rgb(0,95,97)"], isGroup: true, y: 2015}],
+		"20-03": {e: "Park Jiwon", c: "rgb(134,171,17)", g: "fromis_9", y: 1998},
+		"24-03": [{e: "Mina", c: "rgb(111,197,194)", g: "TWICE", y: 1997}, {e: "Bom", c: "rgb(118,212,174)", g: "2NE1", y: 1984}],
+		"25-03": {e: "ILLIT", c: "rgb(220,180,251)", isGroup: true, y: 2024},
+		"26-03": [{e: "Handong", c: sc.black, g: "Dreamcatcher", y: 1996}, {e: "Mirae", c: "rgb(185,74,214)", g: "Cherry Bullet", y: 1998}, {e: "An Seoyeon", c: "rgb(246,98,15)", g: "CSR", y: 2005}],
+		"27-03": {e: "Lisa", c: "rgb(255,250,0)", g: "BlackPink", y: 1997},
+		"29-03": {e: "Irene", c: "rgb(255,127,223)", g: "Red Velvet", y: 1991},
+		"01-04": {e: "Jeewon", c: "rgb(0,153,148)", g: "cignature", y: 1999},
+		"03-04": {e: "Shion", c: "rgb(255,66,138)", g: "tripleS", y: 2006},
+		"09-04": {e: "Lucy", c: "rgb(252,53,53)", g: "woo!ah!", y: 2004},
+		"10-04": {e: "Semi", c: "rgb(186,99,247)", g: "cignature", y: 2002},
+		"11-04": [{e: "Danielle", c: "rgb(0,238,0)", g: "NewJeans", y: 2005}, {e: "Karina", c: "rgb(168,44,230)", g: "aespa", y: 2000}],
+		"12-04": [{e: "Hyerin", c: "rgb(146,0,255)", g: "tripleS", y: 2007}, {e: "Lynn", c: "rgb(172,98,183)", g: "tripleS", y: 2006}],
+		"13-04": {e: "Kim Jiwoo", c: sc.red, g: "NMIXX", y: 2005},
+		"14-04": {e: "Yoon", c: "rgb(50,205,50)", g: "STAYC", y: 2004},
+		"15-04": {e: "Namjoo", c: "rgb(203,108,176)", g: "Apink", y: 1995},
+		"16-04": [{e: "Jinni", c: "rgb(204,153,255)", g: "NMIXX", y: 2004}, {e: "Seokyoung", c: "rgb(199,58,255)", g: "GWSN", y: 1999}],
+		"17-04": [{e: "Jiheon", c: "rgb(249,234,77)", g: "fromis_9", y: 2003}, {e: "Wheein", c: "rgb(251,251,251)", g: "Mamamoo", y: 1995}, {e: "Ryujin", c: "rgb(175,0,255)", g: "ITZY", y: 2001}, {e: "Lena", c: "rgb(255,156,218)", g: "GWSN", y: 2002}],
+		"18-04": {e: "Jessica", c: "rgb(209,0,86)", g: "Girls' Generation", y: 1989},
+		"19-04": {e: "Apink", c: "rgb(232,137,177)", isGroup: true, y: 2011},
+		"21-04": {e: "Hyein", c: "rgb(31,95,255)", g: "NewJeans", y: 2008},
+		"23-04": [{e: "Son Chaeyoung", c: "rgb(232,25,51)", g: "TWICE", y: 1999}, {e: "Yuna", c: "rgb(111,67,164)", g: "CSR", y: 2005}],
+		"24-04": {e: "YOUI", c: "rgb(255,86,86)", g: "DreamNote", y: 2000},
+		"26-04": [{e: "Chaehyun", c: "rgb(255,183,206)", g: "Kep1er", y: 2002}, {e: "Remi", c: "rgb(179,249,107)", g: "Cherry Bullet", y: 2001}],
+		"27-04": {e: "Fei", c: "rgb(153,87,167)", g: "Miss A", y: 1987},
+		"28-04": {e: "Duna", c: "rgb(229,111,182)", g: "CSR", y: 2005},
+		"02-05": [{e: "(G)I-DLE", c: ["rgb(88,14,139)", "rgb(232,0,55)"], isGroup: true, y: 2018}, {e: "Kim Chaewon", c: "rgb(199,163,224)", g: "tripleS", y: 2007}],
+		"03-05": {e: "Serina", g: "MADEIN", y: 2006},
+		"05-05": {e: "Lee Naeun", c: "rgb(186,76,129)", g: "APRIL", y: 1999},
+		"06-05": {e: "2NE1", c: "rgb(255,0,127)", isGroup: true, y: 2009},
+		"07-05": {e: "Minji", c: "rgb(255,248,31)", g: "NewJeans", y: 2004},
+		"10-05": {e: "Monday", c: "rgb(65,93,255)", g: "Weeekly", y: 2002},
+		"11-05": {e: "Park Minju", c: "rgb(186,69,69)", g: "ILLIT", y: 2004},
+		"12-05": {e: "Mayu", c: "rgb(254,142,118)", g: "tripleS", y: 2002},
+		"14-05": [{e: "Lee Chaeyoung", c: "rgb(35,248,84)", g: "fromis_9", y: 2000}, {e: "Dayoung", c: "rgb(232,0,0)", g: "WJSN", y: 1999}],
+		"15-05": [{e: "Sunny", c: "rgb(107,142,35)", g: "Girls' Generation", y: 1989}, {e: "Haerin", c: sc.white, g: "NewJeans", y: 2006}, {e: "woo!ah!", c: ["#FFFFFF","#F61BED"], isGroup: true, y: 2020}],
+		"17-05": {e: "JiU", c: sc.white, g: "Dreamcatcher", y: 1994},
+		"18-05": {e: "Onda", c: "rgb(179,4,105)", g: "Everglow", y: 2000},
+		"19-05": {e: "E:U", c: "rgb(107,86,163)", g: "Everglow", y: 1998},
+		"22-05": {e: "Yang Yena", c: "rgb(255,178,79)", g: "APRIL", y: 2000},
+		"24-05": {e: "Yves", c: "rgb(125,0,30)", g: "LOONA", y: 1997},
+		"25-05": {e: "Xinyu", c: "rgb(213,19,19)", g: "tripleS", y: 2002},
+		"26-05": [{e: "Eunchae", c: "rgb(40,119,255)", g: "DIA", y: 1999}, {e: "Yeji", c: "rgb(63,175,255)", g: "ITZY", y: 2000}, {e: "Kyujin", c: sc.pink, g: "NMIXX", y: 2006}, {e: "Miya", c: "rgb(102,58,197)", g: "GWSN", y: 1993}],
+		"27-05": [{e: "Dawon", c: "rgb(255,84,0)", g: "WJSN", y: 1997}, {e: "Eunseo", c: "rgb(71,155,204)", g: "WJSN", y: 1998}],
+		"28-05": {e: "Kim Dahyun", c: sc.white, g: "TWICE", y: 1998},
+		"30-05": {e: "Yoona", c: "rgb(0,105,148)", g: "Girls' Generation", y: 1990},
+		"31-05": {e: "Zoa", c: "rgb(80,117,149)", g: "Weeekly", y: 2005},
+		"01-06": [{e: "ALICE", c: "rgb(224,203,244)", isGroup: true, y: 2017}, {e: "Nagyung", c: "rgb(255,145,102)", g: "fromis_9", y: 2000}],
+		"02-06": {e: "Nien", c: "rgb(255,149,63)", g: "tripleS", y: 2003},
+		"03-06": {e: "Seunghee", c: "rgb(250,55,137)", g: "DIA", y: 1995},
+		"04-06": {e: "Choerry", c: "rgb(92,44,146)", g: "LOONA", y: 2001},
+		"05-06": {e: "Chaeryeong", c: "rgb(127,255,0)", g: "ITZY", y: 2001},
+		"07-06": {e: "Jueun", c: "rgb(247,183,240)", g: "DIA", y: 1995},
+		"11-06": {e: "Seoah", c: "rgb(207,243,255)", g: "tripleS", y: 2010},
+		"13-06": {e: "JinSoul", c: "rgb(20,36,176)", g: "LOONA", y: 1997},
+		"14-06": [{e: "Seeun", c: "rgb(135,206,235)", g: "STAYC", y: 2003}, {e: "Tzuyu", c: "rgb(1,108,186)", g: "TWICE", y: 1999}],
+		"16-06": {e: "Huihyeon", c: "rgb(103,78,167)", g: "DIA", y: 1995},
+		"18-06": {e: "Nako", c: "rgb(183,211,233)", g: "IZ*ONE", y: 2001},
+		"19-06": {e: "Mamamoo", isGroup: true, y: 2014},
+		"20-06": {e: "Seline", c: "rgb(247,99,215)", g: "cignature", y: 2000},
+		"21-06": {e: "Min", c: "rgb(102,138,8)", g: "Miss A", y: 1991},
+		"26-06": {e: "Wonhee", c: "rgb(198,255,217)", g: "ILLIT", y: 2007},
+		"28-06": {e: "Seohyun", c: "rgb(251,206,177)", g: "Girls' Generation", y: 1991},
+		"30-06": {e: "Weeekly", c: ["rgb(196,175,208)","rgb(255,208,118)","rgb(151,224,207)"], isGroup: true, y: 2020},
+		"01-07": {e: "Miss A", isGroup: true, y: 2010},
+		"02-07": {e: "Nagomi", g: "MADEIN", y: 2007},
+		"05-07": [{e: "Hyewon", c: "rgb(219,112,108)", g: "IZ*ONE", y: 1999}, {e: "Linlin", c: "rgb(191,27,43)", g: "Cherry Bullet", y: 2003}],
+		"07-07": {e: "Chaekyung", c: "rgb(255,183,197)", g: "APRIL", y: 1996},
+		"12-07": {e: "Jihan", c: "rgb(255,52,52)", g: "Weeekly", y: 2004},
+		"13-07": {e: "Yebin", c: "rgb(211,0,0)", g: "DIA", y: 1997},
+		"14-07": [{e: "Chaesol", c: "rgb(100,207,255)", g: "cignature", y: 1998}, {e: "Park Soobin", c: "rgb(59,226,137)", g: "WJSN", y: 1996}],
+		"15-07": {e: "Cheng Xiao", c: "rgb(204,71,111)", g: "WJSN", y: 1998},
+		"19-07": {e: "Oh Hayoung", c: "rgb(210,176,160)", g: "Apink", y: 1996},
+		"21-07": [{e: "Aisha", c: sc.black, g: "Everglow", y: 2000}, {e: "Lia", c: sc.red, g: "ITZY", y: 2000}],
+		"22-07": {e: "NewJeans", c: "rgb(64,89,149)", isGroup: true, y: 2022},
+		"23-07": [{e: "Sua", c: "rgb(0,220,220)", g: "CSR", y: 2005}, {e: "Hwasa", c: "rgb(245,205,95)", g: "Mamamoo", y: 1995}],
+		"27-07": [{e: "Huening Bahiyyih", c: "rgb(255,177,109)", g: "Kep1er", y: 2004}, {e: "CSR", c: "rgb(242,105,37)", isGroup: true, y: 2022}],
+		"01-08": [{e: "Sieun", c: sc.white, g: "STAYC", y: 2001}, {e: "Kim Chaewon", c: "rgb(206,229,213)", g: "IZ*ONE", y: 2000}, {e: "Tiffany", c: "rgb(169,32,62)", g: "Girls' Generation", y: 1989}, {e: "Dohee", c: "rgb(175,27,63)", g: "cignature", y: 2002}, {e: "Red Velvet", c: "rgb(255,209,194)", isGroup: true, y: 2014}, {e: "Hayeon", c: "rgb(83,217,190)", g: "tripleS", y: 2007}],
+		"03-08": {e: "Yeonjung", c: "rgb(111,48,160)", g: "WJSN", y: 1999},
+		"05-08": [{e: "Kim Sihyeon", c: "rgb(199,210,167)", g: "Everglow", y: 1999}, {e: "Girls' Generation", c: "rgb(254,76,128)", isGroup: true, y: 2007}],
+		"06-08": {e: "Yoon Seoyeon", c: "rgb(34,174,255)", g: "tripleS", y: 2003},
+		"08-08": [{e: "Xuan Yi", c: "rgb(19,229,244)", g: "WJSN", y: 1995}, {e: "BlackPink", c: "rgb(255,207,228)", isGroup: true, y: 2016}],
+		"09-08": {e: "Lara", c: "rgb(145,86,255)", g: "DreamNote", y: 2000},
+		"10-08": [{e: "SuA", c: sc.red, g: "Dreamcatcher", y: 1994}, {e: "Yeeun", c: "rgb(194,0,130)", g: "CLC", y: 1998}],
+		"12-08": [{e: "Choi Yujin", c: ["rgb(249,123,144)", "rgb(247,127,14)"], g: "CLC/Kep1er", y: 1996}, {e: "Minseo", c: "rgb(255,195,43)", g: "woo!ah!", y: 2004}],
+		"13-08": [{e: "EJ", c: "rgb(255,170,66)", g: "ALICE", y: 1997}, {e: "Bomi", c: "rgb(188,169,203)", g: "Apink", y: 1993}],
+		"18-08": [{e: "Eunji", c: "rgb(230,171,71)", g: "Apink", y: 1993}, {e: "HaSeul", c: "rgb(0,191,0)", g: "LOONA", y: 1997}],
+		"19-08": [{e: "LOONA", c: "rgb(255,0,127)", isGroup: true, y: 2018}, {e: "Bona", c: "rgb(255,0,144)", g: "WJSN", y: 1995}],
+		"22-08": [{e: "Yeseo", c: "rgb(162,207,254)", g: "Kep1er/MADEIN", y: 2005}, {e: "Somin", c: "rgb(153,230,179)", g: "APRIL", y: 1996}],
+		"24-08": {e: "APRIL", isGroup: true, y: 2015},
+		"26-08": [{e: "Soyeon", c: "rgb(245,176,190)", g: "(G)I-DLE", y: 1998}, {e: "Chaejeong", c: "rgb(94,247,140)", g: "ALICE", y: 1999}],
+		"28-08": {e: "Rachel", c: "rgb(84,143,247)", g: "APRIL", y: 2000},
+		"30-08": {e: "Sora", c: "rgb(142,219,255)", g: "woo!ah!", y: 2003},
+		"31-08": [{e: "Wonyoung", c: ["rgb(255,0,30)", "rgb(217,89,140)"], g: "IZ*ONE/IVE", y: 2004}, {e: "Eunjin", c: "rgb(255,79,27)", g: "DIA", y: 1997}],
+		"01-09": {e: "An Yujin", c: ["rgb(255,57,154)", "rgb(86,122,206)"], g: "IZ*ONE/IVE", y: 2003},
+		"02-09": {e: "Eunice", c: "rgb(237,157,37)", g: "DIA", y: 1991},
+		"03-09": [{e: "Joy", c: "rgb(0,223,23)", g: "Red Velvet", y: 1996}, {e: "MADEIN", isGroup: true, y: 2024}],
+		"04-09": {e: "Huh Jiwon", c: "rgb(234,61,165)", g: "Cherry Bullet", y: 2000},
+		"05-09": {e: "GWSN", c: ["#f5b0cc", "#f7ce76", "#7cba96", "#71c5e9"], isGroup: true, y: 2018},
+		"07-09": {e: "Park Sumin", c: sc.magenta, g: "DreamNote", y: 2001},
+		"09-09": {e: "Moon Sua", c: "rgb(204,153,255)", g: "Billlie", y: 1999},
+		"14-09": [{e: "Jenny", c: "rgb(0,171,219)", g: "DIA", y: 1996}, {e: "DIA", c: "rgb(0,171,219)", isGroup: true, y: 2015}],
+		"21-09": {e: "Tsuki", c: "rgb(255,153,161)", g: "Billlie", y: 2002},
+		"22-09": [{e: "Nayeon", c: "rgb(128,202,241)", g: "TWICE", y: 1995}, {e: "Hyoyeon", c: "rgb(147,197,114)", g: "Girls' Generation", y: 1989}, {e: "Hong Yukyung", c: "rgb(212,212,212)", g: "Apink", y: 1994}],
+		"23-09": {e: "Yuqi", c: "rgb(38,201,140)", g: "(G)I-DLE", y: 1999},
+		"24-09": {e: "Gaeul", c: "rgb(0,85,168)", g: "IVE", y: 2002},
+		"25-09": {e: "Songyee", c: "rgb(178,143,255)", g: "woo!ah!", y: 2004},
+		"27-09": {e: "Eunbi", c: "rgb(187,176,220)", g: "IZ*ONE", y: 1995},
+		"29-09": [{e: "Choi Yena", c: "rgb(252,246,149)", g: "IZ*ONE", y: 1999}, {e: "Song Hayoung", c: "rgb(120,94,253)", g: "fromis_9", y: 1997}],
+		"01-10": {e: "Siyeon", c: "rgb(15,47,255)", g: "Dreamcatcher", y: 1995},
+		"03-10": {e: "Soomin", c: "rgb(252,131,164)", g: "tripleS", y: 2007},
+		"06-10": [{e: "Hitomi", c: "rgb(241,195,170)", g: "IZ*ONE", y: 2001}, {e: "Hanni", c: "rgb(255,191,255)", g: "NewJeans", y: 2004}],
+		"07-10": {e: "Yeham", c: "rgb(220,0,147)", g: "CSR", y: 2005},
+		"08-10": {e: "Moka", c: "rgb(216,109,157)", g: "ILLIT", y: 2004},
+		"09-10": {e: "Ye Ah", c: "rgb(69,109,255)", g: "cignature", y: 1999},
+		"10-10": [{e: "Oh Seunghee", c: "rgb(161,107,250)", g: "CLC", y: 1995}, {e: "Suzy", c: "rgb(187,136,72)", g: "Miss A", y: 1994}],
+		"13-10": [{e: "HanByeol", c: "rgb(255,238,86)", g: "DreamNote", y: 2003}, {e: "Nakyoung", c: "rgb(101,153,164)", g: "tripleS", y: 2002}, {e: "Sohyun", c: "rgb(20,35,180)", g: "tripleS", y: 2002}],
+		"15-10": [{e: "Yeonje", c: "rgb(255,227,3)", g: "ALICE", y: 1999}, {e: "Mei Qi", c: "rgb(255,153,0)", g: "WJSN", y: 1998}],
+		"17-10": [{e: "Lily", c: "rgb(153,204,255)", g: "NMIXX", y: 2002}, {e: "Anne", c: "rgb(224,20,88)", g: "GWSN", y: 2000}],
+		"19-10": {e: "HeeJin", c: "rgb(255,0,143)", g: "LOONA", y: 2000},
+		"20-10": [{e: "Chuu", c: "rgb(255,191,127)", g: "LOONA", y: 1999}, {e: "TWICE", c: ["rgb(248,197,150)","rgb(252,93,157)"], isGroup: true, y: 2015}],
+		"22-10": {e: "Jo Yuri", c: "rgb(243,170,81)", g: "IZ*ONE", y: 2001},
+		"23-10": [{e: "Minnie", c: "rgb(155,203,235)", g: "(G)I-DLE", y: 1997}, {e: "Ningning", c: "rgb(238,23,43)", g: "aespa", y: 2002}],
+		"24-10": {e: "Lee Jiwoo", c: "rgb(255,248,1)", g: "tripleS", y: 2005},
+		"25-10": {e: "MISO", c: "rgb(86,168,255)", g: "DreamNote", y: 2000},
+		"26-10": {e: "Soeun", c: "rgb(131,194,249)", g: "Weeekly", y: 2002},
+		"29-10": {e: "IZ*ONE", c: "rgb(239,83,157)", isGroup: true, y: 2018},
+		"30-10": [{e: "Giselle", c: "rgb(3,14,6)", g: "aespa", y: 2000}, {e: "BoNi", c: "rgb(255,156,86)", g: "DreamNote", y: 1999}],
+		"01-11": [{e: "Jeongyeon", c: "rgb(188,215,118)", g: "TWICE", y: 1996}, {e: "Kokoro", c: "rgb(0,221,147)", g: "Cherry Bullet", y: 2000}],
+		"02-11": {e: "Elkie", c: "rgb(97,179,41)", g: "CLC", y: 1998},
+		"03-11": {e: "Belle", c: "rgb(0,195,26)", g: "cignature", y: 2001},
+		"05-11": {e: "Lee Yukyung", c: "rgb(55,253,252)", g: "ALICE", y: 1999},
+		"06-11": [{e: "Seungyeon", c: "rgb(199,3,30)", g: "CLC", y: 1996}, {e: "Exy", c: "rgb(59,155,40)", g: "WJSN", y: 1995}],
+		"07-11": {e: "DreamNote", c: ["rgb(0,176,164)", "rgb(255,205,5)"], isGroup: true, y: 2018},
+		"08-11": [{e: "Kim Chaewon", c: "rgb(255,255,122)", g: "APRIL", y: 1997}, {e: "Gaeun", g: "MADEIN", y: 2005}],
+		"09-11": {e: "Momo", c: "rgb(248,207,215)", g: "TWICE", y: 1996},
+		"10-11": {e: "Billlie", c: ["rgb(148,180,229)", "rgb(197,180,225)"], isGroup: true, y: 2021},
+		"11-11": {e: "YeoJin", c: "rgb(244,111,31)", g: "LOONA", y: 2002},
+		"12-11": [{e: "Xiaoting", c:"rgb(195,142,199)", g: "Kep1er", y: 1999}, {e: "Dara", c:"rgb(244,135,105)", g: "2NE1", y: 1984}, {e: "STAYC", c: sc.black, isGroup: true, y: 2020}],
+		"13-11": {e: "Hyeju", c: "rgb(143,143,143)", g: "LOONA", y: 2001},
+		"15-11": {e: "HyunJin", c: "rgb(255,234,0)", g: "LOONA", y: 2000},
+		"16-11": {e: "May", c: "rgb(252,80,80)", g: "Cherry Bullet", y: 2004},
+		"17-11": {e: "aespa", c: ["rgb(174,95,160)", "rgb(13,213,173)"], isGroup: true, y: 2020},
+		"18-11": {e: "Sorn", c: "rgb(0,144,199)", g: "CLC", y: 1996},
+		"19-11": {e: "Go Won", c: "rgb(48,225,146)", g: "LOONA", y: 2000},
+		"21-11": {e: "Liz", c: "rgb(0,195,245)", g: "IVE", y: 2004},
+		"23-11": {e: "Jisun", c: "rgb(238,83,146)", g: "fromis_9", y: 1998},
+		"30-11": {e: "Sullin", c: "rgb(123,186,141)", g: "tripleS", y: 2006},
+		"01-12": [{e: "IVE", c: "rgb(241,241,241)", isGroup: true, y: 2021}, {e: "Jung Chaeyeon", c: "rgb(0,160,21)", g: "DIA", y: 1997}],
+		"04-12": [{e: "Jinsol", c: "rgb(205,121,206)", g: "APRIL", y: 2001}, {e: "Chaeyeon", c: "rgb(141,191,65)", g: "tripleS", y: 2004}],
+		"05-12": {e: "Kwon Yuri", c: "rgb(0,51,102)", g: "Girls' Generation", y: 1989},
+		"09-12": [{e: "ViVi", c: "rgb(255,152,180)", g: "LOONA", y: 1996}, {e: "J", c: sc.red, g: "STAYC", y: 2004}, {e: "Yuna", c: sc.yellow, g: "ITZY", y: 2003}],
+		"12-12": {e: "Lee Soojin", c: "rgb(245,118,190)", g: "Weeekly", y: 2001},
+		"13-12": {e: "Suhye", g: "MADEIN", y: 2004},
+		"16-12": {e: "Mashiro", c: "rgb(253,238,244)", g: "Kep1er/MADEIN", y: 1999},
+		"20-12": {e: "Kaede", c: "rgb(255,201,53)", g: "tripleS", y: 2005},
+		"22-12": {e: "Moonbyul", c: "rgb(181,38,36)", g: "Mamamoo", y: 1992},
+		"24-12": {e: "SeolA", g: "WJSN", y: 1994},
+		"27-12": [{e: "Youngeun", c: "rgb(147,197,114)", g: "Kep1er", y: 2004}, {e: "Gyuri", c: "rgb(33,150,254)", g: "fromis_9", y: 1997}],
+		"28-12": {e: "Bae", c: sc.yellow, g: "NMIXX", y: 2004},
+		"29-12": [{e: "Sana", c: "rgb(156,158,207)", g: "TWICE", y: 1996}, {e: "Yiren", c: sc.white, g: "Everglow", y: 2000}],
+		"31-12": {e: "Sohee", c: "rgb(246,110,186)", g: "ALICE", y: 1999}/*, //Test cases
+		"08-06": {e: "Test", c: ["rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)"], textOverride: "rgb(255,0,255)", g: "Debuggers", y: 1970 },
+		"03-07": {e: "France", isGroup: true, c: ["rgb(0,35,149)","rgb(255,255,255)","rgb(237,41,57)"], y: 987 },
+		"01-13": {e: "Mary Sue", c: "rgb(191,159,127)", g: null, y: 47}*/ //Test
 	};
 
 	hinataAddendum = { //not falling for that f***ing reload button again, not wasting time inserting them manually, idgaf about spaghetti code rn, let JavaScript insert them
-		"15-01": { e: "Shimizu Rio", c: [hc.pearlGreen,hc.orange], g: "Hinatazaka46", y: 2005 },
-		"18-01": { e: "Tomita Suzuka", c: hc.purple, g: "Hinatazaka46", y: 2001 },
-		"22-01": { e: "Sasaki Kumi", c: [hc.pastelBlue,hc.purple], g: "Hinatazaka46", y: 1996 },
-		"02-02": { e: "Kato Shiho", c: hc.blue, g: "Hinatazaka46", y: 1998 },
-		"07-02": { e: "Watanabe Rina", c: [hc.purple,hc.sakuraPink], g: "Hinatazaka46", y: 2009 },
-		"14-02": { e: "Shogenji Yoko", c: [hc.orange,hc.red], g: "Hinatazaka46", y: 2007 },
-		"15-02": { e: "Nibu Akari", c: hc.orange, g: "Hinatazaka46", y: 2001 },
-		"20-02": { e: "Takeuchi Kirari", c: [hc.yellow,hc.red], g: "Hinatazaka46", y: 2006 },
-		"23-02": [ { e: "Morimoto Marie", c: [hc.orange,hc.blue], g: "Hinatazaka46", y: 2004 }, { e: "Yamaguchi Haruyo", c: [hc.pearlGreen,hc.yellow], g: "Hinatazaka46", y: 2004 } ],
-		"24-02": { e: "Watanabe Miho", g: "Hinatazaka46", y: 2000 },
-		"09-04": { e: "Hiraoka Mitsuki", c: [hc.blue,hc.yellow], g: "Hinatazaka46", y: 2002 },
-		"12-04": { e: "Kamimura Hinano", c: [hc.red,hc.emeraldGreen], g: "Hinatazaka46", y: 2004 },
-		"27-04": { e: "Matsuda Konoka", c: [hc.sakuraPink,hc.pearlGreen], g: "Hinatazaka46", y: 1999 },
-		"28-04": { e: "Miyata Manamo", c: [hc.red,hc.sakuraPink], g: "Hinatazaka46", y: 1998 },
-		"08-05": { e: "Kageyama Yuka", c: hc.red, g: "Hinatazaka46", y: 2001 },
-		"20-05": { e: "Yamashita Haruka", c: [sc.white,hc.emeraldGreen], g: "Hinatazaka46", y: 2003 },
-		"23-07": { e: "Kawata Hina", c: [hc.sakuraPink,hc.yellow], g: "Hinatazaka46", y: 2001 },
-		"31-07": { e: "Hirao Honoka", c: [hc.pastelBlue,hc.orange], g: "Hinatazaka46", y: 2003 },
-		"06-08": { e: "Ishizuka Tamaki", c: [hc.sakuraPink,hc.orange], g: "Hinatazaka46", y: 2004 },
-		"07-08": { e: "Fujishima Kaho", c: [hc.sakuraPink,hc.blue], g: "Hinatazaka46", y: 2006 },
-		"10-08": { e: "Hinatazaka46", c: "rgb(142,196,230)", isGroup: true, y: 2016 },
-		"15-08": { e: "Kishi Honoka", g: "Hinatazaka46", y: 2004 },
-		"23-08": { e: "Higashimura Mei", c: hc.sakuraPink, g: "Hinatazaka46", y: 1998 },
-		"04-09": { e: "Neru Nagahama", g: "Hinatazaka46", y: 1998 },
-		"05-09": { e: "Saito Kyoko", c: sc.white, g: "Hinatazaka46", y: 1997 },
-		"07-09": { e: "Kosaka Nao", c: [hc.violet,sc.white], g: "Hinatazaka46", y: 2002 },
-		"10-09": { e: "Kanemura Miku", c: [hc.yellow,hc.pastelBlue], g: "Hinatazaka46", y: 2002 },
-		"20-09": { e: "Takase Mana", c: [hc.sakuraPink,sc.white], g: "Hinatazaka46", y: 1998 },
-		"27-09": { e: "Takahashi Mikuni", g: "Hinatazaka46", y: 2003 },
-		"28-09": { e: "Hamagishi Hiyori", c: [hc.orange,sc.white], g: "Hinatazaka46", y: 2002 },
-		"03-10": { e: "Konishi Nanami", c: [hc.purple,hc.blue], g: "Hinatazaka46", y: 2004 },
-		"02-11": { e: "Takamoto Ayaka", c: [hc.emeraldGreen,sc.white], g: "Hinatazaka46", y: 1998 },
-		"10-11": { e: "Iguchi Mao", c: [hc.red,hc.orange], g: "Hinatazaka46", y: 1995 },
-		"02-12": { e: "Kakizaki Memi", g: "Hinatazaka46", y: 2001 },
-		"17-12": { e: "Sasaki Mirei", c: hc.yellow, g: "Hinatazaka46", y: 1999 },
-		"26-12": { e: "Ushio Sarina", c: [hc.purple,hc.yellow], g: "Hinatazaka46", y: 1997 },
-		"31-12": { e: "Miyachi Sumire", c: [hc.violet,hc.red], g: "Hinatazaka46", y: 2005 }
+		"15-01": {e: "Shimizu Rio", c: [hc.pearlGreen,hc.orange], g: "Hinatazaka46", y: 2005},
+		"18-01": {e: "Tomita Suzuka", c: hc.purple, g: "Hinatazaka46", y: 2001},
+		"22-01": {e: "Sasaki Kumi", c: [hc.pastelBlue,hc.purple], g: "Hinatazaka46", y: 1996},
+		"02-02": {e: "Kato Shiho", c: hc.blue, g: "Hinatazaka46", y: 1998},
+		"07-02": {e: "Watanabe Rina", c: [hc.purple,hc.sakuraPink], g: "Hinatazaka46", y: 2009},
+		"14-02": {e: "Shogenji Yoko", c: [hc.orange,hc.red], g: "Hinatazaka46", y: 2007},
+		"15-02": {e: "Nibu Akari", c: hc.orange, g: "Hinatazaka46", y: 2001},
+		"20-02": {e: "Takeuchi Kirari", c: [hc.yellow,hc.red], g: "Hinatazaka46", y: 2006},
+		"23-02": [{e: "Morimoto Marie", c: [hc.orange,hc.blue], g: "Hinatazaka46", y: 2004}, {e: "Yamaguchi Haruyo", c: [hc.pearlGreen,hc.yellow], g: "Hinatazaka46", y: 2004}],
+		"24-02": {e: "Watanabe Miho", g: "Hinatazaka46", y: 2000},
+		"09-04": {e: "Hiraoka Mitsuki", c: [hc.blue,hc.yellow], g: "Hinatazaka46", y: 2002},
+		"12-04": {e: "Kamimura Hinano", c: [hc.red,hc.emeraldGreen], g: "Hinatazaka46", y: 2004},
+		"27-04": {e: "Matsuda Konoka", c: [hc.sakuraPink,hc.pearlGreen], g: "Hinatazaka46", y: 1999},
+		"28-04": {e: "Miyata Manamo", c: [hc.red,hc.sakuraPink], g: "Hinatazaka46", y: 1998},
+		"08-05": {e: "Kageyama Yuka", c: hc.red, g: "Hinatazaka46", y: 2001},
+		"20-05": {e: "Yamashita Haruka", c: [sc.white,hc.emeraldGreen], g: "Hinatazaka46", y: 2003},
+		"23-07": {e: "Kawata Hina", c: [hc.sakuraPink,hc.yellow], g: "Hinatazaka46", y: 2001},
+		"31-07": {e: "Hirao Honoka", c: [hc.pastelBlue,hc.orange], g: "Hinatazaka46", y: 2003},
+		"06-08": {e: "Ishizuka Tamaki", c: [hc.sakuraPink,hc.orange], g: "Hinatazaka46", y: 2004},
+		"07-08": {e: "Fujishima Kaho", c: [hc.sakuraPink,hc.blue], g: "Hinatazaka46", y: 2006},
+		"10-08": {e: "Hinatazaka46", c: "rgb(142,196,230)", isGroup: true, y: 2016},
+		"15-08": {e: "Kishi Honoka", g: "Hinatazaka46", y: 2004},
+		"23-08": {e: "Higashimura Mei", c: hc.sakuraPink, g: "Hinatazaka46", y: 1998},
+		"04-09": {e: "Neru Nagahama", g: "Hinatazaka46", y: 1998},
+		"05-09": {e: "Saito Kyoko", c: sc.white, g: "Hinatazaka46", y: 1997},
+		"07-09": {e: "Kosaka Nao", c: [hc.violet,sc.white], g: "Hinatazaka46", y: 2002},
+		"10-09": {e: "Kanemura Miku", c: [hc.yellow,hc.pastelBlue], g: "Hinatazaka46", y: 2002},
+		"20-09": {e: "Takase Mana", c: [hc.sakuraPink,sc.white], g: "Hinatazaka46", y: 1998},
+		"27-09": {e: "Takahashi Mikuni", g: "Hinatazaka46", y: 2003},
+		"28-09": {e: "Hamagishi Hiyori", c: [hc.orange,sc.white], g: "Hinatazaka46", y: 2002},
+		"03-10": {e: "Konishi Nanami", c: [hc.purple,hc.blue], g: "Hinatazaka46", y: 2004},
+		"02-11": {e: "Takamoto Ayaka", c: [hc.emeraldGreen,sc.white], g: "Hinatazaka46", y: 1998},
+		"10-11": {e: "Iguchi Mao", c: [hc.red,hc.orange], g: "Hinatazaka46", y: 1995},
+		"02-12": {e: "Kakizaki Memi", g: "Hinatazaka46", y: 2001},
+		"17-12": {e: "Sasaki Mirei", c: hc.yellow, g: "Hinatazaka46", y: 1999},
+		"26-12": {e: "Ushio Sarina", c: [hc.purple,hc.yellow], g: "Hinatazaka46", y: 1997},
+		"31-12": {e: "Miyachi Sumire", c: [hc.violet,hc.red], g: "Hinatazaka46", y: 2005}
 	};
 
 	for(var date in hinataAddendum) {
@@ -549,8 +566,35 @@ try {
 		}
 	};
 
+	var idolSorter = function(dataA,dataB) {
+		var canCompareYears = (typeof(dataA.y) === "number") && (typeof(dataB.y) === "number");
+		var yearSortWasMade = false;
+		if(canCompareYears) {
+			if(dataA.y > dataB.y) {
+				yearSortWasMade = true;
+				return 1
+			} else if(dataA.y < dataB.y) {
+				yearSortWasMade = true;
+				return -1
+			}
+		};
+		if(!yearSortWasMade) {
+			if(dataA.e > dataB.e) {
+				return 1
+			} else if(dataA.e < dataB.e) {
+				return -1
+			} else {
+				return 0
+			}
+		};
+	};
+
 	for(var date in idolBdData) {
-		if(!(idolBdData[date] instanceof Array)) { idolBdData[date] = [idolBdData[date]] }; //array wrap
+		if(!(Array.isArray(idolBdData[date]))) {
+			idolBdData[date] = [idolBdData[date]] //array wrap
+		} else {
+			idolBdData[date].sort(idolSorter)
+		}
 	};
 
 	currentDate = new Date();
@@ -565,7 +609,7 @@ try {
 		} else {
 			var parsedFD = parseInt(fakeDate);
 			if(isNaN(fakeDate) === false) {
-				fakeDate = new Date(fakeDate)
+				fakeDate = new Date(parsedFD)
 			} else {
 				if((fakeDate.match(/\d/g) ?? []).length >= 2) {
 					fakeDate = fakeDate.match(/[0-9]+/g);
@@ -631,7 +675,7 @@ try {
 		};
 		number = Math.abs(number);
 		var ones = number % 10;
-		if([11,12,13].includes(number)) {
+		if([11,12,13].includes(number % 100)) {
 			return "th"
 		};
 		switch(ones) {
@@ -674,7 +718,7 @@ try {
 		if(local.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
 		if(kst.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) };
 		var incrementAllYears = (urlParams.get("fakeDateUnix") == "chaos");
-		if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); shuffle(currentBirthdayDatas); currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
+		if(urlParams.get("fakeDateUnix") == "chaos") { currentBirthdayDatas = Object.values(idolBdData).flat(); /*shuffle(currentBirthdayDatas);*/ currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
 		currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
 		console.log(`${currentBirthdayDatas.length} bdays (before any negative ages are ignored)`);
 		var hasBirthdays = false;
@@ -848,6 +892,10 @@ try {
 };
 		</script>
 		<style>
+			:root {
+				--g7-outline-color: #0029c4;
+			}
+		
 			@keyframes fade-in {
 			  from { opacity: 0 }
 			  to { opacity: 1 }
@@ -935,6 +983,22 @@ try {
 				color: #777;
 			}
 
+			#groups .g7 {
+				color: #27d1c8;
+				text-shadow: 0px -1px 1px var(--g7-outline-color),
+							 1px -1px 1px var(--g7-outline-color),
+							 1px  0px 1px var(--g7-outline-color),
+							 1px  1px 1px var(--g7-outline-color),
+							 0px  1px 1px var(--g7-outline-color),
+							-1px  1px 1px var(--g7-outline-color),
+							-1px  0px 1px var(--g7-outline-color),
+							-1px -1px 1px var(--g7-outline-color)
+			}
+
+			#groups .g8 {
+				color: #965b14;
+			}
+
 			.imageButton {
 				width: 88px;
 				height: 31px;
@@ -958,6 +1022,7 @@ try {
 
 		<div id="main">
 			<p id="birthdays">&nbsp;</p><br/>
+			<p id="note"><em><small style="font-size: 80%">The birthday script on this version of the page is currently incomplete.</small></em></p>
 			<p id="opening">Hello. :3 I'm an <em>Orbit</em> and I really love Loona.<br/>
 			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under Blockberry Creative (BBC), their former agency. Not only do the <em>twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">appealed Chuu's contract nullification again</a>.<br/>
 			As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. This does not apply to songs released under Modhaus, ATRP, CTD ENM, or Paix Per Mil.<br/>
@@ -996,11 +1061,13 @@ try {
 					<span class="gl g3"><span class="gt">Stan</span>: <span class="gn">Girls' Generation</span>, <span class="gn">TWICE</span>, <span class="gn">BLACKPINK</span>, <span class="gn">IVE</span>, <span class="gn">(G)I-DLE</span></span><br/>
 					<span class="gl g4"><span class="gt">Sub-stan (want to stan)</span>: <span class="gn">2NE1</span>, <span class="gn">Dreamcatcher</span>, <span class="gn">IZ*ONE</span>, <span class="gn">EVERGLOW</span>, <span class="gn">ILLIT</span>, <span class="gn">STAYC</span>, <span class="gn">tripleS</span></span><br/>
 					<span class="gl g5"><span class="gt">Just became interested in</span>: <span class="gn">Apink</span>, <span class="gn">April</span>, <span class="gn">aespa</span>, <span class="gn">fromis_9</span>, <span class="gn">Hinatazaka46</span>, <span class="gn">Red Velvet</span></span><br/>
-					<span class="gl g6"><span class="gt">Backlog</span>: <span class="gn">ALICE</span>, <span class="gn">Billlie</span>, <span class="gn">Cherry Bullet</span>, <span class="gn">cignature</span>, <span class="gn">CLC</span>, <span class="gn">CSR</span>, <span class="gn">DIA</span>, <span class="gn">DreamNote</span>, <span class="gn">ITZY</span>, <span class="gn">MADEIN</span>, <span class="gn">Mamamoo</span>, <span class="gn">Miss A</span>, <span class="gn">NMIXX</span></span><br/>
+					<span class="gl g6"><span class="gt">Backlog</span>: <span class="gn">ALICE</span>, <span class="gn">Billlie</span>, <span class="gn">Cherry Bullet</span>, <span class="gn">cignature</span>, <span class="gn">CLC</span>, <span class="gn">CSR</span>, <span class="gn">DIA</span>, <span class="gn">DreamNote</span>, <span class="gn">ITZY</span>, <span class="gn">Le Sserafim</span>, <span class="gn">MADEIN</span>, <span class="gn">Mamamoo</span>, <span class="gn">Miss A</span>, <span class="gn">NMIXX</span></span><br/>
+					<span class="gl g7"><span class="gt">Super backlog</span>: <span class="gn">WJSN</span>, <span class="gn">GWSN</span>, <span class="gn">Weeekly</span>, <span class="gn">woo!ah!</span>, <span class="gn">Rocket Punch</span>, <span class="gn">Hashtag</span>, <span class="gn">Pixy</span>, <span class="gn">Oh My Girl</span>, <span class="gn">Saturday</span>, <span class="gn">Pink Fantasy</span>, <span class="gn">Floria</span>, <span class="gn">GFriend</span>, <span class="gn">ViViZ</span>, <span class="gn">Nature</span>, <span class="gn">Momoland</span>, <span class="gn">Wonder Girls</span>, <span class="gn">f(x)</span>, <span class="gn">X:IN</span>, <span class="gn">Gugudan</span>, <span class="gn">Weki Meki</span>, <span class="gn">Exid</span>, <span class="gn">Lovelyz</span>, <span class="gn">Saturday</span>, <span class="gn">Ladies' Code</span>, <span class="gn">Purple Kiss</span>, <span class="gn">IU</span>, <span class="gn">Yukika</span></span><br/>
+					<span class="gl g8"><span class="gt">In the birthday script for oomf</span>: <span class="gn">TXT</span></span><br/>
 					<span class="gl gC"><span class="gt">It's complicated <small>(read: once Min Heejin is <!--dead or otherwise -->gone)</small></span>: <span class="gn">NewJeans</span></span><br/><!--hybe pls kick min heejin out or hire a hitman to kill her or something already-->
 				</p>
-				<!--like wjsn, itzy, gwsn, weeekly, woo!ah!, rocket punch, hashtag, pixy, nmixx, oh my girl, saturday, pink fantasy, floria, gfriend, viviz, nature, momoland, wonder girls, f(x), x:in, gugudan, weki meki, exid, miss a, lovelyz, tripleS, saturday, ladies code, purple kiss, madein, le sserafim; also soloists like iu, lee chaeyeon, and yukika-->
-				<span class="yeojin">antis, akgaes dni <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em></span><br/>
+				<!--like -->
+				<span class="yeojin">DNI: antis; akgaes; <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em>; <s>people who refuse to shower</s></span><br/>
 				<span class="circle">i have stanned loona for about <span id="loonaTimeS">63 million</span> seconds (about <span id="loonaTimeD">731</span> days, or <span id="loonaTimeW">104</span> weeks)</span><br/>
 
 				<h2 class="circle">buttons:</h2>
