@@ -164,6 +164,9 @@ var intervalId = window.setInterval(function(){
 charsPerLine = 80;
 rows = 60;
 
+drawScale = 2;
+lastScale = drawScale;
+
 function fun() {
 
 	/*if(Math.floor(aa / 6) % 2 == 0) {
@@ -182,7 +185,10 @@ function fun() {
 
 	// stuff for basic display and rendering
 	// (laid out for comprehensibility, obviously, there's much left to optimize)
-	
+	if(drawScale !== lastScale) {
+		updateCanvasSize();
+		lastScale = drawScale
+	};
 	var charX = 0, charY = 0;
 	
 	// set up a canvas element and an image buffer
@@ -195,17 +201,15 @@ function fun() {
 	var g = colors.defG
 	var b = colors.defB
 	var a = colors.defA
-		
+	
 	function setPixel( pixelX, pixelY ) {
 		// set a pixel (in the image buffer)
-		var p = ((pixelY * 2) * canvas.width + (pixelX * 2)) * 4;
-		pixelData[p++] = r; pixelData[p++] = g; pixelData[p++] = b; pixelData[p++] = a; 
-		var p = ((pixelY * 2) * canvas.width + ((pixelX * 2) + 1)) * 4;
-		pixelData[p++] = r; pixelData[p++] = g; pixelData[p++] = b; pixelData[p++] = a; 
-		var p = (((pixelY * 2) + 1) * canvas.width + (pixelX * 2)) * 4;
-		pixelData[p++] = r; pixelData[p++] = g; pixelData[p++] = b; pixelData[p++] = a; 
-		var p = (((pixelY * 2) + 1) * canvas.width + ((pixelX * 2) + 1)) * 4;
-		pixelData[p++] = r; pixelData[p++] = g; pixelData[p++] = b; pixelData[p++] = a; 
+		for(var qi = 0; qi < drawScale; qi++) {
+			for(var qj = 0; qj < drawScale; qj++) {
+				var p = (((pixelY * drawScale) + qi) * canvas.width + ((pixelX * drawScale) + qj)) * 4; //i forgot what that magic 4 does and if it was there originally, but don't change it
+				pixelData[p++] = r; pixelData[p++] = g; pixelData[p++] = b; pixelData[p++] = a; 
+			}
+		}
 	}
 	
 	function updateCanvas() {
@@ -516,9 +520,19 @@ function fun() {
 	updateCanvas();
 };
 
+function updateCanvasSize() {
+	var canvas = document.getElementById("canvas");
+	if(!canvas) { return false };
+	var charsPerLine = 80, rows = 60;
+	canvas.width = charsPerLine * 8 * drawScale;
+	canvas.height = rows * 8 * drawScale;
+	imgBuffer = ctx.createImageData(canvas.width, canvas.height);
+	pixelData = imgBuffer.data;
+};
+
 onload=function() {
 	// set up a canvas element and an image buffer
-	var charX = 0, charY = 0, charsPerLine = 80 * 2, rows = 60 * 2;
+	var charX = 0, charY = 0, charsPerLine = 80 * drawScale, rows = 60 * drawScale;
 	var canvas = document.createElement("canvas");
 	canvas.width = charsPerLine * 8;
 	canvas.height = rows * 8;
@@ -534,7 +548,7 @@ onload=function() {
 <style type="text/css">
 body { background-color: #020202; color: #fc0; font-family: monospace; margin: 1em 2em 2.5em 2em; }
 h1 { font-size: 20px; }
-canvas { background-color: #020202; }
+canvas { border: 1px solid #222; background-color: #020202; padding: 2px; }
 a { color: #fc0; text-decoration: underline; }
 a:hover,a:focus { color: #c5ebff; }
 a:active { color: #fff; }
@@ -748,7 +762,7 @@ function insertBeforeCursor(string,render=true,focus=true) {
 	<td class="canvasMenu flex-item">
 		<h2>Canvas</h2>
 		<input name="canvasRows" type="number" id="canvasRows" value="60" placeholder="Rows (default 60)"/></input>
-		<input name="canvasColumns" type="number" id="canvasColumns" value="80" placeholder="Rows (default 80)"/></input>
+		<input name="canvasColumns" type="number" id="canvasColumns" value="80" placeholder="Columns (default 80)"/></input>
 		<button class="button1" onClick="resizeCanvas()">Resize canvas</button>
 	</td>
   <tr>
@@ -767,8 +781,8 @@ function insertBeforeCursor(string,render=true,focus=true) {
 			};
 			charsPerLine = parseInt(cpl);
 			rows = parseInt(r);
-			canvas.width = charsPerLine * 16; //canvas dimensions are additionally doubled
-			canvas.height = rows * 16;
+			canvas.width = charsPerLine * 8 * drawScale;
+			canvas.height = rows * 8 * drawScale;
 			fun();
 		};
 		
