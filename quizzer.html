@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>primitive quiz generator</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="primitive quiz generator" />
+		<meta property="og:url" content="https://orbit-loona.github.io/quizzer.html" />
+		<meta property="og:description" content="term pairs go in, questions come out" />
+		<meta property="og:locale" content="en_US" />
+		<meta name="twitter:title" content="primitive quiz generator" />
+		<meta name="twitter:description" content="term pairs go in, questions come out" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<style>
+			body {
+				background-color: black;
+				color: white;
+			}
+
+			table {
+				border: 1px solid white;
+				border-collapse: collapse;
+			}
+
+			tr, td {
+				border: 1px solid white;
+			}
+
+			input, textarea {
+				background-color: black;
+				color: white;
+				border: 1px solid white;
+			}
+
+			input[readonly], textarea[readonly] {
+				background-color: gray;
+				border: 1px solid #dfdfdf;
+				color: 1px solid #dfdfdf;
+			}
+
+			input.input-correct {
+				background-color: #007f00;
+			}
+
+			input.input-incorrect {
+				background-color: #9f0000;
+			}
+
+			input[readonly].input-correct {
+				background-color: #5f9f5f;
+				border: 1px solid #bfdfbf;
+				color: 1px solid #bfdfbf;
+			}
+
+			input[readonly].input-incorrect {
+				background-color: #af5f5f;
+				border: 1px solid #dfbfbf;
+				color: 1px solid #dfbfbf;
+			}
+
+			.keyboard-output {
+				border: 1px solid gray;
+				min-width: 100px;
+				display: inline-block;
+			}
+
+			#sigma, .choices-table {
+				width: 100%
+			}
+
+			.answer-result-status.incorrect {
+				color: #ff3f3f;
+			}
+
+			.answer-result-status.correct {
+				color: lime;
+			}
+
+			td.selected-incorrect {
+				background-color: #9f0000;
+			}
+
+			td.selected-correct {
+				background-color: #007f00;
+			}
+
+			td.unselected-correct {
+				background-color: #002f00;
+			}
+			
+			#customTermList {
+				min-width: 240px;
+				min-height: 240px;
+			}
+		</style>
+	</head>
+	<body>
+		<h3> primitive quiz generator </h3>
+		<p id="description">you might have noticed that this page is unlisted. this is just meant to be a quick and dirty quiz solution for myself.</p>
+		<div>
+			<table id="keyboards">
+				<tbody>
+					<tr>
+						<td> <input id="hangulKeyboard" placeholder="hangul keyboard to hangul" /> </td>
+					</tr>
+					<tr>
+						<td> <span id="hangulKeyboardOutput" class="keyboard-output">Nothing yet</span> </td>
+					</tr>
+				<tbody>
+			</table>
+		</div>
+		<br/>
+		<div>
+			<table id="termListInput">
+				<tbody>
+					<tr>
+						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored."></textarea><br/> </td>
+					</tr>
+					<tr>
+						<td> <button id="termImportButton">Import terms and generate questions<br/>(REMOVES CURRENT TERMS AND QUESTIONS)</button> </td>
+					</tr>
+				<tbody>
+			</table>
+		</div>
+
+		<br/>
+		<hr/>
+		<span class="score">Score: <span id="score-value">0</span>/<span id="question-amount-value">??</span> (<span id="percent">0</span>%)</span>
+		<br/>
+
+		<table id="sigma">
+			<tbody>
+			</tbody>
+		</table>
+		<script>
+			score = 0;
+			qCount = 0;
+
+			//Array shuffler taken from Sandboxels source code
+			function shuffleArray(array) {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+			};
+
+			function generateUUID() { // Public Domain/MIT
+				var d = new Date().getTime();//Timestamp
+				var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+					var r = Math.random() * 16;//random number between 0 and 16
+					if(d > 0){//Use timestamp until depleted
+						r = (d + r)%16 | 0;
+						d = Math.floor(d/16);
+					} else {//Use microseconds since page-load if supported
+						r = (d2 + r)%16 | 0;
+						d2 = Math.floor(d2/16);
+					}
+					return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+				});
+			}
+
+			terms = [
+				//["!en","en"],
+				["스키비디 토일렛","Skibidi Toilet"],
+				["오하이오","Ohio"],
+				["기얏","gyatt"],
+				["시그마","sigma"],
+				["리즈","rizz"],
+				["뇌 썩음","brain rot"],
+				["카이 씨넷","Kai Cenat"],
+			];
+			
+			mcMinChoices = Math.min(4,terms.length);
+			mcMaxChoices = Math.min(4,terms.length);
+
+			function updateScore() {
+				var percent = (Math.round(1000 * (score / qCount)) / 10);
+				var svs = document.getElementById("score-value");
+				var ps = document.getElementById("percent");
+				if(svs) { svs.innerText = score.toString() };
+				if(ps) { ps.innerText = percent.toString() };
+			};
+			
+			function makeMC(uniqueIdentifier,termIndexOverride=null) { //returns the whole tr for appendChild-ing into the sigma table
+				if(terms.length == 0) {
+					throw new Error("wtf there are no terms to choose from")
+				};
+
+				var consumableTerms = structuredClone(terms);
+
+				var randomTermIndex = termIndexOverride ?? Math.floor(Math.random() * terms.length);
+
+				var randomTerm = consumableTerms.splice(randomTermIndex,1)[0];
+
+				shuffleArray(consumableTerms);
+
+				var mode = (Math.random() < 0.5) + 0; //1 if eng heading
+
+				var modeComplement = (mode ? 0 : 1);
+
+				var correctAnswer = randomTerm[modeComplement];
+
+				var choiceNumberVariance = mcMaxChoices - mcMinChoices;
+
+				var numberOfChoices = mcMinChoices + Math.floor(Math.random() * (choiceNumberVariance + 1));
+
+				var numberOfIncorrectChoices = numberOfChoices - 1;
+
+				var randomChaffTerms = consumableTerms.slice(0,numberOfIncorrectChoices); //shuffled beforehand so the selection random
+
+				var finalTerms = structuredClone(randomChaffTerms);
+				finalTerms.push(randomTerm);
+
+				shuffleArray(finalTerms); //shuffle again so the placement is random
+
+				var choiceCellTableDimensions = {x: Math.min(numberOfChoices,6), y: Math.ceil(numberOfChoices / 6)};
+
+				var equalWidthPercentStyleText = (Math.round(10000 / (choiceCellTableDimensions.x)) / 100) + "%" //rounding as an arbitrary stylistic choice
+
+				var newEntryTr = document.createElement("tr");
+					newEntryTr.setAttribute("id",uniqueIdentifier);
+					var newEntryTd = document.createElement("td");
+					newEntryTr.appendChild(newEntryTd);
+						var termHeading = document.createElement("h3");
+						newEntryTd.appendChild(termHeading);
+							termHeading.innerText = randomTerm[mode];
+							//termHeading.appendChild(document.createElement("br"));
+						var choicesForm = document.createElement("div");
+						newEntryTd.appendChild(choicesForm);
+							choicesForm.setAttribute("correct_answer_you_dirty_cheater",correctAnswer);
+							choicesForm.setAttribute("class","question-inputs");
+							var choiceCellTable = document.createElement("table");
+							choicesForm.appendChild(choiceCellTable);
+								choiceCellTable.classList.add("choices-table");
+								var choiceCellTbody = document.createElement("tbody");
+								choiceCellTable.appendChild(choiceCellTbody);
+									var cellIndex = 0;
+									for(var j = 0; j < choiceCellTableDimensions.y; j++) {
+										var choiceCellRow = document.createElement("tr");
+										choiceCellTbody.appendChild(choiceCellRow);
+											for(var k = 0; k < choiceCellTableDimensions.x; k++) {
+												var term = finalTerms[cellIndex];
+												var value = term[modeComplement];
+												var choiceCell = document.createElement("td");
+												choiceCellRow.appendChild(choiceCell);
+													choiceCell.style.width = equalWidthPercentStyleText;
+													var choice = document.createElement("input");
+													choiceCell.appendChild(choice);
+														choice.setAttribute("type","radio");
+														choice.setAttribute("id",`option${cellIndex}`);
+														choice.setAttribute("name",uniqueIdentifier);
+														choice.setAttribute("value",value);
+													var choiceLabel = document.createElement("label");
+													choiceCell.appendChild(choiceLabel);
+														choiceLabel.setAttribute("for",`option${cellIndex}`);
+														choiceLabel.textContent = value;
+
+														cellIndex++;
+												}
+									}
+							var choiceFormEvaluateButton = document.createElement("button");
+							choicesForm.appendChild(choiceFormEvaluateButton);
+								choiceFormEvaluateButton.setAttribute("question_pass_to_button",uniqueIdentifier);
+								choiceFormEvaluateButton.innerText = "Check";
+								choiceFormEvaluateButton.addEventListener("click",function() {
+									var questionId = this.getAttribute("question_pass_to_button");
+									var questionRowInSigmaTable = document.getElementById(uniqueIdentifier);
+									var correctAnswer = questionRowInSigmaTable.querySelector(".question-inputs").getAttribute("correct_answer_you_dirty_cheater");
+									var question_sAnswers = questionRowInSigmaTable.querySelectorAll(`input[name="${uniqueIdentifier}"]`);
+									var optionsAsArray = Array.from(question_sAnswers);
+									var selectedAnswer = ((optionsAsArray.filter(node => node.checked === true)) ?? [null])[0];
+									var correctAnswerOption = (optionsAsArray.filter(node => (node.getAttribute("value") === correctAnswer)) ?? [null])[0];
+									var statusSpan = questionRowInSigmaTable.querySelector(".answer-result-status");
+
+									if(!selectedAnswer) {
+										alert("Question is unanswered!");
+										return null
+									};
+
+									var wasRight = selectedAnswer.value == correctAnswer;
+
+									if(wasRight) {
+										statusSpan.classList.add("correct");
+										statusSpan.innerText = "Correct";
+										selectedAnswer.parentNode.classList.add("selected-correct");
+										score++;
+										updateScore()
+									} else {
+										statusSpan.classList.add("incorrect");
+										statusSpan.innerText = "Incorrect (BOOOOOOOOM!!!! *insert SING explosion here*)"
+										selectedAnswer.parentNode.classList.add("selected-incorrect");
+										if(correctAnswerOption) { correctAnswerOption.parentElement.classList.add("unselected-correct") }
+									}
+									for(var l = 0; l < question_sAnswers.length; l++) {
+										question_sAnswers[l].setAttribute("disabled","")
+									};
+									this.setAttribute("disabled","");
+									return wasRight
+								});
+						newEntryTd.appendChild(document.createElement("br"));
+						var answerResult = document.createElement("span");
+						newEntryTd.appendChild(answerResult);
+							answerResult.classList.add("answer-result-status");
+							answerResult.innerText = "Not answered yet";
+				return newEntryTr
+			};
+
+			function makeType(uniqueIdentifier,termIndexOverride=null) {
+				if(terms.length == 0) {
+					throw new Error("wtf there are no terms to choose from")
+				};
+
+				var randomTermIndex = termIndexOverride ?? Math.floor(Math.random() * terms.length);
+				var randomTerm = terms[randomTermIndex];
+				var mode = (Math.random() < 0.5) + 0; //1 if eng heading
+				var modeComplement = (mode ? 0 : 1);
+				var correctAnswer = randomTerm[modeComplement]
+				var newEntryTr = document.createElement("tr");
+					newEntryTr.setAttribute("id",uniqueIdentifier);
+					var newEntryTd = document.createElement("td");
+					newEntryTr.appendChild(newEntryTd);
+						var termHeading = document.createElement("h3");
+						newEntryTd.appendChild(termHeading);
+							termHeading.innerText = randomTerm[mode];
+							//termHeading.appendChild(document.createElement("br"));
+						var textForm = document.createElement("div");
+						newEntryTd.appendChild(textForm);
+							textForm.setAttribute("correct_answer_you_dirty_cheater",correctAnswer);
+							textForm.setAttribute("class","question-inputs");
+							var questionInput = document.createElement("input");
+							textForm.appendChild(questionInput);
+								questionInput.classList.add("question-input");
+								questionInput.setAttribute("placeholder","Type the meaning here");
+							var textFormEvaluateButton = document.createElement("button");
+							textForm.appendChild(textFormEvaluateButton);
+								textFormEvaluateButton.setAttribute("question_pass_to_button",uniqueIdentifier);
+								textFormEvaluateButton.innerText = "Check";
+								textFormEvaluateButton.addEventListener("click",function() {
+									var questionId = this.getAttribute("question_pass_to_button");
+									var questionRowInSigmaTable = document.getElementById(uniqueIdentifier);
+									var correctAnswer = questionRowInSigmaTable.querySelector(".question-inputs").getAttribute("correct_answer_you_dirty_cheater");
+									var textField = questionRowInSigmaTable.querySelector("input.question-input");
+									var textInputValue = (textField?.value ?? "").trim();
+									var statusSpan = questionRowInSigmaTable.querySelector(".answer-result-status");
+
+									if(textInputValue == "") {
+										alert("Question is unanswered!");
+										return null
+									};
+
+									var wasRight = textInputValue.toLowerCase() == correctAnswer.toLowerCase();
+
+									if(wasRight) {
+										statusSpan.classList.add("correct");
+										textField.classList.add("input-correct");
+										statusSpan.innerText = "Correct";
+										score++;
+										updateScore()
+									} else {
+										statusSpan.classList.add("incorrect");
+										textField.classList.add("input-incorrect");
+										statusSpan.innerText = "Incorrect (Or you made a typo, in which case sorry and I don't know how to do fuzzy matching.)"
+									}
+									this.setAttribute("disabled","");
+									textField.setAttribute("readonly","");
+									return wasRight
+								});
+						newEntryTd.appendChild(document.createElement("br"));
+						var answerResult = document.createElement("span");
+						newEntryTd.appendChild(answerResult);
+							answerResult.classList.add("answer-result-status");
+							answerResult.innerText = "Not answered yet";
+				return newEntryTr
+			};
+
+			//Hangul.js by Jaemin Jo
+			/*! hangul-js 2019-11-01 */
+			{ //block for editor folding
+			!function(){"use strict";function a(a){for(var b=a.length,c={0:0},d=0;d<b;d++)a[d]&&(c[a[d].charCodeAt(0)]=d);return c}function b(a){for(var b,c,d=a.length,e={},f=0;f<d;f++)b=a[f][0].charCodeAt(0),c=a[f][1].charCodeAt(0),void 0===e[b]&&(e[b]={}),e[b][c]=a[f][2].charCodeAt(0);return e}function c(a){return void 0!==k[a]}function d(a){return void 0!==l[a]}function e(a){return void 0!==m[a]}function f(a){return void 0!==n[a]}function g(a){return 44032<=a&&a<=55203}function h(a,b){return!(!p[a]||!p[a][b])&&p[a][b]}function i(a,b){return!(!o[a]||!o[a][b])&&o[a][b]}function j(a){this.string=a,this.disassembled=A(a).join("")}var k,l,m,n,o,p,q=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],r=["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ",["ㅗ","ㅏ"],["ㅗ","ㅐ"],["ㅗ","ㅣ"],"ㅛ","ㅜ",["ㅜ","ㅓ"],["ㅜ","ㅔ"],["ㅜ","ㅣ"],"ㅠ","ㅡ",["ㅡ","ㅣ"],"ㅣ"],s=["","ㄱ","ㄲ",["ㄱ","ㅅ"],"ㄴ",["ㄴ","ㅈ"],["ㄴ","ㅎ"],"ㄷ","ㄹ",["ㄹ","ㄱ"],["ㄹ","ㅁ"],["ㄹ","ㅂ"],["ㄹ","ㅅ"],["ㄹ","ㅌ"],["ㄹ","ㅍ"],["ㄹ","ㅎ"],"ㅁ","ㅂ",["ㅂ","ㅅ"],"ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],t=44032,u=["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄸ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅃ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],v=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],w=["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"],x=["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],y=[["ㄱ","ㅅ","ㄳ"],["ㄴ","ㅈ","ㄵ"],["ㄴ","ㅎ","ㄶ"],["ㄹ","ㄱ","ㄺ"],["ㄹ","ㅁ","ㄻ"],["ㄹ","ㅂ","ㄼ"],["ㄹ","ㅅ","ㄽ"],["ㄹ","ㅌ","ㄾ"],["ㄹ","ㅍ","ㄿ"],["ㄹ","ㅎ","ㅀ"],["ㅂ","ㅅ","ㅄ"]],z=[["ㅗ","ㅏ","ㅘ"],["ㅗ","ㅐ","ㅙ"],["ㅗ","ㅣ","ㅚ"],["ㅜ","ㅓ","ㅝ"],["ㅜ","ㅔ","ㅞ"],["ㅜ","ㅣ","ㅟ"],["ㅡ","ㅣ","ㅢ"]];k=a(u),l=a(v),m=a(w),n=a(x),o=b(y),p=b(z);var A=function(a,b){if(null===a)throw new Error("Arguments cannot be null");"object"==typeof a&&(a=a.join(""));for(var f,h,i,j,k,o=[],p=a.length,u=0;u<p;u++){var v=[];j=a.charCodeAt(u),g(j)?(j-=t,i=j%28,h=(j-i)/28%21,f=parseInt((j-i)/28/21),v.push(q[f]),"object"==typeof r[h]?v=v.concat(r[h]):v.push(r[h]),i>0&&("object"==typeof s[i]?v=v.concat(s[i]):v.push(s[i]))):c(j)?(k=d(j)?q[l[j]]:s[n[j]],"string"==typeof k?v.push(k):v=v.concat(k)):e(j)?(k=r[m[j]],"string"==typeof k?v.push(k):v=v.concat(k)):v.push(a.charAt(u)),b?o.push(v):o=o.concat(v)}return o},B=function(a){return"string"!=typeof a?"":(a=A(a),a.join(""))},C=function(a){function b(b){var c,f,g,k,o=0,r="";if(q=!1,!(p+1>b))for(var s=1;;s++){if(1===s){if(c=a[p+s].charCodeAt(0),e(c))return p+s+1<=b&&e(f=a[p+s+1].charCodeAt(0))?(j.push(String.fromCharCode(h(c,f))),void(p=b)):(j.push(a[p+s]),void(p=b));if(!d(c))return j.push(a[p+s]),void(p=b);r=a[p+s]}else if(2===s){if(f=a[p+s].charCodeAt(0),d(f))return c=i(c,f),r=String.fromCharCode(c),j.push(r),void(p=b);r=String.fromCharCode(28*(21*l[c]+m[f])+t)}else 3===s?(g=a[p+s].charCodeAt(0),h(f,g)?f=h(f,g):o=g,r=String.fromCharCode(28*(21*l[c]+m[f])+n[o]+t)):4===s?(k=a[p+s].charCodeAt(0),o=i(o,k)?i(o,k):k,r=String.fromCharCode(28*(21*l[c]+m[f])+n[o]+t)):5===s&&(k=a[p+s].charCodeAt(0),o=i(o,k),r=String.fromCharCode(28*(21*l[c]+m[f])+n[o]+t));if(p+s>=b)return j.push(r),void(p=b)}}"string"==typeof a&&(a=A(a));for(var c,g,j=[],k=a.length,o=0,p=-1,q=!1,r=0;r<k;r++)c=a[r].charCodeAt(0),d(c)||e(c)||f(c)?(0===o?d(c)?o=1:e(c)&&(o=4):1==o?e(c)?o=2:i(g,c)?o=5:b(r-1):2==o?f(c)?o=3:e(c)?h(g,c)||(b(r-1),o=4):(b(r-1),o=1):3==o?f(c)?!q&&i(g,c)?q=!0:(b(r-1),o=1):d(c)?(b(r-1),o=1):e(c)&&(b(r-2),o=2):4==o?e(c)?h(g,c)?(b(r),o=0):b(r-1):(b(r-1),o=1):5==o&&(e(c)?(b(r-2),o=2):(b(r-1),o=1)),g=c):(b(r-1),b(r),o=0);return b(r-1),j.join("")},D=function(a,b){var c=A(a).join(""),d=A(b).join("");return c.indexOf(d)},E=function(a,b){function c(a){for(var b=0,c=0;b<h.length;++b)if(c+=h[b].length,a<c)return b}function d(a){for(var b=0,c=0;b<h.length;++b)if(c+=h[b].length,a+g.length<=c)return b}var e,f=A(a).join(""),g=A(b).join(""),h=A(a,!0),i=new RegExp(g,"gi"),j=[];if(!b.length)return[];for(;e=i.exec(f);)j.push(e.index);return j.map(function(a){return[c(a),d(a)]})};j.prototype.search=function(a){return A(a).join("").indexOf(this.disassembled)};var F=function(a){"object"==typeof a&&(a=a.join(""));var b=a.charCodeAt(a.length-1);if(g(b)){b-=t;if(b%28>0)return!0}else if(c(b))return!0;return!1},G=function(a,b){return A(a).pop()===b},H={disassemble:A,d:A,disassembleToString:B,ds:B,assemble:C,a:C,search:D,rangeSearch:E,Searcher:j,endsWithConsonant:F,endsWith:G,isHangul:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),g(a)},isComplete:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),g(a)},isConsonant:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),c(a)},isVowel:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),e(a)},isCho:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),d(a)},isJong:function(a){return"string"==typeof a&&(a=a.charCodeAt(0)),f(a)},isHangulAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!g(a.charCodeAt(b)))return!1;return!0},isCompleteAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!g(a.charCodeAt(b)))return!1;return!0},isConsonantAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!c(a.charCodeAt(b)))return!1;return!0},isVowelAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!e(a.charCodeAt(b)))return!1;return!0},isChoAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!d(a.charCodeAt(b)))return!1;return!0},isJongAll:function(a){if("string"!=typeof a)return!1;for(var b=0;b<a.length;b++)if(!f(a.charCodeAt(b)))return!1;return!0}};"function"==typeof define&&define.amd?define(function(){return H}):"undefined"!=typeof module?module.exports=H:window.Hangul=H}();
+			}
+
+			//Subtitution code derived from code by Walter Guevara
+			var alphabet = "ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔㅁㄴㅇㄹㅎㅗㅓㅏㅣㅋㅌㅊㅍㅠㅜㅡㅃㅉㄸㄲㅆㅒㅖ";
+			var newalpha = "qwertyuiopasdfghjklzxcvbnmQWERTOP";
+
+			function encode(message,alphabet1,alphabet2){
+				let result = "";
+
+				for (let i = 0; i < message.length; i++){
+					let index = alphabet1.indexOf(message[i]);
+					result += alphabet2[index] || message[i]; //leave non-present characters untouched
+				}
+				return result;
+			}
+
+			function koreanKeyboardConversion(text) {   
+				//reverse: return encode(Hangul.disassemble(text,true).flat().join(""),alphabet,newalpha);
+				return Hangul.assemble(encode(text,newalpha,alphabet));
+			}
+
+			function koreanCursedKeyboardConversion(text) {   
+				//reverse: return encode(Hangul.disassemble(text,true).flat().join(""),alphabet,newalpha);
+				return Hangul.assemble(encode(text,newalpha,alphabet));
+			}
+
+			var hk = document.getElementById("hangulKeyboard");
+			var hko = document.getElementById("hangulKeyboardOutput");
+
+			nbsp = String.fromCharCode(0xA0);
+
+			var hkf = function() {
+				var text = this.value ?? "";
+				if(text.trim() !== "") {
+					text = koreanKeyboardConversion(text)
+				} else {
+					text = nbsp
+				};
+				hko.textContent = text
+			};
+
+			hk.addEventListener("change", hkf)
+			hk.addEventListener("paste", hkf)
+			hk.addEventListener("input", hkf)
+
+			questionMode = 3;
+			//0b01 = mc only, 0b10 = type only, and guess what 0b11 means;
+
+			function generateQuestions() {
+				var questionNodes = [];
+				shuffleArray(terms);
+				for(var i = 0; i < terms.length; i++) {
+					if(!!(questionMode & 0b01)) {
+						questionNodes.push(
+							makeMC(generateUUID(),i)
+						);
+						qCount++
+					};
+					if(!!(questionMode & 0b10)) {
+						questionNodes.push(
+							makeType(generateUUID(),i)
+						);
+						qCount++
+					}
+				};
+				shuffleArray(questionNodes);
+				for(var i = 0; i < questionNodes.length; i++) {
+					sigma.appendChild(questionNodes[i])
+				};
+				score = 0;
+				document.getElementById("question-amount-value").innerText = qCount;
+				updateScore();
+			};
+			
+			function importTerms() {
+				var termBox = document.getElementById("customTermList");
+				if(!termBox) { return null };
+				var termList = termBox.value;
+				termList = termList.split("\n")
+				termList = termList.map(x => x.trim());
+				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
+				if(termList.length == 0) { alert("No terms are present!"); return false };
+				termList = termList.map(x => x.replaceAll("::","\t").split("\t").map(y => y.trim()));
+				terms = termList;
+				mcMinChoices = Math.min(4,terms.length);
+				mcMaxChoices = Math.min(4,terms.length);
+				qCount = 0;
+				for(var m = sigma.childNodes.length - 1; m >= 0; m--) {
+					var target = sigma.childNodes[m];
+					sigma.removeChild(target);
+					target = null
+				};
+				generateQuestions();
+				return termList.length
+			};
+			var tib = document.getElementById("termImportButton");
+			if(tib) { tib.addEventListener("click",importTerms) };
+
+			generateQuestions()				
+		</script>
+
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+	</body>
+</html>
