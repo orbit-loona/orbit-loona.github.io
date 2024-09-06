@@ -95,11 +95,20 @@
 				min-width: 240px;
 				min-height: 240px;
 			}
+			
+			tr.answered-correct {
+				background-color: #1f3f1f;
+			}
+
+			tr.answered-incorrect {
+				background-color: #3f0f0f;
+			}
 		</style>
 	</head>
 	<body>
 		<h3> primitive quiz generator </h3>
-		<p id="description">you might have noticed that this page is unlisted. this is just meant to be a quick and dirty quiz solution for myself.</p>
+		<p id="description">you might have noticed that this page is unlisted. this is just meant to be a quick and dirty quiz solution for myself.<br/>
+		if you're <span style="color:#ff3f3f;">red</span>-<span style="color: lime;">green</span> colorblind, or if culture associates <span style="color:#ff3f3f;">red</span> positively or to mean "correct", or if your culture associates <span style="color: lime;">green</span> negatively or to mean "incorrect", then i'm sorry.<br/><br/></p>
 		<div>
 			<table id="keyboards">
 				<tbody>
@@ -117,7 +126,7 @@
 			<table id="termListInput">
 				<tbody>
 					<tr>
-						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored."></textarea><br/> </td>
+						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored.&#13;&#10;Duplicate terms are not supported and are not checked for or handled.&#13;&#10;Items should not differ only in case.&#13;&#10;Terms (both item and definition) must be globally unique across the entire list."></textarea><br/> </td>
 					</tr>
 					<tr>
 						<td> <button id="termImportButton">Import terms and generate questions<br/>(REMOVES CURRENT TERMS AND QUESTIONS)</button> </td>
@@ -135,9 +144,79 @@
 			<tbody>
 			</tbody>
 		</table>
+		
+		<button id="downloadStatsButton">Download overall stats</button> &nbsp; <button id="wipeStatsButton">Wipe overall stats (RELOADS PAGE)</button>
 		<script>
 			score = 0;
 			qCount = 0;
+			overallStats = {/*
+				termSetUniqueKey: {
+					rights: {
+						term1: 9,
+						term2: 5
+					},
+					wrongs: {
+						term1: 1,
+						term2: 5
+					}
+				}*/
+			};
+			
+			function saveOverallStats() {
+				localStorage.setItem("overallStats",JSON.stringify(overallStats))
+			};
+			
+			function loadOverallStats() {
+				var loadedStats = localStorage.getItem("overallStats");
+				if(loadedStats == null) {
+					wipeOverallStats() //initialize it to {}
+				} else {
+					overallStats = JSON.parse(loadedStats)
+				}
+			};
+			
+			function wipeOverallStats() {
+				overallStats = {};
+				saveOverallStats()
+			};
+			
+			loadOverallStats();
+			
+			//bryc's cyrb53 hash function
+			const cyrb53 = (str, seed = 0) => {
+				let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+				for(let i = 0, ch; i < str.length; i++) {
+					ch = str.charCodeAt(i);
+					h1 = Math.imul(h1 ^ ch, 2654435761);
+					h2 = Math.imul(h2 ^ ch, 1597334677);
+				}
+				h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+				h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+				h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+				h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+			  
+				return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+			};
+			
+			function termSortComparer(arr1,arr2) {
+				var c1 = arr1[1].toLowerCase(); //case-insensitive
+				var c2 = arr2[1].toLowerCase();
+				if(c1 > c2) {
+					return 1
+				} else if(c1 < c2) {
+					return -1
+				} else {
+					return 0
+				}
+			};
+			
+			function makeTermSetUniqueKey() {
+				var termsSorted = terms.toSorted(termSortComparer);
+				var sortedTermsAsString = termsSorted.map(x => x.join("\t")).join("\n");
+				var humanReadablePrefix = `${termsSorted[0].join("::")},${termsSorted.length.toString()}t`;
+				var termsHash = cyrb53(sortedTermsAsString);
+				return `${humanReadablePrefix},${termsHash}`
+			};
 
 			//Array shuffler taken from Sandboxels source code
 			function shuffleArray(array) {
@@ -163,17 +242,9 @@
 				});
 			}
 
-			terms = [
-				//["!en","en"],
-				["스키비디 토일렛","Skibidi Toilet"],
-				["오하이오","Ohio"],
-				["기얏","gyatt"],
-				["시그마","sigma"],
-				["리즈","rizz"],
-				["뇌 썩음","brain rot"],
-				["카이 씨넷","Kai Cenat"],
-			];
-			
+			terms = [];
+			termSetUniqueKey = null;
+
 			mcMinChoices = Math.min(4,terms.length);
 			mcMaxChoices = Math.min(4,terms.length);
 
@@ -269,6 +340,7 @@
 								choiceFormEvaluateButton.addEventListener("click",function() {
 									var questionId = this.getAttribute("question_pass_to_button");
 									var questionRowInSigmaTable = document.getElementById(uniqueIdentifier);
+									var questionHeading = questionRowInSigmaTable.querySelector("h3");
 									var correctAnswer = questionRowInSigmaTable.querySelector(".question-inputs").getAttribute("correct_answer_you_dirty_cheater");
 									var question_sAnswers = questionRowInSigmaTable.querySelectorAll(`input[name="${uniqueIdentifier}"]`);
 									var optionsAsArray = Array.from(question_sAnswers);
@@ -287,13 +359,30 @@
 										statusSpan.classList.add("correct");
 										statusSpan.innerText = "Correct";
 										selectedAnswer.parentNode.classList.add("selected-correct");
+										questionRowInSigmaTable.classList.add("answered-correct");
+										questionHeading.textContent += " (Right, +1)";
+
 										score++;
-										updateScore()
+										updateScore();
+
+										overallStats[termSetUniqueKey] ??= {};
+										overallStats[termSetUniqueKey].rights ??= {};
+										overallStats[termSetUniqueKey].rights[correctAnswer] ??= 0;
+										overallStats[termSetUniqueKey].rights[correctAnswer]++;
+										saveOverallStats()
 									} else {
 										statusSpan.classList.add("incorrect");
-										statusSpan.innerText = "Incorrect (BOOOOOOOOM!!!! *insert SING explosion here*)"
+										statusSpan.innerText = "Incorrect"
 										selectedAnswer.parentNode.classList.add("selected-incorrect");
 										if(correctAnswerOption) { correctAnswerOption.parentElement.classList.add("unselected-correct") }
+										questionRowInSigmaTable.classList.add("answered-incorrect");
+										questionHeading.textContent += " (Wrong, 0)";
+
+										overallStats[termSetUniqueKey] ??= {};
+										overallStats[termSetUniqueKey].wrongs ??= {};
+										overallStats[termSetUniqueKey].wrongs[correctAnswer] ??= 0;
+										overallStats[termSetUniqueKey].wrongs[correctAnswer]++;
+										saveOverallStats()
 									}
 									for(var l = 0; l < question_sAnswers.length; l++) {
 										question_sAnswers[l].setAttribute("disabled","")
@@ -342,6 +431,7 @@
 								textFormEvaluateButton.addEventListener("click",function() {
 									var questionId = this.getAttribute("question_pass_to_button");
 									var questionRowInSigmaTable = document.getElementById(uniqueIdentifier);
+									var questionHeading = questionRowInSigmaTable.querySelector("h3");
 									var correctAnswer = questionRowInSigmaTable.querySelector(".question-inputs").getAttribute("correct_answer_you_dirty_cheater");
 									var textField = questionRowInSigmaTable.querySelector("input.question-input");
 									var textInputValue = (textField?.value ?? "").trim();
@@ -358,13 +448,30 @@
 										statusSpan.classList.add("correct");
 										textField.classList.add("input-correct");
 										statusSpan.innerText = "Correct";
+										questionHeading.textContent += " (Right, +1)";
+
 										score++;
-										updateScore()
+										updateScore();
+
+										overallStats[termSetUniqueKey] ??= {};
+										overallStats[termSetUniqueKey].rights ??= {};
+										overallStats[termSetUniqueKey].rights[correctAnswer] ??= 0;
+										overallStats[termSetUniqueKey].rights[correctAnswer]++;
+										questionRowInSigmaTable.classList.add("answered-correct");
+										saveOverallStats()
 									} else {
 										statusSpan.classList.add("incorrect");
 										textField.classList.add("input-incorrect");
-										statusSpan.innerText = "Incorrect (Or you made a typo, in which case sorry and I don't know how to do fuzzy matching.)"
-									}
+										statusSpan.innerText = "Incorrect (Or you made a typo, in which case sorry and I don't know how to do fuzzy matching.)";
+										questionHeading.textContent += " (Wrong, 0)";
+
+										overallStats[termSetUniqueKey] ??= {};
+										overallStats[termSetUniqueKey].wrongs ??= {};
+										overallStats[termSetUniqueKey].wrongs[correctAnswer] ??= 0;
+										overallStats[termSetUniqueKey].wrongs[correctAnswer]++;
+										questionRowInSigmaTable.classList.add("answered-incorrect");
+										saveOverallStats()
+									};
 									this.setAttribute("disabled","");
 									textField.setAttribute("readonly","");
 									return wasRight
@@ -454,17 +561,25 @@
 				document.getElementById("question-amount-value").innerText = qCount;
 				updateScore();
 			};
-			
-			function importTerms() {
-				var termBox = document.getElementById("customTermList");
-				if(!termBox) { return null };
-				var termList = termBox.value;
+
+			function importTerms(listOverride=null,doGenerateQuestions=true) {
+				var termList;
+				console.log(3,listOverride);
+				if(listOverride == null) {
+					var termBox = document.getElementById("customTermList");
+					if(!termBox) { return null };
+					termList = termBox.value;
+				} else {
+					termList = listOverride
+				};
+				console.log(3,termList);
 				termList = termList.split("\n")
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
 				if(termList.length == 0) { alert("No terms are present!"); return false };
 				termList = termList.map(x => x.replaceAll("::","\t").split("\t").map(y => y.trim()));
 				terms = termList;
+				termSetUniqueKey = makeTermSetUniqueKey();
 				mcMinChoices = Math.min(4,terms.length);
 				mcMaxChoices = Math.min(4,terms.length);
 				qCount = 0;
@@ -473,15 +588,58 @@
 					sigma.removeChild(target);
 					target = null
 				};
-				generateQuestions();
+				if(doGenerateQuestions) { generateQuestions() };
 				return termList.length
 			};
 			var tib = document.getElementById("termImportButton");
-			if(tib) { tib.addEventListener("click",importTerms) };
+			if(tib) { tib.addEventListener("click",function() {
+				importTerms()
+			}) };
 
-			generateQuestions()				
+			var initialTerms = 
+`스키비디 토일렛\tSkibidi Toilet
+오하이오\tOhio
+기얏\tgyatt
+시그마\tsigma
+리즈\trizz
+뇌 썩음\tbrain rot
+카이 씨넷\tKai Cenat`;
+
+			importTerms(initialTerms);
+
+			const saveLsValueToFile = (keyName) => { //from https://stackoverflow.com/a/65939108
+				const blob = new Blob([localStorage[keyName]], { type: "text/json" });
+				const link = document.createElement("a");
+
+				link.download = "overallStats downloaded on " + Date.now() + ".json";
+				link.href = window.URL.createObjectURL(blob);
+				link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+				const evt = new MouseEvent("click", {
+					view: window,
+					bubbles: true,
+					cancelable: true,
+				});
+
+				link.dispatchEvent(evt);
+				link.remove()
+			};
+
+			//console.log(terms);
+			
+			var downloadStatsButton = document.getElementById("downloadStatsButton");
+			downloadStatsButton.addEventListener("click",function() {
+				saveLsValueToFile("overallStats")
+			});
+				
+			var wipeStatsButton = document.getElementById("wipeStatsButton");
+			wipeStatsButton.addEventListener("click",function() {
+				wipeOverallStats();
+				location.reload()
+			});
+				
 		</script>
-
+		
 		<br/><br/><a href="index.html"><small>go to main page</small></a>
 	</body>
 </html>
