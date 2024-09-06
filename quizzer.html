@@ -564,7 +564,7 @@
 
 			function importTerms(listOverride=null,doGenerateQuestions=true) {
 				var termList;
-				console.log(3,listOverride);
+				//console.log(3,listOverride);
 				if(listOverride == null) {
 					var termBox = document.getElementById("customTermList");
 					if(!termBox) { return null };
@@ -572,7 +572,7 @@
 				} else {
 					termList = listOverride
 				};
-				console.log(3,termList);
+				//console.log(3,termList);
 				termList = termList.split("\n")
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
