@@ -103,6 +103,10 @@
 			tr.answered-incorrect {
 				background-color: #3f0f0f;
 			}
+			
+			h3 .extra-info {
+				color: gray;
+			}
 		</style>
 	</head>
 	<body>
@@ -145,7 +149,10 @@
 			</tbody>
 		</table>
 		
-		<button id="downloadStatsButton">Download overall stats</button> &nbsp; <button id="wipeStatsButton">Wipe overall stats (RELOADS PAGE)</button>
+		<p>
+			<button id="downloadStatsButton"> Download overall stats </button> &nbsp; <button id="wipeStatsButton"> Wipe overall stats (RELOADS PAGE) </button><br/>
+			<button id="wipeTermListButton"> Wipe custom terms (RELOADS PAGE) </button>
+		</p>
 		<script>
 			score = 0;
 			qCount = 0;
@@ -179,6 +186,43 @@
 				overallStats = {};
 				saveOverallStats()
 			};
+
+			function saveTermSetField() {
+				var termBox = document.getElementById("customTermList");
+				if(!termBox) { return null };
+				termList = termBox.value.trim();
+				localStorage.setItem("lastCustomTermList",termList)
+				return termList.length;
+			};
+			
+			function loadTermSetField() {
+				var termBox = document.getElementById("customTermList");
+				if(!termBox) { return null };
+				var loadedTerms = localStorage.getItem("lastCustomTermList");
+				if(loadedTerms == null) {
+					wipeTermSetField() //initialize it to ""
+					return 0
+				} else {
+					termBox.value = loadedTerms;
+					return loadedTerms.length
+				}
+			};
+			
+			function wipeTermSetField() {
+				var termBox = document.getElementById("customTermList");
+				if(!termBox) { return null };
+				termBox.value = "";
+				return saveTermSetField()
+			};
+			
+			window.addEventListener("load", (event) => {
+				var termBox = document.getElementById("customTermList");
+				if(!termBox) { return null };
+				loadTermSetField();
+				if(termBox.value.length > 0) {
+					importTerms()
+				}
+			});
 			
 			loadOverallStats();
 			
@@ -269,11 +313,26 @@
 
 				shuffleArray(consumableTerms);
 
-				var mode = (Math.random() < 0.5) + 0; //1 if eng heading
+				//by internal convention, [0] is the true-term and [1] is the definition
+				var mode = (Math.random() < 0.5) + 0; //1 if the heading is the definition (you are guessing the true-term)
 
 				var modeComplement = (mode ? 0 : 1);
 
 				var correctAnswer = randomTerm[modeComplement];
+				
+				var extraData = randomTerm[2 + mode] ?? null;
+				
+				if(extraData) {
+					if(extraData.trim().length == 0) {
+						extraData = null
+					}
+				} else {
+					extraData = null
+				};
+				
+				//var termExtraData = randomTerm[2] ?? null;
+				
+				//var definitionExtraData = randomTerm[3] ?? null;
 
 				var choiceNumberVariance = mcMaxChoices - mcMinChoices;
 
@@ -298,7 +357,15 @@
 					newEntryTr.appendChild(newEntryTd);
 						var termHeading = document.createElement("h3");
 						newEntryTd.appendChild(termHeading);
-							termHeading.innerText = randomTerm[mode];
+							var headingText = randomTerm[mode];
+							termHeading.innerText = headingText;
+							if(extraData) {
+								termHeading.innerText += " ";
+								var headingExtraInfo = document.createElement("span");
+								termHeading.appendChild(headingExtraInfo);
+									headingExtraInfo.innerText = extraData;
+									headingExtraInfo.classList.add("extra-info")
+							};
 							//termHeading.appendChild(document.createElement("br"));
 						var choicesForm = document.createElement("div");
 						newEntryTd.appendChild(choicesForm);
@@ -577,6 +644,7 @@
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
 				if(termList.length == 0) { alert("No terms are present!"); return false };
+				termList = termList.map(x => x.split(":##:")[0]);
 				termList = termList.map(x => x.replaceAll("::","\t").split("\t").map(y => y.trim()));
 				terms = termList;
 				termSetUniqueKey = makeTermSetUniqueKey();
@@ -597,11 +665,11 @@
 			}) };
 
 			var initialTerms = 
-`스키비디 토일렛\tSkibidi Toilet
-오하이오\tOhio
-기얏\tgyatt
-시그마\tsigma
-리즈\trizz
+`스키비디 토일렛\tSkibidi Toilet\t(돕 돕 예스 예스)
+오하이오\tOhio\t(주)\t(state)
+기얏\tgyatt\t\t(gyatt damn)
+시그마\tsigma\t(Σ)\t(Σ)
+리즈\trizz\t(카리스마)\t(charisma)
 뇌 썩음\tbrain rot
 카이 씨넷\tKai Cenat`;
 
@@ -635,6 +703,12 @@
 			var wipeStatsButton = document.getElementById("wipeStatsButton");
 			wipeStatsButton.addEventListener("click",function() {
 				wipeOverallStats();
+				location.reload()
+			});
+				
+			var wipeCustomTermsButton = document.getElementById("wipeTermListButton");
+			wipeCustomTermsButton.addEventListener("click",function() {
+				wipeTermSetField();
 				location.reload()
 			});
 				
