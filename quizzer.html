@@ -93,7 +93,7 @@
 			
 			#customTermList {
 				min-width: 240px;
-				min-height: 240px;
+				min-height: 380px;
 			}
 			
 			tr.answered-correct {
@@ -104,7 +104,7 @@
 				background-color: #3f0f0f;
 			}
 			
-			h3 .extra-info {
+			.extra-info {
 				color: gray;
 			}
 		</style>
@@ -130,7 +130,7 @@
 			<table id="termListInput">
 				<tbody>
 					<tr>
-						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored.&#13;&#10;Duplicate terms are not supported and are not checked for or handled.&#13;&#10;Items should not differ only in case.&#13;&#10;Terms (both item and definition) must be globally unique across the entire list."></textarea><br/> </td>
+						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored.&#13;&#10;Duplicate terms are not supported and are not checked for or handled.&#13;&#10;Items should not differ only in case.&#13;&#10;Terms (both item and definition) must be globally unique across the entire list.&#13;&#10;Third or fourth items will be used as extra text displayed alongside the headings and radio-button labels but not considered part of the answer.&#13;&#10;The first line may be used as a title shown when exporting overall stats."></textarea><br/> </td>
 					</tr>
 					<tr>
 						<td> <button id="termImportButton">Import terms and generate questions<br/>(REMOVES CURRENT TERMS AND QUESTIONS)</button> </td>
@@ -156,8 +156,9 @@
 		<script>
 			score = 0;
 			qCount = 0;
+			currentSetTitle = null;
 			overallStats = {/*
-				termSetUniqueKey: {
+				workingSetTitle: {
 					rights: {
 						term1: 9,
 						term2: 5
@@ -194,12 +195,29 @@
 				localStorage.setItem("lastCustomTermList",termList)
 				return termList.length;
 			};
+
+			autoSaveFifthInputCounter = 0;
+			
+			var termBox = document.getElementById("customTermList");
+			if(termBox) {
+				termBox.addEventListener("paste",saveTermSetField);
+				termBox.addEventListener("input",function() {
+					if(isNaN(autoSaveFifthInputCounter) || autoSaveFifthInputCounter < 0) {
+						autoSaveFifthInputCounter = 0
+					};
+					autoSaveFifthInputCounter++;
+					if(autoSaveFifthInputCounter >= 5) {
+						autoSaveFifthInputCounter = 0;
+						saveTermSetField()
+					}
+				});
+			}
 			
 			function loadTermSetField() {
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
 				var loadedTerms = localStorage.getItem("lastCustomTermList");
-				if(loadedTerms == null) {
+				if(loadedTerms === null) {
 					wipeTermSetField() //initialize it to ""
 					return 0
 				} else {
@@ -209,6 +227,7 @@
 			};
 			
 			function wipeTermSetField() {
+				console.log("bussy");
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
 				termBox.value = "";
@@ -218,7 +237,10 @@
 			window.addEventListener("load", (event) => {
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
-				loadTermSetField();
+				var loadResult = loadTermSetField();
+				if(loadResult > 0) {
+					saveTermSetField()
+				};
 				if(termBox.value.length > 0) {
 					importTerms()
 				}
@@ -243,8 +265,8 @@
 			};
 			
 			function termSortComparer(arr1,arr2) {
-				var c1 = arr1[1].toLowerCase(); //case-insensitive
-				var c2 = arr2[1].toLowerCase();
+				var c1 = arr1[0].toLowerCase(); //case-insensitive
+				var c2 = arr2[0].toLowerCase();
 				if(c1 > c2) {
 					return 1
 				} else if(c1 < c2) {
@@ -261,7 +283,7 @@
 				var termsHash = cyrb53(sortedTermsAsString);
 				return `${humanReadablePrefix},${termsHash}`
 			};
-
+			
 			//Array shuffler taken from Sandboxels source code
 			function shuffleArray(array) {
 				for (let i = array.length - 1; i > 0; i--) {
@@ -287,10 +309,13 @@
 			}
 
 			terms = [];
-			termSetUniqueKey = null;
+			workingSetTitle = null;
 
-			mcMinChoices = Math.min(4,terms.length);
-			mcMaxChoices = Math.min(4,terms.length);
+			idealMcMinChoices = 4;
+			idealMcMaxChoices = 4;
+			
+			mcMinChoices = Math.min(idealMcMinChoices,terms.length);
+			mcMaxChoices = Math.min(idealMcMaxChoices,terms.length);
 
 			function updateScore() {
 				var percent = (Math.round(1000 * (score / qCount)) / 10);
@@ -330,7 +355,7 @@
 					extraData = null
 				};
 				
-				//var termExtraData = randomTerm[2] ?? null;
+ 				//var termExtraData = randomTerm[2] ?? null;
 				
 				//var definitionExtraData = randomTerm[3] ?? null;
 
@@ -383,6 +408,7 @@
 											for(var k = 0; k < choiceCellTableDimensions.x; k++) {
 												var term = finalTerms[cellIndex];
 												var value = term[modeComplement];
+												var labelExtraData = term[2 + modeComplement] ?? null;
 												var choiceCell = document.createElement("td");
 												choiceCellRow.appendChild(choiceCell);
 													choiceCell.style.width = equalWidthPercentStyleText;
@@ -396,7 +422,13 @@
 													choiceCell.appendChild(choiceLabel);
 														choiceLabel.setAttribute("for",`option${cellIndex}`);
 														choiceLabel.textContent = value;
-
+														if(labelExtraData) {
+															choiceLabel.textContent += " ";
+															var labelExtraDataSpan = document.createElement("span");
+															choiceLabel.appendChild(labelExtraDataSpan);
+																labelExtraDataSpan.textContent = labelExtraData;
+																labelExtraDataSpan.classList.add("extra-info")
+														};
 														cellIndex++;
 												}
 									}
@@ -427,15 +459,18 @@
 										statusSpan.innerText = "Correct";
 										selectedAnswer.parentNode.classList.add("selected-correct");
 										questionRowInSigmaTable.classList.add("answered-correct");
-										questionHeading.textContent += " (Right, +1)";
+										var answerStatusText = document.createElement("span");
+										questionHeading.appendChild(answerStatusText);
+											answerStatusText.textContent = " (Right, +1)";
+											answerStatusText.classList.add("answer-status");
 
 										score++;
 										updateScore();
 
-										overallStats[termSetUniqueKey] ??= {};
-										overallStats[termSetUniqueKey].rights ??= {};
-										overallStats[termSetUniqueKey].rights[correctAnswer] ??= 0;
-										overallStats[termSetUniqueKey].rights[correctAnswer]++;
+										overallStats[workingSetTitle] ??= {};
+										overallStats[workingSetTitle].rights ??= {};
+										overallStats[workingSetTitle].rights[correctAnswer] ??= 0;
+										overallStats[workingSetTitle].rights[correctAnswer]++;
 										saveOverallStats()
 									} else {
 										statusSpan.classList.add("incorrect");
@@ -443,12 +478,15 @@
 										selectedAnswer.parentNode.classList.add("selected-incorrect");
 										if(correctAnswerOption) { correctAnswerOption.parentElement.classList.add("unselected-correct") }
 										questionRowInSigmaTable.classList.add("answered-incorrect");
-										questionHeading.textContent += " (Wrong, 0)";
+										var answerStatusText = document.createElement("span");
+										questionHeading.appendChild(answerStatusText);
+											answerStatusText.textContent = " (Wrong, 0)";
+											answerStatusText.classList.add("answer-status");
 
-										overallStats[termSetUniqueKey] ??= {};
-										overallStats[termSetUniqueKey].wrongs ??= {};
-										overallStats[termSetUniqueKey].wrongs[correctAnswer] ??= 0;
-										overallStats[termSetUniqueKey].wrongs[correctAnswer]++;
+										overallStats[workingSetTitle] ??= {};
+										overallStats[workingSetTitle].wrongs ??= {};
+										overallStats[workingSetTitle].wrongs[correctAnswer] ??= 0;
+										overallStats[workingSetTitle].wrongs[correctAnswer]++;
 										saveOverallStats()
 									}
 									for(var l = 0; l < question_sAnswers.length; l++) {
@@ -475,6 +513,17 @@
 				var mode = (Math.random() < 0.5) + 0; //1 if eng heading
 				var modeComplement = (mode ? 0 : 1);
 				var correctAnswer = randomTerm[modeComplement]
+
+				var extraData = randomTerm[2 + mode] ?? null;
+				
+				if(extraData) {
+					if(extraData.trim().length == 0) {
+						extraData = null
+					}
+				} else {
+					extraData = null
+				};
+
 				var newEntryTr = document.createElement("tr");
 					newEntryTr.setAttribute("id",uniqueIdentifier);
 					var newEntryTd = document.createElement("td");
@@ -482,6 +531,13 @@
 						var termHeading = document.createElement("h3");
 						newEntryTd.appendChild(termHeading);
 							termHeading.innerText = randomTerm[mode];
+							if(extraData) {
+								termHeading.innerText += " ";
+								var headingExtraInfo = document.createElement("span");
+								termHeading.appendChild(headingExtraInfo);
+									headingExtraInfo.innerText = extraData;
+									headingExtraInfo.classList.add("extra-info")
+							};
 							//termHeading.appendChild(document.createElement("br"));
 						var textForm = document.createElement("div");
 						newEntryTd.appendChild(textForm);
@@ -515,27 +571,33 @@
 										statusSpan.classList.add("correct");
 										textField.classList.add("input-correct");
 										statusSpan.innerText = "Correct";
-										questionHeading.textContent += " (Right, +1)";
+										var answerStatusText = document.createElement("span");
+										questionHeading.appendChild(answerStatusText);
+											answerStatusText.textContent = " (Right, +1)";
+											answerStatusText.classList.add("answer-status");
 
 										score++;
 										updateScore();
 
-										overallStats[termSetUniqueKey] ??= {};
-										overallStats[termSetUniqueKey].rights ??= {};
-										overallStats[termSetUniqueKey].rights[correctAnswer] ??= 0;
-										overallStats[termSetUniqueKey].rights[correctAnswer]++;
+										overallStats[workingSetTitle] ??= {};
+										overallStats[workingSetTitle].rights ??= {};
+										overallStats[workingSetTitle].rights[correctAnswer] ??= 0;
+										overallStats[workingSetTitle].rights[correctAnswer]++;
 										questionRowInSigmaTable.classList.add("answered-correct");
 										saveOverallStats()
 									} else {
 										statusSpan.classList.add("incorrect");
 										textField.classList.add("input-incorrect");
 										statusSpan.innerText = "Incorrect (Or you made a typo, in which case sorry and I don't know how to do fuzzy matching.)";
-										questionHeading.textContent += " (Wrong, 0)";
+										var answerStatusText = document.createElement("span");
+										questionHeading.appendChild(answerStatusText);
+											answerStatusText.textContent = " (Wrong, 0)";
+											answerStatusText.classList.add("answer-status");
 
-										overallStats[termSetUniqueKey] ??= {};
-										overallStats[termSetUniqueKey].wrongs ??= {};
-										overallStats[termSetUniqueKey].wrongs[correctAnswer] ??= 0;
-										overallStats[termSetUniqueKey].wrongs[correctAnswer]++;
+										overallStats[workingSetTitle] ??= {};
+										overallStats[workingSetTitle].wrongs ??= {};
+										overallStats[workingSetTitle].wrongs[correctAnswer] ??= 0;
+										overallStats[workingSetTitle].wrongs[correctAnswer]++;
 										questionRowInSigmaTable.classList.add("answered-incorrect");
 										saveOverallStats()
 									};
@@ -643,13 +705,23 @@
 				termList = termList.split("\n")
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
-				if(termList.length == 0) { alert("No terms are present!"); return false };
 				termList = termList.map(x => x.split(":##:")[0]);
 				termList = termList.map(x => x.replaceAll("::","\t").split("\t").map(y => y.trim()));
+				if(termList[0].length == 1) {
+					currentSetTitle = termList[0][0]
+				};
+				termList = termList.filter(arr => arr.length > 1);
+				if(termList.length == 0) { alert("No terms are present!"); return false };
 				terms = termList;
-				termSetUniqueKey = makeTermSetUniqueKey();
-				mcMinChoices = Math.min(4,terms.length);
-				mcMaxChoices = Math.min(4,terms.length);
+				if(localStorage.getItem("lastCustomTermList")) {
+					loadTermSetField()
+				};
+				if(termBox?.value) {
+					saveTermSetField()
+				};
+				workingSetTitle = currentSetTitle ?? makeTermSetUniqueKey();
+				mcMinChoices = Math.min(idealMcMinChoices,terms.length);
+				mcMaxChoices = Math.min(idealMcMaxChoices,terms.length);
 				qCount = 0;
 				for(var m = sigma.childNodes.length - 1; m >= 0; m--) {
 					var target = sigma.childNodes[m];
