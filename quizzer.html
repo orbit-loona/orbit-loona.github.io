@@ -67,6 +67,12 @@
 				display: inline-block;
 			}
 
+			@media screen and (min-width: 769px) {
+				html body table#sigma {
+					width: 80%;
+				}
+			}
+
 			#sigma, .choices-table {
 				width: 100%
 			}
@@ -94,8 +100,13 @@
 			#customTermList {
 				min-width: 240px;
 				min-height: 380px;
+				color: black;
 			}
 			
+			#customTermList:focus {
+				color: white;
+			}
+
 			tr.answered-correct {
 				background-color: #1f3f1f;
 			}
@@ -105,7 +116,35 @@
 			}
 			
 			.extra-info {
-				color: gray;
+				opacity: 0.55;
+			}
+			
+			.correction-answer {
+				background-color: #002f00;
+				border: 1px solid #003f00;
+			}
+			
+			.correction {
+				font-size: 80%;
+				border: 1px solid #888;
+				padding: 1px;
+			}
+			
+			button[disabled] {
+				background-color: #a7a;
+				border: 1px solid #656;
+				color: #222;
+			}
+
+			.question-number {
+				border: 1px solid #aaa;
+				float: right;
+				padding: 2px;
+				margin: 1px;
+			}
+			
+			.slight-de-emphasis {
+				opacity: 0.65;
 			}
 		</style>
 	</head>
@@ -200,7 +239,7 @@
 			
 			var termBox = document.getElementById("customTermList");
 			if(termBox) {
-				termBox.addEventListener("paste",saveTermSetField);
+				termBox.addEventListener("paste",function() { saveTermSetField() });
 				termBox.addEventListener("input",function() {
 					if(isNaN(autoSaveFifthInputCounter) || autoSaveFifthInputCounter < 0) {
 						autoSaveFifthInputCounter = 0
@@ -227,7 +266,6 @@
 			};
 			
 			function wipeTermSetField() {
-				console.log("bussy");
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
 				termBox.value = "";
@@ -313,7 +351,6 @@
 
 			idealMcMinChoices = 4;
 			idealMcMaxChoices = 4;
-			
 			mcMinChoices = Math.min(idealMcMinChoices,terms.length);
 			mcMaxChoices = Math.min(idealMcMaxChoices,terms.length);
 
@@ -360,7 +397,7 @@
 				//var definitionExtraData = randomTerm[3] ?? null;
 
 				var choiceNumberVariance = mcMaxChoices - mcMinChoices;
-
+				
 				var numberOfChoices = mcMinChoices + Math.floor(Math.random() * (choiceNumberVariance + 1));
 
 				var numberOfIncorrectChoices = numberOfChoices - 1;
@@ -405,8 +442,14 @@
 									for(var j = 0; j < choiceCellTableDimensions.y; j++) {
 										var choiceCellRow = document.createElement("tr");
 										choiceCellTbody.appendChild(choiceCellRow);
+										var stop = false;
 											for(var k = 0; k < choiceCellTableDimensions.x; k++) {
 												var term = finalTerms[cellIndex];
+												if(!term) {
+													console.error(`Missing/disappeared/broken term
+finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms.length}): cellIndex = ${cellIndex}`);
+													continue
+												};
 												var value = term[modeComplement];
 												var labelExtraData = term[2 + modeComplement] ?? null;
 												var choiceCell = document.createElement("td");
@@ -430,8 +473,15 @@
 																labelExtraDataSpan.classList.add("extra-info")
 														};
 														cellIndex++;
+														if(cellIndex >= finalTerms.length) { 
+															stop = true;
+															break
+														}
 												}
-									}
+												if(stop) {
+													break
+												}
+									};
 							var choiceFormEvaluateButton = document.createElement("button");
 							choicesForm.appendChild(choiceFormEvaluateButton);
 								choiceFormEvaluateButton.setAttribute("question_pass_to_button",uniqueIdentifier);
@@ -593,7 +643,18 @@
 										questionHeading.appendChild(answerStatusText);
 											answerStatusText.textContent = " (Wrong, 0)";
 											answerStatusText.classList.add("answer-status");
+										
+										var correctAnswerShown = document.createElement("span");
+										textFormEvaluateButton.after(correctAnswerShown);
+											correctAnswerShown.textContent = "Correct answer: ";
+											correctAnswerShown.classList.add("correction");
+											var correctionValue = document.createElement("span");
+											correctAnswerShown.appendChild(correctionValue);
+												correctionValue.textContent = correctAnswer;
+												correctionValue.classList.add("correction-answer")
 
+										textFormEvaluateButton.after(document.createTextNode([" ",nbsp," "].join("")));
+										
 										overallStats[workingSetTitle] ??= {};
 										overallStats[workingSetTitle].wrongs ??= {};
 										overallStats[workingSetTitle].wrongs[correctAnswer] ??= 0;
@@ -685,6 +746,15 @@
 				shuffleArray(questionNodes);
 				for(var i = 0; i < questionNodes.length; i++) {
 					sigma.appendChild(questionNodes[i])
+					var numberLabel = document.createElement("div");
+					var questionCell = questionNodes[i].querySelector("td");
+						questionCell.insertAdjacentElement("afterbegin",numberLabel);
+							numberLabel.textContent = `Question ${(i + 1).toLocaleString()}`;
+							numberLabel.classList.add("question-number");
+							var outOf = document.createElement("span");
+							numberLabel.appendChild(outOf);
+								outOf.textContent = `/${questionNodes.length.toLocaleString()}`;
+								outOf.classList.add("slight-de-emphasis");
 				};
 				score = 0;
 				document.getElementById("question-amount-value").innerText = qCount;
@@ -693,7 +763,6 @@
 
 			function importTerms(listOverride=null,doGenerateQuestions=true) {
 				var termList;
-				//console.log(3,listOverride);
 				if(listOverride == null) {
 					var termBox = document.getElementById("customTermList");
 					if(!termBox) { return null };
@@ -701,7 +770,6 @@
 				} else {
 					termList = listOverride
 				};
-				//console.log(3,termList);
 				termList = termList.split("\n")
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
@@ -710,9 +778,29 @@
 				if(termList[0].length == 1) {
 					currentSetTitle = termList[0][0]
 				};
-				termList = termList.filter(arr => arr.length > 1);
+				termList = termList.filter(arr => arr.length >= 2);
 				if(termList.length == 0) { alert("No terms are present!"); return false };
 				terms = termList;
+				{
+					if(terms.length <= 4) {
+						idealMcMinChoices = 3;
+						idealMcMaxChoices = 3
+					} else if(terms.length <= 8) {
+						idealMcMinChoices = 3;
+						idealMcMaxChoices = 4;
+					} else if(terms.length <= 16) {
+						idealMcMinChoices = 4;
+						idealMcMaxChoices = 5;
+					} else if(terms.length <= 24) {
+						idealMcMinChoices = 4;
+						idealMcMaxChoices = 6;
+					} else {
+						idealMcMinChoices = 5;
+						idealMcMaxChoices = 7;
+					};
+					mcMinChoices = Math.min(idealMcMinChoices,terms.length);
+					mcMaxChoices = Math.min(idealMcMaxChoices,terms.length);
+				};
 				if(localStorage.getItem("lastCustomTermList")) {
 					loadTermSetField()
 				};
@@ -737,10 +825,11 @@
 			}) };
 
 			var initialTerms = 
-`스키비디 토일렛\tSkibidi Toilet\t(돕 돕 예스 예스)
+`Brainrot testing terms
+스키비디 토일렛\tSkibidi Toilet\t(돕 돕 예스 예스)
 오하이오\tOhio\t(주)\t(state)
 기얏\tgyatt\t\t(gyatt damn)
-시그마\tsigma\t(Σ)\t(Σ)
+시그마\tsigma
 리즈\trizz\t(카리스마)\t(charisma)
 뇌 썩음\tbrain rot
 카이 씨넷\tKai Cenat`;
@@ -765,8 +854,6 @@
 				link.remove()
 			};
 
-			//console.log(terms);
-			
 			var downloadStatsButton = document.getElementById("downloadStatsButton");
 			downloadStatsButton.addEventListener("click",function() {
 				saveLsValueToFile("overallStats")
