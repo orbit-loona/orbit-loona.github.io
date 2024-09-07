@@ -96,13 +96,13 @@
 			td.unselected-correct {
 				background-color: #002f00;
 			}
-			
+
 			#customTermList {
 				min-width: 240px;
 				min-height: 380px;
 				color: black;
 			}
-			
+
 			#customTermList:focus {
 				color: white;
 			}
@@ -114,22 +114,22 @@
 			tr.answered-incorrect {
 				background-color: #3f0f0f;
 			}
-			
+
 			.extra-info {
 				opacity: 0.55;
 			}
-			
+
 			.correction-answer {
 				background-color: #002f00;
 				border: 1px solid #003f00;
 			}
-			
+
 			.correction {
 				font-size: 80%;
 				border: 1px solid #888;
 				padding: 1px;
 			}
-			
+
 			button[disabled] {
 				background-color: #a7a;
 				border: 1px solid #656;
@@ -142,7 +142,7 @@
 				padding: 2px;
 				margin: 1px;
 			}
-			
+
 			.slight-de-emphasis {
 				opacity: 0.65;
 			}
@@ -187,7 +187,7 @@
 			<tbody>
 			</tbody>
 		</table>
-		
+
 		<p>
 			<button id="downloadStatsButton"> Download overall stats </button> &nbsp; <button id="wipeStatsButton"> Wipe overall stats (RELOADS PAGE) </button><br/>
 			<button id="wipeTermListButton"> Wipe custom terms (RELOADS PAGE) </button>
@@ -208,11 +208,11 @@
 					}
 				}*/
 			};
-			
+
 			function saveOverallStats() {
 				localStorage.setItem("overallStats",JSON.stringify(overallStats))
 			};
-			
+
 			function loadOverallStats() {
 				var loadedStats = localStorage.getItem("overallStats");
 				if(loadedStats == null) {
@@ -221,7 +221,7 @@
 					overallStats = JSON.parse(loadedStats)
 				}
 			};
-			
+
 			function wipeOverallStats() {
 				overallStats = {};
 				saveOverallStats()
@@ -236,7 +236,7 @@
 			};
 
 			autoSaveFifthInputCounter = 0;
-			
+
 			var termBox = document.getElementById("customTermList");
 			if(termBox) {
 				termBox.addEventListener("paste",function() { saveTermSetField() });
@@ -251,7 +251,7 @@
 					}
 				});
 			}
-			
+
 			function loadTermSetField() {
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
@@ -264,14 +264,14 @@
 					return loadedTerms.length
 				}
 			};
-			
+
 			function wipeTermSetField() {
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
 				termBox.value = "";
 				return saveTermSetField()
 			};
-			
+
 			window.addEventListener("load", (event) => {
 				var termBox = document.getElementById("customTermList");
 				if(!termBox) { return null };
@@ -283,9 +283,9 @@
 					importTerms()
 				}
 			});
-			
+
 			loadOverallStats();
-			
+
 			//bryc's cyrb53 hash function
 			const cyrb53 = (str, seed = 0) => {
 				let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
@@ -298,10 +298,10 @@
 				h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
 				h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
 				h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-			  
+
 				return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 			};
-			
+
 			function termSortComparer(arr1,arr2) {
 				var c1 = arr1[0].toLowerCase(); //case-insensitive
 				var c2 = arr2[0].toLowerCase();
@@ -313,7 +313,7 @@
 					return 0
 				}
 			};
-			
+
 			function makeTermSetUniqueKey() {
 				var termsSorted = terms.toSorted(termSortComparer);
 				var sortedTermsAsString = termsSorted.map(x => x.join("\t")).join("\n");
@@ -321,7 +321,7 @@
 				var termsHash = cyrb53(sortedTermsAsString);
 				return `${humanReadablePrefix},${termsHash}`
 			};
-			
+
 			//Array shuffler taken from Sandboxels source code
 			function shuffleArray(array) {
 				for (let i = array.length - 1; i > 0; i--) {
@@ -361,7 +361,7 @@
 				if(svs) { svs.innerText = score.toString() };
 				if(ps) { ps.innerText = percent.toString() };
 			};
-			
+
 			function makeMC(uniqueIdentifier,termIndexOverride=null) { //returns the whole tr for appendChild-ing into the sigma table
 				if(terms.length == 0) {
 					throw new Error("wtf there are no terms to choose from")
@@ -381,9 +381,9 @@
 				var modeComplement = (mode ? 0 : 1);
 
 				var correctAnswer = randomTerm[modeComplement];
-				
+
 				var extraData = randomTerm[2 + mode] ?? null;
-				
+
 				if(extraData) {
 					if(extraData.trim().length == 0) {
 						extraData = null
@@ -391,13 +391,13 @@
 				} else {
 					extraData = null
 				};
-				
+
  				//var termExtraData = randomTerm[2] ?? null;
-				
+
 				//var definitionExtraData = randomTerm[3] ?? null;
 
 				var choiceNumberVariance = mcMaxChoices - mcMinChoices;
-				
+
 				var numberOfChoices = mcMinChoices + Math.floor(Math.random() * (choiceNumberVariance + 1));
 
 				var numberOfIncorrectChoices = numberOfChoices - 1;
@@ -473,7 +473,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 																labelExtraDataSpan.classList.add("extra-info")
 														};
 														cellIndex++;
-														if(cellIndex >= finalTerms.length) { 
+														if(cellIndex >= finalTerms.length) {
 															stop = true;
 															break
 														}
@@ -565,7 +565,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				var correctAnswer = randomTerm[modeComplement]
 
 				var extraData = randomTerm[2 + mode] ?? null;
-				
+
 				if(extraData) {
 					if(extraData.trim().length == 0) {
 						extraData = null
@@ -643,7 +643,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 										questionHeading.appendChild(answerStatusText);
 											answerStatusText.textContent = " (Wrong, 0)";
 											answerStatusText.classList.add("answer-status");
-										
+
 										var correctAnswerShown = document.createElement("span");
 										textFormEvaluateButton.after(correctAnswerShown);
 											correctAnswerShown.textContent = "Correct answer: ";
@@ -654,7 +654,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 												correctionValue.classList.add("correction-answer")
 
 										textFormEvaluateButton.after(document.createTextNode([" ",nbsp," "].join("")));
-										
+
 										overallStats[workingSetTitle] ??= {};
 										overallStats[workingSetTitle].wrongs ??= {};
 										overallStats[workingSetTitle].wrongs[correctAnswer] ??= 0;
@@ -694,12 +694,12 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				return result;
 			}
 
-			function koreanKeyboardConversion(text) {   
+			function koreanKeyboardConversion(text) {
 				//reverse: return encode(Hangul.disassemble(text,true).flat().join(""),alphabet,newalpha);
 				return Hangul.assemble(encode(text,newalpha,alphabet));
 			}
 
-			function koreanCursedKeyboardConversion(text) {   
+			function koreanCursedKeyboardConversion(text) {
 				//reverse: return encode(Hangul.disassemble(text,true).flat().join(""),alphabet,newalpha);
 				return Hangul.assemble(encode(text,newalpha,alphabet));
 			}
@@ -824,7 +824,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				importTerms()
 			}) };
 
-			var initialTerms = 
+			var initialTerms =
 `Brainrot testing terms
 스키비디 토일렛\tSkibidi Toilet\t(돕 돕 예스 예스)
 오하이오\tOhio\t(주)\t(state)
@@ -858,21 +858,21 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 			downloadStatsButton.addEventListener("click",function() {
 				saveLsValueToFile("overallStats")
 			});
-				
+
 			var wipeStatsButton = document.getElementById("wipeStatsButton");
 			wipeStatsButton.addEventListener("click",function() {
 				wipeOverallStats();
 				location.reload()
 			});
-				
+
 			var wipeCustomTermsButton = document.getElementById("wipeTermListButton");
 			wipeCustomTermsButton.addEventListener("click",function() {
 				wipeTermSetField();
 				location.reload()
 			});
-				
+
 		</script>
-		
+
 		<br/><br/><a href="index.html"><small>go to main page</small></a>
 	</body>
 </html>
