@@ -98,7 +98,7 @@
 			}
 
 			#customTermList {
-				min-width: 240px;
+				min-width: 300px;
 				min-height: 380px;
 				color: black;
 			}
@@ -146,12 +146,26 @@
 			.slight-de-emphasis {
 				opacity: 0.65;
 			}
+			
+			body > h3, p {
+				background-color: #0000007f;
+				border: 1px solid #ccc;
+				padding: 0px 1px 3px 1px;
+			}
+			
+			table {
+				background-color: #0000007f;
+			}
+			
+			h3 {
+				line-height: 100%;
+			}
 		</style>
 	</head>
 	<body>
 		<h3> primitive quiz generator </h3>
 		<p id="description">you might have noticed that this page is unlisted. this is just meant to be a quick and dirty quiz solution for myself.<br/>
-		if you're <span style="color:#ff3f3f;">red</span>-<span style="color: lime;">green</span> colorblind, or if culture associates <span style="color:#ff3f3f;">red</span> positively or to mean "correct", or if your culture associates <span style="color: lime;">green</span> negatively or to mean "incorrect", then i'm sorry.<br/><br/></p>
+		if you're <span style="color:#ff3f3f;">red</span>-<span style="color: lime;">green</span> colorblind, or if culture associates <span style="color:#ff3f3f;">red</span> positively or to mean "correct", or if your culture associates <span style="color: lime;">green</span> negatively or to mean "incorrect", then i'm sorry.</p><br/>
 		<div>
 			<table id="keyboards">
 				<tbody>
@@ -169,7 +183,7 @@
 			<table id="termListInput">
 				<tbody>
 					<tr>
-						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with :##: will be ignored.&#13;&#10;Duplicate terms are not supported and are not checked for or handled.&#13;&#10;Items should not differ only in case.&#13;&#10;Terms (both item and definition) must be globally unique across the entire list.&#13;&#10;Third or fourth items will be used as extra text displayed alongside the headings and radio-button labels but not considered part of the answer.&#13;&#10;The first line may be used as a title shown when exporting overall stats."></textarea><br/> </td>
+						<td> <textarea id="customTermList" placeholder="Enter term-definition pairs delimited with tabs or double-colons.&#13;&#10;One pair on each line.&#13;&#10;Lines starting with ':##:' will be ignored.&#13;&#10;Duplicate terms are not supported and are not checked for or handled.&#13;&#10;Items should not differ only in case.&#13;&#10;Terms (both item and definition) must be globally unique across the entire list.&#13;&#10;Third or fourth items will be used as extra text displayed alongside the headings and radio-button labels but not considered part of the answer.&#13;&#10;The first line may be used for metadata (currently a title (shown when exporting overall stats) and a background color for the page.&#13;&#10;Both entries are optional, and metadata is separated with ':,,:'."></textarea><br/> </td>
 					</tr>
 					<tr>
 						<td> <button id="termImportButton">Import terms and generate questions<br/>(REMOVES CURRENT TERMS AND QUESTIONS)</button> </td>
@@ -188,10 +202,10 @@
 			</tbody>
 		</table>
 
-		<p>
+		<div id="dataButtons">
 			<button id="downloadStatsButton"> Download overall stats </button> &nbsp; <button id="wipeStatsButton"> Wipe overall stats (RELOADS PAGE) </button><br/>
 			<button id="wipeTermListButton"> Wipe custom terms (RELOADS PAGE) </button>
-		</p>
+		</div>
 		<script>
 			score = 0;
 			qCount = 0;
@@ -415,6 +429,7 @@
 
 				var newEntryTr = document.createElement("tr");
 					newEntryTr.setAttribute("id",uniqueIdentifier);
+					newEntryTr.classList.add("question");
 					var newEntryTd = document.createElement("td");
 					newEntryTr.appendChild(newEntryTd);
 						var termHeading = document.createElement("h3");
@@ -576,6 +591,7 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 
 				var newEntryTr = document.createElement("tr");
 					newEntryTr.setAttribute("id",uniqueIdentifier);
+					newEntryTr.classList.add("question");
 					var newEntryTd = document.createElement("td");
 					newEntryTr.appendChild(newEntryTd);
 						var termHeading = document.createElement("h3");
@@ -773,10 +789,17 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				termList = termList.split("\n")
 				termList = termList.map(x => x.trim());
 				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
+				termList = termList.filter(x => !((x.length == 0) || (x.startsWith(":##:"))));
 				termList = termList.map(x => x.split(":##:")[0]);
 				termList = termList.map(x => x.replaceAll("::","\t").split("\t").map(y => y.trim()));
 				if(termList[0].length == 1) {
-					currentSetTitle = termList[0][0]
+					var metadataLine = termList[0][0];
+					console.log(metadataLine);
+					metadataLine = metadataLine.split(":,,:").map(x => x.trim());
+					var _title = metadataLine[0] ?? null;
+					var _color = metadataLine[1] ?? null;
+					if(_title) { currentSetTitle = _title };
+					if(_color) { document.body.style["background-color"] = _color }
 				};
 				termList = termList.filter(arr => arr.length >= 2);
 				if(termList.length == 0) { alert("No terms are present!"); return false };
