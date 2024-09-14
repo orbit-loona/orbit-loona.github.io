@@ -40,6 +40,104 @@ try {
 		return true;
 	};
 
+	bruhs = 0n;
+	
+	//Modified from code by FishBasketGordo on StackOverflow: https://stackoverflow.com/a/7033705
+	function splitStringIntoChunks(str,chunkSize,firstChunkSize=null) {
+		var chunks = [];
+		var chunkIsFirst = true;
+		for(i = str.length - 1; i >= 0; i--) {
+			var effectiveChunkSize;
+			if((firstChunkSize !== null) && (firstChunkSize !== chunkSize) && chunkIsFirst) {
+				effectiveChunkSize = firstChunkSize
+			} else {
+				effectiveChunkSize = chunkSize
+			};
+			
+			if (str.length < effectiveChunkSize) {
+				if(str.length > 0) {
+					chunks.push(str)
+				};
+				break;
+			}
+			else {
+				chunks.push(str.substr(-effectiveChunkSize));
+				str = str.substr(0,str.length - effectiveChunkSize);
+			}
+			chunkIsFirst = false;
+		};
+		chunks.reverse();
+		return chunks
+	};
+	
+	function bigintCommas(bigint,separator=",",chunkSize=3,firstChunkSize=null) {
+		var wasNegative = (bigint < 0n)
+		var string = bigint.toString();
+		if(string.startsWith("-")) { string = string.slice(1) };
+		string = splitStringIntoChunks(string,chunkSize,firstChunkSize).join(separator);
+		if(wasNegative) { string = "-" + string };
+		return string
+	};
+	
+	function countBruh() {
+		bruhs ??= 0n;
+		bruhs += 1n;
+		
+		var bruhDisplay = document.getElementById("bruhCountFrame");
+		var bruhCounter = document.getElementById("bruhCount");
+		var bruhS = document.getElementById("bruhsPlural");
+
+		if(bruhDisplay) {
+			if(bruhDisplay.style.display.length == 4) { bruhDisplay.style.removeProperty("display") };
+			if(bruhCounter) {
+				bruhCounter.innerText = bigintCommas(bruhs);
+			}
+			
+			var scoreBruhs = bruhs - 50n; //not shifting all of those values down
+			
+			if(scoreBruhs === 0n) {
+				bruhDisplay.classList.add("amethyst")
+			} else if(scoreBruhs === 50n) {
+				bruhDisplay.classList.add("silver")
+				bruhDisplay.classList.remove("amethyst")
+			} else if(scoreBruhs === 200n) {
+				bruhDisplay.classList.add("diamond")
+				bruhDisplay.classList.remove("silver")
+			} else if(scoreBruhs === 450n) {
+				bruhDisplay.classList.add("gold")
+				bruhDisplay.classList.remove("diamond")
+			} else if(scoreBruhs === 950n) {
+				bruhDisplay.classList.add("platinum")
+				bruhDisplay.classList.remove("gold")
+			} else if(scoreBruhs === 1950n) {
+				bruhDisplay.classList.add("sapphire")
+				bruhDisplay.classList.remove("platinum")
+			} else if(scoreBruhs === 2950n) {
+				bruhDisplay.classList.add("iridium")
+				bruhDisplay.classList.remove("sapphire")
+			} else if(scoreBruhs === 4950n) {
+				bruhDisplay.classList.add("emerald")
+				bruhDisplay.classList.remove("iridium")
+			} else if(scoreBruhs === 9950n) {
+				bruhDisplay.classList.add("ruby") //not yeojin
+				bruhDisplay.classList.remove("emerald")
+			} else if(scoreBruhs === 14950n) {
+				bruhDisplay.classList.add("spinel")
+				bruhDisplay.classList.remove("ruby")
+			};
+			
+			if(bruhS) {
+				if(bruhs === 1n) {
+					bruhS.innerText = ""
+				} else if(bruhs === 2n) {
+					bruhS.innerText = "s"
+				}
+			}
+		};
+		
+		return bruhs;
+	};
+
 	loonaStartUnix = 1661127423000;
 	/*video length from debug data has millisecond precision (215.201),
 	but reddit comments are only have second precision from the API (as
@@ -414,7 +512,7 @@ try {
 		"18-05": [{e: "Onda", c: "rgb(179,4,105)", g: "Everglow", y: 2000}, {e: "Taeyang", g: "BIGBANG", c: "rgb(51,153,102)", y: 1988}],
 		"19-05": {e: "E:U", c: "rgb(107,86,163)", g: "Everglow", y: 1998},
 		"22-05": {e: "Yang Yena", c: "rgb(255,178,79)", g: "APRIL", y: 2000},
-		"24-05": {e: "Yves", c: "rgb(125,0,30)", g: "LOONA", y: 1997},
+		"24-05": {e: "Yves", c: "rgb(128,0,64)", g: "LOONA", y: 1997},
 		"25-05": [{e: "Xinyu", c: "rgb(213,19,19)", g: "tripleS", y: 2002}, {e: "Woni", c: "rgb(187,176,245)", g: "Rescene", y: 2004}],
 		"26-05": [{e: "Eunchae (Kwon Chae Won)", c: "rgb(40,119,255)", g: "DIA", y: 1999}, {e: "Yeji", c: "rgb(63,175,255)", g: "ITZY", y: 2000}, {e: "Kyujin", c: sc.pink, g: "NMIXX", y: 2006}, {e: "Miya", c: "rgb(102,58,197)", g: "GWSN", y: 1993}, {e: "Harin", c: sc.pink, g: "Pink Fantasy", y: 2000}, {e: "HA:TFELT (Yeeun/Yenny)", c: "rgb(58,169,197)", g: "Wonder Girls", y: 1989}],
 		"27-05": [{e: "Dawon", c: "rgb(255,84,0)", g: "WJSN", y: 1997}, {e: "Eunseo", c: "rgb(71,155,204)", g: "WJSN", y: 1998}, {e: "Maloi", c: "rgb(252, 194, 14)", g: "BINI", y: 2002}],
@@ -424,12 +522,12 @@ try {
 		"01-06": [{e: "ALICE", c: "rgb(224,203,244)", i: true, y: 2017}, {e: "Nagyung", c: "rgb(255,145,102)", g: "fromis_9", y: 2000}],
 		"02-06": {e: "Nien", c: "rgb(255,149,63)", g: "tripleS", y: 2003},
 		"03-06": [{e: "Jo Seunghee", c: "rgb(250,55,137)", g: "DIA", y: 1995}, {e: "SinB", c: ["rgb(255,208,0)", sc.blue], g: "GFriend/VIVIZ", y: 1998}, {e: "Taeha", c: "rgb(102,58,197)", g: "Momoland", y: 1998}],
-		"04-06": {e: "Choerry", c: "rgb(92,44,146)", g: "LOONA", y: 2001},
+		"04-06": {e: "Choerry", c: "rgb(150,44,196)", g: "LOONA", y: 2001},
 		"05-06": {e: "Chaeryeong", c: "rgb(127,255,0)", g: "ITZY", y: 2001},
 		"06-06": [{e: "Hyuna", c: "rgb(199,78,55)", g: "Wonder Girls", y: 1992}, {e: "Nana (real name unknown)", c: "rgb(171,0,194)", g: "UNIS", y: 2007}],
 		"07-06": {e: "Jueun", c: "rgb(247,183,240)", g: "DIA", y: 1995},
 		"11-06": [{e: "Seoah", c: "rgb(207,243,255)", g: "tripleS", y: 2010}, {e: "BINI", c: "#61c4cf", i: true, y: 2021}],
-		"13-06": [{e: "JinSoul", c: "rgb(20,36,176)", g: "LOONA", y: 1997}, {e: "Aini", c: sc.white, g: "Pink Fantasy", y: 1991}],
+		"13-06": [{e: "JinSoul", c: "rgb(20,136,236)", g: "LOONA", y: 1997}, {e: "Aini", c: sc.white, g: "Pink Fantasy", y: 1991}],
 		"14-06": [{e: "Seeun", c: "rgb(135,206,235)", g: "STAYC", y: 2003}, {e: "Tzuyu", c: "rgb(1,108,186)", g: "TWICE", y: 1999}],
 		"16-06": {e: "Huihyeon", c: "rgb(103,78,167)", g: "DIA", y: 1995},
 		"18-06": [{e: "Nako", c: "rgb(183,211,233)", g: "IZ*ONE", y: 2001}, {e: "Arin", c: "rgb(30,144,255)", g: "Oh My Girl", y: 1999}],
@@ -473,7 +571,7 @@ try {
 		"14-08": [{e: "Kim Sohee", c: "rgb(255,153,50)", g: "Rocket Punch", y: 2003}, {e: "Hueningkai", c: sc.green, g: "TXT", y: 2002}],
 		"16-08": {e: "Miyuu", c: "#aea2ea", g: "f5ve", y: 1996},
 		"18-08": [{e: "HaSeul", c: "rgb(0,191,0)", g: "LOONA", y: 1997}, {e: "Eunji", c: "rgb(230,171,71)", g: "Apink", y: 1993}, {e: "JooE", c: "rgb(135,206,250)", g: "Momoland", y: 1999}, {e: "G-Dragon", g: "BIGBANG", c: "rgb(204,0,102)", y: 1988}],
-		"19-08": [{e: "LOONA", c: ["rgb(255,0,143)","rgb(255,234,0)","rgb(0,191,0)","rgb(244,111,31)","rgb(255,152,180)","rgb(234,2,1)","rgb(20,36,176)","rgb(92,44,146)","rgb(125,0,30)","rgb(255,191,127)","rgb(48,225,146)","rgb(143,143,143)"], i: true, y: 2018}, {e: "Bona", c: "rgb(255,0,144)", g: "WJSN", y: 1995}, {e: "Yerin", c: "rgb(180,94,255)", g: "GFriend", y: 1996}, {e: "Umji", c: ["rgb(0,255,46)", sc.red], g: "GFriend/VIVIZ", y: 1998}, {e: "Gehlee", c: "rgb(194,0,78)", g: "UNIS", y: 2007}, {e: "BIGBANG", c: sc.yellow, i: true, y: 2006}, {e: "May (Lee Yebin)", c: "rgb(240,185,117)", g: "Rescene", y: 2008}],
+		"19-08": [{e: "LOONA", c: ["rgb(255,0,143)","rgb(255,234,0)","rgb(0,191,0)","rgb(244,111,31)","rgb(255,162,210)","rgb(234,2,1)","rgb(20,136,236)","rgb(150,44,196)","rgb(128,0,64)","rgb(255,191,127)","rgb(48,225,146)","rgb(143,143,143)"], borderOverride: sc.white, i: true, y: 2018}, {e: "Bona", c: "rgb(255,0,144)", g: "WJSN", y: 1995}, {e: "Yerin", c: "rgb(180,94,255)", g: "GFriend", y: 1996}, {e: "Umji", c: ["rgb(0,255,46)", sc.red], g: "GFriend/VIVIZ", y: 1998}, {e: "Gehlee", c: "rgb(194,0,78)", g: "UNIS", y: 2007}, {e: "BIGBANG", c: sc.yellow, i: true, y: 2006}, {e: "May (Lee Yebin)", c: "rgb(240,185,117)", g: "Rescene", y: 2008}],
 		"21-08": {e: "SeeA", c: sc.purple, g: "Pink Fantasy", y: 1993},
 		"22-08": [{e: "Yeseo", c: "rgb(162,207,254)", g: "Kep1er/MADEIN", y: 2005}, {e: "Somin", c: "rgb(153,230,179)", g: "APRIL", y: 1996}],
 		"23-08": {e: "Seo Hyerin", c: "rgb(107,212,2)", g: "EXID", y: 1993},
@@ -558,7 +656,7 @@ try {
 		"06-12": {e: "Yeonhee", c: "rgb(255,255,50)", g: "Rocket Punch", y: 2000},
 		"07-12": {e: "Sowon", c: "rgb(0,255,255)", g: "GFriend", y: 1995},
 		"08-12": {e: "Dami (Kang Hyeyeon)", c: "rgb(102,204,153)", g: "EXID", y: 1990},
-		"09-12": [{e: "ViVi", c: "rgb(255,152,180)", g: "LOONA", y: 1996}, {e: "J", c: sc.red, g: "STAYC", y: 2004}, {e: "Shin Yuna", c: sc.yellow, g: "ITZY", y: 2003}],
+		"09-12": [{e: "ViVi", c: "rgb(255,162,210)", g: "LOONA", y: 1996}, {e: "J", c: sc.red, g: "STAYC", y: 2004}, {e: "Shin Yuna", c: sc.yellow, g: "ITZY", y: 2003}],
 		"10-12": {e: "Elly (An Hyojin)", c: "rgb(0,51,153)", g: "EXID", y: 1991}, //this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
 		"12-12": {e: "Lee Soojin", c: "rgb(245,118,190)", g: "Weeekly", y: 2001},
 		"13-12": {e: "Suhye", g: "MADEIN", y: 2004},
@@ -667,7 +765,7 @@ try {
 	var currentYear = currentDate.getFullYear();
 	var currentTimeIso8601 = currentDate.toLocaleTimeString("sv-SE"); //let's hope Sweden doesn't change their time format
 
-	fakeDate = urlParams.get("fakeDateUnix");
+	fakeDate = urlParams.get("fakeDate");
 
 	if(fakeDate !== null) {
 		if(typeof(fakeDate) === "string" && fakeDate.trim().length == 0) {
@@ -704,7 +802,6 @@ try {
 	};
 
 	function getKstDayMonth() {
-		var fd = parseInt(urlParams.get("fakeDateUnix"));
 		return (fakeDate ?? currentDate).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
 	};
 
@@ -785,11 +882,11 @@ try {
 		if(local.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
 		if(kst.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) };
 		var incrementAllYears = false;
-		if((urlParams.get("fakeDateUnix") ?? "").match(/^chaos\-?\d*$/)) {
-			if(urlParams.get("fakeDateUnix") == "chaos") {
+		if((urlParams.get("fakeDate") ?? "").match(/^chaos\-?\d*$/)) {
+			if(urlParams.get("fakeDate") == "chaos") {
 				incrementAllYears = 1
 			} else {
-				var _inc = urlParams.get("fakeDateUnix").replace("chaos","");
+				var _inc = urlParams.get("fakeDate").replace("chaos","");
 				if(_inc == "-") {
 					incrementAllYears = -1
 				} else {
@@ -797,7 +894,7 @@ try {
 				}
 			}
 		};
-		if((urlParams.get("fakeDateUnix") ?? "").trim().match(/^chaos\-?\d*$/)) { currentBirthdayDatas = Object.values(idolBdData).flat().sort(idolSorter); /*shuffle(currentBirthdayDatas);*/ currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
+		if((urlParams.get("fakeDate") ?? "").trim().match(/^chaos\-?\d*$/)) { currentBirthdayDatas = Object.values(idolBdData).flat().sort(idolSorter); /*shuffle(currentBirthdayDatas);*/ currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
 		currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
 		console.log(`${currentBirthdayDatas.length} bdays (before any negative ages are ignored)`);
 		var hasBirthdays = false;
@@ -1138,6 +1235,13 @@ try {
 				height: 31px;
 			}
 
+			.hiddenbutton {
+				border: none;
+				background-color: black;
+				color: white;
+				font-size: 100%;
+			}
+
 			.artistFrom {
 				font-size: 80%;
 			}
@@ -1146,12 +1250,125 @@ try {
 				font-size: 75%;
 				opacity: 85%;
 			}
+
+            .amethyst {
+				background: rgb(231,189,255);
+				background: linear-gradient(115deg, rgb(231,189,255) 0%, rgb(203,143,255) 27%, rgb(242,231,255) 45%, rgb(218,163,255) 66%, rgb(163,109,255) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+            .silver {
+				background: rgb(219,219,219);
+				background: linear-gradient(115deg, rgb(204,204,204) 0%, rgb(219,219,219) 11%, rgb(213,213,213) 15%, rgb(203,203,203) 22%, rgb(205,205,205) 31%, rgb(219,219,219) 34%, rgb(240,240,240) 40%, rgb(238,238,238) 43%, rgb(242,242,242) 45%, rgb(231,231,231) 49%, rgb(213,213,213) 63%, rgb(224,224,224) 73%, rgb(218,218,218) 82%, rgb(193,193,193) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+
+            .diamond {
+				background: rgb(233,255,253);
+				background: linear-gradient(115deg, rgb(233,255,253) 0%, rgb(165,255,251) 29%, rgb(232,255,253) 48%, rgb(192,231,255) 66%, rgb(186,249,255) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+
+            .gold {
+                background: rgb(247,203,82);
+				background: linear-gradient(115deg, rgb(196,183,99) 0%, rgb(250,211,76) 11%, rgb(249,211,78) 15%, rgb(233,207,100) 22%, rgb(222,201,116) 31%, rgb(230,210,125) 34%, rgb(255,237,150) 40%, rgb(255,241,173) 43%, rgb(255,240,166) 45%, rgb(244,225,139) 49%, rgb(238,207,44) 63%, rgb(246,221,84) 73%, rgb(227,202,52) 82%, rgb(200,190,71) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+
+            .platinum {
+				background: rgb(225,233,236);
+				background: linear-gradient(115deg, rgb(228,233,236) 0%, rgb(228,241,242) 12%, rgb(223,231,233) 16%, rgb(209,219,221) 22%, rgb(218,224,226) 31%, rgb(215,220,222) 34%, rgb(237,242,242) 40%, rgb(236,241,244) 43%, rgb(234,242,242) 45%, rgb(232,235,236) 49%, rgb(223,231,232) 63%, rgb(236,241,241) 73%, rgb(230,236,237) 82%, rgb(199,210,212) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+
+            .sapphire {
+				background: rgb(229,238,255);
+				background: linear-gradient(115deg, rgb(229,238,255) 0%, rgb(154,154,255) 29%, rgb(242,243,255) 48%, rgb(200,216,254) 66%, rgb(220,227,255) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+            .iridium {
+				background: rgb(219,182,244);
+				background: linear-gradient(115deg, rgb(231,213,242) 0%, rgb(238,224,249) 11%, rgb(227,213,242) 22%, rgb(233,219,244) 39%, rgb(239,228,247) 51%, rgb(245,237,251) 54%, rgb(229,212,242) 58%, rgb(220,198,235) 68%, rgb(226,210,236) 82%, rgb(232,209,242) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+            .emerald {
+				background: rgb(218,255,213);
+				background: linear-gradient(115deg, rgb(218,255,213) 0%, rgb(148,246,141) 29%, rgb(230,255,227) 48%, rgb(181,255,177) 66%, rgb(144,238,143) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+            .ruby {
+				background: rgb(255,229,229);
+				background: linear-gradient(115deg, rgb(255,229,229) 0%, rgb(255,137,137) 29%, rgb(255,232,232) 48%, rgb(255,192,192) 66%, rgb(255,186,186) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+            .spinel {
+				background: rgb(255,207,237);
+				background: linear-gradient(115deg, rgb(255,207,237) 0%, rgb(255,160,208) 27%, rgb(255,240,250) 45%, rgb(255,230,247) 49%, rgb(255,186,215) 66%, rgb(255,150,203) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+				-webkit-text-fill-color: transparent;
+            }
+			
+			small#bruhCountFrame {
+				font-size: 90%;
+			}
+			
+			small#bruhCountFrame.silver {
+				filter: saturate(1.3) brightness(0.88) contrast(1.07);
+			}
+
+			small#bruhCountFrame.platinum, small#bruhCountFrame.diamond {
+				font-size: 90%;
+				filter: saturate(1.35) brightness(1.02) contrast(1.01);
+			}
+
+			small#bruhCountFrame.iridium {
+				font-size: 90%;
+				filter: saturate(5) brightness(0.9) contrast(1.13) hue-rotate(335deg);
+			}
+
+			small#bruhCountFrame.ruby, small#bruhCountFrame.emerald, small#bruhCountFrame.sapphire, small#bruhCountFrame.spinel, small#bruhCountFrame.amethyst {
+				font-size: 90%;
+				filter: saturate(5) brightness(0.9) contrast(1.13) hue-rotate(335deg);
+			}
 		</style>
 	</head>
 	<body>
 		<div id="header">
 			<marquee class="ot12" style="display: block; font-size:130%; line-height: 60%; padding-top: 5px;" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
-			<small style="font-size: 50%">* and also Hinatazaka46 and BINI</small></span></marquee>
+			<small style="font-size: 50%">* and also Hinatazaka46 + f5ve + BINI</small></span></marquee>
 		</div>
 
 		<div id="main">
@@ -1211,7 +1428,7 @@ try {
 					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
 
 			<br/>
-			<span class="blink" onclick="dumbBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><br/>
+			<button class="hiddenbutton blink" onclick="dumbBruh(); countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display: none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</span><br/>
 		</div>
 		<script>
 			/*checking dates in non-local timezones is a bit complicated*/
