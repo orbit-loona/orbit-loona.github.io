@@ -247,7 +247,7 @@ a:visited {
 .haseul, a.haseul:visited	{ color: #0FBF00; }
 .yeojin, a.yeojin:visited	{ color: #FF7F00; }
 .vivi, a.vivi:visited		{ color: #FFA7DF; }
-.kimlip, a.kimlip:visited	{ color: #FF0000; }
+.kimlip, a.kimlip:visited	{ color: #FF2222; }
 .jinsoul, a.jinsoul:visited	{ color: #005FFF; }
 .choerry, a.choerry:visited	{ color: #AF0097; }
 .yves, a.yves:visited		{ color: #9F0F4F; }
@@ -258,3 +258,6 @@ a:visited {
 .circle, a.circle:visited	{ animation: loonaoddeyecircle 3s linear 0s infinite normal none; }
 .youth, a.youth:visited		{ animation: loonayouthyouthbyyoung 3s linear 0s infinite normal none; }
 .ot12, a.ot12:visited		{ animation: loonaot12 6s linear 0s infinite normal none; }
+a:visited {
+	filter: saturate(0.8) brightness(0.9);
+}
