@@ -1099,10 +1099,22 @@ try {
 				color: white;
 			}
 			
-			.red {
+			.red, .warning {
 				color: red;
 			}
 
+			.high-warning {
+				color: red;
+				text-shadow: 0px -1px 1px #FFFF009F,
+							 1px -1px 1px #FFFF009F,
+							 1px  0px 1px #FFFF009F,
+							 1px  1px 1px #FFFF009F,
+							 0px  1px 1px #FFFF009F,
+							-1px  1px 1px #FFFF009F,
+							-1px  0px 1px #FFFF009F,
+							-1px -1px 1px #FFFF009F
+			}
+			
 			#groups .warning {
 				color: #ff7f7f;
 			}
@@ -1145,19 +1157,19 @@ try {
 
 			<h1 class="ot12">my epic pages with great quality code</h1>
 				<span class="warning">Many of the links below are outdated because I forgot and/or didn't have the time to update them and I don't even know where to start. They should still work but are missing some things.</span></br>
-				<a href="random-loona.html" class="heejin">loona permuter</a> <em style="color: red;" class="warning">Outdated</em><br/>
-				<a href="modded-char8/index.html" class="hyunjin">heavily modded char8.js</a> <em style="color: red;" class="warning">Outdated</em><br/>
+				<a href="random-loona.html" class="heejin">loona permuter</a> <em class="high-warning">Critically outdated</em><br/>
+				<a href="modded-char8/index.html" class="hyunjin">heavily modded char8.js</a> <em class="warning">Outdated</em><br/>
 				<a href="starbound.html" class="haseul">starbound color text renderer</a><br/>
-				<a href="mp3.html" class="yeojin">ersatz mp3 player</a> <em style="color: red;" class="warning">Outdated</em><br/>
+				<a href="mp3.html" class="yeojin">ersatz mp3 player</a> <em class="warning">Outdated</em><br/>
 				<a href="thirds.html" class="vivi">two-way extension of seconds and thirds</a><br/>
-				<a href="bbc.json" class="kimlip">(.json file) <span title="not making their name white because blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
-				<a href="bbc.html" class="jinsoul">(html/click-to-copy) blockberry creative save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+				<a href="bbc.json" class="kimlip">(.json file) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+				<a href="bbc.html" class="jinsoul">(html/click-to-copy) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
 				<a href="illions.html" class="choerry">Pseudo-Bowers illion name generator</a><br/>
 				<a href="urltoimg.html" class="yves">Dumb HTML image loader</a><br/>
 				<a href="eod-paths/index.html" class="chuu">EoD paths</a><br/>
-				<a href="sandboxels-mods.html" class="gowon">Sandboxels mods</a> <em style="color: red;" class="warning">Outdated</em><br/>
+				<a href="sandboxels-mods.html" class="gowon">Sandboxels mods</a> <em class="high-warning">Critically outdated</em><br/>
 				<a href="sandboxels-worldgen.html" class="hyeju">Sandboxels worldgen</a><br/>
-				<a href="kep1er-chatgpt.html" class="third">ChatGPT Kep1er</a> <em style="color: red;" class="warning">Outdated</em><br/>
+				<a href="kep1er-chatgpt.html" class="third">ChatGPT Kep1er</a> <em class="warning">Outdated</em><br/>
 				<a href="bookmarklets.html" class="circle">JS bookmarklets</a><br/>
 				<a href="roman.html" class="youth">Roman numeral thing</a><br/>
 				<a href="R74moji.html" class="ot12">R74moji renderer</a><br/>
