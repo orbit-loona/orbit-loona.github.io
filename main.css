@@ -258,6 +258,15 @@ a:visited {
 .circle, a.circle:visited	{ animation: loonaoddeyecircle 3s linear 0s infinite normal none; }
 .youth, a.youth:visited		{ animation: loonayouthyouthbyyoung 3s linear 0s infinite normal none; }
 .ot12, a.ot12:visited		{ animation: loonaot12 6s linear 0s infinite normal none; }
+
+@media (prefers-reduced-motion) {
+	.heejin, a.heejin:visited	{ color: #FF1F64; }
+	.third, a.third:visited		{ animation: unset; color: #62BFBE; }
+	.circle, a.circle:visited	{ animation: unset; color: #C2C5F0; }
+	.youth, a.youth:visited		{ animation: unset; color: #C8F5A2 }
+	.ot12, a.ot12:visited		{ animation: unset; color: #FF57FF }
+}
+
 a:visited {
-	filter: saturate(0.8) brightness(0.9);
+	filter: saturate(0.75) brightness(0.85);
 }
