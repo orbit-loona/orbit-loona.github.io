@@ -3,6 +3,7 @@
 	<!--f*** it we ball-->
 	<head>
 		<title>an orbit's cool web page</title>
+		<meta name="description" content="My messy personal page with a few JavaScript things (and K-pop)." />
 		<meta property="og:site_name" content="orbit-loona.github.io" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="an orbit's web page" />
@@ -23,1063 +24,925 @@
 		<meta name="author" content="An Orbit">
 		<meta charset="UTF-8">
 		<script>
-		urlParams = new URLSearchParams(window.location.search);
+	urlParams = new URLSearchParams(window.location.search);
+
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 try {
-	function dumbBruh() {
-		try {
-			var audio = new Audio("bin/bruh.mp3");
-			audio.onended = function() {
-				delete(this);
+
+function dumbBruh() {
+	try {
+		var audio = new Audio("bin/bruh.mp3");
+		audio.onended = function() {
+			delete(this);
+		};
+		audio.play();
+	} catch (error) {
+		alert("Could not play bruh sound");
+		return false;
+	};
+	return true;
+};
+
+bruhs = 0n;
+
+//Modified from code by FishBasketGordo on StackOverflow: https://stackoverflow.com/a/7033705
+function splitStringIntoChunks(str,chunkSize,FCS=null) {
+	var chunks = [];
+	var chunkIsFirst = true;
+	for(i = str.length - 1; i >= 0; i--) {
+		var ECS; //ECS = effectiveChunkSize
+		if((FCS !== null) && (FCS !== chunkSize) && chunkIsFirst) { //FCS = firstChunkSize
+			ECS = FCS
+		} else {
+			ECS = chunkSize
+		};
+
+		if (str.length < ECS) {
+			if(str.length > 0) {
+				chunks.push(str)
 			};
-			audio.play();
-		} catch (error) {
-			alert("Could not play bruh sound");
-			return false;
-		};
-		return true;
+			break;
+		}
+		else {
+			chunks.push(str.substr(-ECS));
+			str = str.substr(0,str.length - ECS);
+		}
+		chunkIsFirst = false;
+	};
+	chunks.reverse();
+	return chunks
+};
+
+function bigintCommas(bigint,separator=",",chunkSize=3,FCS=null) {
+	var wasNegative = (bigint < 0n)
+	var string = bigint.toString();
+	if(string.startsWith("-")) { string = string.slice(1) };
+	string = splitStringIntoChunks(string,chunkSize,FCS).join(separator);
+	if(wasNegative) { string = "-" + string };
+	return string
+};
+
+function countBruh() {
+	bruhs ??= 0n;
+	bruhs += 1n;
+
+	var bd = document.getElementById("bruhCountFrame"); //bruhDisplay
+	var bruhCounter = document.getElementById("bruhCount");
+	var bruhS = document.getElementById("bruhsPlural");
+
+	if(bruhs === 1n) {
+		bd.style.removeProperty("display")
 	};
 
-	bruhs = 0n;
-	
-	//Modified from code by FishBasketGordo on StackOverflow: https://stackoverflow.com/a/7033705
-	function splitStringIntoChunks(str,chunkSize,firstChunkSize=null) {
-		var chunks = [];
-		var chunkIsFirst = true;
-		for(i = str.length - 1; i >= 0; i--) {
-			var effectiveChunkSize;
-			if((firstChunkSize !== null) && (firstChunkSize !== chunkSize) && chunkIsFirst) {
-				effectiveChunkSize = firstChunkSize
-			} else {
-				effectiveChunkSize = chunkSize
-			};
-			
-			if (str.length < effectiveChunkSize) {
-				if(str.length > 0) {
-					chunks.push(str)
-				};
-				break;
+	if(bd) {
+		if(bruhCounter) {
+			bruhCounter.innerText = bigintCommas(bruhs);
+		}
+
+		var scoreBruhs = bruhs - 50n; //not shifting all of those values down
+
+		if(scoreBruhs === 0n) {
+			bd.classList.add("amethyst")
+		} else if(scoreBruhs === 50n) {
+			bd.classList.add("silver")
+			bd.classList.remove("amethyst")
+		} else if(scoreBruhs === 200n) {
+			bd.classList.add("diamond")
+			bd.classList.remove("silver")
+		} else if(scoreBruhs === 450n) {
+			bd.classList.add("gold")
+			bd.classList.remove("diamond")
+		} else if(scoreBruhs === 950n) {
+			bd.classList.add("platinum")
+			bd.classList.remove("gold")
+		} else if(scoreBruhs === 1950n) {
+			bd.classList.add("sapphire")
+			bd.classList.remove("platinum")
+		} else if(scoreBruhs === 2950n) {
+			bd.classList.add("iridium")
+			bd.classList.remove("sapphire")
+		} else if(scoreBruhs === 4950n) {
+			bd.classList.add("emerald")
+			bd.classList.remove("iridium")
+		} else if(scoreBruhs === 9950n) {
+			bd.classList.add("ruby") //not yeojin
+			bd.classList.remove("emerald")
+		} else if(scoreBruhs === 14950n) {
+			bd.classList.add("spinel")
+			bd.classList.remove("ruby")
+		};
+
+		if(bruhS) {
+			if(bruhs === 1n) {
+				bruhS.innerText = ""
+			} else if(bruhs === 2n) {
+				bruhS.innerText = "s"
 			}
-			else {
-				chunks.push(str.substr(-effectiveChunkSize));
-				str = str.substr(0,str.length - effectiveChunkSize);
-			}
-			chunkIsFirst = false;
-		};
-		chunks.reverse();
-		return chunks
-	};
-	
-	function bigintCommas(bigint,separator=",",chunkSize=3,firstChunkSize=null) {
-		var wasNegative = (bigint < 0n)
-		var string = bigint.toString();
-		if(string.startsWith("-")) { string = string.slice(1) };
-		string = splitStringIntoChunks(string,chunkSize,firstChunkSize).join(separator);
-		if(wasNegative) { string = "-" + string };
-		return string
-	};
-	
-	function countBruh() {
-		bruhs ??= 0n;
-		bruhs += 1n;
-		
-		var bruhDisplay = document.getElementById("bruhCountFrame");
-		var bruhCounter = document.getElementById("bruhCount");
-		var bruhS = document.getElementById("bruhsPlural");
-
-		if(bruhDisplay) {
-			if(bruhDisplay.style.display.length == 4) { bruhDisplay.style.removeProperty("display") };
-			if(bruhCounter) {
-				bruhCounter.innerText = bigintCommas(bruhs);
-			}
-			
-			var scoreBruhs = bruhs - 50n; //not shifting all of those values down
-			
-			if(scoreBruhs === 0n) {
-				bruhDisplay.classList.add("amethyst")
-			} else if(scoreBruhs === 50n) {
-				bruhDisplay.classList.add("silver")
-				bruhDisplay.classList.remove("amethyst")
-			} else if(scoreBruhs === 200n) {
-				bruhDisplay.classList.add("diamond")
-				bruhDisplay.classList.remove("silver")
-			} else if(scoreBruhs === 450n) {
-				bruhDisplay.classList.add("gold")
-				bruhDisplay.classList.remove("diamond")
-			} else if(scoreBruhs === 950n) {
-				bruhDisplay.classList.add("platinum")
-				bruhDisplay.classList.remove("gold")
-			} else if(scoreBruhs === 1950n) {
-				bruhDisplay.classList.add("sapphire")
-				bruhDisplay.classList.remove("platinum")
-			} else if(scoreBruhs === 2950n) {
-				bruhDisplay.classList.add("iridium")
-				bruhDisplay.classList.remove("sapphire")
-			} else if(scoreBruhs === 4950n) {
-				bruhDisplay.classList.add("emerald")
-				bruhDisplay.classList.remove("iridium")
-			} else if(scoreBruhs === 9950n) {
-				bruhDisplay.classList.add("ruby") //not yeojin
-				bruhDisplay.classList.remove("emerald")
-			} else if(scoreBruhs === 14950n) {
-				bruhDisplay.classList.add("spinel")
-				bruhDisplay.classList.remove("ruby")
-			};
-			
-			if(bruhS) {
-				if(bruhs === 1n) {
-					bruhS.innerText = ""
-				} else if(bruhs === 2n) {
-					bruhS.innerText = "s"
-				}
-			}
-		};
-		
-		return bruhs;
-	};
-
-	loonaStartUnix = 1661127423000;
-	/*video length from debug data has millisecond precision (215.201),
-	but reddit comments are only have second precision from the API (as
-	1661127638.0 except that the decimal is always 0)*/
-	function secondsSinceLoona(formatString=false) {
-		return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
-	};
-
-	function updateLoonaTime() {
-		var textSeconds = document.getElementById("loonaTimeS");
-		var textDays = document.getElementById("loonaTimeD");
-		var textWeeks = document.getElementById("loonaTimeW");
-		var valueS = secondsSinceLoona();
-		var valueD = valueS / 86400;
-		var valueW = valueD / 7;
-		valueD = Math.round(valueD * 1000) / 1000;
-		valueW = Math.round(valueW * 1000) / 1000;
-		if(textSeconds) {
-			textSeconds.innerText = valueS.toLocaleString('en-US')
-		};
-		if(textDays) {
-			textDays.innerText = valueD.toLocaleString('en-US')
-		};
-		if(textWeeks) {
-			textWeeks.innerText = valueW.toLocaleString('en-US')
-		};
-	};
-
-	var placeholderColor = "rgb(230,230,230)";
-
-	function hardColorChangeLinearGradientCssGenerator(colorArray) {
-		//colorArray = ["rgb(255,0,0)","rgb(255,255,0)","rgb(0,0,255)","rgb(0,255,0)"];
-		var colorCount = colorArray.length;
-		var fractionUnitPercent = 100/colorCount;
-		var tinyTransitionWidthPercent = fractionUnitPercent/2000;
-		var gradientString = "linear-gradient(to right,";
-		var percent = 0;
-		for(var i = 0; i < colorCount; i++) {
-			var color = colorArray[i];
-			gradientString += `${color} ${percent}%, `;
-			percent += (fractionUnitPercent - tinyTransitionWidthPercent);
-			gradientString += `${color} ${percent}%${i >= (colorCount - 1) ? ")" : ","} `;
-			percent += (tinyTransitionWidthPercent * colorCount);
-		};
-		return gradientString
-	};
-
-	//F***ING COLOR CODE
-	function convertColorFormats(color,outputType="rgb",stripAlpha=false) {
-		if(typeof(color) === "undefined") {
-			//console.log("Warning: An element has an undefined color. Unfortunately, due to how the code is structured, I can't say which one.");
-			//color = "#FF00FF";
-			throw new Error("Color is undefined!");
-		};
-		//console.log("Logged color for convertColorFormats: " + color);
-		var oldColor = color;
-		var bytes,r,g,b,a;
-		if(typeof(color) === "string") {
-			//Hex input case
-			if(/^#?[A-Za-z0-9]{1,8}$/.test(oldColor)) {
-				if(color.startsWith("#")) {
-					oldColor = oldColor.match(/[A-Za-z0-9]{1,8}/)[0];
-				};
-				switch(oldColor.length) {
-					case 0:
-						throw new Error("convertColorFormats: hexadecimal input but color bytes are somehow missing?");
-					case 1: //A => AAAAAA (bs)
-						oldColor = oldColor.repeat(6);
-						break
-					case 2: //AB => AAAAAABB (bs)
-						oldColor = (oldColor[0].repeat(6)) + (oldColor[1].repeat(2));
-						break
-					case 3: //ABC => AABBCC, ABCD => AABBCCDD (real)
-					case 4:
-						oldColor = oldColor.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")
-						break
-					case 5: //ABCDE => AABBCCDE (bs)
-						var _rgb = oldColor.slice(0,3);
-						var _alpha = oldColor.slice(3,5);
-						oldColor = (_rgb.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")) + alpha
-					case 7: //9ABCDEF => 9ABCDEFF (bs)
-						var _rgb = oldColor.slice(0,6);
-						var _alpha = oldColor.slice(6,7);
-						oldColor = _rgb + (_alpha.repeat(2))
-					case 6: //no change
-					case 8: //no change
-						break
-				};
-				bytes = oldColor.toLowerCase().match(/[a-z0-9]{2}/g).map(x => parseInt(x,16));
-				r = bytes[0];
-				g = bytes[1];
-				b = bytes[2];
-				a = stripAlpha ? null : (bytes[3] ?? null);
-				//to JSON for ease of use
-				color = {"r": r, "g": g, "b": b};
-				if(typeof(a) == "number") { color["a"] = a };
-			} else {
-				//otherwise assume rgb() input
-				bytes = color.match(/[\d\.]+/g);
-				if(typeof(bytes?.map) == "undefined") {
-					console.log(bytes);
-					bytes = [255,0,255]
-				} else {
-					bytes = bytes.map(x => Number(x));
-				};
-				r = bytes[0];
-				g = bytes[1];
-				b = bytes[2];
-				a = stripAlpha ? null : (bytes[3] ?? null);
-				//to JSON for ease of use
-				color = {"r": r, "g": g, "b": b}
-				if(typeof(a) == "number") { color["a"] = a };
-			};
-		} else if(Array.isArray(color)) {
-			bytes = color;
-			r = bytes[0];
-			g = bytes[1];
-			b = bytes[2];
-			a = stripAlpha ? null : (bytes[3] ?? null);
-			//to JSON for ease of use
-			color = {"r": r, "g": g, "b": b}
-			if(typeof(a) == "number") { color["a"] = a };
-		} else if(typeof(color) == "object") {
-			//variable mappings only
-			r = color.r;
-			g = color.g;
-			b = color.b;
-			a = stripAlpha ? null : (color.a ?? null);
-		};
-		//Colors are now objects
-		if(a !== null) { a /= 255 };
-		switch(outputType.toLowerCase()) {
-			case "rgb":
-			case "rgba":
-				var _r,_g,_b,_a;
-				_r = r;
-				_g = g;
-				_b = b;
-				if(typeof(a) == "number") { _a = a } else { _a = null };
-				var values;
-				if(stripAlpha || _a == null) {
-					values = [_r,_g,_b];
-				} else {
-					values = [_r,_g,_b,_a];
-				};
-				for(var i = 0; i <= 2; i++) {
-					values[i] = Math.round(values[i])
-				};
-				return (typeof(a) == "number" ? "rgba" : "rgb") + `(${values.join(",")})`
-			case "hex":
-				var _r,_g,_b,_a;
-				_r = r;
-				_g = g;
-				_b = b;
-				if(typeof(a) == "number") { _a = Math.round(a * 255) } else { _a = null };
-				var bytesToBe;
-				if(stripAlpha || _a == null) {
-					bytesToBe = [_r,_g,_b];
-				} else {
-					bytesToBe = [_r,_g,_b,_a];
-				};
-				return "#" + bytesToBe.map(x => Math.round(x).toString(16).padStart(2,"0")).join("");
-			case "json":
-				return color;
-			case "array":
-				return Object.values(color);
-				break;
-			default:
-				throw new Error("outputType must be \"rgb\", \"hex\", \"json\", or \"array\"");
 		}
 	};
 
-	function rgbHexCatcher(color) {
-		return convertColorFormats(color,"rgb");
-	};
+	return bruhs;
+};
 
-	function averageRgbPrefixedColorArray(colorArray,returnObject=false) { //array of rgb()s to single rgb() of average color
-		//averageRgbPrefixedColorArray(["rgb(255,0,0)", "rgb(0,0,0)", "rgb(0,0,255)"]);
-		//console.log("Averaging started");
-		var reds = [];
-		var greens = [];
-		var blues = [];
-		for(k = 0; k < colorArray.length; k++) {
-			//console.log("Average function: Executing catcher on " + colorArray);
-			var color = convertColorFormats(colorArray[k]);
-			//console.log("Logged color for aRPCA: " + color);
-			color = color.split(",");
-			var red = parseFloat(color[0].substring(4));
-			reds.push(red)
-			var green = parseFloat(color[1]);
-			greens.push(green)
-			var blue = parseFloat(color[2].slice(0,-1));
-			blues.push(blue)
-		};
-		redAverage = Math.round(averageNumericArray(reds));
-		greenAverage = Math.round(averageNumericArray(greens));
-		blueAverage = Math.round(averageNumericArray(blues));
-		var output;
-		returnObject ? output = {r: redAverage, g: greenAverage, b: blueAverage} : output = `rgb(${redAverage},${greenAverage},${blueAverage})`;
-		//console.log("Averaging finished, product: " + output);
-		return output;
-	};
+function tryJoin(stringOrArray,joiner) {
+	if(typeof(stringOrArray) === "string") { return stringOrArray };
+	if(Array.isArray(stringOrArray)) { return stringOrArray.join(joiner) };
+	if((Object.prototype.toString.call(stringOrArray).split(" ")[1] ?? "") == "Object]") { return JSON.stringify(stringOrArray) };
+	return stringOrArray.toString()
+};
 
-	function averageNumericArray(array) {
-		var total = array.reduce(addTwoNumbers,0)
-		return total / array.length
-	};
+loonaStartUnix = 1661127423000;
+/*video length from debug data has millisecond precision (215.201),
+but reddit comments are only have second precision from the API (as
+1661127638.0 except that the decimal is always 0)*/
+function secondsSinceLoona(formatString=false) {
+	return Math.floor((new Date().getTime() - loonaStartUnix) / 1000);
+};
 
-	function addTwoNumbers(number1,number2) { //reducer
-		return number1 + number2
+function updateLoonaTime() {
+	var textSeconds = document.getElementById("loonaTimeS");
+	var textDays = document.getElementById("loonaTimeD");
+	var textWeeks = document.getElementById("loonaTimeW");
+	var valueS = secondsSinceLoona();
+	var valueD = valueS / 86400;
+	var valueW = valueD / 7;
+	valueD = Math.round(valueD * 1000) / 1000;
+	valueW = Math.round(valueW * 1000) / 1000;
+	if(textSeconds) {
+		textSeconds.innerText = valueS.toLocaleString('en-US')
+	};
+	if(textDays) {
+		textDays.innerText = valueD.toLocaleString('en-US')
+	};
+	if(textWeeks) {
+		textWeeks.innerText = valueW.toLocaleString('en-US')
+	};
+};
+
+var placeholderColor = "#E6E6E6";
+
+function HCCLGCG(colorArray) {
+	var colorCount = colorArray.length;
+	var fractionUnitPercent = 100/colorCount;
+	var tinyTransitionWidthPercent = fractionUnitPercent/2000;
+	var gradientString = "linear-gradient(to right,";
+	var percent = 0;
+	for(var i = 0; i < colorCount; i++) {
+		var color = colorArray[i];
+		gradientString += `${color} ${percent}%, `;
+		percent += (fractionUnitPercent - tinyTransitionWidthPercent);
+		gradientString += `${color} ${percent}%${i >= (colorCount - 1) ? ")" : ","} `;
+		percent += (tinyTransitionWidthPercent * colorCount);
+	};
+	return gradientString
+};
+
+//Color code smh (minified)
+function CCF(r,e="rgb",a=!1){if(void 0===r)throw new Error("Color is undefined!");var t,o,n,u,l,s=r;if("string"==typeof r)if(/^#?[A-Za-z0-9]{1,8}$/.test(s)){switch(r.startsWith("#")&&(s=s.match(/[A-Za-z0-9]{1,8}/)[0]),s.length){case 0:throw new Error("CCF: Hex input but bytes are missing?");case 1:s=s.repeat(6);break;case 2:s=s[0].repeat(6)+s[1].repeat(2);break;case 3:case 4:s=s.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("");break;case 5:var g=s.slice(0,3),c=s.slice(3,5);s=g.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("")+alpha;case 7:g=s.slice(0,6),c=s.slice(6,7);s=g+c.repeat(2)}r={r:o=(t=s.toLowerCase().match(/[a-z0-9]{2}/g).map((r=>parseInt(r,16))))[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)}else t=r.match(/[\d\.]+/g),void 0===t?.map?(console.log(t),t=[255,0,255]):t=t.map((r=>Number(r))),r={r:o=t[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l);else Array.isArray(r)?(r={r:o=(t=r)[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)):"object"==typeof r&&(o=r.r,n=r.g,u=r.b,l=a?null:r.a??null);switch(null!==l&&(l/=255),e.toLowerCase()){case"rgb":case"rgba":var i;m=o,p=n,v=u,h="number"==typeof l?l:null,i=a||null==h?[m,p,v]:[m,p,v,h];for(var b=0;b<=2;b++)i[b]=Math.round(i[b]);return("number"==typeof l?"rgba":"rgb")+`(${i.join(",")})`;case"hex":var m,p,v,h;return m=o,p=n,v=u,h="number"==typeof l?Math.round(255*l):null,"#"+(a||null==h?[m,p,v]:[m,p,v,h]).map((r=>Math.round(r).toString(16).padStart(2,"0"))).join("");case"json":return r;case"array":return Object.values(r);default:throw new Error('O must be "rgb", "hex", "json", or "array"')}}function RHC(r){return CCF(r,"rgb")}function ARPCA(r,e=!1){var a=[],t=[],o=[];for(k=0;k<r.length;k++){var n=CCF(r[k]);n=n.split(",");var u=parseFloat(n[0].substring(4));a.push(u);var l=parseFloat(n[1]);t.push(l);var s=parseFloat(n[2].slice(0,-1));o.push(s)}return RA=Math.round(ANA(a)),GA=Math.round(ANA(t)),BA=Math.round(ANA(o)),e?{r:RA,g:GA,b:BA}:`rgb(${RA},${GA},${BA})`}function ANA(r){return r.reduce(A2N,0)/r.length}function A2N(r,e){return r+e}
+//Color code over
+
+var S = { //S; Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
+	R: "400",	//Red
+	Gn: "030",	//Green
+	Gy: "222",	//Gray
+	S: "333",	//Silver
+	W: "444",	//White
+	C: "044",	//Cyan
+	Bl: "004",	//Blue
+	LB: "234",	//LightBlue
+	A: "034",	//Aqua
+	Y: "440",	//Yellow
+	Pp: "204",	//Purple
+	Bk: "000",	//Black
+	O: "420",	//Orange
+	Br: "210",	//Brown
+	L: "140",	//Lime
+	M: "404"	//Magenta
+};
+
+for(var key in S) {
+	var code = S[key];
+	code = code.split("").map(x => Math.min(255,Math.max(0,(parseInt(x * 64) - 1))).toString());
+	S[key] = `rgb(${code.join(",")})`
+};
+
+S.Pk = "#FF9FFF";
+
+missingTexture = [S.Bk,S.M,S.Bk,S.M,S.Bk,S.M,S.Bk,S.M];
+
+var H = { //hinataColors
+	P: "#b384ff",
+	Y: "#ffd900",
+	B: "#0095d9",
+	PB: "#49bdf0",
+	SP: "#ffc0cb",
+	EG: "#00a474",
+	V: "#5a4498",
+	O: "#ffa500",
+	PG: "#b4ddc0",
+	R: "#e60033",
+	G: "#3eb370",
+	T: "#40e0d0",
+	SB: "#a0d8ef"
+};
+
+var G = { //groupShort
+	gi: "(G)I-DLE",
+	tn: "2NE1",
+	ae: "aespa",
+	al: "ALICE",
+	ak: "Apink",
+	ap: "APRIL",
+	at: "ARTMS",
+	bb: "BIGBANG",
+	bl: "Billlie",
+	bn: "BINI",
+	bp: "BlackPink",
+	cb: "Cherry Bullet",
+	cg: "cignature",
+	cl: "CLC",
+	cs: "CSR",
+	da: "DIA",
+	dc: "Dreamcatcher",
+	dn: "DreamNote",
+	eg: "Everglow",
+	ex: "EXID",
+	fx: "f(x)",
+	fv: "f5ve",
+	fl: "Floria",
+	fr: "fromis_9",
+	gf: "GFriend",
+	gg: "Girls' Generation",
+	gw: "GWSN",
+	ht: "HashTag",
+	hz: "Hinatazaka46",
+	il: "ILLIT",
+	it: "ITZY",
+	iv: "IVE",
+	io: "IZ*ONE",
+	iz: "izna",
+	kp: "Kep1er",
+	ls: "Le Sserafim",
+	ln: "LOONA",
+	lb: "Loossemble",
+	mi: "MADEIN",
+	mm: "Mamamoo",
+	ma: "Miss A",
+	mo: "Momoland",
+	na: "Nature",
+	nj: "NewJeans",
+	nm: "NMIXX",
+	og: "Oh My Girl",
+	pf: "Pink Fantasy",
+	px: "Pixy",
+	rv: "Red Velvet",
+	rs: "Rescene",
+	rp: "Rocket Punch",
+	sd: "Saturday",
+	st: "STAYC",
+	ts: "tripleS",
+	tw: "TWICE",
+	tt: "TXT",
+	un: "UNIS",
+	vv: "VIVIZ",
+	we: "Weeekly",
+	wm: "Weki Meki",
+	wj: "WJSN",
+	wg: "Wonder Girls",
+	wa: "woo!ah!"
+}
+
+ID = { //idolBdData
+	//izna is pre-debut
+	"01-01":{e:"Winter",c:"#d1ddec",g:G.ae,y:21},
+	"02-01":{e:"Yuji",c:"#cc0000",g:G.ex,y:11},
+	"03-01":[{e:"Jisoo",c:"#9f00bf",g:G.bp,y:15},{e:G.kp,c:["#c1a7e2",S.W],i:true,y:42}],
+	"05-01":{e:"Karin",c:"#ee1289",g:G.al,y:22},
+	"06-01":[{e:"Shuhua",c:"#ffff99",g:G.gi,y:20},{e:"Chloe",c:"#dbf4a7",g:G.cg,y:21},{e:"Eunbin",c:"#ffd700",g:G.cl,y:20}],
+	"07-01":[{e:"Yoohyeon",c:"#1fed15",g:G.dc,y:17},{e:"Saerom",c:"#fe4204",g:G.fr,y:17},{e:"Sei",c:"#f905f4",g:G.wm,y:20}],
+	"08-01":[{e:"Seo Dahyun",c:"#ff9ad6",g:G.ts,y:23},{e:"Yeonji",c:"#5974ff",g:G.ts,y:28}],
+	"09-01":{e:"MiU",g:G.mi,y:23},
+	"10-01":[{e:"Haeyoon",c:"#f6917d",g:G.cb,y:16},{e:"Yeoreum",c:"#1f5cf4",g:G.wj,y:19},{e:"Solji",c:"#ec08b1",g:G.ex,y:9}],
+	"11-01":[{e:"Lee Chaeyeon",c:"#a6dcde",g:G.io,y:20},{e:"Dobashi Kaede",c:"#61bbb5",g:G.fv,y:16}],
+	"12-01":{e:"Hyebin",c:"#eb6af2",g:G.mo,y:16},
+	"13-01":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#ff99cc",g:G.bl,y:21}],
+	"14-01":{e:"Aurora",c:S.Pp,g:G.na,y:17},
+	"15-01":[{e:"Suhyeon",c:"#3fc460",g:G.bl,y:20},{e:"Noh Yunah",c:"#ffcf70",g:G.il,y:24},{e:"Shimizu Rio",c:[H.PG,H.O],g:G.hz,y:25}],
+	"16-01":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35}], //FUCK SOURCE MUSIC
+	"18-01":[{e:"Minzy",c:"#c36ce6",g:G.tn,y:14},{e:"Tomita Suzuka",c:H.P,g:G.hz,y:21}],
+	"20-01":[{e:"Kim Chaewon",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
+	"21-01":{e:G.cb,c:"#ee2b2b",i:true,y:39},
+	"22-01":[{e:"Lee Seoyeon",c:"#005385",g:G.fr,y:20},{e:"JinE",c:"#06c1c1",g:G.og,y:15},{e:"Arang",c:S.R,g:G.pf,y:21},{e:"Daisy",c:"#d1442e",g:G.mo,y:19},{e:"Jeong Saebi",c:"#b2c38a",g:G.iz,y:28},{e:"Sasaki Kumi",c:[H.PB,H.P],g:G.hz,y:16}],
+	"23-01":{e:"Isa",c:S.Bk,g:G.st,y:22},
+	"24-01":{e:G.fr,c:["#bc96bb","#b0eea1"],i:true,y:38},
+	"25-01":[{e:"Hyun Seunghee",c:"#bcc70f",g:G.og,y:16},{e:"Heesun",c:S.O,g:G.pf,y:25}],
+	"26-01":[{e:"Somyi",c:"#c738a4",g:G.da,y:20},{e:"Sullyoon",c:"#3366ff",g:G.nm,y:24},{e:"Seoryoung",c:S.C,g:G.gw,y:20},{e:"Jhoanna",c:"#0c63a6",g:G.bn,y:24}],
+	"27-01":[{e:"Seowon",c:"#1c6fff",g:G.un,y:31},{e:"Aiah",c:"#79b3be",g:G.bn,y:21}],
+	"28-01":{e:"Sheon",c:"#ff9900",g:G.bl,y:23},
+	"30-01":[{e:"Haruna",c:"#0997de",g:G.bl,y:26},{e:"Yuki",c:"#7400db",g:G.sd,y:22},{e:"Saebom",c:S.R,g:G.na,y:17}],
+	"31-01":{e:"Miyeon",c:S.Bk,g:G.gi,y:17},
+	"01-02":{e:"Jihyo",c:"#fac857",g:G.tw,y:17},
+	"02-02":[{e:"Do-A",c:"#cc00ff",g:G.al,y:19},{e:"Victoria",c:S.R,g:G.fx,y:7},{e:"Kato Shiho",c:H.B,g:G.hz,y:18}],
+	"03-02":[{e:"Gahyun",c:"#ba09bf",g:G.dc,y:19},{e:"Rei",c:"#69c32d",g:G.iv,y:24},{e:G.cg,c:"#b00309",i:true,y:40},{e:"Gong Yubin",c:"#ffe3e2",g:G.ts,y:25},{e:"Jia",c:"#68b47e",g:G.ma,y:9},{e:"Seungmin",c:"#00ff00",g:G.ht,y:16}],
+	"04-02":{e:"Iroha",c:"#4791ff",g:G.il,y:28},
+	"05-02":[{e:"Kim Minju",c:S.W,g:G.io,y:21},{e:"Hyunjoo",c:"#64bec1",g:G.ap,y:18},{e:"Taehyun",c:S.Y,g:G.tt,y:22}],
+	"06-02":{e:"Luda",c:"#ffdc00",g:G.wj,y:17},
+	"07-02":[{e:"Sunn",c:"#ffadad",g:G.cg,y:20},{e:"Watanabe Rina",c:[H.P,H.SP],g:G.hz,y:29}],
+	"09-02":[{e:"Yooyeon",c:"#db0c74",g:G.ts,y:21},{e:G.vv,c:[S.Pp,S.Bl,S.R],i:true,y:42}],
+	"10-02":[{e:"Kim Lip",c:"#ea0201",g:G.ln,y:19},{e:"Sooyoung",c:"#ff5ccd",g:G.gg,y:10},{e:"Son Naeun",c:"#c4b36b",g:G.ak,y:14},{e:"Seulgi",c:"#fffb00",g:G.rv,y:14},{e:G.wg,c:"#ad2a70",i:true,y:27}],
+	"11-02":[{e:"Rose'",c:"#005eff",g:G.bp,y:17},{e:"Wooyeon",c:"#78fc4c",g:G.wa,y:23}], //The font I'm using here sadly does not support accents (é)
+	"12-02":{e:G.it,c:S.M,i:true,y:39},
+	"13-02":[{e:"Jiyeon",c:"#ffab62",g:G.ts,y:24},{e:G.ts,c:S.Bk,i:true,y:43},{e:"Chohee",c:"#ff2d2d",g:G.sd,y:21}],
+	"14-02":{e:"Shogenji Yoko",c:[H.O,H.R],g:G.hz,y:27},
+	"15-02":{e:"Nibu Akari",c:H.O,g:G.hz,y:21},
+	"16-02":[{e:"Siyoon",c:S.Y,g:G.bl,y:25},{e:G.ex,c:["#f9eecf","#e6678e","#6663ad"],i:true,y:32}],
+	"20-02":{e:"Takeuchi Kirari",c:[H.Y,H.R],g:G.hz,y:26},
+	"21-02":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20}],
+	//floria might just be the most underdeveloped, barely-existent, unfinished, MISMANAGED group ever... wdym 2 of the members were never even in a song? f*** you dk entertainment, see you in hell...
+	"22-02":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}], //Lola = Choi Yoojung
+	"23-02":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24}],
+	"24-02":[{e:"Choi Sua",c:S.Y,g:G.px,y:23},{e:G.px,i:true,y:41},{e:"Watanabe Miho",g:G.hz,y:20}],
+	"25-02":[{e:"Haewon",c:S.W,g:G.nm,y:23},{e:G.wj,c:["#ffa18a","#003580","#d9d6d1"],i:true,y:36}],
+	"26-02":{e:"CL",c:"#e2d989",g:G.tn,y:11},
+	"27-02":{e:"Satbyeol",c:S.W,g:G.px,y:21},
+	"28-02":{e:"Yunha",c:"#0098c2",g:G.un,y:29},
+	"01-03":{e:G.fv,i:true,y:43},
+	"02-03":[{e:"Dayeon",c:"#6496eb",g:G.kp,y:23},{e:"Jiyoon",c:"#f4da40",g:G.we,y:22}],
+	"03-03":[{e:"Chorong",c:"#e60056",g:G.ak,y:11},{e:"Bora",c:"#7acde9",g:G.cb,y:19}],
+	"04-03":[{e:"Geumhee",c:"#04ad57",g:G.cs,y:25},{e:G.tt,c:S.Bl,i:true,y:39}], //i can't figure out what in the kentucky fried f*** is going on with txt's colors so i'm just using the iem colors and making txt blue
+	"05-03":[{e:"Choi Yuju",c:"#860494",g:G.cb,y:17},{e:"Yeri",c:"#9f1fbf",g:G.rv,y:19}],
+	"07-03":[{e:"Dami (Lee Yubin)",c:"#fff40f",g:G.dc,y:17},{e:"Eunjo",c:"#56ff59",g:G.dn,y:22}],
+	"09-03":[{e:"Taeyeon",c:"#6495ed",g:G.gg,y:9},{e:"Seo Soojin",c:"#f7988d",g:G.gi,y:18},{e:"Nana (Kwon Nayeon)",c:"#fc7eaa",g:G.wa,y:21}],
+	"10-03":[{e:"HaBin",c:"#56ffcc",g:G.dn,y:22},{e:"Kotone",c:"#fde000",g:G.ts,y:24}],
+	"11-03":{e:"Kang Minju",c:"#ffe303",g:G.gw,y:21},
+	"12-03":[{e:"Hikaru",c:"#fbea8c",g:G.kp,y:24},{e:"Hwang Sihyeon",c:"#04b6f3",g:G.cs,y:25}],
+	"13-03":[{e:"Bae Sumin",c:"#ffc0cb",g:G.st,y:21},{e:"Chaerin",c:"#5d34c3",g:G.cb,y:22},{e:"Beomgyu",c:S.R,g:G.tt,y:21}],
+	"14-03":{e:"Soso",c:"#00dd93",g:G.gw,y:21},
+	"17-03":{e:"Suyun",c:"#ff3232",g:G.rp,y:21},
+	"18-03":[{e:G.eg,c:"#d1b4cb",i:true,y:39},{e:"Jaehee",c:"#a37fff",g:G.we,y:24}],
+	"19-03":[{e:"Sakura",c:["#f1d2e7",S.Pk],g:[G.io,G.ls],y:18},{e:G.cl,c:["#840b55","#ffcd00","#005f61"],i:true,y:35}], //leave sakura alone
+	"20-03":{e:"Park Jiwon",c:"#86ab11",g:G.fr,y:18},
+	"21-03":{e:"Park Minseo",c:"#00ff8c",g:G.sd,y:23},
+	"24-03":[{e:"Mina",c:"#6fc5c2",g:G.tw,y:17},{e:"Bom",c:"#76d4ae",g:G.tn,y:4},{e:"Yang Sua",c:"#9b8d4f",g:G.ht,y:15}],
+	"25-03":{e:G.il,c:"#dcb4fb",i:true,y:44},
+	"26-03":[{e:"Handong",c:S.Bk,g:G.dc,y:16},{e:"Mirae",c:"#b94ad6",g:G.cb,y:18},{e:"An Seoyeon",c:"#f6620f",g:G.cs,y:25},{e:"Ella",c:"#cf004f",g:G.px,y:18},{e:G.rs,i:true,y:44}],
+	"27-03":[{e:"Lisa",c:"#fffa00",g:G.bp,y:17},{e:G.un,i:true,y:44}],
+	"29-03":[{e:"Irene",c:"#ff7fdf",g:G.rv,y:11},{e:"Sulli",c:S.M,g:G.fx,y:14}],
+	"01-04":{e:"Jeewon",c:"#009994",g:G.cg,y:19},
+	"03-04":[{e:"Park Shion",c:"#ff428a",g:G.ts,y:26},{e:"Jo Ara",c:"#ff0040",g:G.fl,y:21}],
+	"04-04":{e:"Jiho",c:"#ca3435",g:G.og,y:17},
+	"09-04":[{e:"Lucy (Kim Daeun)",c:"#fc3535",g:G.wa,y:24},{e:"Hiraoka Mitsuki",c:[H.B,H.Y],g:G.hz,y:22}],
+	"10-04":[{e:"Semi",c:"#ba63f7",g:G.cg,y:22},{e:"Hayeon (Su Hyeon)",c:"#bd77ff",g:G.fl,y:22}],
+	"11-04":[{e:"Danielle",c:"#00ee00",g:G.nj,y:25},{e:"Karina",c:"#a82ce6",g:G.ae,y:20}],
+	"12-04":[{e:"Jeong Hyerin",c:"#9200ff",g:G.ts,y:27},{e:"Lynn",c:"#ac62b7",g:G.ts,y:26},{e:"Ruri",c:"#deb6f0",g:G.fv,y:16},{e:"Kamimura Hinano",c:[H.R,H.EG],g:G.hz,y:24}],
+	"13-04":[{e:"Kim Jiwoo",c:S.R,g:G.nm,y:25},{e:"Nancy",c:"#f7b7f0",g:G.mo,y:20}],
+	"14-04":{e:"Yoon",c:"#32cd32",g:G.st,y:24},
+	"15-04":{e:"Namjoo",c:"#cb6cb0",g:G.ak,y:15},
+	"16-04":[{e:"Jinni",c:"#cc99ff",g:G.nm,y:24},{e:"Seokyoung",c:"#c73aff",g:G.gw,y:19}],
+	"17-04":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22}],
+	"18-04":[{e:"Jessica",c:"#d10056",g:G.gg,y:9},{e:"Elisia",c:"#c26400",g:G.un,y:29},{e:"Ryu Sarang",c:"#f7e58a",g:G.iz,y:27}],
+	"19-04":{e:G.ak,c:"#e889b1",i:true,y:31},
+	"20-04":{e:"Ji Suyeon",c:"#987654",g:G.wm,y:17},
+	"21-04":[{e:"Hyein",c:"#1f5fff",g:G.nj,y:28},{e:G.og,c:["#eea8cc","#a2dbee","#efe59d"],i:true,y:35}],
+	"23-04":[{e:"Son Chaeyoung",c:"#e81933",g:G.tw,y:19},{e:"Iimura Yuna",c:"#6f43a4",g:G.cs,y:25}],
+	"24-04":{e:"YOUI",c:"#ff5656",g:G.dn,y:20},
+	"26-04":[{e:"Chaehyun",c:"#ffb7ce",g:G.kp,y:22},{e:"Remi",c:"#b3f96b",g:G.cb,y:21},{e:"Daesung",g:G.bb,c:"#666699",y:9}],
+	"27-04":[{e:"Fei",c:"#9957a7",g:G.ma,y:7},{e:"Matsuda Konoka",c:[H.SP,H.PG],g:G.hz,y:19}],
+	"28-04":[{e:"Duna",c:"#e56fb6",g:G.cs,y:25},{e:"Miyata Manamo",c:[H.R,H.SP],g:G.hz,y:18}],
+	"29-04":{e:"Jeong Dahyun",c:"#ff32ff",g:G.rp,y:25},
+	"01-05":[{e:"Mimi",c:"#9e45e8",g:G.og,y:15},{e:"Hani (Ahn Heeyeon)",c:"#ff7d40",g:G.ex,y:12}],
+	"02-05":[{e:G.gi,c:["#580e8b","#e80037"],i:true,y:38},{e:"Kim Chaewon",c:"#c7a3e0",g:G.ts,y:27},{e:G.ls,c:"#7ba6de",i:true,y:42},{e:"Sunmi",c:"#e81655",g:G.wg,y:12}],
+	"03-05":{e:"Serina",g:G.mi,y:26},
+	"05-05":[{e:"Lee Naeun",c:"#ba4c81",g:G.ap,y:19},{e:"Rinji",c:"#008b8b",g:G.px,y:26}],
+	"06-05":{e:G.tn,c:"#ff007f",i:true,y:29},
+	"07-05":[{e:"Minji",c:"#fff81f",g:G.nj,y:24},{e:"Uchae (Woo Hyejun)",c:S.Y,g:G.na,y:22}],
+	"08-05":[{e:"Junghwa",c:"#cc99cc",g:G.ex,y:15},{e:"Bang Jeemin",c:"#4051ad",g:G.iz,y:25},{e:"Kageyama Yuka",c:H.R,g:G.hz,y:21}],
+	"09-05":{e:"Sheena",c:"#5a3a63",g:G.bn,y:24},
+	"10-05":{e:"Monday",c:"#415dff",g:G.we,y:22},
+	"11-05":{e:"Park Minju",c:"#ba4545",g:G.il,y:24},
+	"12-05":{e:"Mayu",c:"#fe8e76",g:G.ts,y:22},
+	"14-05":[{e:"Lee Chaeyoung",c:"#23f854",g:G.fr,y:20},{e:"Dayoung",c:"#e80000",g:G.wj,y:19}],
+	"15-05":[{e:"Sunny",c:"#6b8e23",g:G.gg,y:9},{e:"Haerin",c:S.W,g:G.nj,y:26},{e:G.wa,c:["#FFFFFF","#F61BED"],i:true,y:40}],
+	"16-05":{e:"IU",c:["#c9b2df","#e1e429"],y:13},
+	"17-05":{e:"JiU",c:S.W,g:G.dc,y:14},
+	"18-05":[{e:"Onda",c:"#b30469",g:G.eg,y:20},{e:"Taeyang",g:G.bb,c:"#339966",y:8}],
+	"19-05":{e:"E:U",c:"#6b56a3",g:G.eg,y:18},
+	"20-05":{e:"Yamashita Haruka",c:[S.W,H.EG],g:G.hz,y:23},
+	"22-05":{e:"Yang Yena",c:"#ffb24f",g:G.ap,y:20},
+	"24-05":{e:"Yves",c:"#800040",g:G.ln,y:17},
+	"25-05":[{e:"Xinyu",c:"#d51313",g:G.ts,y:22},{e:"Woni",c:"#bbb0f5",g:G.rs,y:24}],
+	"26-05":[{e:"Eunchae (Kwon Chae Won)",c:"#2877ff",g:G.da,y:19},{e:"Yeji",c:"#3fafff",g:G.it,y:20},{e:"Kyujin",c:S.Pk,g:G.nm,y:26},{e:"Miya",c:"#663ac5",g:G.gw,y:13},{e:"Harin",c:S.Pk,g:G.pf,y:20},{e:"HA:TFELT (Yeeun/Yenny)",c:"#3aa9c5",g:G.wg,y:9}],
+	"27-05":[{e:"Dawon",c:"#ff5400",g:G.wj,y:17},{e:"Eunseo",c:"#479bcc",g:G.wj,y:18},{e:"Maloi",c:"#fcc20e",g:G.bn,y:22}],
+	"28-05":{e:"Kim Dahyun",c:S.W,g:G.tw,y:18},
+	"30-05":[{e:"Im Yoona",c:"#006994",g:G.gg,y:10},{e:"Eunha",c:["#ff6090",S.Pp],g:[G.gf,G.vv],y:17}],
+	"31-05":[{e:"Zoa",c:"#507595",g:G.we,y:25},{e:G.at,c:["#5db7f0","#c568ef"],i:true,y:44}],
+	"01-06":[{e:G.al,c:"#e0cbf4",i:true,y:37},{e:"Nagyung",c:"#ff9166",g:G.fr,y:20}],
+	"02-06":{e:"Nien",c:"#ff953f",g:G.ts,y:23},
+	"03-06":[{e:"Jo Seunghee",c:"#fa3789",g:G.da,y:15},{e:"SinB",c:["#ffd000",S.Bl],g:[G.gf,G.vv],y:18},{e:"Taeha",c:"#663ac5",g:G.mo,y:18}],
+	"04-06":{e:"Choerry",c:"#962cc4",g:G.ln,y:21},
+	"05-06":{e:"Chaeryeong",c:"#7fff00",g:G.it,y:21},
+	"06-06":[{e:"Hyuna",c:"#c74e37",g:G.wg,y:12},{e:"Nana (real name unknown)",c:"#ab00c2",g:G.un,y:27}],
+	"07-06":{e:"Jueun",c:"#f7b7f0",g:G.da,y:15},
+	"11-06":[{e:"Seoah",c:"#cff3ff",g:G.ts,y:30},{e:G.bn,c:"#61c4cf",i:true,y:41}],
+	"13-06":[{e:"JinSoul",c:"#1488ec",g:G.ln,y:17},{e:"Aini",c:S.W,g:G.pf,y:11}],
+	"14-06":[{e:"Seeun",c:"#87ceeb",g:G.st,y:23},{e:"Tzuyu",c:"#016cba",g:G.tw,y:19}],
+	"16-06":{e:"Huihyeon",c:"#674ea7",g:G.da,y:15},
+	"18-06":[{e:"Nako",c:"#b7d3e9",g:G.io,y:21},{e:"Arin",c:"#1e90ff",g:G.og,y:19}],
+	"19-06":[{e:G.mm,i:true,y:34},{e:"Gwen",c:"#f4793d",g:G.bn,y:23}],
+	"20-06":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
+	"21-06":{e:"Min",c:"#668a08",g:G.ma,y:11},
+	"26-06":{e:"Wonhee",c:"#c6ffd9",g:G.il,y:27},
+	"27-06":{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},
+	"28-06":{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},
+	"30-06":[{e:G.we,c:["#c4afd0","#ffd076","#97e0cf"],i:true,y:40},{e:"Hyunji",c:"#a991d6",g:G.ht,y:12}],
+	"01-07":{e:G.ma,i:true,y:30},
+	"02-07":{e:"Nagomi",g:G.mi,y:27},
+	"05-07":[{e:"Hyewon",c:"#db706c",g:G.io,y:19},{e:"Linlin",c:"#bf1b2b",g:G.cb,y:23}],
+	"07-07":{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},
+	"12-07":{e:"Jihan",c:"#ff3434",g:G.we,y:24},
+	"13-07":[{e:"Yebin",c:"#d30000",g:G.da,y:17},{e:"Stacey",c:"#f25c73",g:G.bn,y:23}],
+	"14-07":[{e:"Chaesol",c:"#64cfff",g:G.cg,y:18},{e:"Park Soobin",c:"#3be289",g:G.wj,y:16},{e:"Yoon Jiyoon",c:"#e4c09f",g:G.iz,y:25}],
+	"15-07":{e:"Cheng Xiao",c:"#cc476f",g:G.wj,y:18},
+	"16-07":{e:"Dia (Choi Eunji)",c:S.Bk,g:G.px,y:21},
+	"18-07":{e:G.sd,c:["#f6dd5c","#db2c89","#7e2a82"],i:true,y:38},
+	"19-07":{e:"Oh Hayoung",c:"#d2b0a0",g:G.ak,y:16},
+	"20-07":{e:"Elly (Jeong Haerim)",c:"#b164c4",g:G.wm,y:18},
+	"21-07":[{e:"Aisha",c:S.Bk,g:G.eg,y:20},{e:"Lia",c:S.R,g:G.it,y:20}],
+	"22-07":{e:G.nj,c:"#405995",i:true,y:42},
+	"23-07":[{e:"Yoo Sua",c:"#00dcdc",g:G.cs,y:25},{e:"Hwasa",c:"#f5cd5f",g:G.mm,y:15},{e:"Kawata Hina",c:[H.SP,H.Y],g:G.hz,y:21}],
+	"27-07":[{e:"Huening Bahiyyih",c:"#ffb16d",g:G.kp,y:24},{e:G.cs,c:"#f26925",i:true,y:42}],
+	"28-07":[{e:"Hyojung",c:"#fd35c7",g:G.og,y:14},{e:"Chaebin",c:S.Bk,g:G.na,y:19}],
+	"31-07":[{e:"U_Chae (Jung Dajeong)",c:S.R,g:G.px,y:23},{e:"Nayun",c:"#ea1483",g:G.mo,y:18},{e:"Hirao Honoka",c:[H.PB,H.O],g:G.hz,y:23}],
+	"01-08":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
+	"03-08":[{e:"Yeonjung",c:"#6f30a0",g:G.wj,y:19},{e:G.na,i:true,y:38}],
+	"04-08":{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},
+	"05-08":[{e:"Kim Sihyeon",c:"#c7d2a7",g:G.eg,y:19},{e:G.gg,c:"#fe4c80",i:true,y:27},{e:"SangA",c:"#87ceeb",g:G.pf,y:19}],
+	"06-08":[{e:"Yoon Seoyeon",c:"#22aeff",g:G.ts,y:23},{e:"Sumi",c:"#ffff00",g:G.fl,y:20},{e:"Ishizuka Tamaki",c:[H.SP,H.O],g:G.hz,y:24}],
+	"07-08":[{e:G.rp,i:true,y:39},{e:"Fujishima Kaho",c:[H.SP,H.B],g:G.hz,y:26}],
+	"08-08":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:"#ffcfe4",i:true,y:36},{e:"Dajeong",c:"#3366ff",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37}],
+	"09-08":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23}],
+	"10-08":[{e:"SuA",c:S.R,g:G.dc,y:14},{e:"Yeeun",c:"#c20082",g:G.cl,y:18},{e:G.hz,c:"#8ec4e6",i:true,y:36}],
+	"11-08":{e:G.fl,i:true,y:40},
+	"12-08":[{e:"Choi Yujin",c:["#f97b90","#f77f0e"],g:[G.cl,G.kp],y:16},{e:"Kim Minseo",c:"#ffc32b",g:G.wa,y:24},{e:"Sunye",c:"#faa823",g:G.wg,y:9},{e:"Luna",c:S.Gn,g:G.fx,y:13}],
+	"13-08":[{e:"EJ",c:"#ffaa42",g:G.al,y:17},{e:"Bomi",c:"#bca9cb",g:G.ak,y:13}],
+	"14-08":[{e:"Kim Sohee",c:"#ff9932",g:G.rp,y:23},{e:"Hueningkai",c:S.Gn,g:G.tt,y:22}],
+	"15-08":{e:"Kishi Honoka",g:G.hz,y:24},
+	"16-08":{e:"Miyuu",c:"#aea2ea",g:G.fv,y:16},
+	"18-08":[{e:"HaSeul",c:"#00bf00",g:G.ln,y:17},{e:"Eunji",c:"#e6ab47",g:G.ak,y:13},{e:"JooE",c:"#87cefa",g:G.mo,y:19},{e:"G-Dragon",g:G.bb,c:"#cc0066",y:8}],
+	"19-08":[{e:G.ln,c:["#ff008f","#ffea00","#00bf00","#f46f1f","#ffa2d2","#ea0201","#1488ec","#962cc4","#800040","#ffbf7f","#30e192","#8f8f8f"],borderOverride:S.W,i:true,y:38},{e:"Bona",c:"#ff0090",g:G.wj,y:15},{e:"Yerin",c:"#b45eff",g:G.gf,y:16},{e:"Umji",c:["#00ff2e",S.R],g:[G.gf,G.vv],y:18},{e:"Gehlee",c:"#c2004e",g:G.un,y:27},{e:G.bb,c:S.Y,i:true,y:26},{e:"May (Lee Yebin)",c:"#f0b975",g:G.rs,y:28}],
+	"21-08":{e:"SeeA",c:S.Pp,g:G.pf,y:13},
+	"22-08":[{e:"Yeseo",c:"#a2cffe",g:[G.kp,G.mi],y:25},{e:"Somin",c:"#99e6b3",g:G.ap,y:16}],
+	"23-08":[{e:"Seo Hyerin",c:"#6bd402",g:G.ex,y:13},{e:"Higashimura Mei",c:H.SP,g:G.hz,y:18}],
+	"24-08":{e:G.ap,i:true,y:35},
+	"26-08":[{e:"Soyeon",c:"#f5b0be",g:G.gi,y:18},{e:"Chaejeong",c:"#5ef78c",g:G.al,y:19}],
+	"28-08":{e:"Rachel",c:"#548ff7",g:G.ap,y:20},
+	"30-08":{e:"Sora",c:"#8edbff",g:G.wa,y:23},
+	"31-08":[{e:"Wonyoung",c:["#ff001e","#d9598c"],g:[G.io,G.iv],y:24},{e:"Eunjin",c:"#ff4f1b",g:G.da,y:17},{e:"Lucy (Noh Hyojung)",c:"#f6b26b",g:G.wm,y:22}],
+	"01-09":[{e:"An Yujin",c:["#ff399a","#567ace"],g:[G.io,G.iv],y:23},{e:"Gaga",g:G.na,y:19},{e:"Hyelim",c:"#e377a0",g:G.wg,y:12}],
+	"02-09":{e:"Eunice",c:"#ed9d25",g:G.da,y:11},
+	"03-09":[{e:"Joy",c:"#00df17",g:G.rv,y:16},{e:G.mi,i:true,y:44}],
+	"04-09":[{e:"Huh Jiwon",c:"#ea3da5",g:G.cb,y:20},{e:"Neru Nagahama",g:G.hz,y:18}],
+	"05-09":[{e:G.gw,c:["#f5b0cc","#f7ce76","#7cba96","#71c5e9"],i:true,y:38},{e:G.fx,c:"#a4a6fc",i:true,y:29},{e:"Saito Kyoko",c:S.W,g:G.hz,y:17}],
+	"07-09":[{e:"Park Sumin",c:S.M,g:G.dn,y:21},{e:"Kosaka Nao",c:[H.V,S.W],g:G.hz,y:22}],
+	"09-09":[{e:"Moon Sua",c:"#cc99ff",g:G.bl,y:19},{e:"Bae Yubin",c:"#ff7d07",g:G.og,y:17}],
+	"10-09":{e:"Kanemura Miku",c:[H.Y,H.PB],g:G.hz,y:22},
+	"13-09":[{e:"Yeonjun",c:S.Pp,g:G.tt,y:19}],
+	"14-09":[{e:"Jenny",c:"#00abdb",g:G.da,y:16},{e:G.da,c:["#01d1ff","#ff0a57"],i:true,y:35},{e:"Colet",c:"#0fb42d",g:G.bn,y:21}],
+	"15-09":{e:G.lb,c:S.Br,i:true,y:43},
+	"17-09":{e:"YooA",c:"#42ae4d",g:G.og,y:15},
+	"18-09":{e:"Amber",c:S.Bl,g:G.fx,y:12},
+	"20-09":[{e:"Sayaka",c:"#98d2e8",g:G.fv,y:15},{e:"Takase Mana",c:[H.SP,S.W],g:G.hz,y:18}],
+	"21-09":{e:"Tsuki",c:"#ff99a1",g:G.bl,y:22},
+	"22-09":[{e:"Im Nayeon",c:"#80caf1",g:G.tw,y:15},{e:"Hyoyeon",c:"#93c572",g:G.gg,y:9},{e:"Hong Yukyung",c:"#d4d4d4",g:G.ak,y:14}],
+	"23-09":{e:"Yuqi",c:"#26c98c",g:G.gi,y:19},
+	"24-09":[{e:"Gaeul",c:"#0055a8",g:G.iv,y:22},{e:"Sojin",c:"#ff7f00",g:G.ht,y:19}],
+	"25-09":{e:"Songyee",c:"#b28fff",g:G.wa,y:24},
+	"27-09":[{e:"Eunbi",c:"#bbb0dc",g:G.io,y:15},{e:"Ahin",c:"#dbd255",g:G.mo,y:19},{e:"Rina",c:"#ffff00",g:G.wm,y:21},{e:"Takahashi Mikuni",g:G.hz,y:23}],
+	"28-09":{e:"Hamagishi Hiyori",c:[H.O,S.W],g:G.hz,y:22},
+	"29-09":[{e:"Choi Yena",c:"#fcf695",g:G.io,y:19},{e:"Song Hayoung",c:"#785efd",g:G.fr,y:17},{e:"Ayeon",c:"#ff7530",g:G.sd,y:22}],
+	"30-09":{e:"Oh Subin",c:"#ffff00",g:G.ht,y:18},
+	"01-10":{e:"Siyeon",c:"#0f2fff",g:G.dc,y:15},
+	"03-10":[{e:"Soomin",c:"#fc83a4",g:G.ts,y:27},{e:"Juri",c:"#9932ff",g:G.rp,y:17},{e:"Konishi Nanami",c:[H.P,H.B],g:G.hz,y:24}],
+	"04-10":[{e:"Yuju (Choi Yoona)",c:"#ff623f",g:G.gf,y:17},{e:"Kim Yubin",c:"#87e95c",g:G.wg,y:8}],
+	"06-10":[{e:"Hitomi",c:"#f1c3aa",g:G.io,y:21},{e:"Hanni (Pha.m Ngo.c Ha^n)",c:"#ffbfff",g:G.nj,y:24},{e:"Lua",c:"#ff0000",g:G.wm,y:20}],
+	"07-10":[{e:"Yeham",c:"#dc0093",g:G.cs,y:25},{e:"Oh Yoona",c:"#fa1bb7",g:G.un,y:29}],
+	"08-10":[{e:"Moka",c:"#d86d9d",g:G.il,y:24},{e:"Huh Yunjin",c:S.Gn,g:G.ls,y:21}],
+	"09-10":[{e:"Miku",c:"#87ceeb",g:G.pf,y:22},{e:"Cho Yubeen",c:S.O,g:G.pf,y:19},{e:"Ye Ah",c:"#456dff",g:G.cg,y:19}],
+	"10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14}],
+	"11-10":{e:"Liv",c:"#bdfff0",g:G.rs,y:26},
+	"13-10":[{e:G.ht,c:"#ff0000",i:true,y:37},{e:"HanByeol",c:"#ffee56",g:G.dn,y:23},{e:"Nakyoung",c:"#6599a4",g:G.ts,y:22},{e:"Sohyun",c:"#1423b4",g:G.ts,y:22}],
+	"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#ff9900",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19}],
+	"17-10":[{e:"Lily",c:"#99ccff",g:G.nm,y:22},{e:"Anne",c:"#e01458",g:G.gw,y:20}],
+	"19-10":{e:"HeeJin",c:"#ff008f",g:G.ln,y:20},
+	"20-10":[{e:"Chuu",c:"#ffbf7f",g:G.ln,y:19},{e:G.tw,c:["#f8c596","#fc5d9d"],i:true,y:35}],
+	"22-10":{e:"Jo Yuri",c:"#f3aa51",g:G.io,y:21},
+	"23-10":[{e:"Minnie",c:"#9bcbeb",g:G.gi,y:17},{e:"Ningning",c:"#ee172b",g:G.ae,y:22}],
+	"24-10":[{e:"Lee Jiwoo",c:"#fff801",g:G.ts,y:25},{e:G.pf,c:"#ff6689",i:true,y:38},{e:"Krystal",c:S.Y,g:G.fx,y:14}],
+	"25-10":[{e:"MISO",c:"#56a8ff",g:G.dn,y:20},{e:"Aeji",c:"#ff0000",g:G.ht,y:19}],
+	"26-10":{e:"Soeun",c:"#83c2f9",g:G.we,y:22},
+	"28-10":[{e:"Kotoko",c:"#8ec200",g:G.un,y:27},{e:"Mai",c:"#c23a5c",g:G.iz,y:24}],
+	"29-10":{e:G.io,c:"#ef539d",i:true,y:38},
+	"30-10":[{e:"Giselle",c:"#030e06",g:G.ae,y:20},{e:"BoNi",c:"#ff9c56",g:G.dn,y:19}],
+	"01-11":[{e:"Jeongyeon",c:"#bcd776",g:G.tw,y:16},{e:"Kokoro",c:"#00dd93",g:G.cb,y:20},{e:"Yunkyoung",c:"#32ffff",g:G.rp,y:21}],
+	"02-11":[{e:"Elkie",c:"#61b329",g:G.cl,y:18},{e:"Takamoto Ayaka",c:[H.EG,S.W],g:G.hz,y:18}],
+	"03-11":[{e:"Belle",c:"#00c31a",g:G.cg,y:21},{e:"Hyeonju",c:"#00c31a",g:G.un,y:21}],
+	"04-11":[{e:"T.O.P",g:G.bb,c:"#2e5bd1",y:7},{e:"Rui",c:"#e3acca",g:G.fv,y:23}],
+	"05-11":{e:"Lee Yukyung",c:"#37fdfc",g:G.al,y:19},
+	"06-11":[{e:"Seungyeon",c:"#c7031e",g:G.cl,y:16},{e:"Exy",c:"#3b9b28",g:G.wj,y:15},{e:"Juyeon",c:"#fdfd96",g:G.sd,y:21}],
+	"07-11":{e:G.dn,c:["#00b0a4","#ffcd05"],i:true,y:38},
+	"08-11":[{e:"Kim Chaewon",c:"#ffff7a",g:G.ap,y:17},{e:"Gaeun",g:G.mi,y:25},{e:"Mikha",c:"#dd3628",g:G.bn,y:23}],
+	"09-11":{e:"Momo",c:"#f8cfd7",g:G.tw,y:16},
+	"10-11":[{e:G.bl,c:["#94b4e5","#c5b4e1"],i:true,y:41},{e:"Hong Eunchae",c:S.R,g:G.ls,y:26},{e:G.mo,i:true,y:36},{e:"Iguchi Mao",c:[H.R,H.O],g:G.hz,y:15}],
+	"11-11":[{e:"YeoJin",c:"#f46f1f",g:G.ln,y:22},{e:"Yeseul",c:"#ff00bb",g:G.fl,y:20},{e:"Haeryung",c:"#cccc66",g:G.ex,y:14}],
+	"12-11":[{e:"Xiaoting",c:"#c38ec7",g:G.kp,y:19},{e:"Dara",c:"#f48769",g:G.tn,y:4},{e:G.st,c:S.Bk,i:true,y:40},{e:"Yoojung",c:"#20b2aa",g:G.wm,y:19}],
+	"13-11":[{e:"Hyeju",c:"#8f8f8f",g:G.ln,y:21},{e:"Hanna",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:20}],
+	"14-11":{e:"Koko",c:"#ffd69e",g:G.iz,y:26},
+	"15-11":{e:"HyunJin",c:"#ffea00",g:G.ln,y:20},
+	"16-11":[{e:"May (Hirokawa Mao)",c:"#fc5050",g:G.cb,y:24},{e:"Garam",c:["#9f9fff","#ffbfff"],g:G.ls,y:25}], //Garam: https://www.reddit.com/r/kimgaram/comments/1evm5if
+	"17-11":{e:G.ae,c:["#ae5fa0","#0dd5ad"],i:true,y:40},
+	"18-11":{e:"Sorn",c:"#0090c7",g:G.cl,y:16},
+	"19-11":{e:"Go Won",c:"#30e192",g:G.ln,y:20},
+	"21-11":{e:"Liz",c:"#00c3f5",g:G.iv,y:24},
+	"23-11":{e:"Jisun",c:"#ee5392",g:G.fr,y:18},
+	"26-11":{e:"Yechan",c:S.Bl,g:G.pf,y:15},
+	"27-11":{e:"Zena",c:"#f27e7e",g:G.rs,y:28},
+	"28-11":{e:"Haneul",c:"#4cffff",g:G.sd,y:21},
+	"29-11":{e:"Minami",c:"#9fd2ed",g:G.rs,y:26},
+	"30-11":{e:"Sullin",c:"#7bba8d",g:G.ts,y:26},
+	"01-12":[{e:G.iv,c:"#f1f1f1",i:true,y:41},{e:"Jung Chaeyeon",c:"#00a015",g:G.da,y:17}],
+	"02-12":{e:"Kakizaki Memi",g:G.hz,y:21},
+	"03-12":{e:"Lu",c:S.Gn,g:G.na,y:17},
+	"04-12":[{e:"Jinsol",c:"#cd79ce",g:G.ap,y:21},{e:"Chaeyeon",c:"#8dbf41",g:G.ts,y:24},{e:"Doyeon",c:"#abf40c",g:G.wm,y:19}],
+	"05-12":[{e:"Kwon Yuri",c:"#003366",g:G.gg,y:9},{e:"Soobin",c:S.Bk,g:G.tt,y:20}],
+	"06-12":{e:"Yeonhee",c:"#ffff32",g:G.rp,y:20},
+	"07-12":{e:"Sowon",c:S.C,g:G.gf,y:15},
+	"08-12":{e:"Dami (Kang Hyeyeon)",c:"#66cc99",g:G.ex,y:10},
+	"09-12":[{e:"ViVi",c:"#ffa2d2",g:G.ln,y:16},{e:"J",c:S.R,g:G.st,y:24},{e:"Shin Yuna",c:S.Y,g:G.it,y:23}],
+	"10-12":{e:"Elly (An Hyojin)",c:"#003399",g:G.ex,y:11}, //this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
+	"12-12":{e:"Lee Soojin",c:"#f576be",g:G.we,y:21},
+	"13-12":{e:"Suhye",g:G.mi,y:24},
+	"16-12":{e:"Mashiro",c:"#fdeef4",g:[G.kp,G.mi],y:19},
+	"17-12":[{e:"Kim Sion",c:"#00b24d",g:G.sd,y:18},{e:"Sasaki Mirei",c:H.Y,g:G.hz,y:19}],
+	"20-12":[{e:"Yamada Kaede",c:"#ffc935",g:G.ts,y:25},{e:"Jane",c:"#5fd885",g:G.mo,y:17}],
+	"22-12":{e:"Moonbyul",c:"#b52624",g:G.mm,y:12},
+	"24-12":{e:"SeolA",g:G.wj,y:14},
+	"25-12":{e:"Daewang",c:"#90ee90",g:G.pf,y:9},
+	"26-12":[{e:"Momoka",c:S.Y,g:G.pf,y:20},{e:"Ushio Sarina",c:[H.P,H.Y],g:G.hz,y:17}],
+	"27-12":[{e:"Youngeun",c:"#93c572",g:G.kp,y:24},{e:"Gyuri",c:"#2196fe",g:G.fr,y:17},{e:"Loha",c:S.Bl,g:G.na,y:21}],
+	"28-12":{e:"Bae",c:S.Y,g:G.nm,y:24},
+	"29-12":[{e:"Sana",c:"#9c9ecf",g:G.tw,y:16},{e:"Yiren",c:S.W,g:G.eg,y:20}],
+	"31-12":[{e:"Kim Sohee",c:"#f66eba",g:G.al,y:19},{e:"Miyachi Sumire",c:[H.V,H.R],g:G.hz,y:25}]
+};
+
+var idolSorter = function(dataA,dataB) {
+	var canCompareYears = (typeof(dataA.y) === "number") && (typeof(dataB.y) === "number");
+	var yearSortWasMade = false;
+	if(canCompareYears) {
+		if(dataA.y > dataB.y) {
+			yearSortWasMade = true;
+			return 1
+		} else if(dataA.y < dataB.y) {
+			yearSortWasMade = true;
+			return -1
+		}
+	};
+	if(!yearSortWasMade) {
+		if(dataA.e > dataB.e) {
+			return 1
+		} else if(dataA.e < dataB.e) {
+			return -1
+		} else {
+			return 0
+		}
+	};
+};
+
+for(var date in ID) {
+	if(!(Array.isArray(ID[date]))) {
+		ID[date] = [ID[date]] //array wrap
+	} else {
+		ID[date].sort(idolSorter)
 	}
-	//Color code over
+};
 
-	var simpleColors = { //Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
-		red: "400",
-		green: "030",
-		gray: "222",
-		silver: "333",
-		white: "444",
-		blue: "004",
-		lightBlue: "234",
-		aqua: "034",
-		yellow: "440",
-		purple: "204",
-		black: "000",
-		orange: "420",
-		brown: "210",
-		lime: "140",
-		magenta: "404"
-	};
-	
-	for(var key in simpleColors) {
-		var code = simpleColors[key];
-		code = code.split("").map(x => Math.min(255,Math.max(0,(parseInt(x * 64) - 1))).toString());
-		simpleColors[key] = `rgb(${code.join(",")})`
-	};
-	
-	simpleColors.pink = "#FF9FFF";
-
-	var sc = simpleColors;
-
-	missingTexture = [sc.black,sc.magenta,sc.black,sc.magenta,sc.black,sc.magenta,sc.black,sc.magenta];
-
-	var hinataColors = {
-		purple: "rgb(179,132,255)",
-		yellow: "rgb(255,217,0)",
-		blue: "rgb(0,149,217)",
-		//white: "rgb(255,255,255)",
-		pastelBlue: "rgb(73,189,240)",
-		sakuraPink: "rgb(255,192,203)",
-		emeraldGreen: "rgb(0,164,116)",
-		violet: "rgb(90,68,152)",
-		orange: "rgb(255,165,0)",
-		pearlGreen: "rgb(180,221,192)",
-		red: "rgb(230,0,51)",
-		green: "rgb(62,179,112)",
-		turquoise: "rgb(64,224,208)",
-		skyBlue: "rgb(160,216,239)"
-	};
-
-	var hc = hinataColors;
-
-	idolBdData = {
-		//izna is pre-debut
-		"01-01": {e: "Winter", c: "rgb(209,221,236)", g: "aespa", y: 2001},
-		"02-01": {e: "Yuji", c: "rgb(204,0,0)", g: "EXID", y: 1991},
-		"03-01": [{e: "Jisoo", c: "rgb(159,0,191)", g: "BlackPink", y: 1995}, {e: "Kep1er", c: ["rgb(193,167,226)",sc.white], i: true, y: 2022}],
-		"05-01": {e: "Karin", c: "rgb(238,18,137)", g: "ALICE", y: 2002},
-		"06-01": [{e: "Shuhua", c: "rgb(255,255,153)", g: "(G)I-DLE", y: 2000}, {e: "Chloe", c: "rgb(219,244,167)", g: "cignature", y: 2001}, {e: "Eunbin", c: "rgb(255,215,0)", g: "CLC", y: 2000}],
-		"07-01": [{e: "Yoohyeon", c: "rgb(31,237,21)", g: "Dreamcatcher", y: 1997}, {e: "Saerom", c: "rgb(254,66,4)", g: "fromis_9", y: 1997}, {e: "Sei", c: "rgb(249,5,244)", g: "Weki Meki", y: 2000}],
-		"08-01": [{e: "Seo Dahyun", c: "rgb(255,154,214)", g: "tripleS", y: 2003}, {e: "Yeonji", c: "rgb(89,116,255)", g: "tripleS", y: 2008}],
-		"09-01": {e: "MiU", g: "MADEIN", y: 2003},
-		"10-01": [{e: "Haeyoon", c: "rgb(246,145,125)", g: "Cherry Bullet", y: 1996}, {e: "Yeoreum", c: "rgb(31,92,244)", g: "WJSN", y: 1999}, {e: "Solji", c: "rgb(236,8,177)", g: "EXID", y: 1989}],
-		"11-01": [{e: "Lee Chaeyeon", c: "rgb(166,220,222)", g: "IZ*ONE", y: 2000}, {e: "Dobashi Kaede", c: "#61bbb5", g: "f5ve", y: 1996}],
-		"12-01": {e: "Hyebin", c: "rgb(235,106,242)", g: "Momoland", y: 1996},
-		"13-01": [{e: "Mia", c: "rgb(103,5,6)", g: "Everglow", y: 2000}, {e: "Dreamcatcher", c: ["rgb(138,42,43)","rgb(242,199,99)","rgb(16,24,32)"], i: true, y: 2017}, {e: "Haram", c: "rgb(255,153,204)", g: "Billlie", y: 2001}],
-		"14-01": {e: "Aurora", c: sc.purple, g: "Nature", y: 1997},
-		"15-01": [{e: "Suhyeon", c: "rgb(63,196,96)", g: "Billlie", y: 2000}, {e: "Noh Yunah", c: "rgb(255,207,112)", g: "ILLIT", y: 2004}],
-		"16-01": [{e: "Jennie", c: "rgb(204,108,169)", g: "BlackPink", y: 1996}, {e: "Joobin", c: "rgb(183,245,76)", g: "tripleS", y: 2009}, {e: "GFriend", c: ["#ececec", "#00b3ca", "#5f4a8b"], i: true, y: 2015}], //FUCK SOURCE MUSIC
-		"18-01": {e: "Minzy", c: "rgb(195,108,230)", g: "2NE1", y: 1994},
-		"20-01": [{e: "Kim Chaewon", c: "rgb(231,120,237)", g: "Saturday", y: 2000}, {e: "Kim Sohee", c: sc.pink, g: "Nature",  y: 1995}],
-		"21-01": {e: "Cherry Bullet", c: "rgb(238,43,43)", i: true, y: 2019},
-		"22-01": [{e: "Lee Seoyeon", c: "rgb(0,83,133)", g: "fromis_9", y: 2000}, {e: "JinE", c: "rgb(6,193,193)", g: "Oh My Girl", y: 1995}, {e: "Arang", c: sc.red, g: "Pink Fantasy", y: 2001}, {e: "Daisy", c: "rgb(209,68,46)", g: "Momoland", y: 1999}, {e: "Jeong Saebi", c: "#b2c38a", g: "izna", y: 2008}],
-		"23-01": {e: "Isa", c: sc.black, g: "STAYC", y: 2002},
-		"24-01": {e: "fromis_9", c: ["rgb(188,150,187)","rgb(176,238,161)"], i: true, y: 2018},
-		"25-01": [{e: "Hyun Seunghee", c: "rgb(188,199,15)", g: "Oh My Girl", y: 1996}, {e: "Heesun", c: sc.orange, g: "Pink Fantasy", y: 2005}],
-		"26-01": [{e: "Somyi", c: "rgb(199,56,164)", g: "DIA", y: 2000}, {e: "Sullyoon", c: "rgb(51,102,255)", g: "NMIXX", y: 2004}, {e: "Seoryoung", c: "rgb(0,255,255)", g: "GWSN", y: 2000}, {e: "Jhoanna", c: "rgb(12, 99, 166)", g: "BINI", y: 2004}],
-		"27-01": [{e: "Seowon", c: "rgb(28,111,255)", g: "UNIS", y: 2011}, {e: "Aiah", c: "rgb(121, 179, 190)", g: "BINI", y: 2001}],
-		"28-01": {e: "Sheon", c: "rgb(255,153,0)", g: "Billlie", y: 2003},
-		"30-01": [{e: "Haruna", c: "rgb(9,151,222)", g: "Billlie", y: 2006}, {e: "Yuki", c: "rgb(116,0,219)", g: "Saturday", y: 2002}, {e: "Saebom", c: sc.red, g: "Nature", y: 1997}],
-		"31-01": {e: "Miyeon", c: sc.black, g: "(G)I-DLE", y: 1997},
-		"01-02": {e: "Jihyo", c: "rgb(250,200,87)", g: "TWICE", y: 1997},
-		"02-02": [{e: "Do-A", c: "rgb(204,0,255)", g: "ALICE", y: 1999}, {e: "Victoria", c: sc.red, g: "f(x)", y: 1987}],
-		"03-02": [{e: "Gahyun", c: "rgb(186,9,191)", g: "Dreamcatcher", y: 1999}, {e: "Rei", c: "rgb(105,195,45)", g: "IVE", y: 2004}, {e: "cignature", c: "rgb(176,3,9)", i: true, y: 2020}, {e: "Gong Yubin", c: "rgb(255,227,226)", g: "tripleS", y: 2005}, {e: "Jia", c: "rgb(104,180,126)", g: "Miss A", y: 1989}, {e: "Seungmin", c: "rgb(0,255,0)", g: "HashTag", y: 1996}],
-		"04-02": {e: "Iroha", c: "rgb(71,145,255)", g: "ILLIT", y: 2008},
-		"05-02": [{e: "Kim Minju", c: sc.white, g: "IZ*ONE", y: 2001}, {e: "Hyunjoo", c: "rgb(100,190,193)", g: "APRIL", y: 1998}, {e: "Taehyun", c: sc.yellow, g: "TXT", y: 2002}],
-		"06-02": {e: "Luda", c: "rgb(255,220,0)", g: "WJSN", y: 1997},
-		"07-02": {e: "Sunn", c: "rgb(255,173,173)", g: "cignature", y: 2000},
-		"09-02": [{e: "Yooyeon", c: "rgb(219,12,116)", g: "tripleS", y: 2001}, {e: "VIVIZ", c: [sc.purple,sc.blue,sc.red], i: true, y: 2022}],
-		"10-02": [{e: "Kim Lip", c: "rgb(234,2,1)", g: "LOONA", y: 1999}, {e: "Sooyoung", c: "rgb(255,92,205)", g: "Girls' Generation", y: 1990}, {e: "Son Naeun", c: "rgb(196,179,107)", g: "Apink", y: 1994}, {e: "Seulgi", c: "rgb(255,251,0)", g: "Red Velvet", y: 1994}, {e: "Wonder Girls", c: "#ad2a70", i: true, y: 2007}],
-		"11-02": [{e: "Rose'", c: "rgb(0,94,255)", g: "BlackPink", y: 1997}, {e: "Wooyeon", c: "rgb(120,252,76)", g: "woo!ah!", y: 2003}], //The font I'm using here sadly does not support accents (é)
-		"12-02": {e: "ITZY", c: sc.magenta, i: true, y: 2019},
-		"13-02": [{e: "Jiyeon", c: "rgb(255,171,98)", g: "tripleS", y: 2004}, {e: "tripleS", c: sc.black, i: true, y: 2023}, {e: "Chohee", c: "rgb(255,45,45)", g: "Saturday", y: 2001}],
-		"16-02": [{e: "Siyoon", c: sc.yellow, g: "Billlie", y: 2005}, {e: "EXID", c: ["#f9eecf", "#e6678e", "#6663ad"], i: true, y: 2012}],
-		"21-02": [{e: "Leeseo", c: "rgb(255,240,1)", g: "IVE", y: 2007}, {e: "Wendy", c: "rgb(0,95,255)", g: "Red Velvet", y: 1994}, {e: "Solar", c: "rgb(41,55,142)", g: "Mamamoo", y: 1991}, {e: "Sona", c: missingTexture, textOverride: sc.magenta, borderOverride: sc.magenta, g: "Floria", y: 2005}, {e: "Haru", c: "rgb(135, 206, 235)", g: "Nature", y: 2000}],
-		//floria might just be the most underdeveloped, barely-existent, unfinished, MISMANAGED group ever... wdym 2 of the members were never even in a song? f*** you dk entertainment, see you in hell... even PURPLEBECK was managed better
-		"22-02": [{e: "NMIXX", i: true, y: 2022}, {e: "Lola", c: "rgb(156, 156, 156)", g: "Pixy", y: 2001}], //Lola = Choi Yoojung
-		"24-02": [{e: "Choi Sua", c: sc.yellow, g: "Pixy", y: 2003}, {e: "Pixy", i: true, y: 2021}],
-		"25-02": [{e: "Haewon", c: sc.white, g: "NMIXX", y: 2003}, {e: "WJSN", c: ["#ffa18a","#003580","#d9d6d1"], i: true, y: 2016}],
-		"26-02": {e: "CL", c: "rgb(226,217,137)", g: "2NE1", y: 1991},
-		"27-02": {e: "Satbyeol", c: sc.white, g: "Pixy", y: 2001},
-		"28-02": {e: "Yunha", c: "rgb(0,152,194)", g: "UNIS", y: 2009},
-		"01-03": {e: "f5ve", i: true, y: 2023},
-		"02-03": [{e: "Dayeon", c: "rgb(100,150,235)", g: "Kep1er", y: 2003}, {e: "Jiyoon", c: "rgb(244,218,64)", g: "Weeekly", y: 2002}],
-		"03-03": [{e: "Chorong", c: "rgb(230,0,86)", g: "Apink", y: 1991}, {e: "Bora", c: "rgb(122,205,233)", g: "Cherry Bullet", y: 1999}],
-		"04-03": [{e: "Geumhee", c: "rgb(4,173,87)", g: "CSR", y: 2005}, {e: "TXT", c: sc.blue, i: true, y: 2019}], //i can't figure out what in the kentucky fried f*** is going on with txt's colors so i'm just using the iem colors and making txt blue
-		"05-03": [{e: "Choi Yuju", c: "rgb(134,4,148)", g: "Cherry Bullet", y: 1997}, {e: "Yeri", c: "rgb(159,31,191)", g: "Red Velvet", y: 1999}],
-		"07-03": [{e: "Dami (Lee Yubin)", c: "rgb(255, 244, 15)", g: "Dreamcatcher", y:1997}, {e: "Eunjo", c: "rgb(86,255,89)", g: "DreamNote", y: 2002}],
-		"09-03": [{e: "Taeyeon", c: "rgb(100,149,237)", g: "Girls' Generation", y: 1989}, {e: "Seo Soojin", c: "rgb(247,152,141)", g: "(G)I-DLE", y: 1998}, {e: "Nana (Kwon Nayeon)", c: "rgb(252,126,170)", g: "woo!ah!", y: 2001}],
-		"10-03": [{e: "HaBin", c: "rgb(86,255,204)", g: "DreamNote", y: 2002}, {e: "Kotone", c: "rgb(253,224,0)", g: "tripleS", y: 2004}],
-		"11-03": {e: "Kang Minju", c: "rgb(255,227,3)", g: "GWSN", y: 2001},
-		"12-03": [{e: "Hikaru", c: "rgb(251,234,140)", g: "Kep1er", y: 2004}, {e: "Hwang Sihyeon", c: "rgb(4,182,243)", g: "CSR", y: 2005}],
-		"13-03": [{e: "Bae Sumin", c: "rgb(255,192,203)", g: "STAYC", y: 2001}, {e: "Chaerin", c: "rgb(93,52,195)", g: "Cherry Bullet", y: 2002}, {e: "Beomgyu", c: sc.red, g: "TXT", y: 2001}],
-		"14-03": {e: "Soso", c: "rgb(0,221,147)", g: "GWSN", y: 2001},
-		"17-03": {e: "Suyun", c: "rgb(255,50,50)", g: "Rocket Punch", y: 2001},
-		"18-03": [{e: "Everglow", c: "rgb(209,180,203)", i: true, y: 2019}, {e: "Jaehee", c: "rgb(163,127,255)", g: "Weeekly", y: 2004}],
-		"19-03": [{e: "Sakura", c: ["rgb(241,210,231)", sc.pink], g: "IZ*ONE/Le Sserafim", y: 1998}, {e: "CLC", c: ["rgb(132,11,85)", "rgb(255,205,0)", "rgb(0,95,97)"], i: true, y: 2015}], //leave sakura alone
-		"20-03": {e: "Park Jiwon", c: "rgb(134,171,17)", g: "fromis_9", y: 1998},
-		"21-03": {e: "Park Minseo", c: "rgb(0,255,140)", g: "Saturday", y: 2003},
-		"24-03": [{e: "Mina", c: "rgb(111,197,194)", g: "TWICE", y: 1997}, {e: "Bom", c: "rgb(118,212,174)", g: "2NE1", y: 1984}, {e: "Yang Sua", c: "rgb(155,141,79)", g: "HashTag", y: 1995}],
-		"25-03": {e: "ILLIT", c: "rgb(220,180,251)", i: true, y: 2024},
-		"26-03": [{e: "Handong", c: sc.black, g: "Dreamcatcher", y: 1996}, {e: "Mirae", c: "rgb(185,74,214)", g: "Cherry Bullet", y: 1998}, {e: "An Seoyeon", c: "rgb(246,98,15)", g: "CSR", y: 2005}, {e: "Ella", c: "rgb(207, 0, 79)", g: "Pixy", y: 1998}, {e: "Rescene", i: true, y: 2024}],
-		"27-03": [{e: "Lisa", c: "rgb(255,250,0)", g: "BlackPink", y: 1997}, {e: "UNIS", i: true, y: 2024}],
-		"29-03": [{e: "Irene", c: "rgb(255,127,223)", g: "Red Velvet", y: 1991}, {e: "Sulli", c: sc.magenta, g: "f(x)", y: 1994}],
-		"01-04": {e: "Jeewon", c: "rgb(0,153,148)", g: "cignature", y: 1999},
-		"03-04": [{e: "Park Shion", c: "rgb(255,66,138)", g: "tripleS", y: 2006}, {e: "Jo Ara", c: "rgb(255,0,64)", g: "Floria", y: 2001}],
-		"04-04": {e: "Jiho", c: "rgb(202,52,53)", g: "Oh My Girl", y: 1997},
-		"09-04": {e: "Lucy (Kim Daeun)", c: "rgb(252,53,53)", g: "woo!ah!", y: 2004},
-		"10-04": [{e: "Semi", c: "rgb(186,99,247)", g: "cignature", y: 2002}, {e: "Hayeon (Su Hyeon)", c: "rgb(189,119,255)", g: "Floria", y: 2002}],
-		"11-04": [{e: "Danielle", c: "rgb(0,238,0)", g: "NewJeans", y: 2005}, {e: "Karina", c: "rgb(168,44,230)", g: "aespa", y: 2000}],
-		"12-04": [{e: "Jeong Hyerin", c: "rgb(146,0,255)", g: "tripleS", y: 2007}, {e: "Lynn", c: "rgb(172,98,183)", g: "tripleS", y: 2006}, {e: "Ruri", c: "#deb6f0", g: "f5ve", y: 1996}],
-		"13-04": [{e: "Kim Jiwoo", c: sc.red, g: "NMIXX", y: 2005}, {e: "Nancy", c: "rgb(247,183,240)", g: "Momoland", y: 2000}],
-		"14-04": {e: "Yoon", c: "rgb(50,205,50)", g: "STAYC", y: 2004},
-		"15-04": {e: "Namjoo", c: "rgb(203,108,176)", g: "Apink", y: 1995},
-		"16-04": [{e: "Jinni", c: "rgb(204,153,255)", g: "NMIXX", y: 2004}, {e: "Seokyoung", c: "rgb(199,58,255)", g: "GWSN", y: 1999}],
-		"17-04": [{e: "Jiheon", c: "rgb(249,234,77)", g: "fromis_9", y: 2003}, {e: "Wheein", c: "rgb(251,251,251)", g: "Mamamoo", y: 1995}, {e: "Ryujin", c: "rgb(175,0,255)", g: "ITZY", y: 2001}, {e: "Lena", c: "rgb(255,156,218)", g: "GWSN", y: 2002}],
-		"18-04": [{e: "Jessica", c: "rgb(209,0,86)", g: "Girls' Generation", y: 1989}, {e: "Elisia", c: "rgb(194,100,0)", g: "UNIS", y: 2009}, {e: "Ryu Sarang", c: "#f7e58a", g: "izna", y: 2007}],
-		"19-04": {e: "Apink", c: "rgb(232,137,177)", i: true, y: 2011},
-		"20-04": {e: "Ji Suyeon", c: "rgb(152,118,84)", g: "Weki Meki", y: 1997},
-		"21-04": [{e: "Hyein", c: "rgb(31,95,255)", g: "NewJeans", y: 2008}, {e: "Oh My Girl", c: ["rgb(238,168,204)","rgb(162,219,238)","rgb(239,229,157)"], i: true, y: 2015}],
-		"23-04": [{e: "Son Chaeyoung", c: "rgb(232,25,51)", g: "TWICE", y: 1999}, {e: "Iimura Yuna", c: "rgb(111,67,164)", g: "CSR", y: 2005}],
-		"24-04": {e: "YOUI", c: "rgb(255,86,86)", g: "DreamNote", y: 2000},
-		"26-04": [{e: "Chaehyun", c: "rgb(255,183,206)", g: "Kep1er", y: 2002}, {e: "Remi", c: "rgb(179,249,107)", g: "Cherry Bullet", y: 2001}, {e: "Daesung", g: "BIGBANG", c: "rgb(102,102,153)", y: 1989}],
-		"27-04": {e: "Fei", c: "rgb(153,87,167)", g: "Miss A", y: 1987},
-		"28-04": {e: "Duna", c: "rgb(229,111,182)", g: "CSR", y: 2005},
-		"29-04": {e: "Jeong Dahyun", c: "rgb(255,50,255)", g: "Rocket Punch", y: 2005},
-		"01-05": [{e: "Mimi", c: "rgb(158,69,232)", g: "Oh My Girl", y: 1995}, {e: "Hani (Ahn Heeyeon)", c: "rgb(255,125,64)", g: "EXID", y: 1992}],
-		"02-05": [{e: "(G)I-DLE", c: ["rgb(88,14,139)", "rgb(232,0,55)"], i: true, y: 2018}, {e: "Kim Chaewon", c: "rgb(199,163,224)", g: "tripleS", y: 2007}, {e: "Le Sserafim", c: "#7ba6de", i: true, y: 2022}, {e: "Sunmi", c: "rgb(232,22,85)", g: "Wonder Girls", y: 1992}],
-		"03-05": {e: "Serina", g: "MADEIN", y: 2006},
-		"05-05": [{e: "Lee Naeun", c: "rgb(186,76,129)", g: "APRIL", y: 1999}, {e: "Rinji", c: "rgb(0, 139, 139)", g: "Pixy", y: 2006}],
-		"06-05": {e: "2NE1", c: "rgb(255,0,127)", i: true, y: 2009},
-		"07-05": [{e: "Minji", c: "rgb(255,248,31)", g: "NewJeans", y: 2004}, {e: "Uchae (Woo Hyejun)", c: sc.yellow, g: "Nature", y: 2002}],
-		"08-05": [{e: "Junghwa", c: "rgb(204,153,204)", g: "EXID", y: 1995}, {e: "Bang Jeemin", c: "#4051ad", g: "izna", y: 2005}],
-		"09-05": {e: "Sheena", c: "rgb(90, 58, 99)", g: "BINI", y: 2004},
-		"10-05": {e: "Monday", c: "rgb(65,93,255)", g: "Weeekly", y: 2002},
-		"11-05": {e: "Park Minju", c: "rgb(186,69,69)", g: "ILLIT", y: 2004},
-		"12-05": {e: "Mayu", c: "rgb(254,142,118)", g: "tripleS", y: 2002},
-		"14-05": [{e: "Lee Chaeyoung", c: "rgb(35,248,84)", g: "fromis_9", y: 2000}, {e: "Dayoung", c: "rgb(232,0,0)", g: "WJSN", y: 1999}],
-		"15-05": [{e: "Sunny", c: "rgb(107,142,35)", g: "Girls' Generation", y: 1989}, {e: "Haerin", c: sc.white, g: "NewJeans", y: 2006}, {e: "woo!ah!", c: ["#FFFFFF","#F61BED"], i: true, y: 2020}],
-		"16-05": {e: "IU", c: ["#c9b2df", "#e1e429"], y: 1993},
-		"17-05": {e: "JiU", c: sc.white, g: "Dreamcatcher", y: 1994},
-		"18-05": [{e: "Onda", c: "rgb(179,4,105)", g: "Everglow", y: 2000}, {e: "Taeyang", g: "BIGBANG", c: "rgb(51,153,102)", y: 1988}],
-		"19-05": {e: "E:U", c: "rgb(107,86,163)", g: "Everglow", y: 1998},
-		"22-05": {e: "Yang Yena", c: "rgb(255,178,79)", g: "APRIL", y: 2000},
-		"24-05": {e: "Yves", c: "rgb(128,0,64)", g: "LOONA", y: 1997},
-		"25-05": [{e: "Xinyu", c: "rgb(213,19,19)", g: "tripleS", y: 2002}, {e: "Woni", c: "rgb(187,176,245)", g: "Rescene", y: 2004}],
-		"26-05": [{e: "Eunchae (Kwon Chae Won)", c: "rgb(40,119,255)", g: "DIA", y: 1999}, {e: "Yeji", c: "rgb(63,175,255)", g: "ITZY", y: 2000}, {e: "Kyujin", c: sc.pink, g: "NMIXX", y: 2006}, {e: "Miya", c: "rgb(102,58,197)", g: "GWSN", y: 1993}, {e: "Harin", c: sc.pink, g: "Pink Fantasy", y: 2000}, {e: "HA:TFELT (Yeeun/Yenny)", c: "rgb(58,169,197)", g: "Wonder Girls", y: 1989}],
-		"27-05": [{e: "Dawon", c: "rgb(255,84,0)", g: "WJSN", y: 1997}, {e: "Eunseo", c: "rgb(71,155,204)", g: "WJSN", y: 1998}, {e: "Maloi", c: "rgb(252, 194, 14)", g: "BINI", y: 2002}],
-		"28-05": {e: "Kim Dahyun", c: sc.white, g: "TWICE", y: 1998},
-		"30-05": [{e: "Im Yoona", c: "rgb(0,105,148)", g: "Girls' Generation", y: 1990}, {e: "Eunha", c: ["rgb(255,96,144)", sc.purple], g: "GFriend/VIVIZ", y: 1997}],
-		"31-05": [{e: "Zoa", c: "rgb(80,117,149)", g: "Weeekly", y: 2005}, {e: "ARTMS", c: ["#5db7f0", "#c568ef"], i: true, y: 2024}],
-		"01-06": [{e: "ALICE", c: "rgb(224,203,244)", i: true, y: 2017}, {e: "Nagyung", c: "rgb(255,145,102)", g: "fromis_9", y: 2000}],
-		"02-06": {e: "Nien", c: "rgb(255,149,63)", g: "tripleS", y: 2003},
-		"03-06": [{e: "Jo Seunghee", c: "rgb(250,55,137)", g: "DIA", y: 1995}, {e: "SinB", c: ["rgb(255,208,0)", sc.blue], g: "GFriend/VIVIZ", y: 1998}, {e: "Taeha", c: "rgb(102,58,197)", g: "Momoland", y: 1998}],
-		"04-06": {e: "Choerry", c: "rgb(150,44,196)", g: "LOONA", y: 2001},
-		"05-06": {e: "Chaeryeong", c: "rgb(127,255,0)", g: "ITZY", y: 2001},
-		"06-06": [{e: "Hyuna", c: "rgb(199,78,55)", g: "Wonder Girls", y: 1992}, {e: "Nana (real name unknown)", c: "rgb(171,0,194)", g: "UNIS", y: 2007}],
-		"07-06": {e: "Jueun", c: "rgb(247,183,240)", g: "DIA", y: 1995},
-		"11-06": [{e: "Seoah", c: "rgb(207,243,255)", g: "tripleS", y: 2010}, {e: "BINI", c: "#61c4cf", i: true, y: 2021}],
-		"13-06": [{e: "JinSoul", c: "rgb(20,136,236)", g: "LOONA", y: 1997}, {e: "Aini", c: sc.white, g: "Pink Fantasy", y: 1991}],
-		"14-06": [{e: "Seeun", c: "rgb(135,206,235)", g: "STAYC", y: 2003}, {e: "Tzuyu", c: "rgb(1,108,186)", g: "TWICE", y: 1999}],
-		"16-06": {e: "Huihyeon", c: "rgb(103,78,167)", g: "DIA", y: 1995},
-		"18-06": [{e: "Nako", c: "rgb(183,211,233)", g: "IZ*ONE", y: 2001}, {e: "Arin", c: "rgb(30,144,255)", g: "Oh My Girl", y: 1999}],
-		"19-06": [{e: "Mamamoo", i: true, y: 2014}, {e: "Gwen", c: "rgb(244, 121, 61)", g: "BINI", y: 2003}],
-		"20-06": [{e: "Seline", c: "rgb(247,99,215)", g: "cignature", y: 2000}, {e: "Sunshine", c: "rgb(255, 215, 0)", g: "Nature", y: 2002}],
-		"21-06": {e: "Min", c: "rgb(102,138,8)", g: "Miss A", y: 1991},
-		"26-06": {e: "Wonhee", c: "rgb(198,255,217)", g: "ILLIT", y: 2007},
-		"27-06": {e: "Ahn Sohee", c: "rgb(154,54,200)", g: "Wonder Girls", y: 1992},
-		"28-06": {e: "Seohyun", c: "rgb(251,206,177)", g: "Girls' Generation", y: 1991},
-		"30-06": [{e: "Weeekly", c: ["rgb(196,175,208)","rgb(255,208,118)","rgb(151,224,207)"], i: true, y: 2020}, {e: "Hyunji", c: "rgb(169,145,214)", g: "HashTag", y: 1992}],
-		"01-07": {e: "Miss A", i: true, y: 2010},
-		"02-07": {e: "Nagomi", g: "MADEIN", y: 2007},
-		"05-07": [{e: "Hyewon", c: "rgb(219,112,108)", g: "IZ*ONE", y: 1999}, {e: "Linlin", c: "rgb(191,27,43)", g: "Cherry Bullet", y: 2003}],
-		"07-07": {e: "Chaekyung", c: "rgb(255,183,197)", g: "APRIL", y: 1996},
-		"12-07": {e: "Jihan", c: "rgb(255,52,52)", g: "Weeekly", y: 2004},
-		"13-07": [{e: "Yebin", c: "rgb(211,0,0)", g: "DIA", y: 1997}, {e: "Stacey", c: "rgb(242, 92, 115)", g: "BINI", y: 2003}],
-		"14-07": [{e: "Chaesol", c: "rgb(100,207,255)", g: "cignature", y: 1998}, {e: "Park Soobin", c: "rgb(59,226,137)", g: "WJSN", y: 1996}, {e: "Yoon Jiyoon", c: "#e4c09f", g: "izna", y: 2005}],
-		"15-07": {e: "Cheng Xiao", c: "rgb(204,71,111)", g: "WJSN", y: 1998},
-		"16-07": {e: "Dia (Choi Eunji)", c: sc.black, g: "Pixy", y: 2001},
-		"18-07": {e: "Saturday", c: ["#f6dd5c", "#db2c89", "#7e2a82"], i: true, y: 2018},
-		"19-07": {e: "Oh Hayoung", c: "rgb(210,176,160)", g: "Apink", y: 1996},
-		"20-07": {e: "Elly (Jeong Haerim)", c: "rgb(177,100,196)", g: "Weki Meki", y: 1998},
-		"21-07": [{e: "Aisha", c: sc.black, g: "Everglow", y: 2000}, {e: "Lia", c: sc.red, g: "ITZY", y: 2000}],
-		"22-07": {e: "NewJeans", c: "rgb(64,89,149)", i: true, y: 2022},
-		"23-07": [{e: "Yoo Sua", c: "rgb(0,220,220)", g: "CSR", y: 2005}, {e: "Hwasa", c: "rgb(245,205,95)", g: "Mamamoo", y: 1995}],
-		"27-07": [{e: "Huening Bahiyyih", c: "rgb(255,177,109)", g: "Kep1er", y: 2004}, {e: "CSR", c: "rgb(242,105,37)", i: true, y: 2022}],
-		"28-07": [{e: "Hyojung", c: "rgb(253,53,199)", g: "Oh My Girl", y: 1994}, {e: "Chaebin", c: sc.black, g: "Nature", y: 1999}],
-		"31-07": [{e: "U_Chae (Jung Dajeong)", c: sc.red, g: "Pixy", y: 2003}, {e: "Nayun", c: "rgb(234,20,131)", g: "Momoland", y: 1998}],
-		"01-08": [{e: "Sieun", c: sc.white, g: "STAYC", y: 2001}, {e: "Kim Chaewon", c: ["rgb(206,229,213)", sc.silver], g: "IZ*ONE/Le Sserafim", y: 2000}, {e: "Tiffany", c: "rgb(169,32,62)", g: "Girls' Generation", y: 1989}, {e: "Dohee", c: "rgb(175,27,63)", g: "cignature", y: 2002}, {e: "Red Velvet", c: "rgb(255,209,194)", i: true, y: 2014}, {e: "Jeong Hayeon", c: "rgb(83,217,190)", g: "tripleS", y: 2007}, {e: "Yeonwoo", c: "rgb(244,156,61)", g: "Momoland", y: 1996}],
-		"03-08": [{e: "Yeonjung", c: "rgb(111,48,160)", g: "WJSN", y: 1999}, {e: "Nature", i: true, y: 2018}],
-		"04-08": {e: "Choi Jungeun", c: "#bfcdea", g: "izna", y: 2007},
-		"05-08": [{e: "Kim Sihyeon", c: "rgb(199,210,167)", g: "Everglow", y: 1999}, {e: "Girls' Generation", c: "rgb(254,76,128)", i: true, y: 2007}, {e: "SangA", c: "rgb(135, 206, 235)", g: "Pink Fantasy", y: 1999}],
-		"06-08": [{e: "Yoon Seoyeon", c: "rgb(34,174,255)", g: "tripleS", y: 2003}, {e: "Sumi", c: "rgb(255,255,0)", g: "Floria", y: 2000}],
-		"07-08": {e: "Rocket Punch", i: true, y: 2019},
-		"08-08": [{e: "Xuan Yi", c: "rgb(19,229,244)", g: "WJSN", y: 1995}, {e: "BlackPink", c: "rgb(255,207,228)", i: true, y: 2016}, {e: "Dajeong", c: "rgb(51,102,255)", g: "HashTag", y: 1995}, {e: "Weki Meki", c: ["rgb(227,65,50)","rgb(255,220,1)"], i: true, y: 2017}],
-		"09-08": [{e: "Lara", c: "rgb(145,86,255)", g: "DreamNote", y: 2000}, {e: "Kazuha", c: sc.blue, g: "Le Sserafim", y: 2003}],
-		"10-08": [{e: "SuA", c: sc.red, g: "Dreamcatcher", y: 1994}, {e: "Yeeun", c: "rgb(194,0,130)", g: "CLC", y: 1998}],
-		"11-08": {e: "Floria", i: true, y: 2020},
-		"12-08": [{e: "Choi Yujin", c: ["rgb(249,123,144)", "rgb(247,127,14)"], g: "CLC/Kep1er", y: 1996}, {e: "Kim Minseo", c: "rgb(255,195,43)", g: "woo!ah!", y: 2004}, {e: "Sunye", c: "rgb(250,168,35)", g: "Wonder Girls", y: 1989}, {e: "Luna", c: sc.green, g: "f(x)", y: 1993}],
-		"13-08": [{e: "EJ", c: "rgb(255,170,66)", g: "ALICE", y: 1997}, {e: "Bomi", c: "rgb(188,169,203)", g: "Apink", y: 1993}],
-		"14-08": [{e: "Kim Sohee", c: "rgb(255,153,50)", g: "Rocket Punch", y: 2003}, {e: "Hueningkai", c: sc.green, g: "TXT", y: 2002}],
-		"16-08": {e: "Miyuu", c: "#aea2ea", g: "f5ve", y: 1996},
-		"18-08": [{e: "HaSeul", c: "rgb(0,191,0)", g: "LOONA", y: 1997}, {e: "Eunji", c: "rgb(230,171,71)", g: "Apink", y: 1993}, {e: "JooE", c: "rgb(135,206,250)", g: "Momoland", y: 1999}, {e: "G-Dragon", g: "BIGBANG", c: "rgb(204,0,102)", y: 1988}],
-		"19-08": [{e: "LOONA", c: ["rgb(255,0,143)","rgb(255,234,0)","rgb(0,191,0)","rgb(244,111,31)","rgb(255,162,210)","rgb(234,2,1)","rgb(20,136,236)","rgb(150,44,196)","rgb(128,0,64)","rgb(255,191,127)","rgb(48,225,146)","rgb(143,143,143)"], borderOverride: sc.white, i: true, y: 2018}, {e: "Bona", c: "rgb(255,0,144)", g: "WJSN", y: 1995}, {e: "Yerin", c: "rgb(180,94,255)", g: "GFriend", y: 1996}, {e: "Umji", c: ["rgb(0,255,46)", sc.red], g: "GFriend/VIVIZ", y: 1998}, {e: "Gehlee", c: "rgb(194,0,78)", g: "UNIS", y: 2007}, {e: "BIGBANG", c: sc.yellow, i: true, y: 2006}, {e: "May (Lee Yebin)", c: "rgb(240,185,117)", g: "Rescene", y: 2008}],
-		"21-08": {e: "SeeA", c: sc.purple, g: "Pink Fantasy", y: 1993},
-		"22-08": [{e: "Yeseo", c: "rgb(162,207,254)", g: "Kep1er/MADEIN", y: 2005}, {e: "Somin", c: "rgb(153,230,179)", g: "APRIL", y: 1996}],
-		"23-08": {e: "Seo Hyerin", c: "rgb(107,212,2)", g: "EXID", y: 1993},
-		"24-08": {e: "APRIL", i: true, y: 2015},
-		"26-08": [{e: "Soyeon", c: "rgb(245,176,190)", g: "(G)I-DLE", y: 1998}, {e: "Chaejeong", c: "rgb(94,247,140)", g: "ALICE", y: 1999}],
-		"28-08": {e: "Rachel", c: "rgb(84,143,247)", g: "APRIL", y: 2000},
-		"30-08": {e: "Sora", c: "rgb(142,219,255)", g: "woo!ah!", y: 2003},
-		"31-08": [{e: "Wonyoung", c: ["rgb(255,0,30)", "rgb(217,89,140)"], g: "IZ*ONE/IVE", y: 2004}, {e: "Eunjin", c: "rgb(255,79,27)", g: "DIA", y: 1997}, {e: "Lucy (Noh Hyojung)", c: "rgb(246,178,107)", g: "Weki Meki", y: 2002}],
-		"01-09": [{e: "An Yujin", c: ["rgb(255,57,154)", "rgb(86,122,206)"], g: "IZ*ONE/IVE", y: 2003}, {e: "Gaga", g: "Nature", y: 1999}, {e: "Hyelim", c: "rgb(227,119,160)", g: "Wonder Girls", y: 1992}],
-		"02-09": {e: "Eunice", c: "rgb(237,157,37)", g: "DIA", y: 1991},
-		"03-09": [{e: "Joy", c: "rgb(0,223,23)", g: "Red Velvet", y: 1996}, {e: "MADEIN", i: true, y: 2024}],
-		"04-09": {e: "Huh Jiwon", c: "rgb(234,61,165)", g: "Cherry Bullet", y: 2000},
-		"05-09": [{e: "GWSN", c: ["#f5b0cc", "#f7ce76", "#7cba96", "#71c5e9"], i: true, y: 2018}, {e: "f(x)", c: "#a4a6fc", i: true, y: 2009}],
-		"07-09": {e: "Park Sumin", c: sc.magenta, g: "DreamNote", y: 2001},
-		"09-09": [{e: "Moon Sua", c: "rgb(204,153,255)", g: "Billlie", y: 1999}, {e: "Bae Yubin", c: "rgb(255,125,7)", g: "Oh My Girl", y: 1997}],
-		"13-09": [{e: "Yeonjun", c: sc.purple, g: "TXT", y: 1999}],
-		"14-09": [{e: "Jenny", c: "rgb(0,171,219)", g: "DIA", y: 1996}, {e: "DIA", c: ["#01d1ff", "#ff0a57"], i: true, y: 2015}, {e: "Colet", c: "rgb(15, 180, 45)", g: "BINI", y: 2001}],
-		"15-09": {e: "Loossemble", c: sc.brown, i: true, y: 2023},
-		"17-09": {e: "YooA", c: "rgb(66,174,77)", g: "Oh My Girl", y: 1995},
-		"18-09": {e: "Amber", c: sc.blue, g: "f(x)", y: 1992},
-		"20-09": {e: "Sayaka", c: "#98d2e8", g: "f5ve", y: 1995},
-		"21-09": {e: "Tsuki", c: "rgb(255,153,161)", g: "Billlie", y: 2002},
-		"22-09": [{e: "Im Nayeon", c: "rgb(128,202,241)", g: "TWICE", y: 1995}, {e: "Hyoyeon", c: "rgb(147,197,114)", g: "Girls' Generation", y: 1989}, {e: "Hong Yukyung", c: "rgb(212,212,212)", g: "Apink", y: 1994}],
-		"23-09": {e: "Yuqi", c: "rgb(38,201,140)", g: "(G)I-DLE", y: 1999},
-		"24-09": [{e: "Gaeul", c: "rgb(0,85,168)", g: "IVE", y: 2002}, {e: "Sojin", c: "rgb(255,127,0)", g: "HashTag", y: 1999}],
-		"25-09": {e: "Songyee", c: "rgb(178,143,255)", g: "woo!ah!", y: 2004},
-		"27-09": [{e: "Eunbi", c: "rgb(187,176,220)", g: "IZ*ONE", y: 1995}, {e: "Ahin", c: "rgb(219,210,85)", g: "Momoland", y: 1999}, {e: "Rina", c: "rgb(255,255,0)", g: "Weki Meki", y: 2001}],
-		"29-09": [{e: "Choi Yena", c: "rgb(252,246,149)", g: "IZ*ONE", y: 1999}, {e: "Song Hayoung", c: "rgb(120,94,253)", g: "fromis_9", y: 1997}, {e: "Ayeon", c: "rgb(255,117,48)", g: "Saturday", y: 2002}],
-		"30-09": {e: "Oh Subin", c: "rgb(255,255,0)", g: "HashTag", y: 1998},
-		"01-10": {e: "Siyeon", c: "rgb(15,47,255)", g: "Dreamcatcher", y: 1995},
-		"03-10": [{e: "Soomin", c: "rgb(252,131,164)", g: "tripleS", y: 2007}, {e: "Juri", c: "rgb(153,50,255)", g: "Rocket Punch", y: 1997}],
-		"04-10": [{e: "Yuju (Choi Yoona)", c: "rgb(255,98,63)", g: "GFriend", y: 1997}, {e: "Kim Yubin", c: "rgb(135,233,92)", g: "Wonder Girls", y: 1988}],
-		"06-10": [{e: "Hitomi", c: "rgb(241,195,170)", g: "IZ*ONE", y: 2001}, {e: "Hanni (Pha.m Ngo.c Ha^n)", c: "rgb(255,191,255)", g: "NewJeans", y: 2004}, {e: "Lua", c: "rgb(255,0,0)", g: "Weki Meki", y: 2000}],
-		"07-10": [{e: "Yeham", c: "rgb(220,0,147)", g: "CSR", y: 2005}, {e: "Oh Yoona", c: "rgb(250,27,183)", g: "UNIS", y: 2009}],
-		"08-10": [{e: "Moka", c: "rgb(216,109,157)", g: "ILLIT", y: 2004}, {e: "Huh Yunjin", c: sc.green, g: "Le Sserafim", y: 2001}],
-		"09-10": [{e: "Miku", c: "rgb(135, 206, 235)", g: "Pink Fantasy", y: 2002}, {e: "Cho Yubeen", c: sc.orange, g: "Pink Fantasy", y: 1999}, {e: "Ye Ah", c: "rgb(69,109,255)", g: "cignature", y: 1999}],
-		"10-10": [{e: "Oh Seunghee", c: "rgb(161,107,250)", g: "CLC", y: 1995}, {e: "Suzy", c: "rgb(187,136,72)", g: "Miss A", y: 1994}],
-		"11-10": {e: "Liv", c: "rgb(189,255,240)", g: "Rescene", y: 2006},
-		"13-10": [{e: "HashTag", c: "rgb(255,0,0)", i: true, y: 2017}, {e: "HanByeol", c: "rgb(255,238,86)", g: "DreamNote", y: 2003}, {e: "Nakyoung", c: "rgb(101,153,164)", g: "tripleS", y: 2002}, {e: "Sohyun", c: "rgb(20,35,180)", g: "tripleS", y: 2002}],
-		"15-10": [{e: "Yeonje", c: "rgb(255,227,3)", g: "ALICE", y: 1999}, {e: "Mei Qi", c: "rgb(255,153,0)", g: "WJSN", y: 1998}, {e: "Sunha", c: "rgb(0,160,196)", g: "Saturday", y: 1999}],
-		"17-10": [{e: "Lily", c: "rgb(153,204,255)", g: "NMIXX", y: 2002}, {e: "Anne", c: "rgb(224,20,88)", g: "GWSN", y: 2000}],
-		"19-10": {e: "HeeJin", c: "rgb(255,0,143)", g: "LOONA", y: 2000},
-		"20-10": [{e: "Chuu", c: "rgb(255,191,127)", g: "LOONA", y: 1999}, {e: "TWICE", c: ["rgb(248,197,150)","rgb(252,93,157)"], i: true, y: 2015}],
-		"22-10": {e: "Jo Yuri", c: "rgb(243,170,81)", g: "IZ*ONE", y: 2001},
-		"23-10": [{e: "Minnie", c: "rgb(155,203,235)", g: "(G)I-DLE", y: 1997}, {e: "Ningning", c: "rgb(238,23,43)", g: "aespa", y: 2002}],
-		"24-10": [{e: "Lee Jiwoo", c: "rgb(255,248,1)", g: "tripleS", y: 2005}, {e: "Pink Fantasy", c: "rgb(255, 102, 137)", i: true, y: 2018}, {e: "Krystal", c: sc.yellow, g: "f(x)", y: 1994}],
-		"25-10": [{e: "MISO", c: "rgb(86,168,255)", g: "DreamNote", y: 2000}, {e: "Aeji", c: "rgb(255,0,0)", g: "HashTag", y: 1999}],
-		"26-10": {e: "Soeun", c: "rgb(131,194,249)", g: "Weeekly", y: 2002},
-		"28-10": [{e: "Kotoko", c: "rgb(142,194,0)", g: "UNIS", y: 2007}, {e: "Mai", c: "#c23a5c", g: "izna", y: 2004}],
-		"29-10": {e: "IZ*ONE", c: "rgb(239,83,157)", i: true, y: 2018},
-		"30-10": [{e: "Giselle", c: "rgb(3,14,6)", g: "aespa", y: 2000}, {e: "BoNi", c: "rgb(255,156,86)", g: "DreamNote", y: 1999}],
-		"01-11": [{e: "Jeongyeon", c: "rgb(188,215,118)", g: "TWICE", y: 1996}, {e: "Kokoro", c: "rgb(0,221,147)", g: "Cherry Bullet", y: 2000}, {e: "Yunkyoung", c: "rgb(50,255,255)", g: "Rocket Punch", y: 2001}],
-		"02-11": {e: "Elkie", c: "rgb(97,179,41)", g: "CLC", y: 1998},
-		"03-11": [{e: "Belle", c: "rgb(0,195,26)", g: "cignature", y: 2001}, {e: "Hyeonju", c: "rgb(0,195,26)", g: "UNIS", y: 2001}],
-		"04-11": [{e: "T.O.P", g: "BIGBANG", c: "rgb(46,91,209)", y: 1987}, {e: "Rui", c: "#e3acca", g: "f5ve", y: 2003}],
-		"05-11": {e: "Lee Yukyung", c: "rgb(55,253,252)", g: "ALICE", y: 1999},
-		"06-11": [{e: "Seungyeon", c: "rgb(199,3,30)", g: "CLC", y: 1996}, {e: "Exy", c: "rgb(59,155,40)", g: "WJSN", y: 1995}, {e: "Juyeon", c: "rgb(253,253,150)", g: "Saturday", y: 2001}],
-		"07-11": {e: "DreamNote", c: ["rgb(0,176,164)", "rgb(255,205,5)"], i: true, y: 2018},
-		"08-11": [{e: "Kim Chaewon", c: "rgb(255,255,122)", g: "APRIL", y: 1997}, {e: "Gaeun", g: "MADEIN", y: 2005}, {e: "Mikha", c: "rgb(221, 54, 40)", g: "BINI", y: 2003}],
-		"09-11": {e: "Momo", c: "rgb(248,207,215)", g: "TWICE", y: 1996},
-		"10-11": [{e: "Billlie", c: ["rgb(148,180,229)", "rgb(197,180,225)"], i: true, y: 2021}, {e: "Hong Eunchae", c: sc.red, g: "Le Sserafim", y: 2006}, {e: "Momoland", i: true, y: 2016}],
-		"11-11": [{e: "YeoJin", c: "rgb(244,111,31)", g: "LOONA", y: 2002}, {e: "Yeseul", c: "rgb(255,0,187)", g: "Floria", y: 2000}, {e: "Haeryung", c: "rgb(204,204,102)", g: "EXID", y: 1994}],
-		"12-11": [{e: "Xiaoting", c:"rgb(195,142,199)", g: "Kep1er", y: 1999}, {e: "Dara", c:"rgb(244,135,105)", g: "2NE1", y: 1984}, {e: "STAYC", c: sc.black, i: true, y: 2020}, {e: "Yoojung", c: "rgb(32,178,170)", g: "Weki Meki", y: 1999}],
-		"13-11": [{e: "Hyeju", c: "rgb(143,143,143)", g: "LOONA", y: 2001}, {e: "Hanna", c: missingTexture, textOverride: sc.magenta, borderOverride: sc.magenta, g: "Floria", y: 2000}],
-		"14-11": {e: "Koko", c: "#ffd69e", g: "izna", y: 2006},
-		"15-11": {e: "HyunJin", c: "rgb(255,234,0)", g: "LOONA", y: 2000},
-		"16-11": [{e: "May (Hirokawa Mao)", c: "rgb(252,80,80)", g: "Cherry Bullet", y: 2004}, {e: "Garam", c: ["#9f9fff", "#ffbfff"], g: "Le Sserafim", y: 2005}], //Garam: https://www.reddit.com/r/kimgaram/comments/1evm5if
-		"17-11": {e: "aespa", c: ["rgb(174,95,160)", "rgb(13,213,173)"], i: true, y: 2020},
-		"18-11": {e: "Sorn", c: "rgb(0,144,199)", g: "CLC", y: 1996},
-		"19-11": {e: "Go Won", c: "rgb(48,225,146)", g: "LOONA", y: 2000},
-		"21-11": {e: "Liz", c: "rgb(0,195,245)", g: "IVE", y: 2004},
-		"23-11": {e: "Jisun", c: "rgb(238,83,146)", g: "fromis_9", y: 1998},
-		"26-11": {e: "Yechan", c: sc.blue, g: "Pink Fantasy", y: 1995},
-		"27-11": {e: "Zena", c: "rgb(242,126,126)", g: "Rescene", y: 2008},
-		"28-11": {e: "Haneul", c: "rgb(76,255,255)", g: "Saturday", y: 2001},
-		"29-11": {e: "Minami", c: "rgb(159,210,237)", g: "Rescene", y: 2006},
-		"30-11": {e: "Sullin", c: "rgb(123,186,141)", g: "tripleS", y: 2006},
-		"01-12": [{e: "IVE", c: "rgb(241,241,241)", i: true, y: 2021}, {e: "Jung Chaeyeon", c: "rgb(0,160,21)", g: "DIA", y: 1997}],
-		"03-12": {e: "Lu", c: sc.green, g: "Nature", y: 1997},
-		"04-12": [{e: "Jinsol", c: "rgb(205,121,206)", g: "APRIL", y: 2001}, {e: "Chaeyeon", c: "rgb(141,191,65)", g: "tripleS", y: 2004}, {e: "Doyeon", c: "rgb(171,244,12)", g: "Weki Meki", y: 1999}],
-		"05-12": [{e: "Kwon Yuri", c: "rgb(0,51,102)", g: "Girls' Generation", y: 1989}, {e: "Soobin", c: sc.black, g: "TXT", y: 2000}],
-		"06-12": {e: "Yeonhee", c: "rgb(255,255,50)", g: "Rocket Punch", y: 2000},
-		"07-12": {e: "Sowon", c: "rgb(0,255,255)", g: "GFriend", y: 1995},
-		"08-12": {e: "Dami (Kang Hyeyeon)", c: "rgb(102,204,153)", g: "EXID", y: 1990},
-		"09-12": [{e: "ViVi", c: "rgb(255,162,210)", g: "LOONA", y: 1996}, {e: "J", c: sc.red, g: "STAYC", y: 2004}, {e: "Shin Yuna", c: sc.yellow, g: "ITZY", y: 2003}],
-		"10-12": {e: "Elly (An Hyojin)", c: "rgb(0,51,153)", g: "EXID", y: 1991}, //this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
-		"12-12": {e: "Lee Soojin", c: "rgb(245,118,190)", g: "Weeekly", y: 2001},
-		"13-12": {e: "Suhye", g: "MADEIN", y: 2004},
-		"16-12": {e: "Mashiro", c: "rgb(253,238,244)", g: "Kep1er/MADEIN", y: 1999},
-		"17-12": {e: "Kim Sion", c: "rgb(0,178,77)", g: "Saturday", y: 1998},
-		"20-12": [{e: "Yamada Kaede", c: "rgb(255,201,53)", g: "tripleS", y: 2005}, {e: "Jane", c: "rgb(95,216,133)", g: "Momoland", y: 1997}],
-		"22-12": {e: "Moonbyul", c: "rgb(181,38,36)", g: "Mamamoo", y: 1992},
-		"24-12": {e: "SeolA", g: "WJSN", y: 1994},
-		"25-12": {e: "Daewang", c: "rgb(144, 238, 144)", g: "Pink Fantasy", y: 1989},
-		"26-12": {e: "Momoka", c: sc.yellow, g: "Pink Fantasy", y: 2000},
-		"27-12": [{e: "Youngeun", c: "rgb(147,197,114)", g: "Kep1er", y: 2004}, {e: "Gyuri", c: "rgb(33,150,254)", g: "fromis_9", y: 1997}, {e: "Loha", c: sc.blue, g: "Nature", y: 2001}],
-		"28-12": {e: "Bae", c: sc.yellow, g: "NMIXX", y: 2004},
-		"29-12": [{e: "Sana", c: "rgb(156,158,207)", g: "TWICE", y: 1996}, {e: "Yiren", c: sc.white, g: "Everglow", y: 2000}],
-		"31-12": {e: "Kim Sohee", c: "rgb(246,110,186)", g: "ALICE", y: 1999}/*, //Test cases
-		"08-06": {e: "Test", c: ["rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)","rgb(0,0,0)","rgb(255,0,255)"], textOverride: "rgb(255,0,255)", g: "Debuggers", y: 1970 },
-		"03-07": {e: "France", i: true, c: ["rgb(0,35,149)","rgb(255,255,255)","rgb(237,41,57)"], y: 987 },
-		//"25-12": {e: "Jesus Christ", c: [sc.red,sc.white], y: 0 }, //Conflicts with Daewang's birthday, we'd have to make it an array and it'd be a pain
-		"01-13": {e: "Mary Sue", c: "rgb(191,159,127)", g: null, y: 47}*/ //Test
-	};
-
-	hinataAddendum = { //not falling for that f***ing reload button again, not wasting time inserting them manually, idgaf about spaghetti code rn, let JavaScript insert them
-		"15-01": {e: "Shimizu Rio", c: [hc.pearlGreen,hc.orange], g: "Hinatazaka46", y: 2005},
-		"18-01": {e: "Tomita Suzuka", c: hc.purple, g: "Hinatazaka46", y: 2001},
-		"22-01": {e: "Sasaki Kumi", c: [hc.pastelBlue,hc.purple], g: "Hinatazaka46", y: 1996},
-		"02-02": {e: "Kato Shiho", c: hc.blue, g: "Hinatazaka46", y: 1998},
-		"07-02": {e: "Watanabe Rina", c: [hc.purple,hc.sakuraPink], g: "Hinatazaka46", y: 2009},
-		"14-02": {e: "Shogenji Yoko", c: [hc.orange,hc.red], g: "Hinatazaka46", y: 2007},
-		"15-02": {e: "Nibu Akari", c: hc.orange, g: "Hinatazaka46", y: 2001},
-		"20-02": {e: "Takeuchi Kirari", c: [hc.yellow,hc.red], g: "Hinatazaka46", y: 2006},
-		"23-02": [{e: "Morimoto Marie", c: [hc.orange,hc.blue], g: "Hinatazaka46", y: 2004}, {e: "Yamaguchi Haruyo", c: [hc.pearlGreen,hc.yellow], g: "Hinatazaka46", y: 2004}],
-		"24-02": {e: "Watanabe Miho", g: "Hinatazaka46", y: 2000},
-		"09-04": {e: "Hiraoka Mitsuki", c: [hc.blue,hc.yellow], g: "Hinatazaka46", y: 2002},
-		"12-04": {e: "Kamimura Hinano", c: [hc.red,hc.emeraldGreen], g: "Hinatazaka46", y: 2004},
-		"27-04": {e: "Matsuda Konoka", c: [hc.sakuraPink,hc.pearlGreen], g: "Hinatazaka46", y: 1999},
-		"28-04": {e: "Miyata Manamo", c: [hc.red,hc.sakuraPink], g: "Hinatazaka46", y: 1998},
-		"08-05": {e: "Kageyama Yuka", c: hc.red, g: "Hinatazaka46", y: 2001},
-		"20-05": {e: "Yamashita Haruka", c: [sc.white,hc.emeraldGreen], g: "Hinatazaka46", y: 2003},
-		"23-07": {e: "Kawata Hina", c: [hc.sakuraPink,hc.yellow], g: "Hinatazaka46", y: 2001},
-		"31-07": {e: "Hirao Honoka", c: [hc.pastelBlue,hc.orange], g: "Hinatazaka46", y: 2003},
-		"06-08": {e: "Ishizuka Tamaki", c: [hc.sakuraPink,hc.orange], g: "Hinatazaka46", y: 2004},
-		"07-08": {e: "Fujishima Kaho", c: [hc.sakuraPink,hc.blue], g: "Hinatazaka46", y: 2006},
-		"10-08": {e: "Hinatazaka46", c: "rgb(142,196,230)", i: true, y: 2016},
-		"15-08": {e: "Kishi Honoka", g: "Hinatazaka46", y: 2004},
-		"23-08": {e: "Higashimura Mei", c: hc.sakuraPink, g: "Hinatazaka46", y: 1998},
-		"04-09": {e: "Neru Nagahama", g: "Hinatazaka46", y: 1998},
-		"05-09": {e: "Saito Kyoko", c: sc.white, g: "Hinatazaka46", y: 1997},
-		"07-09": {e: "Kosaka Nao", c: [hc.violet,sc.white], g: "Hinatazaka46", y: 2002},
-		"10-09": {e: "Kanemura Miku", c: [hc.yellow,hc.pastelBlue], g: "Hinatazaka46", y: 2002},
-		"20-09": {e: "Takase Mana", c: [hc.sakuraPink,sc.white], g: "Hinatazaka46", y: 1998},
-		"27-09": {e: "Takahashi Mikuni", g: "Hinatazaka46", y: 2003},
-		"28-09": {e: "Hamagishi Hiyori", c: [hc.orange,sc.white], g: "Hinatazaka46", y: 2002},
-		"03-10": {e: "Konishi Nanami", c: [hc.purple,hc.blue], g: "Hinatazaka46", y: 2004},
-		"02-11": {e: "Takamoto Ayaka", c: [hc.emeraldGreen,sc.white], g: "Hinatazaka46", y: 1998},
-		"10-11": {e: "Iguchi Mao", c: [hc.red,hc.orange], g: "Hinatazaka46", y: 1995},
-		"02-12": {e: "Kakizaki Memi", g: "Hinatazaka46", y: 2001},
-		"17-12": {e: "Sasaki Mirei", c: hc.yellow, g: "Hinatazaka46", y: 1999},
-		"26-12": {e: "Ushio Sarina", c: [hc.purple,hc.yellow], g: "Hinatazaka46", y: 1997},
-		"31-12": {e: "Miyachi Sumire", c: [hc.violet,hc.red], g: "Hinatazaka46", y: 2005}
-	};
-
-	for(var date in hinataAddendum) {
-		var birthdayInfo = hinataAddendum[date];
-		var destination = idolBdData[date];
-		if(typeof(destination) == "undefined") {
-			idolBdData[date] = birthdayInfo
-		} else {
-			if(!(Array.isArray(destination))) {
-				idolBdData[date] = [idolBdData[date]];
-			};
-			idolBdData[date] = idolBdData[date].concat(birthdayInfo).flat();
+for(var date in ID) {
+	var data = ID[date];
+	for(var i = 0; i < data.length; i++) {
+		var entry = data[i]
+		if(entry && typeof(entry?.y) === "number") {
+			ID[date][i].y += 1980; //YOBs - by 1980 for brevity
 		}
-	};
+	}
+};
 
-	var idolSorter = function(dataA,dataB) {
-		var canCompareYears = (typeof(dataA.y) === "number") && (typeof(dataB.y) === "number");
-		var yearSortWasMade = false;
-		if(canCompareYears) {
-			if(dataA.y > dataB.y) {
-				yearSortWasMade = true;
-				return 1
-			} else if(dataA.y < dataB.y) {
-				yearSortWasMade = true;
-				return -1
-			}
-		};
-		if(!yearSortWasMade) {
-			if(dataA.e > dataB.e) {
-				return 1
-			} else if(dataA.e < dataB.e) {
-				return -1
-			} else {
-				return 0
-			}
-		};
-	};
+cD = new Date(); //currentDate
+var currentYear = cD.getFullYear();
+var currentTimeIso8601 = cD.toLocaleTimeString("sv-SE"); //let's hope Sweden doesn't change their time format
 
-	for(var date in idolBdData) {
-		if(!(Array.isArray(idolBdData[date]))) {
-			idolBdData[date] = [idolBdData[date]] //array wrap
+fakeDate = urlParams.get("fakeDate");
+
+if(fakeDate !== null) {
+	if(typeof(fakeDate) === "string" && fakeDate.trim().length == 0) {
+		fakeDate = null
+	} else {
+		var parsedFD = parseInt(fakeDate);
+		if(isNaN(fakeDate) === false) {
+			fakeDate = new Date(parsedFD)
 		} else {
-			idolBdData[date].sort(idolSorter)
-		}
-	};
-
-	currentDate = new Date();
-	var currentYear = currentDate.getFullYear();
-	var currentTimeIso8601 = currentDate.toLocaleTimeString("sv-SE"); //let's hope Sweden doesn't change their time format
-
-	fakeDate = urlParams.get("fakeDate");
-
-	if(fakeDate !== null) {
-		if(typeof(fakeDate) === "string" && fakeDate.trim().length == 0) {
-			fakeDate = null
-		} else {
-			var parsedFD = parseInt(fakeDate);
-			if(isNaN(fakeDate) === false) {
-				fakeDate = new Date(parsedFD)
-			} else {
-				if((fakeDate.match(/\d/g) ?? []).length >= 2) {
-					fakeDate = fakeDate.match(/[0-9]+/g);
-					if(!fakeDate) {
-						fakeDate = null
-					} else if(fakeDate?.length === 0) {
-						fakeDate = null
-					} else if(fakeDate) {
-						fakeDate = fakeDate.map(x => parseInt(x).toString().padStart(2,"0")); //normalize
-						var fakeYear = fakeDate[2] ?? null;
-						if(fakeYear !== null) { fakeYear = fakeYear.toString().padStart(4,"0") };
-						fakeDate = fakeDate.slice(0,2).toReversed().join("-");
-						fakeDate = new Date(`${fakeYear ?? currentYear}-${fakeDate}T${currentTimeIso8601}`);
-						if(isNaN(fakeDate.getTime())) { fakeDate = null }
-					}
-				} else {
+			if((fakeDate.match(/\d/g) ?? []).length >= 2) {
+				fakeDate = fakeDate.match(/[0-9]+/g);
+				if(!fakeDate) {
 					fakeDate = null
+				} else if(fakeDate?.length === 0) {
+					fakeDate = null
+				} else if(fakeDate) {
+					fakeDate = fakeDate.map(x => parseInt(x).toString().padStart(2,"0")); //normalize
+					var fakeYear = fakeDate[2] ?? null;
+					if(fakeYear !== null) { fakeYear = fakeYear.toString().padStart(4,"0") };
+					fakeDate = fakeDate.slice(0,2).toReversed().join("-");
+					fakeDate = new Date(`${fakeYear ?? currentYear}-${fakeDate}T${currentTimeIso8601}`);
+					if(isNaN(fakeDate.getTime())) { fakeDate = null }
 				}
+			} else {
+				fakeDate = null
 			}
 		}
 	}
-	console.log("c",currentDate,"f",fakeDate);
+}
+function localDM() {
+	return (fakeDate ?? cD).toLocaleString("en-GB").replace("/","-").substring(0,5);
+};
 
-	function getLocalDayMonth() {
-		return (fakeDate ?? currentDate).toLocaleString("en-GB").replace("/","-").substring(0,5);
-	};
+function kstDM() {
+	return (fakeDate ?? cD).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
+};
 
-	function getKstDayMonth() {
-		return (fakeDate ?? currentDate).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
-	};
+function getLuminance(R,G,B) {
+	return (0.2126*R + 0.7152*G + 0.0722*B);
+};
 
-	function getLuminance(R,G,B) {
-		return (0.2126*R + 0.7152*G + 0.0722*B);
-	};
+//https://stackoverflow.com/a/2450976
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
 
-	//https://stackoverflow.com/a/2450976
-	function shuffle(array) {
-	  let currentIndex = array.length,  randomIndex;
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
 
-	  // While there remain elements to shuffle.
-	  while (currentIndex != 0) {
+	// Pick a remaining element.
+	randomIndex = Math.floor(Math.random() * currentIndex);
+	currentIndex--;
 
-		// Pick a remaining element.
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex--;
+	// And swap it with the current element.
+	[array[currentIndex], array[randomIndex]] = [
+	  array[randomIndex], array[currentIndex]];
+  }
 
-		// And swap it with the current element.
-		[array[currentIndex], array[randomIndex]] = [
-		  array[randomIndex], array[currentIndex]];
-	  }
+  return array;
+}
 
-	  return array;
-	}
-
-	function englishOrdinalPrefix(number) {
-		if(typeof(number) !== "number") {
-			if(typeof(number) === "string" && !(isNaN(parseFloat(number)))) {
-				number = parseFloat(number)
-			} else {
-				return "th"
-			}
-		};
-		number = Math.abs(number);
-		var ones = number % 10;
-		if([11,12,13].includes(number % 100)) {
+function englishOrdinalPrefix(number) {
+	if(typeof(number) !== "number") {
+		if(typeof(number) === "string" && !(isNaN(parseFloat(number)))) {
+			number = parseFloat(number)
+		} else {
 			return "th"
-		};
-		switch(ones) {
-			case 1:
-				return "st";
-			case 2:
-				return "nd";
-			case 3:
-				return "rd";
-			default:
-				return "th";
 		}
 	};
-
-	eventPrepositions = {
-		"birthday": "to",
-		"anniversary": "of",
-		"debut": "of",
-		"birth": "of"
+	number = Math.abs(number);
+	var ones = number % 10;
+	if([11,12,13].includes(number % 100)) {
+		return "th"
 	};
+	switch(ones) {
+		case 1:
+			return "st";
+		case 2:
+			return "nd";
+		case 3:
+			return "rd";
+		default:
+			return "th";
+	}
+};
 
-	triedToLoadBigints = false;
-	window.onload = function() {
-		/*loona stan length updater interval*/
-		loonaInterval = setInterval(updateLoonaTime, 100);
+eventPrepositions = {
+	"birthday": "to",
+	"anniversary": "of",
+	"debut": "of",
+	"birth": "of"
+};
 
-		if((getLocalDayMonth() == "16-06") || (getKstDayMonth() == "16-06")) {
-			var marquee = document.getElementById("headerMarquee");
-			marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
-			marquee.style.fontSize = "120%"
-		};
+triedToLoadBigints = false;
+window.onload = function() {
 
-		/*handle birthdays*/
-		var currentBirthdayDatas = [];
-		var currentDateObject = fakeDate ?? currentDate; //this enables the age to be negative which is funnier, but we'll ignore negative ages
-		var currentYear =  currentDateObject.getFullYear();
-		var local = idolBdData[getLocalDayMonth()] ?? [];
-		local.forEach(function(x) { x.dateModality ??= "local"; if(x.dateModality == "kst") { x.dateModality = "both" } });
-		var kst = idolBdData[getKstDayMonth()] ?? [];
-		kst.forEach(function(x) { x.dateModality ??= "kst"; if(x.dateModality == "local") { x.dateModality = "both" } });
-		if(local.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(local) }
-		if(kst.length > 0) { currentBirthdayDatas = currentBirthdayDatas.concat(kst) };
-		var incrementAllYears = false;
-		if((urlParams.get("fakeDate") ?? "").match(/^chaos\-?\d*$/)) {
-			if(urlParams.get("fakeDate") == "chaos") {
-				incrementAllYears = 1
-			} else {
-				var _inc = urlParams.get("fakeDate").replace("chaos","");
-				if(_inc == "-") {
-					incrementAllYears = -1
-				} else {
-					incrementAllYears = parseInt(_inc);
-				}
-			}
-		};
-		if((urlParams.get("fakeDate") ?? "").trim().match(/^chaos\-?\d*$/)) { currentBirthdayDatas = Object.values(idolBdData).flat().sort(idolSorter); /*shuffle(currentBirthdayDatas);*/ currentBirthdayDatas.forEach(x => x.dateModality = "both" ) };
-		currentBirthdayDatas = Array.from(new Set(currentBirthdayDatas))
-		console.log(`${currentBirthdayDatas.length} bdays (before any negative ages are ignored)`);
-		var hasBirthdays = false;
-		var hasAnniversaries = false;
-		var birthdayLogString = currentBirthdayDatas.map(function(data) {
-			var textString;
-			data.y ??= null;
-			var age = null;
-			if(data.y !== null) {
-				age = (currentYear - data.y) + incrementAllYears;
-			};
-			if(age < 0) {
-				return ""
-			};
-			var typeName;
-			if(data.i) {
-				hasAnniversaries = true;
-				typeName = "anniversary";
-			} else {
-				hasBirthdays = true;
-				typeName = "birthday";
-			};
-			var is_From_A_Group = !(data.i || (data.g == null));
+var marquee = document.getElementById("headerMarquee");
 
-			textString = `Happy `;
+/*loona stan length updater interval*/
+loonaInterval = setInterval(updateLoonaTime, 100);
 
-			if(age !== null) {
-				textString += `${age.toLocaleString()}${englishOrdinalPrefix(age)} `
-			};
+if((localDM() == "16-06") || (kstDM() == "16-06")) {
+	marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
+	marquee.style.fontSize = "120%"
+};
 
-			textString += `${typeName} to ${data.e}`;
-
-			if(is_From_A_Group) { textString += ` from ${data.g}` };
-
-			return textString
-		}).join(".  ").trim();
-		if(birthdayLogString.length > 1) { birthdayLogString += "."; console.log(birthdayLogString) };
-		if(currentBirthdayDatas.length > 0) {
-			var birthdayText = document.createElement("span");
-			birthdayText.classList.add("birthdays");
-			var label = [];
-			if(hasBirthdays) { label.push("Birthdays") };
-			if(hasAnniversaries) { label.push("Anniversaries") };
-			label = label.join("/") + ": ";
-			if(label == "") { console.log("Events exist but they are neither birthdays nor anniversaries. Something has gone wrong."); label = "unknown event to" };
-			birthdayText.appendChild(document.createTextNode(label));
-			var eventsListed = 0;
-			for(var ibdCurrentDataIndex in currentBirthdayDatas) {
-				ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
-
-				var data = currentBirthdayDatas[ibdCurrentDataIndex];
-
-				var resultText = (ibdCurrentDataIndex == 0 ? "H" : "h") + "appy ";
-
-				var is_From_A_Group = !(data.i || (data.g == null));
-
-				var coloredName = document.createElement("span");
-
-				var color = data.c ?? placeholderColor;
-
-				var colorValues;
-
-				if(Array.isArray(color)) {
-					try {
-						var rgbEnsuredColors = color.map(x => rgbHexCatcher(x));
-					} catch(error) {
-						console.error("Error in an entity:");
-						console.error(data);
-						throw error
-					};
-					var averagedColor = averageRgbPrefixedColorArray(rgbEnsuredColors);
-					colorValues = averagedColor.match(/\d+/g).map(x => parseInt(x));
-				} else {
-					if(!color.startsWith("#")) {
-						try {
-							colorValues = color.match(/\d+/g).map(x => parseInt(x));
-						} catch(error) {
-							console.error(`Invalid color for entity "${data.e}"`,color);
-							colorValues = [255,0,255]
-						}
-					} else {
-						colorValues = color.match(/[A-Za-z0-9]{2}/g).map(x => parseInt(x,16))
-					}
-				};
-
-				var bgLum = getLuminance(...colorValues);
-
-				var age = null;
-
-				if(data.y !== null) { age = (currentYear - data.y) + incrementAllYears };
-
-				var typeName;
-
-				if(data.i) {
-					typeName = (age == 0 ? "debut" : "anniversary");
-				} else {
-					typeName = (age == 0 ? "birth" : "birthday"); //"birth" should never happen due to the infeasibility of knowing both when a baby will be born and whether they'll turn out to be a famous K-pop idol, but if you're messing with fake dates, then "0th birthday" is odd.
-				};
-
-				var preposition = eventPrepositions[typeName];
-
-				if(age < 0) { continue };
-
-				if(Array.isArray(color)) {
-					coloredName.style["background"] = hardColorChangeLinearGradientCssGenerator(color);
-				} else {
-					coloredName.style["background-color"] = color; //color the background because writing a person's name in red is a no-no in korea
-				};
-
-				if(Array.isArray(color)) {
-					coloredName.style.color = "white";
-					coloredName.classList.add("black-outline")
-				} else {
-					if(bgLum > 159) {
-						coloredName.style.color = "black";
-					} else if(bgLum > 140) {
-						coloredName.style.color = "white";
-						coloredName.classList.add("black-outline")
-					} else {
-						coloredName.style.color = "white";
-					}
-				};
-
-				if(data.textOverride) { coloredName.style.color = data.textOverride };
-
-				if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
-
-				if((age !== null) && age !== 0) {
-					resultText += `${age.toLocaleString()}${englishOrdinalPrefix(age)} `
-				};
-
-				resultText += `${typeName} ${preposition} ${data.e.replaceAll(" ",String.fromCharCode(0xa0))}`;
-
-				coloredName.innerText = resultText;
-
-				if(is_From_A_Group) {
-					var fromStatement = document.createElement("span");
-
-					fromStatement.classList.add("artistFrom");
-
-					fromStatement.innerText = ` from ${data.g}`.replaceAll(" ",String.fromCharCode(0xa0));
-
-					coloredName.appendChild(fromStatement)
-				};
-
-				if(data.dateModality !== "both") {
-					var timeZoneStatement = document.createElement("em");
-
-					timeZoneStatement.classList.add("timezoneWarning");
-
-					timeZoneStatement.innerText = ` (${(data.dateModality == "kst" ? "K/JST" : "Local time")} only)`; //thank God that JST and KST use the same offset, and let's not even consider Chinese-Taiwanese-Hong Konger, Vietnamese-Thai, Australian, or American times right now (sorry to Xinyu, Xiaoting, Handong, Shuhua, Nien, Tzuyu, Vivi, Hanni, Lisa, Lily, Danielle, Sullin, Tiffany, Gehlee, Elisia, and all of the other idols that weren't born in UTC+9)
-
-					coloredName.appendChild(timeZoneStatement)
-				};
-
-				coloredName.classList.add("bdIdolName");
-
-				birthdayText.appendChild(coloredName);
-
-				eventsListed++;
-
-				var joiner = currentBirthdayDatas.length == 2 ? " " : ", ";
-
-				if(ibdCurrentDataIndex < currentBirthdayDatas.length - 1) {
-					birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == currentBirthdayDatas.length - 2 ? joiner + "and " : joiner))
-				}
-			};
-			if(eventsListed > 0) {
-				birthdayText.appendChild(document.createTextNode("."));
-				document.getElementById("birthdays").textContent = "";
-				document.getElementById("birthdays").appendChild(birthdayText)
-			}
+/*handle birthdays*/
+var BD = [];
+var currentDateObject = fakeDate ?? cD; //this enables the age to be <0 which is funnier, but we'll ignore <0 ages
+var currentYear =  currentDateObject.getFullYear();
+var local = ID[localDM()] ?? [];
+local.forEach(function(x) { x.dateModality ??= "local"; if(x.dateModality == "kst") { x.dateModality = "both" } });
+var kst = ID[kstDM()] ?? [];
+kst.forEach(function(x) { x.dateModality ??= "kst"; if(x.dateModality == "local") { x.dateModality = "both" } });
+if(local.length > 0) { BD = BD.concat(local) }
+if(kst.length > 0) { BD = BD.concat(kst) };
+var incrementAllYears = false;
+if((urlParams.get("fakeDate") ?? "").match(/^chaos\-?\d*$/)) {
+	if(urlParams.get("fakeDate") == "chaos") {
+		incrementAllYears = 1
+	} else {
+		var _inc = urlParams.get("fakeDate").replace("chaos","");
+		if(_inc == "-") {
+			incrementAllYears = -1
+		} else {
+			incrementAllYears = parseInt(_inc);
 		}
 	}
+};
+if((urlParams.get("fakeDate") ?? "").trim().match(/^chaos\-?\d*$/)) { BD = Object.values(ID).flat().sort(idolSorter); /*shuffle(BD);*/ BD.forEach(x => x.dateModality = "both" ) };
+BD = Array.from(new Set(BD))
+var hasBirthdays = false;
+var hasAnniversaries = false;
+if(BD) {
+	for(var j = 0; j < BD.length; j++) {
+		var data = BD[j];
+		if(data.i) {
+			hasAnniversaries = true
+		} else {
+			hasBirthdays = true
+		};
+		if(hasAnniversaries && hasBirthdays) { break };
+	}
+};
+if(BD.length > 0) {
+	var birthdayText = document.createElement("span");
+	birthdayText.classList.add("birthdays");
+	var label = [];
+	if(hasBirthdays) { label.push("Birthdays") };
+	if(hasAnniversaries) { label.push("Anniversaries") };
+	label = label.join("/") + ": ";
+	if(label == "") { console.log("Events exist but they are neither birthdays nor anniversaries. Something has gone wrong."); label = "unknown event to" };
+	birthdayText.appendChild(document.createTextNode(label));
+	var eventsListed = 0;
+	for(var ibdCurrentDataIndex in BD) {
+		ibdCurrentDataIndex = parseInt(ibdCurrentDataIndex);
+
+		var data = BD[ibdCurrentDataIndex];
+
+		var resultText = (ibdCurrentDataIndex == 0 ? "H" : "h") + "appy ";
+
+		var is_From_A_Group = !(data.i || (data.g == null));
+
+		var coloredName = document.createElement("span");
+
+		var color = data.c ?? placeholderColor;
+
+		var colorValues;
+
+		if(Array.isArray(color)) {
+			try {
+				var rgbEnsuredColors = color.map(x => RHC(x));
+			} catch(error) {
+				console.error("Error in an entity:");
+				console.error(data);
+				throw error
+			};
+			var averagedColor = ARPCA(rgbEnsuredColors);
+			colorValues = averagedColor.match(/\d+/g).map(x => parseInt(x));
+		} else {
+			if(!color.startsWith("#")) {
+				try {
+					colorValues = color.match(/\d+/g).map(x => parseInt(x));
+				} catch(error) {
+					console.error(`Invalid color for entity "${data.e}"`,color);
+					colorValues = [255,0,255]
+				}
+			} else {
+				colorValues = color.match(/[A-Za-z0-9]{2}/g).map(x => parseInt(x,16))
+			}
+		};
+
+		var bgLum = getLuminance(...colorValues);
+
+		var age = null;
+
+		if(data.y !== null) {age = (currentYear - data.y) + incrementAllYears };
+
+		var typeName;
+
+		if(data.i) {
+			typeName = (age == 0 ? "debut" : "anniversary");
+		} else {
+			typeName = (age == 0 ? "birth" : "birthday"); //"birth" should never happen due to the infeasibility of knowing both when a baby will be born and whether they'll turn out to be a famous K-pop idol, but if you're messing with fake dates, then "0th birthday" is odd.
+		};
+
+		var preposition = eventPrepositions[typeName];
+
+		if(age < 0) { continue };
+
+		if(Array.isArray(color)) {
+			coloredName.style["background"] = HCCLGCG(color);
+		} else {
+			coloredName.style["background-color"] = color; //color the background because writing a person's name in red is a no-no in korea
+		};
+
+		if(Array.isArray(color)) {
+			coloredName.style.color = "white";
+			coloredName.classList.add("black-outline")
+		} else {
+			if(bgLum > 159) {
+				coloredName.style.color = "black";
+			} else if(bgLum > 140) {
+				coloredName.style.color = "white";
+				coloredName.classList.add("black-outline")
+			} else {
+				coloredName.style.color = "white";
+			}
+		};
+
+		if(data.textOverride) { coloredName.style.color = data.textOverride };
+
+		if(data.borderOverride) { coloredName.style["border-color"] = data.borderOverride };
+
+		if((age !== null) && age !== 0) {
+			resultText += `${age.toLocaleString()}${englishOrdinalPrefix(age)} `
+		};
+
+		if(!data.e) { console.error(data,localDM(),kstDM()) };
+
+		resultText += `${typeName} ${preposition} ${(data.e ?? "[Missing group name]").replaceAll(" ",String.fromCharCode(0xa0))}`;
+
+		coloredName.innerText = resultText;
+
+		if(is_From_A_Group) {
+			var fromStatement = document.createElement("span");
+
+			fromStatement.classList.add("artistFrom");
+
+			fromStatement.innerText = ` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0));
+
+			coloredName.appendChild(fromStatement)
+		};
+
+		if(data.dateModality !== "both") {
+			var timeZoneStatement = document.createElement("em");
+
+			timeZoneStatement.classList.add("timezoneWarning");
+
+			timeZoneStatement.innerText = ` (${(data.dateModality == "kst" ? "K/JST" : "Local time")} only)`;
+			/*thank God that JST and KST use = offsets; let's not even consider ZH/TW/HK, VN-TH, AU, or US times right now
+			(sorry to Xinyu,Xiaoting,Handong,Shuhua,Nien,Tzuyu,Vivi,Hanni,Lisa,Lily,Danielle,Sullin,Tiffany,Gehlee,Elisia,
+			and all other idols not born in UTC+9)*/
+
+			coloredName.appendChild(timeZoneStatement)
+		};
+
+		coloredName.classList.add("bdIdolName");
+
+		birthdayText.appendChild(coloredName);
+
+		eventsListed++;
+
+		var joiner = BD.length == 2 ? " " : ", ";
+
+		if(ibdCurrentDataIndex < BD.length - 1) {
+			birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex == BD.length - 2 ? joiner + "and " : joiner))
+		}
+	};
+	if(eventsListed > 0) {
+		birthdayText.appendChild(document.createTextNode("."));
+		document.getElementById("birthdays").textContent = "";
+		document.getElementById("birthdays").appendChild(birthdayText)
+	}
+}
+
+}
+
 } catch(error) {
 	alert(error);
 	console.error(error)
 };
 		</script>
 		<style>
+			body.moonbin {
+				background-color: #300436;
+			}
+
 			:root {
 				--g7-outline-color: #0029c4;
 				--g8-outline-color: #00cf00;
 			}
-		
+
 			@keyframes fade-in {
 			  from { opacity: 0 }
 			  to { opacity: 1 }
@@ -1106,6 +969,17 @@ try {
 			}
 
 			.blink { animation: blink 1s linear 0s infinite normal none; }
+
+			@media (prefers-reduced-motion) {
+			@keyframes blink {
+				0% { opacity: 0.1 }
+				49.999999999% { opacity: 0.1 }
+				50.000000001% { opacity: 1 }
+				100% { opacity: 1 }
+			}
+				.blink { animation: blink 4s linear 0s infinite normal none; }
+			}
+
 
 			.hoverTest, .hoverTest50 {
 				opacity: 0;
@@ -1198,7 +1072,7 @@ try {
 			#groups .gC, .white {
 				color: white;
 			}
-			
+
 			.red, .warning {
 				color: red;
 			}
@@ -1221,11 +1095,11 @@ try {
 							-1px  0px 1px #FFFF009F,
 							-1px -1px 1px #FFFF009F
 			}
-			
+
 			#groups .warning {
 				color: #ff7f7f;
 			}
-			
+
 			small {
 				font-size: 80%;
 			}
@@ -1251,18 +1125,25 @@ try {
 				opacity: 85%;
 			}
 
-            .amethyst {
-				background: rgb(231,189,255);
-				background: linear-gradient(115deg, rgb(231,189,255) 0%, rgb(203,143,255) 27%, rgb(242,231,255) 45%, rgb(218,163,255) 66%, rgb(163,109,255) 100%);
+            #headerMarquee {
+				display: block;
+				font-size:130%;
+				line-height: 60%;
+				padding-top: 5px;
+			}
+
+			.amethyst {
+				background: #e7bdff;
+				background: linear-gradient(115deg, #e7bdff 0%, #cb8fff 27%, #f2e7ff 45%, #daa3ff 66%, #a36dff 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
             .silver {
-				background: rgb(219,219,219);
-				background: linear-gradient(115deg, rgb(204,204,204) 0%, rgb(219,219,219) 11%, rgb(213,213,213) 15%, rgb(203,203,203) 22%, rgb(205,205,205) 31%, rgb(219,219,219) 34%, rgb(240,240,240) 40%, rgb(238,238,238) 43%, rgb(242,242,242) 45%, rgb(231,231,231) 49%, rgb(213,213,213) 63%, rgb(224,224,224) 73%, rgb(218,218,218) 82%, rgb(193,193,193) 100%);
+				background: #dbdbdb;
+				background: linear-gradient(115deg, #cccccc 0%, #dbdbdb 11%, #d5d5d5 15%, #cbcbcb 22%, #cdcdcd 31%, #dbdbdb 34%, #f0f0f0 40%, #eeeeee 43%, #f2f2f2 45%, #e7e7e7 49%, #d5d5d5 63%, #e0e0e0 73%, #dadada 82%, #c1c1c1 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
@@ -1270,8 +1151,8 @@ try {
             }
 
             .diamond {
-				background: rgb(233,255,253);
-				background: linear-gradient(115deg, rgb(233,255,253) 0%, rgb(165,255,251) 29%, rgb(232,255,253) 48%, rgb(192,231,255) 66%, rgb(186,249,255) 100%);
+				background: #e9fffd;
+				background: linear-gradient(115deg, #e9fffd 0%, #a5fffb 29%, #e8fffd 48%, #c0e7ff 66%, #baf9ff 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
@@ -1279,8 +1160,8 @@ try {
             }
 
             .gold {
-                background: rgb(247,203,82);
-				background: linear-gradient(115deg, rgb(196,183,99) 0%, rgb(250,211,76) 11%, rgb(249,211,78) 15%, rgb(233,207,100) 22%, rgb(222,201,116) 31%, rgb(230,210,125) 34%, rgb(255,237,150) 40%, rgb(255,241,173) 43%, rgb(255,240,166) 45%, rgb(244,225,139) 49%, rgb(238,207,44) 63%, rgb(246,221,84) 73%, rgb(227,202,52) 82%, rgb(200,190,71) 100%);
+                background: #f7cb52;
+				background: linear-gradient(115deg, #c4b763 0%, #fad34c 11%, #f9d34e 15%, #e9cf64 22%, #dec974 31%, #e6d27d 34%, #ffed96 40%, #fff1ad 43%, #fff0a6 45%, #f4e18b 49%, #eecf2c 63%, #f6dd54 73%, #e3ca34 82%, #c8be47 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
@@ -1288,8 +1169,8 @@ try {
             }
 
             .platinum {
-				background: rgb(225,233,236);
-				background: linear-gradient(115deg, rgb(228,233,236) 0%, rgb(228,241,242) 12%, rgb(223,231,233) 16%, rgb(209,219,221) 22%, rgb(218,224,226) 31%, rgb(215,220,222) 34%, rgb(237,242,242) 40%, rgb(236,241,244) 43%, rgb(234,242,242) 45%, rgb(232,235,236) 49%, rgb(223,231,232) 63%, rgb(236,241,241) 73%, rgb(230,236,237) 82%, rgb(199,210,212) 100%);
+				background: #e1e9ec;
+				background: linear-gradient(115deg, #e4e9ec 0%, #e4f1f2 12%, #dfe7e9 16%, #d1dbdd 22%, #dae0e2 31%, #d7dcde 34%, #edf2f2 40%, #ecf1f4 43%, #eaf2f2 45%, #e8ebec 49%, #dfe7e8 63%, #ecf1f1 73%, #e6eced 82%, #c7d2d4 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
@@ -1297,54 +1178,54 @@ try {
             }
 
             .sapphire {
-				background: rgb(229,238,255);
-				background: linear-gradient(115deg, rgb(229,238,255) 0%, rgb(154,154,255) 29%, rgb(242,243,255) 48%, rgb(200,216,254) 66%, rgb(220,227,255) 100%);
+				background: #e5eeff;
+				background: linear-gradient(115deg, #e5eeff 0%, #9a9aff 29%, #f2f3ff 48%, #c8d8fe 66%, #dce3ff 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
             .iridium {
-				background: rgb(219,182,244);
-				background: linear-gradient(115deg, rgb(231,213,242) 0%, rgb(238,224,249) 11%, rgb(227,213,242) 22%, rgb(233,219,244) 39%, rgb(239,228,247) 51%, rgb(245,237,251) 54%, rgb(229,212,242) 58%, rgb(220,198,235) 68%, rgb(226,210,236) 82%, rgb(232,209,242) 100%);
+				background: #dbb6f4;
+				background: linear-gradient(115deg, #e7d5f2 0%, #eee0f9 11%, #e3d5f2 22%, #e9dbf4 39%, #efe4f7 51%, #f5edfb 54%, #e5d4f2 58%, #dcc6eb 68%, #e2d2ec 82%, #e8d1f2 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
             .emerald {
-				background: rgb(218,255,213);
-				background: linear-gradient(115deg, rgb(218,255,213) 0%, rgb(148,246,141) 29%, rgb(230,255,227) 48%, rgb(181,255,177) 66%, rgb(144,238,143) 100%);
+				background: #daffd5;
+				background: linear-gradient(115deg, #daffd5 0%, #94f68d 29%, #e6ffe3 48%, #b5ffb1 66%, #90ee8f 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
             .ruby {
-				background: rgb(255,229,229);
-				background: linear-gradient(115deg, rgb(255,229,229) 0%, rgb(255,137,137) 29%, rgb(255,232,232) 48%, rgb(255,192,192) 66%, rgb(255,186,186) 100%);
+				background: #ffe5e5;
+				background: linear-gradient(115deg, #ffe5e5 0%, #ff8989 29%, #ffe8e8 48%, #ffc0c0 66%, #ffbaba 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
             .spinel {
-				background: rgb(255,207,237);
-				background: linear-gradient(115deg, rgb(255,207,237) 0%, rgb(255,160,208) 27%, rgb(255,240,250) 45%, rgb(255,230,247) 49%, rgb(255,186,215) 66%, rgb(255,150,203) 100%);
+				background: #ffcfed;
+				background: linear-gradient(115deg, #ffcfed 0%, #ffa0d0 27%, #fff0fa 45%, #ffe6f7 49%, #ffbad7 66%, #ff96cb 100%);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
 				-webkit-text-fill-color: transparent;
             }
-			
+
 			small#bruhCountFrame {
 				font-size: 90%;
 			}
-			
+
 			small#bruhCountFrame.silver {
 				filter: saturate(1.3) brightness(0.88) contrast(1.07);
 			}
@@ -1363,11 +1244,55 @@ try {
 				font-size: 90%;
 				filter: saturate(5) brightness(0.9) contrast(1.13) hue-rotate(335deg);
 			}
+			
+			span.counter {
+				font-family: monospace;
+				font-size: 95%;
+				border: 1px solid #777;
+				text-align: center;
+				display: inline-block;
+			}
+			
+			#loonaTimeS {
+				min-width: 6em;
+			}
+
+			#loonaTimeD {
+				min-width: 4em;
+			}
+
+			#loonaTimeW {
+				min-width: 4em;
+			}
+			
+			#mainLinks > a {
+				font-size: 110%;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" style="display: block; font-size:130%; line-height: 60%; padding-top: 5px;" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
+			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
+			<script>
+				var marquee = document.getElementById("headerMarquee");
+
+				if(reduceMotion) {
+					var oldMarqueeChildren = marquee.childNodes;
+					var newStaticHeader = document.createElement("p");
+					newStaticHeader.innerText = "helo this is my github page ";
+					newStaticHeader.classList.add("ot12");
+					newStaticHeader.setAttribute("id","headerMarquee");
+
+					var child = marquee.querySelector("span");
+					newStaticHeader.appendChild(child);
+
+					marquee.after(newStaticHeader);
+					document.getElementById("header").removeChild(marquee);
+
+					marquee = newStaticHeader
+				};
+			</script>
+
 			<small style="font-size: 50%">* and also Hinatazaka46 + f5ve + BINI</small></span></marquee>
 		</div>
 
@@ -1376,7 +1301,7 @@ try {
 			<p id="note"><em><small style="font-size: 80%">The birthday script on this version of the page is currently <span title="Missing: X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, and Yukika">incomplete</span>.</small></em></p>
 			<p id="opening">Hello. :3 I'm an <em>Orbit</em> and I really love Loona.<br/>
 			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under Blockberry Creative (BBC), their former agency. Not only do the <em>twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>
-			
+
 			As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. We should not let up until Blockberry's bankruptcy is confirmed. This does not apply to songs released under Modhaus, ATRP, CTD ENM, or Paix Per Mil.<br/>
 			i love all of the members and all of their songs too (and it's too hard to pick a bias <span class="hoverTest"> but my current bias line is <span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span>)</span><br/>
 			i love orbits<br/>
@@ -1384,26 +1309,28 @@ try {
 
 			<h1 class="ot12">my epic pages with great quality code</h1>
 				<p class="warning">Many of the links below are outdated because I forgot and/or didn't have the time to update them and I don't even know where to start. They should still work but are missing some things.</p></br>
-				<a href="random-loona.html" class="heejin">loona permuter</a> <em class="high-warning">Critically outdated</em><br/>
-				<a href="modded-char8/index.html" class="hyunjin">heavily modded char8.js</a> <em class="warning">Outdated</em><br/>
-				<a href="starbound.html" class="haseul">starbound color text renderer</a><br/>
-				<a href="mp3.html" class="yeojin">ersatz mp3 player</a> <em class="warning">Outdated</em><br/>
-				<a href="thirds.html" class="vivi">two-way extension of seconds and thirds</a><br/>
-				<a href="bbc.json" class="kimlip">(.json file) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
-				<a href="bbc.html" class="jinsoul">(html/click-to-copy) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
-				<a href="illions.html" class="choerry">Pseudo-Bowers illion name generator</a><br/>
-				<a href="urltoimg.html" class="yves">Dumb HTML image loader</a><br/>
-				<a href="eod-paths/index.html" class="chuu">EoD paths</a><br/>
-				<a href="sandboxels-mods.html" class="gowon">Sandboxels mods</a> <em class="high-warning">Critically outdated</em><br/>
-				<a href="sandboxels-worldgen.html" class="hyeju">Sandboxels worldgen</a><br/>
-				<a href="kep1er-chatgpt.html" class="third">ChatGPT Kep1er</a> <em class="warning">Outdated</em><br/>
-				<a href="bookmarklets.html" class="circle">JS bookmarklets</a><br/>
-				<a href="roman.html" class="youth">Roman numeral thing</a><br/>
-				<a href="R74moji.html" class="ot12">R74moji renderer</a><br/>
-				<a href="discord-vertical-text.html" class="heejin">Sideways Discord text generator</a><br/>
-				<a href="adder.html" class="hyunjin">Quick number summer</a><br/>
-				<a href="niji.html" class="haseul">Online Niji keyboard</a><br/>
-				<a href="test-numbers.html" class="yeojin">Test numerals</a><br/>
+				<div id="mainLinks">
+					<a href="random-loona.html" class="heejin">loona permuter</a> <em class="high-warning">Critically outdated</em><br/>
+					<a href="modded-char8/index.html" class="hyunjin">heavily modded char8.js</a> <em class="warning">Outdated</em><br/>
+					<a href="starbound.html" class="haseul">starbound color text renderer</a><br/>
+					<a href="mp3.html" class="yeojin">ersatz mp3 player</a> <em class="warning">Outdated</em><br/>
+					<a href="thirds.html" class="vivi">two-way extension of seconds and thirds</a><br/>
+					<a href="bbc.json" class="kimlip">(.json file) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+					<a href="bbc.html" class="jinsoul">(html/click-to-copy) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+					<a href="illions.html" class="choerry">Pseudo-Bowers illion name generator</a><br/>
+					<a href="urltoimg.html" class="yves">Dumb HTML image loader</a><br/>
+					<a href="eod-paths/index.html" class="chuu">EoD paths</a><br/>
+					<a href="sandboxels-mods.html" class="gowon">Sandboxels mods</a> <em class="high-warning">Critically outdated</em><br/>
+					<a href="sandboxels-worldgen.html" class="hyeju">Sandboxels worldgen</a><br/>
+					<a href="kep1er-chatgpt.html" class="third">ChatGPT Kep1er</a> <em class="warning">Outdated</em><br/>
+					<a href="bookmarklets.html" class="circle">JS bookmarklets</a><br/>
+					<a href="roman.html" class="youth">Roman numeral thing</a><br/>
+					<a href="R74moji.html" class="ot12">R74moji renderer</a><br/>
+					<a href="discord-vertical-text.html" class="heejin">Sideways Discord text generator</a><br/>
+					<a href="adder.html" class="hyunjin">Quick number summer</a><br/>
+					<a href="niji.html" class="haseul">Online Niji keyboard</a><br/>
+					<a href="test-numbers.html" class="yeojin">Test numerals</a><br/>
+				</div>
 
 			<h1 class="ot12">not epic code</h1>
 				<h2 class="third">groups:</h2>
@@ -1422,20 +1349,18 @@ try {
 				</p>
 				<!--like -->
 				<span class="yeojin">DNI: antis; akgaes; <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em>; people who blame NewJeans for actions they take as a result of being groomed <small>(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; <s>people who refuse to shower</s></span><br/>
-				<span class="circle">i have stanned loona for about <span id="loonaTimeS">63 million</span> seconds (about <span id="loonaTimeD">731</span> days, or <span id="loonaTimeW">104</span> weeks)</span><br/>
+				<span class="circle">i have stanned loona for about <span class="counter" id="loonaTimeS">63 million</span> seconds (about <span class="counter" id="loonaTimeD">731</span> days, or <span class="counter" id="loonaTimeW">104</span> weeks)</span><br/>
 
 				<h2 class="circle">buttons:</h2>
 					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
 
 			<br/>
-			<button class="hiddenbutton blink" onclick="dumbBruh(); countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display: none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</span><br/>
+			<button class="hiddenbutton blink" onclick="dumbBruh(); countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display: none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</small><br/>
 		</div>
 		<script>
-			/*checking dates in non-local timezones is a bit complicated*/
-			if(new Date().toLocaleString("en-US", {timeZone: "Asia/Seoul"}).startsWith("4/19")) {
-				document.body.style["background-color"] = "#300436"
-			} else {
-				document.body.style["background-color"] = "#000000"
+			// moonbin's death was still fresh on our minds at around the time this site went up
+			if((new Date().toLocaleString("en-US", {timeZone: "Asia/Seoul"}).startsWith("4/19")) || (new Date().toLocaleString("en-US").startsWith("4/19"))) {
+				document.body.classList.add("moonbin");
 			};
 		</script>
 
