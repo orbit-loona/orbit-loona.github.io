@@ -28,185 +28,185 @@
 		function ([A-Za-z0-9_\$]+)(\([^\)]*\)) ?\{
 		function \1\2\{console.log\("\1"\);
 	*/
-	urlParams=new URLSearchParams(window.location.search);
+	urlParams=new URLSearchParams(window.location.search)
 
-	var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var reduceMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches
 
-try {
+try{
 
 function dumbBruh(){
-	try {
-		var audio=new Audio("bin/bruh.mp3");
+	try{
+		var audio=new Audio("bin/bruh.mp3")
 		audio.onended=function(){
-			delete(this);
-		};
-		audio.play();
-	} catch (error){
-		alert("Could not play bruh sound");
-		return false;
-	};
-	return true;
-};
+			delete(this)
+		}
+		audio.play()
+	}catch (error){
+		alert("Could not play bruh sound")
+		return false
+	}
+	return true
+}
 
-bruhs=0n;
+bruhs=0n
 
-//Modified from code by FishBasketGordo on StackOverflow: https://stackoverflow.com/a/7033705
+//Modified from code by FishBasketGordo on StackOverflow:https://stackoverflow.com/a/7033705
 function splitStringIntoChunks(str,chunkSize,FCS=null){
-	var chunks=[];
-	var chunkIsFirst=true;
+	var chunks=[]
+	var chunkIsFirst=true
 	for(i=str.length-1;i>=0;i--){
 		var ECS;//ECS=effectiveChunkSize
-		if((FCS!==null)&&(FCS!==chunkSize)&&chunkIsFirst){ //FCS=firstChunkSize
+		if((FCS!==null)&&(FCS!==chunkSize)&&chunkIsFirst){//FCS=firstChunkSize
 			ECS=FCS
-		} else {
+		}else{
 			ECS=chunkSize
-		};
+		}
 
-		if (str.length < ECS){
+		if(str.length<ECS){
 			if(str.length>0){
 				chunks.push(str)
-			};
-			break;
+			}
+			break
 		}
-		else {
-			chunks.push(str.substr(-ECS));
-			str=str.substr(0,str.length-ECS);
+		else{
+			chunks.push(str.substr(-ECS))
+			str=str.substr(0,str.length-ECS)
 		}
-		chunkIsFirst=false;
-	};
-	chunks.reverse();
+		chunkIsFirst=false
+	}
+	chunks.reverse()
 	return chunks
-};
+}
 
 function bigintCommas(bigint,separator=",",chunkSize=3,FCS=null){
-	var wasNegative=(bigint < 0n)
-	var string=bigint.toString();
-	if(string.startsWith("-")){ string=string.slice(1) };
-	string=splitStringIntoChunks(string,chunkSize,FCS).join(separator);
-	if(wasNegative){ string="-"+string };
+	var wasNegative=(bigint<0n)
+	var string=bigint.toString()
+	if(string.startsWith("-")){string=string.slice(1)}
+	string=splitStringIntoChunks(string,chunkSize,FCS).join(separator)
+	if(wasNegative){string="-"+string}
 	return string
-};
+}
 
 function countBruh(){
-	bruhs??=0n;
-	bruhs+=1n;
+	bruhs??=0n
+	bruhs+=1n
 
-	var bd=document.getElementById("bruhCountFrame");//bruhDisplay
-	var bruhCounter=document.getElementById("bruhCount");
-	var bruhS=document.getElementById("bruhsPlural");
+	var bd=gebi("bruhCountFrame");//bruhDisplay
+	var bruhCounter=gebi("bruhCount")
+	var bruhS=gebi("bruhsPlural")
 
 	if(bruhs===1n){
 		bd.style.removeProperty("display")
-	};
+	}
 
 	if(bd){
 		if(bruhCounter){
-			bruhCounter.innerText=bigintCommas(bruhs);
+			bruhCounter.innerText=bigintCommas(bruhs)
 		}
 
 		var scoreBruhs=bruhs-50n;//not shifting all of those values down
 
 		if(scoreBruhs===0n){
 			bd.classList.add("amethyst")
-		} else if(scoreBruhs===50n){
+		}else if(scoreBruhs===50n){
 			bd.classList.add("silver")
 			bd.classList.remove("amethyst")
-		} else if(scoreBruhs===200n){
+		}else if(scoreBruhs===200n){
 			bd.classList.add("diamond")
 			bd.classList.remove("silver")
-		} else if(scoreBruhs===450n){
+		}else if(scoreBruhs===450n){
 			bd.classList.add("gold")
 			bd.classList.remove("diamond")
-		} else if(scoreBruhs===950n){
+		}else if(scoreBruhs===950n){
 			bd.classList.add("platinum")
 			bd.classList.remove("gold")
-		} else if(scoreBruhs===1950n){
+		}else if(scoreBruhs===1950n){
 			bd.classList.add("sapphire")
 			bd.classList.remove("platinum")
-		} else if(scoreBruhs===2950n){
+		}else if(scoreBruhs===2950n){
 			bd.classList.add("iridium")
 			bd.classList.remove("sapphire")
-		} else if(scoreBruhs===4950n){
+		}else if(scoreBruhs===4950n){
 			bd.classList.add("emerald")
 			bd.classList.remove("iridium")
-		} else if(scoreBruhs===9950n){
-			bd.classList.add("ruby") //not yeojin
+		}else if(scoreBruhs===9950n){
+			bd.classList.add("ruby")//not yeojin
 			bd.classList.remove("emerald")
-		} else if(scoreBruhs===14950n){
+		}else if(scoreBruhs===14950n){
 			bd.classList.add("spinel")
 			bd.classList.remove("ruby")
-		};
+		}
 
 		if(bruhS){
 			if(bruhs===1n){
 				bruhS.innerText=""
-			} else if(bruhs===2n){
+			}else if(bruhs===2n){
 				bruhS.innerText="s"
 			}
 		}
-	};
+	}
 
-	return bruhs;
-};
+	return bruhs
+}
 
 function tryJoin(stringOrArray,joiner){
-	if(typeof(stringOrArray)==="string"){ return stringOrArray };
-	if(Array.isArray(stringOrArray)){ return stringOrArray.join(joiner) };
-	if((Object.prototype.toString.call(stringOrArray).split(" ")[1]??"")=="Object]"){ return JSON.stringify(stringOrArray) };
+	if(typeof(stringOrArray)==="string"){return stringOrArray}
+	if(Array.isArray(stringOrArray)){return stringOrArray.join(joiner)}
+	if((Object.prototype.toString.call(stringOrArray).split(" ")[1]??"")=="Object]"){return JSON.stringify(stringOrArray)}
 	return stringOrArray.toString()
-};
+}
 
-loonaStartUnix=1661127423000;
+loonaStartUnix=1661127423000
 /*video length from debug data has millisecond precision (215.201),
 but reddit comments are only have second precision from the API (as
 1661127638.0 except that the decimal is always 0)*/
 function secondsSinceLoona(formatString=false){
-	return Math.floor((new Date().getTime()-loonaStartUnix) / 1000);
-};
+	return Math.floor((new Date().getTime()-loonaStartUnix)/1000)
+}
 
 function updateLoonaTime(){
-	var textSeconds=document.getElementById("loonaTimeS");
-	var textDays=document.getElementById("loonaTimeD");
-	var textWeeks=document.getElementById("loonaTimeW");
-	var valueS=secondsSinceLoona();
-	var valueD=valueS / 86400;
-	var valueW=valueD / 7;
-	valueD=Math.round(valueD * 1000) / 1000;
-	valueW=Math.round(valueW * 1000) / 1000;
+	var textSeconds=gebi("loonaTimeS")
+	var textDays=gebi("loonaTimeD")
+	var textWeeks=gebi("loonaTimeW")
+	var valueS=secondsSinceLoona()
+	var valueD=valueS/86400
+	var valueW=valueD/7
+	valueD=Math.round(valueD*1000)/1000
+	valueW=Math.round(valueW*1000)/1000
 	if(textSeconds){
 		textSeconds.innerText=valueS.toLocaleString('en-US')
-	};
+	}
 	if(textDays){
 		textDays.innerText=valueD.toLocaleString('en-US')
-	};
+	}
 	if(textWeeks){
 		textWeeks.innerText=valueW.toLocaleString('en-US')
-	};
-};
+	}
+}
 
-var placeholderColor="#E6E6E6";
+var placeholderColor="#E6E6E6"
 
 function HCCLGCG(colorArray){
-	var colorCount=colorArray.length;
-	var fractionUnitPercent=100/colorCount;
-	var tinyTransitionWidthPercent=fractionUnitPercent/2000;
-	var gradientString="linear-gradient(to right,";
-	var percent=0;
-	for(var i=0;i < colorCount;i++){
-		var color=colorArray[i];
-		gradientString+=`${color} ${percent}%, `;
-		percent+=(fractionUnitPercent-tinyTransitionWidthPercent);
-		gradientString+=`${color} ${percent}%${i>=(colorCount-1)?")":","} `;
-		percent+=(tinyTransitionWidthPercent * colorCount);
-	};
+	var colorCount=colorArray.length
+	var fractionUnitPercent=100/colorCount
+	var tinyTransitionWidthPercent=fractionUnitPercent/2000
+	var gradientString="linear-gradient(to right,"
+	var percent=0
+	for(var i=0;i<colorCount;i++){
+		var color=colorArray[i]
+		gradientString+=`${color} ${percent}%, `
+		percent+=(fractionUnitPercent-tinyTransitionWidthPercent)
+		gradientString+=`${color} ${percent}% ${i>=(colorCount-1)?")":","}`
+		percent+=(tinyTransitionWidthPercent*colorCount)
+	}
 	return gradientString
-};
+}
 
 //Color code smh (minified)
-function CCF(r,e="rgb",a=!1){if(void 0===r)throw new Error("Color is undefined!");var t,o,n,u,l,s=r;if("string"==typeof r)if(/^#?[A-Za-z0-9]{1,8}$/.test(s)){switch(r.startsWith("#")&&(s=s.match(/[A-Za-z0-9]{1,8}/)[0]),s.length){case 0:throw new Error("CCF: Hex input but bytes are missing?");case 1:s=s.repeat(6);break;case 2:s=s[0].repeat(6)+s[1].repeat(2);break;case 3:case 4:s=s.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("");break;case 5:var g=s.slice(0,3),c=s.slice(3,5);s=g.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("")+alpha;case 7:g=s.slice(0,6),c=s.slice(6,7);s=g+c.repeat(2)}r={r:o=(t=s.toLowerCase().match(/[a-z0-9]{2}/g).map((r=>parseInt(r,16))))[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)}else t=r.match(/[\d\.]+/g),void 0===t?.map?(console.log(t),t=[255,0,255]):t=t.map((r=>Number(r))),r={r:o=t[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l);else Array.isArray(r)?(r={r:o=(t=r)[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)):"object"==typeof r&&(o=r.r,n=r.g,u=r.b,l=a?null:r.a??null);switch(null!==l&&(l/=255),e.toLowerCase()){case"rgb":case"rgba":var i;m=o,p=n,v=u,h="number"==typeof l?l:null,i=a||null==h?[m,p,v]:[m,p,v,h];for(var b=0;b<=2;b++)i[b]=Math.round(i[b]);return("number"==typeof l?"rgba":"rgb")+`(${i.join(",")})`;case"hex":var m,p,v,h;return m=o,p=n,v=u,h="number"==typeof l?Math.round(255*l):null,"#"+(a||null==h?[m,p,v]:[m,p,v,h]).map((r=>Math.round(r).toString(16).padStart(2,"0"))).join("");case"json":return r;case"array":return Object.values(r);default:throw new Error('O must be "rgb", "hex", "json", or "array"')}}function RHC(r){return CCF(r,"rgb")}function ARPCA(r,e=!1){var a=[],t=[],o=[];for(k=0;k<r.length;k++){var n=CCF(r[k]);n=n.split(",");var u=parseFloat(n[0].substring(4));a.push(u);var l=parseFloat(n[1]);t.push(l);var s=parseFloat(n[2].slice(0,-1));o.push(s)}return RA=Math.round(ANA(a)),GA=Math.round(ANA(t)),BA=Math.round(ANA(o)),e?{r:RA,g:GA,b:BA}:`rgb(${RA},${GA},${BA})`}function ANA(r){return r.reduce(A2N,0)/r.length}function A2N(r,e){return r+e}
+function CCF(r,e="rgb",a=!1){if(void 0===r)throw new Error("Color is undefined!");var t,o,n,u,l,s=r;if("string"==typeof r)if(/^#?[A-Za-z0-9]{1,8}$/.test(s)){switch(r.startsWith("#")&&(s=s.match(/[A-Za-z0-9]{1,8}/)[0]),s.length){case 0:throw new Error("CCF:Hex input but bytes are missing?");case 1:s=s.repeat(6);break;case 2:s=s[0].repeat(6)+s[1].repeat(2);break;case 3:case 4:s=s.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("");break;case 5:var g=s.slice(0,3),c=s.slice(3,5);s=g.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("")+alpha;case 7:g=s.slice(0,6),c=s.slice(6,7);s=g+c.repeat(2)}r={r:o=(t=s.toLowerCase().match(/[a-z0-9]{2}/g).map((r=>parseInt(r,16))))[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)}else t=r.match(/[\d\.]+/g),void 0===t?.map?(console.log(t),t=[255,0,255]):t=t.map((r=>Number(r))),r={r:o=t[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l);else Array.isArray(r)?(r={r:o=(t=r)[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)):"object"==typeof r&&(o=r.r,n=r.g,u=r.b,l=a?null:r.a??null);switch(null!==l&&(l/=255),e.toLowerCase()){case"rgb":case"rgba":var i;m=o,p=n,v=u,h="number"==typeof l?l:null,i=a||null==h?[m,p,v]:[m,p,v,h];for(var b=0;b<=2;b++)i[b]=Math.round(i[b]);return("number"==typeof l?"rgba":"rgb")+`(${i.join(",")})`;case"hex":var m,p,v,h;return m=o,p=n,v=u,h="number"==typeof l?Math.round(255*l):null,"#"+(a||null==h?[m,p,v]:[m,p,v,h]).map((r=>Math.round(r).toString(16).padStart(2,"0"))).join("");case"json":return r;case"array":return Object.values(r);default:throw new Error('O must be "rgb", "hex", "json", or "array"')}}function RHC(r){return CCF(r,"rgb")}function ARPCA(r,e=!1){var a=[],t=[],o=[];for(k=0;k<r.length;k++){var n=CCF(r[k]);n=n.split(",");var u=parseFloat(n[0].substring(4));a.push(u);var l=parseFloat(n[1]);t.push(l);var s=parseFloat(n[2].slice(0,-1));o.push(s)}return RA=Math.round(ANA(a)),GA=Math.round(ANA(t)),BA=Math.round(ANA(o)),e?{r:RA,g:GA,b:BA}:`rgb(${RA},${GA},${BA})`}function ANA(r){return r.reduce(A2N,0)/r.length}function A2N(r,e){return r+e}
 //Color code over
 
-var S={ //S;Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
+var S={//S;Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
 	R:"400",	//Red
 	Gn:"030",	//Green
 	Gy:"222",	//Gray
@@ -223,19 +223,15 @@ var S={ //S;Left over from before I found the anosaka.com H46 color list, but I'
 	Br:"210",	//Brown
 	L:"140",	//Lime
 	M:"404"		//Magenta
-};
-
+}
 for(var key in S){
-	var code=S[key];
-	code=code.split("").map(x => (Math.min(255,Math.max(0,(parseInt(x * 64)-1))).toString(16)).padStart(2,"0"));
+	var code=S[key]
+	code=code.split("").map(x=> (Math.min(255,Math.max(0,(parseInt(x*64)-1))).toString(16)).padStart(2,"0"))
 	S[key]=`#${code.join("")}`
-};
-
-S.Pk="#FF9FFF";
-
-missingTexture=[S.Bk,S.M,S.Bk,S.M,S.Bk,S.M,S.Bk,S.M];
-
-var H={ //hinataColors
+}
+S.Pk="#FF9FFF"
+missingTexture=[S.Bk,S.M,S.Bk,S.M,S.Bk,S.M,S.Bk,S.M]
+var H={//hinataColors
 	P:"#b384ff",
 	Y:"#ffd900",
 	B:"#0095d9",
@@ -249,9 +245,11 @@ var H={ //hinataColors
 	G:"#3eb370",
 	T:"#40e0d0",
 	SB:"#a0d8ef"
-};
-
-var G={ //groupShort
+}
+var C={
+	NC:"#caff00"
+}
+var G={//groupShort
 	gi:"(G)I-DLE",
 	tn:"2NE1",
 	ae:"aespa",
@@ -295,8 +293,14 @@ var G={ //groupShort
 	ma:"Miss A",
 	mo:"Momoland",
 	na:"Nature",
+	nc:"NCT",
+	nd:"NCT Dream",
+	ng:"NCT DoJaeJung",
 	nj:"NewJeans",
 	nm:"NMIXX",
+	no:"NCT 127",
+	nu:"NCT U",
+	nw:"NCT Wish",
 	og:"Oh My Girl",
 	pf:"Pink Fantasy",
 	px:"Pixy",
@@ -314,12 +318,12 @@ var G={ //groupShort
 	wm:"Weki Meki",
 	wj:"WJSN",
 	wg:"Wonder Girls",
-	wa:"woo!ah!"
+	wa:"woo!ah!",
+	wv:"WayV"
 }
-
-ID={ //idolBdData
+ID={//idolBdData
 	//izna is pre-debut
-	"01-01":{e:"Winter",c:"#d1ddec",g:G.ae,y:21},
+	"01-01":[{e:"Winter",c:"#d1ddec",g:G.ae,y:21},{e:"Kun",g:[G.nc,G.wv],c:"#7ac9ab",y:16}],
 	"02-01":{e:"Yuji",c:"#c00",g:G.ex,y:11},
 	"03-01":[{e:"Jisoo",c:"#9f00bf",g:G.bp,y:15},{e:G.kp,c:["#c1a7e2",S.W],i:true,y:42}],
 	"05-01":{e:"Karin",c:"#ee1289",g:G.al,y:22},
@@ -333,7 +337,8 @@ ID={ //idolBdData
 	"13-01":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#f9c",g:G.bl,y:21}],
 	"14-01":{e:"Aurora",c:S.Pp,g:G.na,y:17},
 	"15-01":[{e:"Suhyeon",c:"#3fc460",g:G.bl,y:20},{e:"Noh Yunah",c:"#ffcf70",g:G.il,y:24},{e:"Shimizu Rio",c:[H.PG,H.O],g:G.hz,y:25}],
-	"16-01":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35}], //FUCK SOURCE MUSIC
+	"16-01":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35}],//FUCK SOURCE MUSIC
+	"17-01":{e:G.wv,c:C.NC,y:39},
 	"18-01":[{e:"Minzy",c:"#c36ce6",g:G.tn,y:14},{e:"Tomita Suzuka",c:H.P,g:G.hz,y:21}],
 	"20-01":[{e:"Kim Chaewon",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
 	"21-01":{e:G.cb,c:"#ee2b2b",i:true,y:39},
@@ -346,35 +351,36 @@ ID={ //idolBdData
 	"28-01":{e:"Sheon",c:"#f90",g:G.bl,y:23},
 	"30-01":[{e:"Haruna",c:"#0997de",g:G.bl,y:26},{e:"Yuki",c:"#7400db",g:G.sd,y:22},{e:"Saebom",c:S.R,g:G.na,y:17}],
 	"31-01":{e:"Miyeon",c:S.Bk,g:G.gi,y:17},
-	"01-02":{e:"Jihyo",c:"#fac857",g:G.tw,y:17},
+	"01-02":[{e:"Jihyo",c:"#fac857",g:G.tw,y:17},{e:"Doyoung",g:[G.nc,G.no,G.ng],c:"#0066ff",y:16}],
 	"02-02":[{e:"Do-A",c:"#c0f",g:G.al,y:19},{e:"Victoria",c:S.R,g:G.fx,y:7},{e:"Kato Shiho",c:H.B,g:G.hz,y:18}],
 	"03-02":[{e:"Gahyun",c:"#ba09bf",g:G.dc,y:19},{e:"Rei",c:"#69c32d",g:G.iv,y:24},{e:G.cg,c:"#b00309",i:true,y:40},{e:"Gong Yubin",c:"#ffe3e2",g:G.ts,y:25},{e:"Jia",c:"#68b47e",g:G.ma,y:9},{e:"Seungmin",c:"#0f0",g:G.ht,y:16}],
 	"04-02":{e:"Iroha",c:"#4791ff",g:G.il,y:28},
-	"05-02":[{e:"Kim Minju",c:S.W,g:G.io,y:21},{e:"Hyunjoo",c:"#64bec1",g:G.ap,y:18},{e:"Taehyun",c:S.Y,g:G.tt,y:22}],
+	"05-02":[{e:"Kim Minju",c:S.W,g:G.io,y:21},{e:"Hyunjoo",c:"#64bec1",g:G.ap,y:18},{e:"Taehyun",c:S.Y,g:G.tt,y:22},{e:"Jisung",g:[G.nc,G.nd],c:"#e41662",y:22}],
 	"06-02":{e:"Luda",c:"#ffdc00",g:G.wj,y:17},
 	"07-02":[{e:"Sunn",c:"#ffadad",g:G.cg,y:20},{e:"Watanabe Rina",c:[H.P,H.SP],g:G.hz,y:29}],
-	"09-02":[{e:"Yooyeon",c:"#db0c74",g:G.ts,y:21},{e:G.vv,c:[S.Pp,S.Bl,S.R],i:true,y:42}],
+	"09-02":[{e:"Yooyeon",c:"#db0c74",g:G.ts,y:21},{e:G.vv,c:[S.Pp,S.Bl,S.R],i:true,y:42},{e:"Johnny",g:[G.nc,G.no],c:"#99cccc",y:15}],
 	"10-02":[{e:"Kim Lip",c:"#ea0201",g:G.ln,y:19},{e:"Sooyoung",c:"#ff5ccd",g:G.gg,y:10},{e:"Son Naeun",c:"#c4b36b",g:G.ak,y:14},{e:"Seulgi",c:"#fffb00",g:G.rv,y:14},{e:G.wg,c:"#ad2a70",i:true,y:27}],
-	"11-02":[{e:"Rose'",c:"#005eff",g:G.bp,y:17},{e:"Wooyeon",c:"#78fc4c",g:G.wa,y:23}], //The font I'm using here sadly does not support accents (é)
+	"11-02":[{e:"Rose'",c:"#005eff",g:G.bp,y:17},{e:"Wooyeon",c:"#78fc4c",g:G.wa,y:23}],//The font I'm using here sadly does not support accents (é)
 	"12-02":{e:G.it,c:S.M,i:true,y:39},
 	"13-02":[{e:"Jiyeon",c:"#ffab62",g:G.ts,y:24},{e:G.ts,c:S.Bk,i:true,y:43},{e:"Chohee",c:"#ff2d2d",g:G.sd,y:21}],
-	"14-02":{e:"Shogenji Yoko",c:[H.O,H.R],g:G.hz,y:27},
+	"14-02":[{e:"Shogenji Yoko",c:[H.O,H.R],g:G.hz,y:27},{e:"Jaehyun",g:[G.nc,G.no,G.ng],c:"#cccc00",y:17}],
 	"15-02":{e:"Nibu Akari",c:H.O,g:G.hz,y:21},
 	"16-02":[{e:"Siyoon",c:S.Y,g:G.bl,y:25},{e:G.ex,c:["#f9eecf","#e6678e","#6663ad"],i:true,y:32}],
+	"19-02":{e:"Jungwoo",g:[G.nc,G.no,G.ng],c:"#58acfa",y:18},
 	"20-02":{e:"Takeuchi Kirari",c:[H.Y,H.R],g:G.hz,y:26},
-	"21-02":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20}],
-	//floria might just be the most underdeveloped, barely-existent, unfinished, MISMANAGED group ever... wdym 2 of the members were never even in a song? f*** you dk entertainment, see you in hell...
-	"22-02":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}], //Lola=Choi Yoojung
+	"21-02":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20},{e:G.nw,c:C.NC,y:44}],
+	//floria might just be the most underdeveloped, barely-existent, unfinished, MISMANAGED group ever... wdym 2 of the members were never even in a song?f***you dk entertainment, see you in hell...
+	"22-02":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}],//Lola=Choi Yoojung
 	"23-02":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24}],
 	"24-02":[{e:"Choi Sua",c:S.Y,g:G.px,y:23},{e:G.px,i:true,y:41},{e:"Watanabe Miho",g:G.hz,y:20}],
 	"25-02":[{e:"Haewon",c:S.W,g:G.nm,y:23},{e:G.wj,c:["#ffa18a","#003580","#d9d6d1"],i:true,y:36}],
 	"26-02":{e:"CL",c:"#e2d989",g:G.tn,y:11},
-	"27-02":{e:"Satbyeol",c:S.W,g:G.px,y:21},
+	"27-02":[{e:"Satbyeol",c:S.W,g:G.px,y:21},{e:"Ten",g:[G.nc,G.wv],c:"#9e793e",y:16}],
 	"28-02":{e:"Yunha",c:"#0098c2",g:G.un,y:29},
 	"01-03":{e:G.fv,i:true,y:43},
 	"02-03":[{e:"Dayeon",c:"#6496eb",g:G.kp,y:23},{e:"Jiyoon",c:"#f4da40",g:G.we,y:22}],
 	"03-03":[{e:"Chorong",c:"#e60056",g:G.ak,y:11},{e:"Bora",c:"#7acde9",g:G.cb,y:19}],
-	"04-03":[{e:"Geumhee",c:"#04ad57",g:G.cs,y:25},{e:G.tt,c:S.Bl,i:true,y:39}], //cant figure out wtf is going on w/ txt's colors so i'm using the iems and making txt blue
+	"04-03":[{e:"Geumhee",c:"#04ad57",g:G.cs,y:25},{e:G.tt,c:S.Bl,i:true,y:39}],//cant figure out wtf is going on w/txt's colors so i'm using the iems and making txt blue
 	"05-03":[{e:"Choi Yuju",c:"#860494",g:G.cb,y:17},{e:"Yeri",c:"#9f1fbf",g:G.rv,y:19}],
 	"07-03":[{e:"Dami (Lee Yubin)",c:"#fff40f",g:G.dc,y:17},{e:"Eunjo",c:"#56ff59",g:G.dn,y:22}],
 	"09-03":[{e:"Taeyeon",c:"#6495ed",g:G.gg,y:9},{e:"Seo Soojin",c:"#f7988d",g:G.gi,y:18},{e:"Nana (Kwon Nayeon)",c:"#fc7eaa",g:G.wa,y:21}],
@@ -385,9 +391,10 @@ ID={ //idolBdData
 	"14-03":{e:"Soso",c:"#00dd93",g:G.gw,y:21},
 	"17-03":{e:"Suyun",c:"#ff3232",g:G.rp,y:21},
 	"18-03":[{e:G.eg,c:"#d1b4cb",i:true,y:39},{e:"Jaehee",c:"#a37fff",g:G.we,y:24}],
-	"19-03":[{e:"Sakura",c:["#f1d2e7",S.Pk],g:[G.io,G.ls],y:18},{e:G.cl,c:["#840b55","#ffcd00","#005f61"],i:true,y:35}], //leave sakura alone
+	"19-03":[{e:"Sakura",c:["#f1d2e7",S.Pk],g:[G.io,G.ls],y:18},{e:G.cl,c:["#840b55","#ffcd00","#005f61"],i:true,y:35}],//leave sakura alone
 	"20-03":{e:"Park Jiwon",c:"#86ab11",g:G.fr,y:18},
 	"21-03":{e:"Park Minseo",c:"#00ff8c",g:G.sd,y:23},
+	"23-03":{e:"Renjun",g:[G.nc,G.nd],c:"#ffff00",y:20},
 	"24-03":[{e:"Mina",c:"#6fc5c2",g:G.tw,y:17},{e:"Bom",c:"#76d4ae",g:G.tn,y:4},{e:"Yang Sua",c:"#9b8d4f",g:G.ht,y:15}],
 	"25-03":{e:G.il,c:"#dcb4fb",i:true,y:44},
 	"26-03":[{e:"Handong",c:S.Bk,g:G.dc,y:16},{e:"Mirae",c:"#b94ad6",g:G.cb,y:18},{e:"An Seoyeon",c:"#f6620f",g:G.cs,y:25},{e:"Ella",c:"#cf004f",g:G.px,y:18},{e:G.rs,i:true,y:44}],
@@ -396,7 +403,8 @@ ID={ //idolBdData
 	"01-04":{e:"Jeewon",c:"#009994",g:G.cg,y:19},
 	"03-04":[{e:"Park Shion",c:"#ff428a",g:G.ts,y:26},{e:"Jo Ara",c:"#ff0040",g:G.fl,y:21}],
 	"04-04":{e:"Jiho",c:"#ca3435",g:G.og,y:17},
-	"09-04":[{e:"Lucy (Kim Daeun)",c:"#fc3535",g:G.wa,y:24},{e:"Hiraoka Mitsuki",c:[H.B,H.Y],g:G.hz,y:22}],
+	"05-04":{e:"Yushi",g:[G.nc,G.nw],c:S.Bl,y:24},
+	"09-04":[{e:"Lucy (Kim Daeun)",c:"#fc3535",g:G.wa,y:24},{e:"Hiraoka Mitsuki",c:[H.B,H.Y],g:G.hz,y:22},{e:G.nu,c:C.NC,y:36}],
 	"10-04":[{e:"Semi",c:"#ba63f7",g:G.cg,y:22},{e:"Hayeon (Su Hyeon)",c:"#bd77ff",g:G.fl,y:22}],
 	"11-04":[{e:"Danielle",c:"#0e0",g:G.nj,y:25},{e:"Karina",c:"#a82ce6",g:G.ae,y:20}],
 	"12-04":[{e:"Jeong Hyerin",c:"#9200ff",g:G.ts,y:27},{e:"Lynn",c:"#ac62b7",g:G.ts,y:26},{e:"Ruri",c:"#deb6f0",g:G.fv,y:16},{e:"Kamimura Hinano",c:[H.R,H.EG],g:G.hz,y:24}],
@@ -404,12 +412,12 @@ ID={ //idolBdData
 	"14-04":{e:"Yoon",c:"#32cd32",g:G.st,y:24},
 	"15-04":{e:"Namjoo",c:"#cb6cb0",g:G.ak,y:15},
 	"16-04":[{e:"Jinni",c:"#c9f",g:G.nm,y:24},{e:"Seokyoung",c:"#c73aff",g:G.gw,y:19}],
-	"17-04":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22}],
+	"17-04":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22},{e:G.ng,c:C.NC,y:43}],
 	"18-04":[{e:"Jessica",c:"#d10056",g:G.gg,y:9},{e:"Elisia",c:"#c26400",g:G.un,y:29},{e:"Ryu Sarang",c:"#f7e58a",g:G.iz,y:27}],
 	"19-04":{e:G.ak,c:"#e889b1",i:true,y:31},
 	"20-04":{e:"Ji Suyeon",c:"#987654",g:G.wm,y:17},
 	"21-04":[{e:"Hyein",c:"#1f5fff",g:G.nj,y:28},{e:G.og,c:["#eea8cc","#a2dbee","#efe59d"],i:true,y:35}],
-	"23-04":[{e:"Son Chaeyoung",c:"#e81933",g:G.tw,y:19},{e:"Iimura Yuna",c:"#6f43a4",g:G.cs,y:25}],
+	"23-04":[{e:"Son Chaeyoung",c:"#e81933",g:G.tw,y:19},{e:"Iimura Yuna",c:"#6f43a4",g:G.cs,y:25},{e:"Jeno",g:[G.nc,G.nd],c:"#ff4d00",y:20}],
 	"24-04":{e:"YOUI",c:"#ff5656",g:G.dn,y:20},
 	"26-04":[{e:"Chaehyun",c:"#ffb7ce",g:G.kp,y:22},{e:"Remi",c:"#b3f96b",g:G.cb,y:21},{e:"Daesung",g:G.bb,c:"#669",y:9}],
 	"27-04":[{e:"Fei",c:"#9957a7",g:G.ma,y:7},{e:"Matsuda Konoka",c:[H.SP,H.PG],g:G.hz,y:19}],
@@ -424,7 +432,7 @@ ID={ //idolBdData
 	"08-05":[{e:"Junghwa",c:"#c9c",g:G.ex,y:15},{e:"Bang Jeemin",c:"#4051ad",g:G.iz,y:25},{e:"Kageyama Yuka",c:H.R,g:G.hz,y:21}],
 	"09-05":{e:"Sheena",c:"#5a3a63",g:G.bn,y:24},
 	"10-05":{e:"Monday",c:"#415dff",g:G.we,y:22},
-	"11-05":{e:"Park Minju",c:"#ba4545",g:G.il,y:24},
+	"11-05":[{e:"Park Minju",c:"#ba4545",g:G.il,y:24},{e:"Sion",g:[G.nc,G.nw],c:S.Pp,y:22}],
 	"12-05":{e:"Mayu",c:"#fe8e76",g:G.ts,y:22},
 	"14-05":[{e:"Lee Chaeyoung",c:"#23f854",g:G.fr,y:20},{e:"Dayoung",c:"#e80000",g:G.wj,y:19}],
 	"15-05":[{e:"Sunny",c:"#6b8e23",g:G.gg,y:9},{e:"Haerin",c:S.W,g:G.nj,y:26},{e:G.wa,c:["S.W","#F61BED"],i:true,y:40}],
@@ -446,7 +454,7 @@ ID={ //idolBdData
 	"03-06":[{e:"Jo Seunghee",c:"#fa3789",g:G.da,y:15},{e:"SinB",c:["#ffd000",S.Bl],g:[G.gf,G.vv],y:18},{e:"Taeha",c:"#663ac5",g:G.mo,y:18}],
 	"04-06":{e:"Choerry",c:"#962cc4",g:G.ln,y:21},
 	"05-06":{e:"Chaeryeong",c:"#7fff00",g:G.it,y:21},
-	"06-06":[{e:"Hyuna",c:"#c74e37",g:G.wg,y:12},{e:"Nana (real name unknown)",c:"#ab00c2",g:G.un,y:27}],
+	"06-06":[{e:"Hyuna",c:"#c74e37",g:G.wg,y:12},{e:"Nana (real name unknown)",c:"#ab00c2",g:G.un,y:27},{e:"Haechan",g:[G.nc,G.no,G.nd],c:"#2c6c8c",y:20}],
 	"07-06":{e:"Jueun",c:"#f7b7f0",g:G.da,y:15},
 	"11-06":[{e:"Seoah",c:"#cff3ff",g:G.ts,y:30},{e:G.bn,c:"#61c4cf",i:true,y:41}],
 	"13-06":[{e:"JinSoul",c:"#1487ec",g:G.ln,y:17},{e:"Aini",c:S.W,g:G.pf,y:11}],
@@ -455,15 +463,16 @@ ID={ //idolBdData
 	"18-06":[{e:"Nako",c:"#b7d3e9",g:G.io,y:21},{e:"Arin",c:"#1e90ff",g:G.og,y:19}],
 	"19-06":[{e:G.mm,i:true,y:34},{e:"Gwen",c:"#f4793d",g:G.bn,y:23}],
 	"20-06":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
-	"21-06":{e:"Min",c:"#668a08",g:G.ma,y:11},
+	"21-06":[{e:"Min",c:"#668a08",g:G.ma,y:11},{e:"Jaehee",g:[G.nc,G.nw],c:S.Gn,y:25}],
 	"26-06":{e:"Wonhee",c:"#c6ffd9",g:G.il,y:27},
 	"27-06":{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},
-	"28-06":{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},
+	"28-06":[{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},{e:"Riku",g:[G.nc,G.nw],c:S.R,y:23}],
 	"30-06":[{e:G.we,c:["#c4afd0","#ffd076","#97e0cf"],i:true,y:40},{e:"Hyunji",c:"#a991d6",g:G.ht,y:12}],
-	"01-07":{e:G.ma,i:true,y:30},
+	"01-07":{e:"Taeyong",g:[G.nc,G.no],c:"#aa1944",y:15},
 	"02-07":{e:"Nagomi",g:G.mi,y:27},
+	"03-07":{e:G.ma,i:true,y:30},
 	"05-07":[{e:"Hyewon",c:"#db706c",g:G.io,y:19},{e:"Linlin",c:"#bf1b2b",g:G.cb,y:23}],
-	"07-07":{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},
+	"07-07":[{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},{e:G.no,c:C.NC,y:36}],
 	"12-07":{e:"Jihan",c:"#ff3434",g:G.we,y:24},
 	"13-07":[{e:"Yebin",c:"#d30000",g:G.da,y:17},{e:"Stacey",c:"#f25c73",g:G.bn,y:23}],
 	"14-07":[{e:"Chaesol",c:"#64cfff",g:G.cg,y:18},{e:"Park Soobin",c:"#3be289",g:G.wj,y:16},{e:"Yoon Jiyoon",c:"#e4c09f",g:G.iz,y:25}],
@@ -479,17 +488,18 @@ ID={ //idolBdData
 	"28-07":[{e:"Hyojung",c:"#fd35c7",g:G.og,y:14},{e:"Chaebin",c:S.Bk,g:G.na,y:19}],
 	"31-07":[{e:"U_Chae (Jung Dajeong)",c:S.R,g:G.px,y:23},{e:"Nayun",c:"#ea1483",g:G.mo,y:18},{e:"Hirao Honoka",c:[H.PB,H.O],g:G.hz,y:23}],
 	"01-08":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
+	"02-08":{e:"Mark",g:[G.nc,G.no,G.nd],c:"#cc00ff",y:19},
 	"03-08":[{e:"Yeonjung",c:"#6f30a0",g:G.wj,y:19},{e:G.na,i:true,y:38}],
-	"04-08":{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},
+	"04-08":[{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},{e:"Ryo",g:[G.nc,G.nw],c:S.Y,y:27}],
 	"05-08":[{e:"Kim Sihyeon",c:"#c7d2a7",g:G.eg,y:19},{e:G.gg,c:"#fe4c80",i:true,y:27},{e:"SangA",c:"#87ceeb",g:G.pf,y:19}],
 	"06-08":[{e:"Yoon Seoyeon",c:"#22aeff",g:G.ts,y:23},{e:"Sumi",c:S.Y,g:G.fl,y:20},{e:"Ishizuka Tamaki",c:[H.SP,H.O],g:G.hz,y:24}],
 	"07-08":[{e:G.rp,i:true,y:39},{e:"Fujishima Kaho",c:[H.SP,H.B],g:G.hz,y:26}],
-	"08-08":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:[S.Bk,S.Pk],i:true,y:36},{e:"Dajeong",c:"#36f",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37}],
+	"08-08":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:[S.Bk,S.Pk],i:true,y:36},{e:"Dajeong",c:"#36f",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37},{e:"Xiaojun",g:[G.nc,G.wv],c:"#1e9ad4",y:19}],
 	"09-08":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23}],
 	"10-08":[{e:"SuA",c:S.R,g:G.dc,y:14},{e:"Yeeun",c:"#c20082",g:G.cl,y:18},{e:G.hz,c:"#8ec4e6",i:true,y:36}],
 	"11-08":{e:G.fl,i:true,y:40},
 	"12-08":[{e:"Choi Yujin",c:["#f97b90","#f77f0e"],g:[G.cl,G.kp],y:16},{e:"Kim Minseo",c:"#ffc32b",g:G.wa,y:24},{e:"Sunye",c:"#faa823",g:G.wg,y:9},{e:"Luna",c:S.Gn,g:G.fx,y:13}],
-	"13-08":[{e:"EJ",c:"#ffaa42",g:G.al,y:17},{e:"Bomi",c:"#bca9cb",g:G.ak,y:13}],
+	"13-08":[{e:"EJ",c:"#ffaa42",g:G.al,y:17},{e:"Bomi",c:"#bca9cb",g:G.ak,y:13},{e:"Jaemin",g:[G.nc,G.nd],c:"#9cf995",y:20}],
 	"14-08":[{e:"Kim Sohee",c:"#ff9932",g:G.rp,y:23},{e:"Hueningkai",c:S.Gn,g:G.tt,y:22}],
 	"15-08":{e:"Kishi Honoka",g:G.hz,y:24},
 	"16-08":{e:"Miyuu",c:"#aea2ea",g:G.fv,y:16},
@@ -499,6 +509,7 @@ ID={ //idolBdData
 	"22-08":[{e:"Yeseo",c:"#a2cffe",g:[G.kp,G.mi],y:25},{e:"Somin",c:"#99e6b3",g:G.ap,y:16}],
 	"23-08":[{e:"Seo Hyerin",c:"#6bd402",g:G.ex,y:13},{e:"Higashimura Mei",c:H.SP,g:G.hz,y:18}],
 	"24-08":{e:G.ap,i:true,y:35},
+	"25-08":{e:G.nd,c:C.NC,y:36},
 	"26-08":[{e:"Soyeon",c:"#f5b0be",g:G.gi,y:18},{e:"Chaejeong",c:"#5ef78c",g:G.al,y:19}],
 	"28-08":{e:"Rachel",c:"#548ff7",g:G.ap,y:20},
 	"30-08":{e:"Sora",c:"#8edbff",g:G.wa,y:23},
@@ -511,7 +522,7 @@ ID={ //idolBdData
 	"07-09":[{e:"Park Sumin",c:S.M,g:G.dn,y:21},{e:"Kosaka Nao",c:[H.V,S.W],g:G.hz,y:22}],
 	"09-09":[{e:"Moon Sua",c:"#c9f",g:G.bl,y:19},{e:"Bae Yubin",c:"#ff7d07",g:G.og,y:17}],
 	"10-09":{e:"Kanemura Miku",c:[H.Y,H.PB],g:G.hz,y:22},
-	"13-09":[{e:"Yeonjun",c:S.Pp,g:G.tt,y:19}],
+	"13-09":[{e:"Yeonjun",c:S.Pp,g:G.tt,y:19},{e:"Sungchan",g:[G.nc,G.nu],c:"#ffd1ff",y:21}],
 	"14-09":[{e:"Jenny",c:"#00abdb",g:G.da,y:16},{e:G.da,c:["#01d1ff","#ff0a57"],i:true,y:35},{e:"Colet",c:"#0fb42d",g:G.bn,y:21}],
 	"15-09":{e:G.lb,c:S.Br,i:true,y:43},
 	"17-09":{e:"YooA",c:"#42ae4d",g:G.og,y:15},
@@ -523,7 +534,7 @@ ID={ //idolBdData
 	"24-09":[{e:"Gaeul",c:"#0055a8",g:G.iv,y:22},{e:"Sojin",c:"#ff7f00",g:G.ht,y:19}],
 	"25-09":{e:"Songyee",c:"#b28fff",g:G.wa,y:24},
 	"27-09":[{e:"Eunbi",c:"#bbb0dc",g:G.io,y:15},{e:"Ahin",c:"#dbd255",g:G.mo,y:19},{e:"Rina",c:S.Y,g:G.wm,y:21},{e:"Takahashi Mikuni",g:G.hz,y:23}],
-	"28-09":{e:"Hamagishi Hiyori",c:[H.O,S.W],g:G.hz,y:22},
+	"28-09":[{e:"Hamagishi Hiyori",c:[H.O,S.W],g:G.hz,y:22},{e:"Hendery",g:[G.nc,G.wv],c:"#772eff",y:19}],
 	"29-09":[{e:"Choi Yena",c:"#fcf695",g:G.io,y:19},{e:"Song Hayoung",c:"#785efd",g:G.fr,y:17},{e:"Ayeon",c:"#ff7530",g:G.sd,y:22}],
 	"30-09":{e:"Oh Subin",c:S.Y,g:G.ht,y:18},
 	"01-10":{e:"Siyeon",c:"#0f2fff",g:G.dc,y:15},
@@ -533,7 +544,7 @@ ID={ //idolBdData
 	"07-10":[{e:"Yeham",c:"#dc0093",g:G.cs,y:25},{e:"Oh Yoona",c:"#fa1bb7",g:G.un,y:29}],
 	"08-10":[{e:"Moka",c:"#d86d9d",g:G.il,y:24},{e:"Huh Yunjin",c:S.Gn,g:G.ls,y:21}],
 	"09-10":[{e:"Miku",c:"#87ceeb",g:G.pf,y:22},{e:"Cho Yubeen",c:S.O,g:G.pf,y:19},{e:"Ye Ah",c:"#456dff",g:G.cg,y:19}],
-	"10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14}],
+	"10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14},{e:"Yangyang",g:[G.nc,G.wv],c:"#ff0000",y:20}],
 	"11-10":{e:"Liv",c:"#bdfff0",g:G.rs,y:26},
 	"13-10":[{e:G.ht,c:S.R,i:true,y:37},{e:"HanByeol",c:"#ffee56",g:G.dn,y:23},{e:"Nakyoung",c:"#6599a4",g:G.ts,y:22},{e:"Sohyun",c:"#1423b4",g:G.ts,y:22}],
 	"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#f90",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19}],
@@ -544,8 +555,8 @@ ID={ //idolBdData
 	"23-10":[{e:"Minnie",c:"#9bcbeb",g:G.gi,y:17},{e:"Ningning",c:"#ee172b",g:G.ae,y:22}],
 	"24-10":[{e:"Lee Jiwoo",c:"#fff801",g:G.ts,y:25},{e:G.pf,c:"#ff6689",i:true,y:38},{e:"Krystal",c:S.Y,g:G.fx,y:14}],
 	"25-10":[{e:"MISO",c:"#56a8ff",g:G.dn,y:20},{e:"Aeji",c:S.R,g:G.ht,y:19}],
-	"26-10":{e:"Soeun",c:"#83c2f9",g:G.we,y:22},
-	"28-10":[{e:"Kotoko",c:"#8ec200",g:G.un,y:27},{e:"Mai",c:"#c23a5c",g:G.iz,y:24}],
+	"26-10":[{e:"Soeun",c:"#83c2f9",g:G.we,y:22},{e:"Yuta",g:[G.nc,G.no],c:"#ffa42d",y:15}],
+	"28-10":[{e:"Kotoko",c:"#8ec200",g:G.un,y:27},{e:"Mai",c:"#c23a5c",g:G.iz,y:24},{e:"Winwin",g:[G.nc,G.no],c:"#ff82c8",y:17}],
 	"29-10":{e:G.io,c:"#ef539d",i:true,y:38},
 	"30-10":[{e:"Giselle",c:"#030e06",g:G.ae,y:20},{e:"BoNi",c:"#ff9c56",g:G.dn,y:19}],
 	"01-11":[{e:"Jeongyeon",c:"#bcd776",g:G.tw,y:16},{e:"Kokoro",c:"#00dd93",g:G.cb,y:20},{e:"Yunkyoung",c:"#32ffff",g:G.rp,y:21}],
@@ -563,12 +574,14 @@ ID={ //idolBdData
 	"13-11":[{e:"Hyeju",c:"#8f8f8f",g:G.ln,y:21},{e:"Hanna",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:20}],
 	"14-11":{e:"Koko",c:"#ffd69e",g:G.iz,y:26},
 	"15-11":{e:"HyunJin",c:"#ffea00",g:G.ln,y:20},
-	"16-11":[{e:"May (Hirokawa Mao)",c:"#fc5050",g:G.cb,y:24},{e:"Garam",c:["#9f9fff","#ffbfff"],g:G.ls,y:25}], //Garam: https://www.reddit.com/r/kimgaram/comments/1evm5if
+	"16-11":[{e:"May (Hirokawa Mao)",c:"#fc5050",g:G.cb,y:24},{e:"Garam",c:["#9f9fff","#ffbfff"],g:G.ls,y:25}],//Garam:https://www.reddit.com/r/kimgaram/comments/1evm5if
 	"17-11":{e:G.ae,c:["#ae5fa0","#0dd5ad"],i:true,y:40},
-	"18-11":{e:"Sorn",c:"#0090c7",g:G.cl,y:16},
+	"18-11":[{e:"Sorn",c:"#0090c7",g:G.cl,y:16},{e:"Sakuya",g:[G.nc,G.nw],c:[S.W,S.Pk],y:27}],
 	"19-11":{e:"Go Won",c:"#30e192",g:G.ln,y:20},
 	"21-11":{e:"Liz",c:"#00c3f5",g:G.iv,y:24},
+	"22-11":{e:"Chenle",g:[G.nc,G.nd],c:"#10c6ea",y:21},
 	"23-11":{e:"Jisun",c:"#ee5392",g:G.fr,y:18},
+	"25-11":{e:"Shotaro",g:[G.nc,G.nu],c:"#ff009d",y:20},
 	"26-11":{e:"Yechan",c:S.Bl,g:G.pf,y:15},
 	"27-11":{e:"Zena",c:"#f27e7e",g:G.rs,y:28},
 	"28-11":{e:"Haneul",c:"#4cffff",g:G.sd,y:21},
@@ -583,7 +596,7 @@ ID={ //idolBdData
 	"07-12":{e:"Sowon",c:S.C,g:G.gf,y:15},
 	"08-12":{e:"Dami (Kang Hyeyeon)",c:"#6c9",g:G.ex,y:10},
 	"09-12":[{e:"ViVi",c:"#ffa2d2",g:G.ln,y:16},{e:"J",c:S.R,g:G.st,y:24},{e:"Shin Yuna",c:S.Y,g:G.it,y:23}],
-	"10-12":{e:"Elly (An Hyojin)",c:"#039",g:G.ex,y:11}, //this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
+	"10-12":{e:"Elly (An Hyojin)",c:"#039",g:G.ex,y:11},//this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
 	"12-12":{e:"Lee Soojin",c:"#f576be",g:G.we,y:21},
 	"13-12":{e:"Suhye",g:G.mi,y:24},
 	"16-12":{e:"Mashiro",c:"#fdeef4",g:[G.kp,G.mi],y:19},
@@ -597,363 +610,358 @@ ID={ //idolBdData
 	"28-12":{e:"Bae",c:S.Y,g:G.nm,y:24},
 	"29-12":[{e:"Sana",c:"#9c9ecf",g:G.tw,y:16},{e:"Yiren",c:S.W,g:G.eg,y:20}],
 	"31-12":[{e:"Kim Sohee",c:"#f66eba",g:G.al,y:19},{e:"Miyachi Sumire",c:[H.V,H.R],g:G.hz,y:25}]
-};
+}
+function getGroupsInID(){return Array.from(new Set(Object.values(ID).flat().map(o=>o.g??o.e).flat()))}
+var sh="sulli-hara";var shs="body.sulli-hara .vivi,body.sulli-hara a.vivi:visited{color:#ee5fcf;}@keyframes loonaonethird{00.00%{color:#FF007F;}12.50%{color:#FF007F;}25.00%{color:#FFFF00;}37.50%{color:#FFFF00;}50.00%{color:#00BF00;}62.50%{color:#00BF00;}68.75%{color:#A99;}75.00%{color:#EE5FCF;}87.50%{color:#EE5FCF;}100.0%{color:#FF007F;}}";R={
+	"19-04":{e:"Moonbin",cn:"moonbin"},
+	"18-12":{e:"Jonghyun",cn:"jonghyun",s:"body.jonghyun .jinsoul,body.jonghyun a.jinsoul:visited{color:#337fff;}@keyframes loonaoddeyecircle{00.00%{color:#FF2222;}16.66%{color:#FF2222;}33.33%{color:#337fff;}50.00%{color:#337fff;}66.67%{color:#C027D0;}83.33%{color:#C027D0;}100.0%{color:#FF2222;}}"},
+	"14-10":{e:"Sulli",cn:sh,s:shs},
+	"24-11":{e:"Goo Hara",cn:sh,s:shs}
+}
 
-var idolSorter=function(dataA,dataB){
-	var canCompareYears=(typeof(dataA.y)==="number")&&(typeof(dataB.y)==="number");
-	var yearSortWasMade=false;
-	if(canCompareYears){
-		if(dataA.y>dataB.y){
-			yearSortWasMade=true;
-			return 1
-		} else if(dataA.y < dataB.y){
-			yearSortWasMade=true;
-			return -1
-		}
-	};
-	if(!yearSortWasMade){
-		if(dataA.e>dataB.e){
-			return 1
-		} else if(dataA.e < dataB.e){
-			return -1
-		} else {
-			return 0
-		}
-	};
-};
+var idolSorter=function(dataA,dataB){var canCompareYears=(typeof(dataA.y)==="number")&&(typeof(dataB.y)==="number");var yearSortWasMade=false;if(canCompareYears){if(dataA.y>dataB.y){yearSortWasMade=true;return 1}else if(dataA.y<dataB.y){yearSortWasMade=true;return-1}}if(!yearSortWasMade){if(dataA.e>dataB.e){return 1}else if(dataA.e<dataB.e){return-1}else{return 0}}}
+for(var date in ID){if(!(Array.isArray(ID[date]))){ID[date]=[ID[date]]}else{ID[date].sort(idolSorter)}}//array wrap
+
+for(var date in R){if(!(Array.isArray(R[date]))){R[date]=[R[date]]}else{R[date].sort(idolSorter)}}//array wrap
 
 for(var date in ID){
-	if(!(Array.isArray(ID[date]))){
-		ID[date]=[ID[date]] //array wrap
-	} else {
-		ID[date].sort(idolSorter)
-	}
-};
-
-for(var date in ID){
-	var data=ID[date];
-	for(var i=0;i < data.length;i++){
+	var data=ID[date]
+	for(var i=0;i<data.length;i++){
 		var entry=data[i]
-		if(entry&&typeof(entry?.y)==="number"){
-			ID[date][i].y+=1980;//YOBs -= 1980 for brevity
+		if(entry){
+			if(typeof(entry.y)==="number"){ID[date][i].y+=1980}//YOBs-=1980forShort
+			if((typeof(entry.c)==="string")&&entry.c.match(/^#[0-9a-f]{3}$/)){ID[date][i].c=`#${entry.c.slice(1).split("").map(x=>x+x).join("")}`}//shortColor2long
 		}
 	}
-};
+}
 
 cD=new Date();//currentDate
-var currentYear=cD.getFullYear();
+var currentYear=cD.getFullYear()
 var currentTimeIso8601=cD.toLocaleTimeString("sv-SE");//let's hope Sweden doesn't change their time format
 
-fakeDate=urlParams.get("fakeDate");
+fakeDate=urlParams.get("fakeDate")
 
 if(fakeDate!==null){
 	if(typeof(fakeDate)==="string"&&fakeDate.trim().length==0){
 		fakeDate=null
-	} else {
-		var parsedFD=parseInt(fakeDate);
+	}else{
+		var parsedFD=parseInt(fakeDate)
 		if(isNaN(fakeDate)===false){
 			fakeDate=new Date(parsedFD)
-		} else {
+		}else{
 			if((fakeDate.match(/\d/g)??[]).length>=2){
-				fakeDate=fakeDate.match(/[0-9]+/g);
+				fakeDate=fakeDate.match(/[0-9]+/g)
 				if(!fakeDate){
 					fakeDate=null
-				} else if(fakeDate?.length===0){
+				}else if(fakeDate?.length===0){
 					fakeDate=null
-				} else if(fakeDate){
-					fakeDate=fakeDate.map(x => parseInt(x).toString().padStart(2,"0"));//normalize
-					var fakeYear=fakeDate[2]??null;
-					if(fakeYear!==null){ fakeYear=fakeYear.toString().padStart(4,"0") };
-					fakeDate=fakeDate.slice(0,2).toReversed().join("-");
-					fakeDate=new Date(`${fakeYear??currentYear}-${fakeDate}T${currentTimeIso8601}`);
-					if(isNaN(fakeDate.getTime())){ fakeDate=null }
+				}else if(fakeDate){
+					fakeDate=fakeDate.map(x=> parseInt(x).toString().padStart(2,"0"));//normalize
+					var fakeYear=fakeDate[2]??null
+					if(fakeYear!==null){fakeYear=fakeYear.toString().padStart(4,"0")}
+					fakeDate=fakeDate.slice(0,2).toReversed().join("-")
+					fakeDate=new Date(`${fakeYear??currentYear}-${fakeDate}T${currentTimeIso8601}`)
+					if(isNaN(fakeDate.getTime())){fakeDate=null}
 				}
-			} else {
+			}else{
 				fakeDate=null
 			}
 		}
 	}
 }
 function localDM(){
-	return (fakeDate??cD).toLocaleString("en-GB").replace("/","-").substring(0,5);
-};
+	return (fakeDate??cD).toLocaleString("en-GB").replace("/","-").substring(0,5)
+}
 
 function kstDM(){
-	return (fakeDate??cD).toLocaleString("en-GB", {timeZone: "Asia/Seoul"}).replace("/","-").substring(0,5)
-};
+	return (fakeDate??cD).toLocaleString("en-GB",{timeZone:"Asia/Seoul"}).replace("/","-").substring(0,5)
+}
 
 function getLuminance(R,G,B){
-	return (0.2126*R+0.7152*G+0.0722*B);
-};
+	return (0.2126*R+0.7152*G+0.0722*B)
+}
 
 //https://stackoverflow.com/a/2450976
 function shuffle(array){
-  let currentIndex=array.length,  randomIndex;
+  let currentIndex=array.length,  randomIndex
 
-  // While there remain elements to shuffle.
+ //While there remain elements to shuffle.
   while (currentIndex!=0){
 
-	// Pick a remaining element.
-	randomIndex=Math.floor(Math.random() * currentIndex);
-	currentIndex--;
+	//Pick a remaining element.
+	randomIndex=Math.floor(Math.random()*currentIndex)
+	currentIndex--
 
-	// And swap it with the current element.
+	//And swap it with the current element.
 	[array[currentIndex], array[randomIndex]]=[
-	  array[randomIndex], array[currentIndex]];
-  }
+	  array[randomIndex], array[currentIndex]]
+ }
 
-  return array;
+  return array
 }
 
 function englishOrdinalPrefix(number){
 	if(typeof(number)!=="number"){
 		if(typeof(number)==="string"&&!(isNaN(parseFloat(number)))){
 			number=parseFloat(number)
-		} else {
+		}else{
 			return "th"
 		}
-	};
-	number=Math.abs(number);
-	var ones=number % 10;
-	if([11,12,13].includes(number % 100)){
+	}
+	number=Math.abs(number)
+	var ones=number%10
+	if([11,12,13].includes(number%100)){
 		return "th"
-	};
+	}
 	switch(ones){
 		case 1:
-			return "st";
+			return "st"
 		case 2:
-			return "nd";
+			return "nd"
 		case 3:
-			return "rd";
+			return "rd"
 		default:
-			return "th";
+			return "th"
 	}
-};
+}
 
 eventPrepositions={
-	"birthday": "to",
-	"anniversary": "of",
-	"debut": "of",
-	"birth": "of"
-};
+	"birthday":"to",
+	"anniversary":"of",
+	"debut":"of",
+	"birth":"of"
+}
 
-triedToLoadBigints=false;
+triedToLoadBigints=false
 window.onload=function(){
 
-var marquee=document.getElementById("headerMarquee");
+var marquee=gebi("headerMarquee")
 
 /*loona stan length updater interval*/
-loonaInterval=setInterval(updateLoonaTime, 100);
+loonaInterval=setInterval(updateLoonaTime, 100)
 
 if((localDM()=="16-06")||(kstDM()=="16-06")){
-	marquee.childNodes[0].before(document.createTextNode("(Happy Loona Independence Day) "));
+	marquee.childNodes[0].before(ctn("(Happy Loona Independence Day) "))
 	marquee.style.fontSize="120%"
-};
+}
 
 /*handle birthdays*/
-var BD=[];
+var BD=[]
 var currentDateObject=fakeDate??cD;//this enables the age to be <0 which is funnier, but we'll ignore <0 ages
-var currentYear= currentDateObject.getFullYear();
-var local=ID[localDM()]??[];
-local.forEach(function(x){ x.dateModality??="local";if(x.dateModality=="kst"){ x.dateModality="both" } });
-var kst=ID[kstDM()]??[];
-kst.forEach(function(x){ x.dateModality??="kst";if(x.dateModality=="local"){ x.dateModality="both" } });
-if(local.length>0){ BD=BD.concat(local) }
-if(kst.length>0){ BD=BD.concat(kst) };
-var incrementAllYears=false;
+var currentYear=currentDateObject.getFullYear()
+var local=ID[localDM()]??[]
+local.forEach(function(x){x.dm??="local";if(x.dm=="kst"){x.dm="both"}})
+var kst=ID[kstDM()]??[]
+kst.forEach(function(x){x.dm??="kst";if(x.dm=="local"){x.dm="both"}})
+if(local.length>0){BD=BD.concat(local)}
+if(kst.length>0){BD=BD.concat(kst)}
+var incrementAllYears=false
 if((urlParams.get("fakeDate")??"").match(/^chaos\-?\d*$/)){
 	if(urlParams.get("fakeDate")=="chaos"){
 		incrementAllYears=1
-	} else {
-		var _inc=urlParams.get("fakeDate").replace("chaos","");
+	}else{
+		var _inc=urlParams.get("fakeDate").replace("chaos","")
 		if(_inc=="-"){
 			incrementAllYears=-1
-		} else {
-			incrementAllYears=parseInt(_inc);
+		}else{
+			incrementAllYears=parseInt(_inc)
 		}
 	}
-};
-if((urlParams.get("fakeDate")??"").trim().match(/^chaos\-?\d*$/)){ BD=Object.values(ID).flat().sort(idolSorter);/*shuffle(BD);*/ BD.forEach(x => x.dateModality="both" ) };
+}
+if((urlParams.get("fakeDate")??"").trim().match(/^chaos\-?\d*$/)){BD=Object.values(ID).flat().sort(idolSorter);/*shuffle(BD);*/BD.forEach(x=> x.dm="both" )}
 BD=Array.from(new Set(BD))
-var hasBirthdays=false;
-var hasAnniversaries=false;
+var hasBirthdays=false
+var hasAnniversaries=false
 if(BD){
-	for(var j=0;j < BD.length;j++){
-		var data=BD[j];
+	for(var j=0;j<BD.length;j++){
+		var data=BD[j]
 		if(data.i){
 			hasAnniversaries=true
-		} else {
+		}else{
 			hasBirthdays=true
-		};
-		if(hasAnniversaries&&hasBirthdays){ break };
+		}
+		if(hasAnniversaries&&hasBirthdays){break}
 	}
-};
+}
 if(BD.length>0){
-	var birthdayText=document.createElement("span");
-	birthdayText.classList.add("birthdays");
-	var label=[];
-	if(hasBirthdays){ label.push("Birthdays") };
-	if(hasAnniversaries){ label.push("Anniversaries") };
-	label=label.join("/")+": ";
-	if(label==""){ console.log("Events exist but they are neither birthdays nor anniversaries. Something is wrong.");label="unknown event to" };
-	birthdayText.appendChild(document.createTextNode(label));
-	var eventsListed=0;
+	var birthdayText=ce("span")
+	birthdayText.classList.add("birthdays")
+	var label=[]
+	if(hasBirthdays){label.push("Birthdays")}
+	if(hasAnniversaries){label.push("Anniversaries")}
+	label=label.join("/")+": "
+	if(label==""){console.log("Events exist but they are neither birthdays nor anniversaries. Something is wrong.");label="unknown event to"}
+	birthdayText.appendChild(ctn(label))
+	var eventsListed=0
 	for(var ibdCurrentDataIndex in BD){
-		ibdCurrentDataIndex=parseInt(ibdCurrentDataIndex);
+		ibdCurrentDataIndex=parseInt(ibdCurrentDataIndex)
 
-		var data=BD[ibdCurrentDataIndex];
+		var data=BD[ibdCurrentDataIndex]
 
-		var resultText=(ibdCurrentDataIndex==0?"H":"h")+"appy ";
+		var resultText=(ibdCurrentDataIndex==0?"H":"h")+"appy "
 
-		var is_From_A_Group=!(data.i||(data.g==null));
+		var is_From_A_Group=!(data.i||(data.g==null))
 
-		var coloredName=document.createElement("span");
+		var coloredName=ce("span")
 
-		var color=data.c??placeholderColor;
+		var color=data.c??placeholderColor
 
-		var colorValues;
+		var colorValues
 
 		if(Array.isArray(color)){
-			try {
-				var rgbEnsuredColors=color.map(x => RHC(x));
-			} catch(error){
-				console.error("Error in an entity:");
-				console.error(data);
+			try{
+				var rgbEnsuredColors=color.map(x=> RHC(x))
+			}catch(error){
+				console.error("Error in an entity:")
+				console.error(data)
 				throw error
-			};
-			var averagedColor=ARPCA(rgbEnsuredColors);
-			colorValues=averagedColor.match(/\d+/g).map(x => parseInt(x));
-		} else {
+			}
+			var averagedColor=ARPCA(rgbEnsuredColors)
+			colorValues=averagedColor.match(/\d+/g).map(x=> parseInt(x))
+		}else{
 			if(!color.startsWith("#")){
-				try {
-					colorValues=color.match(/\d+/g).map(x => parseInt(x));
-				} catch(error){
-					console.error(`Invalid color for entity "${data.e}"`,color);
+				try{
+					colorValues=color.match(/\d+/g).map(x=> parseInt(x))
+				}catch(error){
+					console.error(`Invalid color for entity "${data.e}"`,color)
 					colorValues=[255,0,255]
 				}
-			} else {
-				colorValues=color.match(/[A-Za-z0-9]{2}/g).map(x => parseInt(x,16))
+			}else{
+				colorValues=color.match(/[A-Za-z0-9]{2}/g).map(x=> parseInt(x,16))
 			}
-		};
+		}
 
-		var bgLum=getLuminance(...colorValues);
+		var bgLum=getLuminance(...colorValues)
 
-		var age=null;
+		var age=null
 
-		if(data.y!==null){age=(currentYear-data.y)+incrementAllYears };
+		if(data.y!==null){age=(currentYear-data.y)+incrementAllYears}
 
-		var typeName;
+		var typeName
 
 		if(data.i){
-			typeName=(age==0?"debut":"anniversary");
-		} else {
-			typeName=(age==0?"birth":"birthday");
-		};
+			typeName=(age==0?"debut":"anniversary")
+		}else{
+			typeName=(age==0?"birth":"birthday")
+		}
 
-		var preposition=eventPrepositions[typeName];
+		var preposition=eventPrepositions[typeName]
 
-		if(age < 0){ continue };
+		if(age<0){continue}
 
 		if(Array.isArray(color)){
-			coloredName.style["background"]=HCCLGCG(color);
-		} else {
+			coloredName.style["background"]=HCCLGCG(color)
+		}else{
 			coloredName.style["background-color"]=color;//color the bg because writing person's name in red is a no-no in korea
-		};
+		}
 
 		if(Array.isArray(color)){
-			coloredName.style.color="white";
+			coloredName.style.color="white"
 			coloredName.classList.add("black-outline")
-		} else {
+		}else{
 			if(bgLum>159){
-				coloredName.style.color="#000";
-			} else if(bgLum>140){
-				coloredName.style.color="white";
+				coloredName.style.color="#000"
+			}else if(bgLum>140){
+				coloredName.style.color="white"
 				coloredName.classList.add("black-outline")
-			} else {
-				coloredName.style.color="white";
+			}else{
+				coloredName.style.color="white"
 			}
-		};
+		}
 
-		if(data.textOverride){ coloredName.style.color=data.textOverride };
+		if(data.textOverride){coloredName.style.color=data.textOverride}
 
-		if(data.borderOverride){ coloredName.style["border-color"]=data.borderOverride };
+		if(data.borderOverride){coloredName.style["border-color"]=data.borderOverride}
 
 		if((age!==null)&&age!==0){
-			resultText+=`${age.toLocaleString()}${englishOrdinalPrefix(age)} `
-		};
+			resultText+=`${age.toLocaleString()}${englishOrdinalPrefix(age)}`
+		}
 
-		if(!data.e){ console.error(data,localDM(),kstDM()) };
+		if(!data.e){console.error(data,localDM(),kstDM())}
 
-		resultText+=`${typeName} ${preposition} ${(data.e??"[Missing group name]").replaceAll(" ",String.fromCharCode(0xa0))}`;
+		resultText+=` ${typeName} ${preposition} ${(data.e??"[Missing group name]").replaceAll(" ",String.fromCharCode(0xa0))}`
 
-		coloredName.innerText=resultText;
+		coloredName.innerText=resultText
 
 		if(is_From_A_Group){
-			var fromStatement=document.createElement("span");
+			var fromStatement=ce("span")
 
-			fromStatement.classList.add("artistFrom");
+			fromStatement.classList.add("artistFrom")
 
-			fromStatement.innerText=` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0));
+			fromStatement.innerText=` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0))
 
 			coloredName.appendChild(fromStatement)
-		};
+		}
 
-		if(data.dateModality!=="both"){
-			var timeZoneStatement=document.createElement("em");
+		if(data.dm!=="both"){
+			var tzs=ce("em")
 
-			timeZoneStatement.classList.add("timezoneWarning");
+			tzs.classList.add("timezoneWarning")
 
-			timeZoneStatement.innerText=` (${(data.dateModality=="kst"?"K/JST":"Local time")} only)`;
+			tzs.innerText=` (${(data.dm=="kst"?"K/JST":"Local time")} only)`
 			/*thank God that JST and KST use=offsets; let's not even consider ZH/TW/HK, VN-TH, AU, or US times right now
 			(sorry to Xinyu,Xiaoting,Handong,Shuhua,Nien,Tzuyu,Vivi,Hanni,Lisa,Lily,Danielle,Sullin,Tiffany,Gehlee,Elisia,
 			and all other idols not born in UTC+9)*/
 
-			coloredName.appendChild(timeZoneStatement)
-		};
-
-		coloredName.classList.add("bdIdolName");
-
-		birthdayText.appendChild(coloredName);
-
-		eventsListed++;
-
-		var joiner=BD.length==2?" ":", ";
-
-		if(ibdCurrentDataIndex < BD.length-1){
-			birthdayText.appendChild(document.createTextNode(ibdCurrentDataIndex==BD.length-2?joiner+"and ":joiner))
+			coloredName.appendChild(tzs)
 		}
-	};
+
+		coloredName.classList.add("bd-idol")
+
+		birthdayText.appendChild(coloredName)
+
+		eventsListed++
+
+		var joiner=BD.length==2?" ":", "
+
+		if(ibdCurrentDataIndex<BD.length-1){
+			birthdayText.appendChild(ctn(ibdCurrentDataIndex==BD.length-2?joiner+"and ":joiner))
+		}
+	}
 	if(eventsListed>0){
-		birthdayText.appendChild(document.createTextNode("."));
-		document.getElementById("birthdays").textContent="";
-		document.getElementById("birthdays").appendChild(birthdayText)
+		birthdayText.appendChild(ctn("."))
+		gebi("birthdays").textContent=""
+		gebi("birthdays").appendChild(birthdayText)
 	}
 }
 
 }
 
-} catch(error){
-	alert(error);
+}catch(error){
+	alert(error)
 	console.error(error)
-};
+}
 		</script>
 		<style>
+body{line-height:110%;}
+:root{--g7oc:#0029c4;--g8oc:#00cf003f;--shp:#faf;}
 body.moonbin{background-color:#300436;}
 body.jonghyun{background-color:#000436;}
-body.sulli-or-hara{color:#fbf;}
-:root{--g7oc:#0029c4;--g8oc:#00cf003f;}
+body.sulli-hara{color:var(--shp);}
 @keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes shrink-fade-out{0%{font-size:100%;opacity:1;display:inline;line-height;110%;}70%{font-size:0%;opacity:0;display:inline;line-height;110%;}100%{display:none;line-height;110%;}}
 @keyframes fade-in-50{from{opacity:0}to{opacity:0.5}}
 .black-outline{text-shadow:0px -1px 1px #000,1px -1px 1px #000,1px 0px 1px #000,1px 1px 1px #000,0px 1px 1px #000,-1px 1px 1px #000,-1px 0px 1px #000,-1px -1px 1px #000}
 .white-outline{text-shadow:0px -1px 1px #fff,1px -1px 1px #fff,1px 0px 1px #fff,1px 1px 1px #fff,0px 1px 1px #fff,-1px 1px 1px #fff,-1px 0px 1px #fff,-1px -1px 1px #fff}
 @keyframes blink{0%{opacity:0}49.9999%{opacity:0}50.0001%{opacity:1}100%{opacity:1}}
 .blink{animation:blink 1s linear 0s infinite normal none;}
-@media(prefers-reduced-motion){@keyframes blink{0%{opacity:0.1}49.9999%{opacity:0.1}50.0001%{opacity:1}100%{opacity:1}}}
+@media(prefers-reduced-motion){
+@keyframes blink{0%{opacity:0.1}49.9999%{opacity:0.1}50.0001%{opacity:1}100%{opacity:1}}
+.hoverTest,span.hoverTest{opacity}
+.hoverTest:hover{opacity:1; animation: unset !important}
+body p#opening:has(span.hoverTest:hover) span#fakeParen {display:none; animation: unset !important;}
+span.hoverTest:not(:hover) #realParen {display:none}
+span.hoverTest:hover #realParen {display:inline
+}
+.bd-idol{padding:1px 2px 1px 2px;border:1px solid #ccc;}
 .blink{animation:blink 4s linear 0s infinite normalnone;}}
-.hoverTest{opacity:0;}
 .groupParen{font-size:90%;}
-.hoverTest:hover{opacity:1;animation:0.35s linear 0s 1 normal fade-in}
-.bdIdolName{padding:1px 2px 1px 2px;border:1px solid #ccc;}
+.hoverTest,span.hoverTest{opacity:0;line-height:110%;}
+.hoverTest:hover{opacity:1;animation:0.35s linear 0s 1 normal fade-in;line-height:110%;}
+body p#opening:has(span.hoverTest:hover) span#fakeParen {animation:0.35s forwards 0s 0.7 shrink-fade-out;display:none;line-height;110%}
+span.hoverTest:not(:hover) #realParen {display:none;}
+span.hoverTest:hover #realParen {display:inline;}
+.bd-idol{padding:1px 2px 1px 2px;border:1px solid #ccc;}
 #birthdays,#biases{line-height:125%;}
 #headerMarquee{overflow:visible;line-height:100%;}
 #groups .g2{color:#7fcfff;}
@@ -965,15 +973,17 @@ body.sulli-or-hara{color:#fbf;}
 #groups .g8{color:#c8d147;text-shadow:0px -1px 1px var(--g8oc),1px -1px 1px var(--g8oc),1px 0px 1px var(--g8oc),1px 1px 1px var(--g8oc),0px 1px 1px var(--g8oc),-1px 1px 1px var(--g8oc),-1px 0px 1px var(--g8oc),-1px -1px 1px var(--g8oc)}
 #groups .g9{color:#967b14;}
 #groups .gC,.white{color:#fff;}
-.red,.warning{color:red;}
+*[red],.warning{color:red;}
 .gl.warning{color:#ff7f7f;}
 p.warning,div.warning{background-color:#FF00007F;color:#FFBFBF;border:1px solid red;padding:1px;}
 .high-warning{color:red;text-shadow:0px -1px 1px #FFFF009F,1px -1px 1px #FFFF009F,1px 0px 1px #FFFF009F,1px 1px 1px #FFFF009F,0px 1px 1px #FFFF009F,-1px 1px 1px #FFFF009F,-1px 0px 1px #FFFF009F,-1px -1px 1px #FFFF009F}
 #groups.warning{color:#ff7f7f;}
-small{font-size:80%;}
+small,.small{font-size:80%;}
+.timezoneWarning.small{font-size:70%;}
+#rem em .timezoneWarning{font-style:normal;padding-left:2px;}
 .imageButton{width:88px;height:31px;}
 .hiddenbutton{border:none;padding:0px;background-color:#00000000;color:#fff;font-size:100%;font-family:"Gamja Flower";text-align:left;}
-body.sulli-or-hara .hiddenbutton{color:#f9f;}
+body.sulli-hara .hiddenbutton{color:var(--shp);}
 .artistFrom{font-size:80%;}
 .timezoneWarning{font-size:75%;opacity:85%;}
 #headerMarquee{display:block;font-size:130%;line-height:60%;padding-top:5px;}
@@ -996,46 +1006,51 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 #loonaTimeS{min-width:6em;}
 #loonaTimeD{min-width:4em;}
 #loonaTimeW{min-width:4em;}
-#mainLinks > a{font-size:110%;}
+#mainLinks>a{font-size:110%;}
 .lg{background:linear-gradient(to right,#ff008f 0%,#ff008f 8.32917%,#ffea00 8.37917%,#ffea00 16.7083%,#00bf00 16.7583%,#00bf00 25.0875%,#f46f1f 25.1375%,#f46f1f 33.4667%,#ffa2d2 33.5167%,#ffa2d2 41.8458%,#ea0201 41.8958%,#ea0201 50.225%,#1487ec 50.275%,#1487ec 58.6042%,#962cc4 58.6542%,#962cc4 66.9833%,#800040 67.0333%,#800040 75.3625%,#ffbf7f 75.4125%,#ffbf7f 83.7417%,#30e192 83.7917%,#30e192 92.1208%,#8f8f8f 92.1708%,#8f8f8f 100.5%);color:#fff;border-color:#fff;}
+[gn]{font-style:italic;}
 		</style>
 	</head>
 	<body>
 		<div id="header">
 			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
 			<script>
-				var marquee=document.getElementById("headerMarquee");
+				gebi=function(i){return document.getElementById(i)}
+				ce=function(t){return document.createElement(t)}
+				ctn=function(t){return document.createTextNode(t)}
+				var marquee=gebi("headerMarquee")
 
 				if(reduceMotion){
-					var oldMarqueeChildren=marquee.childNodes;
-					var newStaticHeader=document.createElement("p");
-					newStaticHeader.innerText="helo this is my github page ";
-					newStaticHeader.classList.add("ot12");
-					newStaticHeader.setAttribute("id","headerMarquee");
+					var oldMarqueeChildren=marquee.childNodes
+					var nsh=ce("p")
+					nsh.innerText="helo this is my github page "
+					nsh.classList.add("ot12")
+					nsh.setAttribute("id","headerMarquee")
 
-					var child=marquee.querySelector("span");
-					newStaticHeader.appendChild(child);
+					var child=marquee.querySelector("span")
+					nsh.appendChild(child)
 
-					marquee.after(newStaticHeader);
-					document.getElementById("header").removeChild(marquee);
+					marquee.after(nsh)
+					gebi("header").removeChild(marquee)
 
-					marquee=newStaticHeader
-				};
+					marquee=nsh
+				}
 			</script>
 
-			<small style="font-size: 50%">* and also Hinatazaka46 + f5ve + BINI</small></span></marquee>
+			<small style="font-size:50%">*and also Hinatazaka46+f5ve+BINI</small></span></marquee>
 		</div>
 
 		<div id="main">
 			<p id="birthdays">&nbsp;</p><br/>
-			<p id="note"><em><small style="font-size: 80%">The birthday script on this version of the page is currently <span title="Missing: X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, and Yukika">incomplete</span>.</small></em></p>
+			<p id="note"><em><small style="font-size:80%">The birthday script on this version of the page is currently <span title="Missing:X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, and Yukika">incomplete</span>.</small></em></p>
 			<p id="opening">Hello. :3 I'm an <em>Orbit</em> and I really love Loona.<br/>
-			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under Blockberry Creative (BBC), their former agency. Not only do the <em>twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>
+			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. Not only do the <em class="chuu">twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>
 
-			As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. We should not let up until Blockberry's bankruptcy is confirmed. This does not apply to songs released under Modhaus, ATRP, CTD ENM, or Paix Per Mil.<br/>
-			i love all of the members and all of their songs too (and it's too hard to pick a bias <span class="hoverTest"> but my current bias line is <span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span>)</span><br/>
+			As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. Blockberry is allegedly in capital impairment, but we should not let up until Blockberry's bankruptcy is confirmed. This does not apply to songs released under Modhaus, ATRP, CTD ENM, or Paix Per Mil.<br/>
+			i love all of the members and all of their songs too (and it's too hard to pick a bias<span id="fakeParen">)</span> <span class="hoverTest">but my current bias line is <span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span><span id="realParen">)</span></span><br/>
 			i love orbits<br/>
 			loona ot12 forever</p>
+			<span id="rem">&nbsp;</span>
 
 			<h1 class="ot12">my epic pages with great quality code</h1>
 				<p class="warning">Many of the links below are outdated because I forgot and/or didn't have the time to update them and I don't even know where to start. They should still work but are missing some things.</p></br>
@@ -1045,8 +1060,8 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 					<a href="starbound.html" class="haseul">starbound color text renderer</a><br/>
 					<a href="mp3.html" class="yeojin">ersatz mp3 player</a> <em class="warning">Outdated</em><br/>
 					<a href="thirds.html" class="vivi">two-way extension of seconds and thirds</a><br/>
-					<a href="bbc.json" class="kimlip">(.json file) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
-					<a href="bbc.html" class="jinsoul">(html/click-to-copy) <span class="red" title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+					<a href="bbc.json" class="kimlip">(.json file) <span red title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
+					<a href="bbc.html" class="jinsoul">(html/click-to-copy) <span red title="blockberry can die">blockberry creative</span> save for modded </a><a href="https://sandboxels.r74n.com" class="youth">sandboxels</a><br/>
 					<a href="illions.html" class="choerry">Pseudo-Bowers illion name generator</a><br/>
 					<a href="urltoimg.html" class="yves">Dumb HTML image loader</a><br/>
 					<a href="eod-paths/index.html" class="chuu">EoD paths</a><br/>
@@ -1065,35 +1080,35 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 			<h1 class="ot12">not epic code</h1>
 				<div id="groupList">
 					<h2 class="third">groups:</h2>
-					<div id="groups"><!-- gl = groupList, gt = groupType, gn = groupName-->
-						<span class="gl g1 ot12"><span class="gt">Ult</span>: <span class="gn">LOONA</span> <small>+<span class="gn">ARTMS</span>, <span class="gn">Loossemble</span>, <span class="gn">Chuu</span>, <span class="gn">Yves</span></small></span><br/>
-						<span class="gl g2"><span class="gt">Semi-ult</span>: <span class="gn">Kep1er</span></span><br/>
-						<span class="gl g3"><span class="gt">Stan</span>: <span class="gn">Girls' Generation</span>, <span class="gn">TWICE</span>, <span class="gn">BLACKPINK</span>, <span class="gn">IVE</span>, <span class="gn">(G)I-DLE</span></span><br/>
-						<span class="gl g4"><span class="gt">Sub-stan (want to stan)</span>: <span class="gn">2NE1</span>, <span class="gn">Dreamcatcher</span>, <span class="gn">IZ*ONE</span>, <span class="gn">EVERGLOW</span>, <span class="gn">ILLIT</span>, <span class="gn">STAYC</span>, <span class="gn">tripleS</span></span><br/>
-						<span class="gl g5"><span class="gt">Just became interested in</span>: <span class="gn">Apink</span>, <span class="gn">April</span>, <span class="gn">aespa</span>, <span class="gn">BINI</span>, <span class="gn">fromis_9</span>, <span class="gn">Hinatazaka46</span>, <span class="gn">Red Velvet</span></span><br/>
-						<span class="gl g6"><span class="gt">Backlog</span>: <span class="gn">ALICE</span>, <span class="gn">Billlie</span>, <span class="gn">Cherry Bullet</span>, <span class="gn">cignature</span>, <span class="gn">CLC</span>, <span class="gn">CSR</span>, <span class="gn">DIA</span>, <span class="gn">DreamNote</span>, <span class="gn">f5ve</span>, <span class="gn">ITZY</span>, <span class="gn">Le Sserafim</span>, <span class="gn">MADEIN</span>, <span class="gn">Mamamoo</span>, <span class="gn">Miss A</span>, <span class="gn">NMIXX</span></span><br/>
-						<span class="gl g7"><span class="gt">Super backlog</span>: <span class="gn">WJSN</span>, <span class="gn">GWSN</span>, <span class="gn">Weeekly</span>, <span class="gn">woo!ah!</span>, <span class="gn">Rocket Punch</span>, <span class="gn">Hashtag</span>, <span class="gn">Pixy</span>, <span class="gn">Oh My Girl</span>, <span class="gn">Saturday</span>, <span class="gn">Pink Fantasy</span>, <span class="gn">Floria</span>, <span class="gn">GFriend</span>, <span class="gn">ViViZ</span>, <span class="gn">Nature</span>, <span class="gn">Momoland</span>, <span class="gn">Wonder Girls</span>, <span class="gn">f(x)</span>, <span class="gn">X:IN</span>, <span class="gn">Gugudan</span>, <span class="gn">Weki Meki</span>, <span class="gn">Exid</span>, <span class="gn">Lovelyz</span>, <span class="gn">Ladies' Code</span>, <span class="gn">Unis</span>, <span class="gn">Rescene</span>, <span class="gn">Izna</span>, <span class="gn">Purple Kiss</span></span><br/><!--and Lee Chaeyeon (also under IZ*ONE)-->
-						<span class="gl g8"><span class="gt">Super duper backlog</span>: <span class="gn">IU</span>, <span class="gn">Yukika</span></span><br/>
-						<span class="gl g9"><span class="gt">In the birthday script for oomfs</span>: <span class="gn">TXT</span>, <span class="gn" title="excluding Seungri per below">BIGBANG</span></span><br/>
-						<span class="gl gC"><span class="gt">It's complicated <small>(read: once <span class="red">Min Heejin</span> is dead and buried)</small></span>: <span class="gn">NewJeans</span></span><br/><!--hybe pls kick min heejin out or hire a hitman to kill her or something already-->
-						<span class="gl warning"><span class="gt"><small>Note: <span class="white" title="name in white as i don't want her to die though">Hyuna</span> is included only for completeness's sake <small>(but with that said, I'll never include <span class="red" title="he can go to hell">Seungri</span>)</small>. I do not accept or endorse her relationship with someone involved in the Burning Sun scandal.</small></span></span>
+					<div id="groups"><!--gl=groupList, gt=groupType, gn=groupName-->
+						<span class="gl g1 ot12"><span class="gt">Ult</span>: <span gn>LOONA</span> <small>+<span gn>ARTMS</span>, <span gn>Loossemble</span>, <span gn>Chuu</span>, <span gn>Yves</span></small></span><br/>
+						<span class="gl g2"><span class="gt">Semi-ult</span>: <span gn>Kep1er</span></span><br/>
+						<span class="gl g3"><span class="gt">Stan</span>: <span gn>Girls' Generation</span>, <span gn>TWICE</span>, <span gn>BLACKPINK</span>, <span gn>IVE</span>, <span gn>(G)I-DLE</span></span><br/>
+						<span class="gl g4"><span class="gt">Sub-stan (want to stan)</span>: <span gn>2NE1</span>, <span gn>Dreamcatcher</span>, <span gn>IZ*ONE</span>, <span gn>EVERGLOW</span>, <span gn>ILLIT</span>, <span gn>STAYC</span>, <span gn>tripleS</span></span><br/>
+						<span class="gl g5"><span class="gt">Just became interested in</span>: <span gn>Apink</span>, <span gn>April</span>, <span gn>aespa</span>, <span gn>BINI</span>, <span gn>fromis_9</span>, <span gn>Hinatazaka46</span>, <span gn>Red Velvet</span></span><br/>
+						<span class="gl g6"><span class="gt">Backlog</span>: <span gn>ALICE</span>, <span gn>Billlie</span>, <span gn>Cherry Bullet</span>, <span gn>cignature</span>, <span gn>CLC</span>, <span gn>CSR</span>, <span gn>DIA</span>, <span gn>DreamNote</span>, <span gn>f5ve</span>, <span gn>ITZY</span>, <span gn>Le Sserafim</span>, <span gn>MADEIN</span>, <span gn>Mamamoo</span>, <span gn>Miss A</span>, <span gn>NMIXX</span></span><br/>
+						<span class="gl g7"><span class="gt">Super backlog</span>: <span gn>WJSN</span>, <span gn>GWSN</span>, <span gn>Weeekly</span>, <span gn>woo!ah!</span>, <span gn>Rocket Punch</span>, <span gn>Hashtag</span>, <span gn>Pixy</span>, <span gn>Oh My Girl</span>, <span gn>Saturday</span>, <span gn>Pink Fantasy</span>, <span gn>Floria</span>, <span gn>GFriend</span>, <span gn>ViViZ</span>, <span gn>Nature</span>, <span gn>Momoland</span>, <span gn>Wonder Girls</span>, <span gn>f(x)</span>, <span gn>X:IN</span>, <span gn>Gugudan</span>, <span gn>Weki Meki</span>, <span gn>Exid</span>, <span gn>Lovelyz</span>, <span gn>Ladies' Code</span>, <span gn>Unis</span>, <span gn>Rescene</span>, <span gn>Izna</span>, <span gn>Purple Kiss</span></span><br/><!--and Lee Chaeyeon (also under IZ*ONE)-->
+						<span class="gl g8"><span class="gt">Super duper backlog</span>: <span gn>IU</span>, <span gn>Yukika</span></span><br/>
+						<span class="gl g9"><span class="gt">In the birthday script for oomfs</span>: <span gn>TXT</span>, <span gn title="excluding Seungri per below">BIGBANG</span>, <span gn>NCT <small>+<span gn>~ 127</span>, <span gn>~ Dream</span>, <span gn>WayV</span>, <span gn>~ DoJaeJung</span>, <span gn>~ Wish</span></small></span></span><br/>
+						<span class="gl gC"><span class="gt">It's complicated <small>(read:once <span red>Min Heejin</span> is dead and buried)</small></span>: <span gn>NewJeans</span></span><br/><!--hybe pls kick min heejin out or hire a hitman to kill her or something already-->
+						<span class="gl warning"><span class="gt"><small>Note: <span class="white" title="name in white as i don't want her to die though">Hyuna</span> is included only for completeness's sake <small>(but with that said, I am not including <span title="they can go to hell"><span red>Seungri</span>, <span red>Taeil</span>, or <span red>Lucas</span></span>)</small>. I do not accept or endorse her relationship with someone involved in the Burning Sun scandal.</small></span></span>
 					</div>
 				</div>
 
 				<div id="groupList">
 					<h2 class="circle">biases:</h2>
 					<div id="biases">
-						<p class="gn ot12"><span class="bdIdolName black-outline lg">LOONA</span>: <span class="bdIdolName" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bdIdolName" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bdIdolName" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bdIdolName" style="background-color:#800040;color:#fff;">Yves</span><span class="wreckerList">; Wreckers: <span class="bdIdolName" style="background-color:#ea0201;color:#fff;">Kim Lip</span>, <span class="bdIdolName" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
-						<p class="gn"><span class="bdIdolName" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bdIdolName" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
-						<p class="gn"><span class="bdIdolName" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bdIdolName" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
-						<p class="gn"><span class="bdIdolName black-outline" style="background: linear-gradient(to right, #f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bdIdolName" style="background-color:#fac857;color:#000;">Jihyo</span></p>
-						<p class="gn"><span class="bdIdolName black-outline" style="background: linear-gradient(to right, #000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color: white;">BlackPink</span>: <span class="bdIdolName" style="background-color: #cc6ca9;color: white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bdIdolName" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
-						<p class="gn"><span class="bdIdolName" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bdIdolName" style="background-color:#d10056;color:#fff;">Jessica</span></p>
+						<p class="gn ot12"><span class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#ea0201;color:#fff;">Kim Lip</span>, <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
+						<p gn><span class="bd-idol" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bd-idol" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
+						<p gn><span class="bd-idol" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bd-idol" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
+						<p gn><span class="bd-idol black-outline" style="background:linear-gradient(to right, #f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bd-idol" style="background-color:#fac857;color:#000;">Jihyo</span></p>
+						<p gn><span class="bd-idol black-outline" style="background:linear-gradient(to right, #000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color:white;">BlackPink</span>: <span class="bd-idol" style="background-color:#cc6ca9;color:white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
+						<p gn><span class="bd-idol" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bd-idol" style="background-color:#d10056;color:#fff;">Jessica</span></p>
 					</p>
 				</div>
 
 				<div id="other">
-					<span class="yeojin">DNI: antis; akgaes; <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em>; people who blame NewJeans for actions they take as a result of being groomed <small>(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; <s>people who refuse to shower</s></span><br/>
+					<span class="yeojin">DNI:antis; akgaes; <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em>; people who blame NewJeans for actions they take as a result of being groomed <small>(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; <s>people who refuse to shower</s></span><br/>
 					<span class="circle">i have stanned loona for about <span class="counter" id="loonaTimeS">63 million</span> seconds (about <span class="counter" id="loonaTimeD">731</span> days, or <span class="counter" id="loonaTimeW">104</span> weeks)</span><br/>
 				</div>
 
@@ -1101,14 +1116,55 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
 
 			<br/>
-			<button class="hiddenbutton blink" onclick="dumbBruh();countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display: none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</small><br/>
+			<button class="hiddenbutton blink" onclick="dumbBruh();countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display:none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</small><br/>
 		</div>
 		<script>
-			_style=document.getElementsByTagName("head")[0].querySelector("style");
-			// moonbin's death was still fresh on our minds at around the time this site went up
-			if(localDM()=="19-04"||kstDM()=="19-04"){document.body.classList.add("moonbin")}
-			else if(localDM()=="18-12"||kstDM()=="18-12"){document.body.classList.add("jonghyun");_style.textContent+="body.jonghyun .jinsoul,body.jonghyun a.jinsoul:visited{color:#337fff;}@keyframes loonaoddeyecircle{00.00%{color:#FF2222;}16.66%{color:#FF2222;}33.33%{color:#337fff;}50.00%{color:#337fff;}66.67%{color:#C027D0;}83.33%{color:#C027D0;}100.0%{color:#FF2222;}}"}
-			else if(localDM()=="14-10"||kstDM()=="14-10"||localDM()=="24-11"||kstDM()=="24-11"){document.body.classList.add("sulli-or-hara");_style.textContent+="body.sulli-or-hara .vivi,body.sulli-or-hara a.vivi:visited{color:#ee5fcf;}@keyframes loonaonethird{00.00%{color:#FF007F;}12.50%{color:#FF007F;}25.00%{color:#FFFF00;}37.50%{color:#FFFF00;}50.00%{color:#00BF00;}62.50%{color:#00BF00;}68.75%{color:#A99;}75.00%{color:#EE5FCF;}87.50%{color:#EE5FCF;}100.0%{color:#FF007F;}}"}//they both loved pink
+		
+			_style=document.getElementsByTagName("head")[0].querySelector("style")
+			//Eternally in loving memory
+			var r=[]
+			var rL=R[localDM()]??[];var rK=R[kstDM()]??[]
+			rL.forEach(function(x){x.dm??="local";if(x.dm=="kst"){x.dm="both"}})
+			rK.forEach(function(x){x.dm??="kst";if(x.dm=="local"){x.dm="both"}})
+			if(rL.length>0){r=r.concat(rL)}
+			if(rK.length>0){r=r.concat(rK)}
+			var remText=gebi("rem")
+			if(r.length>0){
+				rem.textContent=""
+				var ilmo=ce("span");ilmo.innerText="In loving memory of "
+				remText.appendChild(ilmo)
+				for(var i=0;i<r.length;i++){
+					var data=r[i]
+					var noCommaJ=data.length-1
+					var andJ=data.length-2
+
+					if(data.cn){document.body.classList.add(data.cn)}
+					if(data.s){_style.textContent+=data.s}
+					var n=ce("em")
+					n.classList.add("rem-idol")
+					n.innerText=data.e
+					remText.appendChild(n)
+					if(data.dm&&(data.dm!=="both")){
+						var tzs=ce("span")
+						tzs.classList.add("small","timezoneWarning")
+						var ftz=data.dm
+						if(ftz&&ftz!=="local"){ftz=ftz.toUpperCase()}else{ftz="local time"}
+						tzs.innerText=` (${ftz})`
+						n.appendChild(tzs)
+					}
+					if(i<r.length-1){
+						if(r.length==2){
+							remText.appendChild(ctn(" and "))
+						}else{
+							if(i==r.length-2){
+								remText.appendChild(ctn(", and "))
+							}else{
+								remText.appendChild(ctn(", "))
+							}
+						}
+					}
+				}
+			}
 		</script>
 	</body>
 </html>
