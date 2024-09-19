@@ -879,7 +879,9 @@ p.warning,div.warning{background-color:#FF00007F;color:#FFBFBF;border:1px solid 
 small,.small{font-size:80%;}
 .timezoneWarning.small{font-size:70%;}
 #rem em .timezoneWarning{font-style:normal;padding-left:2px;}
-.imageButton{width:88px;height:31px;}
+.image-button,.image-button img{width:88px;height:31px;display:inline-block;}
+a.image-button{display:inline-block;border:1px solid #333;font-size:60%;line-height:75%;word-wrap:anywhere;overflow:visible;}
+.image-button img{display:block;}
 .hiddenbutton{border:none;padding:0px;background-color:#00000000;color:#fff;font-size:100%;font-family:"Gamja Flower";text-align:left;}
 body.sulli-hara .hiddenbutton{color:var(--shp);}
 .artistFrom{font-size:80%;}
@@ -906,7 +908,12 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 #loonaTimeW{min-width:4em;}
 #mainLinks>a{font-size:110%;}
 .lg{background:linear-gradient(to right,#ff008f 0%,#ff008f 8.32917%,#ffea00 8.37917%,#ffea00 16.7083%,#00bf00 16.7583%,#00bf00 25.0875%,#f46f1f 25.1375%,#f46f1f 33.4667%,#ffa2d2 33.5167%,#ffa2d2 41.8458%,#ea0201 41.8958%,#ea0201 50.225%,#1487ec 50.275%,#1487ec 58.6042%,#962cc4 58.6542%,#962cc4 66.9833%,#800040 67.0333%,#800040 75.3625%,#ffbf7f 75.4125%,#ffbf7f 83.7417%,#30e192 83.7917%,#30e192 92.1208%,#8f8f8f 92.1708%,#8f8f8f 100.5%);color:#fff;border-color:#fff;}
-[gn]{font-style:italic;}
+[gn]{font-style:italic;position:relative;}
+.bd-idol[gn]{padding-left:0px;padding-right:4px;}
+.bd-idol[gn].black-outline,.bd-idol[gn].white-outline{padding-left:1px;padding-right:4px;}
+.squished{letter-spacing:-0.5px;}
+del{text-decoration;line-through;}
+noscript{font-size:90%;}
 		</style>
 	</head>
 	<body>
@@ -944,7 +951,7 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 		</div>
 
 		<div id="main">
-			<p id="birthdays">&nbsp;</p><br/>
+			<p id="birthdays"><noscript>(Birthdays/anniversaries require JavaScript to display)</noscript>&nbsp;</p><br/>
 			<p id="note"><em><small style="font-size:80%">The birthday script on this version of the page is currently <span title="Missing:X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, and Yukika">incomplete</span>.</small></em></p>
 			<p id="opening">Hello. :3 I'm an <em>Orbit</em> and I really love Loona.<br/>
 			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. Not only do the <em class="chuu">twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>
@@ -1001,22 +1008,22 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 				<div id="groupList">
 					<h2 class="circle">biases:</h2>
 					<div id="biases">
-						<p class="gn ot12"><span class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#ea0201;color:#fff;">Kim Lip</span>, <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
-						<p gn><span class="bd-idol" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bd-idol" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
-						<p gn><span class="bd-idol" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bd-idol" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
-						<p gn><span class="bd-idol black-outline" style="background:linear-gradient(to right, #f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bd-idol" style="background-color:#fac857;color:#000;">Jihyo</span></p>
-						<p gn><span class="bd-idol black-outline" style="background:linear-gradient(to right, #000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color:white;">BlackPink</span>: <span class="bd-idol" style="background-color:#cc6ca9;color:white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
-						<p gn><span class="bd-idol" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bd-idol" style="background-color:#d10056;color:#fff;">Jessica</span></p>
+						<p class="ot12"><span gn class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#ea0201;color:#fff;">Kim Lip</span>, <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
+						<p><span gn class="bd-idol" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bd-idol" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
+						<p><span gn class="bd-idol" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bd-idol" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
+						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right, #f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bd-idol" style="background-color:#fac857;color:#000;">Jihyo</span></p>
+						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right, #000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color:white;">BlackPink</span>: <span class="bd-idol" style="background-color:#cc6ca9;color:white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
+						<p><span gn class="bd-idol" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bd-idol" style="background-color:#d10056;color:#fff;">Jessica</span></p>
 					</p>
 				</div>
 
 				<div id="other">
-					<span class="yeojin">DNI:antis; akgaes; <em>(especially skz antis, kep1er member antis, sakura antis, and madein antis or yeshiro akgaes; member solo stans are fine unless they hate on a group's other members which makes them akgaes, and likewise yeshiro solo stans are fine but hating on the rest of madein is akgae behavior)</em>; people who blame NewJeans for actions they take as a result of being groomed <small>(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; <s>people who refuse to shower</s></span><br/>
-					<span class="circle">i have stanned loona for about <span class="counter" id="loonaTimeS">63 million</span> seconds (about <span class="counter" id="loonaTimeD">731</span> days, or <span class="counter" id="loonaTimeW">104</span> weeks)</span><br/>
+					<span class="yeojin">DNI: antis; akgaes; <em>(especially skz/kep1er member/sakura/madein antis or yeshiro akgaes; member solo stans are fine but hating a group's other members makes one an akgae <small class="squished">(likewise, yeshiro solo stans are fine, but hating on the rest of madein is akgae behavior)</small>)</em>; people who blame NewJeans for actions they take as a result of being groomed <small class="squished">(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; <del>people who refuse to shower</del></span><br/>
+					<span class="circle">i have stanned loona for about <span class="counter" id="loonaTimeS">66 million</span> seconds (about <span class="counter" id="loonaTimeD">760</span> days, or <span class="counter" id="loonaTimeW">109</span> weeks)</span> <noscript>(Requires JavaScript to update. Last manual update 9/19.)</noscript><br/>
 				</div>
 
-				<h2 class="circle">buttons:</h2>
-					<a href="https://viian.neocities.org/"><img class="imageButton" src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
+				<h2 class="circle">88x31 buttons:</h2>
+					<a href="https://viian.neocities.org" class="image-button" style="border-color:#a5a;background-color:#f8f;color:#504;"><img src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com" class="image-button" style="border-color:#222;background-color:#333;color:#0ff;"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/" class="image-button" style="border-color:#242424;background-color:#444;color:#fbf;"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
 
 			<br/>
 			<button class="hiddenbutton blink" onclick="dumbBruh();countBruh();">this page would be even more obnoxious if we still had &lt;blink&gt; tags</span><small id="bruhCountFrame" style="display:none;"> (Bruhhed <span id="bruhCount">0</span> time<span id="bruhsPlural">s</span>)</small><br/>
