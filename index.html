@@ -101,47 +101,47 @@ function countBruh(){
 
 	if(bd){
 		if(bruhCounter){
-			bruhCounter.innerText=bigintCommas(bruhs)
+			bruhCounter.st(bigintCommas(bruhs))
 		}
 
 		var scoreBruhs=bruhs-50n;//not shifting all of those values down
 
 		if(scoreBruhs===0n){
-			bd.classList.add("amethyst")
+			bd.ac("amethyst")
 		}else if(scoreBruhs===50n){
-			bd.classList.add("silver")
+			bd.ac("silver")
 			bd.classList.remove("amethyst")
 		}else if(scoreBruhs===200n){
-			bd.classList.add("diamond")
+			bd.ac("diamond")
 			bd.classList.remove("silver")
 		}else if(scoreBruhs===450n){
-			bd.classList.add("gold")
+			bd.ac("gold")
 			bd.classList.remove("diamond")
 		}else if(scoreBruhs===950n){
-			bd.classList.add("platinum")
+			bd.ac("platinum")
 			bd.classList.remove("gold")
 		}else if(scoreBruhs===1950n){
-			bd.classList.add("sapphire")
+			bd.ac("sapphire")
 			bd.classList.remove("platinum")
 		}else if(scoreBruhs===2950n){
-			bd.classList.add("iridium")
+			bd.ac("iridium")
 			bd.classList.remove("sapphire")
 		}else if(scoreBruhs===4950n){
-			bd.classList.add("emerald")
+			bd.ac("emerald")
 			bd.classList.remove("iridium")
 		}else if(scoreBruhs===9950n){
-			bd.classList.add("ruby")//not yeojin
+			bd.ac("ruby")//not yeojin
 			bd.classList.remove("emerald")
 		}else if(scoreBruhs===14950n){
-			bd.classList.add("spinel")
+			bd.ac("spinel")
 			bd.classList.remove("ruby")
 		}
 
 		if(bruhS){
 			if(bruhs===1n){
-				bruhS.innerText=""
+				bruhS.st("")
 			}else if(bruhs===2n){
-				bruhS.innerText="s"
+				bruhS.st("s")
 			}
 		}
 	}
@@ -174,13 +174,13 @@ function updateLoonaTime(){
 	valueD=Math.round(valueD*1000)/1000
 	valueW=Math.round(valueW*1000)/1000
 	if(textSeconds){
-		textSeconds.innerText=valueS.toLocaleString('en-US')
+		textSeconds.st(valueS.toLocaleString('en-US'))
 	}
 	if(textDays){
-		textDays.innerText=valueD.toLocaleString('en-US')
+		textDays.st(valueD.toLocaleString('en-US'))
 	}
 	if(textWeeks){
-		textWeeks.innerText=valueW.toLocaleString('en-US')
+		textWeeks.st(valueW.toLocaleString('en-US'))
 	}
 }
 
@@ -203,413 +203,312 @@ function HCCLGCG(colorArray){
 }
 
 //Color code smh (minified)
-function CCF(r,e="rgb",a=!1){if(void 0===r)throw new Error("Color is undefined!");var t,o,n,u,l,s=r;if("string"==typeof r)if(/^#?[A-Za-z0-9]{1,8}$/.test(s)){switch(r.startsWith("#")&&(s=s.match(/[A-Za-z0-9]{1,8}/)[0]),s.length){case 0:throw new Error("CCF:Hex input but bytes are missing?");case 1:s=s.repeat(6);break;case 2:s=s[0].repeat(6)+s[1].repeat(2);break;case 3:case 4:s=s.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("");break;case 5:var g=s.slice(0,3),c=s.slice(3,5);s=g.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("")+alpha;case 7:g=s.slice(0,6),c=s.slice(6,7);s=g+c.repeat(2)}r={r:o=(t=s.toLowerCase().match(/[a-z0-9]{2}/g).map((r=>parseInt(r,16))))[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)}else t=r.match(/[\d\.]+/g),void 0===t?.map?(console.log(t),t=[255,0,255]):t=t.map((r=>Number(r))),r={r:o=t[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l);else Array.isArray(r)?(r={r:o=(t=r)[0],g:n=t[1],b:u=t[2]},"number"==typeof(l=a?null:t[3]??null)&&(r.a=l)):"object"==typeof r&&(o=r.r,n=r.g,u=r.b,l=a?null:r.a??null);switch(null!==l&&(l/=255),e.toLowerCase()){case"rgb":case"rgba":var i;m=o,p=n,v=u,h="number"==typeof l?l:null,i=a||null==h?[m,p,v]:[m,p,v,h];for(var b=0;b<=2;b++)i[b]=Math.round(i[b]);return("number"==typeof l?"rgba":"rgb")+`(${i.join(",")})`;case"hex":var m,p,v,h;return m=o,p=n,v=u,h="number"==typeof l?Math.round(255*l):null,"#"+(a||null==h?[m,p,v]:[m,p,v,h]).map((r=>Math.round(r).toString(16).padStart(2,"0"))).join("");case"json":return r;case"array":return Object.values(r);default:throw new Error('O must be "rgb", "hex", "json", or "array"')}}function RHC(r){return CCF(r,"rgb")}function ARPCA(r,e=!1){var a=[],t=[],o=[];for(k=0;k<r.length;k++){var n=CCF(r[k]);n=n.split(",");var u=parseFloat(n[0].substring(4));a.push(u);var l=parseFloat(n[1]);t.push(l);var s=parseFloat(n[2].slice(0,-1));o.push(s)}return RA=Math.round(ANA(a)),GA=Math.round(ANA(t)),BA=Math.round(ANA(o)),e?{r:RA,g:GA,b:BA}:`rgb(${RA},${GA},${BA})`}function ANA(r){return r.reduce(A2N,0)/r.length}function A2N(r,e){return r+e}
+var nm="number"
+function CCF(r,e="rgb",a=!1){if(void 0===r)throw new Error("Color is undefined!");var t,o,n,u,l,s=r;if("string"==typeof r)if(/^#?[A-Za-z0-9]{1,8}$/.test(s)){switch(r.startsWith("#")&&(s=s.match(/[A-Za-z0-9]{1,8}/)[0]),s.length){case 0:throw new Error("CCF:Hex input but bytes are missing?");case 1:s=s.repeat(6);break;case 2:s=s[0].repeat(6)+s[1].repeat(2);break;case 3:case 4:s=s.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("");break;case 5:var g=s.slice(0,3),c=s.slice(3,5);s=g.match(/[A-Za-z0-9]/g).map((r=>r.repeat(2))).join("")+alpha;case 7:g=s.slice(0,6),c=s.slice(6,7);s=g+c.repeat(2)}r={r:o=(t=s.toLowerCase().match(/[a-z0-9]{2}/g).map((r=>parseInt(r,16))))[0],g:n=t[1],b:u=t[2]},nm==typeof(l=a?null:t[3]??null)&&(r.a=l)}else t=r.match(/[\d\.]+/g),void 0===t?.map?(console.log(t),t=[255,0,255]):t=t.map((r=>Number(r))),r={r:o=t[0],g:n=t[1],b:u=t[2]},nm==typeof(l=a?null:t[3]??null)&&(r.a=l);else Array.isArray(r)?(r={r:o=(t=r)[0],g:n=t[1],b:u=t[2]},nm==typeof(l=a?null:t[3]??null)&&(r.a=l)):"object"==typeof r&&(o=r.r,n=r.g,u=r.b,l=a?null:r.a??null);switch(null!==l&&(l/=255),e.toLowerCase()){case"rgb":case"rgba":var i;m=o,p=n,v=u,h=nm==typeof l?l:null,i=a||null==h?[m,p,v]:[m,p,v,h];for(var b=0;b<=2;b++)i[b]=Math.round(i[b]);return(nm==typeof l?"rgba":"rgb")+`(${i.join(",")})`;case"hex":var m,p,v,h;return m=o,p=n,v=u,h=nm==typeof l?Math.round(255*l):null,"#"+(a||null==h?[m,p,v]:[m,p,v,h]).map((r=>Math.round(r).toString(16).padStart(2,"0"))).join("");case"json":return r;case"array":return Object.values(r);default:throw new Error('O must be "rgb", "hex", "json", or "array"')}}function RHC(r){return CCF(r,"rgb")}function ARPCA(r,e=!1){var a=[],t=[],o=[];for(k=0;k<r.length;k++){var n=CCF(r[k]);n=n.split(",");var u=parseFloat(n[0].substring(4));a.push(u);var l=parseFloat(n[1]);t.push(l);var s=parseFloat(n[2].slice(0,-1));o.push(s)}return RA=Math.round(ANA(a)),GA=Math.round(ANA(t)),BA=Math.round(ANA(o)),e?{r:RA,g:GA,b:BA}:`rgb(${RA},${GA},${BA})`}function ANA(r){return r.reduce(A2N,0)/r.length}function A2N(r,e){return r+e}
 //Color code over
 
 var S={//S;Left over from before I found the anosaka.com H46 color list, but I'm still going to use it for the sunk cost
-	R:"400",	//Red
-	Gn:"030",	//Green
-	Gy:"222",	//Gray
-	S:"333",	//Silver
-	W:"444",	//White
-	C:"044",	//Cyan
-	Bl:"004",	//Blue
-	LB:"234",	//LightBlue
-	A:"034",	//Aqua
-	Y:"440",	//Yellow
-	Pp:"204",	//Purple
-	Bk:"000",	//Black
-	O:"420",	//Orange
-	Br:"210",	//Brown
-	L:"140",	//Lime
-	M:"404"		//Magenta
-}
+R:"400"/*Red*/,Gn:"030"/*Grn*/,Gy:"222"/*Gry*/,S:"333"/*Slv*/,W:"444"/*Wht*/,C:"044"/*Cyn*/,Bl:"004"/*Blu*/,LB:"234"/*LgtBl*/,A:"034"/*Aqu*/,Y:"440"/*Ylw*/,Pp:"204"/*Ppl*/,Bk:"000"/*Blk*/,O:"420"/*Org*/,Br:"210"/*Brn*/,L:"140"/*Lme*/,M:"404"/*Mgt*/}
 for(var key in S){
 	var code=S[key]
-	code=code.split("").map(x=> (Math.min(255,Math.max(0,(parseInt(x*64)-1))).toString(16)).padStart(2,"0"))
+	code=code.split("").map(x=>(Math.min(255,Math.max(0,(parseInt(x*64)-1))).toString(16)).padStart(2,"0"))
 	S[key]=`#${code.join("")}`
 }
 S.Pk="#FF9FFF"
 missingTexture=[S.Bk,S.M,S.Bk,S.M,S.Bk,S.M,S.Bk,S.M]
-var H={//hinataColors
-	P:"#b384ff",
-	Y:"#ffd900",
-	B:"#0095d9",
-	PB:"#49bdf0",
-	SP:"#ffc0cb",
-	EG:"#00a474",
-	V:"#5a4498",
-	O:"#ffa500",
-	PG:"#b4ddc0",
-	R:"#e60033",
-	G:"#3eb370",
-	T:"#40e0d0",
-	SB:"#a0d8ef"
-}
-var C={
-	NC:"#caff00"
-}
+var H={P:"#b384ff",Y:"#ffd900",B:"#0095d9",PB:"#49bdf0",SP:"#ffc0cb",EG:"#00a474",V:"#5a4498",O:"#ffa500",PG:"#b4ddc0",R:"#e60033",G:"#3eb370",T:"#40e0d0",SB:"#a0d8ef"}//hinataColors
+var C={NC:"#caff00"}
 var G={//groupShort
-	gi:"(G)I-DLE",
-	tn:"2NE1",
-	ae:"aespa",
-	al:"ALICE",
-	ak:"Apink",
-	ap:"APRIL",
-	at:"ARTMS",
-	bb:"BIGBANG",
-	bl:"Billlie",
-	bn:"BINI",
-	bp:"BlackPink",
-	cb:"Cherry Bullet",
-	cg:"cignature",
-	cl:"CLC",
-	cs:"CSR",
-	da:"DIA",
-	dc:"Dreamcatcher",
-	dn:"DreamNote",
-	eg:"Everglow",
-	ex:"EXID",
-	fx:"f(x)",
-	fv:"f5ve",
-	fl:"Floria",
-	fr:"fromis_9",
-	gf:"GFriend",
-	gg:"Girls' Generation",
-	gw:"GWSN",
-	ht:"HashTag",
-	hz:"Hinatazaka46",
-	il:"ILLIT",
-	it:"ITZY",
-	iv:"IVE",
-	io:"IZ*ONE",
-	iz:"izna",
-	kp:"Kep1er",
-	ls:"Le Sserafim",
-	ln:"LOONA",
-	lb:"Loossemble",
-	mi:"MADEIN",
-	mm:"Mamamoo",
-	ma:"Miss A",
-	mo:"Momoland",
-	na:"Nature",
-	nc:"NCT",
-	nd:"NCT Dream",
-	ng:"NCT DoJaeJung",
-	nj:"NewJeans",
-	nm:"NMIXX",
-	no:"NCT 127",
-	nu:"NCT U",
-	nw:"NCT Wish",
-	og:"Oh My Girl",
-	pf:"Pink Fantasy",
-	px:"Pixy",
-	rv:"Red Velvet",
-	rs:"Rescene",
-	rp:"Rocket Punch",
-	sd:"Saturday",
-	st:"STAYC",
-	ts:"tripleS",
-	tw:"TWICE",
-	tt:"TXT",
-	un:"UNIS",
-	vv:"VIVIZ",
-	we:"Weeekly",
-	wm:"Weki Meki",
-	wj:"WJSN",
-	wg:"Wonder Girls",
-	wa:"woo!ah!",
-	wv:"WayV"
+	gi:"(G)I-DLE",tn:"2NE1",ae:"aespa",al:"ALICE",ak:"Apink",ap:"APRIL",at:"ARTMS",bb:"BIGBANG",bl:"Billlie",bn:"BINI",bp:"BlackPink",cb:"Cherry Bullet",cg:"cignature",cl:"CLC",cs:"CSR",da:"DIA",dc:"Dreamcatcher",dn:"DreamNote",eg:"Everglow",ex:"EXID",fx:"f(x)",fv:"f5ve",fl:"Floria",fr:"fromis_9",gf:"GFriend",gg:"Girls' Generation",gw:"GWSN",ht:"HashTag",hz:"Hinatazaka46",il:"ILLIT",it:"ITZY",iv:"IVE",io:"IZ*ONE",iz:"izna",kp:"Kep1er",ls:"Le Sserafim",ln:"LOONA",lb:"Loossemble",mi:"MADEIN",mm:"Mamamoo",ma:"Miss A",mo:"Momoland",na:"Nature",nc:"NCT",nd:"NCT Dream",ng:"NCT DoJaeJung",nj:"NewJeans",nm:"NMIXX",no:"NCT 127",nu:"NCT U",nw:"NCT Wish",og:"Oh My Girl",pf:"Pink Fantasy",px:"Pixy",rv:"Red Velvet",rs:"Rescene",rp:"Rocket Punch",sd:"Saturday",st:"STAYC",ts:"tripleS",tw:"TWICE",tt:"TXT",un:"UNIS",vv:"VIVIZ",we:"Weeekly",wm:"Weki Meki",wj:"WJSN",wg:"Wonder Girls",wa:"woo!ah!",wv:"WayV"
 }
-ID={//idolBdData
-	//izna is pre-debut
-	"01-01":[{e:"Winter",c:"#d1ddec",g:G.ae,y:21},{e:"Kun",g:[G.nc,G.wv],c:"#7ac9ab",y:16}],
-	"02-01":{e:"Yuji",c:"#c00",g:G.ex,y:11},
-	"03-01":[{e:"Jisoo",c:"#9f00bf",g:G.bp,y:15},{e:G.kp,c:["#c1a7e2",S.W],i:true,y:42}],
-	"05-01":{e:"Karin",c:"#ee1289",g:G.al,y:22},
-	"06-01":[{e:"Shuhua",c:"#ff9",g:G.gi,y:20},{e:"Chloe",c:"#dbf4a7",g:G.cg,y:21},{e:"Eunbin",c:"#ffd700",g:G.cl,y:20}],
-	"07-01":[{e:"Yoohyeon",c:"#1fed15",g:G.dc,y:17},{e:"Saerom",c:"#fe4204",g:G.fr,y:17},{e:"Sei",c:"#f905f4",g:G.wm,y:20}],
-	"08-01":[{e:"Seo Dahyun",c:"#ff9ad6",g:G.ts,y:23},{e:"Yeonji",c:"#5974ff",g:G.ts,y:28}],
-	"09-01":{e:"MiU",g:G.mi,y:23},
-	"10-01":[{e:"Haeyoon",c:"#f6917d",g:G.cb,y:16},{e:"Yeoreum",c:"#1f5cf4",g:G.wj,y:19},{e:"Solji",c:"#ec08b1",g:G.ex,y:9}],
-	"11-01":[{e:"Lee Chaeyeon",c:"#a6dcde",g:G.io,y:20},{e:"Dobashi Kaede",c:"#61bbb5",g:G.fv,y:16}],
-	"12-01":{e:"Hyebin",c:"#eb6af2",g:G.mo,y:16},
-	"13-01":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#f9c",g:G.bl,y:21}],
-	"14-01":{e:"Aurora",c:S.Pp,g:G.na,y:17},
-	"15-01":[{e:"Suhyeon",c:"#3fc460",g:G.bl,y:20},{e:"Noh Yunah",c:"#ffcf70",g:G.il,y:24},{e:"Shimizu Rio",c:[H.PG,H.O],g:G.hz,y:25}],
-	"16-01":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35}],//FUCK SOURCE MUSIC
-	"17-01":{e:G.wv,c:C.NC,y:39},
-	"18-01":[{e:"Minzy",c:"#c36ce6",g:G.tn,y:14},{e:"Tomita Suzuka",c:H.P,g:G.hz,y:21}],
-	"20-01":[{e:"Kim Chaewon",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
-	"21-01":{e:G.cb,c:"#ee2b2b",i:true,y:39},
-	"22-01":[{e:"Lee Seoyeon",c:"#005385",g:G.fr,y:20},{e:"JinE",c:"#06c1c1",g:G.og,y:15},{e:"Arang",c:S.R,g:G.pf,y:21},{e:"Daisy",c:"#d1442e",g:G.mo,y:19},{e:"Jeong Saebi",c:"#b2c38a",g:G.iz,y:28},{e:"Sasaki Kumi",c:[H.PB,H.P],g:G.hz,y:16}],
-	"23-01":{e:"Isa",c:S.Bk,g:G.st,y:22},
-	"24-01":{e:G.fr,c:["#bc96bb","#b0eea1"],i:true,y:38},
-	"25-01":[{e:"Hyun Seunghee",c:"#bcc70f",g:G.og,y:16},{e:"Heesun",c:S.O,g:G.pf,y:25}],
-	"26-01":[{e:"Somyi",c:"#c738a4",g:G.da,y:20},{e:"Sullyoon",c:"#36f",g:G.nm,y:24},{e:"Seoryoung",c:S.C,g:G.gw,y:20},{e:"Jhoanna",c:"#0c63a6",g:G.bn,y:24}],
-	"27-01":[{e:"Seowon",c:"#1c6fff",g:G.un,y:31},{e:"Aiah",c:"#79b3be",g:G.bn,y:21}],
-	"28-01":{e:"Sheon",c:"#f90",g:G.bl,y:23},
-	"30-01":[{e:"Haruna",c:"#0997de",g:G.bl,y:26},{e:"Yuki",c:"#7400db",g:G.sd,y:22},{e:"Saebom",c:S.R,g:G.na,y:17}],
-	"31-01":{e:"Miyeon",c:S.Bk,g:G.gi,y:17},
-	"01-02":[{e:"Jihyo",c:"#fac857",g:G.tw,y:17},{e:"Doyoung",g:[G.nc,G.no,G.ng],c:"#0066ff",y:16}],
-	"02-02":[{e:"Do-A",c:"#c0f",g:G.al,y:19},{e:"Victoria",c:S.R,g:G.fx,y:7},{e:"Kato Shiho",c:H.B,g:G.hz,y:18}],
-	"03-02":[{e:"Gahyun",c:"#ba09bf",g:G.dc,y:19},{e:"Rei",c:"#69c32d",g:G.iv,y:24},{e:G.cg,c:"#b00309",i:true,y:40},{e:"Gong Yubin",c:"#ffe3e2",g:G.ts,y:25},{e:"Jia",c:"#68b47e",g:G.ma,y:9},{e:"Seungmin",c:"#0f0",g:G.ht,y:16}],
-	"04-02":{e:"Iroha",c:"#4791ff",g:G.il,y:28},
-	"05-02":[{e:"Kim Minju",c:S.W,g:G.io,y:21},{e:"Hyunjoo",c:"#64bec1",g:G.ap,y:18},{e:"Taehyun",c:S.Y,g:G.tt,y:22},{e:"Jisung",g:[G.nc,G.nd],c:"#e41662",y:22}],
-	"06-02":{e:"Luda",c:"#ffdc00",g:G.wj,y:17},
-	"07-02":[{e:"Sunn",c:"#ffadad",g:G.cg,y:20},{e:"Watanabe Rina",c:[H.P,H.SP],g:G.hz,y:29}],
-	"09-02":[{e:"Yooyeon",c:"#db0c74",g:G.ts,y:21},{e:G.vv,c:[S.Pp,S.Bl,S.R],i:true,y:42},{e:"Johnny",g:[G.nc,G.no],c:"#99cccc",y:15}],
-	"10-02":[{e:"Kim Lip",c:"#ea0201",g:G.ln,y:19},{e:"Sooyoung",c:"#ff5ccd",g:G.gg,y:10},{e:"Son Naeun",c:"#c4b36b",g:G.ak,y:14},{e:"Seulgi",c:"#fffb00",g:G.rv,y:14},{e:G.wg,c:"#ad2a70",i:true,y:27}],
-	"11-02":[{e:"Rose'",c:"#005eff",g:G.bp,y:17},{e:"Wooyeon",c:"#78fc4c",g:G.wa,y:23}],//The font I'm using here sadly does not support accents (é)
-	"12-02":{e:G.it,c:S.M,i:true,y:39},
-	"13-02":[{e:"Jiyeon",c:"#ffab62",g:G.ts,y:24},{e:G.ts,c:S.Bk,i:true,y:43},{e:"Chohee",c:"#ff2d2d",g:G.sd,y:21}],
-	"14-02":[{e:"Shogenji Yoko",c:[H.O,H.R],g:G.hz,y:27},{e:"Jaehyun",g:[G.nc,G.no,G.ng],c:"#cccc00",y:17}],
-	"15-02":{e:"Nibu Akari",c:H.O,g:G.hz,y:21},
-	"16-02":[{e:"Siyoon",c:S.Y,g:G.bl,y:25},{e:G.ex,c:["#f9eecf","#e6678e","#6663ad"],i:true,y:32}],
-	"19-02":{e:"Jungwoo",g:[G.nc,G.no,G.ng],c:"#58acfa",y:18},
-	"20-02":{e:"Takeuchi Kirari",c:[H.Y,H.R],g:G.hz,y:26},
-	"21-02":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20},{e:G.nw,c:C.NC,y:44}],
-	//floria might just be the most underdeveloped, barely-existent, unfinished, MISMANAGED group ever... wdym 2 of the members were never even in a song?f***you dk entertainment, see you in hell...
-	"22-02":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}],//Lola=Choi Yoojung
-	"23-02":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24}],
-	"24-02":[{e:"Choi Sua",c:S.Y,g:G.px,y:23},{e:G.px,i:true,y:41},{e:"Watanabe Miho",g:G.hz,y:20}],
-	"25-02":[{e:"Haewon",c:S.W,g:G.nm,y:23},{e:G.wj,c:["#ffa18a","#003580","#d9d6d1"],i:true,y:36}],
-	"26-02":{e:"CL",c:"#e2d989",g:G.tn,y:11},
-	"27-02":[{e:"Satbyeol",c:S.W,g:G.px,y:21},{e:"Ten",g:[G.nc,G.wv],c:"#9e793e",y:16}],
-	"28-02":{e:"Yunha",c:"#0098c2",g:G.un,y:29},
-	"01-03":{e:G.fv,i:true,y:43},
-	"02-03":[{e:"Dayeon",c:"#6496eb",g:G.kp,y:23},{e:"Jiyoon",c:"#f4da40",g:G.we,y:22}],
-	"03-03":[{e:"Chorong",c:"#e60056",g:G.ak,y:11},{e:"Bora",c:"#7acde9",g:G.cb,y:19}],
-	"04-03":[{e:"Geumhee",c:"#04ad57",g:G.cs,y:25},{e:G.tt,c:S.Bl,i:true,y:39}],//cant figure out wtf is going on w/txt's colors so i'm using the iems and making txt blue
-	"05-03":[{e:"Choi Yuju",c:"#860494",g:G.cb,y:17},{e:"Yeri",c:"#9f1fbf",g:G.rv,y:19}],
-	"07-03":[{e:"Dami (Lee Yubin)",c:"#fff40f",g:G.dc,y:17},{e:"Eunjo",c:"#56ff59",g:G.dn,y:22}],
-	"09-03":[{e:"Taeyeon",c:"#6495ed",g:G.gg,y:9},{e:"Seo Soojin",c:"#f7988d",g:G.gi,y:18},{e:"Nana (Kwon Nayeon)",c:"#fc7eaa",g:G.wa,y:21}],
-	"10-03":[{e:"HaBin",c:"#56ffcc",g:G.dn,y:22},{e:"Kotone",c:"#fde000",g:G.ts,y:24}],
-	"11-03":{e:"Kang Minju",c:"#ffe303",g:G.gw,y:21},
-	"12-03":[{e:"Hikaru",c:"#fbea8c",g:G.kp,y:24},{e:"Hwang Sihyeon",c:"#04b6f3",g:G.cs,y:25}],
-	"13-03":[{e:"Bae Sumin",c:"#ffc0cb",g:G.st,y:21},{e:"Chaerin",c:"#5d34c3",g:G.cb,y:22},{e:"Beomgyu",c:S.R,g:G.tt,y:21}],
-	"14-03":{e:"Soso",c:"#00dd93",g:G.gw,y:21},
-	"17-03":{e:"Suyun",c:"#ff3232",g:G.rp,y:21},
-	"18-03":[{e:G.eg,c:"#d1b4cb",i:true,y:39},{e:"Jaehee",c:"#a37fff",g:G.we,y:24}],
-	"19-03":[{e:"Sakura",c:["#f1d2e7",S.Pk],g:[G.io,G.ls],y:18},{e:G.cl,c:["#840b55","#ffcd00","#005f61"],i:true,y:35}],//leave sakura alone
-	"20-03":{e:"Park Jiwon",c:"#86ab11",g:G.fr,y:18},
-	"21-03":{e:"Park Minseo",c:"#00ff8c",g:G.sd,y:23},
-	"23-03":{e:"Renjun",g:[G.nc,G.nd],c:"#ffff00",y:20},
-	"24-03":[{e:"Mina",c:"#6fc5c2",g:G.tw,y:17},{e:"Bom",c:"#76d4ae",g:G.tn,y:4},{e:"Yang Sua",c:"#9b8d4f",g:G.ht,y:15}],
-	"25-03":{e:G.il,c:"#dcb4fb",i:true,y:44},
-	"26-03":[{e:"Handong",c:S.Bk,g:G.dc,y:16},{e:"Mirae",c:"#b94ad6",g:G.cb,y:18},{e:"An Seoyeon",c:"#f6620f",g:G.cs,y:25},{e:"Ella",c:"#cf004f",g:G.px,y:18},{e:G.rs,i:true,y:44}],
-	"27-03":[{e:"Lisa",c:"#fffa00",g:G.bp,y:17},{e:G.un,i:true,y:44}],
-	"29-03":[{e:"Irene",c:"#ff7fdf",g:G.rv,y:11},{e:"Sulli",c:S.M,g:G.fx,y:14}],
-	"01-04":{e:"Jeewon",c:"#009994",g:G.cg,y:19},
-	"03-04":[{e:"Park Shion",c:"#ff428a",g:G.ts,y:26},{e:"Jo Ara",c:"#ff0040",g:G.fl,y:21}],
-	"04-04":{e:"Jiho",c:"#ca3435",g:G.og,y:17},
-	"05-04":{e:"Yushi",g:[G.nc,G.nw],c:S.Bl,y:24},
-	"09-04":[{e:"Lucy (Kim Daeun)",c:"#fc3535",g:G.wa,y:24},{e:"Hiraoka Mitsuki",c:[H.B,H.Y],g:G.hz,y:22},{e:G.nu,c:C.NC,y:36}],
-	"10-04":[{e:"Semi",c:"#ba63f7",g:G.cg,y:22},{e:"Hayeon (Su Hyeon)",c:"#bd77ff",g:G.fl,y:22}],
-	"11-04":[{e:"Danielle",c:"#0e0",g:G.nj,y:25},{e:"Karina",c:"#a82ce6",g:G.ae,y:20}],
-	"12-04":[{e:"Jeong Hyerin",c:"#9200ff",g:G.ts,y:27},{e:"Lynn",c:"#ac62b7",g:G.ts,y:26},{e:"Ruri",c:"#deb6f0",g:G.fv,y:16},{e:"Kamimura Hinano",c:[H.R,H.EG],g:G.hz,y:24}],
-	"13-04":[{e:"Kim Jiwoo",c:S.R,g:G.nm,y:25},{e:"Nancy",c:"#f7b7f0",g:G.mo,y:20}],
-	"14-04":{e:"Yoon",c:"#32cd32",g:G.st,y:24},
-	"15-04":{e:"Namjoo",c:"#cb6cb0",g:G.ak,y:15},
-	"16-04":[{e:"Jinni",c:"#c9f",g:G.nm,y:24},{e:"Seokyoung",c:"#c73aff",g:G.gw,y:19}],
-	"17-04":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22},{e:G.ng,c:C.NC,y:43}],
-	"18-04":[{e:"Jessica",c:"#d10056",g:G.gg,y:9},{e:"Elisia",c:"#c26400",g:G.un,y:29},{e:"Ryu Sarang",c:"#f7e58a",g:G.iz,y:27}],
-	"19-04":{e:G.ak,c:"#e889b1",i:true,y:31},
-	"20-04":{e:"Ji Suyeon",c:"#987654",g:G.wm,y:17},
-	"21-04":[{e:"Hyein",c:"#1f5fff",g:G.nj,y:28},{e:G.og,c:["#eea8cc","#a2dbee","#efe59d"],i:true,y:35}],
-	"23-04":[{e:"Son Chaeyoung",c:"#e81933",g:G.tw,y:19},{e:"Iimura Yuna",c:"#6f43a4",g:G.cs,y:25},{e:"Jeno",g:[G.nc,G.nd],c:"#ff4d00",y:20}],
-	"24-04":{e:"YOUI",c:"#ff5656",g:G.dn,y:20},
-	"26-04":[{e:"Chaehyun",c:"#ffb7ce",g:G.kp,y:22},{e:"Remi",c:"#b3f96b",g:G.cb,y:21},{e:"Daesung",g:G.bb,c:"#669",y:9}],
-	"27-04":[{e:"Fei",c:"#9957a7",g:G.ma,y:7},{e:"Matsuda Konoka",c:[H.SP,H.PG],g:G.hz,y:19}],
-	"28-04":[{e:"Duna",c:"#e56fb6",g:G.cs,y:25},{e:"Miyata Manamo",c:[H.R,H.SP],g:G.hz,y:18}],
-	"29-04":{e:"Jeong Dahyun",c:"#ff32ff",g:G.rp,y:25},
-	"01-05":[{e:"Mimi",c:"#9e45e8",g:G.og,y:15},{e:"Hani (Ahn Heeyeon)",c:"#ff7d40",g:G.ex,y:12}],
-	"02-05":[{e:G.gi,c:["#580e8b","#e80037"],i:true,y:38},{e:"Kim Chaewon",c:"#c7a3e0",g:G.ts,y:27},{e:G.ls,c:"#7ba6de",i:true,y:42},{e:"Sunmi",c:"#e81655",g:G.wg,y:12}],
-	"03-05":{e:"Serina",g:G.mi,y:26},
-	"05-05":[{e:"Lee Naeun",c:"#ba4c81",g:G.ap,y:19},{e:"Rinji",c:"#008b8b",g:G.px,y:26}],
-	"06-05":{e:G.tn,c:"#ff007f",i:true,y:29},
-	"07-05":[{e:"Minji",c:"#fff81f",g:G.nj,y:24},{e:"Uchae (Woo Hyejun)",c:S.Y,g:G.na,y:22}],
-	"08-05":[{e:"Junghwa",c:"#c9c",g:G.ex,y:15},{e:"Bang Jeemin",c:"#4051ad",g:G.iz,y:25},{e:"Kageyama Yuka",c:H.R,g:G.hz,y:21}],
-	"09-05":{e:"Sheena",c:"#5a3a63",g:G.bn,y:24},
-	"10-05":{e:"Monday",c:"#415dff",g:G.we,y:22},
-	"11-05":[{e:"Park Minju",c:"#ba4545",g:G.il,y:24},{e:"Sion",g:[G.nc,G.nw],c:S.Pp,y:22}],
-	"12-05":{e:"Mayu",c:"#fe8e76",g:G.ts,y:22},
-	"14-05":[{e:"Lee Chaeyoung",c:"#23f854",g:G.fr,y:20},{e:"Dayoung",c:"#e80000",g:G.wj,y:19}],
-	"15-05":[{e:"Sunny",c:"#6b8e23",g:G.gg,y:9},{e:"Haerin",c:S.W,g:G.nj,y:26},{e:G.wa,c:["S.W","#F61BED"],i:true,y:40}],
-	"16-05":{e:"IU",c:["#c9b2df","#e1e429"],y:13},
-	"17-05":{e:"JiU",c:S.W,g:G.dc,y:14},
-	"18-05":[{e:"Onda",c:"#b30469",g:G.eg,y:20},{e:"Taeyang",g:G.bb,c:"#396",y:8}],
-	"19-05":{e:"E:U",c:"#6b56a3",g:G.eg,y:18},
-	"20-05":{e:"Yamashita Haruka",c:[S.W,H.EG],g:G.hz,y:23},
-	"22-05":{e:"Yang Yena",c:"#ffb24f",g:G.ap,y:20},
-	"24-05":{e:"Yves",c:"#800040",g:G.ln,y:17},
-	"25-05":[{e:"Xinyu",c:"#d51313",g:G.ts,y:22},{e:"Woni",c:"#bbb0f5",g:G.rs,y:24}],
-	"26-05":[{e:"Eunchae (Kwon Chae Won)",c:"#2877ff",g:G.da,y:19},{e:"Yeji",c:"#3fafff",g:G.it,y:20},{e:"Kyujin",c:S.Pk,g:G.nm,y:26},{e:"Miya",c:"#663ac5",g:G.gw,y:13},{e:"Harin",c:S.Pk,g:G.pf,y:20},{e:"HA:TFELT (Yeeun/Yenny)",c:"#3aa9c5",g:G.wg,y:9}],
-	"27-05":[{e:"Dawon",c:"#ff5400",g:G.wj,y:17},{e:"Eunseo",c:"#479bcc",g:G.wj,y:18},{e:"Maloi",c:"#fcc20e",g:G.bn,y:22}],
-	"28-05":{e:"Kim Dahyun",c:S.W,g:G.tw,y:18},
-	"30-05":[{e:"Im Yoona",c:"#006994",g:G.gg,y:10},{e:"Eunha",c:["#ff6090",S.Pp],g:[G.gf,G.vv],y:17}],
-	"31-05":[{e:"Zoa",c:"#507595",g:G.we,y:25},{e:G.at,c:["#5db7f0","#c568ef"],i:true,y:44}],
-	"01-06":[{e:G.al,c:"#e0cbf4",i:true,y:37},{e:"Nagyung",c:"#ff9166",g:G.fr,y:20}],
-	"02-06":{e:"Nien",c:"#ff953f",g:G.ts,y:23},
-	"03-06":[{e:"Jo Seunghee",c:"#fa3789",g:G.da,y:15},{e:"SinB",c:["#ffd000",S.Bl],g:[G.gf,G.vv],y:18},{e:"Taeha",c:"#663ac5",g:G.mo,y:18}],
-	"04-06":{e:"Choerry",c:"#962cc4",g:G.ln,y:21},
-	"05-06":{e:"Chaeryeong",c:"#7fff00",g:G.it,y:21},
-	"06-06":[{e:"Hyuna",c:"#c74e37",g:G.wg,y:12},{e:"Nana (real name unknown)",c:"#ab00c2",g:G.un,y:27},{e:"Haechan",g:[G.nc,G.no,G.nd],c:"#2c6c8c",y:20}],
-	"07-06":{e:"Jueun",c:"#f7b7f0",g:G.da,y:15},
-	"11-06":[{e:"Seoah",c:"#cff3ff",g:G.ts,y:30},{e:G.bn,c:"#61c4cf",i:true,y:41}],
-	"13-06":[{e:"JinSoul",c:"#1487ec",g:G.ln,y:17},{e:"Aini",c:S.W,g:G.pf,y:11}],
-	"14-06":[{e:"Seeun",c:"#87ceeb",g:G.st,y:23},{e:"Tzuyu",c:"#016cba",g:G.tw,y:19}],
-	"16-06":{e:"Huihyeon",c:"#674ea7",g:G.da,y:15},
-	"18-06":[{e:"Nako",c:"#b7d3e9",g:G.io,y:21},{e:"Arin",c:"#1e90ff",g:G.og,y:19}],
-	"19-06":[{e:G.mm,i:true,y:34},{e:"Gwen",c:"#f4793d",g:G.bn,y:23}],
-	"20-06":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
-	"21-06":[{e:"Min",c:"#668a08",g:G.ma,y:11},{e:"Jaehee",g:[G.nc,G.nw],c:S.Gn,y:25}],
-	"26-06":{e:"Wonhee",c:"#c6ffd9",g:G.il,y:27},
-	"27-06":{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},
-	"28-06":[{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},{e:"Riku",g:[G.nc,G.nw],c:S.R,y:23}],
-	"30-06":[{e:G.we,c:["#c4afd0","#ffd076","#97e0cf"],i:true,y:40},{e:"Hyunji",c:"#a991d6",g:G.ht,y:12}],
-	"01-07":{e:"Taeyong",g:[G.nc,G.no],c:"#aa1944",y:15},
-	"02-07":{e:"Nagomi",g:G.mi,y:27},
-	"03-07":{e:G.ma,i:true,y:30},
-	"05-07":[{e:"Hyewon",c:"#db706c",g:G.io,y:19},{e:"Linlin",c:"#bf1b2b",g:G.cb,y:23}],
-	"07-07":[{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},{e:G.no,c:C.NC,y:36}],
-	"12-07":{e:"Jihan",c:"#ff3434",g:G.we,y:24},
-	"13-07":[{e:"Yebin",c:"#d30000",g:G.da,y:17},{e:"Stacey",c:"#f25c73",g:G.bn,y:23}],
-	"14-07":[{e:"Chaesol",c:"#64cfff",g:G.cg,y:18},{e:"Park Soobin",c:"#3be289",g:G.wj,y:16},{e:"Yoon Jiyoon",c:"#e4c09f",g:G.iz,y:25}],
-	"15-07":{e:"Cheng Xiao",c:"#cc476f",g:G.wj,y:18},
-	"16-07":{e:"Dia (Choi Eunji)",c:S.Bk,g:G.px,y:21},
-	"18-07":{e:G.sd,c:["#f6dd5c","#db2c89","#7e2a82"],i:true,y:38},
-	"19-07":{e:"Oh Hayoung",c:"#d2b0a0",g:G.ak,y:16},
-	"20-07":{e:"Elly (Jeong Haerim)",c:"#b164c4",g:G.wm,y:18},
-	"21-07":[{e:"Aisha",c:S.Bk,g:G.eg,y:20},{e:"Lia",c:S.R,g:G.it,y:20}],
-	"22-07":{e:G.nj,c:"#405995",i:true,y:42},
-	"23-07":[{e:"Yoo Sua",c:"#00dcdc",g:G.cs,y:25},{e:"Hwasa",c:"#f5cd5f",g:G.mm,y:15},{e:"Kawata Hina",c:[H.SP,H.Y],g:G.hz,y:21}],
-	"27-07":[{e:"Huening Bahiyyih",c:"#ffb16d",g:G.kp,y:24},{e:G.cs,c:"#f26925",i:true,y:42}],
-	"28-07":[{e:"Hyojung",c:"#fd35c7",g:G.og,y:14},{e:"Chaebin",c:S.Bk,g:G.na,y:19}],
-	"31-07":[{e:"U_Chae (Jung Dajeong)",c:S.R,g:G.px,y:23},{e:"Nayun",c:"#ea1483",g:G.mo,y:18},{e:"Hirao Honoka",c:[H.PB,H.O],g:G.hz,y:23}],
-	"01-08":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
-	"02-08":{e:"Mark",g:[G.nc,G.no,G.nd],c:"#cc00ff",y:19},
-	"03-08":[{e:"Yeonjung",c:"#6f30a0",g:G.wj,y:19},{e:G.na,i:true,y:38}],
-	"04-08":[{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},{e:"Ryo",g:[G.nc,G.nw],c:S.Y,y:27}],
-	"05-08":[{e:"Kim Sihyeon",c:"#c7d2a7",g:G.eg,y:19},{e:G.gg,c:"#fe4c80",i:true,y:27},{e:"SangA",c:"#87ceeb",g:G.pf,y:19}],
-	"06-08":[{e:"Yoon Seoyeon",c:"#22aeff",g:G.ts,y:23},{e:"Sumi",c:S.Y,g:G.fl,y:20},{e:"Ishizuka Tamaki",c:[H.SP,H.O],g:G.hz,y:24}],
-	"07-08":[{e:G.rp,i:true,y:39},{e:"Fujishima Kaho",c:[H.SP,H.B],g:G.hz,y:26}],
-	"08-08":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:[S.Bk,S.Pk],i:true,y:36},{e:"Dajeong",c:"#36f",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37},{e:"Xiaojun",g:[G.nc,G.wv],c:"#1e9ad4",y:19}],
-	"09-08":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23}],
-	"10-08":[{e:"SuA",c:S.R,g:G.dc,y:14},{e:"Yeeun",c:"#c20082",g:G.cl,y:18},{e:G.hz,c:"#8ec4e6",i:true,y:36}],
-	"11-08":{e:G.fl,i:true,y:40},
-	"12-08":[{e:"Choi Yujin",c:["#f97b90","#f77f0e"],g:[G.cl,G.kp],y:16},{e:"Kim Minseo",c:"#ffc32b",g:G.wa,y:24},{e:"Sunye",c:"#faa823",g:G.wg,y:9},{e:"Luna",c:S.Gn,g:G.fx,y:13}],
-	"13-08":[{e:"EJ",c:"#ffaa42",g:G.al,y:17},{e:"Bomi",c:"#bca9cb",g:G.ak,y:13},{e:"Jaemin",g:[G.nc,G.nd],c:"#9cf995",y:20}],
-	"14-08":[{e:"Kim Sohee",c:"#ff9932",g:G.rp,y:23},{e:"Hueningkai",c:S.Gn,g:G.tt,y:22}],
-	"15-08":{e:"Kishi Honoka",g:G.hz,y:24},
-	"16-08":{e:"Miyuu",c:"#aea2ea",g:G.fv,y:16},
-	"18-08":[{e:"HaSeul",c:"#00bf00",g:G.ln,y:17},{e:"Eunji",c:"#e6ab47",g:G.ak,y:13},{e:"JooE",c:"#87cefa",g:G.mo,y:19},{e:"G-Dragon",g:G.bb,c:"#c06",y:8}],
-	"19-08":[{e:G.ln,c:["#ff008f","#ffea00","#00bf00","#f46f1f","#ffa2d2","#ea0201","#1487ec","#962cc4","#800040","#ffbf7f","#30e192","#8f8f8f"],borderOverride:S.W,i:true,y:38},{e:"Bona",c:"#ff0090",g:G.wj,y:15},{e:"Yerin",c:"#b45eff",g:G.gf,y:16},{e:"Umji",c:["#00ff2e",S.R],g:[G.gf,G.vv],y:18},{e:"Gehlee",c:"#c2004e",g:G.un,y:27},{e:G.bb,c:S.Y,i:true,y:26},{e:"May (Lee Yebin)",c:"#f0b975",g:G.rs,y:28}],
-	"21-08":{e:"SeeA",c:S.Pp,g:G.pf,y:13},
-	"22-08":[{e:"Yeseo",c:"#a2cffe",g:[G.kp,G.mi],y:25},{e:"Somin",c:"#99e6b3",g:G.ap,y:16}],
-	"23-08":[{e:"Seo Hyerin",c:"#6bd402",g:G.ex,y:13},{e:"Higashimura Mei",c:H.SP,g:G.hz,y:18}],
-	"24-08":{e:G.ap,i:true,y:35},
-	"25-08":{e:G.nd,c:C.NC,y:36},
-	"26-08":[{e:"Soyeon",c:"#f5b0be",g:G.gi,y:18},{e:"Chaejeong",c:"#5ef78c",g:G.al,y:19}],
-	"28-08":{e:"Rachel",c:"#548ff7",g:G.ap,y:20},
-	"30-08":{e:"Sora",c:"#8edbff",g:G.wa,y:23},
-	"31-08":[{e:"Wonyoung",c:["#ff001e","#d9598c"],g:[G.io,G.iv],y:24},{e:"Eunjin",c:"#ff4f1b",g:G.da,y:17},{e:"Lucy (Noh Hyojung)",c:"#f6b26b",g:G.wm,y:22}],
-	"01-09":[{e:"An Yujin",c:["#ff399a","#567ace"],g:[G.io,G.iv],y:23},{e:"Gaga",g:G.na,y:19},{e:"Hyelim",c:"#e377a0",g:G.wg,y:12}],
-	"02-09":{e:"Eunice",c:"#ed9d25",g:G.da,y:11},
-	"03-09":[{e:"Joy",c:"#00df17",g:G.rv,y:16},{e:G.mi,i:true,y:44}],
-	"04-09":[{e:"Huh Jiwon",c:"#ea3da5",g:G.cb,y:20},{e:"Neru Nagahama",g:G.hz,y:18}],
-	"05-09":[{e:G.gw,c:["#f5b0cc","#f7ce76","#7cba96","#71c5e9"],i:true,y:38},{e:G.fx,c:"#a4a6fc",i:true,y:29},{e:"Saito Kyoko",c:S.W,g:G.hz,y:17}],
-	"07-09":[{e:"Park Sumin",c:S.M,g:G.dn,y:21},{e:"Kosaka Nao",c:[H.V,S.W],g:G.hz,y:22}],
-	"09-09":[{e:"Moon Sua",c:"#c9f",g:G.bl,y:19},{e:"Bae Yubin",c:"#ff7d07",g:G.og,y:17}],
-	"10-09":{e:"Kanemura Miku",c:[H.Y,H.PB],g:G.hz,y:22},
-	"13-09":[{e:"Yeonjun",c:S.Pp,g:G.tt,y:19},{e:"Sungchan",g:[G.nc,G.nu],c:"#ffd1ff",y:21}],
-	"14-09":[{e:"Jenny",c:"#00abdb",g:G.da,y:16},{e:G.da,c:["#01d1ff","#ff0a57"],i:true,y:35},{e:"Colet",c:"#0fb42d",g:G.bn,y:21}],
-	"15-09":{e:G.lb,c:S.Br,i:true,y:43},
-	"17-09":{e:"YooA",c:"#42ae4d",g:G.og,y:15},
-	"18-09":{e:"Amber",c:S.Bl,g:G.fx,y:12},
-	"20-09":[{e:"Sayaka",c:"#98d2e8",g:G.fv,y:15},{e:"Takase Mana",c:[H.SP,S.W],g:G.hz,y:18}],
-	"21-09":{e:"Tsuki",c:"#ff99a1",g:G.bl,y:22},
-	"22-09":[{e:"Im Nayeon",c:"#80caf1",g:G.tw,y:15},{e:"Hyoyeon",c:"#93c572",g:G.gg,y:9},{e:"Hong Yukyung",c:"#d4d4d4",g:G.ak,y:14}],
-	"23-09":{e:"Yuqi",c:"#26c98c",g:G.gi,y:19},
-	"24-09":[{e:"Gaeul",c:"#0055a8",g:G.iv,y:22},{e:"Sojin",c:"#ff7f00",g:G.ht,y:19}],
-	"25-09":{e:"Songyee",c:"#b28fff",g:G.wa,y:24},
-	"27-09":[{e:"Eunbi",c:"#bbb0dc",g:G.io,y:15},{e:"Ahin",c:"#dbd255",g:G.mo,y:19},{e:"Rina",c:S.Y,g:G.wm,y:21},{e:"Takahashi Mikuni",g:G.hz,y:23}],
-	"28-09":[{e:"Hamagishi Hiyori",c:[H.O,S.W],g:G.hz,y:22},{e:"Hendery",g:[G.nc,G.wv],c:"#772eff",y:19}],
-	"29-09":[{e:"Choi Yena",c:"#fcf695",g:G.io,y:19},{e:"Song Hayoung",c:"#785efd",g:G.fr,y:17},{e:"Ayeon",c:"#ff7530",g:G.sd,y:22}],
-	"30-09":{e:"Oh Subin",c:S.Y,g:G.ht,y:18},
-	"01-10":{e:"Siyeon",c:"#0f2fff",g:G.dc,y:15},
-	"03-10":[{e:"Soomin",c:"#fc83a4",g:G.ts,y:27},{e:"Juri",c:"#9932ff",g:G.rp,y:17},{e:"Konishi Nanami",c:[H.P,H.B],g:G.hz,y:24}],
-	"04-10":[{e:"Yuju (Choi Yoona)",c:"#ff623f",g:G.gf,y:17},{e:"Kim Yubin",c:"#87e95c",g:G.wg,y:8}],
-	"06-10":[{e:"Hitomi",c:"#f1c3aa",g:G.io,y:21},{e:"Hanni (Pha.m Ngo.c Ha^n)",c:"#ffbfff",g:G.nj,y:24},{e:"Lua",c:S.R,g:G.wm,y:20}],
-	"07-10":[{e:"Yeham",c:"#dc0093",g:G.cs,y:25},{e:"Oh Yoona",c:"#fa1bb7",g:G.un,y:29}],
-	"08-10":[{e:"Moka",c:"#d86d9d",g:G.il,y:24},{e:"Huh Yunjin",c:S.Gn,g:G.ls,y:21}],
-	"09-10":[{e:"Miku",c:"#87ceeb",g:G.pf,y:22},{e:"Cho Yubeen",c:S.O,g:G.pf,y:19},{e:"Ye Ah",c:"#456dff",g:G.cg,y:19}],
-	"10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14},{e:"Yangyang",g:[G.nc,G.wv],c:"#ff0000",y:20}],
-	"11-10":{e:"Liv",c:"#bdfff0",g:G.rs,y:26},
-	"13-10":[{e:G.ht,c:S.R,i:true,y:37},{e:"HanByeol",c:"#ffee56",g:G.dn,y:23},{e:"Nakyoung",c:"#6599a4",g:G.ts,y:22},{e:"Sohyun",c:"#1423b4",g:G.ts,y:22}],
-	"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#f90",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19}],
-	"17-10":[{e:"Lily",c:"#9cf",g:G.nm,y:22},{e:"Anne",c:"#e01458",g:G.gw,y:20}],
-	"19-10":{e:"HeeJin",c:"#ff008f",g:G.ln,y:20},
-	"20-10":[{e:"Chuu",c:"#ffbf7f",g:G.ln,y:19},{e:G.tw,c:["#f8c596","#fc5d9d"],i:true,y:35}],
-	"22-10":{e:"Jo Yuri",c:"#f3aa51",g:G.io,y:21},
-	"23-10":[{e:"Minnie",c:"#9bcbeb",g:G.gi,y:17},{e:"Ningning",c:"#ee172b",g:G.ae,y:22}],
-	"24-10":[{e:"Lee Jiwoo",c:"#fff801",g:G.ts,y:25},{e:G.pf,c:"#ff6689",i:true,y:38},{e:"Krystal",c:S.Y,g:G.fx,y:14}],
-	"25-10":[{e:"MISO",c:"#56a8ff",g:G.dn,y:20},{e:"Aeji",c:S.R,g:G.ht,y:19}],
-	"26-10":[{e:"Soeun",c:"#83c2f9",g:G.we,y:22},{e:"Yuta",g:[G.nc,G.no],c:"#ffa42d",y:15}],
-	"28-10":[{e:"Kotoko",c:"#8ec200",g:G.un,y:27},{e:"Mai",c:"#c23a5c",g:G.iz,y:24},{e:"Winwin",g:[G.nc,G.no],c:"#ff82c8",y:17}],
-	"29-10":{e:G.io,c:"#ef539d",i:true,y:38},
-	"30-10":[{e:"Giselle",c:"#030e06",g:G.ae,y:20},{e:"BoNi",c:"#ff9c56",g:G.dn,y:19}],
-	"01-11":[{e:"Jeongyeon",c:"#bcd776",g:G.tw,y:16},{e:"Kokoro",c:"#00dd93",g:G.cb,y:20},{e:"Yunkyoung",c:"#32ffff",g:G.rp,y:21}],
-	"02-11":[{e:"Elkie",c:"#61b329",g:G.cl,y:18},{e:"Takamoto Ayaka",c:[H.EG,S.W],g:G.hz,y:18}],
-	"03-11":[{e:"Belle",c:"#00c31a",g:G.cg,y:21},{e:"Hyeonju",c:"#00c31a",g:G.un,y:21}],
-	"04-11":[{e:"T.O.P",g:G.bb,c:"#2e5bd1",y:7},{e:"Rui",c:"#e3acca",g:G.fv,y:23}],
-	"05-11":{e:"Lee Yukyung",c:"#37fdfc",g:G.al,y:19},
-	"06-11":[{e:"Seungyeon",c:"#c7031e",g:G.cl,y:16},{e:"Exy",c:"#3b9b28",g:G.wj,y:15},{e:"Juyeon",c:"#fdfd96",g:G.sd,y:21}],
-	"07-11":{e:G.dn,c:["#00b0a4","#ffcd05"],i:true,y:38},
-	"08-11":[{e:"Kim Chaewon",c:"#ffff7a",g:G.ap,y:17},{e:"Gaeun",g:G.mi,y:25},{e:"Mikha",c:"#dd3628",g:G.bn,y:23}],
-	"09-11":{e:"Momo",c:"#f8cfd7",g:G.tw,y:16},
-	"10-11":[{e:G.bl,c:["#94b4e5","#c5b4e1"],i:true,y:41},{e:"Hong Eunchae",c:S.R,g:G.ls,y:26},{e:G.mo,i:true,y:36},{e:"Iguchi Mao",c:[H.R,H.O],g:G.hz,y:15}],
-	"11-11":[{e:"YeoJin",c:"#f46f1f",g:G.ln,y:22},{e:"Yeseul",c:"#f0b",g:G.fl,y:20},{e:"Haeryung",c:"#cc6",g:G.ex,y:14}],
-	"12-11":[{e:"Xiaoting",c:"#c38ec7",g:G.kp,y:19},{e:"Dara",c:"#f48769",g:G.tn,y:4},{e:G.st,c:S.Bk,i:true,y:40},{e:"Yoojung",c:"#20b2aa",g:G.wm,y:19}],
-	"13-11":[{e:"Hyeju",c:"#8f8f8f",g:G.ln,y:21},{e:"Hanna",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:20}],
-	"14-11":{e:"Koko",c:"#ffd69e",g:G.iz,y:26},
-	"15-11":{e:"HyunJin",c:"#ffea00",g:G.ln,y:20},
-	"16-11":[{e:"May (Hirokawa Mao)",c:"#fc5050",g:G.cb,y:24},{e:"Garam",c:["#9f9fff","#ffbfff"],g:G.ls,y:25}],//Garam:https://www.reddit.com/r/kimgaram/comments/1evm5if
-	"17-11":{e:G.ae,c:["#ae5fa0","#0dd5ad"],i:true,y:40},
-	"18-11":[{e:"Sorn",c:"#0090c7",g:G.cl,y:16},{e:"Sakuya",g:[G.nc,G.nw],c:[S.W,S.Pk],y:27}],
-	"19-11":{e:"Go Won",c:"#30e192",g:G.ln,y:20},
-	"21-11":{e:"Liz",c:"#00c3f5",g:G.iv,y:24},
-	"22-11":{e:"Chenle",g:[G.nc,G.nd],c:"#10c6ea",y:21},
-	"23-11":{e:"Jisun",c:"#ee5392",g:G.fr,y:18},
-	"25-11":{e:"Shotaro",g:[G.nc,G.nu],c:"#ff009d",y:20},
-	"26-11":{e:"Yechan",c:S.Bl,g:G.pf,y:15},
-	"27-11":{e:"Zena",c:"#f27e7e",g:G.rs,y:28},
-	"28-11":{e:"Haneul",c:"#4cffff",g:G.sd,y:21},
-	"29-11":{e:"Minami",c:"#9fd2ed",g:G.rs,y:26},
-	"30-11":{e:"Sullin",c:"#7bba8d",g:G.ts,y:26},
-	"01-12":[{e:G.iv,c:"#f1f1f1",i:true,y:41},{e:"Jung Chaeyeon",c:"#00a015",g:G.da,y:17}],
-	"02-12":{e:"Kakizaki Memi",g:G.hz,y:21},
-	"03-12":{e:"Lu",c:S.Gn,g:G.na,y:17},
-	"04-12":[{e:"Jinsol",c:"#cd79ce",g:G.ap,y:21},{e:"Chaeyeon",c:"#8dbf41",g:G.ts,y:24},{e:"Doyeon",c:"#abf40c",g:G.wm,y:19}],
-	"05-12":[{e:"Kwon Yuri",c:"#036",g:G.gg,y:9},{e:"Soobin",c:S.Bk,g:G.tt,y:20}],
-	"06-12":{e:"Yeonhee",c:"#ffff32",g:G.rp,y:20},
-	"07-12":{e:"Sowon",c:S.C,g:G.gf,y:15},
-	"08-12":{e:"Dami (Kang Hyeyeon)",c:"#6c9",g:G.ex,y:10},
-	"09-12":[{e:"ViVi",c:"#ffa2d2",g:G.ln,y:16},{e:"J",c:S.R,g:G.st,y:24},{e:"Shin Yuna",c:S.Y,g:G.it,y:23}],
-	"10-12":{e:"Elly (An Hyojin)",c:"#039",g:G.ex,y:11},//this is so messy, hyojin should have checked beforehand to make sure there was nobody already using that stage name
-	"12-12":{e:"Lee Soojin",c:"#f576be",g:G.we,y:21},
-	"13-12":{e:"Suhye",g:G.mi,y:24},
-	"16-12":{e:"Mashiro",c:"#fdeef4",g:[G.kp,G.mi],y:19},
-	"17-12":[{e:"Kim Sion",c:"#00b24d",g:G.sd,y:18},{e:"Sasaki Mirei",c:H.Y,g:G.hz,y:19}],
-	"20-12":[{e:"Yamada Kaede",c:"#ffc935",g:G.ts,y:25},{e:"Jane",c:"#5fd885",g:G.mo,y:17}],
-	"22-12":{e:"Moonbyul",c:"#b52624",g:G.mm,y:12},
-	"24-12":{e:"SeolA",g:G.wj,y:14},
-	"25-12":{e:"Daewang",c:"#90ee90",g:G.pf,y:9},
-	"26-12":[{e:"Momoka",c:S.Y,g:G.pf,y:20},{e:"Ushio Sarina",c:[H.P,H.Y],g:G.hz,y:17}],
-	"27-12":[{e:"Youngeun",c:"#93c572",g:G.kp,y:24},{e:"Gyuri",c:"#2196fe",g:G.fr,y:17},{e:"Loha",c:S.Bl,g:G.na,y:21}],
-	"28-12":{e:"Bae",c:S.Y,g:G.nm,y:24},
-	"29-12":[{e:"Sana",c:"#9c9ecf",g:G.tw,y:16},{e:"Yiren",c:S.W,g:G.eg,y:20}],
-	"31-12":[{e:"Kim Sohee",c:"#f66eba",g:G.al,y:19},{e:"Miyachi Sumire",c:[H.V,H.R],g:G.hz,y:25}]
+ID={//idolBdData  izna is pre-debut
+"01-01":[{e:"Winter",c:"#d1ddec",g:G.ae,y:21},{e:"Kun",g:[G.nc,G.wv],c:"#7ac9ab",y:16}],
+"02-01":{e:"Yuji",c:"#c00",g:G.ex,y:11},
+"03-01":[{e:"Jisoo",c:"#9f00bf",g:G.bp,y:15},{e:G.kp,c:["#c1a7e2",S.W],i:true,y:42}],
+"05-01":{e:"Karin",c:"#ee1289",g:G.al,y:22},
+"06-01":[{e:"Shuhua",c:"#ff9",g:G.gi,y:20},{e:"Chloe",c:"#dbf4a7",g:G.cg,y:21},{e:"Eunbin",c:"#ffd700",g:G.cl,y:20}],
+"07-01":[{e:"Yoohyeon",c:"#1fed15",g:G.dc,y:17},{e:"Saerom",c:"#fe4204",g:G.fr,y:17},{e:"Sei",c:"#f905f4",g:G.wm,y:20}],
+"08-01":[{e:"Seo Dahyun",c:"#ff9ad6",g:G.ts,y:23},{e:"Yeonji",c:"#5974ff",g:G.ts,y:28}],
+"09-01":{e:"MiU",g:G.mi,y:23},
+"10-01":[{e:"Haeyoon",c:"#f6917d",g:G.cb,y:16},{e:"Yeoreum",c:"#1f5cf4",g:G.wj,y:19},{e:"Solji",c:"#ec08b1",g:G.ex,y:9}],
+"11-01":[{e:"Lee Chaeyeon",c:"#a6dcde",g:G.io,y:20},{e:"Dobashi Kaede",c:"#61bbb5",g:G.fv,y:16}],
+"12-01":{e:"Hyebin",c:"#eb6af2",g:G.mo,y:16},
+"13-01":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#f9c",g:G.bl,y:21}],
+"14-01":{e:"Aurora",c:S.Pp,g:G.na,y:17},
+"15-01":[{e:"Suhyeon",c:"#3fc460",g:G.bl,y:20},{e:"Noh Yunah",c:"#ffcf70",g:G.il,y:24},{e:"Shimizu Rio",c:[H.PG,H.O],g:G.hz,y:25}],
+"16-01":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35}],//FUCK SOURCE MUSIC
+"17-01":{e:G.wv,c:C.NC,y:39},
+"18-01":[{e:"Minzy",c:"#c36ce6",g:G.tn,y:14},{e:"Tomita Suzuka",c:H.P,g:G.hz,y:21}],
+"20-01":[{e:"Kim Chaewon",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
+"21-01":{e:G.cb,c:"#ee2b2b",i:true,y:39},
+"22-01":[{e:"Lee Seoyeon",c:"#005385",g:G.fr,y:20},{e:"JinE",c:"#06c1c1",g:G.og,y:15},{e:"Arang",c:S.R,g:G.pf,y:21},{e:"Daisy",c:"#d1442e",g:G.mo,y:19},{e:"Jeong Saebi",c:"#b2c38a",g:G.iz,y:28},{e:"Sasaki Kumi",c:[H.PB,H.P],g:G.hz,y:16}],
+"23-01":{e:"Isa",c:S.Bk,g:G.st,y:22},
+"24-01":{e:G.fr,c:["#bc96bb","#b0eea1"],i:true,y:38},
+"25-01":[{e:"Hyun Seunghee",c:"#bcc70f",g:G.og,y:16},{e:"Heesun",c:S.O,g:G.pf,y:25}],
+"26-01":[{e:"Somyi",c:"#c738a4",g:G.da,y:20},{e:"Sullyoon",c:"#36f",g:G.nm,y:24},{e:"Seoryoung",c:S.C,g:G.gw,y:20},{e:"Jhoanna",c:"#0c63a6",g:G.bn,y:24}],
+"27-01":[{e:"Seowon",c:"#1c6fff",g:G.un,y:31},{e:"Aiah",c:"#79b3be",g:G.bn,y:21}],
+"28-01":{e:"Sheon",c:"#f90",g:G.bl,y:23},
+"30-01":[{e:"Haruna",c:"#0997de",g:G.bl,y:26},{e:"Yuki",c:"#7400db",g:G.sd,y:22},{e:"Saebom",c:S.R,g:G.na,y:17}],
+"31-01":{e:"Miyeon",c:S.Bk,g:G.gi,y:17},
+"01-02":[{e:"Jihyo",c:"#fac857",g:G.tw,y:17},{e:"Doyoung",g:[G.nc,G.no,G.ng],c:"#0066ff",y:16}],
+"02-02":[{e:"Do-A",c:"#c0f",g:G.al,y:19},{e:"Victoria",c:S.R,g:G.fx,y:7},{e:"Kato Shiho",c:H.B,g:G.hz,y:18}],
+"03-02":[{e:"Gahyun",c:"#ba09bf",g:G.dc,y:19},{e:"Rei",c:"#69c32d",g:G.iv,y:24},{e:G.cg,c:"#b00309",i:true,y:40},{e:"Gong Yubin",c:"#ffe3e2",g:G.ts,y:25},{e:"Jia",c:"#68b47e",g:G.ma,y:9},{e:"Seungmin",c:"#0f0",g:G.ht,y:16}],
+"04-02":{e:"Iroha",c:"#4791ff",g:G.il,y:28},
+"05-02":[{e:"Kim Minju",c:S.W,g:G.io,y:21},{e:"Hyunjoo",c:"#64bec1",g:G.ap,y:18},{e:"Taehyun",c:S.Y,g:G.tt,y:22},{e:"Jisung",g:[G.nc,G.nd],c:"#e41662",y:22}],
+"06-02":{e:"Luda",c:"#ffdc00",g:G.wj,y:17},
+"07-02":[{e:"Sunn",c:"#ffadad",g:G.cg,y:20},{e:"Watanabe Rina",c:[H.P,H.SP],g:G.hz,y:29}],
+"09-02":[{e:"Yooyeon",c:"#db0c74",g:G.ts,y:21},{e:G.vv,c:[S.Pp,S.Bl,S.R],i:true,y:42},{e:"Johnny",g:[G.nc,G.no],c:"#99cccc",y:15}],
+"10-02":[{e:"Kim Lip",c:"#ea0201",g:G.ln,y:19},{e:"Sooyoung",c:"#ff5ccd",g:G.gg,y:10},{e:"Son Naeun",c:"#c4b36b",g:G.ak,y:14},{e:"Seulgi",c:"#fffb00",g:G.rv,y:14},{e:G.wg,c:"#ad2a70",i:true,y:27}],
+"11-02":[{e:"Rose'",c:"#005eff",g:G.bp,y:17},{e:"Wooyeon",c:"#78fc4c",g:G.wa,y:23}],//The font I'm using here sadly does not support accents (é)
+"12-02":{e:G.it,c:S.M,i:true,y:39},
+"13-02":[{e:"Jiyeon",c:"#ffab62",g:G.ts,y:24},{e:G.ts,c:S.Bk,i:true,y:43},{e:"Chohee",c:"#ff2d2d",g:G.sd,y:21}],
+"14-02":[{e:"Shogenji Yoko",c:[H.O,H.R],g:G.hz,y:27},{e:"Jaehyun",g:[G.nc,G.no,G.ng],c:"#cccc00",y:17}],
+"15-02":{e:"Nibu Akari",c:H.O,g:G.hz,y:21},
+"16-02":[{e:"Siyoon",c:S.Y,g:G.bl,y:25},{e:G.ex,c:["#f9eecf","#e6678e","#6663ad"],i:true,y:32}],
+"19-02":{e:"Jungwoo",g:[G.nc,G.no,G.ng],c:"#58acfa",y:18},
+"20-02":{e:"Takeuchi Kirari",c:[H.Y,H.R],g:G.hz,y:26},
+"21-02":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20},{e:G.nw,c:C.NC,y:44}],
+//floria's so underdeveloped, how were 2 members never in a song, f**k dk entertainment, CUNL
+"22-02":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}],//Lola=Choi Yoojung
+"23-02":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24}],
+"24-02":[{e:"Choi Sua",c:S.Y,g:G.px,y:23},{e:G.px,i:true,y:41},{e:"Watanabe Miho",g:G.hz,y:20}],
+"25-02":[{e:"Haewon",c:S.W,g:G.nm,y:23},{e:G.wj,c:["#ffa18a","#003580","#d9d6d1"],i:true,y:36}],
+"26-02":{e:"CL",c:"#e2d989",g:G.tn,y:11},
+"27-02":[{e:"Satbyeol",c:S.W,g:G.px,y:21},{e:"Ten",g:[G.nc,G.wv],c:"#9e793e",y:16}],
+"28-02":{e:"Yunha",c:"#0098c2",g:G.un,y:29},
+"01-03":{e:G.fv,i:true,y:43},
+"02-03":[{e:"Dayeon",c:"#6496eb",g:G.kp,y:23},{e:"Jiyoon",c:"#f4da40",g:G.we,y:22}],
+"03-03":[{e:"Chorong",c:"#e60056",g:G.ak,y:11},{e:"Bora",c:"#7acde9",g:G.cb,y:19}],
+"04-03":[{e:"Geumhee",c:"#04ad57",g:G.cs,y:25},{e:G.tt,c:S.Bl,i:true,y:39}],//cant figure out wtf is going on w/txt's colors so i'm using the iems and making txt blue
+"05-03":[{e:"Choi Yuju",c:"#860494",g:G.cb,y:17},{e:"Yeri",c:"#9f1fbf",g:G.rv,y:19}],
+"07-03":[{e:"Dami (Lee Yubin)",c:"#fff40f",g:G.dc,y:17},{e:"Eunjo",c:"#56ff59",g:G.dn,y:22}],
+"09-03":[{e:"Taeyeon",c:"#6495ed",g:G.gg,y:9},{e:"Seo Soojin",c:"#f7988d",g:G.gi,y:18},{e:"Nana (Kwon Nayeon)",c:"#fc7eaa",g:G.wa,y:21}],
+"10-03":[{e:"HaBin",c:"#56ffcc",g:G.dn,y:22},{e:"Kotone",c:"#fde000",g:G.ts,y:24}],
+"11-03":{e:"Kang Minju",c:"#ffe303",g:G.gw,y:21},
+"12-03":[{e:"Hikaru",c:"#fbea8c",g:G.kp,y:24},{e:"Hwang Sihyeon",c:"#04b6f3",g:G.cs,y:25}],
+"13-03":[{e:"Bae Sumin",c:"#ffc0cb",g:G.st,y:21},{e:"Chaerin",c:"#5d34c3",g:G.cb,y:22},{e:"Beomgyu",c:S.R,g:G.tt,y:21}],
+"14-03":{e:"Soso",c:"#00dd93",g:G.gw,y:21},
+"17-03":{e:"Suyun",c:"#ff3232",g:G.rp,y:21},
+"18-03":[{e:G.eg,c:"#d1b4cb",i:true,y:39},{e:"Jaehee",c:"#a37fff",g:G.we,y:24}],
+"19-03":[{e:"Sakura",c:["#f1d2e7",S.Pk],g:[G.io,G.ls],y:18},{e:G.cl,c:["#840b55","#ffcd00","#005f61"],i:true,y:35}],//leave sakura alone
+"20-03":{e:"Park Jiwon",c:"#86ab11",g:G.fr,y:18},
+"21-03":{e:"Park Minseo",c:"#00ff8c",g:G.sd,y:23},
+"23-03":{e:"Renjun",g:[G.nc,G.nd],c:"#ffff00",y:20},
+"24-03":[{e:"Mina",c:"#6fc5c2",g:G.tw,y:17},{e:"Bom",c:"#76d4ae",g:G.tn,y:4},{e:"Yang Sua",c:"#9b8d4f",g:G.ht,y:15}],
+"25-03":{e:G.il,c:"#dcb4fb",i:true,y:44},
+"26-03":[{e:"Handong",c:S.Bk,g:G.dc,y:16},{e:"Mirae",c:"#b94ad6",g:G.cb,y:18},{e:"An Seoyeon",c:"#f6620f",g:G.cs,y:25},{e:"Ella",c:"#cf004f",g:G.px,y:18},{e:G.rs,i:true,y:44}],
+"27-03":[{e:"Lisa",c:"#fffa00",g:G.bp,y:17},{e:G.un,i:true,y:44}],
+"29-03":[{e:"Irene",c:"#ff7fdf",g:G.rv,y:11},{e:"Sulli",c:S.M,g:G.fx,y:14}],
+"01-04":{e:"Jeewon",c:"#009994",g:G.cg,y:19},
+"03-04":[{e:"Park Shion",c:"#ff428a",g:G.ts,y:26},{e:"Jo Ara",c:"#ff0040",g:G.fl,y:21}],
+"04-04":{e:"Jiho",c:"#ca3435",g:G.og,y:17},
+"05-04":{e:"Yushi",g:[G.nc,G.nw],c:S.Bl,y:24},
+"09-04":[{e:"Lucy (Kim Daeun)",c:"#fc3535",g:G.wa,y:24},{e:"Hiraoka Mitsuki",c:[H.B,H.Y],g:G.hz,y:22},{e:G.nu,c:C.NC,y:36}],
+"10-04":[{e:"Semi",c:"#ba63f7",g:G.cg,y:22},{e:"Hayeon (Su Hyeon)",c:"#bd77ff",g:G.fl,y:22}],
+"11-04":[{e:"Danielle",c:"#0e0",g:G.nj,y:25},{e:"Karina",c:"#a82ce6",g:G.ae,y:20}],
+"12-04":[{e:"Jeong Hyerin",c:"#9200ff",g:G.ts,y:27},{e:"Lynn",c:"#ac62b7",g:G.ts,y:26},{e:"Ruri",c:"#deb6f0",g:G.fv,y:16},{e:"Kamimura Hinano",c:[H.R,H.EG],g:G.hz,y:24}],
+"13-04":[{e:"Kim Jiwoo",c:S.R,g:G.nm,y:25},{e:"Nancy",c:"#f7b7f0",g:G.mo,y:20}],
+"14-04":{e:"Yoon",c:"#32cd32",g:G.st,y:24},
+"15-04":{e:"Namjoo",c:"#cb6cb0",g:G.ak,y:15},
+"16-04":[{e:"Jinni",c:"#c9f",g:G.nm,y:24},{e:"Seokyoung",c:"#c73aff",g:G.gw,y:19}],
+"17-04":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22},{e:G.ng,c:C.NC,y:43}],
+"18-04":[{e:"Jessica",c:"#d10056",g:G.gg,y:9},{e:"Elisia",c:"#c26400",g:G.un,y:29},{e:"Ryu Sarang",c:"#f7e58a",g:G.iz,y:27}],
+"19-04":{e:G.ak,c:"#e889b1",i:true,y:31},
+"20-04":{e:"Ji Suyeon",c:"#987654",g:G.wm,y:17},
+"21-04":[{e:"Hyein",c:"#1f5fff",g:G.nj,y:28},{e:G.og,c:["#eea8cc","#a2dbee","#efe59d"],i:true,y:35}],
+"23-04":[{e:"Son Chaeyoung",c:"#e81933",g:G.tw,y:19},{e:"Iimura Yuna",c:"#6f43a4",g:G.cs,y:25},{e:"Jeno",g:[G.nc,G.nd],c:"#ff4d00",y:20}],
+"24-04":{e:"YOUI",c:"#ff5656",g:G.dn,y:20},
+"26-04":[{e:"Chaehyun",c:"#ffb7ce",g:G.kp,y:22},{e:"Remi",c:"#b3f96b",g:G.cb,y:21},{e:"Daesung",g:G.bb,c:"#669",y:9}],
+"27-04":[{e:"Fei",c:"#9957a7",g:G.ma,y:7},{e:"Matsuda Konoka",c:[H.SP,H.PG],g:G.hz,y:19}],
+"28-04":[{e:"Duna",c:"#e56fb6",g:G.cs,y:25},{e:"Miyata Manamo",c:[H.R,H.SP],g:G.hz,y:18}],
+"29-04":{e:"Jeong Dahyun",c:"#ff32ff",g:G.rp,y:25},
+"01-05":[{e:"Mimi",c:"#9e45e8",g:G.og,y:15},{e:"Hani (Ahn Heeyeon)",c:"#ff7d40",g:G.ex,y:12}],
+"02-05":[{e:G.gi,c:["#580e8b","#e80037"],i:true,y:38},{e:"Kim Chaewon",c:"#c7a3e0",g:G.ts,y:27},{e:G.ls,c:"#7ba6de",i:true,y:42},{e:"Sunmi",c:"#e81655",g:G.wg,y:12}],
+"03-05":{e:"Serina",g:G.mi,y:26},
+"05-05":[{e:"Lee Naeun",c:"#ba4c81",g:G.ap,y:19},{e:"Rinji",c:"#008b8b",g:G.px,y:26}],
+"06-05":{e:G.tn,c:"#ff007f",i:true,y:29},
+"07-05":[{e:"Minji",c:"#fff81f",g:G.nj,y:24},{e:"Uchae (Woo Hyejun)",c:S.Y,g:G.na,y:22}],
+"08-05":[{e:"Junghwa",c:"#c9c",g:G.ex,y:15},{e:"Bang Jeemin",c:"#4051ad",g:G.iz,y:25},{e:"Kageyama Yuka",c:H.R,g:G.hz,y:21}],
+"09-05":{e:"Sheena",c:"#5a3a63",g:G.bn,y:24},
+"10-05":{e:"Monday",c:"#415dff",g:G.we,y:22},
+"11-05":[{e:"Park Minju",c:"#ba4545",g:G.il,y:24},{e:"Sion",g:[G.nc,G.nw],c:S.Pp,y:22}],
+"12-05":{e:"Mayu",c:"#fe8e76",g:G.ts,y:22},
+"14-05":[{e:"Lee Chaeyoung",c:"#23f854",g:G.fr,y:20},{e:"Dayoung",c:"#e80000",g:G.wj,y:19}],
+"15-05":[{e:"Sunny",c:"#6b8e23",g:G.gg,y:9},{e:"Haerin",c:S.W,g:G.nj,y:26},{e:G.wa,c:["S.W","#F61BED"],i:true,y:40}],
+"16-05":{e:"IU",c:["#c9b2df","#e1e429"],y:13},
+"17-05":{e:"JiU",c:S.W,g:G.dc,y:14},
+"18-05":[{e:"Onda",c:"#b30469",g:G.eg,y:20},{e:"Taeyang",g:G.bb,c:"#396",y:8}],
+"19-05":{e:"E:U",c:"#6b56a3",g:G.eg,y:18},
+"20-05":{e:"Yamashita Haruka",c:[S.W,H.EG],g:G.hz,y:23},
+"22-05":{e:"Yang Yena",c:"#ffb24f",g:G.ap,y:20},
+"24-05":{e:"Yves",c:"#800040",g:G.ln,y:17},
+"25-05":[{e:"Xinyu",c:"#d51313",g:G.ts,y:22},{e:"Woni",c:"#bbb0f5",g:G.rs,y:24}],
+"26-05":[{e:"Eunchae (Kwon Chae Won)",c:"#2877ff",g:G.da,y:19},{e:"Yeji",c:"#3fafff",g:G.it,y:20},{e:"Kyujin",c:S.Pk,g:G.nm,y:26},{e:"Miya",c:"#663ac5",g:G.gw,y:13},{e:"Harin",c:S.Pk,g:G.pf,y:20},{e:"HA:TFELT (Yeeun/Yenny)",c:"#3aa9c5",g:G.wg,y:9}],
+"27-05":[{e:"Dawon",c:"#ff5400",g:G.wj,y:17},{e:"Eunseo",c:"#479bcc",g:G.wj,y:18},{e:"Maloi",c:"#fcc20e",g:G.bn,y:22}],
+"28-05":{e:"Kim Dahyun",c:S.W,g:G.tw,y:18},
+"30-05":[{e:"Im Yoona",c:"#006994",g:G.gg,y:10},{e:"Eunha",c:["#ff6090",S.Pp],g:[G.gf,G.vv],y:17}],
+"31-05":[{e:"Zoa",c:"#507595",g:G.we,y:25},{e:G.at,c:["#5db7f0","#c568ef"],i:true,y:44}],
+"01-06":[{e:G.al,c:"#e0cbf4",i:true,y:37},{e:"Nagyung",c:"#ff9166",g:G.fr,y:20}],
+"02-06":{e:"Nien",c:"#ff953f",g:G.ts,y:23},
+"03-06":[{e:"Jo Seunghee",c:"#fa3789",g:G.da,y:15},{e:"SinB",c:["#ffd000",S.Bl],g:[G.gf,G.vv],y:18},{e:"Taeha",c:"#663ac5",g:G.mo,y:18}],
+"04-06":{e:"Choerry",c:"#962cc4",g:G.ln,y:21},
+"05-06":{e:"Chaeryeong",c:"#7fff00",g:G.it,y:21},
+"06-06":[{e:"Hyuna",c:"#c74e37",g:G.wg,y:12},{e:"Nana (real name unknown)",c:"#ab00c2",g:G.un,y:27},{e:"Haechan",g:[G.nc,G.no,G.nd],c:"#2c6c8c",y:20}],
+"07-06":{e:"Jueun",c:"#f7b7f0",g:G.da,y:15},
+"11-06":[{e:"Seoah",c:"#cff3ff",g:G.ts,y:30},{e:G.bn,c:"#61c4cf",i:true,y:41}],
+"13-06":[{e:"JinSoul",c:"#1487ec",g:G.ln,y:17},{e:"Aini",c:S.W,g:G.pf,y:11}],
+"14-06":[{e:"Seeun",c:"#87ceeb",g:G.st,y:23},{e:"Tzuyu",c:"#016cba",g:G.tw,y:19}],
+"16-06":{e:"Huihyeon",c:"#674ea7",g:G.da,y:15},
+"18-06":[{e:"Nako",c:"#b7d3e9",g:G.io,y:21},{e:"Arin",c:"#1e90ff",g:G.og,y:19}],
+"19-06":[{e:G.mm,i:true,y:34},{e:"Gwen",c:"#f4793d",g:G.bn,y:23}],
+"20-06":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
+"21-06":[{e:"Min",c:"#668a08",g:G.ma,y:11},{e:"Jaehee",g:[G.nc,G.nw],c:S.Gn,y:25}],
+"26-06":{e:"Wonhee",c:"#c6ffd9",g:G.il,y:27},
+"27-06":{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},
+"28-06":[{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},{e:"Riku",g:[G.nc,G.nw],c:S.R,y:23}],
+"30-06":[{e:G.we,c:["#c4afd0","#ffd076","#97e0cf"],i:true,y:40},{e:"Hyunji",c:"#a991d6",g:G.ht,y:12}],
+"01-07":{e:"Taeyong",g:[G.nc,G.no],c:"#aa1944",y:15},
+"02-07":{e:"Nagomi",g:G.mi,y:27},
+"03-07":{e:G.ma,i:true,y:30},
+"05-07":[{e:"Hyewon",c:"#db706c",g:G.io,y:19},{e:"Linlin",c:"#bf1b2b",g:G.cb,y:23}],
+"07-07":[{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},{e:G.no,c:C.NC,y:36}],
+"12-07":{e:"Jihan",c:"#ff3434",g:G.we,y:24},
+"13-07":[{e:"Yebin",c:"#d30000",g:G.da,y:17},{e:"Stacey",c:"#f25c73",g:G.bn,y:23}],
+"14-07":[{e:"Chaesol",c:"#64cfff",g:G.cg,y:18},{e:"Park Soobin",c:"#3be289",g:G.wj,y:16},{e:"Yoon Jiyoon",c:"#e4c09f",g:G.iz,y:25}],
+"15-07":{e:"Cheng Xiao",c:"#cc476f",g:G.wj,y:18},
+"16-07":{e:"Dia (Choi Eunji)",c:S.Bk,g:G.px,y:21},
+"18-07":{e:G.sd,c:["#f6dd5c","#db2c89","#7e2a82"],i:true,y:38},
+"19-07":{e:"Oh Hayoung",c:"#d2b0a0",g:G.ak,y:16},
+"20-07":{e:"Elly (Jeong Haerim)",c:"#b164c4",g:G.wm,y:18},
+"21-07":[{e:"Aisha",c:S.Bk,g:G.eg,y:20},{e:"Lia",c:S.R,g:G.it,y:20}],
+"22-07":{e:G.nj,c:"#405995",i:true,y:42},
+"23-07":[{e:"Yoo Sua",c:"#00dcdc",g:G.cs,y:25},{e:"Hwasa",c:"#f5cd5f",g:G.mm,y:15},{e:"Kawata Hina",c:[H.SP,H.Y],g:G.hz,y:21}],
+"27-07":[{e:"Huening Bahiyyih",c:"#ffb16d",g:G.kp,y:24},{e:G.cs,c:"#f26925",i:true,y:42}],
+"28-07":[{e:"Hyojung",c:"#fd35c7",g:G.og,y:14},{e:"Chaebin",c:S.Bk,g:G.na,y:19}],
+"31-07":[{e:"U_Chae (Jung Dajeong)",c:S.R,g:G.px,y:23},{e:"Nayun",c:"#ea1483",g:G.mo,y:18},{e:"Hirao Honoka",c:[H.PB,H.O],g:G.hz,y:23}],
+"01-08":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
+"02-08":{e:"Mark",g:[G.nc,G.no,G.nd],c:"#cc00ff",y:19},
+"03-08":[{e:"Yeonjung",c:"#6f30a0",g:G.wj,y:19},{e:G.na,i:true,y:38}],
+"04-08":[{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},{e:"Ryo",g:[G.nc,G.nw],c:S.Y,y:27}],
+"05-08":[{e:"Kim Sihyeon",c:"#c7d2a7",g:G.eg,y:19},{e:G.gg,c:"#fe4c80",i:true,y:27},{e:"SangA",c:"#87ceeb",g:G.pf,y:19}],
+"06-08":[{e:"Yoon Seoyeon",c:"#22aeff",g:G.ts,y:23},{e:"Sumi",c:S.Y,g:G.fl,y:20},{e:"Ishizuka Tamaki",c:[H.SP,H.O],g:G.hz,y:24}],
+"07-08":[{e:G.rp,i:true,y:39},{e:"Fujishima Kaho",c:[H.SP,H.B],g:G.hz,y:26}],
+"08-08":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:[S.Bk,S.Pk],i:true,y:36},{e:"Dajeong",c:"#36f",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37},{e:"Xiaojun",g:[G.nc,G.wv],c:"#1e9ad4",y:19}],
+"09-08":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23}],
+"10-08":[{e:"SuA",c:S.R,g:G.dc,y:14},{e:"Yeeun",c:"#c20082",g:G.cl,y:18},{e:G.hz,c:"#8ec4e6",i:true,y:36}],
+"11-08":{e:G.fl,i:true,y:40},
+"12-08":[{e:"Choi Yujin",c:["#f97b90","#f77f0e"],g:[G.cl,G.kp],y:16},{e:"Kim Minseo",c:"#ffc32b",g:G.wa,y:24},{e:"Sunye",c:"#faa823",g:G.wg,y:9},{e:"Luna",c:S.Gn,g:G.fx,y:13}],
+"13-08":[{e:"EJ",c:"#ffaa42",g:G.al,y:17},{e:"Bomi",c:"#bca9cb",g:G.ak,y:13},{e:"Jaemin",g:[G.nc,G.nd],c:"#9cf995",y:20}],
+"14-08":[{e:"Kim Sohee",c:"#ff9932",g:G.rp,y:23},{e:"Hueningkai",c:S.Gn,g:G.tt,y:22}],
+"15-08":{e:"Kishi Honoka",g:G.hz,y:24},
+"16-08":{e:"Miyuu",c:"#aea2ea",g:G.fv,y:16},
+"18-08":[{e:"HaSeul",c:"#00bf00",g:G.ln,y:17},{e:"Eunji",c:"#e6ab47",g:G.ak,y:13},{e:"JooE",c:"#87cefa",g:G.mo,y:19},{e:"G-Dragon",g:G.bb,c:"#c06",y:8}],
+"19-08":[{e:G.ln,c:["#ff008f","#ffea00","#00bf00","#f46f1f","#ffa2d2","#ea0201","#1487ec","#962cc4","#800040","#ffbf7f","#30e192","#8f8f8f"],borderOverride:S.W,i:true,y:38},{e:"Bona",c:"#ff0090",g:G.wj,y:15},{e:"Yerin",c:"#b45eff",g:G.gf,y:16},{e:"Umji",c:["#00ff2e",S.R],g:[G.gf,G.vv],y:18},{e:"Gehlee",c:"#c2004e",g:G.un,y:27},{e:G.bb,c:S.Y,i:true,y:26},{e:"May (Lee Yebin)",c:"#f0b975",g:G.rs,y:28}],
+"21-08":{e:"SeeA",c:S.Pp,g:G.pf,y:13},
+"22-08":[{e:"Yeseo",c:"#a2cffe",g:[G.kp,G.mi],y:25},{e:"Somin",c:"#99e6b3",g:G.ap,y:16}],
+"23-08":[{e:"Seo Hyerin",c:"#6bd402",g:G.ex,y:13},{e:"Higashimura Mei",c:H.SP,g:G.hz,y:18}],
+"24-08":{e:G.ap,i:true,y:35},
+"25-08":{e:G.nd,c:C.NC,y:36},
+"26-08":[{e:"Soyeon",c:"#f5b0be",g:G.gi,y:18},{e:"Chaejeong",c:"#5ef78c",g:G.al,y:19}],
+"28-08":{e:"Rachel",c:"#548ff7",g:G.ap,y:20},
+"30-08":{e:"Sora",c:"#8edbff",g:G.wa,y:23},
+"31-08":[{e:"Wonyoung",c:["#ff001e","#d9598c"],g:[G.io,G.iv],y:24},{e:"Eunjin",c:"#ff4f1b",g:G.da,y:17},{e:"Lucy (Noh Hyojung)",c:"#f6b26b",g:G.wm,y:22}],
+"01-09":[{e:"An Yujin",c:["#ff399a","#567ace"],g:[G.io,G.iv],y:23},{e:"Gaga",g:G.na,y:19},{e:"Hyelim",c:"#e377a0",g:G.wg,y:12}],
+"02-09":{e:"Eunice",c:"#ed9d25",g:G.da,y:11},
+"03-09":[{e:"Joy",c:"#00df17",g:G.rv,y:16},{e:G.mi,i:true,y:44}],
+"04-09":[{e:"Huh Jiwon",c:"#ea3da5",g:G.cb,y:20},{e:"Neru Nagahama",g:G.hz,y:18}],
+"05-09":[{e:G.gw,c:["#f5b0cc","#f7ce76","#7cba96","#71c5e9"],i:true,y:38},{e:G.fx,c:"#a4a6fc",i:true,y:29},{e:"Saito Kyoko",c:S.W,g:G.hz,y:17}],
+"07-09":[{e:"Park Sumin",c:S.M,g:G.dn,y:21},{e:"Kosaka Nao",c:[H.V,S.W],g:G.hz,y:22}],
+"09-09":[{e:"Moon Sua",c:"#c9f",g:G.bl,y:19},{e:"Bae Yubin",c:"#ff7d07",g:G.og,y:17}],
+"10-09":{e:"Kanemura Miku",c:[H.Y,H.PB],g:G.hz,y:22},
+"13-09":[{e:"Yeonjun",c:S.Pp,g:G.tt,y:19},{e:"Sungchan",g:[G.nc,G.nu],c:"#ffd1ff",y:21}],
+"14-09":[{e:"Jenny",c:"#00abdb",g:G.da,y:16},{e:G.da,c:["#01d1ff","#ff0a57"],i:true,y:35},{e:"Colet",c:"#0fb42d",g:G.bn,y:21}],
+"15-09":{e:G.lb,c:S.Br,i:true,y:43},
+"17-09":{e:"YooA",c:"#42ae4d",g:G.og,y:15},
+"18-09":{e:"Amber",c:S.Bl,g:G.fx,y:12},
+"20-09":[{e:"Sayaka",c:"#98d2e8",g:G.fv,y:15},{e:"Takase Mana",c:[H.SP,S.W],g:G.hz,y:18}],
+"21-09":{e:"Tsuki",c:"#ff99a1",g:G.bl,y:22},
+"22-09":[{e:"Im Nayeon",c:"#80caf1",g:G.tw,y:15},{e:"Hyoyeon",c:"#93c572",g:G.gg,y:9},{e:"Hong Yukyung",c:"#d4d4d4",g:G.ak,y:14}],
+"23-09":{e:"Yuqi",c:"#26c98c",g:G.gi,y:19},
+"24-09":[{e:"Gaeul",c:"#0055a8",g:G.iv,y:22},{e:"Sojin",c:"#ff7f00",g:G.ht,y:19}],
+"25-09":{e:"Songyee",c:"#b28fff",g:G.wa,y:24},
+"27-09":[{e:"Eunbi",c:"#bbb0dc",g:G.io,y:15},{e:"Ahin",c:"#dbd255",g:G.mo,y:19},{e:"Rina",c:S.Y,g:G.wm,y:21},{e:"Takahashi Mikuni",g:G.hz,y:23}],
+"28-09":[{e:"Hamagishi Hiyori",c:[H.O,S.W],g:G.hz,y:22},{e:"Hendery",g:[G.nc,G.wv],c:"#772eff",y:19}],
+"29-09":[{e:"Choi Yena",c:"#fcf695",g:G.io,y:19},{e:"Song Hayoung",c:"#785efd",g:G.fr,y:17},{e:"Ayeon",c:"#ff7530",g:G.sd,y:22}],
+"30-09":{e:"Oh Subin",c:S.Y,g:G.ht,y:18},
+"01-10":{e:"Siyeon",c:"#0f2fff",g:G.dc,y:15},
+"03-10":[{e:"Soomin",c:"#fc83a4",g:G.ts,y:27},{e:"Juri",c:"#9932ff",g:G.rp,y:17},{e:"Konishi Nanami",c:[H.P,H.B],g:G.hz,y:24}],
+"04-10":[{e:"Yuju (Choi Yoona)",c:"#ff623f",g:G.gf,y:17},{e:"Kim Yubin",c:"#87e95c",g:G.wg,y:8}],
+"06-10":[{e:"Hitomi",c:"#f1c3aa",g:G.io,y:21},{e:"Hanni (Pha.m Ngo.c Ha^n)",c:"#ffbfff",g:G.nj,y:24},{e:"Lua",c:S.R,g:G.wm,y:20}],
+"07-10":[{e:"Yeham",c:"#dc0093",g:G.cs,y:25},{e:"Oh Yoona",c:"#fa1bb7",g:G.un,y:29}],
+"08-10":[{e:"Moka",c:"#d86d9d",g:G.il,y:24},{e:"Huh Yunjin",c:S.Gn,g:G.ls,y:21}],
+"09-10":[{e:"Miku",c:"#87ceeb",g:G.pf,y:22},{e:"Cho Yubeen",c:S.O,g:G.pf,y:19},{e:"Ye Ah",c:"#456dff",g:G.cg,y:19}],
+"10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14},{e:"Yangyang",g:[G.nc,G.wv],c:"#ff0000",y:20}],
+"11-10":{e:"Liv",c:"#bdfff0",g:G.rs,y:26},
+"13-10":[{e:G.ht,c:S.R,i:true,y:37},{e:"HanByeol",c:"#ffee56",g:G.dn,y:23},{e:"Nakyoung",c:"#6599a4",g:G.ts,y:22},{e:"Sohyun",c:"#1423b4",g:G.ts,y:22}],
+"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#f90",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19}],
+"17-10":[{e:"Lily",c:"#9cf",g:G.nm,y:22},{e:"Anne",c:"#e01458",g:G.gw,y:20}],
+"19-10":{e:"HeeJin",c:"#ff008f",g:G.ln,y:20},
+"20-10":[{e:"Chuu",c:"#ffbf7f",g:G.ln,y:19},{e:G.tw,c:["#f8c596","#fc5d9d"],i:true,y:35}],
+"22-10":{e:"Jo Yuri",c:"#f3aa51",g:G.io,y:21},
+"23-10":[{e:"Minnie",c:"#9bcbeb",g:G.gi,y:17},{e:"Ningning",c:"#ee172b",g:G.ae,y:22}],
+"24-10":[{e:"Lee Jiwoo",c:"#fff801",g:G.ts,y:25},{e:G.pf,c:"#ff6689",i:true,y:38},{e:"Krystal",c:S.Y,g:G.fx,y:14}],
+"25-10":[{e:"MISO",c:"#56a8ff",g:G.dn,y:20},{e:"Aeji",c:S.R,g:G.ht,y:19}],
+"26-10":[{e:"Soeun",c:"#83c2f9",g:G.we,y:22},{e:"Yuta",g:[G.nc,G.no],c:"#ffa42d",y:15}],
+"28-10":[{e:"Kotoko",c:"#8ec200",g:G.un,y:27},{e:"Mai",c:"#c23a5c",g:G.iz,y:24},{e:"Winwin",g:[G.nc,G.no],c:"#ff82c8",y:17}],
+"29-10":{e:G.io,c:"#ef539d",i:true,y:38},
+"30-10":[{e:"Giselle",c:"#030e06",g:G.ae,y:20},{e:"BoNi",c:"#ff9c56",g:G.dn,y:19}],
+"01-11":[{e:"Jeongyeon",c:"#bcd776",g:G.tw,y:16},{e:"Kokoro",c:"#00dd93",g:G.cb,y:20},{e:"Yunkyoung",c:"#32ffff",g:G.rp,y:21}],
+"02-11":[{e:"Elkie",c:"#61b329",g:G.cl,y:18},{e:"Takamoto Ayaka",c:[H.EG,S.W],g:G.hz,y:18}],
+"03-11":[{e:"Belle",c:"#00c31a",g:G.cg,y:21},{e:"Hyeonju",c:"#00c31a",g:G.un,y:21}],
+"04-11":[{e:"T.O.P",g:G.bb,c:"#2e5bd1",y:7},{e:"Rui",c:"#e3acca",g:G.fv,y:23}],
+"05-11":{e:"Lee Yukyung",c:"#37fdfc",g:G.al,y:19},
+"06-11":[{e:"Seungyeon",c:"#c7031e",g:G.cl,y:16},{e:"Exy",c:"#3b9b28",g:G.wj,y:15},{e:"Juyeon",c:"#fdfd96",g:G.sd,y:21}],
+"07-11":{e:G.dn,c:["#00b0a4","#ffcd05"],i:true,y:38},
+"08-11":[{e:"Kim Chaewon",c:"#ffff7a",g:G.ap,y:17},{e:"Gaeun",g:G.mi,y:25},{e:"Mikha",c:"#dd3628",g:G.bn,y:23}],
+"09-11":{e:"Momo",c:"#f8cfd7",g:G.tw,y:16},
+"10-11":[{e:G.bl,c:["#94b4e5","#c5b4e1"],i:true,y:41},{e:"Hong Eunchae",c:S.R,g:G.ls,y:26},{e:G.mo,i:true,y:36},{e:"Iguchi Mao",c:[H.R,H.O],g:G.hz,y:15}],
+"11-11":[{e:"YeoJin",c:"#f46f1f",g:G.ln,y:22},{e:"Yeseul",c:"#f0b",g:G.fl,y:20},{e:"Haeryung",c:"#cc6",g:G.ex,y:14}],
+"12-11":[{e:"Xiaoting",c:"#c38ec7",g:G.kp,y:19},{e:"Dara",c:"#f48769",g:G.tn,y:4},{e:G.st,c:S.Bk,i:true,y:40},{e:"Yoojung",c:"#20b2aa",g:G.wm,y:19}],
+"13-11":[{e:"Hyeju",c:"#8f8f8f",g:G.ln,y:21},{e:"Hanna",c:missingTexture,textOverride:S.M,borderOverride:S.M,g:G.fl,y:20}],
+"14-11":{e:"Koko",c:"#ffd69e",g:G.iz,y:26},
+"15-11":{e:"HyunJin",c:"#ffea00",g:G.ln,y:20},
+"16-11":[{e:"May (Hirokawa Mao)",c:"#fc5050",g:G.cb,y:24},{e:"Garam",c:["#9f9fff","#ffbfff"],g:G.ls,y:25}],//Garam: https://redd.it/1evm5if
+"17-11":{e:G.ae,c:["#ae5fa0","#0dd5ad"],i:true,y:40},
+"18-11":[{e:"Sorn",c:"#0090c7",g:G.cl,y:16},{e:"Sakuya",g:[G.nc,G.nw],c:[S.W,S.Pk],y:27}],
+"19-11":{e:"Go Won",c:"#30e192",g:G.ln,y:20},
+"21-11":{e:"Liz",c:"#00c3f5",g:G.iv,y:24},
+"22-11":{e:"Chenle",g:[G.nc,G.nd],c:"#10c6ea",y:21},
+"23-11":{e:"Jisun",c:"#ee5392",g:G.fr,y:18},
+"25-11":{e:"Shotaro",g:[G.nc,G.nu],c:"#ff009d",y:20},
+"26-11":{e:"Yechan",c:S.Bl,g:G.pf,y:15},
+"27-11":{e:"Zena",c:"#f27e7e",g:G.rs,y:28},
+"28-11":{e:"Haneul",c:"#4cffff",g:G.sd,y:21},
+"29-11":{e:"Minami",c:"#9fd2ed",g:G.rs,y:26},
+"30-11":{e:"Sullin",c:"#7bba8d",g:G.ts,y:26},
+"01-12":[{e:G.iv,c:"#f1f1f1",i:true,y:41},{e:"Jung Chaeyeon",c:"#00a015",g:G.da,y:17}],
+"02-12":{e:"Kakizaki Memi",g:G.hz,y:21},
+"03-12":{e:"Lu",c:S.Gn,g:G.na,y:17},
+"04-12":[{e:"Jinsol",c:"#cd79ce",g:G.ap,y:21},{e:"Chaeyeon",c:"#8dbf41",g:G.ts,y:24},{e:"Doyeon",c:"#abf40c",g:G.wm,y:19}],
+"05-12":[{e:"Kwon Yuri",c:"#036",g:G.gg,y:9},{e:"Soobin",c:S.Bk,g:G.tt,y:20}],
+"06-12":{e:"Yeonhee",c:"#ffff32",g:G.rp,y:20},
+"07-12":{e:"Sowon",c:S.C,g:G.gf,y:15},
+"08-12":{e:"Dami (Kang Hyeyeon)",c:"#6c9",g:G.ex,y:10},
+"09-12":[{e:"ViVi",c:"#ffa2d2",g:G.ln,y:16},{e:"J",c:S.R,g:G.st,y:24},{e:"Shin Yuna",c:S.Y,g:G.it,y:23}],
+"10-12":{e:"Elly (An Hyojin)",c:"#039",g:G.ex,y:11},//this is so messy, hyojin (or her corp) should have checked beforehand to make sure there was nobody already using that stage name
+"12-12":{e:"Lee Soojin",c:"#f576be",g:G.we,y:21},
+"13-12":{e:"Suhye",g:G.mi,y:24},
+"16-12":{e:"Mashiro",c:"#fdeef4",g:[G.kp,G.mi],y:19},
+"17-12":[{e:"Kim Sion",c:"#00b24d",g:G.sd,y:18},{e:"Sasaki Mirei",c:H.Y,g:G.hz,y:19}],
+"20-12":[{e:"Yamada Kaede",c:"#ffc935",g:G.ts,y:25},{e:"Jane",c:"#5fd885",g:G.mo,y:17}],
+"22-12":{e:"Moonbyul",c:"#b52624",g:G.mm,y:12},
+"24-12":{e:"SeolA",g:G.wj,y:14},
+"25-12":{e:"Daewang",c:"#90ee90",g:G.pf,y:9},
+"26-12":[{e:"Momoka",c:S.Y,g:G.pf,y:20},{e:"Ushio Sarina",c:[H.P,H.Y],g:G.hz,y:17}],
+"27-12":[{e:"Youngeun",c:"#93c572",g:G.kp,y:24},{e:"Gyuri",c:"#2196fe",g:G.fr,y:17},{e:"Loha",c:S.Bl,g:G.na,y:21}],
+"28-12":{e:"Bae",c:S.Y,g:G.nm,y:24},
+"29-12":[{e:"Sana",c:"#9c9ecf",g:G.tw,y:16},{e:"Yiren",c:S.W,g:G.eg,y:20}],
+"31-12":[{e:"Kim Sohee",c:"#f66eba",g:G.al,y:19},{e:"Miyachi Sumire",c:[H.V,H.R],g:G.hz,y:25}]
 }
 function getGroupsInID(){return Array.from(new Set(Object.values(ID).flat().map(o=>o.g??o.e).flat()))}
 var sh="sulli-hara";var shs="body.sulli-hara .vivi,body.sulli-hara a.vivi:visited{color:#ee5fcf;}@keyframes loonaonethird{00.00%{color:#FF007F;}12.50%{color:#FF007F;}25.00%{color:#FFFF00;}37.50%{color:#FFFF00;}50.00%{color:#00BF00;}62.50%{color:#00BF00;}68.75%{color:#A99;}75.00%{color:#EE5FCF;}87.50%{color:#EE5FCF;}100.0%{color:#FF007F;}}";R={
@@ -732,7 +631,6 @@ eventPrepositions={
 	"birth":"of"
 }
 
-triedToLoadBigints=false
 window.onload=function(){
 
 var marquee=gebi("headerMarquee")
@@ -747,7 +645,7 @@ if((localDM()=="16-06")||(kstDM()=="16-06")){
 
 /*handle birthdays*/
 var BD=[]
-var currentDateObject=fakeDate??cD;//this enables the age to be <0 which is funnier, but we'll ignore <0 ages
+var currentDateObject=fakeDate??cD;
 var currentYear=currentDateObject.getFullYear()
 var local=ID[localDM()]??[]
 local.forEach(function(x){x.dm??="local";if(x.dm=="kst"){x.dm="both"}})
@@ -785,13 +683,13 @@ if(BD){
 }
 if(BD.length>0){
 	var birthdayText=ce("span")
-	birthdayText.classList.add("birthdays")
+	birthdayText.ac("birthdays")
 	var label=[]
 	if(hasBirthdays){label.push("Birthdays")}
 	if(hasAnniversaries){label.push("Anniversaries")}
 	label=label.join("/")+": "
 	if(label==""){console.log("Events exist but they are neither birthdays nor anniversaries. Something is wrong.");label="unknown event to"}
-	birthdayText.appendChild(ctn(label))
+	birthdayText.apc(ctn(label))
 	var eventsListed=0
 	for(var ibdCurrentDataIndex in BD){
 		ibdCurrentDataIndex=parseInt(ibdCurrentDataIndex)
@@ -852,18 +750,18 @@ if(BD.length>0){
 		if(Array.isArray(color)){
 			coloredName.style["background"]=HCCLGCG(color)
 		}else{
-			coloredName.style["background-color"]=color;//color the bg because writing person's name in red is a no-no in korea
+			coloredName.style["background-color"]=color;//color the bg because name in red is a no-no in korea
 		}
 
 		if(Array.isArray(color)){
 			coloredName.style.color="white"
-			coloredName.classList.add("black-outline")
+			coloredName.ac("black-outline")
 		}else{
 			if(bgLum>159){
 				coloredName.style.color="#000"
 			}else if(bgLum>140){
 				coloredName.style.color="white"
-				coloredName.classList.add("black-outline")
+				coloredName.ac("black-outline")
 			}else{
 				coloredName.style.color="white"
 			}
@@ -881,47 +779,47 @@ if(BD.length>0){
 
 		resultText+=` ${typeName} ${preposition} ${(data.e??"[Missing group name]").replaceAll(" ",String.fromCharCode(0xa0))}`
 
-		coloredName.innerText=resultText
+		coloredName.st(resultText)
 
 		if(is_From_A_Group){
 			var fromStatement=ce("span")
 
-			fromStatement.classList.add("artistFrom")
+			fromStatement.ac("artistFrom")
 
-			fromStatement.innerText=` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0))
+			fromStatement.st(` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0)))
 
-			coloredName.appendChild(fromStatement)
+			coloredName.apc(fromStatement)
 		}
 
 		if(data.dm!=="both"){
 			var tzs=ce("em")
 
-			tzs.classList.add("timezoneWarning")
+			tzs.ac("timezoneWarning")
 
-			tzs.innerText=` (${(data.dm=="kst"?"K/JST":"Local time")} only)`
-			/*thank God that JST and KST use=offsets; let's not even consider ZH/TW/HK, VN-TH, AU, or US times right now
+			tzs.st(` (${(data.dm=="kst"?"K/JST":"Local time")} only)`)
+			/*thank God that JST offset = KST's; let's not even consider ZH/TW/HK, VN-TH, AU, or US times right now
 			(sorry to Xinyu,Xiaoting,Handong,Shuhua,Nien,Tzuyu,Vivi,Hanni,Lisa,Lily,Danielle,Sullin,Tiffany,Gehlee,Elisia,
 			and all other idols not born in UTC+9)*/
 
-			coloredName.appendChild(tzs)
+			coloredName.apc(tzs)
 		}
 
-		coloredName.classList.add("bd-idol")
+		coloredName.ac("bd-idol")
 
-		birthdayText.appendChild(coloredName)
+		birthdayText.apc(coloredName)
 
 		eventsListed++
 
 		var joiner=BD.length==2?" ":", "
 
 		if(ibdCurrentDataIndex<BD.length-1){
-			birthdayText.appendChild(ctn(ibdCurrentDataIndex==BD.length-2?joiner+"and ":joiner))
+			birthdayText.apc(ctn(ibdCurrentDataIndex==BD.length-2?joiner+"and ":joiner))
 		}
 	}
 	if(eventsListed>0){
-		birthdayText.appendChild(ctn("."))
-		gebi("birthdays").textContent=""
-		gebi("birthdays").appendChild(birthdayText)
+		birthdayText.apc(ctn("."))
+		gebi("birthdays").st("")
+		gebi("birthdays").apc(birthdayText)
 	}
 }
 
@@ -1018,17 +916,22 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 				gebi=function(i){return document.getElementById(i)}
 				ce=function(t){return document.createElement(t)}
 				ctn=function(t){return document.createTextNode(t)}
+				var hp=HTMLElement.prototype
+				hp.st=function(text){this.textContent=text;return this}
+				hp.apc=function(node){return this.appendChild(node)}
+				hp.ac=function(...classes){this.classList.add(...classes);return this}
+
 				var marquee=gebi("headerMarquee")
 
 				if(reduceMotion){
 					var oldMarqueeChildren=marquee.childNodes
 					var nsh=ce("p")
-					nsh.innerText="helo this is my github page "
-					nsh.classList.add("ot12")
+					nsh.st("helo this is my github page ")
+					nsh.ac("ot12")
 					nsh.setAttribute("id","headerMarquee")
 
 					var child=marquee.querySelector("span")
-					nsh.appendChild(child)
+					nsh.apc(child)
 
 					marquee.after(nsh)
 					gebi("header").removeChild(marquee)
@@ -1130,36 +1033,36 @@ span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-alig
 			if(rK.length>0){r=r.concat(rK)}
 			var remText=gebi("rem")
 			if(r.length>0){
-				rem.textContent=""
-				var ilmo=ce("span");ilmo.innerText="In loving memory of "
-				remText.appendChild(ilmo)
+				rem.st("")
+				var ilmo=ce("span");ilmo.st("In loving memory of ")
+				remText.apc(ilmo)
 				for(var i=0;i<r.length;i++){
 					var data=r[i]
 					var noCommaJ=data.length-1
 					var andJ=data.length-2
 
-					if(data.cn){document.body.classList.add(data.cn)}
+					if(data.cn){document.body.ac(data.cn)}
 					if(data.s){_style.textContent+=data.s}
 					var n=ce("em")
-					n.classList.add("rem-idol")
-					n.innerText=data.e
-					remText.appendChild(n)
+					n.ac("rem-idol")
+					n.st(data.e)
+					remText.apc(n)
 					if(data.dm&&(data.dm!=="both")){
 						var tzs=ce("span")
-						tzs.classList.add("small","timezoneWarning")
+						tzs.ac("small","timezoneWarning")
 						var ftz=data.dm
 						if(ftz&&ftz!=="local"){ftz=ftz.toUpperCase()}else{ftz="local time"}
-						tzs.innerText=` (${ftz})`
-						n.appendChild(tzs)
+						tzs.st(` (${ftz})`)
+						n.apc(tzs)
 					}
 					if(i<r.length-1){
 						if(r.length==2){
-							remText.appendChild(ctn(" and "))
+							remText.apc(ctn(" and "))
 						}else{
 							if(i==r.length-2){
-								remText.appendChild(ctn(", and "))
+								remText.apc(ctn(", and "))
 							}else{
-								remText.appendChild(ctn(", "))
+								remText.apc(ctn(", "))
 							}
 						}
 					}
