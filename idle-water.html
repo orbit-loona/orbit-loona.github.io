@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>number adder</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="incremental test" />
+		<meta property="og:url" content="https://orbit-loona.github.io/adder.html" />
+		<meta property="og:description" content="nested table hell" />
+		<meta property="og:locale" content="en_US" />
+		<!--<meta property="og:image" content="https://orbit-loona.github.io/bin/ImageURL.png" />
+		<meta property="og:image:width" content="255" />
+		<meta property="og:image:height" content="255" />
+		<meta property="og:image:alt" content="image" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/ImageURL.png" />
+		<meta name="twitter:title" content="incremental test" />
+		<meta name="twitter:description" content="nested table hell" />-->
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<!--<script src="OmegaNum.min.js"></script>-->
+		<script>
+			console.log("Pre-body code goes here (if any)")
+		</script>
+		<style>
+			:root {
+				--upgrade-button-width: 260px;
+			}
+			
+			body {
+				background-color: #003f7f;
+			}
+
+			#stats {
+				line-height: 110%;
+			}
+			
+			#_ {
+				width: 100%;
+			}
+			
+			#_ p {
+				margin-top: 2px;
+			}
+
+			#mainStats > td {
+				width: 25%;
+			}
+			
+			.secondary-stats > td p {
+				font-size: 90%;
+			}
+			
+			#stats > table {
+				min-height: 60%;
+			}
+			
+			.upgrade-button {
+				display: block; width: var(--upgrade-button-width); min-height: 50px; line-height: 115%;
+			}
+			
+			#mainTable td#left, #mainTable td#right {
+				width: calc(var(--upgrade-button-width) + 2px);
+			}
+			
+			#messageBoxTable, #messageBoxTable tbody tr {
+				width: 100%
+			}
+			
+			#messageBoxTable tbody tr:nth-of-type(odd) {
+				background-color: #ffffff10;
+			}
+
+			#messageBoxTable tbody tr:nth-of-type(even) {
+				background-color: #ffffff20;
+			}
+			
+			#messageBoxTable tbody tr:not(:last-of-type) td p:not(.message-warning) {
+				opacity: 0.75;
+			}
+
+			#messageBoxTable tbody tr:not(:last-of-type) td p.message-warning {
+				opacity: 0.9;
+			}
+
+			#messageBoxTable tbody tr:first-of-type td p:not(.message-warning) {
+				opacity: 0.65;
+			}
+
+			#messageBoxTable tbody tr:first-of-type td p.message-warning {
+				opacity: 0.8;
+			}
+
+			#messageBoxTable tbody tr {
+				line-height: 80%;
+			}
+
+			.stat {
+				border: 1px solid #ccc;
+				padding: 1px;
+			}
+
+			button {
+				background-color: #bbddff; border: 1px solid #6688aa;
+			}
+			
+			button:hover, button:focus {
+				background-color: #a0d0ff; border: 1px solid #527ba3;
+			}
+
+			button:active {
+				background-color: #83baf1; border: 1px solid #456c92;
+			}
+			
+			button#resetButton, button.dangerButton {
+				background-color: #f66; border: 1px solid #d00; color: black;
+			}
+
+			button#resetButton:hover, button#resetButton:focus, button.dangerButton:hover, button.dangerButton:focus {
+				background-color: #f44; border: 1px solid #b00; color: white;
+			}
+
+			button#resetButton:active, button.dangerButton:active {
+				background-color: #f21; border: 1px solid #c01; color: white;
+			}
+
+			#clickButton {
+				width: 90%; margin-left: 5%; margin-right: 5%; height: 400px;
+				font-size: 2vw;
+			}
+
+			.upgrade-button h3 {
+				margin:3px 0px 5px 0px; width: 100%; font-size: 150%; letter-spacing: 1px; font-weight: bold; line-height: 70%;
+			}
+
+			.upgrade-button table span, .upgrade-button table span span {
+				font-size: 120%;
+			}
+
+			.upgrade-button table {
+				width: 100%;
+			}
+			
+			#main {
+				width: 90%;
+				padding-left: 5%;
+				padding-right: 5%;
+			}
+
+			#mainTable {
+				width: 100%;
+			}
+
+			#middleButtons {
+				width: 60%;
+				margin-left: 20%;
+				margin-right: 20%;
+			}
+
+			tr.secondary-middle-buttons td button {
+				width: 90%;
+				height: 100%;
+				margin-left: 5%;
+				margin-right: 5%;
+				font-size: 2vw;
+			}
+			
+			tr.secondary-middle-buttons td {
+				height: 5vw;
+			}
+
+			#mainTable td#middle {
+				width: auto;
+				text-align: center;
+				vertical-align: middle;
+			}
+			
+			.message-warning {
+				color: #f88;
+			}
+
+			#messageBoxTable tbody tr:has(p.message-warning) {
+				background-color: #ff33332f;
+			}
+
+			#heading #version {
+				font-size: 68%;
+				line-height: 46%;
+				color: #d5d4d3;
+			}
+		</style>
+		<script>
+			nbsp = String.fromCharCode(0xA0);
+			ce = function(tag) { return document.createElement(tag) };
+			ctn = function(text) { return document.createTextNode(text) };
+			gebi = function(id) { return document.getElementById(id) };
+			HTMLElement.prototype.setText = function(text) { this.textContent = text; return this };
+			HTMLElement.prototype.ac = function(node) { return this.appendChild(node) };
+			HTMLElement.prototype.addChild = function(node) { this.appendChild(node); return this };
+			HTMLElement.prototype.appendToElement = function(parentElement) { parentElement.appendChild(this); return this };
+			HTMLElement.prototype.addAttribute = function(attribute,value) { this.setAttribute(attribute,value); return this };
+			HTMLElement.prototype.addClass = function(...classes) { this.classList.add(...classes); return this };
+			HTMLElement.prototype.addStyle = function(property,value) { this.style[property] = value; return this };
+			Text.prototype.appendToElement = function(parentElement) { parentElement.appendChild(this); return this };
+
+			illions = ["m", "b", "tr", "quadr", "quint", "sext", "sept", "oct", "non", "dec", "undec", "duodec", "tredec", "quattuordec", "quindec", "sexdec", "septendec", "octodec", "novemdec", "vigint", "unvigint", "duovigint", "tresvigint", "quattuorvigint", "quinvigint", "sexvigint", "septenvigint", "octovigint", "novemvigint", "trigint", "untrigint", "duotrigint", "ten", "duotrigint", "trestrigint", "quattuortrigint", "quintrigint", "sextrigint", "septentrigint", "octotrigint", "novemtrigint", "quadragint", "unquadragint", "duoquadragint", "tresquadragint", "quattuorquadragint", "quinquadragint", "sexquadragint", "septenquadragint", "octoquadragint", "novemquadragint", "quinquagint", "unquinquagint", "duoquinquagint", "tresquinquagint", "quattuorquinquagint", "quinquinquagint", "sexquinquagint", "septenquinquagint", "octoquinquagint", "novemqujnquagint", "sexagint", "unsexagint", "duosexagint", "tressexagint", "quattuorsexagint", "quinsexagint", "sexsexagint", "septensexagint", "octosexagint", "novemsexagint", "septuagint", "unseptuagint", "duoseptuagint", "tresseptuagint", "quattuorseptuagint", "quinseptuagint", "sexseptuagint", "septseptuagint", "octoseptuagint", "novemseptuagint", "octoagint", "unoctoagint", "duooctoagint", "tresoctoagint", "quattuoroctoagint", "quinoctoagint", "sexoctoagint", "septenoctoagint", "octooctoagint", "novemoctoagint", "nonagint", "unnonagint", "duononagint", "tresnonagint", "quattuornonagint", "quinnonagint", "sexnonagint", "septnonagint", "octononagint", "novemnonagint", "cent", "uncent"].map(x => x + "illion");
+			illions.unshift("thousand")
+			illions.unshift("")
+			illionAbbrevs = ["K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "Dc", "UDc", "DDc", "TDc", "QaDc", "QiDc", "SxDc", "SpDc", "ODc", "NDc", "Vg", "UVg", "DVg", "TVg", "QaVg", "QiVg", "SxVg", "SpVg", "OVg", "NVg", "Tg", "UTg", "DTg", "TTg", "QaTg", "QiTg", "SxTg", "SpTg", "OTg", "NTg", "Qdg", "Qdg", "UQdg", "DQdg", "TQdg", "QaQdg", "QiQdg", "SxQdg", "SpQdg", "OQdg", "NQqg", "Qqg", "UQqg", "DQqg", "TQqg", "QaQqg", "QiQqg", "SxQqg", "SpQqg", "OQqg", "NSxg", "Sxg", "USxg", "DSxg", "TSxg", "QaSxg", "QiSxg", "SxSxg", "SpSxg", "OSxg", "NSpg", "Spg", "USpg", "DSpg", "TSpg", "QaSpg", "QiSpg", "SxSpg", "SpSpg", "OSpg", "NOg", "UOg", "DOg", "TOg", "QaOg", "QiOg", "SxOg", "SpOg", "OOg", "NOg", "Ng", "UNg", "DNg", "TNg", "QaNg", "QiNg", "SxNg", "SpNg", "ONg", "NNg", "Ct", "UCt"];
+
+			fnDecimal = 3;
+			function formatNumber(number,isAbbrev) {
+				var numberAbs = Math.abs(number);
+				if(numberAbs < 999999) { return number.toLocaleString() };
+				var wasNegative = (number < 0);
+				var magnitude = Math.max(0,Math.floor(Math.log10(numberAbs)));
+				var illion = Math.floor(magnitude / 3);
+				var rounder = 10 ** fnDecimal;
+				var display = Math.round(numberAbs / (10 ** (illion*3)) * rounder)/rounder;
+				var suffix = isAbbrev ? illionAbbrevs[illion] : " " + illions[illion];
+				var prefix = wasNegative ? "-" : "";
+				return prefix + (display.toLocaleString()) + suffix
+			};
+
+			function formatTime(_seconds) {
+				if(_seconds == undefined) { throw new ReferenceError("Time is undefined") };
+				if(typeof(_seconds) !== "number") { throw new TypeError("Time is not a number") };
+			
+				var wasNegative = (_seconds < 0);
+				_seconds = Math.abs(_seconds);
+
+				var wholeTenths = (Math.floor((_seconds + 0.0001) * 10) % 10) % 10;
+
+				var seconds = Math.floor(_seconds);
+
+				var minutes = Math.floor(seconds / 60);
+				seconds = seconds % 60;
+
+				var hours = Math.floor(minutes / 60);
+				minutes = minutes % 60;
+
+				var days = Math.floor(hours / 24);
+				hours = hours % 24;
+
+				var weeks = Math.floor(days / 7);
+				days = days % 7;
+
+				var displayTenths = wholeTenths.toString()
+				var displaySeconds = seconds.toString().padStart(2,"0")
+				var displayMinutes = minutes.toString().padStart(2,"0");
+				var displayHours = hours.toString().padStart(2,"0");
+				var displayDays = days.toString();
+				var displayWeeks = weeks.toString();
+
+				return `${wasNegative ? "-" : ""}${displayWeeks}:${displayDays}:${displayHours}:${displayMinutes}:${displaySeconds}.${displayTenths}`
+			}
+		</script>
+	</head>
+	<body>
+		<h1 id="heading">Idle Water <span id="version">v0.1</span></h1>
+		<p id="stats">
+			<table id="_">
+				<tbody>
+					<tr id="mainStats">
+						<td><p>Water: <span class="stat" id="currentMoney">0</span></p></td>
+						<td><p>Water per click: <span class="stat" id="currentPerClick">0</span></p></td>
+						<td><p>Water per second: <span class="stat" id="currentPerSecond">0</span></p></td>
+					</tr>
+					<tr class="secondary-stats">
+						<td><p>Clicks: <span class="stat" id="currentClicks">0</span></p></td>
+						<td><p>Time played: <span class="stat" id="currentTimePlayed">0</span></p></td>
+						<td><p>Achievements earned: <span class="stat" id="currentAchievements">0</span></p></td>
+						<td><p>Stat 4: <span class="stat" id="undetermined2">0</span></p></td>
+					</tr>
+				</tbody>
+			</table>
+		</p> <br/>
+		<script>
+			//can't figure out wtf is wrong here so i'm using JS to force the table back into the p
+			gebi("stats").appendChild(gebi("_"));
+			var bodyPees = document.querySelectorAll("body>p");
+			for(let i = 0; i < bodyPees.length; i++) {
+				var node = bodyPees[i];
+				if(node.textContent.trim() == "") { document.body.removeChild(node) }
+			};
+		</script>
+		
+		<div id="main"><table id="mainTable"><tbody>
+			<tr id="messageBox"><td colspan="3">
+				<table id="messageBoxTable"><tbody>
+					<tr class="message" index="0"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="1"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="2"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="3"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="4"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="5"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="6"><td><p>&nbsp;</p></td></tr>
+					<tr class="message" index="7"><td><p>&nbsp;</p></td></tr>
+				</tbody></table>
+			</td></tr>
+			<tr>
+				<td id="left"><table id="clickUpgrades"><tbody></tbody></table></td>
+				<td id="middle">
+					<table id="middleButtons"><tbody>
+						<tr><td colspan="2"><button id="clickButton"><p>Gather water</p></button></td></tr>
+						<tr class="secondary-middle-buttons"><td><button id="saveButton">Manual save</button></td> <td><button id="resetButton" class="dangerButton">! Reset game</button></td></tr>
+						<tr class="secondary-middle-buttons"><td><button id="exportButton">Export save</button></td> <td><button id="importButton">Import save</button></td></tr>
+					</tbody></table>
+				</td>
+				<td id="right"><table id="autoUpgrades"><tbody></tbody></table></td>
+			</tr>
+		</tbody></table></div>
+
+		<script>
+			const moneyText = gebi('currentMoney');
+			const moneyPerSecondText = gebi('currentPerSecond');
+			const moneyPerClickText = gebi('currentPerClick');
+			const clicksText = gebi('currentClicks');
+			const timePlayedText = gebi('currentTimePlayed');
+			const achievementsText = gebi('currentAchievements');
+
+			maxMessagesShown = 8;
+			maxMessagesStoredInMemoryButNotSavedWithTheGame = 500;
+			
+			messageLog = [];
+			
+			var messagesTbody = gebi("messageBoxTable").querySelector("tbody");
+			
+			var nbsp = String.fromCharCode(0xA0);
+			
+			function resizeMessageBox(newSize) {
+				newSize = Math.max(Math.min(0,200),newSize);
+				maxMessagesShown = newSize;
+				var change = 0;
+				var messageRows = messagesTbody.querySelectorAll("tr");
+				if(messageRows.length > newSize) {
+					for(let i = messageRows.length - 1; i >= 0; i--) {
+						//shrink to
+						var row = messageRows[i];
+						if(parseInt(row.getAttribute("index")) > (newSize - 1)) {
+							messagesTbody.removeChild(row);
+							change--;
+							row = null
+						}
+					}
+				} else if(messageRows.length < newSize) {
+					for(let i = messageRows.length; i < newSize; i++) {
+						messagesTbody.ac(ce("tr").addClass("message").addAttribute("index",i.toString()).addChild(ce("td").addChild(ce("p").setText(nbsp))));
+						change++
+					}
+				};
+				updateMessageBox();
+				return change
+			};
+			
+			function updateMessageBox() {
+				var messagesToShow = messageLog.slice(-(maxMessagesShown)).toReversed();
+				game.lastMessages = messagesToShow.toReversed();
+				for(let i = 0; i < messagesToShow.length; i++) {
+					var idComplement = maxMessagesShown-i;
+					var messageRow = document.querySelector(`tr.message[index="${(idComplement-1).toString()}"]`);
+					if(messageRow) {
+						var p = messageRow.querySelector("p");
+						if(p) {
+							var value = messagesToShow[i];
+							if(typeof(value) === "string") {
+								p.setText(value);
+								if(p.getAttribute("class") !== null) { p.removeAttribute("class") }
+							} else if(Array.isArray(value)) {
+								var text = value[0];
+								var classes = value.slice(1);
+								p.setText(text).addClass(...classes)
+							}
+						}
+					}
+				}
+			}
+			
+			function logMessage(message,...classes) {
+				if(classes.length == 0) {
+					messageLog.push(message)
+				} else {
+					messageLog.push([message,...classes])
+				};
+				if(messageLog.length > maxMessagesStoredInMemoryButNotSavedWithTheGame) {
+					if(messageLog.length - maxMessagesStoredInMemoryButNotSavedWithTheGame == 1) {
+						messageLog.shift()
+					} else {
+						messageLog = messageLog.slice(0,-(maxMessagesStoredInMemoryButNotSavedWithTheGame))
+					}
+				};
+				updateMessageBox()
+			}
+			
+			startMoney = 50;
+
+			var autoProduction = 0;
+			var clickProduction = 1;
+
+			var starterGame = {
+				money: startMoney,
+				moneyClicks: 0,
+				baseClickProduction: 1,
+				autoUpgradeLevels: new Array(autoUpgrades.length).fill(0),
+				clickUpgradeLevels: new Array(clickUpgrades.length).fill(0),
+				achievementsEarned: {click: [], money: [], time: [], upgrade: []},
+				timePlayed: 0,
+				lastMessages: []
+			}
+
+			if(!load()) {
+				game = structuredClone(starterGame)
+			};
+			
+			function save() {
+				game.moneyClicks ??= 0;
+				try {
+					localStorage.setItem("gameStats",JSON.stringify(game));
+					return true
+				} catch(error) {
+					console.error(error);
+					return false
+				}
+			};
+
+			function load() {
+				var stats = localStorage.getItem("gameStats");
+				if(stats) {
+					game = JSON.parse(stats);
+					game.moneyClicks ??= 0;
+					game.achievementsEarned ??= {};
+					game.achievementsEarned.click ??= [];
+					game.achievementsEarned.money ??= [];
+					game.achievementsEarned.time ??= [];
+					game.achievementsEarned.upgrade ??= [];
+					game.timePlayed ??= 0;
+					game.lastMessages ??= [];
+					save();
+					autoProduction = getPerSecond();
+					clickProduction = getPerClick();
+					updateDisplay();
+					updateAllButtons();
+					messageLog = game.lastMessages; updateMessageBox()
+					return true
+				};
+				return false
+			};
+
+			function reset() {
+				game = structuredClone(starterGame);
+				autoProduction = 0;
+				clickProduction = 1;
+				updateDisplay();
+				updateAllButtons();
+				save()
+			};
+
+			moneyText.setText(Math.round(game.money * 10)/10);
+
+			autoUpgrades = [
+				{
+					name: "Sink",
+					baseRate: 1.5,
+					baseCost: 50,
+					costScale: 1.032
+				},
+				{
+					name: "Bathtub",
+					baseRate: 4,
+					baseCost: 200,
+					costScale: 1.0352
+				},
+				{
+					name: "Garden hose",
+					baseRate: 10,
+					baseCost: 350,
+					costScale: 1.032
+				},
+				{
+					name: "Main water line",
+					baseRate: 25,
+					baseCost: 900,
+					costScale: 1.04
+				},
+				{
+					name: "Municipal water main",
+					baseRate: 400,
+					baseCost: 6000,
+					costScale: 1.048
+				},
+				{
+					name: "Diversion dam",
+					baseRate: 4000,
+					baseCost: 90000,
+					costScale: 1.0496
+				},
+				{
+					name: "River harvesting plants",
+					baseRate: 30000,
+					baseCost: 600000,
+					costScale: 1.054
+				},
+				{ //https://solve.mit.edu/challenges/sustainable-urban-communities/solutions/2598
+					name: "Seawater harvesting complex",
+					baseRate: 25e4,
+					baseCost: 5500000,
+					costScale: 1.05
+				},
+				{
+					name: "3D sea harvester pump network",
+					baseRate: 5e6,
+					baseCost: 90000000,
+					costScale: 1.056
+				},
+				{
+					name: "Mantle water harvesting plant",
+					baseRate: 3e7,
+					baseCost: 12e8,
+					costScale: 1.056
+				},
+				{
+					name: "Solar water harvesting spaceport",
+					baseRate: 25e8,
+					baseCost: 2e11,
+					costScale: 1.076
+				},
+				{
+					name: "Extrasolar water harvesting spaceport",
+					baseRate: 1e11,
+					baseCost: 5e12,
+					costScale: 1.12
+				},
+				{
+					name: "Nebular water harvester swarm",
+					baseRate: 1e13,
+					baseCost: 1e15,
+					costScale: 1.12
+				},
+				{
+					name: "Fog dimension harvester swarm",
+					baseRate: 3e15,
+					baseCost: 2e17,
+					costScale: 1.11
+				}
+			];
+			
+			clickUpgrades = [
+				{
+					name: "Little plastic cup",
+					basePower: 0.5,
+					baseCost: 5,
+					costScale: 1.0004
+				},
+				{
+					name: "Bowl",
+					basePower: 2,
+					baseCost: 18,
+					costScale: 1.00048
+				},
+				{
+					name: "Coffee pot",
+					basePower: 5,
+					baseCost: 30,
+					costScale: 1.0008
+				},
+				{
+					name: "Plastic cooler",
+					basePower: 15,
+					baseCost: 50,
+					costScale: 1.00104
+				},
+				{
+					name: "Sideways fridge",
+					basePower: 80,
+					baseCost: 250,
+					costScale: 1.00176
+				},
+				{
+					name: "Pool on wheels",
+					basePower: 150,
+					baseCost: 450,
+					costScale: 1.0016
+				},
+				{
+					name: "Water tanker",
+					basePower: 450,
+					baseCost: 8000,
+					costScale: 1.0064
+				},
+				{
+					name: "Convertible train",
+					basePower: 3000,
+					baseCost: 110000,
+					costScale: 1.016
+				},
+				{
+					name: "Bigger modified convertible train",
+					basePower: 40000,
+					baseCost: 2000000,
+					costScale: 1.036
+				},
+				{
+					name: "Enchanted convertible train",
+					basePower: 350000,
+					baseCost: 15000000,
+					costScale: 1.044
+				},
+				{
+					name: "Very magical convertible train",
+					basePower: 3e6,
+					baseCost: 4e8,
+					costScale: 1.044
+				},
+				{
+					name: "Magical sponge of eternal wetness",
+					basePower: 4e7,
+					baseCost: 1e10,
+					costScale: 1.048
+				},
+				{
+					name: "Block of Jinsoulite",
+					basePower: 9e8,
+					baseCost: 21e10,
+					costScale: 1.052
+				},
+				{
+					name: "Jinsoulite Singularity",
+					basePower: 1e11,
+					baseCost: 1e13,
+					costScale: 1.053
+				}
+			];
+			
+			achievements = {
+				click: {
+					click1: {
+						name: "First click",
+						description: "Click for the first time",
+						requirement: 1
+					},
+					click100: {
+						name: "100 clicks",
+						description: "Click 100 times",
+						requirement: 100
+					},
+					click500: {
+						name: "500 clicks",
+						description: "Click 500 times",
+						requirement: 500
+					},
+					click777: {
+						name: "Blessed clicker",
+						description: "Click 777 times",
+						requirement: 777
+					},
+					click1000: {
+						name: "1,000 clicks",
+						description: "Click 1,000 times",
+						requirement: 1000
+					},
+					click3162: {
+						name: "E3.5",
+						description: "Click 3,162 times",
+						requirement: 3162
+					},
+					click10000: {
+						name: "A myriad clicks",
+						description: "Click 10,000 times :O",
+						requirement: 10000
+					},
+					click50000: {
+						name: "Broken mouse",
+						description: `Click 50,000 times :(${nbsp}${nbsp})`,
+						requirement: 50000
+					},
+					click100000: {
+						name: "How do you click on grass?",
+						description: "Click 100,000 times",
+						requirement: 1e6
+					},
+					click134340: {
+						name: "Pluto (and all of its water ice)",
+						description: "Click 134,340 times",
+						requirement: 134340
+					}
+				},
+				money: {
+					money1: {
+						name: "A droplet",
+						description: `Have ${startMoney+1} water`,
+						requirement: startMoney+1
+					},
+					money2: {
+						name: "Refreshing",
+						description: "Have 150 water",
+						requirement: 150
+					},
+					money3: {
+						name: "oof ouch owie my bladder",
+						description: "Have 500 water",
+						requirement: 500
+					},
+					money4: {
+						name: "Well-prepared",
+						description: `Have ${(1500).toLocaleString()} water`,
+						requirement: 1500
+					},
+					money5: {
+						name: "If CaseOh drank water",
+						description: `Have ${(5000).toLocaleString()} water`,
+						requirement: 5000
+					},
+					money6: {
+						name: "Pool party?",
+						description: `Have ${(15000).toLocaleString()} water`,
+						requirement: 15000
+					},
+					money7: {
+						name: "Private lake",
+						description: `Have ${(1e5).toLocaleString()} water`,
+						requirement: 1e5
+					},
+					money8: {
+						name: "w e t",
+						description: `Have ${(1e6).toLocaleString()} water`,
+						requirement: 1e6
+					},
+					money9: {
+						name: "*Vrolijke Nederlander geluiden*",
+						description: `Have ${(1e7).toLocaleString()} water`,
+						requirement: 1e7
+					},
+					money10: {
+						name: "Jinsoul from Loona",
+						description: `Have ${(1e8).toLocaleString()} water`,
+						requirement: 1e8
+					},
+					money11: {
+						name: "Private sea",
+						description: `Have ${(1e9).toLocaleString()} water`,
+						requirement: 1e9
+					},
+					money12: {
+						name: "Splishy splashy stuff :3",
+						description: `Have ${(1e10).toLocaleString()} water`,
+						requirement: 1e10
+					},
+					money13: {
+						name: "Remember to drink water",
+						description: `Have ${(1e11).toLocaleString()} water`,
+						requirement: 1e11
+					},
+					money14: {
+						name: "Private ocean",
+						description: `Have ${(1e12).toLocaleString()} water`,
+						requirement: 1e12
+					},
+					money15: {
+						name: "Panthalassa",
+						description: `Have ${(1e13).toLocaleString()} water`,
+						requirement: 1e13
+					},
+					money16: {
+						name: "Mariana world",
+						description: `Have ${(1e14).toLocaleString()} water`,
+						requirement: 1e14
+					},
+					money17: {
+						name: "Water moon",
+						description: `Have ${(1e15).toLocaleString()} water`,
+						requirement: 1e15
+					},
+					money18: {
+						name: "Water planet",
+						description: `Have ${(1e16).toLocaleString()} water`,
+						requirement: 1e16
+					},
+					money18: {
+						name: "Water giant",
+						description: `Have ${(1e17).toLocaleString()} water`,
+						requirement: 1e17
+					},
+					money19: {
+						name: "Water nebula",
+						description: `Have ${(1e18).toLocaleString()} water`,
+						requirement: 1e18
+					}
+				},
+				time: {
+					time1: {
+						name: "Why?",
+						description: "Play this game for 5 minutes",
+						requirement: 300
+					},
+					time2: {
+						name: "Drink water",
+						description: "Play this game for 20 minutes",
+						requirement: 1200
+					},
+					time3: {
+						name: "Thirsty?",
+						description: "Play this game for 1 hour",
+						requirement: 3600
+					},
+					time4: {
+						name: "How?",
+						description: "Play this game for 1 day",
+						requirement: 86400
+					},
+					time5: {
+						name: "Masochist",
+						description: "Play this game for 1 week",
+						requirement: 86400*7
+					}
+				},
+				upgrade: {
+					c0x1: {
+						name: "A drink",
+						description: "Have 1 little plastic cup",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 1
+						}
+					},
+					c0x10: {
+						name: "Goodbye thirst",
+						description: "Have 10 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 10
+						}
+					},
+					c0x50: {
+						name: "Banquet drinks",
+						description: "Have 50 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 50
+						}
+					},
+					c0x250: {
+						name: "Drinks for everyone",
+						description: "Have 250 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 250
+						}
+					},
+					c0x1000: {
+						name: "Water jubilee",
+						description: "Have 1,000 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 1000
+						}
+					},
+					c0x5000: {
+						name: "Landfill",
+						description: "Have 5,000 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 5000
+						}
+					},
+					c0x50000: {
+						name: "Pacific Garbage Patch",
+						description: "Have 50,000 little plastic cups",
+						requirement: {
+							type: 1,
+							index: 0,
+							amount: 50000
+						}
+					},
+					c1x1: {
+						name: "Dinner time",
+						description: "Have 1 bowl",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 1
+						}
+					},
+					c1x10: {
+						name: "CaseOh's snack",
+						description: "Have 10 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 10
+						}
+					},
+					c1x50: {
+						name: "Banquet dinner",
+						description: "Have 50 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 50
+						}
+					},
+					c1x250: {
+						name: "CaseOh's appetizer",
+						description: "Have 250 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 250
+						}
+					},
+					c1x1000: {
+						name: "To give humanitarian aid?",
+						description: "Have 1000 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 1000
+						}
+					},
+					c1x5000: {
+						name: "CaseOh's dinner",
+						description: "Have 5,000 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 50
+						}
+					},
+					c1x50000: {
+						name: "/effect give @e saturation 999999 255",
+						description: "Have 50,000 bowls",
+						requirement: {
+							type: 1,
+							index: 1,
+							amount: 50000
+						}
+					},
+					c2x1: {
+						name: "Energized",
+						description: "Have 1 coffee pot",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 1
+						}
+					},
+					c2x10: {
+						name: "Self-medicating",
+						description: "Have 10 coffee pots",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 10
+						}
+					},
+					c2x50: {
+						name: "Caffeine overdose",
+						description: "Have 50 coffee pots",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 50
+						}
+					},
+					c2x250: {
+						name: "CaseOh's coffee drink",
+						description: "Have 250 coffee pots",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 250
+						}
+					},
+					c2x1000: {
+						name: "Notsob Harbor",
+						description: "Have 1000 bowls",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 1000
+						}
+					},
+					c2x5000: {
+						name: "hueriugiuergjhdfklgjripugviutf",
+						description: "Have 5,000 coffee pots",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 50
+						}
+					},
+					c2x50000: {
+						name: "Drink responsibly",
+						description: "Have 50,000 coffee pots",
+						requirement: {
+							type: 1,
+							index: 2,
+							amount: 50000
+						}
+					},
+					c3x1: {
+						name: "Trip to the beach?",
+						description: "Have 1 plastic cooler",
+						requirement: {
+							type: 1,
+							index: 3,
+							amount: 1
+						}
+					},
+					c4x1: {
+						name: "Only in Ohio",
+						description: "Have 1 sideways fridge",
+						requirement: {
+							type: 1,
+							index: 4,
+							amount: 1
+						}
+					},
+					c5x1: {
+						name: "Pool party (Redux)",
+						description: "Have 1 pool on wheels",
+						requirement: {
+							type: 1,
+							index: 5,
+							amount: 1
+						}
+					},
+					c6x1: {
+						name: "*honk honk*",
+						description: "Have 1 water tanker",
+						requirement: {
+							type: 1,
+							index: 6,
+							amount: 1
+						}
+					},
+					c7x1: {
+						name: "What the heck?",
+						description: "Have 1 convertible train",
+						requirement: {
+							type: 1,
+							index: 7,
+							amount: 1
+						}
+					},
+					c8x1: {
+						name: "What the FUDGE-NUGGETS?",
+						description: "Have 1 bigger modified convertible train",
+						requirement: {
+							type: 1,
+							index: 8,
+							amount: 1
+						}
+					},
+					c9x1: {
+						name: "✨ Magic ✨",
+						description: "Have 1 enchanted convertible train",
+						requirement: {
+							type: 1,
+							index: 9,
+							amount: 1
+						}
+					},
+					c10x1: {
+						name: "✨✨✨✨",
+						description: "Have 1 very magical convertible train",
+						requirement: {
+							type: 1,
+							index: 10,
+							amount: 1
+						}
+					},
+					c11x1: {
+						name: "Squarepants",
+						description: "Have 1 sponge of eternal wetness",
+						requirement: {
+							type: 1,
+							index: 11,
+							amount: 1
+						}
+					},
+					c12x1: {
+						name: "I've been thinking about us",
+						description: "Have 1 block of jinsoulite",
+						requirement: {
+							type: 1,
+							index: 12,
+							amount: 1
+						}
+					},
+					c13x1: {
+						name: "Singing in the Rain",
+						description: "Have 1 jinsoulite singularity",
+						requirement: {
+							type: 1,
+							index: 13,
+							amount: 1
+						}
+					},
+					a0x1: {
+						name: "Everything but the...",
+						description: "Have 1 sink",
+						requirement: {
+							type: 0,
+							index: 0,
+							amount: 1
+						}
+					},
+					a0x10: {
+						name: "I have a sinking feeling",
+						description: "Have 10 sinks",
+						requirement: {
+							type: 0,
+							index: 0,
+							amount: 10
+						}
+					},
+					a1x1: {
+						name: "Hygiene",
+						description: "Have 1 bathtub",
+						requirement: {
+							type: 0,
+							index: 1,
+							amount: 1
+						}
+					},
+					a1x10: {
+						name: "What's a htub?",
+						description: "Have 10 bathtubs",
+						requirement: {
+							type: 0,
+							index: 1,
+							amount: 10
+						}
+					},
+					a2x1: {
+						name: "Makeshift sprinkler",
+						description: "Have 1 garden hose",
+						requirement: {
+							type: 0,
+							index: 2,
+							amount: 1
+						}
+					},
+					a2x10: {
+						name: "Waterpark from TEMU",
+						description: "Have 10 garden hoses",
+						requirement: {
+							type: 0,
+							index: 2,
+							amount: 10
+						}
+					},
+					a3x1: {
+						name: "A plumber's lesson",
+						description: "Have 1 main water line",
+						requirement: {
+							type: 0,
+							index: 3,
+							amount: 1
+						}
+					},
+					a3x10: {
+						name: "Running up the water bill",
+						description: "Have 10 main water lines",
+						requirement: {
+							type: 0,
+							index: 3,
+							amount: 10
+						}
+					},
+					a4x1: {
+						name: "Watering the neighborhood",
+						description: "Have 1 municipal water main",
+						requirement: {
+							type: 0,
+							index: 4,
+							amount: 1
+						}
+					},
+					a4x10: {
+						name: "Civil engineer",
+						description: "Have 10 municipal water mains",
+						requirement: {
+							type: 0,
+							index: 4,
+							amount: 10
+						}
+					},
+					a5x1: {
+						name: "Where's my water?",
+						description: "Have 1 diversion dam",
+						requirement: {
+							type: 0,
+							index: 5,
+							amount: 1
+						}
+					},
+					a5x10: {
+						name: "Might as well get some hydropower",
+						description: "Have 10 diversion dams",
+						requirement: {
+							type: 0,
+							index: 5,
+							amount: 10
+						}
+					},
+					a5x100: {
+						name: "Environmental crisis",
+						description: "Have 100 diversion dams",
+						requirement: {
+							type: 0,
+							index: 5,
+							amount: 100
+						}
+					},
+					a5x1000: {
+						name: "Damming the Mekong",
+						description: "Have 1,000 diversion dams",
+						requirement: {
+							type: 0,
+							index: 5,
+							amount: 1000
+						}
+					},
+					a5x10000: {
+						name: "Getting a drink for CaseOh",
+						description: "Have 1,0000 diversion dams",
+						requirement: {
+							type: 0,
+							index: 5,
+							amount: 10000
+						}
+					},
+					a6x1: {
+						name: "Distributed",
+						description: "Have 1 group of river harvesting plants",
+						requirement: {
+							type: 0,
+							index: 6,
+							amount: 1
+						}
+					},
+					a6x10: {
+						name: "Very distributed",
+						description: "Have 10 groups of river harvesting plants",
+						requirement: {
+							type: 0,
+							index: 6,
+							amount: 10
+						}
+					},
+					a7x1: {
+						name: "We have all of this water lying around everywhere...",
+						description: "Have 1 seawater harvesting complex",
+						requirement: {
+							type: 0,
+							index: 7,
+							amount: 1
+						}
+					},
+					a7x10: {
+						name: "... why don't we just drink it?",
+						description: "Have 10 groups of river harvesting plants",
+						requirement: {
+							type: 0,
+							index: 7,
+							amount: 10
+						}
+					},
+					a8x1: {
+						name: "Smart tube technology",
+						description: "Have 1 3D sea harvester pump network",
+						requirement: {
+							type: 0,
+							index: 8,
+							amount: 1
+						}
+					},
+					a8x10: {
+						name: "Draining the depths",
+						description: "Have 10 3D sea harvester pump networks",
+						requirement: {
+							type: 0,
+							index: 8,
+							amount: 10
+						}
+					},
+					a9x1: {
+						name: "Water from lava?",
+						description: "Have 1 mantle water harvesting plant",
+						requirement: {
+							type: 0,
+							index: 9,
+							amount: 1
+						}
+					},
+					a9x10: {
+						name: "Subduction refund",
+						description: "Have 10 mantle water harvesting plants",
+						requirement: {
+							type: 0,
+							index: 9,
+							amount: 10
+						}
+					},
+					a10x1: {
+						name: "Water... IN SPACE!...",
+						description: "Have 1 solar water harvesting spaceport",
+						requirement: {
+							type: 0,
+							index: 10,
+							amount: 1
+						}
+					},
+					a10x10: {
+						name: "Kuiper smoothies",
+						description: "Have 10 solar water harvesting spaceports",
+						requirement: {
+							type: 0,
+							index: 10,
+							amount: 10
+						}
+					},
+					a11x1: {
+						name: "Alien smoothies",
+						description: "Have 1 extrasolar water harvesting spaceport",
+						requirement: {
+							type: 0,
+							index: 11,
+							amount: 1
+						}
+					},
+					a11x10: {
+						name: "Ad aquam per astra",
+						description: "Have 10 extrasolar water harvesting spaceports",
+						requirement: {
+							type: 0,
+							index: 11,
+							amount: 10
+						}
+					},
+					a12x1: {
+						name: "*laughs in Orion Nebula*",
+						description: "Have 1 nebular water harvester swarm",
+						requirement: {
+							type: 0,
+							index: 12,
+							amount: 1
+						}
+					},
+					a12x10: {
+						name: "Blue goo",
+						description: "Have 10 nebular water harvester swarms",
+						requirement: {
+							type: 0,
+							index: 12,
+							amount: 10
+						}
+					},
+					a13x1: {
+						name: "The fog consumes",
+						description: "Have 1 fog dimension harvester swarm",
+						requirement: {
+							type: 0,
+							index: 13,
+							amount: 1
+						}
+					},
+					a13x10: {
+						name: "Consume the fog back",
+						description: "Have 10 fog dimension harvester swarms",
+						requirement: {
+							type: 0,
+							index: 13,
+							amount: 10
+						}
+					}
+				}
+			}
+
+			function updateClickAchievements() {
+				var clicks = game.moneyClicks;
+				for(var key in achievements.click) {
+					if(game.achievementsEarned.click.includes(key)) { continue };
+					var achievement = achievements.click[key]
+					if(clicks >= achievement.requirement) {
+						game.achievementsEarned.click.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+					}
+				}
+			};
+			
+			function updateMoneyAchievements() {
+				var money = game.money;
+				for(var key in achievements.money) {
+					if(game.achievementsEarned.money.includes(key)) { continue };
+					var achievement = achievements.money[key]
+					if(money >= achievement.requirement) {
+						game.achievementsEarned.money.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+					}
+				}
+			};
+			
+			function updateTimeAchievements() {
+				var time = game.timePlayed;
+				for(var key in achievements.time) {
+					if(game.achievementsEarned.time.includes(key)) { continue };
+					var achievement = achievements.time[key]
+					if(time >= achievement.requirement) {
+						game.achievementsEarned.time.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+					}
+				}
+			};
+			
+			function updateUpgradeAchievements() {
+				var au = game.autoUpgradeLevels;
+				var cu = game.clickUpgradeLevels;
+				for(var key in achievements.upgrade) {
+					if(game.achievementsEarned.upgrade.includes(key)) { continue };
+					var achievement = achievements.upgrade[key]
+
+					var zeroForAutoOneForClick = achievement.requirement.type;
+					var whichUpgrade = achievement.requirement.index;
+					var howManyAreNeeded = achievement.requirement.amount;
+
+					var levelDatabase = zeroForAutoOneForClick === 1 ? game.clickUpgradeLevels : game.autoUpgradeLevels;
+					var howManyAreHad = levelDatabase[whichUpgrade];
+					if(howManyAreHad >= howManyAreNeeded) {
+						game.achievementsEarned.upgrade.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+					}
+				}
+			};
+			
+			function updateButton(zeroForAutoOneForClick,index) {
+				if(typeof(zeroForAutoOneForClick) !== "number") { throw new TypeError("Upgrade type must be 0 or 1") };
+				if((!(Number.isInteger(zeroForAutoOneForClick))) || (zeroForAutoOneForClick > 1 || zeroForAutoOneForClick < 0)) { throw new RangeError("Upgrade type must be 0 or 1") };
+				if(typeof(index) !== "number") { throw new TypeError("Index must be a number") };
+				
+				var upgradeDatabase = zeroForAutoOneForClick === 0 ? autoUpgrades : clickUpgrades;
+				var levelDatabase = zeroForAutoOneForClick === 0 ? game.autoUpgradeLevels : game.clickUpgradeLevels;
+				if(index >= upgradeDatabase.length || index < 0) { throw new RangeError(`Invalid upgrade index ${index}`) };
+				if(index == levelDatabase.length) { levelDatabase.push(0) } else if(index > levelDatabase.length) {levelDatabase[index] = 0}
+				if(typeof(upgradeDatabase[index]) === "undefined") { throw new ReferenceError(`No such upgrade with index ${index}`) };
+
+				var currentLevel = levelDatabase[index];
+				var baseCost = upgradeDatabase[index].baseCost;
+				var costScale = upgradeDatabase[index].costScale;
+				var scaling = costScale ** currentLevel;
+				var cost = baseCost * scaling;
+				var displayCost = formatNumber(Math.round(cost * 100)/100);
+
+				var button = gebi(`upgrade${zeroForAutoOneForClick}-${index}`);
+				if(!button) {
+					throw new DOMError(`No such upgrade button ${zeroForAutoOneForClick}-${index}`);
+				};
+				var cost = button.querySelector(".costNum");
+				cost.setText(displayCost)
+
+				var level = button.querySelector(".levelNum");
+				level.setText(formatNumber(currentLevel));
+				
+				return true
+			};
+			
+			function updateAllButtons() {
+				for(let i = 0; i < autoUpgrades.length; i++) {
+					updateButton(0,i)
+				}
+				for(let i = 0; i < clickUpgrades.length; i++) {
+					updateButton(1,i)
+				}
+			};
+			
+			function buyUpgrade(zeroForAutoOneForClick,index) {
+				var upgradeDatabase = zeroForAutoOneForClick === 0 ? autoUpgrades : clickUpgrades;
+				var levelDatabase = zeroForAutoOneForClick === 0 ? game.autoUpgradeLevels : game.clickUpgradeLevels;
+				
+				var currentLevel = levelDatabase[index];
+				var baseCost = upgradeDatabase[index].baseCost;
+				var costScale = upgradeDatabase[index].costScale;
+				var scaling = costScale ** currentLevel;
+				var cost = baseCost * scaling;
+				var afford = game.money >= cost;
+				if(afford) {
+					game.money -= cost;
+					levelDatabase[index] ??= 0;
+					levelDatabase[index]++;
+				};
+
+				updateButton(zeroForAutoOneForClick,index);
+				updateUpgradeAchievements()
+			};
+			
+			var buttonsAuto = document.getElementById("autoUpgrades").querySelector("tbody");
+			for(let i = 0; i < autoUpgrades.length; i++) {
+				var upgrade = autoUpgrades[i];
+				var newTd = ce("tr").appendToElement(buttonsAuto).appendChild(ce("td"))
+				var newButton = ce("button").addAttribute("id",`upgrade0-${i}`).addAttribute("upgrade",i.toString()).addClass("upgrade-button").appendToElement(newTd);
+				newButton.addEventListener("click",function() {
+					var value = this.getAttribute("upgrade");
+					if(value === null) { return };
+					value = parseInt(value);
+					if(!autoUpgrades[value]) { return };
+					buyUpgrade(0,value)
+				});
+				newButton.ac(ce("h3").setText(upgrade.name));
+				
+				stats = newButton.appendChild(ce("table")).appendChild(ce("tbody"));
+				stats.appendChild(ce("td").addChild(ce("span").addClass("cost").setText("Cost: ").addChild(ce("span").addClass("costNum").setText(formatNumber(upgrade.baseCost)))));
+				game.autoUpgradeLevels[i] ??= 0; stats.appendChild(ce("td").addChild(ce("span").addClass("level").setText("Owned: ").addChild(ce("span").addClass("levelNum").setText(formatNumber(game.autoUpgradeLevels[i])))));
+				stats.appendChild(ce("td").addChild(ce("span").addClass("power").setText("$/s: ").addChild(ce("span").addClass("powerNum").setText(formatNumber(upgrade.baseRate)))));
+			};
+
+			var buttonsClick = document.getElementById("clickUpgrades").querySelector("tbody");
+			for(let i = 0; i < clickUpgrades.length; i++) {
+				var upgrade = clickUpgrades[i];
+				var newTd = ce("tr").appendToElement(buttonsClick).appendChild(ce("td"))
+				var newButton = ce("button").addAttribute("id",`upgrade1-${i}`).addAttribute("upgrade",i.toString()).addClass("upgrade-button").appendToElement(newTd);
+				newButton.addEventListener("click",function() {
+					var value = this.getAttribute("upgrade");
+					if(value === null) { return };
+					value = parseInt(value);
+					if(!clickUpgrades[value]) { return };
+					buyUpgrade(1,value)
+				});
+				newButton.ac(ce("h3").setText(upgrade.name));
+				
+				stats = newButton.appendChild(ce("table")).appendChild(ce("tbody"));
+				stats.appendChild(ce("td").addChild(ce("span").addClass("cost").setText("Cost: ").addChild(ce("span").addClass("costNum").setText(upgrade.baseCost))));
+				game.clickUpgradeLevels[i] ??= 0; stats.appendChild(ce("td").addChild(ce("span").addClass("level").setText("Owned: ").addChild(ce("span").addClass("levelNum").setText(game.clickUpgradeLevels[i]))));
+				stats.appendChild(ce("td").addChild(ce("span").addClass("power").setText("$/c: ").addChild(ce("span").addClass("powerNum").setText(formatNumber(upgrade.basePower)))));
+			};
+			
+			var autoUpgradesEl = gebi("autoUpgrades"); var clickUpgradesEl = gebi("clickUpgrades");
+			var aueHeight = parseFloat(getComputedStyle(autoUpgradesEl).height.replace("px",""));
+			var eueHeight = parseFloat(getComputedStyle(clickUpgradesEl).height.replace("px",""));
+			
+			function countAchievements() {
+				return Object.values(game.achievementsEarned).flat().length;
+			};
+
+			function updateDisplay() {
+				moneyText.setText(formatNumber(Math.round((game.money ?? 0) * 100)/100));
+				moneyPerSecondText.setText(formatNumber(Math.round((autoProduction ?? 0) * 100)/100));
+				moneyPerClickText.setText(formatNumber(Math.round((clickProduction ?? 1) * 100)/100));
+				clicksText.setText(game.moneyClicks.toLocaleString());
+				timePlayedText.setText(formatTime(game.timePlayed));
+				achievementsText.setText(countAchievements().toLocaleString());
+			};
+
+			function getPerClick() {
+				var clickProduction = game.baseClickProduction ?? 1;
+				for(let i = 0; i < clickUpgrades.length; i++) {
+					game.clickUpgradeLevels[i] ??= 0;
+					var currentLevel = game.clickUpgradeLevels[i] ?? 0;
+					if(currentLevel === 0) { continue };
+					var subvalue = clickUpgrades[i].basePower * currentLevel;
+					clickProduction += subvalue
+				};
+				return clickProduction
+			};
+
+			function getPerSecond() {
+				var autoProduction = 0;
+				for(let i = 0; i < autoUpgrades.length; i++) {
+					game.autoUpgradeLevels[i] ??= 0;
+					var currentLevel = game.autoUpgradeLevels[i];
+					if(currentLevel === 0) { continue };
+					var subvalue = autoUpgrades[i].baseRate * currentLevel;
+					autoProduction += subvalue
+				};
+				return autoProduction
+			};
+
+			function addMoney(amount) {
+				game ??= {};
+				game.money ??= 0;
+				game.money += amount;
+				updateMoneyAchievements()
+			};
+
+			function moneyClick() {
+				game.moneyClicks ??= 0;
+				game.moneyClicks++;
+				updateClickAchievements();
+				addMoney(getPerClick() ?? 1)
+			};
+			
+			var button = gebi("clickButton");
+			button.addEventListener("click",function() { 
+				moneyClick();
+				updateDisplay()
+			});
+
+			var saveButton = gebi("saveButton");
+			saveButton.addEventListener("click",function() { 
+				var saveResult = save();
+				if(saveResult) {
+					logMessage("Saved successfully")
+				} else {
+					logMessage("Failed to save","message-warning");
+					console.error("Manual save failed")
+				}
+			});
+
+			var resetButton = gebi("resetButton");
+			resetButton.addEventListener("click",function() { 
+				var confirmation = prompt('This will irreversibly reset your save. To proceed, type "Erase my game data.", with the uppercase E and the period at the end (but without the quotes).');
+				if(confirmation === "Erase my game data.") {
+					var confirmation2 = confirm("Are you sure? This cannot be undone.");
+					if(confirmation2) {
+						reset()
+						logMessage("Game reset")
+						alert("Your save was erased.");
+						return true
+					}
+				};
+				alert("Your save was NOT erased.");
+				return false
+			});
+
+			var exportButton = gebi("exportButton");
+			exportButton.addEventListener("click",function() { 
+				var base64 = btoa(JSON.stringify(game));
+				prompt("This is your game save. Please copy it to your clipboard.",base64)
+			});
+
+			let importButton = gebi("importButton");
+			importButton.addEventListener("click",function() { 
+				let input = prompt("Please paste in a base64 save for this game.");
+				if(input === null || input === "") { return false };
+				var parsedInput;
+				var wasValid = false;
+				try {
+					parsedInput = JSON.parse(atob(input));
+					
+					var hasValidKeys = (
+						typeof(parsedInput.money) === "number" &&
+						typeof(parsedInput.baseClickProduction) === "number" &&
+						Array.isArray(parsedInput.autoUpgradeLevels) &&
+						Array.isArray(parsedInput.clickUpgradeLevels)
+					);
+					
+					parsedInput.moneyClicks ??= 0;
+
+					parsedInput.achievementsEarned ??= {};
+					parsedInput.achievementsEarned.click ??= [];
+					parsedInput.achievementsEarned.money ??= [];
+					parsedInput.achievementsEarned.time ??= [];
+					parsedInput.achievementsEarned.upgrade ??= [];
+
+					if(!hasValidKeys) {
+						wasValid = false
+					} else {
+						while(parsedInput.autoUpgradeLevels.length < autoUpgrades.length) {
+							parsedInput.autoUpgradeLevels.push(0)
+						};
+						while(parsedInput.clickUpgradeLevels.length < clickUpgrades.length) {
+							parsedInput.clickUpgradeLevels.push(0)
+						};
+						game = parsedInput;
+						wasValid = true
+					}
+				} catch(error) {
+					console.error(error);
+					wasValid = false;
+				};
+				if(!wasValid) {
+					alert("Not a valid save!")
+				} else {
+					logMessage("Save imported from Base64")
+					alert("Save imported.")
+				};
+				return wasValid
+			});
+
+			var runs = 0;
+
+			rate = 10;
+
+			function gameLoop() {
+				autoProduction = getPerSecond();
+				clickProduction = getPerClick();
+				addMoney(autoProduction / rate);  // Divide by rate because the loop runs rate times per second
+				updateDisplay();
+
+				game.timePlayed ??= 0;
+				game.timePlayed += 1/rate;
+				if((Math.abs(game.timePlayed - Math.round(game.timePlayed))) < 0.000001) {
+					game.timePlayed = Math.round(game.timePlayed)
+				};
+				updateTimeAchievements();
+
+				runs++;
+				if(runs >= rate) {
+					save();
+					runs = runs % rate
+				}
+			}
+
+			// Run the game loop 10 times per second
+			setInterval(gameLoop, 1000 / rate);
+
+			window.addEventListener("load",function() {
+				load()
+			});
+		</script>
+
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+
+	</body>
+</html>
