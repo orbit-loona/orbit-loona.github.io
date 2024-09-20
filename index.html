@@ -221,6 +221,13 @@ var C={NC:"#caff00"}
 var G={//groupShort
 	gi:"(G)I-DLE",tn:"2NE1",ae:"aespa",al:"ALICE",ak:"Apink",ap:"APRIL",at:"ARTMS",bb:"BIGBANG",bl:"Billlie",bn:"BINI",bp:"BlackPink",cb:"Cherry Bullet",cg:"cignature",cl:"CLC",cs:"CSR",da:"DIA",dc:"Dreamcatcher",dn:"DreamNote",eg:"Everglow",ex:"EXID",fx:"f(x)",fv:"f5ve",fl:"Floria",fr:"fromis_9",gf:"GFriend",gg:"Girls' Generation",gw:"GWSN",ht:"HashTag",hz:"Hinatazaka46",il:"ILLIT",it:"ITZY",iv:"IVE",io:"IZ*ONE",iz:"izna",kp:"Kep1er",ls:"Le Sserafim",ln:"LOONA",lb:"Loossemble",mi:"MADEIN",mm:"Mamamoo",ma:"Miss A",mo:"Momoland",na:"Nature",nc:"NCT",nd:"NCT Dream",ng:"NCT DoJaeJung",nj:"NewJeans",nm:"NMIXX",no:"NCT 127",nu:"NCT U",nw:"NCT Wish",og:"Oh My Girl",pf:"Pink Fantasy",px:"Pixy",rv:"Red Velvet",rs:"Rescene",rp:"Rocket Punch",sd:"Saturday",st:"STAYC",ts:"tripleS",tw:"TWICE",tt:"TXT",un:"UNIS",vv:"VIVIZ",we:"Weeekly",wm:"Weki Meki",wj:"WJSN",wg:"Wonder Girls",wa:"woo!ah!",wv:"WayV"
 }
+gebi=function(i){return document.getElementById(i)}
+ce=function(t){return document.createElement(t)}
+ctn=function(t){return document.createTextNode(t)}
+var hp=HTMLElement.prototype
+hp.st=function(text){this.textContent=text;return this}
+hp.apc=function(node){return this.appendChild(node)}
+hp.ac=function(...classes){this.classList.add(...classes);return this}
 ID={//idolBdData  izna is pre-debut
 "01-01":[{e:"Winter",c:"#d1ddec",g:G.ae,y:21},{e:"Kun",g:[G.nc,G.wv],c:"#7ac9ab",y:16}],
 "02-01":{e:"Yuji",c:"#c00",g:G.ex,y:11},
@@ -534,9 +541,12 @@ for(var date in ID){
 	}
 }
 
-cD=new Date();//currentDate
+cD=new Date()//currentDate
+var wd=cD.getDay()
 var currentYear=cD.getFullYear()
-var currentTimeIso8601=cD.toLocaleTimeString("sv-SE");//let's hope Sweden doesn't change their time format
+var currentTimeIso8601=cD.toLocaleTimeString("sv-SE")//let's hope Sweden doesn't change their time format
+var wds="Sun Mon Tues Wednes Thurs Fri Sat".split(" ").map(x=>x+"day")
+var cwd=wds[wd]
 
 fakeDate=urlParams.get("fakeDate")
 
@@ -632,6 +642,8 @@ eventPrepositions={
 }
 
 window.onload=function(){
+var dT=gebi("dateText");
+dT.st(cwd+", "+cD.toLocaleString())
 
 var marquee=gebi("headerMarquee")
 
@@ -920,14 +932,6 @@ noscript{font-size:90%;}
 		<div id="header">
 			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
 			<script>
-				gebi=function(i){return document.getElementById(i)}
-				ce=function(t){return document.createElement(t)}
-				ctn=function(t){return document.createTextNode(t)}
-				var hp=HTMLElement.prototype
-				hp.st=function(text){this.textContent=text;return this}
-				hp.apc=function(node){return this.appendChild(node)}
-				hp.ac=function(...classes){this.classList.add(...classes);return this}
-
 				var marquee=gebi("headerMarquee")
 
 				if(reduceMotion){
@@ -952,6 +956,7 @@ noscript{font-size:90%;}
 
 		<div id="main">
 			<p id="birthdays"><noscript>(Birthdays/anniversaries require JavaScript to display)</noscript>&nbsp;</p><br/>
+			<p id="date">This page was loaded on <span id="dateText"><noscript>a date that can't be determined automatically without JavaScript.</noscript></span></p>
 			<p id="note"><em><small style="font-size:80%">The birthday script on this version of the page is currently <span title="Missing:X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, and Yukika">incomplete</span>.</small></em></p>
 			<p id="opening">Hello. :3 I'm an <em>Orbit</em> and I really love Loona.<br/>
 			Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. Not only do the <em class="chuu">twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>
