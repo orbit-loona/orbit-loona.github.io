@@ -22,7 +22,40 @@
 		<meta charset="UTF-8">
 		<!--<script src="OmegaNum.min.js"></script>-->
 		<script>
-			console.log("Pre-body code goes here (if any)")
+			function capitalizeFirstLetter(string) {
+				var firstLetter = string.slice(0,1);
+				var restOfString = string.slice(1);
+				return firstLetter.toUpperCase() + restOfString
+			};
+
+			var titleCaseExcludedWords = "a and as at but by down for from if in into like near nor of off on once onto or over past so than that to upon when with yet".split(" ")
+			function titleCase(string) {
+				var stringSplit = string.split(/([A-Za-z'\-]+)/g);
+				for(var i = 0; i < stringSplit.length; i++) {
+					var text = stringSplit[i];
+					if((i > 0) && titleCaseExcludedWords.includes(text[i].toLowerCase())) {
+					} else {
+						stringSplit[i] = capitalizeFirstLetter(text)
+					}
+				};
+				return stringSplit.join("")
+			};
+
+			thingNames = {
+				gameTitle: "Idle Water",
+				moneyName: "water",
+				rebirthName: "ascend",
+				rebirthNameIng: "ascending",
+				rebirthNameNoun: "ascension",
+				rebirthNameNounPlural: "ascensions",
+				rebirthPointName: "healing water",
+				rebirthPointNamePlural: "healing water",
+				rebirthDisabled: "Can't ascend",
+			};
+
+			illions = ["","thousand"].concat(["m","b","tr","quadr","quint","sext","sept","oct","non","dec","undec","duodec","tredec","quattuordec","quindec","sexdec","septendec","octodec","novemdec","vigint","unvigint","duovigint","tresvigint","quattuorvigint","quinvigint","sexvigint","septenvigint","octovigint","novemvigint","trigint","untrigint","duotrigint","ten","duotrigint","trestrigint","quattuortrigint","quintrigint","sextrigint","septentrigint","octotrigint","novemtrigint","quadragint","unquadragint","duoquadragint","tresquadragint","quattuorquadragint","quinquadragint","sexquadragint","septenquadragint","octoquadragint","novemquadragint","quinquagint","unquinquagint","duoquinquagint","tresquinquagint","quattuorquinquagint","quinquinquagint","sexquinquagint","septenquinquagint","octoquinquagint","novemqujnquagint","sexagint","unsexagint","duosexagint","tressexagint","quattuorsexagint","quinsexagint","sexsexagint","septensexagint","octosexagint","novemsexagint","septuagint","unseptuagint","duoseptuagint","tresseptuagint","quattuorseptuagint","quinseptuagint","sexseptuagint","septseptuagint","octoseptuagint","novemseptuagint","octoagint","unoctoagint","duooctoagint","tresoctoagint","quattuoroctoagint","quinoctoagint","sexoctoagint","septenoctoagint","octooctoagint","novemoctoagint","nonagint","unnonagint","duononagint","tresnonagint","quattuornonagint","quinnonagint","sexnonagint","septnonagint","octononagint","novemnonagint","cent","uncent"].map(x => x + "illion")),
+			illionAbbrevs = ["","K","M","B","T","Qa","Qi","Sx","Sp","O","N","Dc","UDc","DDc","TDc","QaDc","QiDc","SxDc","SpDc","ODc","NDc","Vg","UVg","DVg","TVg","QaVg","QiVg","SxVg","SpVg","OVg","NVg","Tg","UTg","DTg","TTg","QaTg","QiTg","SxTg","SpTg","OTg","NTg","Qdg","Qdg","UQdg","DQdg","TQdg","QaQdg","QiQdg","SxQdg","SpQdg","OQdg","NQqg","Qqg","UQqg","DQqg","TQqg","QaQqg","QiQqg","SxQqg","SpQqg","OQqg","NSxg","Sxg","USxg","DSxg","TSxg","QaSxg","QiSxg","SxSxg","SpSxg","OSxg","NSpg","Spg","USpg","DSpg","TSpg","QaSpg","QiSpg","SxSpg","SpSpg","OSpg","NOg","UOg","DOg","TOg","QaOg","QiOg","SxOg","SpOg","OOg","NOg","Ng","UNg","DNg","TNg","QaNg","QiNg","SxNg","SpNg","ONg","NNg","Ct","UCt"]
+
 		</script>
 		<style>
 			:root {
@@ -77,19 +110,19 @@
 				background-color: #ffffff20;
 			}
 			
-			#messageBoxTable tbody tr:not(:last-of-type) td p:not(.message-warning) {
+			#messageBoxTable tbody tr:not(:last-of-type) td p:not(.message-warning):not(.message-achievement) {
 				opacity: 0.75;
 			}
 
-			#messageBoxTable tbody tr:not(:last-of-type) td p.message-warning {
+			#messageBoxTable tbody tr:not(:last-of-type) td p.message-warning, #messageBoxTable tbody tr:not(:last-of-type) td p.message-achievement {
 				opacity: 0.9;
 			}
 
-			#messageBoxTable tbody tr:first-of-type td p:not(.message-warning) {
+			#messageBoxTable tbody tr:first-of-type td p:not(.message-warning):not(.message-achievement) {
 				opacity: 0.65;
 			}
 
-			#messageBoxTable tbody tr:first-of-type td p.message-warning {
+			#messageBoxTable tbody tr:first-of-type td p.message-warning, #messageBoxTable tbody tr:first-of-type td p.message-achievement {
 				opacity: 0.8;
 			}
 
@@ -126,6 +159,18 @@
 				background-color: #f21; border: 1px solid #c01; color: white;
 			}
 
+			button[disabled] {
+				filter: saturate(0.8) brightness(0.8) saturate(0.8);
+			}
+			
+			button[disabled]:hover, button[disabled]:focus {
+				filter: saturate(0.75) brightness(0.8) saturate(0.75);
+			}
+			
+			button[disabled]:active {
+				filter: saturate(0.7) brightness(0.8) saturate(0.7);
+			}
+			
 			#clickButton {
 				width: 90%; margin-left: 5%; margin-right: 5%; height: 400px;
 				font-size: 2vw;
@@ -185,6 +230,14 @@
 				background-color: #ff33332f;
 			}
 
+			.message-achievement {
+				color: #fc7;
+			}
+
+			#messageBoxTable tbody tr:has(p.message-achievement) {
+				background-color: #ffaa445f;
+			}
+
 			#heading #version {
 				font-size: 68%;
 				line-height: 46%;
@@ -204,11 +257,6 @@
 			HTMLElement.prototype.addClass = function(...classes) { this.classList.add(...classes); return this };
 			HTMLElement.prototype.addStyle = function(property,value) { this.style[property] = value; return this };
 			Text.prototype.appendToElement = function(parentElement) { parentElement.appendChild(this); return this };
-
-			illions = ["m", "b", "tr", "quadr", "quint", "sext", "sept", "oct", "non", "dec", "undec", "duodec", "tredec", "quattuordec", "quindec", "sexdec", "septendec", "octodec", "novemdec", "vigint", "unvigint", "duovigint", "tresvigint", "quattuorvigint", "quinvigint", "sexvigint", "septenvigint", "octovigint", "novemvigint", "trigint", "untrigint", "duotrigint", "ten", "duotrigint", "trestrigint", "quattuortrigint", "quintrigint", "sextrigint", "septentrigint", "octotrigint", "novemtrigint", "quadragint", "unquadragint", "duoquadragint", "tresquadragint", "quattuorquadragint", "quinquadragint", "sexquadragint", "septenquadragint", "octoquadragint", "novemquadragint", "quinquagint", "unquinquagint", "duoquinquagint", "tresquinquagint", "quattuorquinquagint", "quinquinquagint", "sexquinquagint", "septenquinquagint", "octoquinquagint", "novemqujnquagint", "sexagint", "unsexagint", "duosexagint", "tressexagint", "quattuorsexagint", "quinsexagint", "sexsexagint", "septensexagint", "octosexagint", "novemsexagint", "septuagint", "unseptuagint", "duoseptuagint", "tresseptuagint", "quattuorseptuagint", "quinseptuagint", "sexseptuagint", "septseptuagint", "octoseptuagint", "novemseptuagint", "octoagint", "unoctoagint", "duooctoagint", "tresoctoagint", "quattuoroctoagint", "quinoctoagint", "sexoctoagint", "septenoctoagint", "octooctoagint", "novemoctoagint", "nonagint", "unnonagint", "duononagint", "tresnonagint", "quattuornonagint", "quinnonagint", "sexnonagint", "septnonagint", "octononagint", "novemnonagint", "cent", "uncent"].map(x => x + "illion");
-			illions.unshift("thousand")
-			illions.unshift("")
-			illionAbbrevs = ["K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O", "N", "Dc", "UDc", "DDc", "TDc", "QaDc", "QiDc", "SxDc", "SpDc", "ODc", "NDc", "Vg", "UVg", "DVg", "TVg", "QaVg", "QiVg", "SxVg", "SpVg", "OVg", "NVg", "Tg", "UTg", "DTg", "TTg", "QaTg", "QiTg", "SxTg", "SpTg", "OTg", "NTg", "Qdg", "Qdg", "UQdg", "DQdg", "TQdg", "QaQdg", "QiQdg", "SxQdg", "SpQdg", "OQdg", "NQqg", "Qqg", "UQqg", "DQqg", "TQqg", "QaQqg", "QiQqg", "SxQqg", "SpQqg", "OQqg", "NSxg", "Sxg", "USxg", "DSxg", "TSxg", "QaSxg", "QiSxg", "SxSxg", "SpSxg", "OSxg", "NSpg", "Spg", "USpg", "DSpg", "TSpg", "QaSpg", "QiSpg", "SxSpg", "SpSpg", "OSpg", "NOg", "UOg", "DOg", "TOg", "QaOg", "QiOg", "SxOg", "SpOg", "OOg", "NOg", "Ng", "UNg", "DNg", "TNg", "QaNg", "QiNg", "SxNg", "SpNg", "ONg", "NNg", "Ct", "UCt"];
 
 			fnDecimal = 3;
 			function formatNumber(number,isAbbrev) {
@@ -259,20 +307,20 @@
 		</script>
 	</head>
 	<body>
-		<h1 id="heading">Idle Water <span id="version">v0.1</span></h1>
+		<h1 id="heading"><span id="gameName">Idle Water</span> <span id="version">v0.1</span></h1>
 		<p id="stats">
 			<table id="_">
 				<tbody>
 					<tr id="mainStats">
-						<td><p>Water: <span class="stat" id="currentMoney">0</span></p></td>
-						<td><p>Water per click: <span class="stat" id="currentPerClick">0</span></p></td>
-						<td><p>Water per second: <span class="stat" id="currentPerSecond">0</span></p></td>
+						<td><p><span class="money-name">Water</span>: <span class="stat" id="currentMoney">0</span></p></td>
+						<td><p><span class="money-name">Water</span> per click: <span class="stat" id="currentPerClick">0</span></p></td>
+						<td><p><span class="money-name">Water</span> per second: <span class="stat" id="currentPerSecond">0</span></p></td>
 					</tr>
 					<tr class="secondary-stats">
 						<td><p>Clicks: <span class="stat" id="currentClicks">0</span></p></td>
 						<td><p>Time played: <span class="stat" id="currentTimePlayed">0</span></p></td>
 						<td><p>Achievements earned: <span class="stat" id="currentAchievements">0</span></p></td>
-						<td><p>Stat 4: <span class="stat" id="undetermined2">0</span></p></td>
+						<td><p><span class="rebirth-point-name">Healing water</span>: <span class="stat" id="currentRebirthPoints">0</span></p></td>
 					</tr>
 				</tbody>
 			</table>
@@ -285,6 +333,8 @@
 				var node = bodyPees[i];
 				if(node.textContent.trim() == "") { document.body.removeChild(node) }
 			};
+			
+			gebi("gameName").setText(thingNames.gameTitle)
 		</script>
 		
 		<div id="main"><table id="mainTable"><tbody>
@@ -307,6 +357,7 @@
 						<tr><td colspan="2"><button id="clickButton"><p>Gather water</p></button></td></tr>
 						<tr class="secondary-middle-buttons"><td><button id="saveButton">Manual save</button></td> <td><button id="resetButton" class="dangerButton">! Reset game</button></td></tr>
 						<tr class="secondary-middle-buttons"><td><button id="exportButton">Export save</button></td> <td><button id="importButton">Import save</button></td></tr>
+						<tr class="secondary-middle-buttons"><td><button id="rebirthButton" disabled>Ascend</button></td> <td></td></tr>
 					</tbody></table>
 				</td>
 				<td id="right"><table id="autoUpgrades"><tbody></tbody></table></td>
@@ -320,15 +371,16 @@
 			const clicksText = gebi('currentClicks');
 			const timePlayedText = gebi('currentTimePlayed');
 			const achievementsText = gebi('currentAchievements');
+			const rebirthPointsText = gebi('currentRebirthPoints');
 
 			maxMessagesShown = 8;
 			maxMessagesStoredInMemoryButNotSavedWithTheGame = 500;
-			
+			lastFiveClickDelays = [];
 			messageLog = [];
+			var nbsp = String.fromCharCode(0xA0);
+			minClickDelay = 50;
 			
 			var messagesTbody = gebi("messageBoxTable").querySelector("tbody");
-			
-			var nbsp = String.fromCharCode(0xA0);
 			
 			function resizeMessageBox(newSize) {
 				newSize = Math.max(Math.min(0,200),newSize);
@@ -394,7 +446,7 @@
 				updateMessageBox()
 			}
 			
-			startMoney = 50;
+			startMoney = 0;
 
 			var autoProduction = 0;
 			var clickProduction = 1;
@@ -402,13 +454,42 @@
 			var starterGame = {
 				money: startMoney,
 				moneyClicks: 0,
+				rebirthPoints: 0,
 				baseClickProduction: 1,
 				autoUpgradeLevels: new Array(autoUpgrades.length).fill(0),
 				clickUpgradeLevels: new Array(clickUpgrades.length).fill(0),
-				achievementsEarned: {click: [], money: [], time: [], upgrade: []},
+				achievementsEarned: {click: [], clickRate: [], money: [], time: [], upgrade: []},
 				timePlayed: 0,
 				lastMessages: []
 			}
+
+
+			function getNextRebirthPoints(amount=null) {
+				var valueToUse = amount ?? game.money;
+				if(valueToUse < 1e11) { return 0 };
+				
+				var magnitude = Math.floor(Math.log10(valueToUse));
+
+				//at least 1 rebirth at $1e11
+				var step1 = (magnitude >= 11);
+
+				//amount of magnitude above 11
+				var step2 = Math.max(0,magnitude - 11);
+
+				//+1 rebirth point for every 3 magnitude over 1e11
+				var step3 = (Math.floor(step2 / 3));
+
+				//add back that minimum 1 point
+				var step4 = step1 + step3;
+
+				//increase step 6's exponent as step3 increases
+				var step5 = 1.1 + (step3 / 15);
+				
+				//increase by a halved factor per each additional point, but rounded down
+				var step6 = Math.floor(step4 * (step5 ** ((step4 - 1) / 2)));
+
+				return Math.max(0,step6)
+			};
 
 			if(!load()) {
 				game = structuredClone(starterGame)
@@ -432,9 +513,11 @@
 					game.moneyClicks ??= 0;
 					game.achievementsEarned ??= {};
 					game.achievementsEarned.click ??= [];
+					game.achievementsEarned.clickRate ??= [];
 					game.achievementsEarned.money ??= [];
 					game.achievementsEarned.time ??= [];
 					game.achievementsEarned.upgrade ??= [];
+					game.rebirthPoints ??= 0;
 					game.timePlayed ??= 0;
 					game.lastMessages ??= [];
 					save();
@@ -462,86 +545,92 @@
 			autoUpgrades = [
 				{
 					name: "Sink",
-					baseRate: 1.5,
+					basePower: 1.5,
 					baseCost: 50,
 					costScale: 1.032
 				},
 				{
 					name: "Bathtub",
-					baseRate: 4,
+					basePower: 4,
 					baseCost: 200,
 					costScale: 1.0352
 				},
 				{
 					name: "Garden hose",
-					baseRate: 10,
+					basePower: 10,
 					baseCost: 350,
 					costScale: 1.032
 				},
 				{
 					name: "Main water line",
-					baseRate: 25,
+					basePower: 25,
 					baseCost: 900,
 					costScale: 1.04
 				},
 				{
 					name: "Municipal water main",
-					baseRate: 400,
+					basePower: 400,
 					baseCost: 6000,
 					costScale: 1.048
 				},
 				{
 					name: "Diversion dam",
-					baseRate: 4000,
+					basePower: 4000,
 					baseCost: 90000,
 					costScale: 1.0496
 				},
 				{
 					name: "River harvesting plants",
-					baseRate: 30000,
+					basePower: 30000,
 					baseCost: 600000,
 					costScale: 1.054
 				},
 				{ //https://solve.mit.edu/challenges/sustainable-urban-communities/solutions/2598
 					name: "Seawater harvesting complex",
-					baseRate: 25e4,
+					basePower: 25e4,
 					baseCost: 5500000,
 					costScale: 1.05
 				},
 				{
 					name: "3D sea harvester pump network",
-					baseRate: 5e6,
+					basePower: 5e6,
 					baseCost: 90000000,
 					costScale: 1.056
 				},
 				{
 					name: "Mantle water harvesting plant",
-					baseRate: 3e7,
+					basePower: 3e7,
 					baseCost: 12e8,
 					costScale: 1.056
 				},
 				{
 					name: "Solar water harvesting spaceport",
-					baseRate: 25e8,
+					basePower: 25e8,
 					baseCost: 2e11,
 					costScale: 1.076
 				},
 				{
 					name: "Extrasolar water harvesting spaceport",
-					baseRate: 1e11,
+					basePower: 1e11,
 					baseCost: 5e12,
 					costScale: 1.12
 				},
 				{
 					name: "Nebular water harvester swarm",
-					baseRate: 1e13,
+					basePower: 1e13,
 					baseCost: 1e15,
 					costScale: 1.12
 				},
 				{
 					name: "Fog dimension harvester swarm",
-					baseRate: 3e15,
+					basePower: 3e15,
 					baseCost: 2e17,
+					costScale: 1.11
+				},
+				{
+					name: "Ocean dimension harvester swarm",
+					basePower: 6e17,
+					baseCost: 42e18,
 					costScale: 1.11
 				}
 			];
@@ -609,8 +698,8 @@
 				},
 				{
 					name: "Very magical convertible train",
-					basePower: 3e6,
-					baseCost: 4e8,
+					basePower: 9e6,
+					baseCost: 2e8,
 					costScale: 1.044
 				},
 				{
@@ -626,10 +715,22 @@
 					costScale: 1.052
 				},
 				{
-					name: "Jinsoulite Singularity",
+					name: "Jinsoulite singularity",
 					basePower: 1e11,
 					baseCost: 1e13,
 					costScale: 1.053
+				},
+				{
+					name: "Water McGuffin",
+					basePower: 7e12,
+					baseCost: 5e14,
+					costScale: 1.0565
+				},
+				{
+					name: "Jinsoulite singularity singularity-powered water ritual team",
+					basePower: 1e14,
+					baseCost: 1e16,
+					costScale: 1.06
 				}
 			];
 			
@@ -684,6 +785,32 @@
 						name: "Pluto (and all of its water ice)",
 						description: "Click 134,340 times",
 						requirement: 134340
+					}
+				},
+				clickRate: {
+					click1000: {
+						name: "Slow clicker",
+						description: "Click once or less per second",
+						requirement: {
+							type: 1, //greater than
+							threshold: 1000
+						}
+					},
+					click100: {
+						name: "Fast clicker",
+						description: "Click 10 times a second",
+						requirement: {
+							type: 0, //less than
+							threshold: 100
+						}
+					},
+					click50: {
+						name: "Very fast clicker",
+						description: "Click 15 times a second (or use an autoclicker lol)",
+						requirement: {
+							type: 0, //less than
+							threshold: 67
+						}
 					}
 				},
 				money: {
@@ -1104,6 +1231,24 @@
 							amount: 1
 						}
 					},
+					c14x1: {
+						name: "Plot Water",
+						description: "Have 1 water McGuffin",
+						requirement: {
+							type: 1,
+							index: 14,
+							amount: 1
+						}
+					},
+					c15x1: {
+						name: "/weather rain",
+						description: "Have 1 jinsoulite singularity singularity-powered water ritual team",
+						requirement: {
+							type: 1,
+							index: 15,
+							amount: 1
+						}
+					},
 					a0x1: {
 						name: "Everything but the...",
 						description: "Have 1 sink",
@@ -1382,6 +1527,24 @@
 							index: 13,
 							amount: 10
 						}
+					},
+					a14x1: {
+						name: "No land in sight",
+						description: "Have 1 ocean dimension harvester swarm",
+						requirement: {
+							type: 0,
+							index: 14,
+							amount: 1
+						}
+					},
+					a14x10: {
+						name: "Thalassophobic nightmare",
+						description: "Have 10 fog dimension harvester swarms",
+						requirement: {
+							type: 0,
+							index: 14,
+							amount: 10
+						}
 					}
 				}
 			}
@@ -1393,7 +1556,22 @@
 					var achievement = achievements.click[key]
 					if(clicks >= achievement.requirement) {
 						game.achievementsEarned.click.push(key);
-						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
+					}
+				}
+			};
+			
+			function updateClickRateAchievements() {
+				var clickRate = getRollingAverageClickDelay();
+				if(lastFiveClickDelays.length < 5) { return };
+				for(var key in achievements.clickRate) {
+					if(game.achievementsEarned.clickRate.includes(key)) { continue };
+					var achievement = achievements.clickRate[key]
+					var type = achievement.requirement.type;
+					var requirement = achievement.requirement.threshold;
+					if(type == 1 ? (clickRate >= requirement) : (clickRate <= requirement)) {
+						game.achievementsEarned.clickRate.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
 					}
 				}
 			};
@@ -1405,7 +1583,7 @@
 					var achievement = achievements.money[key]
 					if(money >= achievement.requirement) {
 						game.achievementsEarned.money.push(key);
-						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
 					}
 				}
 			};
@@ -1417,7 +1595,7 @@
 					var achievement = achievements.time[key]
 					if(time >= achievement.requirement) {
 						game.achievementsEarned.time.push(key);
-						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
 					}
 				}
 			};
@@ -1437,7 +1615,7 @@
 					var howManyAreHad = levelDatabase[whichUpgrade];
 					if(howManyAreHad >= howManyAreNeeded) {
 						game.achievementsEarned.upgrade.push(key);
-						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`)
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
 					}
 				}
 			};
@@ -1453,12 +1631,14 @@
 				if(index == levelDatabase.length) { levelDatabase.push(0) } else if(index > levelDatabase.length) {levelDatabase[index] = 0}
 				if(typeof(upgradeDatabase[index]) === "undefined") { throw new ReferenceError(`No such upgrade with index ${index}`) };
 
+				var rbf = getRebirthBoostFactor() ?? 1;
 				var currentLevel = levelDatabase[index];
 				var baseCost = upgradeDatabase[index].baseCost;
 				var costScale = upgradeDatabase[index].costScale;
 				var scaling = costScale ** currentLevel;
 				var cost = baseCost * scaling;
-				var displayCost = formatNumber(Math.round(cost * 100)/100);
+				var displayCost = formatNumber(Math.round(cost * 100)/100,true);
+				var displayPower = formatNumber(upgradeDatabase[index].basePower * rbf,true);
 
 				var button = gebi(`upgrade${zeroForAutoOneForClick}-${index}`);
 				if(!button) {
@@ -1466,6 +1646,9 @@
 				};
 				var cost = button.querySelector(".costNum");
 				cost.setText(displayCost)
+
+				var power = button.querySelector(".powerNum");
+				power.setText(displayPower)
 
 				var level = button.querySelector(".levelNum");
 				level.setText(formatNumber(currentLevel));
@@ -1519,7 +1702,7 @@
 				stats = newButton.appendChild(ce("table")).appendChild(ce("tbody"));
 				stats.appendChild(ce("td").addChild(ce("span").addClass("cost").setText("Cost: ").addChild(ce("span").addClass("costNum").setText(formatNumber(upgrade.baseCost)))));
 				game.autoUpgradeLevels[i] ??= 0; stats.appendChild(ce("td").addChild(ce("span").addClass("level").setText("Owned: ").addChild(ce("span").addClass("levelNum").setText(formatNumber(game.autoUpgradeLevels[i])))));
-				stats.appendChild(ce("td").addChild(ce("span").addClass("power").setText("$/s: ").addChild(ce("span").addClass("powerNum").setText(formatNumber(upgrade.baseRate)))));
+				stats.appendChild(ce("td").addChild(ce("span").addClass("power").setText("$/s: ").addChild(ce("span").addClass("powerNum").setText(formatNumber(upgrade.basePower)))));
 			};
 
 			var buttonsClick = document.getElementById("clickUpgrades").querySelector("tbody");
@@ -1557,6 +1740,7 @@
 				clicksText.setText(game.moneyClicks.toLocaleString());
 				timePlayedText.setText(formatTime(game.timePlayed));
 				achievementsText.setText(countAchievements().toLocaleString());
+				rebirthPointsText.setText(formatNumber(game.rebirthPoints ?? 0));
 			};
 
 			function getPerClick() {
@@ -1568,7 +1752,7 @@
 					var subvalue = clickUpgrades[i].basePower * currentLevel;
 					clickProduction += subvalue
 				};
-				return clickProduction
+				return clickProduction * getRebirthBoostFactor()
 			};
 
 			function getPerSecond() {
@@ -1577,10 +1761,10 @@
 					game.autoUpgradeLevels[i] ??= 0;
 					var currentLevel = game.autoUpgradeLevels[i];
 					if(currentLevel === 0) { continue };
-					var subvalue = autoUpgrades[i].baseRate * currentLevel;
+					var subvalue = autoUpgrades[i].basePower * currentLevel;
 					autoProduction += subvalue
 				};
-				return autoProduction
+				return autoProduction * getRebirthBoostFactor()
 			};
 
 			function addMoney(amount) {
@@ -1594,13 +1778,50 @@
 				game.moneyClicks ??= 0;
 				game.moneyClicks++;
 				updateClickAchievements();
+				updateClickRateAchievements();
 				addMoney(getPerClick() ?? 1)
 			};
+
+			function a2n(a,b) { return a+b }
+			
+			function getRollingAverageClickDelay() {
+				if(lastFiveClickDelays.length == 0) { return Infinity };
+				return lastFiveClickDelays.reduce(a2n,0) / lastFiveClickDelays.length
+			}
+			
+			/*function getRollingAverageCPS() {
+				var currentTime = Date.now()
+				var lastDelay = lastFiveClickDelays[lastFiveClickDelays.length - 1];
+				var timeSinceLastClick = currentTime - lastClickTime;
+				if(timeSinceLastClick > lastDelay) { return 0 };
+				var racd = getRollingAverageClickDelay();
+				if(racd == Infinity) { return 0 };
+
+				var baseEstimate = 1/(Math.max(minClickDelay,racd) / 1000);
+				return baseEstimate
+			}*/
+			
+			lastClickTime = Date.now() - 1000;
 			
 			var button = gebi("clickButton");
-			button.addEventListener("click",function() { 
-				moneyClick();
-				updateDisplay()
+			button.addEventListener("click",function(e) { 
+				var currentTime = Date.now()
+				var elapsed = Math.abs(currentTime - lastClickTime);
+
+				lastFiveClickDelays.push(elapsed);
+				if(lastFiveClickDelays.length == 6) {
+					lastFiveClickDelays.shift()
+				} else if(lastFiveClickDelays.length > 6) {
+					lastFiveClickDelays = lastFiveClickDelays.slice(0,-5)
+				};
+				
+				if(elapsed <= minClickDelay) {
+					e.preventDefault()
+				} else {
+					moneyClick();
+					updateDisplay();
+					lastClickTime = currentTime;
+				}
 			});
 
 			var saveButton = gebi("saveButton");
@@ -1637,7 +1858,7 @@
 			});
 
 			let importButton = gebi("importButton");
-			importButton.addEventListener("click",function() { 
+			importButton.addEventListener("click",function() {
 				let input = prompt("Please paste in a base64 save for this game.");
 				if(input === null || input === "") { return false };
 				var parsedInput;
@@ -1653,12 +1874,15 @@
 					);
 					
 					parsedInput.moneyClicks ??= 0;
-
 					parsedInput.achievementsEarned ??= {};
 					parsedInput.achievementsEarned.click ??= [];
+					parsedInput.achievementsEarned.clickRate ??= [];
 					parsedInput.achievementsEarned.money ??= [];
 					parsedInput.achievementsEarned.time ??= [];
 					parsedInput.achievementsEarned.upgrade ??= [];
+					parsedInput.rebirthPoints ??= 0;
+					parsedInput.timePlayed ??= 0;
+					parsedInput.lastMessages ??= [];
 
 					if(!hasValidKeys) {
 						wasValid = false
@@ -1684,7 +1908,46 @@
 				};
 				return wasValid
 			});
+			
+			function rebirth() {
+				var rebirthPoints = getNextRebirthPoints();
+				if(rebirthPoints == 0) { return false };
+				game.money = 0;
+				game.autoUpgradeLevels = game.autoUpgradeLevels.map(x => x = 0);
+				game.clickUpgradeLevels = game.clickUpgradeLevels.map(x => x = 0);
+				game.rebirthPoints ??= 0;
+				game.rebirthPoints += rebirthPoints;
+				return rebirthPoints
+			};
+			
+			function getRebirthBoostFactor() {
+				return 1 + (((game.rebirthPoints ?? 0) + ((game.rebirthPoints ?? 0) > 1)) / 2) ** 1.2;
+			}
 
+			var rebirthButton = gebi("rebirthButton");
+			rebirthButton.addEventListener("click",function() { 
+				if(this.disabled) { return false };
+				var rebirthPoints = getNextRebirthPoints();
+				if(rebirthPoints == 0) { return false };
+				var doIt = confirm(`${capitalizeFirstLetter(thingNames.rebirthNameIng)} will reset everything except for achievements, ${thingNames.rebirthPointNamePlural}, and lifetime click and time stats.`);
+				if(doIt) {
+					alert(`Gained ${rebirth()} ${thingNames.rebirthPointNamePlural}`)
+				}
+			});
+
+			function checkRebirthAbility() {
+				var rp = getNextRebirthPoints();
+				var is = (rp > 0);
+				if(is) {
+					rebirthButton.removeAttribute("disabled")
+					rebirthButton.setText(`${capitalizeFirstLetter(thingNames.rebirthName)} (+${rp})`)
+				} else {
+					rebirthButton.setAttribute("disabled","");
+					rebirthButton.setText(thingNames.rebirthDisabled)
+				};
+				return is
+			};
+			
 			var runs = 0;
 
 			rate = 10;
@@ -1694,6 +1957,7 @@
 				clickProduction = getPerClick();
 				addMoney(autoProduction / rate);  // Divide by rate because the loop runs rate times per second
 				updateDisplay();
+				checkRebirthAbility();
 
 				game.timePlayed ??= 0;
 				game.timePlayed += 1/rate;
@@ -1701,7 +1965,7 @@
 					game.timePlayed = Math.round(game.timePlayed)
 				};
 				updateTimeAchievements();
-
+				
 				runs++;
 				if(runs >= rate) {
 					save();
