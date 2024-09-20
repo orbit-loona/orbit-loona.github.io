@@ -228,6 +228,7 @@ var hp=HTMLElement.prototype
 hp.st=function(text){this.textContent=text;return this}
 hp.apc=function(node){return this.appendChild(node)}
 hp.ac=function(...classes){this.classList.add(...classes);return this}
+nbsp=String.fromCharCode(0xa0)
 ID={//idolBdData  izna is pre-debut
 "01-01":[{e:"Winter",c:"#d1ddec",g:G.ae,y:21},{e:"Kun",g:[G.nc,G.wv],c:"#7ac9ab",y:16}],
 "02-01":{e:"Yuji",c:"#c00",g:G.ex,y:11},
@@ -541,8 +542,10 @@ for(var date in ID){
 	}
 }
 
+var kt={timeZone:"Asia/Seoul"}
 cD=new Date()//currentDate
 var wd=cD.getDay()
+var ksts=cD.toLocaleTimeString(undefined,kt)
 var currentYear=cD.getFullYear()
 var currentTimeIso8601=cD.toLocaleTimeString("sv-SE")//let's hope Sweden doesn't change their time format
 var wds="Sun Mon Tues Wednes Thurs Fri Sat".split(" ").map(x=>x+"day")
@@ -583,7 +586,7 @@ function localDM(){
 }
 
 function kstDM(){
-	return (fakeDate??cD).toLocaleString("en-GB",{timeZone:"Asia/Seoul"}).replace("/","-").substring(0,5)
+	return (fakeDate??cD).toLocaleString("en-GB",kt).replace("/","-").substring(0,5)
 }
 
 function getLuminance(R,G,B){
@@ -643,7 +646,7 @@ eventPrepositions={
 
 window.onload=function(){
 var dT=gebi("dateText");
-dT.st(cwd+", "+cD.toLocaleString())
+dT.st(`${cwd}, ${cD.toLocaleString()}${nbsp} (${ksts} KST)`)
 
 var marquee=gebi("headerMarquee")
 
@@ -789,7 +792,7 @@ if(BD.length>0){
 
 		if(!data.e){console.error(data,localDM(),kstDM())}
 
-		resultText+=` ${typeName} ${preposition} ${(data.e??"[Missing group name]").replaceAll(" ",String.fromCharCode(0xa0))}`
+		resultText+=` ${typeName} ${preposition} ${(data.e??"[Missing group name]").replaceAll(" ",nbsp)}`
 
 		coloredName.st(resultText)
 
@@ -798,7 +801,7 @@ if(BD.length>0){
 
 			fromStatement.ac("artistFrom")
 
-			fromStatement.st(` from ${tryJoin(data.g,"/")}`.replaceAll(" ",String.fromCharCode(0xa0)))
+			fromStatement.st(` from ${tryJoin(data.g,"/")}`.replaceAll(" ",nbsp))
 
 			coloredName.apc(fromStatement)
 		}
