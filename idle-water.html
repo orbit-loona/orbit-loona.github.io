@@ -1712,13 +1712,14 @@
 				if(typeof(upgradeDatabase[index]) === "undefined") { throw new ReferenceError(`No such upgrade with index ${index}`) };
 
 				var rbf = getRebirthBoostFactor() ?? 1;
+				var abf = getAchievementBoostFactor() ?? 1;
 				var currentLevel = levelDatabase[index];
 				var baseCost = upgradeDatabase[index].baseCost;
 				var costScale = upgradeDatabase[index].costScale;
 				var scaling = costScale ** currentLevel;
 				var cost = baseCost * scaling;
 				var displayCost = formatNumber(Math.round(cost * 100)/100,true);
-				var displayPower = formatNumber(upgradeDatabase[index].basePower * rbf,true);
+				var displayPower = formatNumber(upgradeDatabase[index].basePower * rbf * abf,true);
 
 				var button = gebi(`upgrade${zeroForAutoOneForClick}-${index}`);
 				if(!button) {
@@ -1760,8 +1761,6 @@
 					levelDatabase[index] ??= 0;
 					levelDatabase[index]++;
 				};
-
-				updateButton(zeroForAutoOneForClick,index);
 				updateUpgradeAchievements()
 			};
 			
@@ -1826,6 +1825,7 @@
 				achievementsText.setText(countAchievements().toLocaleString());
 				rebirthPointsText.setText(formatNumber(game.rebirthPoints ?? 0));
 				rebirthsText.setText(game.rebirths.toLocaleString());
+				updateAllButtons()
 			};
 
 			function getPerClick() {
