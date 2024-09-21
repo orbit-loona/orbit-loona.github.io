@@ -1813,7 +1813,7 @@
 				return Object.values(game.achievementsEarned).flat().length;
 			};
 
-			function getAchivementBoostFactor() {
+			function getAchievementBoostFactor() {
 				return 1 + ((Math.max(0,countAchievements() - 2) / 100) * (1 + (game.rebirthPoints ?? 0)));
 			};
 
@@ -1837,7 +1837,7 @@
 					var subvalue = clickUpgrades[i].basePower * currentLevel;
 					clickProduction += subvalue
 				};
-				return clickProduction * getRebirthBoostFactor() * getAchivementBoostFactor()
+				return clickProduction * getRebirthBoostFactor() * getAchievementBoostFactor()
 			};
 
 			function getPerSecond() {
@@ -1849,7 +1849,7 @@
 					var subvalue = autoUpgrades[i].basePower * currentLevel;
 					autoProduction += subvalue
 				};
-				return autoProduction * getRebirthBoostFactor() * getAchivementBoostFactor()
+				return autoProduction * getRebirthBoostFactor() * getAchievementBoostFactor()
 			};
 
 			function addMoney(amount) {
