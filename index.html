@@ -545,7 +545,7 @@ for(var date in ID){
 var kt={timeZone:"Asia/Seoul"}
 cD=new Date()//currentDate
 var wd=cD.getDay()
-var ksts=cD.toLocaleTimeString(undefined,kt)
+var ksts=cD.toLocaleString(undefined,kt)
 var currentYear=cD.getFullYear()
 var currentTimeIso8601=cD.toLocaleTimeString("sv-SE")//let's hope Sweden doesn't change their time format
 var wds="Sun Mon Tues Wednes Thurs Fri Sat".split(" ").map(x=>x+"day")
@@ -646,7 +646,7 @@ eventPrepositions={
 
 window.onload=function(){
 var dT=gebi("dateText");
-dT.st(`${cwd}, ${cD.toLocaleString()}${nbsp} (${ksts} KST)`)
+dT.st(`${cwd}, ${cD.toLocaleString()}${nbsp} (KST ${ksts})`)
 
 var marquee=gebi("headerMarquee")
 
