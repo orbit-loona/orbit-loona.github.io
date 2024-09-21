@@ -31,7 +31,7 @@
 			var titleCaseExcludedWords = "a and as at but by down for from if in into like near nor of off on once onto or over past so than that to upon when with yet".split(" ")
 			function titleCase(string) {
 				var stringSplit = string.split(/([A-Za-z'\-]+)/g);
-				for(var i = 0; i < stringSplit.length; i++) {
+				for(let i = 0; i < stringSplit.length; i++) {
 					var text = stringSplit[i];
 					if((i > 0) && titleCaseExcludedWords.includes(text[i].toLowerCase())) {
 					} else {
@@ -249,6 +249,7 @@
 			ce = function(tag) { return document.createElement(tag) };
 			ctn = function(text) { return document.createTextNode(text) };
 			gebi = function(id) { return document.getElementById(id) };
+			gebcn = function(...classes) { return document.getElementsByClassName(...classes) };
 			HTMLElement.prototype.setText = function(text) { this.textContent = text; return this };
 			HTMLElement.prototype.ac = function(node) { return this.appendChild(node) };
 			HTMLElement.prototype.addChild = function(node) { this.appendChild(node); return this };
@@ -264,7 +265,7 @@
 				if(numberAbs < 999999) { return number.toLocaleString() };
 				var wasNegative = (number < 0);
 				var magnitude = Math.max(0,Math.floor(Math.log10(numberAbs)));
-				var illion = Math.floor(magnitude / 3);
+				let illion = Math.floor(magnitude / 3);
 				var rounder = 10 ** fnDecimal;
 				var display = Math.round(numberAbs / (10 ** (illion*3)) * rounder)/rounder;
 				var suffix = isAbbrev ? illionAbbrevs[illion] : " " + illions[illion];
@@ -307,7 +308,7 @@
 		</script>
 	</head>
 	<body>
-		<h1 id="heading"><span id="gameName">Idle Water</span> <span id="version">v0.2</span></h1>
+		<h1 id="heading"><span id="gameName">Idle Water</span> <span id="version">v0.3</span></h1>
 		<p id="stats">
 			<table id="_">
 				<tbody>
@@ -315,12 +316,13 @@
 						<td><p><span class="money-name">Water</span>: <span class="stat" id="currentMoney">0</span></p></td>
 						<td><p><span class="money-name">Water</span> per click: <span class="stat" id="currentPerClick">0</span></p></td>
 						<td><p><span class="money-name">Water</span> per second: <span class="stat" id="currentPerSecond">0</span></p></td>
+						<td><p><span class="rebirth-point-name-plural">Healing water</span>: <span class="stat" id="currentRebirthPoints">0</span></p></td>
 					</tr>
 					<tr class="secondary-stats">
 						<td><p>Clicks: <span class="stat" id="currentClicks">0</span></p></td>
 						<td><p>Time played: <span class="stat" id="currentTimePlayed">0</span></p></td>
 						<td><p>Achievements earned: <span class="stat" id="currentAchievements">0</span></p></td>
-						<td><p><span class="rebirth-point-name">Healing water</span>: <span class="stat" id="currentRebirthPoints">0</span></p></td>
+						<td><p><span class="rebirth-name-noun-plural">Ascensions</span>: <span class="stat" id="currentRebirths">0</span></p></td>
 					</tr>
 				</tbody>
 			</table>
@@ -335,6 +337,12 @@
 			};
 			
 			gebi("gameName").setText(thingNames.gameTitle)
+
+			var _mn = gebcn("money-name"); Array.from(_mn).forEach(n => n.setText(capitalizeFirstLetter(thingNames.moneyName)));
+
+			var _rpnp = gebcn("rebirth-point-name-plural"); Array.from(_rpnp).forEach(n => n.setText(capitalizeFirstLetter(thingNames.rebirthPointNamePlural)))
+
+			var _rnnp = gebcn("rebirth-name-noun-plural"); Array.from(_rnnp).forEach(n => n.setText(capitalizeFirstLetter(thingNames.rebirthNameNounPlural)))
 		</script>
 		
 		<div id="main"><table id="mainTable"><tbody>
@@ -372,6 +380,7 @@
 			const timePlayedText = gebi('currentTimePlayed');
 			const achievementsText = gebi('currentAchievements');
 			const rebirthPointsText = gebi('currentRebirthPoints');
+			const rebirthsText = gebi('currentRebirths');
 
 			maxMessagesShown = 8;
 			maxMessagesStoredInMemoryButNotSavedWithTheGame = 500;
@@ -411,7 +420,7 @@
 				var messagesToShow = messageLog.slice(-(maxMessagesShown)).toReversed();
 				game.lastMessages = messagesToShow.toReversed();
 				for(let i = 0; i < messagesToShow.length; i++) {
-					var idComplement = maxMessagesShown-i;
+					let idComplement = maxMessagesShown-i;
 					var messageRow = document.querySelector(`tr.message[index="${(idComplement-1).toString()}"]`);
 					if(messageRow) {
 						var p = messageRow.querySelector("p");
@@ -455,10 +464,11 @@
 				money: startMoney,
 				moneyClicks: 0,
 				rebirthPoints: 0,
+				rebirths: 0,
 				baseClickProduction: 1,
 				autoUpgradeLevels: new Array(autoUpgrades.length).fill(0),
 				clickUpgradeLevels: new Array(clickUpgrades.length).fill(0),
-				achievementsEarned: {click: [], clickRate: [], money: [], time: [], upgrade: []},
+				achievementsEarned: {click: [], clickRate: [], money: [], time: [], upgrade: [], rebirth: [], rebirthPoint: []},
 				timePlayed: 0,
 				lastMessages: []
 			}
@@ -517,7 +527,10 @@
 					game.achievementsEarned.money ??= [];
 					game.achievementsEarned.time ??= [];
 					game.achievementsEarned.upgrade ??= [];
+					game.achievementsEarned.rebirth ??= [];
+					game.achievementsEarned.rebirthPoint ??= [];
 					game.rebirthPoints ??= 0;
+					game.rebirths ??= 0;
 					game.timePlayed ??= 0;
 					game.lastMessages ??= [];
 					save();
@@ -533,9 +546,21 @@
 
 			function reset() {
 				game = structuredClone(starterGame);
+				lastFiveClickDelays = [];
+				lastClickTime = null;
+				messageLog = [];
 				autoProduction = 0;
 				clickProduction = 1;
 				updateDisplay();
+				var messageSlots = gebcn("message");
+				for(let i = 0; i < messageSlots.length; i++) {
+					var node = messageSlots[i].querySelector("p");
+					if(!node) { console.error("Broken message box at index " + i); continue };
+					if(node.getAttribute("class") !== null) {
+						node.removeAttribute("class")
+					};
+					node.setText(nbsp)
+				};
 				updateAllButtons();
 				save()
 			};
@@ -547,91 +572,91 @@
 					name: "Sink",
 					basePower: 1.5,
 					baseCost: 50,
-					costScale: 1.032
+					costScale: 1.07
 				},
 				{
 					name: "Bathtub",
 					basePower: 4,
 					baseCost: 200,
-					costScale: 1.0352
+					costScale: 1.07
 				},
 				{
 					name: "Garden hose",
 					basePower: 10,
 					baseCost: 350,
-					costScale: 1.032
+					costScale: 1.07
 				},
 				{
 					name: "Main water line",
 					basePower: 25,
 					baseCost: 900,
-					costScale: 1.04
+					costScale: 1.07
 				},
 				{
 					name: "Municipal water main",
 					basePower: 400,
 					baseCost: 6000,
-					costScale: 1.048
+					costScale: 1.07
 				},
 				{
 					name: "Diversion dam",
 					basePower: 4000,
 					baseCost: 90000,
-					costScale: 1.0496
+					costScale: 1.07
 				},
 				{
 					name: "River harvesting plants",
 					basePower: 30000,
 					baseCost: 600000,
-					costScale: 1.054
+					costScale: 1.07
 				},
 				{ //https://solve.mit.edu/challenges/sustainable-urban-communities/solutions/2598
 					name: "Seawater harvesting complex",
 					basePower: 25e4,
 					baseCost: 5500000,
-					costScale: 1.05
+					costScale: 1.07
 				},
 				{
 					name: "3D sea harvester pump network",
 					basePower: 5e6,
 					baseCost: 90000000,
-					costScale: 1.056
+					costScale: 1.07
 				},
 				{
 					name: "Mantle water harvesting plant",
 					basePower: 3e7,
 					baseCost: 12e8,
-					costScale: 1.056
+					costScale: 1.07
 				},
 				{
 					name: "Solar water harvesting spaceport",
 					basePower: 25e8,
 					baseCost: 2e11,
-					costScale: 1.076
+					costScale: 1.07
 				},
 				{
 					name: "Extrasolar water harvesting spaceport",
 					basePower: 1e11,
 					baseCost: 5e12,
-					costScale: 1.12
+					costScale: 1.07
 				},
 				{
 					name: "Nebular water harvester swarm",
 					basePower: 1e13,
 					baseCost: 1e15,
-					costScale: 1.12
+					costScale: 1.07
 				},
 				{
 					name: "Fog dimension harvester swarm",
 					basePower: 3e15,
 					baseCost: 2e17,
-					costScale: 1.11
+					costScale: 1.07
 				},
 				{
 					name: "Ocean dimension harvester swarm",
 					basePower: 6e17,
 					baseCost: 42e18,
-					costScale: 1.11
+					costScale: 1.07
 				}
 			];
 			
@@ -640,97 +665,97 @@
 					name: "Little plastic cup",
 					basePower: 0.5,
 					baseCost: 5,
-					costScale: 1.0004
+					costScale: 1.07
 				},
 				{
 					name: "Bowl",
 					basePower: 2,
 					baseCost: 18,
-					costScale: 1.00048
+					costScale: 1.07
 				},
 				{
 					name: "Coffee pot",
 					basePower: 5,
 					baseCost: 30,
-					costScale: 1.0008
+					costScale: 1.07
 				},
 				{
 					name: "Plastic cooler",
 					basePower: 15,
 					baseCost: 50,
-					costScale: 1.00104
+					costScale: 1.07
 				},
 				{
 					name: "Sideways fridge",
 					basePower: 80,
 					baseCost: 250,
-					costScale: 1.00176
+					costScale: 1.07
 				},
 				{
 					name: "Pool on wheels",
 					basePower: 150,
 					baseCost: 450,
-					costScale: 1.0016
+					costScale: 1.07
 				},
 				{
 					name: "Water tanker",
 					basePower: 450,
 					baseCost: 8000,
-					costScale: 1.0064
+					costScale: 1.07
 				},
 				{
 					name: "Convertible train",
 					basePower: 3000,
 					baseCost: 110000,
-					costScale: 1.016
+					costScale: 1.07
 				},
 				{
 					name: "Bigger modified convertible train",
 					basePower: 40000,
 					baseCost: 2000000,
-					costScale: 1.036
+					costScale: 1.07
 				},
 				{
 					name: "Enchanted convertible train",
 					basePower: 350000,
 					baseCost: 15000000,
-					costScale: 1.044
+					costScale: 1.07
 				},
 				{
 					name: "Very magical convertible train",
 					basePower: 9e6,
 					baseCost: 2e8,
-					costScale: 1.044
+					costScale: 1.07
 				},
 				{
 					name: "Magical sponge of eternal wetness",
 					basePower: 4e7,
 					baseCost: 1e10,
-					costScale: 1.048
+					costScale: 1.07
 				},
 				{
 					name: "Block of Jinsoulite",
 					basePower: 9e8,
 					baseCost: 21e10,
-					costScale: 1.052
+					costScale: 1.07
 				},
 				{
 					name: "Jinsoulite singularity",
 					basePower: 1e11,
 					baseCost: 1e13,
-					costScale: 1.053
+					costScale: 1.07
 				},
 				{
 					name: "Water McGuffin",
 					basePower: 7e12,
 					baseCost: 5e14,
-					costScale: 1.0565
+					costScale: 1.07
 				},
 				{
 					name: "Jinsoulite singularity singularity-powered water ritual team",
 					basePower: 1e14,
 					baseCost: 1e16,
-					costScale: 1.06
+					costScale: 1.07
 				}
 			];
 			
@@ -758,39 +783,39 @@
 					},
 					click1000: {
 						name: "1,000 clicks",
-						description: "Click 1,000 times",
+						description: `Click ${(1000).toLocaleString()} times`,
 						requirement: 1000
 					},
 					click3162: {
 						name: "E3.5",
-						description: "Click 3,162 times",
+						description: `Click ${(3162).toLocaleString()} times`,
 						requirement: 3162
 					},
 					click10000: {
 						name: "A myriad clicks",
-						description: "Click 10,000 times :O",
+						description: `Click ${(10000).toLocaleString()} times :O`,
 						requirement: 10000
 					},
 					click50000: {
 						name: "Broken mouse",
-						description: `Click 50,000 times :(${nbsp}${nbsp})`,
+						description: `Click ${(50000).toLocaleString()} times :(${nbsp}${nbsp})`,
 						requirement: 50000
 					},
 					click100000: {
 						name: "How do you click on grass?",
-						description: "Click 100,000 times",
+						description: `Click ${(100000).toLocaleString()} times`,
 						requirement: 1e6
 					},
 					click134340: {
 						name: "Pluto (and all of its water ice)",
-						description: "Click 134,340 times",
+						description: `Click ${(134340).toLocaleString()} times`,
 						requirement: 134340
 					}
 				},
 				clickRate: {
 					click1000: {
 						name: "Slow clicker",
-						description: "Click once or less per second",
+						description: "Click once or less per second on average",
 						requirement: {
 							type: 1, //greater than
 							threshold: 1000
@@ -798,15 +823,15 @@
 					},
 					click100: {
 						name: "Fast clicker",
-						description: "Click 10 times a second",
+						description: "Click 10 times a second on average",
 						requirement: {
 							type: 0, //less than
 							threshold: 100
 						}
 					},
-					click50: {
+					click67: {
 						name: "Very fast clicker",
-						description: "Click 15 times a second (or use an autoclicker lol)",
+						description: "Click 15 times a second on average (or use an autoclicker lol)",
 						requirement: {
 							type: 0, //less than
 							threshold: 67
@@ -819,100 +844,114 @@
 						description: `Have ${startMoney+1} water`,
 						requirement: startMoney+1
 					},
-					money2: {
+					money150: {
 						name: "Refreshing",
 						description: "Have 150 water",
 						requirement: 150
 					},
-					money3: {
+					money500: {
 						name: "oof ouch owie my bladder",
 						description: "Have 500 water",
 						requirement: 500
 					},
-					money4: {
+					money1500: {
 						name: "Well-prepared",
 						description: `Have ${(1500).toLocaleString()} water`,
 						requirement: 1500
 					},
-					money5: {
+					money5000: {
 						name: "If CaseOh drank water",
 						description: `Have ${(5000).toLocaleString()} water`,
 						requirement: 5000
 					},
-					money6: {
+					money15000: {
 						name: "Pool party?",
 						description: `Have ${(15000).toLocaleString()} water`,
 						requirement: 15000
 					},
-					money7: {
+					moneyE5: {
 						name: "Private lake",
 						description: `Have ${(1e5).toLocaleString()} water`,
 						requirement: 1e5
 					},
-					money8: {
+					moneyE6: {
 						name: "w e t",
 						description: `Have ${(1e6).toLocaleString()} water`,
 						requirement: 1e6
 					},
-					money9: {
+					moneyE7: {
 						name: "*Vrolijke Nederlander geluiden*",
 						description: `Have ${(1e7).toLocaleString()} water`,
 						requirement: 1e7
 					},
-					money10: {
+					moneyE8: {
 						name: "Jinsoul from Loona",
 						description: `Have ${(1e8).toLocaleString()} water`,
 						requirement: 1e8
 					},
-					money11: {
+					moneyE9: {
 						name: "Private sea",
 						description: `Have ${(1e9).toLocaleString()} water`,
 						requirement: 1e9
 					},
-					money12: {
+					moneyE10: {
 						name: "Splishy splashy stuff :3",
 						description: `Have ${(1e10).toLocaleString()} water`,
 						requirement: 1e10
 					},
-					money13: {
+					moneyE11: {
 						name: "Remember to drink water",
 						description: `Have ${(1e11).toLocaleString()} water`,
 						requirement: 1e11
 					},
-					money14: {
+					moneyE12: {
 						name: "Private ocean",
 						description: `Have ${(1e12).toLocaleString()} water`,
 						requirement: 1e12
 					},
-					money15: {
+					moneyE13: {
 						name: "Panthalassa",
 						description: `Have ${(1e13).toLocaleString()} water`,
 						requirement: 1e13
 					},
-					money16: {
+					moneyE14: {
 						name: "Mariana world",
 						description: `Have ${(1e14).toLocaleString()} water`,
 						requirement: 1e14
 					},
-					money17: {
+					moneyE15: {
 						name: "Water moon",
 						description: `Have ${(1e15).toLocaleString()} water`,
 						requirement: 1e15
 					},
-					money18: {
+					moneyE16: {
 						name: "Water planet",
 						description: `Have ${(1e16).toLocaleString()} water`,
 						requirement: 1e16
 					},
-					money18: {
+					moneyE17: {
 						name: "Water giant",
 						description: `Have ${(1e17).toLocaleString()} water`,
 						requirement: 1e17
 					},
-					money19: {
+					moneyE18: {
 						name: "Water nebula",
 						description: `Have ${(1e18).toLocaleString()} water`,
 						requirement: 1e18
+					}
+				},
+				rebirth: {
+					rebirth1: {
+						name: "To begin anew",
+						description: `${thingNames.rebirthName} for the first time`,
+						requirement: 1
+					}
+				},
+				rebirthPoint: {
+					rp1: {
+						name: "A sip from the fountain of youth",
+						description: `Have 1 ${thingNames.rebirthPointName}`,
+						requirement: 1
 					}
 				},
 				time: {
@@ -981,7 +1020,7 @@
 					},
 					c0x1000: {
 						name: "Water jubilee",
-						description: "Have 1,000 little plastic cups",
+						description: `Have ${(1000).toLocaleString()} little plastic cups`,
 						requirement: {
 							type: 1,
 							index: 0,
@@ -990,7 +1029,7 @@
 					},
 					c0x5000: {
 						name: "Landfill",
-						description: "Have 5,000 little plastic cups",
+						description: `Have ${(5000).toLocaleString()} little plastic cups`,
 						requirement: {
 							type: 1,
 							index: 0,
@@ -999,7 +1038,7 @@
 					},
 					c0x50000: {
 						name: "Pacific Garbage Patch",
-						description: "Have 50,000 little plastic cups",
+						description: `Have ${(50000).toLocaleString()} little plastic cups`,
 						requirement: {
 							type: 1,
 							index: 0,
@@ -1053,7 +1092,7 @@
 					},
 					c1x5000: {
 						name: "CaseOh's dinner",
-						description: "Have 5,000 bowls",
+						description: `Have ${(5000).toLocaleString()} bowls`,
 						requirement: {
 							type: 1,
 							index: 1,
@@ -1062,7 +1101,7 @@
 					},
 					c1x50000: {
 						name: "/effect give @e saturation 999999 255",
-						description: "Have 50,000 bowls",
+						description: `Have ${(50000).toLocaleString()} bowls`,
 						requirement: {
 							type: 1,
 							index: 1,
@@ -1116,7 +1155,7 @@
 					},
 					c2x5000: {
 						name: "hueriugiuergjhdfklgjripugviutf",
-						description: "Have 5,000 coffee pots",
+						description: `Have ${(5000).toLocaleString()} coffee pots`,
 						requirement: {
 							type: 1,
 							index: 2,
@@ -1125,7 +1164,7 @@
 					},
 					c2x50000: {
 						name: "Drink responsibly",
-						description: "Have 50,000 coffee pots",
+						description: `Have ${(50000).toLocaleString()} coffee pots`,
 						requirement: {
 							type: 1,
 							index: 2,
@@ -1175,6 +1214,15 @@
 							type: 1,
 							index: 7,
 							amount: 1
+						}
+					},
+					c7x25: {
+						name: "A railway for fish",
+						description: "Have 25 convertible trains",
+						requirement: {
+							type: 1,
+							index: 7,
+							amount: 25
 						}
 					},
 					c8x1: {
@@ -1368,7 +1416,7 @@
 					},
 					a5x1000: {
 						name: "Damming the Mekong",
-						description: "Have 1,000 diversion dams",
+						description: `Have ${(1000).toLocaleString()} diversion dams`,
 						requirement: {
 							type: 0,
 							index: 5,
@@ -1377,7 +1425,7 @@
 					},
 					a5x10000: {
 						name: "Getting a drink for CaseOh",
-						description: "Have 1,0000 diversion dams",
+						description: `Have ${(10000).toLocaleString()} diversion dams`,
 						requirement: {
 							type: 0,
 							index: 5,
@@ -1551,6 +1599,7 @@
 
 			function updateClickAchievements() {
 				var clicks = game.moneyClicks;
+				game.achievementsEarned.click ??= [];
 				for(var key in achievements.click) {
 					if(game.achievementsEarned.click.includes(key)) { continue };
 					var achievement = achievements.click[key]
@@ -1564,6 +1613,7 @@
 			function updateClickRateAchievements() {
 				var clickRate = getRollingAverageClickDelay();
 				if(lastFiveClickDelays.length < 5) { return };
+				game.achievementsEarned.clickRate ??= [];
 				for(var key in achievements.clickRate) {
 					if(game.achievementsEarned.clickRate.includes(key)) { continue };
 					var achievement = achievements.clickRate[key]
@@ -1578,6 +1628,7 @@
 			
 			function updateMoneyAchievements() {
 				var money = game.money;
+				game.achievementsEarned.money ??= [];
 				for(var key in achievements.money) {
 					if(game.achievementsEarned.money.includes(key)) { continue };
 					var achievement = achievements.money[key]
@@ -1588,8 +1639,35 @@
 				}
 			};
 			
+			function updateRebirthPointAchievements() {
+				var rebirthPoints = game.rebirthPoints;
+				game.achievementsEarned.rebirthPoint ??= [];
+				for(var key in achievements.rebirthPoint) {
+					if(game.achievementsEarned.rebirthPoint.includes(key)) { continue };
+					var achievement = achievements.rebirthPoint[key]
+					if(rebirthPoints >= achievement.requirement) {
+						game.achievementsEarned.rebirthPoint.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
+					}
+				}
+			};
+			
+			function updateRebirthAchievements() {
+				var rebirths = game.rebirths;
+				game.achievementsEarned.rebirth ??= [];
+				for(var key in achievements.rebirth) {
+					if(game.achievementsEarned.rebirth.includes(key)) { continue };
+					var achievement = achievements.rebirth[key]
+					if(rebirths >= achievement.requirement) {
+						game.achievementsEarned.rebirth.push(key);
+						logMessage(`Achievement get: "${achievement.name}" (${achievement.description})`,"message-achievement")
+					}
+				}
+			};
+			
 			function updateTimeAchievements() {
 				var time = game.timePlayed;
+				game.achievementsEarned.time ??= [];
 				for(var key in achievements.time) {
 					if(game.achievementsEarned.time.includes(key)) { continue };
 					var achievement = achievements.time[key]
@@ -1603,6 +1681,7 @@
 			function updateUpgradeAchievements() {
 				var au = game.autoUpgradeLevels;
 				var cu = game.clickUpgradeLevels;
+				game.achievementsEarned.upgrade ??= [];
 				for(var key in achievements.upgrade) {
 					if(game.achievementsEarned.upgrade.includes(key)) { continue };
 					var achievement = achievements.upgrade[key]
@@ -1741,6 +1820,7 @@
 				timePlayedText.setText(formatTime(game.timePlayed));
 				achievementsText.setText(countAchievements().toLocaleString());
 				rebirthPointsText.setText(formatNumber(game.rebirthPoints ?? 0));
+				rebirthsText.setText(game.rebirths.toLocaleString());
 			};
 
 			function getPerClick() {
@@ -1801,12 +1881,16 @@
 				return baseEstimate
 			}*/
 			
-			lastClickTime = Date.now() - 1000;
+			lastClickTime = null;
 			
 			var button = gebi("clickButton");
 			button.addEventListener("click",function(e) { 
 				var currentTime = Date.now()
-				var elapsed = Math.abs(currentTime - lastClickTime);
+				var elapsed;
+				if(lastClickTime === null) {
+					lastClickTime = currentTime;
+				};
+				elapsed = Math.abs(currentTime - lastClickTime);
 
 				lastFiveClickDelays.push(elapsed);
 				if(lastFiveClickDelays.length == 6) {
@@ -1880,7 +1964,10 @@
 					parsedInput.achievementsEarned.money ??= [];
 					parsedInput.achievementsEarned.time ??= [];
 					parsedInput.achievementsEarned.upgrade ??= [];
+					parsedInput.achievementsEarned.rebirth ??= [];
+					parsedInput.achievementsEarned.rebirthPoint ??= [];
 					parsedInput.rebirthPoints ??= 0;
+					parsedInput.rebirths ??= 0;
 					parsedInput.timePlayed ??= 0;
 					parsedInput.lastMessages ??= [];
 
@@ -1917,6 +2004,11 @@
 				game.clickUpgradeLevels = game.clickUpgradeLevels.map(x => x = 0);
 				game.rebirthPoints ??= 0;
 				game.rebirthPoints += rebirthPoints;
+				game.rebirths ??= 0;
+				game.rebirths++;
+				updateDisplay();
+				updateRebirthAchievements();
+				updateRebirthPointAchievements();
 				return rebirthPoints
 			};
 			
@@ -1937,7 +2029,7 @@
 
 			function checkRebirthAbility() {
 				var rp = getNextRebirthPoints();
-				var is = (rp > 0);
+				let is = (rp > 0);
 				if(is) {
 					rebirthButton.removeAttribute("disabled")
 					rebirthButton.setText(`${capitalizeFirstLetter(thingNames.rebirthName)} (+${rp})`)
