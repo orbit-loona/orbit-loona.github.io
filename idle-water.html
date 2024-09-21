@@ -309,7 +309,7 @@
 		</script>
 	</head>
 	<body>
-		<h1 id="heading"><span id="gameName">Idle Water</span> <span id="version">v0.3</span></h1>
+		<h1 id="heading"><span id="gameName">Idle Water</span> <span id="version">v0.4</span></h1>
 		<p id="stats">
 			<table id="_">
 				<tbody>
@@ -757,6 +757,12 @@
 					basePower: 1e14,
 					baseCost: 1e16,
 					costScale: 1.07
+				},
+				{
+					name: "Hydrotheosis",
+					basePower: 9797979797979797,
+					baseCost: 777e15,
+					costScale: 1.08
 				}
 			];
 			
@@ -1295,6 +1301,15 @@
 						requirement: {
 							type: 1,
 							index: 15,
+							amount: 1
+						}
+					},
+			        	c16x1: {
+						name: "One with the water",
+						description: "Do 1 hydrotheosis",
+						requirement: {
+							type: 1,
+							index: 16,
 							amount: 1
 						}
 					},
