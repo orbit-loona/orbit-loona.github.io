@@ -376,7 +376,7 @@
 				if(ps) { ps.innerText = percent.toString() };
 			};
 
-			function makeMC(uniqueIdentifier,termIndexOverride=null) { //returns the whole tr for appendChild-ing into the sigma table
+			function makeMC(uniqueIdentifier,termIndexOverride=null,modeOverride=null) { //returns the whole tr for appendChild-ing into the sigma table
 				if(terms.length == 0) {
 					throw new Error("wtf there are no terms to choose from")
 				};
@@ -390,7 +390,7 @@
 				shuffleArray(consumableTerms);
 
 				//by internal convention, [0] is the true-term and [1] is the definition
-				var mode = (Math.random() < 0.5) + 0; //1 if the heading is the definition (you are guessing the true-term)
+				var mode = modeOverride ?? ((Math.random() < 0.5) + 0); //1 if the heading is the definition (you are guessing the true-term)
 
 				var modeComplement = (mode ? 0 : 1);
 
@@ -631,9 +631,22 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 										return null
 									};
 
-									var wasRight = textInputValue.toLowerCase() == correctAnswer.toLowerCase();
+									var labelExtraData = randomTerm[2 + modeComplement] ?? null;
 
+									var wasRight = textInputValue.toLowerCase() == correctAnswer.toLowerCase();
+									
 									if(wasRight) {
+										if(labelExtraData) {
+											var extraDataSpan = document.createElement("span");
+											extraDataSpan.classList.add("correction");
+											extraDataSpan.style["margin-left"] = "4px";
+											var trueExtraDataSpan = document.createElement("span");
+											trueExtraDataSpan.classList.add("extra-info");
+											trueExtraDataSpan.innerText = labelExtraData;
+											extraDataSpan.appendChild(trueExtraDataSpan);
+											this.after(extraDataSpan)
+										};
+										
 										statusSpan.classList.add("correct");
 										textField.classList.add("input-correct");
 										statusSpan.innerText = "Correct";
@@ -668,6 +681,13 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 											correctAnswerShown.appendChild(correctionValue);
 												correctionValue.textContent = correctAnswer;
 												correctionValue.classList.add("correction-answer")
+												if(labelExtraData) {
+													var extraDataSpan = document.createElement("span");
+													extraDataSpan.classList.add("extra-info");
+													extraDataSpan.innerText = labelExtraData;
+													correctionValue.appendChild(document.createTextNode(" "));
+													correctionValue.appendChild(extraDataSpan)
+												};
 
 										textFormEvaluateButton.after(document.createTextNode([" ",nbsp," "].join("")));
 
