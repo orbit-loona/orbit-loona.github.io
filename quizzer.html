@@ -571,14 +571,14 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				return newEntryTr
 			};
 
-			function makeType(uniqueIdentifier,termIndexOverride=null) {
+			function makeType(uniqueIdentifier,termIndexOverride=null,modeOverride) {
 				if(terms.length == 0) {
 					throw new Error("wtf there are no terms to choose from")
 				};
 
 				var randomTermIndex = termIndexOverride ?? Math.floor(Math.random() * terms.length);
 				var randomTerm = terms[randomTermIndex];
-				var mode = (Math.random() < 0.5) + 0; //1 if eng heading
+				var mode = modeOverride ?? ((Math.random() < 0.5) + 0); //1 if eng heading
 				var modeComplement = (mode ? 0 : 1);
 				var correctAnswer = randomTerm[modeComplement]
 
@@ -767,6 +767,14 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				modeParam = null
 			};
 
+			var termModeParam = urlParams.get("termMode"); //1 if the heading is the definition (you are guessing the true-term)
+			if(termModeParam && ("01".indexOf(termModeParam) === -1)) { //The only recognized values are 0 and 1. The intended value if you want to explicitly set this parameter but have a mix of both term-modes is "2".
+				termModeParam = null
+			};
+			if(termModeParam !== null) {
+				termModeParam = parseInt(termModeParam)
+			};
+
 			questionMode = modeParam ?? 3;
 			//0b01 = mc only, 0b10 = type only, and guess what 0b11 means;
 
@@ -776,13 +784,13 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 				for(var i = 0; i < terms.length; i++) {
 					if(!!(questionMode & 0b01)) {
 						questionNodes.push(
-							makeMC(generateUUID(),i)
+							makeMC(generateUUID(),i,termModeParam)
 						);
 						qCount++
 					};
 					if(!!(questionMode & 0b10)) {
 						questionNodes.push(
-							makeType(generateUUID(),i)
+							makeType(generateUUID(),i,termModeParam)
 						);
 						qCount++
 					}
