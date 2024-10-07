@@ -161,6 +161,9 @@
 				line-height: 100%;
 			}
 		</style>
+		<script>
+			urlParams = new URLSearchParams(window.location.search);
+		</script>
 	</head>
 	<body>
 		<h3> primitive quiz generator </h3>
@@ -759,7 +762,12 @@ finalTerms = ${finalTerms.map(x => x.join(",")).join("; ")} (length ${finalTerms
 			hk.addEventListener("paste", hkf)
 			hk.addEventListener("input", hkf)
 
-			questionMode = 3;
+			var modeParam = urlParams.get("questionMode");
+			if(modeParam && ("123".indexOf(modeParam) === -1)) {
+				modeParam = null
+			};
+
+			questionMode = modeParam ?? 3;
 			//0b01 = mc only, 0b10 = type only, and guess what 0b11 means;
 
 			function generateQuestions() {
