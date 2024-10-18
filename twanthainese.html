@@ -670,7 +670,7 @@ data = [
 	{ part: 'pronoun', qtw: 'šwën', eng: 'they (plural), them (plural)' },
 	{ part: 'pronoun', qtw: 'saik', eng: 'this', extra: 'Something inanimate close to the speaker' },
 	{ part: 'pronoun', qtw: 'sauk', eng: 'these', extra: 'Plural of "saik"' },
-	{ part: 'pronoun', qtw: 'su̬k', eng: 'these', extra: 'Something inanimate close to the listener' },
+	{ part: 'pronoun', qtw: 'su̬k', eng: 'that', extra: 'Something inanimate close to the listener' },
 	{ part: 'pronoun', qtw: 'swu̬k', eng: 'those', extra: 'Plural of "su̬k"' },
 	{ part: 'pronoun', qtw: 'sëk', eng: 'it, that', extra: 'Something inanimate far from both the speaker and the listener' },
 	{ part: 'pronoun', qtw: 'swëk', eng: 'they, those', extra: 'Plural of "sëk"' },
@@ -685,7 +685,6 @@ data = [
 	{ part: 'noun', qtw: 'buṋ', eng: 'hill' },
 	{ part: 'noun', qtw: 'bwaṋ', eng: 'mountain' },
 	{ part: 'noun', qtw: 'bwoṋ', eng: 'landslide' },
-	{ part: 'noun', qtw: 'baiṋ', eng: 'dirty' },
 	{ part: 'noun', qtw: 'bok', eng: 'rock, stone' },
 	{ part: 'noun', qtw: 'bak', eng: 'sand' },
 	{ part: 'noun', qtw: 'bwak', eng: 'desert' },
@@ -820,8 +819,11 @@ data = [
 	{ part: 'noun', qtw: 'nwon', eng: 'a box' },
 	{ part: 'noun', qtw: 'š̭yüm', eng: 'urine', extra: 'Taboo but not vulgar', etym: 'onomatopoeic: sound of a urine stream hitting water' },
 	{ part: 'noun', qtw: 'dwüp', eng: 'feces', extra: 'Taboo but not vulgar', etym: 'onomatopoeic: sound of feces splashing in water' },
+	{ part: 'noun', qtw: 'dwüp wan', eng: 'turd', extra: 'Taboo/Mildly vulgar' },
 	{ part: 'noun', qtw: 'suk', eng: 'p**s', extra: 'Vulgar', censor: true },
 	{ part: 'noun', qtw: 'kut', eng: 'sh*t', extra: 'Vulgar', censor: true },
+	{ part: 'noun', qtw: 'kut wan', eng: 'turd', extra: 'Vulgar' },
+	{ part: 'noun', qtw: 'kut hoi', eng: 'a**hole', extra: 'More vulgar than "dwüp wan"', censor: true },
 	{ part: 'noun', qtw: 'muṋ', eng: 'hole' },
 	{ part: 'noun', qtw: 'dwüp muṋ', eng: 'cesspit, sh**hole, (historical) toilet', censor: true, extra: 'Became vulgar, nowadays used as an insult of a person (akin to "a**hole" or "sh**head") or a place (akin to "sh**hole" or "hellhole").' },
 	{ part: 'noun', qtw: 'dwuṋ', eng: 'a**hole', extra: 'Vulgar', censor: true },
@@ -921,6 +923,7 @@ data = [
 	{ part: 'adjective', qtw: 'fu̬p', eng: 'small, (diminutive)' },
 	{ part: 'adjective', qtw: 'këp', eng: 'full' },
 	{ part: 'adjective', qtw: 'šoeš müf', eng: 'burning' },
+	{ part: 'adjective', qtw: 'baiṋ', eng: 'dirty' },
 	{ part: 'verb', qtw: 'woin', eng: 'to walk' },
 	{ part: 'verb', qtw: 'pën', eng: 'to eat' },
 	{ part: 'verb', qtw: 'pin', eng: 'to drink' },
@@ -937,9 +940,10 @@ data = [
 	{ part: 'postposition', qtw: 'gu̬n', eng: 'on' },
 	{ part: 'postposition', qtw: 'kew', eng: 'below, but not touching/not continuous' },
 	{ part: 'postposition', qtw: 'tun', eng: 'below and touching/continuous' },
-	{ part: 'postposition', qtw: 'tun', eng: 'below and touching/continuous' },
 	{ part: 'postposition', qtw: 'mwen', eng: 'inside a structure or object with an inner boundary' },
 	{ part: 'postposition', qtw: 'min', eng: 'inside a medium' },
+	{ part: 'postposition', qtw: 'hoi', eng: 'the bottom of' },
+	{ part: 'postposition', qtw: 'g̬ay', eng: 'into, through' },
 	{ part: 'postposition', qtw: 'g̬e', eng: 'to, towards', etym: 'Cognate of "k̬ey"' },
 	{ part: 'marker', qtw: 'nyep', eng: '(Past tense marker), -ed' },
 	{ part: 'marker', qtw: 'k̬ep', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can be included for emphasis.' },
@@ -1048,7 +1052,7 @@ data = [
 		<p class="plain-font example-triplet">
 			<span lang="en"> <span g1>I</span> <span g2>walk</span> <span g3>on</span> <span gnull>the</span> <span g4>red</span> <span g5>sand</span>. </span><br/>
 			<span class="term"> <span g4>nüt̬ müf</span> <span g5>bak</span> <span g3>gu̬n</span> <span g1>šain</span> <span g2>woin k̬ep</span>. </span><br/>
-			<span class="underlying"> <span g4>red-colored</span> <span g5>sand</span><span g3>-on</span> <span g1>I</span> <span g2>walk</span>. </span> 
+			<span class="underlying"> <span g4>red-colored</span> <span g5>sand</span><span g3>-on</span> <span g1>I</span> <span g2>walk</span>. </span>
 		</p><br/>
 
 		<p class="plain-font example-triplet">
@@ -1090,9 +1094,9 @@ data = [
 			<span lang="fr"><span gnull>la</span> <span g1>plume</span> <span g4>de</span> <span g4a>ma</span> <span g3>tante</span></span><br/>
 			<span lang="en"><span g4a>my</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span><br/>
 			<span class="term"><span g4a>šain kwa</span> <span g3>ǩ̬wai</span> <span g4>kwa</span> <span g1>nwëw bwow ket</span></span><br/>
-			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>bird_grass__tool</span></span><br/> 
+			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>bird_grass__tool</span></span><br/>
 			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>feather_tool</span></span><br/>
-			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span> 
+			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span>
 		</p><br/>
 	</main>
 </section>
