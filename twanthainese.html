@@ -100,6 +100,10 @@
 				color: #7fff7f;
 			}
 
+			[g3a] {
+				color: #7fffbf;
+			}
+
 			[g4] {
 				color: #ffff7f;
 			}
@@ -121,6 +125,26 @@
 				color: #7fffff;
 			}
 
+			[g7a] {
+				color: #9f004f;
+			}
+
+			[g7b] {
+				color: #bf005f;
+			}
+
+			[g7c] {
+				color: #df006f;
+			}
+
+			[g7d] {
+				color: #ff007f;
+			}
+
+			[g8] {
+				color: #dfaf7f;
+			}
+
 			[gnull] {
 				color: #8f8f8f;
 			}
@@ -131,11 +155,15 @@
 			
 			.censor:not(:hover) {
 				color: #00000000;
+				font-size: 0px;
+				line-height: 1px;
 			}
 
 			.censor:not(:hover)::after {
 				color: #ff3f3f;
-				content: "Censored, hover to reveal"
+				content: "Censored, hover to reveal";
+				font-size: 20px;
+				line-height: 20px;
 			}
 
 			.censor:hover {
@@ -611,7 +639,7 @@
 	<section id="phonotactics">
 		<h3>Phonotactics:</h3>
 		<main>
-			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;The sequence [ji] palatalizes the initial consonant, if one is present, whereas the vowel [i] alone does not; likewise, [wu] velarizes a preceding consonant. Most morphemes in Twanthainese are monosyllabic (with compound words existing and made up of multiple monosyllabic components), and (at least in the Roman orthography) each is separated by spaces.
+			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;The sequence [ji] palatalizes the initial consonant, if one is present, whereas the vowel [i] alone does not; likewise, [wu] velarizes a preceding consonant. <ww> is realized as [wː~wu̯~u̯w] and <yy> is realized as [jː~ji̯~i̯j]. Most morphemes in Twanthainese are monosyllabic (with compound words existing and made up of multiple monosyllabic components), and (at least in the Roman orthography) each is separated by spaces.
 		</main>
 	</section>
 </section>
@@ -620,7 +648,7 @@
 	<h3>Grammar</h3>
 	<main>
 		<p>
-			Verbs do not conjugate, instead using grammatical markers to indicate information such as tense; the citation form of a verb is the infinitive, which is marked for tense (past, present, or future).&#8203;&nbsp;&nbsp;&#8203;Verbs convey a perfective aspect by default (Twanthainese does not distinguish between perfective and perfect aspects), but different aspects are conveyed with markers; aspect markers come between the verb and the tense marker; mood markers come after asepct markers (V-A-M-T).&#8203;&nbsp;&nbsp;&#8203;Modifiers come before the nouns they modify (e.g. <span style="color: #4f7fff;">blue</span>&nbsp;car).&#8203;&nbsp;&nbsp;&#8203;Twanthainese uses an OSV (<abbr title="Indirect object">I</abbr><abbr title="Direct object">D</abbr>SV) order and postpositions.&#8203;&nbsp;&nbsp;&#8203; The subject can be omitted in an imperative statement. Twanthainese does not use articles.&#8203;&nbsp;&nbsp;&#8203;"Definite" plurals (i.e. counted accompanied with a number word) do not need a plural marker, but indefinite ones (those not marked by a number word) are marked by "twan t̬ain" ("many", class signifier).
+			Verbs do not conjugate, instead using grammatical markers to indicate information such as tense; the citation form of a verb is the infinitive, which is marked for tense (past, present, or future).&#8203;&nbsp;&nbsp;&#8203;Verbs convey a perfective aspect by default (Twanthainese does not distinguish between perfective and perfect aspects), but different aspects are conveyed with markers; aspect markers come between the verb and the tense marker; mood markers come after asepct markers (V-A-M-T).&#8203;&nbsp;&nbsp;&#8203;Modifiers come before the nouns they modify (e.g. <span style="color: #4f7fff;">blue</span>&nbsp;car).&#8203;&nbsp;&nbsp;&#8203;Twanthainese uses an OSV (<abbr title="Indirect object">I</abbr><abbr title="Direct object">D</abbr>SV) order and postpositions, which can be chained.&#8203;&nbsp;&nbsp;&#8203; The subject can be omitted in an imperative statement. Twanthainese does not use articles.&#8203;&nbsp;&nbsp;&#8203;"Definite" plurals (i.e. counted accompanied with a number word) do not need a plural marker, but indefinite ones (those not marked by a number word) are marked by "twan t̬ain" ("many", class signifier).
 			<!--i'm with the boomers on this one, using 2 spaces after each sentence is more readable to me-->
 		</p>
 	</main>
@@ -737,11 +765,12 @@ data = [
 	{ part: 'noun', qtw: 'wan', eng: 'a straight rod or stick', extra: 'Usually cylindrical, but can also refer to other shapes (usually squares)' },
 	{ part: 'noun', qtw: 'wak', eng: 'square, rectangle' },
 	{ part: 'noun', qtw: 'won', eng: 'circle' },
+	{ part: 'noun', qtw: 'fu̬n', eng: 'dot', etym: 'from "fu̬p won"' },
 	{ part: 'noun', qtw: 'waik', eng: 'cube, rectangular prism' },
 	{ part: 'noun', qtw: 'daip', eng: 'box, square bin' },
 	{ part: 'noun', qtw: 'dwop', eng: 'part, parts, elements (of a set or thing)' },
 	{ part: 'noun', qtw: 'dwip', eng: 'categories' },
-	{ part: 'noun', qtw: 'ṋü\' wak', eng: 'paper', etym: '"ṋü\'" (yellow) is present because the Twanthainese had access to ancient paper; despite this, the word remains in use even as modern paper is white. However, "ṋik wak" is gaining popularity in recent times.' },
+	{ part: 'noun', qtw: 'ṋü\' wak', eng: 'paper', etym: '"ṋü\'" (yellow) is present because the Twanthainese had access to ancient paper.', extra: 'Despite this, the word remains in use even as modern paper is white. However, "ṋik wak" is gaining popularity in recent times.' },
 	{ part: 'noun', qtw: 'ṋik wak', eng: 'paper (synonym of "ṋü\' wak")' },
 	{ part: 'noun', qtw: 'ṋan', eng: 'picture, image, painting', etym: 'From "ṋü\' wak nain"' },
 	{ part: 'noun', qtw: 'bak daip', eng: 'sandbox', etym: 'calque of sand + box' },
@@ -768,6 +797,7 @@ data = [
 	{ part: 'noun', qtw: 'wwyiw', eng: 'algae' },
 	{ part: 'noun', qtw: 'twan t̬ain wwaiw', eng: 'humans, (hu)mankind, people' },
 	{ part: 'noun', qtw: 'nwëw', eng: 'bird', etym: 'From "nwat wwow"' },
+	{ part: 'noun', qtw: 'šoeš nwëw', eng: 'phoenix' },
 	{ part: 'noun', qtw: 'wwaw', eng: 'Plantae, plants', extra: 'Plants in general/as a collective' },
 	{ part: 'noun', qtw: 'nwaw', eng: 'tree', etym: 'From "nwat wwaw"' },
 	{ part: 'noun', qtw: 'bwow', eng: 'grass', etym: 'From "bëṋ wwaw"' },
@@ -806,6 +836,7 @@ data = [
 	{ part: 'noun', qtw: '\'ay', eng: 'the Sun, a star' },
 	{ part: 'noun', qtw: '\'ay l̃in bop', eng: 'helium', etym: 'Calque of "helios" + "-ium"' },
 	{ part: 'noun', qtw: 'we', eng: 'the Moon, a moon' },
+	{ part: 'noun', qtw: 'bët wët', eng: '(poetic) the Moon' },
 	{ part: 'noun', qtw: 'bëṋ \'ay', eng: 'The Sun' },
 	{ part: 'noun', qtw: 'bëṋ we', eng: 'The Moon' },
 	{ part: 'noun', qtw: 'nway', eng: 'day', etym: 'From "\'ay nwat"' },
@@ -813,6 +844,8 @@ data = [
 	{ part: 'noun', qtw: 'nwe nwat', eng: 'night sky, outer space' },
 	{ part: 'noun', qtw: 'nwe nwat kwëw', eng: 'rocket, spacecraft' },
 	{ part: 'noun', qtw: 'Bëṋ Bët', eng: 'The Earth' },
+	{ part: 'noun', qtw: 'Nüw Bët', eng: '(poetic) The Earth, the Blue Marble' },
+	{ part: 'noun', qtw: 'bëk', eng: 'Planetary core', etym: 'From "bët dëk"' },
 	{ part: 'noun', qtw: 'bu\'', eng: 'sulfur', etym: 'From "bok ṋü\'"' },
 	{ part: 'noun', qtw: 'Bu\' Bët', eng: 'Venus', extra: 'None of the planet "stars" were identified as planets by the Twanthainese until after their compositions had already been discovered' },
 	{ part: 'noun', qtw: 'Ṋüf Bët', eng: 'Mars' },
@@ -822,8 +855,8 @@ data = [
 	{ part: 'noun', qtw: 'dwüp wan', eng: 'turd', extra: 'Taboo/Mildly vulgar' },
 	{ part: 'noun', qtw: 'suk', eng: 'p**s', extra: 'Vulgar', censor: true },
 	{ part: 'noun', qtw: 'kut', eng: 'sh*t', extra: 'Vulgar', censor: true },
-	{ part: 'noun', qtw: 'kut wan', eng: 'turd', extra: 'Vulgar' },
-	{ part: 'noun', qtw: 'kut hoi', eng: 'a**hole', extra: 'More vulgar than "dwüp wan"', censor: true },
+	{ part: 'noun', qtw: 'kut wan', eng: 'turd', extra: 'More vulgar than "dwüp wan"', },
+	{ part: 'noun', qtw: 'kut hoi', eng: 'a**hole', censor: true },
 	{ part: 'noun', qtw: 'muṋ', eng: 'hole' },
 	{ part: 'noun', qtw: 'dwüp muṋ', eng: 'cesspit, sh**hole, (historical) toilet', censor: true, extra: 'Became vulgar, nowadays used as an insult of a person (akin to "a**hole" or "sh**head") or a place (akin to "sh**hole" or "hellhole").' },
 	{ part: 'noun', qtw: 'dwuṋ', eng: 'a**hole', extra: 'Vulgar', censor: true },
@@ -850,6 +883,9 @@ data = [
 	{ part: 'noun', qtw: 'du̬y', eng: 'salt' },
 	{ part: 'noun', qtw: 'gap', eng: 'language' },
 	{ part: 'noun', qtw: 'gaǩ̬', eng: 'hello', etym: 'Cognate with "gap"' },
+	{ part: 'noun', qtw: 'woiṋ', eng: 'freedom, liberty' },
+	{ part: 'noun', qtw: 'waiṋ', eng: 'right (legal or just ability or entitlement)', etym: 'Cognate of "woiṋ"' },
+	{ part: 'noun', qtw: 'k̬eyt', eng: 'dignity' },
 	{ part: 'noun', qtw: 'twan t̬ain wwaiw gap', eng: 'Twanthainese' },
 	{ part: 'noun', qtw: 'Bwü Tën šin gap', eng: 'English' },
 	{ part: 'noun', qtw: 'Bwü Tën šin twan t̬ain wwaiw', eng: 'British people' },
@@ -919,6 +955,7 @@ data = [
 	{ part: 'adjective', eng: 'myllion', qtw: 'füt̃' },
 	{ part: 'adjective', eng: 'milliard', qtw: 'žun' },
 	{ part: 'adjective', eng: '10 milliard', qtw: 'žwan' },
+	{ part: 'adjective', eng: '100 milliard', qtw: '\'ak' },
 	{ part: 'adjective', qtw: 'fwa\'', eng: 'big, (intensifier)', etym: 'Affected by the p̃-f merger' },
 	{ part: 'adjective', qtw: 'fu̬p', eng: 'small, (diminutive)' },
 	{ part: 'adjective', qtw: 'këp', eng: 'full' },
@@ -926,6 +963,7 @@ data = [
 	{ part: 'adjective', qtw: 'baiṋ', eng: 'dirty' },
 	{ part: 'adjective', qtw: 'f̌yin', eng: 'wet' },
 	{ part: 'adjective', qtw: 'šaiš', eng: 'hot' },
+	{ part: 'adjective', qtw: 'mem', eng: 'equal' },
 	{ part: 'verb', qtw: 'woin', eng: 'to walk' },
 	{ part: 'verb', qtw: 'pën', eng: 'to eat' },
 	{ part: 'verb', qtw: 'pin', eng: 'to drink' },
@@ -937,6 +975,7 @@ data = [
 	{ part: 'verb', qtw: 'naṋ', eng: 'to be', extra: 'Also connects two nouns' },
 	{ part: 'verb', qtw: 'fu̬t', eng: 'to die' },
 	{ part: 'verb', qtw: 'düṋ', eng: 'to be able to', extra: 'i.e. "*to can" in a sense like Middle English "cunnen"; when denoting the ability to perform a verb, it instead acts as a marker attaching to the verb, before any TAM markers.' },
+	{ part: 'noun', qtw: 'yai', eng: 'to form, to be born, to be made/created, to come into existence' },
 	{ part: 'verb', qtw: 'š̭aiǩ̬', eng: 'to shock (electrically)' },
 	{ part: 'verb', qtw: 'š̭waǩ̬', eng: 'to strike (of lightning)' },
 	{ part: 'postposition', qtw: 'gu̬n', eng: 'on' },
@@ -947,6 +986,9 @@ data = [
 	{ part: 'postposition', qtw: 'hoi', eng: 'the bottom of' },
 	{ part: 'postposition', qtw: 'g̬ay', eng: 'into, through' },
 	{ part: 'postposition', qtw: 'g̬e', eng: 'to, towards', etym: 'Cognate of "k̬ey"' },
+	{ part: 'postposition', qtw: 'wëy', eng: 'with, having', etym: 'Cognate of "kwey"', extra: 'Can be chained to express having more than one thing' },
+	{ part: 'postposition', qtw: 'puet', eng: 'of' },
+	{ part: 'conjunction', qtw: 'yey', eng: 'and' },
 	{ part: 'marker', qtw: 'nyep', eng: '(Past tense marker), -ed' },
 	{ part: 'marker', qtw: 'k̬ep', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can be included for emphasis.' },
 	{ part: 'marker', qtw: 'f̌ep', eng: '(Future tense marker)' },
@@ -963,7 +1005,7 @@ data = [
 	{ part: 'marker', qtw: 'twan t̬ain', eng: '(Class signifier: While "twan t̬ain" literally means "many", it can also denote a reference to a type of things, akin to the "kind" in "mankind".)' },
 	{ part: 'marker', qtw: 'wai', eng: '(Adverbializer), -ly' },
 	{ part: 'marker', qtw: 'g̬ot', eng: '(Verbalizer), -ing' },
-	{ part: 'marker', qtw: 'š̭ek', eng: '(Nominalizer), -ness' },
+	{ part: 'marker', qtw: 'š̭ek', eng: '(Nominalizer), -ity, -ness' },
 	{ part: 'marker', qtw: 'dyow', eng: 'negation, not', extra: 'When negating something, it precedes the negatee.' },
 	{ part: 'marker', qtw: 'kai', eng: 'if, (Conditional mood marker)', extra: 'In an "if X, then Y" statement, both sides\' verbs must have "kai" attached to them.' },
 ]
@@ -1113,6 +1155,14 @@ data = [
 			<span lang="en"><span gnull>The</span> <span g1>sun</span> <span g2>is</span> <span g4a>very</span> <span g5>hot</span>.<br/>
 			<span class="term"><span g4a>fwa'</span> <span g5>šaiš</span> <span g1>'ay</span> <span g2>naṋ</span>.<br/>
 			<span class="underlying"><span g4a>very</span> <span g5>hot</span> <span g1>sun</span> <span g2>is</span>.</span> <br/>
+		</p><br/>
+
+		<p class="plain-font example-triplet">
+			<span lang="en"> <span g4>All</span> <span g1>human beings</span> <span g2a>are</span> <span g2>born</span> <span g7a>free</span> <span g8>and</span> <span g7b>equal</span> <span g3>in</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span></span>.<br/>
+			<span class="term"> <span g7a>woiṋ</span> <span g8>yey</span> <span g7b>mem š̭ek</span> <span g3>puet</span> <span g7c>k̬eyt</span> <span g8>yey</span> <span g7d>waiṋ</span> <span gnull>wëy</span> <span g4>twan t̬ain</span> <span g1>wwaiw</span> <span g2>yai</span> <span g2a>k̬ep</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g4>many_<small><i>(conn.)</i>_</small></span><span g1>human</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>(-kind)_human</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>humankind</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
 		</p><br/>
 	</main>
 </section>
