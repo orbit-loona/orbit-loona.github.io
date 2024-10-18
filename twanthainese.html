@@ -677,6 +677,7 @@ data = [
 	{ part: 'noun', qtw: 'nit', eng: 'air' },
 	{ part: 'noun', qtw: 'nwot', eng: 'wind' },
 	{ part: 'noun', qtw: 'nwat', eng: 'sky' },
+	{ part: 'noun', qtw: 'neut̬', eng: 'cloud' },
 	{ part: 'noun', qtw: 'nyit', eng: 'cold', extra: 'The sensation or absence of temperature' },
 	{ part: 'noun', qtw: 'nait', eng: 'dizzy' },
 	{ part: 'noun', qtw: 'bëṋ', eng: 'ground, earth', extra: 'It refers either only to natural ground, or to a large area of ground or the surface of the planet itself (in which case it does include all artificial ground)' },
@@ -692,13 +693,12 @@ data = [
 	{ part: 'noun', qtw: 'bwok', eng: 'sandstorm' },
 	{ part: 'noun', qtw: 'byik', eng: 'quicksand' },
 	{ part: 'noun', qtw: 'šoeš', eng: 'fire', extra: 'The chemical reaction, in general' },
-	{ part: 'noun', qtw: 'šaiš', eng: 'hot, heat' },
 	{ part: 'noun', qtw: 'šwoš', eng: 'explosion' },
 	{ part: 'noun', qtw: 'šwaš', eng: 'fire', extra: 'In the context of a disaster such as a building or forest fire' },
 	{ part: 'noun', qtw: 'šyiš', eng: 'lava' },
 	{ part: 'noun', qtw: 'šu̬š', eng: 'smoke' },
 	{ part: 'noun', qtw: 'f̌en', eng: 'water' },
-	{ part: 'noun', qtw: 'f̌yin', eng: 'wet' },
+	{ part: 'noun', qtw: 't̬en', eng: 'rain', etym: 'From "nwat f̌en"' },
 	{ part: 'noun', qtw: 'f̌wan', eng: 'sea, ocean' },
 	{ part: 'noun', qtw: 'f̌won', eng: 'current, river' },
 	{ part: 'noun', qtw: 'f̌en f̌won', eng: 'river, stream' },
@@ -876,54 +876,56 @@ data = [
 	{ part: 'noun', qtw: 'šoeš müf bët tun bët', eng: 'Hell' },
 	{ part: 'noun', qtw: 'fwa\' ǩ̬in bab', eng: 'manly man, chad' },
 	{ part: 'noun', qtw: 'fwa\' fwa\' ǩ̬in bab', eng: 'gigachad' },
-	{ part: 'adjective', qtw: 'multiple', eng: 'twon' },
-	{ part: 'adjective', qtw: 'many', eng: 'twan' },
-	{ part: 'adjective', qtw: 'zero', eng: 'l̃it' },
-	{ part: 'adjective', qtw: 'one', eng: 'l̃in' },
-	{ part: 'adjective', qtw: 'two', eng: 't̬en' },
-	{ part: 'adjective', qtw: 'three', eng: 'l̃an' },
-	{ part: 'adjective', qtw: 'four', eng: 't̬on' },
-	{ part: 'adjective', qtw: 'five', eng: 'l̃iw' },
-	{ part: 'adjective', qtw: 'six', eng: 't̬ew' },
-	{ part: 'adjective', qtw: 'seven', eng: 'l̃aw' },
-	{ part: 'adjective', qtw: 'eight', eng: 't̬ow' },
-	{ part: 'adjective', qtw: 'nine', eng: 'l̃ik̃' },
-	{ part: 'adjective', qtw: 'ten', eng: 't̬ek̃' },
-	{ part: 'adjective', qtw: 'eleven', eng: 'l̃ak̃' }, <!--this was a deliberate and considered decision, not english cloning qua english cloning-->
-	{ part: 'adjective', qtw: 'twelve', eng: 't̬ok̃' }, <!-- see above-->
-	{ part: 'adjective', qtw: 'thirteen', eng: 't̬ek̃ l̃an' },
-	{ part: 'adjective', qtw: 'fourteen', eng: 't̬ek̃ t̬on' },
-	{ part: 'adjective', qtw: 'fifteen', eng: 't̬ek̃ l̃iw' },
-	{ part: 'adjective', qtw: 'sixteen', eng: 't̬ek̃ t̬ew' },
-	{ part: 'adjective', qtw: 'seventeen', eng: 't̬ek̃ l̃aw' },
-	{ part: 'adjective', qtw: 'eighteen', eng: 't̬ek̃ t̬ow' },
-	{ part: 'adjective', qtw: 'nineteen', eng: 't̬ek̃ l̃ik̃' },
-	{ part: 'adjective', qtw: 'twenty', eng: 't̬en t̬ek̃' },
-	{ part: 'adjective', qtw: '21', eng: 't̬en t̬ek̃ l̃in' },
-	{ part: 'adjective', qtw: '22', eng: 't̬en t̬ek̃ t̬en' },
-	{ part: 'adjective', qtw: '23', eng: 't̬en t̬ek̃ l̃an' },
-	{ part: 'adjective', qtw: '24', eng: 't̬en t̬ek̃ t̬on' },
-	{ part: 'adjective', qtw: '30', eng: 'l̃an t̬ek̃' },
-	{ part: 'adjective', qtw: '31', eng: 'l̃an t̬ek̃ l̃in' },
-	{ part: 'adjective', qtw: '40', eng: 't̬on t̬ek̃' },
-	{ part: 'adjective', qtw: '41', eng: 't̬on t̬ek̃ l̃in' },
-	{ part: 'adjective', qtw: '100', eng: 't̬wak̃' },
-	{ part: 'adjective', qtw: '101', eng: 't̬wak̃ l̃in' },
-	{ part: 'adjective', qtw: '120', eng: 't̬wak̃ t̬en t̬ek̃' },
-	{ part: 'adjective', qtw: '123', eng: 't̬wak̃ t̬en t̬ek̃ l̃an' },
-	{ part: 'adjective', qtw: '1,000', eng: 'twaṋ' },
-	{ part: 'adjective', qtw: '10,000', eng: 't̃woṋ' },
-	{ part: 'adjective', qtw: '100,000', eng: 't̃uṋ' },
-	{ part: 'adjective', qtw: 'million', eng: 't̃euk' },
-	{ part: 'adjective', qtw: 'crore', eng: 'fu\'' },
-	{ part: 'adjective', qtw: 'myllion', eng: 'füt̃' },
-	{ part: 'adjective', qtw: 'milliard', eng: 'žun' },
-	{ part: 'adjective', qtw: '10 milliard', eng: 'žwan' },
+	{ part: 'adjective', qtw: 'twon', eng: 'multiple' },
+	{ part: 'adjective', qtw: 'twan', eng: 'many' },
+	{ part: 'adjective', qtw: 'l̃it', eng: 'zero' },
+	{ part: 'adjective', qtw: 'l̃in', eng: 'one' },
+	{ part: 'adjective', qtw: 't̬en', eng: 'two' },
+	{ part: 'adjective', qtw: 'l̃an', eng: 'three' },
+	{ part: 'adjective', qtw: 't̬on', eng: 'four' },
+	{ part: 'adjective', qtw: 'l̃iw', eng: 'five' },
+	{ part: 'adjective', qtw: 't̬ew', eng: 'six' },
+	{ part: 'adjective', qtw: 'l̃aw', eng: 'seven' },
+	{ part: 'adjective', qtw: 't̬ow', eng: 'eight' },
+	{ part: 'adjective', qtw: 'l̃ik̃', eng: 'nine' },
+	{ part: 'adjective', qtw: 't̬ek̃', eng: 'ten' },
+	{ part: 'adjective', qtw: 'l̃ak̃', eng: 'eleven' }, <!--this was a deliberate and considered decision, not english cloning qua english cloning-->
+	{ part: 'adjective', qtw: 't̬ok̃', eng: 'twelve' }, <!-- see above-->
+	{ part: 'adjective', qtw: 't̬ek̃ l̃an', eng: 'thirteen' },
+	{ part: 'adjective', qtw: 't̬ek̃ t̬on', eng: 'fourteen' },
+	{ part: 'adjective', qtw: 't̬ek̃ l̃iw', eng: 'fifteen' },
+	{ part: 'adjective', eng: 'sixteen', qtw: 't̬ek̃ t̬ew' },
+	{ part: 'adjective', eng: 'seventeen', qtw: 't̬ek̃ l̃aw' },
+	{ part: 'adjective', eng: 'eighteen', qtw: 't̬ek̃ t̬ow' },
+	{ part: 'adjective', eng: 'nineteen', qtw: 't̬ek̃ l̃ik̃' },
+	{ part: 'adjective', eng: 'twenty', qtw: 't̬en t̬ek̃' },
+	{ part: 'adjective', eng: '21', qtw: 't̬en t̬ek̃ l̃in' },
+	{ part: 'adjective', eng: '22', qtw: 't̬en t̬ek̃ t̬en' },
+	{ part: 'adjective', eng: '23', qtw: 't̬en t̬ek̃ l̃an' },
+	{ part: 'adjective', eng: '24', qtw: 't̬en t̬ek̃ t̬on' },
+	{ part: 'adjective', eng: '30', qtw: 'l̃an t̬ek̃' },
+	{ part: 'adjective', eng: '31', qtw: 'l̃an t̬ek̃ l̃in' },
+	{ part: 'adjective', eng: '40', qtw: 't̬on t̬ek̃' },
+	{ part: 'adjective', eng: '41', qtw: 't̬on t̬ek̃ l̃in' },
+	{ part: 'adjective', eng: '100', qtw: 't̬wak̃' },
+	{ part: 'adjective', eng: '101', qtw: 't̬wak̃ l̃in' },
+	{ part: 'adjective', eng: '120', qtw: 't̬wak̃ t̬en t̬ek̃' },
+	{ part: 'adjective', eng: '123', qtw: 't̬wak̃ t̬en t̬ek̃ l̃an' },
+	{ part: 'adjective', eng: '1,000', qtw: 'twaṋ' },
+	{ part: 'adjective', eng: '10,000', qtw: 't̃woṋ' },
+	{ part: 'adjective', eng: '100,000', qtw: 't̃uṋ' },
+	{ part: 'adjective', eng: 'million', qtw: 't̃euk' },
+	{ part: 'adjective', eng: 'crore', qtw: 'fu\'' },
+	{ part: 'adjective', eng: 'myllion', qtw: 'füt̃' },
+	{ part: 'adjective', eng: 'milliard', qtw: 'žun' },
+	{ part: 'adjective', eng: '10 milliard', qtw: 'žwan' },
 	{ part: 'adjective', qtw: 'fwa\'', eng: 'big, (intensifier)', etym: 'Affected by the p̃-f merger' },
 	{ part: 'adjective', qtw: 'fu̬p', eng: 'small, (diminutive)' },
 	{ part: 'adjective', qtw: 'këp', eng: 'full' },
 	{ part: 'adjective', qtw: 'šoeš müf', eng: 'burning' },
 	{ part: 'adjective', qtw: 'baiṋ', eng: 'dirty' },
+	{ part: 'adjective', qtw: 'f̌yin', eng: 'wet' },
+	{ part: 'adjective', qtw: 'šaiš', eng: 'hot' },
 	{ part: 'verb', qtw: 'woin', eng: 'to walk' },
 	{ part: 'verb', qtw: 'pën', eng: 'to eat' },
 	{ part: 'verb', qtw: 'pin', eng: 'to drink' },
@@ -950,7 +952,7 @@ data = [
 	{ part: 'marker', qtw: 'f̌ep', eng: '(Future tense marker)' },
 	{ part: 'marker', qtw: 't̃ep', eng: '(Habitual aspect marker)' },
 	{ part: 'marker', qtw: 'ž̭ün', eng: '(Imperative mood marker)' },
-	{ part: 'marker', qtw: 'müf', eng: '(Adjectivizer), -al', extra: '(Connects most modifier words to their modificands)' },
+	{ part: 'marker', qtw: 'müf', eng: '(Adjectivizer), -al, -ous, -y', extra: '(Connects most modifier words to their modificands)' },
 	{ part: 'marker', qtw: 't̬ain', eng: '-numbered', extra: '(Connects a number word or phrase to its quantificand)' },
 	{ part: 'marker', qtw: 'ž̭yai', eng: '(Instrumentality marker)', extra: 'Akin to the "by" in a passive voice statement or the "of" in the construction "full of"' },
 	{ part: 'marker', qtw: 'dyoi', eng: '(Marks passive voice by attaching to the verb, after TAM markers)' },
@@ -962,7 +964,8 @@ data = [
 	{ part: 'marker', qtw: 'wai', eng: '(Adverbializer), -ly' },
 	{ part: 'marker', qtw: 'g̬ot', eng: '(Verbalizer), -ing' },
 	{ part: 'marker', qtw: 'š̭ek', eng: '(Nominalizer), -ness' },
-	{ part: 'marker', qtw: 'dyow', eng: 'negation, not', extra: 'When preceding a verb, it goes before the verb.' },
+	{ part: 'marker', qtw: 'dyow', eng: 'negation, not', extra: 'When negating something, it precedes the negatee.' },
+	{ part: 'marker', qtw: 'kai', eng: 'if, (Conditional mood marker)', extra: 'In an "if X, then Y" statement, both sides\' verbs must have "kai" attached to them.' },
 ]
 		</script>
 		<script>
@@ -1052,7 +1055,7 @@ data = [
 		<p class="plain-font example-triplet">
 			<span lang="en"> <span g1>I</span> <span g2>walk</span> <span g3>on</span> <span gnull>the</span> <span g4>red</span> <span g5>sand</span>. </span><br/>
 			<span class="term"> <span g4>nüt̬ müf</span> <span g5>bak</span> <span g3>gu̬n</span> <span g1>šain</span> <span g2>woin k̬ep</span>. </span><br/>
-			<span class="underlying"> <span g4>red-colored</span> <span g5>sand</span><span g3>-on</span> <span g1>I</span> <span g2>walk</span>. </span>
+			<span class="underlying"> <span g4>red-colored</span> <span g5>sand</span><span g3>-on</span> <span g1>I</span> <span g2>walk</span>. </span> 
 		</p><br/>
 
 		<p class="plain-font example-triplet">
@@ -1094,9 +1097,22 @@ data = [
 			<span lang="fr"><span gnull>la</span> <span g1>plume</span> <span g4>de</span> <span g4a>ma</span> <span g3>tante</span></span><br/>
 			<span lang="en"><span g4a>my</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span><br/>
 			<span class="term"><span g4a>šain kwa</span> <span g3>ǩ̬wai</span> <span g4>kwa</span> <span g1>nwëw bwow ket</span></span><br/>
-			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>bird_grass__tool</span></span><br/>
+			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>bird_grass__tool</span></span><br/> 
 			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>feather_tool</span></span><br/>
-			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span>
+			<span class="underlying"><span g4a>me's</span> <span g3>aunt</span><span g4>'s</span> <span g1>quill</span></span> 
+		</p><br/>
+
+		<p class="plain-font example-triplet">
+			<span lang="en"><span g6>If</span> <span title="There is no corresponding morpheme in the Twanthainese translation" gnull>it</span> <span g2>rain</span><span g2a>s</span>, <span g1>you</span> <span g4a>will</span> <span g3>get</span> <span g4>wet</span>.<br/>
+			<span class="term"><span g2>t̬en</span> <span g2a>g̬ot</span> <span g6>kai</span> <span g2a title="There is no independently corresponding morpheme in the English translation, see below">f̌ep</span>, <span g4>f̌yin</span> <span g1>šu̬n</span> <span g3>naṋ</span> <span gnull title="There is no corresponding morpheme in the English translation, as it's implied by the structure of the sentence">kai</span> <span g4a>f̌ep</span></span> </span><br/>
+			<span class="underlying"><span g2>rain</span><span g2a>ing</span><span g6>-if</span> <span g2a title="There is no independently corresponding morpheme in the English translation, see below">later</span>, <span g4>wet</span> <span g1>you</span> <span g3>be</span> <span gnull title="There is no corresponding morpheme in the English translation, as it's implied by the structure of the sentence">then</span> <span g4a>will</span></span> <br/>
+			<span class="disclaimer">There isn't a one-to-one morpheme correspondence here because, in addition to the "-s" in the English "rains" serving as both the verbalizer and the future tense marker, the conditional ("then") in the English sentence is implied by its structure of the sentence, whereas it uses a marker in Twanthainese.)&#8203;&nbsp;&nbsp;&#8203;Also, the weather being the thing that rains is implied in both languages, but in English this implication uses the word "it".</span>
+		</p><br/>
+
+		<p class="plain-font example-triplet">
+			<span lang="en"><span gnull>The</span> <span g1>sun</span> <span g2>is</span> <span g4a>very</span> <span g5>hot</span>.<br/>
+			<span class="term"><span g4a>fwa'</span> <span g5>šaiš</span> <span g1>'ay</span> <span g2>naṋ</span>.<br/>
+			<span class="underlying"><span g4a>very</span> <span g5>hot</span> <span g1>sun</span> <span g2>is</span>.</span> <br/>
 		</p><br/>
 	</main>
 </section>
