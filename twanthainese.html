@@ -83,6 +83,10 @@
 				color: #ff7f7f;
 			}
 
+			[g1a] {
+				color: #ff8f5f;
+			}
+
 			[g2] {
 				color: #7f7fff;
 			}
@@ -121,8 +125,16 @@
 				color: #ff7fff;
 			}
 
+			[g5a] {
+				color: #ff00ff;
+			}
+
 			[g6] {
 				color: #7fffff;
+			}
+
+			[g6a] {
+				color: #7fbfff;
 			}
 
 			[g7a] {
@@ -469,7 +481,8 @@
 						<th>V'less</th>
 					</tr>
 					<tr>
-						<th colspan="2">Plosive</th>
+						<th rowspan="2">Plosive</th>
+						<th>Plain</th>
 						<td>p̚</td>
 						<td>&nbsp;</td>
 						<td>f̆~p̪̚</td>
@@ -480,9 +493,25 @@
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td>k~kʰ̆</td>
+						<td>k̚</td>
 						<td>&nbsp;</td>
 						<td>ʔ</td>
+					</tr>
+					<tr>
+						<th>Aspirated</th>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>k~kʰ̆</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
 						<th colspan="2">Nasal</th>
@@ -627,7 +656,8 @@
 						<td>[c~ç̆]</td>
 						<td>[ĭ̯]</td>
 						<td>[ŋ]</td>
-						<td colspan="2">[k~kʰ̆]</td>
+						<td>[k̚]</td>
+						<td>[k~kʰ̆]</td>
 						<td>[ŋ]</td>
 						<td>[ʔ]</td>
 					</tr>
@@ -639,7 +669,7 @@
 	<section id="phonotactics">
 		<h3>Phonotactics:</h3>
 		<main>
-			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;The sequence [ji] palatalizes the initial consonant, if one is present, whereas the vowel [i] alone does not; likewise, [wu] velarizes a preceding consonant. <ww> is realized as [wː~wu̯~u̯w] and <yy> is realized as [jː~ji̯~i̯j]. Most morphemes in Twanthainese are monosyllabic (with compound words existing and made up of multiple monosyllabic components), and (at least in the Roman orthography) each is separated by spaces.
+			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;The sequence [ji] palatalizes the initial consonant, if one is present, whereas the vowel [i] alone does not; likewise, [wu] velarizes a preceding consonant. <ww> is realized as [wː~wu̯~u̯w] and <yy> is realized as [jː~ji̯~i̯j]. Most morphemes in Twanthainese are monosyllabic (with compound words existing and either made up of multiple monosyllabic components, or often being formed by combining sounds from other words), and (at least in the Roman orthography) each is separated by spaces.
 		</main>
 	</section>
 </section>
@@ -777,25 +807,32 @@ data = [
 	{ part: 'noun', qtw: 'ṋan dwop', eng: 'pixel', etym: 'calque of pictures + element = pixel; however, "pik sel" has been slowly gaining popularity' },
 	{ part: 'noun', qtw: 'Bak Daip Ṋan Dwop šin', eng: 'Sandboxels', eng_href: 'https://sandboxels.R74n.com/', html_title: 'Not sponsored, I just like the game' },
 	{ part: 'noun', qtw: 'Al L̃aw T̬on en šin', eng: 'R74n', eng_href: 'https://R74n.com/', html_title: 'also, I want to get into https://R74n.com/translate/' },
+	{ part: 'noun', qtw: 'Saik Müf Wek Kwa Ž̭euw šin', eng: 'LOONA', etym: 'Calque of "이달의 소녀"' },
 	{ part: 'noun', qtw: 'kwon', eng: 'motion, (physical) movement' },
-	{ part: 'noun', qtw: 'won kwon', eng: 'circulation, orbit, cycle' },
+	{ part: 'noun', qtw: 'wok', eng: 'circulation, orbit, cycle', etym: 'From "won kwon"' },
 	{ part: 'noun', qtw: 'šaiš du̬y won kwon', eng: 'thermohaline circulation' },
 	{ part: 'noun', qtw: 'wwow', eng: 'life, organism, animal' },
 	{ part: 'noun', qtw: 'wan wwow', eng: 'worm' },
 	{ part: 'noun', qtw: 'wwaiw', eng: 'human, person' },
+	{ part: 'noun', qtw: 'faw', eng: 'child', etym: 'From "fu̬p wwaiw"' },
+	{ part: 'noun', qtw: '\'aiw', eng: 'adult, grown-up', etym: 'From "fwai\' wwaiw"' },
+	{ part: 'noun', qtw: 'ǩ̬yaw', eng: 'boy', etym: 'From "ǩ̬in faw"' },
+	{ part: 'noun', qtw: 'ž̭euw', eng: 'girl', etym: 'From "ž̭et faw"' },
+	{ part: 'noun', qtw: 'ǩ̬yaiw', eng: 'man', etym: 'From "ǩ̬in \'aiw"' },
+	{ part: 'noun', qtw: '\'eut', eng: 'woman', etym: 'From "ž̭et \'aiw"' },
 	{ part: 'noun', qtw: 'mam', eng: 'mother' },
 	{ part: 'noun', qtw: 'maw', eng: 'mommy', extra: 'Intimate/Term of endearment' },
 	{ part: 'noun', qtw: 'bab', eng: 'father', extra: 'Still pronounced as "bap" nowadays' },
 	{ part: 'noun', qtw: 'baw', eng: 'daddy', extra: 'Intimate/Term of endearment' },
 	{ part: 'noun', qtw: 'waw', eng: 'parent' },
 	{ part: 'noun', qtw: 'waiw', eng: 'sibling' },
-	{ part: 'noun', qtw: 'wain', eng: 'brother', etym: 'From "waiw ǩ̬in"' },
-	{ part: 'noun', qtw: 'wët', eng: 'sister', etym: 'From "waiw ž̭et"' },
+	{ part: 'noun', qtw: 'wain', eng: 'brother', etym: 'From "ǩ̬in waiw"' },
+	{ part: 'noun', qtw: 'wët', eng: 'sister', etym: 'From "ž̭et waiw"' },
 	{ part: 'noun', qtw: 'wwai', eng: 'pibling', extra: 'Refers to any aunts or uncle', etym: 'From "waw waiw"' },
-	{ part: 'noun', qtw: 'ǩ̬wai', eng: 'aunt', etym: 'From "wwai ǩ̬in"' },
-	{ part: 'noun', qtw: 'ž̭wai', eng: 'uncle', etym: 'From "wwai ž̭et"' },
+	{ part: 'noun', qtw: 'ǩ̬wai', eng: 'aunt', etym: 'From "ǩ̬in wwai"' },
+	{ part: 'noun', qtw: 'ž̭wai', eng: 'uncle', etym: 'From "ž̭et wwai"' },
 	{ part: 'noun', qtw: 'wwyiw', eng: 'algae' },
-	{ part: 'noun', qtw: 'twan t̬ain wwaiw', eng: 'humans, (hu)mankind, people' },
+	{ part: 'noun', qtw: 'twan t̬ain wwaiw', eng: 'humans, (hu)mankind' },
 	{ part: 'noun', qtw: 'nwëw', eng: 'bird', etym: 'From "nwat wwow"' },
 	{ part: 'noun', qtw: 'šoeš nwëw', eng: 'phoenix' },
 	{ part: 'noun', qtw: 'wwaw', eng: 'Plantae, plants', extra: 'Plants in general/as a collective' },
@@ -837,6 +874,7 @@ data = [
 	{ part: 'noun', qtw: '\'ay l̃in bop', eng: 'helium', etym: 'Calque of "helios" + "-ium"' },
 	{ part: 'noun', qtw: 'we', eng: 'the Moon, a moon' },
 	{ part: 'noun', qtw: 'bët wët', eng: '(poetic) the Moon' },
+	{ part: 'noun', qtw: 'wek', eng: 'month', etym: 'From "we wok"' },
 	{ part: 'noun', qtw: 'bëṋ \'ay', eng: 'The Sun' },
 	{ part: 'noun', qtw: 'bëṋ we', eng: 'The Moon' },
 	{ part: 'noun', qtw: 'nway', eng: 'day', etym: 'From "\'ay nwat"' },
@@ -972,6 +1010,7 @@ data = [
 	{ part: 'verb', qtw: '\'a\'', eng: 'to injure or cause physical pain', etym: 'Onomatopoeia for screaming, akin to "ouch"' },
 	{ part: 'verb', qtw: 'dun', eng: 'to drop' },
 	{ part: 'verb', qtw: 'kwey', eng: 'to have, to possess' },
+	{ part: 'verb', qtw: 'kwak', eng: 'to be made of, to be composed of', etym: 'From "kwey š̭ek twai"' },
 	{ part: 'verb', qtw: 'naṋ', eng: 'to be', extra: 'Also connects two nouns' },
 	{ part: 'verb', qtw: 'fu̬t', eng: 'to die' },
 	{ part: 'verb', qtw: 'düṋ', eng: 'to be able to', extra: 'i.e. "*to can" in a sense like Middle English "cunnen"; when denoting the ability to perform a verb, it instead acts as a marker attaching to the verb, before any TAM markers.' },
@@ -985,12 +1024,14 @@ data = [
 	{ part: 'postposition', qtw: 'min', eng: 'inside a medium' },
 	{ part: 'postposition', qtw: 'hoi', eng: 'the bottom of' },
 	{ part: 'postposition', qtw: 'g̬ay', eng: 'into, through' },
-	{ part: 'postposition', qtw: 'g̬e', eng: 'to, towards', etym: 'Cognate of "k̬ey"' },
+	{ part: 'postposition', qtw: 'g̬e', eng: 'to, towards, for', etym: 'Cognate of "k̬ey"' },
 	{ part: 'postposition', qtw: 'wëy', eng: 'with, having', etym: 'Cognate of "kwey"', extra: 'Can be chained to express having more than one thing' },
-	{ part: 'postposition', qtw: 'puet', eng: 'of' },
+	{ part: 'postposition', qtw: 'yak', eng: '(coming) from, because of' },
+	{ part: 'postposition', qtw: 'puet', eng: 'of, concerning', extra: 'Cannot be used to indicate composition' },
+	{ part: 'postposition', qtw: 'twai', eng: 'of, from', extra: 'Used to indicate composition' },
 	{ part: 'conjunction', qtw: 'yey', eng: 'and' },
 	{ part: 'marker', qtw: 'nyep', eng: '(Past tense marker), -ed' },
-	{ part: 'marker', qtw: 'k̬ep', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can be included for emphasis.' },
+	{ part: 'marker', qtw: 'k̬ep', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can also be included for emphasis.' },
 	{ part: 'marker', qtw: 'f̌ep', eng: '(Future tense marker)' },
 	{ part: 'marker', qtw: 't̃ep', eng: '(Habitual aspect marker)' },
 	{ part: 'marker', qtw: 'ž̭ün', eng: '(Imperative mood marker)' },
@@ -1126,7 +1167,7 @@ data = [
 			<span class="underlying"> (<span g2>lightning-ing</span><span g2a>-ed</span><span g2b>-by</span> <span g5>lightning</span><span g3>-with</span> <span g4a>me's</span> <span g1>vehicle_life__driver</span>.) </span><br/>
 			<span class="underlying"> (<span g2>lightning-ing</span><span g2a>-ed</span><span g2b>-by</span> <span g5>lightning</span><span g3>-with</span> <span g4a>me's</span> <span g1>horse_driver</span>.) </span><br/>
 			<span class="underlying"> (<span g2>lightning-ing</span><span g2a>-ed</span><span g2b>-by</span> <span g5>lightning</span><span g3>-with</span> <span g4a>me's</span> <span g1>postillion</span>.) </span><br/>
-			<span class="disclaimer"><span g2b>*</span>There's not really a one-to-one morpheme correspondence here because the passive voice is largely conveyed in English by the structure of the sentence, whereas it also uses a marker in Twanthainese.)</span>
+			<span class="disclaimer"><span g2b>*</span>There's not really a one-to-one morpheme correspondence here (or none can be contrived) because the passive voice is largely conveyed in English by the structure of the sentence, whereas it also uses a marker in Twanthainese.)</span>
 		</p><br/>
 
 		<div class="plain-font example-triplet">
@@ -1148,7 +1189,7 @@ data = [
 			<span lang="en"><span g6>If</span> <span title="There is no corresponding morpheme in the Twanthainese translation" gnull>it</span> <span g2>rain</span><span g2a>s</span>, <span g1>you</span> <span g4a>will</span> <span g3>get</span> <span g4>wet</span>.<br/>
 			<span class="term"><span g2>t̬en</span> <span g2a>g̬ot</span> <span g6>kai</span> <span g2a title="There is no independently corresponding morpheme in the English translation, see below">f̌ep</span>, <span g4>f̌yin</span> <span g1>šu̬n</span> <span g3>naṋ</span> <span gnull title="There is no corresponding morpheme in the English translation, as it's implied by the structure of the sentence">kai</span> <span g4a>f̌ep</span></span> </span><br/>
 			<span class="underlying"><span g2>rain</span><span g2a>ing</span><span g6>-if</span> <span g2a title="There is no independently corresponding morpheme in the English translation, see below">later</span>, <span g4>wet</span> <span g1>you</span> <span g3>be</span> <span gnull title="There is no corresponding morpheme in the English translation, as it's implied by the structure of the sentence">then</span> <span g4a>will</span></span> <br/>
-			<span class="disclaimer">There isn't a one-to-one morpheme correspondence here because, in addition to the "-s" in the English "rains" serving as both the verbalizer and the future tense marker, the conditional ("then") in the English sentence is implied by its structure of the sentence, whereas it uses a marker in Twanthainese.)&#8203;&nbsp;&nbsp;&#8203;Also, the weather being the thing that rains is implied in both languages, but in English this implication uses the word "it".</span>
+			<span class="disclaimer">There isn't a one-to-one morpheme correspondence here (or none can be contrived) because, in addition to the "-s" in the English "rains" serving as both the verbalizer and the future tense marker, the conditional ("then") in the English sentence is implied by its structure of the sentence, whereas it uses a marker in Twanthainese.)&#8203;&nbsp;&nbsp;&#8203;Also, the weather being the thing that rains is implied in both languages, but in English this implication uses the word "it".</span>
 		</p><br/>
 
 		<p class="plain-font example-triplet">
@@ -1158,11 +1199,18 @@ data = [
 		</p><br/>
 
 		<p class="plain-font example-triplet">
-			<span lang="en"> <span g4>All</span> <span g1>human beings</span> <span g2a>are</span> <span g2>born</span> <span g7a>free</span> <span g8>and</span> <span g7b>equal</span> <span g3>in</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span></span>.<br/>
-			<span class="term"> <span g7a>woiṋ</span> <span g8>yey</span> <span g7b>mem š̭ek</span> <span g3>puet</span> <span g7c>k̬eyt</span> <span g8>yey</span> <span g7d>waiṋ</span> <span gnull>wëy</span> <span g4>twan t̬ain</span> <span g1>wwaiw</span> <span g2>yai</span> <span g2a>k̬ep</span></span>.<br/>
-			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g4>many_<small><i>(conn.)</i>_</small></span><span g1>human</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
-			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>(-kind)_human</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
-			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>humankind</span> <span g2>birth</span><span g2a>-are</span></span>.<br/>
+			<span lang="en"> <span g4>All</span> <span g1>human beings</span> <span g2>are born</span> <span g7a>free</span> <span g8>and</span> <span g7b>equal</span> <span g3>in</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span></span>.<br/>
+			<span class="term"> <span g7a>woiṋ</span> <span g8>yey</span> <span g7b>mem š̭ek</span> <span g3>puet</span> <span g7c>k̬eyt</span> <span g8>yey</span> <span g7d>waiṋ</span> <span gnull>wëy</span> <span g4>twan t̬ain</span> <span g1>wwaiw</span> <span g2>yai k̬ep</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g4>many_<small><i>(conn.)</i>_</small></span><span g1>human</span> <span g2>birth-are</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>(-kind)_human</span> <span g2>birth-are</span></span>.<br/>
+			<span class="underlying"><span g7a>freedom</span> <span g8>and</span> <span g7b>equal-ness</span> <span g3>of</span> <span g7c>dignity</span> <span g8>and</span> <span g7d>rights</span><span gnull>-with</span> <span g1>humankind</span> <span g2>birth-are</span></span>.<br/>
+		</p><br/>
+
+		<p class="plain-font example-triplet">
+			<span lang="en"><span g1>LOONA</span> <span g2>has</span> <span g4>twelve</span> <span g5>members</span>.<br/>
+			<span lang="en"><span g1a>"<span g1>This Month's Girl</span>"</span> <span g2>is</span> <span g6>made</span> <span g3>of</span> <span g4>twelve</span> <span g5>members</span>.<br/>
+			<span class="term"><span g4>t̬ok̃</span> <span g4a>t̬ain</span> <span g5>wwaiw</span> <span g3>wai</span> <span g6>kwak</span> <span g6a>müf</span> <span g1>Saik Müf Wek Kwa Ž̭euw šin</span> <span g2>naṋ k̬ep</span>. </span><br/>
+			<span class="underlying"><span g4>12</span><span g4a>-numbered</span> <span g5>people</span><span g3>-ly</span> <span g6>compos</span><span g6a>ed</span> <span g1>This-(conn.) Month's Girl-(proper noun)</span> <span g2>is</span>. </span><br/>
 		</p><br/>
 	</main>
 </section>
