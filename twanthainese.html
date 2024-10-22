@@ -712,7 +712,7 @@
 	<section id="phonotactics">
 		<h3>Phonotactics:</h3>
 		<main class="plain-font">
-			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;/j/ palatalizes an initial plosive or affricate, if one is present, whereas the vowel [i] alone may or may not; likewise, /w/ labializes a preceding plosive (but not necessarily an affricate). &lt;ww&gt; is realized as [wː~ʰw~wu̯~u̯w] and &lt;yy&gt; is realized as [jː~ji̯~i̯j]. [j] palatalizes <č> [t̠͡ʃ] to [t͡ʲɕ̆] and <j> [d̠͡ʒ] to [d͡ʲʑ̆]. Most morphemes in Twanthainese are monosyllabic (with compound words existing and either made up of multiple monosyllabic components, or often being formed by combining sounds from other words), and (at least in the Roman orthography) each is separated by spaces.
+			The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(/l/)(/j/ or /w/)<abbr title="V: Any vowel (or diphthong)">V</abbr>(C).&#8203;&nbsp;&nbsp;&#8203;/j/ palatalizes an initial plosive or affricate, if one is present, whereas the vowel [i] alone may or may not; likewise, /w/ labializes a preceding plosive (but not necessarily an affricate). &lt;ww&gt; is realized as [wː~ʰw~wu̯~u̯w] and &lt;yy&gt; is realized as [jː~ji̯~i̯j]. [j] palatalizes <č> [t̠͡ʃ] to [t͡ʲɕ̆] and <j> [d̠͡ʒ] to [d͡ʲʑ̆]. Most morphemes in Twanthainese are monosyllabic (with compound words existing and either made up of multiple monosyllabic components, or often being formed by combining sounds from other words), and (at least in the Roman orthography) each is separated by spaces.
 		</main>
 	</section>
 </section>
@@ -720,7 +720,7 @@
 <section id="grammar">
 	<h3>Grammar</h3>
 	<main>
-		<p>
+		<p class="plain-font">
 			Verbs do not conjugate, instead using grammatical markers to indicate information such as tense; the citation form of a verb is the infinitive, which is marked for tense (past, present, or future).&#8203;&nbsp;&nbsp;&#8203;Verbs convey a perfective aspect by default (Twanthainese does not distinguish between perfective and perfect aspects), but different aspects are conveyed with markers; aspect markers come between the verb and the tense marker; mood markers come after asepct markers (V-A-M-T).&#8203;&nbsp;&nbsp;&#8203;Modifiers come before the nouns they modify (e.g. <span style="color: #4f7fff;">blue</span>&nbsp;car).&#8203;&nbsp;&nbsp;&#8203;Twanthainese uses an OSV (<abbr title="Indirect object">I</abbr><abbr title="Direct object">D</abbr>SV) order and postpositions, which can be chained.&#8203;&nbsp;&nbsp;&#8203; The subject can be omitted in an imperative statement. Twanthainese does not use articles.&#8203;&nbsp;&nbsp;&#8203;"Definite" plurals (i.e. counted accompanied with a number word) do not need a plural marker, but indefinite ones (those not marked by a number word) are marked by "twan ťain" ("many", class signifier).
 			<!--i'm with the boomers on this one, using 2 spaces after each sentence is more readable to me-->
 		</p>
@@ -842,6 +842,7 @@ data = [
 	{ part: 'noun', qtw: 'waik', eng: 'cube, rectangular prism' },
 	{ part: 'noun', qtw: 'daip', eng: 'box, square bin' },
 	{ part: 'noun', qtw: 'dwop', eng: 'part, parts, elements (of a set or thing)' },
+	{ part: 'noun', qtw: 'ga\'', eng: 'thing' },
 	{ part: 'noun', qtw: 'dwip', eng: 'categories' },
 	{ part: 'noun', qtw: 'ńü\' wak', eng: 'paper', etym: '"ńü\'" (yellow) is present because the Twanthainese had access to ancient paper.', extra: 'Despite this, the word remains in use even as modern paper is white. However, "ńik wak" is gaining popularity in recent times.' },
 	{ part: 'noun', qtw: 'ńik wak', eng: 'paper (synonym of "ńü\' wak")' },
@@ -895,6 +896,7 @@ data = [
 	{ part: 'noun', qtw: 'cu̇p', eng: 'cabinet' },
 	{ part: 'noun', qtw: 'cop', eng: 'drawer' },
 	{ part: 'noun', qtw: 'cop cu̇p', eng: 'dresser' },
+	{ part: 'noun', qtw: 'pwak', eng: 'door' },
 	{ part: 'noun', qtw: 'ket', eng: 'tool' },
 	{ part: 'noun', qtw: 'nwëw bwow ket', eng: 'quill' },
 	{ part: 'noun', qtw: 'čuex ket', eng: 'power tool' },
@@ -904,7 +906,7 @@ data = [
 	{ part: 'noun', qtw: 'kwaw', eng: 'bus' },
 	{ part: 'noun', qtw: 'kwow', eng: 'car, automobile' },
 	{ part: 'noun', qtw: 'kwiw', eng: 'aircraft' },
-	{ part: 'noun', qtw: 'dëk', eng: 'center' },
+	{ part: 'noun, postposition', qtw: 'dëk', eng: 'center, in the middle of' },
 	{ part: 'noun', qtw: 'kwew', eng: 'watercraft' },
 	{ part: 'noun', qtw: 'nwot kwëw', eng: 'hovercraft' },
 	{ part: 'noun', qtw: 'kwaiw', eng: 'driver, pilot, captain, coachman' },
@@ -930,7 +932,20 @@ data = [
 	{ part: 'noun', qtw: 'bu\'', eng: 'sulfur', etym: 'From "bok ńü\'"' },
 	{ part: 'noun', qtw: 'Bu\' Bët', eng: 'Venus', extra: 'Proper noun but exempt from "cin".  None of the planet "stars" were identified as planets by the Twanthainese until after their compositions had already been discovered' },
 	{ part: 'noun', qtw: 'Ńüf Bët', eng: 'Mars', extra: 'Proper noun but exempt from "cin"' },
-	{ part: 'noun', qtw: 'nwon', eng: 'a box' },
+	{ part: 'noun', qtw: 'myin', eng: 'eye' },
+	{ part: 'noun', qtw: 'fań', eng: 'sound', etym: 'From "p̃ań"' },
+	{ part: 'noun', qtw: 'mu̇ť', eng: 'mouth', etym: 'A represntation of chewing' },
+	{ part: 'noun', qtw: 'mwoť', eng: 'breath', etym: 'From "mu̇ť nwot"' },
+	{ part: 'noun', qtw: 'mwań', eng: 'voice', etym: 'From "mu̇ť fań"' },
+	{ part: 'noun', qtw: 'ban', eng: 'speech', etym: 'From "gap mwań"' },
+	{ part: 'noun', qtw: 'ban dwop', eng: 'speech sound, phone (linguistics)' },
+	{ part: 'noun', qtw: 'mwëp müf ban dwop', eng: 'consonant' },
+	{ part: 'noun', qtw: 'pwak ban dwop', eng: 'plosive, (historical) consonant' },
+	{ part: 'noun', qtw: 'dëk ban dwop', eng: 'vowel' },
+	{ part: 'noun', qtw: 'mwań ban dwop', eng: 'voiced sound, (historical) vowel' },
+	{ part: 'noun', qtw: 'mwëp müf mwań ban dwop', eng: 'approximant, semi-vowel' },
+	{ part: 'noun', qtw: 'gap ban dwop', eng: 'phoneme' },
+	{ part: 'noun', qtw: 'nwot', eng: 'a box' },
 	{ part: 'noun', qtw: 'čyüm', eng: 'urine', extra: 'Taboo but not vulgar', etym: 'onomatopoeic: sound of a urine stream hitting water' },
 	{ part: 'noun', qtw: 'dwüp', eng: 'feces', extra: 'Taboo but not vulgar', etym: 'onomatopoeic: sound of feces splashing in water' },
 	{ part: 'noun', qtw: 'dwüp wan', eng: 'turd', extra: 'Taboo/Mildly vulgar' },
@@ -974,11 +989,24 @@ data = [
 	{ part: 'noun', qtw: 'gyat', eng: 'gyatt (slang for a big butt)', etym: 'From English' },
 	{ part: 'noun', qtw: 'gap', eng: 'language' },
 	{ part: 'noun', qtw: 'gax', eng: 'hello', etym: 'Cognate with "gap"' },
-	{ part: 'noun', qtw: 'yan', eng: 'cat', etym: 'Onomatopoeic' },
-	{ part: 'noun', qtw: 'fu̇p yan', eng: 'kitten' },
+	{ part: 'noun', qtw: 'yan', eng: 'cat (Felis catus)', etym: 'Onomatopoeic' },
+	{ part: 'noun', qtw: 'fu̇p yan', eng: 'kitten', extra: '"fu̇p yan" includes the cubs of other felids, but "yan" does not include their adults and only encompasses domestic cats.' },
+	{ part: 'noun', qtw: 'we', eng: 'special, exceptional' },
 	{ part: 'noun', qtw: 'woiń', eng: 'freedom, liberty' },
 	{ part: 'noun', qtw: 'waiń', eng: 'right (legal or just ability or entitlement)', etym: 'Cognate of "woiń"' },
 	{ part: 'noun', qtw: 'ḱeyt', eng: 'dignity' },
+	{ part: 'noun', qtw: 'čey', eng: 'property (as in the phrase "density is a property of a substance")', etym: 'Cognate of "ček"', extra: 'Not used in the sense that denotes ownership.' },
+	{ part: 'noun', qtw: 'gwop', eng: 'word, lexeme', etym: 'From "gap dwop"' },
+	{ part: 'noun', qtw: 'ńap', eng: 'script', etym: 'From "gap ńan"' },
+	{ part: 'noun', qtw: 'ńap dwop', eng: 'letter, character, glyph' },
+	{ part: 'noun', qtw: 'gwop dwop', eng: 'logograph' },
+	{ part: 'noun', qtw: 'ga\' gwop', eng: 'noun' },
+	{ part: 'noun', qtw: 'kwon gwop', eng: 'verb' },
+	{ part: 'noun', qtw: 'čey gwop', eng: 'adjective' },
+	{ part: 'noun', qtw: 'we gwop', eng: 'marker (Twanthainese grammar)', extra: 'It can also encompass words of similar grammatical categories in other languages, such as particles. By some analyses, the English "\'s" could be considered a /we gwop/.' },
+	{ part: 'noun', qtw: 'ťa', eng: 'number' },
+	{ part: 'noun', qtw: 'ťa gwop', eng: 'number word' },
+	{ part: 'noun', qtw: 'ťa ńap dwop', eng: 'digit (of a number system)' },
 	{ part: 'noun', qtw: 'twan ťain wwaiw gap', eng: 'Twanthainese' },
 	{ part: 'noun', qtw: 'Bwü Tën cin gap', eng: 'English' },
 	{ part: 'noun', qtw: 'Bwü Tën cin twan ťain wwaiw', eng: 'British people' },
@@ -992,7 +1020,7 @@ data = [
 	{ part: 'noun', qtw: 'Lat Či Lat Či cin gap', eng: 'Latji-Latji' },
 	{ part: 'noun', qtw: 'L̃üń An cin gap', eng: 'Klingon' },
 	{ part: 'noun', qtw: 'Ču̇ń Kwo cin gap', eng: 'Mandarin' },
-	{ part: 'noun', qtw: 'Fu T̃u̇ń cin gap', eng: 'Mandarin', etym: 'From Mandarin "普通话"; owing to the p̃-f merger, p̃ is standardly changed to f in loanwords.', extra: 'synonym of "ču̇ń Kwo cin gap"' },
+	{ part: 'noun', qtw: 'Fu T̃u̇ń cin gap', eng: 'Mandarin', etym: 'From Mandarin "普通话"; owing to the p̃-f merger, p̃ is standardly changed to f in loanwords.', extra: 'synonym of "Ču̇ń Kwo cin gap"' },
 	{ part: 'noun', qtw: 'Tai Wan cin gap', eng: 'Taiwanese' },
 	{ part: 'noun', qtw: 'L̃o Sa cin gap', eng: 'isiXhosa' },
 	{ part: 'noun', qtw: '\'au Sa cin gap', eng: 'Hausa' },
@@ -1098,6 +1126,8 @@ data = [
 	{ part: 'postposition', qtw: 'puet', eng: 'of, concerning', extra: 'Cannot be used to indicate composition' },
 	{ part: 'postposition', qtw: 'twai', eng: 'of, from', extra: 'Used to indicate composition' },
 	{ part: 'conjunction', qtw: 'yey', eng: 'and' },
+	{ part: 'conjunction', qtw: 'mut', eng: 'or (inclusive)' },
+	{ part: 'conjunction', qtw: 'mat', eng: 'or (exclusive)' },
 	{ part: 'marker', qtw: 'nyep', eng: '(Past tense marker), -ed' },
 	{ part: 'marker', qtw: 'ḱep', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can also be included for emphasis.' },
 	{ part: 'marker', qtw: 'f̌ep', eng: '(Future tense marker)' },
@@ -1129,6 +1159,9 @@ data = [
 			(document.head || document.getElementsByTagName("head")[0]).removeChild(targetStyle);
 			
 			window.onload = function() {
+				var fragment = window.location.hash;
+				var fragmentValue = fragment?.slice?.(1) ?? null;
+
 				var tableDestination = document.getElementById("wordlist");
 				
 				var newTable = document.createElement("table");
@@ -1164,6 +1197,12 @@ data = [
 								var tdTwanthainese = document.createElement("td");
 								newTr.appendChild(tdTwanthainese);
 									tdTwanthainese.innerText = data[i].qtw ?? "";
+									if(data[i].qtw) {
+										tdTwanthainese.setAttribute("id",data[i].qtw)
+									};
+									if(data[i].qtw == fragmentValue) {
+										tdTwanthainese.scrollIntoView?.()
+									};
 								
 								var tdEnglish = document.createElement("td");
 								newTr.appendChild(tdEnglish);
@@ -1190,6 +1229,13 @@ data = [
 								newTr.appendChild(tdNotes);
 									tdNotes.innerText = data[i].extra ?? "";
 						};
+
+				if(fragmentValue) {
+					var destination = document.getElementById(fragmentValue);
+					if(destination) {
+						destination.scrollIntoView?.()
+					}
+				}
 			};
 		</script>
 		
