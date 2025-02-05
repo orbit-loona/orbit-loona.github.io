@@ -1,67 +1,253 @@
-        function drawPixels(forceTick=false) {
-            const canvas = canvasLayers.pixels;
-            const ctx = canvas.getContext("2d");
-            let pixelsFirst = [];
-            let pixelsLast = [];
-            for (let i = 0; i < currentPixels.length; i++) {
-                let pixel = currentPixels[i];
-                if (pixel.del) {
-                    if (pixelMap[pixel.x][pixel.y]) { delete pixelMap[pixel.x][pixel.y]; }
-                    currentPixels.splice(i,1);
-                    i--;
-                    continue;
-                }
-                if (pixel.con) { pixel = pixel.con }
-                if (elements[pixel.element].isGas || elements[pixel.element].glow) {
+        drawPixels = function(forceTick=false) {
+            // Draw the current pixels
+            var canvas = document.getElementById("game");
+            var ctx = canvas.getContext("2d");
+            // newCurrentPixels = shuffled currentPixels
+            var newCurrentPixels = currentPixels.slice();
+            var pixelsFirst = [];
+            var pixelsLast = [];
+            if (!paused || forceTick) {
+                shuffleArray(newCurrentPixels);
+            }
+            /*{newCurrentPixels.sort(function(p) { // shuffle the pixels but keep elements[p.element].isGas last
+                return 0.5 - Math.random();
+            })} // shuffle the pixels if not paused*/
+            for (var i = 0; i < newCurrentPixels.length; i++) {
+                pixel = newCurrentPixels[i];
+                if(typeof(elements[pixel.element]) !== "object") { pixel.originalElement = pixel.element; pixel.element = "unknown" };
+                if(typeof(pixel) == "undefined") { continue };
+                //if (pixelMap[pixel.x][pixel.y] == undefined || currentPixels.indexOf(pixel) == -1) {continue}
+                if (pixel.del) {continue}
+                if (!paused || forceTick) {
+                    if(typeof(elements[pixel.element]) !== "object") { pixel.originalElement = pixel.element; pixel.element = "unknown" };
+                    doVelocity(pixel);
+                    if (elements[pixel.element].tick) { // Run tick function if it exists
+                        elements[pixel.element].tick(pixel);
+                    }
+                    if (pixel.del) {continue}
+                    if (elements[pixel.element].behavior) { // Parse behavior if it exists
+                        pixelTick(pixel);
+                    }
+                };
+                if (elements[pixel.element].isGas) {
                     pixelsLast.push(pixel);
                 }
                 else {
                     pixelsFirst.push(pixel);
                 }
             }
-            // Draw the current pixels
-            if (!hiding) {
-                let pixelDrawList = pixelsFirst.concat(pixelsLast);
-                if (!viewInfo[view]) {
-                    setView(1);
-                }
-                if (renderPrePixelList.length) {
-                    for (let i = 0; i < renderPrePixelList.length; i++) {
-                        renderPrePixelList[i](ctx);
-                    }
-                }
-                if (viewInfo[view].pre) {
-                    viewInfo[view].pre(ctx);
-                }
-                if (viewInfo[view].pixel) {
-                    for (let i = 0; i < pixelDrawList.length; i++) {
-                        let pixel = pixelDrawList[i];
-                        if (pixelMap[pixel.x][pixel.y] == undefined) {continue}
-                        if (pixel.con) { pixel = pixel.con }
-                        if (elements[pixel.element].renderer && settings.textures !== 0) {
-                            elements[pixel.element].renderer(pixel,ctx);
-                        }
-                        else {
-                            viewInfo[view].pixel(pixel,ctx);
-                        }
-                        if (renderEachPixelList.length) {
-                            for (let i = 0; i < renderEachPixelList.length; i++) {
-                                renderEachPixelList[i](pixel,ctx);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (!settings["bg"]) {ctx.clearRect(0, 0, canvas.width, canvas.height)}
+            else {
+                if(settings["bg"] instanceof Array) {
+                    settings.bgAngle ??= 90;
+                    var angle = (settings.bgAngle) * Math.PI / 180;
+                    ctx.fillStyle = ctx.createLinearGradient(
+                        0,
+                        0,
+                        canvas.width * Math.cos(angle) + 0,
+                        canvas.height * Math.sin(angle)
+                    );
+                    var colors = settings["bg"];
+                    for(i = 0; i < colors.length; i++) {
+                        var color = colors[i];
+                        var position = i / (colors.length - 1);
+                        ctx.fillStyle.addColorStop(position,color);
+                    };
+                } else {
+                    ctx.fillStyle = settings["bg"];
+                };
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            if(!hiding) {
+                if(settings.dopressure && settings.drawpressure) {
+                    for(var x = 0; x < pressureMap.length; x++) {
+                        for(var y = 0; y < pressureMap[x].length; y++) {
+                            var pressureValue = pressureMap[x][y];
+                            if(typeof(pressureValue) == "number") {
+                                var pressureSign = Math.sign(pressureValue);
+                                pressureValue = bound(Math.abs(pressureValue),0,255) / 255;
+                                switch(pressureSign) {
+                                    case -0:
+                                    case 0:
+                                        ctx.fillStyle = `rgb(0,0,0)`;
+                                        break
+                                    case 1:
+                                        ctx.fillStyle = `rgb(255,0,0)`;
+                                        break
+                                    case -1:
+                                        ctx.fillStyle = `rgb(0,0,255)`;
+                                        break
+                                    default: // covers NaN, since NaN != NaN
+                                        ctx.fillStyle = `rgb(255,255,0)`;
+                                        break
+                                };
+                                ctx.globalAlpha = isNaN(pressureSign) ? 0.5 : pressureValue;
+                                ctx.fillRect(x*pixelSize*pressureCellSize, y*pixelSize*pressureCellSize, pixelSize*pressureCellSize, pixelSize*pressureCellSize)
                             }
                         }
                     }
-                }
-                if (renderPostPixelList.length) {
-                    for (let i = 0; i < renderPostPixelList.length; i++) {
-                        renderPostPixelList[i](ctx);
+                    ctx.globalAlpha = 1;
+                };
+                var pixelDrawList = pixelsFirst.concat(pixelsLast);
+                for (var i = 0; i < pixelDrawList.length; i++) {
+                    var pixel = pixelDrawList[i];
+                    if (pixelMap[pixel.x][pixel.y] == undefined) {continue}
+                    if (pixel.con) { pixel = pixel.con }
+                    if((typeof(pixel.color) !== "string") || (pixel.color.indexOf("NaN") >= 0)) {
+                        pixel.color = pixelColorPick(pixel)
+                    };
+                    if(pixel.color.length <= 7) { //hex triplets as rgb colors seem to break some mods and can't be allowed
+                        pixel.color = convertColorFormats(pixel.color,"rgb")
+                    };
+                    var colorFunction = viewColorFunctions[view] ?? normalColorFunction;
+                    ctx.fillStyle = colorFunction(pixel);
+                    if(find) { //if find and matching, override fill style with the find coloration
+                        if(findElement instanceof Array ? findElement.includes(pixel.element) : pixel.element === findElement) {
+                            ctx.fillStyle = "rgb(255," + marasi(findColorPulseTimer / 10) + ",0)";
+                        }
+                    };
+                    var mode = getShapeMode();
+                    settings.acidFunction ??= "none";
+                    var acidFunction;
+                    if([false,"false"].includes(settings.doacid)) {
+                        acidFunction = acidFunctions.none
+                    } else {
+                        acidFunction = acidFunctions[settings.acidFunction ?? "none"]
+                    };
+                    var acidOffset1,acidOffset2;
+                    if(settings.doacid && settings.acidFunction != "none" && !!acidFunction) {
+                        acidOffset1 = (settings.doacid ?? false) * (18*acidFunction((pixel.y+incrementt)/4.4));
+                        acidOffset2 = (settings.doacid ?? false) * (18*acidFunction((pixel.x+incrementt)/4.4))
+                    } else {
+                        acidOffset1 = 0;
+                        acidOffset2 = 0
+                    };
+                    if ((view === null || view === 4) && elements[pixel.element].isGas) {
+                        //gas rendering
+                        switch(mode) {
+                            case "circles":
+                                ctx.globalAlpha = 0.66;
+                                ctx.beginPath();
+                                ctx.arc((pixel.x+0.5)*pixelSize+acidOffset1, (pixel.y+0.5)*pixelSize+acidOffset2, pixelSize, 0, 2 * Math.PI, false);
+                                ctx.fill();
+                                ctx.globalAlpha = 1;
+                                break;
+                            case "triangles":
+                                ctx.globalAlpha = 0.66;
+                                ctx.beginPath();
+                                ctx.moveTo((pixel.x-0.75)*pixelSize+acidOffset1,(pixel.y+1.5)*pixelSize+acidOffset2);
+                                ctx.lineTo((pixel.x+0.5)*pixelSize+acidOffset1,(pixel.y-1)*pixelSize+acidOffset2);
+                                ctx.lineTo((pixel.x+1.75)*pixelSize+acidOffset1,(pixel.y+1.5)*pixelSize+acidOffset2);
+                                ctx.fill();
+                                ctx.globalAlpha = 1;
+                                break;
+                            default:
+                                ctx.globalAlpha = 0.5;
+                                ctx.fillRect((pixel.x-1)*pixelSize+acidOffset1, (pixel.y)*pixelSize+acidOffset2, pixelSize*3, pixelSize);
+                                ctx.fillRect((pixel.x)*pixelSize+acidOffset1, (pixel.y-1)*pixelSize+acidOffset2, pixelSize, pixelSize*3);
+                                ctx.globalAlpha = 1;
+                                break;
+                        };
+                    }
+                    else { // draw the pixel (default)
+                        switch(mode) {
+                            case "circles":
+                                ctx.beginPath();
+                                ctx.arc((pixel.x+0.5)*pixelSize+acidOffset1, (pixel.y+0.5)*pixelSize+acidOffset2, pixelSize/2, 0, 2 * Math.PI, false);
+                                ctx.fill();
+                                ctx.globalAlpha = 1;
+                                break;
+                            case "triangles":
+                                ctx.beginPath();
+                                ctx.moveTo(pixel.x*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                ctx.lineTo((pixel.x+0.5)*pixelSize+acidOffset1,(pixel.y)*pixelSize+acidOffset2);
+                                ctx.lineTo((pixel.x+1)*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                ctx.fill();
+                                ctx.globalAlpha = 1;
+                                break;
+                            default:
+                                ctx.fillRect(pixel.x*pixelSize+acidOffset1, pixel.y*pixelSize+acidOffset2, pixelSize, pixelSize);
+                                break;
+                        };
+                    }
+                    if (pixel.charge && settings.shockoverlay && view !== 2) { // Yellow glow on charge
+                        if (!elements[pixel.element].colorOn) {
+                            ctx.fillStyle = "rgba(255,255,0,0.5)";
+                            switch(mode) {
+                                case "circles":
+                                    ctx.beginPath();
+                                    ctx.arc((pixel.x+0.5)*pixelSize+acidOffset1, (pixel.y+0.5)*pixelSize+acidOffset2, pixelSize/2, 0, 2 * Math.PI, false);
+                                    ctx.fill();
+                                    ctx.globalAlpha = 1;
+                                    break;
+                                case "triangles":
+                                    ctx.beginPath();
+                                    ctx.moveTo(pixel.x*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                    ctx.lineTo((pixel.x+0.5)*pixelSize+acidOffset1,(pixel.y)*pixelSize+acidOffset2);
+                                    ctx.lineTo((pixel.x+1)*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                    ctx.fill();
+                                    ctx.globalAlpha = 1;
+                                    break;
+                                default:
+                                    ctx.fillRect(pixel.x*pixelSize+acidOffset1, pixel.y*pixelSize+acidOffset2, pixelSize, pixelSize);
+                                    break;
+                            };
+                        }
+                    }
+                    if (pixel.burning && settings.burnoverlay && view !== 2) { // Red glow on burn
+                        if (!elements[pixel.element].colorOn) {
+                            ctx.fillStyle = "rgba(255,0,0,0.5)";
+                            switch(mode) {
+                                case "circles":
+                                    ctx.beginPath();
+                                    ctx.arc((pixel.x+0.5)*pixelSize+acidOffset1, (pixel.y+0.5)*pixelSize+acidOffset2, pixelSize/2, 0, 2 * Math.PI, false);
+                                    ctx.fill();
+                                    ctx.globalAlpha = 1;
+                                    break;
+                                case "triangles":
+                                    ctx.beginPath();
+                                    ctx.moveTo(pixel.x*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                    ctx.lineTo((pixel.x+0.5)*pixelSize+acidOffset1,(pixel.y)*pixelSize+acidOffset2);
+                                    ctx.lineTo((pixel.x+1)*pixelSize+acidOffset1,(pixel.y+1)*pixelSize+acidOffset2);
+                                    ctx.fill();
+                                    ctx.globalAlpha = 1;
+                                    break;
+                                default:
+                                    ctx.fillRect(pixel.x*pixelSize+acidOffset1, pixel.y*pixelSize+acidOffset2, pixelSize, pixelSize);
+                                    break;
+                            };
+                        }
                     }
                 }
-                if (viewInfo[view].post) {
-                    viewInfo[view].post(ctx);
-                }
-            }
+            };
             if (ctx.globalAlpha < 1) {
                 ctx.globalAlpha = 1;
+            };
+            if (elements[currentElement].maxSize < mouseSize) {
+                var mouseOffset = Math.trunc(elements[currentElement].maxSize/2);
             }
-            return true;
+            else {
+                var mouseOffset = Math.trunc(mouseSize/2);
+            }
+            var topLeft = [mousePos.x-mouseOffset,mousePos.y-mouseOffset];
+            var bottomRight = [mousePos.x+mouseOffset,mousePos.y+mouseOffset];
+            if(mouseSize % 2 == 0) {
+                bottomRight[0]--;
+                bottomRight[1]--;
+            };
+            // Draw a square around the mouse
+            ctx.strokeStyle = "white";
+            ctx.strokeRect(topLeft[0]*pixelSize,topLeft[1]*pixelSize,(bottomRight[0]-topLeft[0]+1)*pixelSize,(bottomRight[1]-topLeft[1]+1)*pixelSize);
+            // draw one transparent pixel in the center
+            if (settings.precision) {
+                ctx.fillStyle = "rgba(255,255,255,0.5)";
+                ctx.fillRect(mousePos.x*pixelSize,mousePos.y*pixelSize,pixelSize,pixelSize);
+            }
+            if ((!paused) || forceTick) {pixelTicks++};
+            findColorPulseTimerSubTimer++;
+            if(findColorPulseTimerSubTimer >= 2) {
+                findColorPulseTimer++;
+                findColorPulseTimerSubTimer = 0;
+            };
         }
