@@ -1,44 +1,67 @@
-    elementCount = 0; //Mod
-    hiddenCount = 0;
-    categoryList = [];
-    for (var element in elements) {
-        elementCount++;
-        if (settings.cheerful && elements[element].nocheer) {
-            elements[element].hidden = true;
-            hiddenCount++;
-            continue;
-        }
-        var category = elements[element].category;
-        if (category==null) {category="other"}
-        if (categoryList.indexOf(category) === -1) {
-            categoryList.push(category);
-        }
-        if (elements[element].hidden && (!settings["unhide"] || ( settings["unhide"]===2 && !settings.unlocked[element] ))) { hiddenCount++; continue; }
-        var categoryDiv = document.getElementById("category-"+category);
-        if (categoryDiv == null) {
-            createCategoryDiv(category);
-            categoryDiv = document.getElementById("category-"+category);
-        }
-        try {
-            elements[element].colorObject ??= _cc.w.j;
-            if(Array.isArray(elements[element].color) && elements[element].color.length == 1) {
-                //temporarily make the single-item array into a string just for button generation, and then turn it back into an array just in case
-                var oldColor = elements[element].color;
-                elements[element].color = convertColorFormats(oldColor[0],"rgb");
-                createElementButton(element);
-                elements[element].color = oldColor
-            } else {
-                var oldColor = elements[element].color;
-                elements[element].color = Array.isArray(oldColor) ? oldColor.map(x => convertColorFormats(x,"rgb")) : convertColorFormats(oldColor,"rgb");
-                createElementButton(element);
-                elements[element].color = oldColor
+        function drawPixels(forceTick=false) {
+            const canvas = canvasLayers.pixels;
+            const ctx = canvas.getContext("2d");
+            let pixelsFirst = [];
+            let pixelsLast = [];
+            for (let i = 0; i < currentPixels.length; i++) {
+                let pixel = currentPixels[i];
+                if (pixel.del) {
+                    if (pixelMap[pixel.x][pixel.y]) { delete pixelMap[pixel.x][pixel.y]; }
+                    currentPixels.splice(i,1);
+                    i--;
+                    continue;
+                }
+                if (pixel.con) { pixel = pixel.con }
+                if (elements[pixel.element].isGas || elements[pixel.element].glow) {
+                    pixelsLast.push(pixel);
+                }
+                else {
+                    pixelsFirst.push(pixel);
+                }
             }
-        } catch(error) { //temporary poke'mon
-            console.error(error)
+            // Draw the current pixels
+            if (!hiding) {
+                let pixelDrawList = pixelsFirst.concat(pixelsLast);
+                if (!viewInfo[view]) {
+                    setView(1);
+                }
+                if (renderPrePixelList.length) {
+                    for (let i = 0; i < renderPrePixelList.length; i++) {
+                        renderPrePixelList[i](ctx);
+                    }
+                }
+                if (viewInfo[view].pre) {
+                    viewInfo[view].pre(ctx);
+                }
+                if (viewInfo[view].pixel) {
+                    for (let i = 0; i < pixelDrawList.length; i++) {
+                        let pixel = pixelDrawList[i];
+                        if (pixelMap[pixel.x][pixel.y] == undefined) {continue}
+                        if (pixel.con) { pixel = pixel.con }
+                        if (elements[pixel.element].renderer && settings.textures !== 0) {
+                            elements[pixel.element].renderer(pixel,ctx);
+                        }
+                        else {
+                            viewInfo[view].pixel(pixel,ctx);
+                        }
+                        if (renderEachPixelList.length) {
+                            for (let i = 0; i < renderEachPixelList.length; i++) {
+                                renderEachPixelList[i](pixel,ctx);
+                            }
+                        }
+                    }
+                }
+                if (renderPostPixelList.length) {
+                    for (let i = 0; i < renderPostPixelList.length; i++) {
+                        renderPostPixelList[i](ctx);
+                    }
+                }
+                if (viewInfo[view].post) {
+                    viewInfo[view].post(ctx);
+                }
+            }
+            if (ctx.globalAlpha < 1) {
+                ctx.globalAlpha = 1;
+            }
+            return true;
         }
-    }
-    // Set the first button in categoryControls div to be the current category
-    document.getElementById("categoryControls").children[0].click()
-    document.getElementById("extraInfo").insertAdjacentHTML("beforeend", "<small><p>v" + currentversion + " • " + elementCount + " elements, with <span id='hiddenCount'>" + hiddenCount + "</span> hidden.</p><p>©2021-" + new Date().getFullYear() + ". <a href='https://sandboxels.R74n.com/license.txt' rel='license' target='_blank'>All Rights Reserved</a>. <a style='color:#00ffff' rel='author' href='https://r74n.com'>R74n</a></p></small>");
-    selectElement(currentElement);
-    focusGame();
