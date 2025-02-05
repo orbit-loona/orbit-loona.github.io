@@ -2,14 +2,13 @@
     function autoGen(newname,element,autoType) {
         var autoInfo = autoElements[autoType];
         var newcolor = elements[element].colorObject;
-        if (!newcolor) { newcolor = {r:255,g:255,b:255} };
         var colorList = [];
         var colorObjectList = [];
         // if newcolor is not an array, put it in an array
         if (!(newcolor instanceof Array)) { newcolor = [newcolor]; }
         // for every color in the newcolor array, add a new color with the same value, but with the r and g values increased
         for (var i = 0; i < newcolor.length; i++) {
-            var c = newcolor[i];
+            var c = newcolor[i] ?? "#ff00ff";
             for (var j = 0; j < autoInfo.rgb.length; j++) {
                 var newc = autoInfo.rgb[j];
                 r = Math.floor(c.r * newc[0]);
@@ -25,7 +24,7 @@
             behavior: autoInfo.behavior,
             hidden: autoInfo.hidden || false,
             state: autoInfo.state || "solid",
-            category: autoInfo.category || "states"
+            category: autoInfo.category || "states",
         }
         if (colorList.length <= 1) { colorList = colorList[0]; }
         if (colorObjectList.length <= 1) { colorObjectList = colorObjectList[0]; }
@@ -56,7 +55,7 @@
         }
         // Change by *multiplier
         if (elements[element].conduct) { newelem.conduct = Math.round(elements[element].conduct * multiplier * 10) / 10; }
-        if (elements[element].burn) { newelem.burn = Math.min(100,Math.round(elements[element].burn * multiplier * 10) / 10); }
+        if (elements[element].burn) { newelem.burn = Math.round(elements[element].burn * multiplier * 10) / 10; }
         if (elements[element].burnTime) { newelem.burnTime = Math.round(elements[element].burnTime * multiplier * 10) / 10; }
         if (elements[element].burnInto) { newelem.burnInto = elements[element].burnInto; }
         if (elements[element].fireColor) { newelem.fireColor = elements[element].fireColor; }
@@ -68,19 +67,12 @@
                 if (elements[newname][key] == undefined) { elements[newname][key] = newelem[key]; }
             }
         }
-
-        if (autoType === "molten" && (elements.molten_slag && elements.molten_slag.ignore && elements.molten_slag.ignore.indexOf(element) === -1)) { // Slag reactions
-            if (newname !== "molten_slag") {
-                if (!elements[newname].reactions) { elements[newname].reactions = {}; }
-                elements[newname].reactions.ash = { elem1:null, elem2:"molten_slag" };
-                elements[newname].reactions.dust = { elem1:null, elem2:"molten_slag" };
-                elements[newname].reactions.magma = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.smog = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.pyrocumulus = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.dioxin = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.poison_gas = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.dirt = { elem1:null, elem2:"molten_slag" }
-                elements[newname].reactions.molten_dirt = { elem1:null, elem2:"molten_slag" }
-            };
-        }
+        // if (autoType === "molten" && (elements.molten_slag && elements.molten_slag.ignore && elements.molten_slag.ignore.indexOf(element) === -1)) { // Slag reactions
+            // if (newname !== "molten_slag") {
+                // if (!elements[newname].reactions) { elements[newname].reactions = {}; }
+                // elements[newname].reactions.ash = { "elem1":null, "elem2":"molten_slag" };
+                // elements[newname].reactions.dust = { "elem1":null, "elem2":"molten_slag" };
+                // elements[newname].reactions.magma = { "elem1":null, "elem2":"molten_slag" }
+            // };
+        // }
     }
