@@ -1,13 +1,11 @@
-    nextid = 1;
+    nextid = 1; //mod
     for (key in elements) {
+        if(!elements[key]) {
+            console.error(`Nonexistent element ${key}`);
+            continue
+        };
         elements[key].id = nextid;
         nextid++;
-
-        // Language Loader Part 2
-        if (lang[key] !== undefined) {
-            elements[key].name = lang[key]
-        }
-
         // If the element has no behavior, set it to behaviors.WALL
         if (!elements[key].behavior && !elements[key].tick) {
             elements[key].tick = function(pixel) {};
@@ -33,11 +31,10 @@
         }
         // If the element has no color, set it to white
         if (elements[key].color === undefined) {
-            elements[key].color = "rgb(255,255,255)";
-            elements[key].colorObject = {r:255,g:255,b:255};
+            elements[key].color = _cc.w.r;
+            elements[key].colorObject = _cc.w.j;
         }
-        if (elements[key].movable === false) { delete elements[key].movable }
-        else if (elements[key].movable === undefined) {
+        if (elements[key].movable === undefined) {
             // If the element's behavior is an array and contains M1 or M2, set its movable to true
             if (elements[key].behavior && typeof elements[key].behavior[0] === "object") {
                 var bstring = JSON.stringify(elements[key].behavior);
@@ -61,7 +58,6 @@
             if (behaviorCenter.indexOf("RT") !== -1) {
                 elements[key].rotatable = true;
             }
-
             // If the element's behavior stringified includes "BO", loop through the behavior
             if (elements[key].behavior.toString().indexOf("BO") !== -1 && !elements[key].rotatable) {
                 for (var i = 0; i < elements[key].behavior.length; i++) {
@@ -83,27 +79,22 @@
                     }
                 }
             }
-
         }
-
         // If the element's state is "gas", isGas = true
         if (elements[key].state === "gas") {
             elements[key].isGas = true;
         }
         // Else if the state is not "solid" or "liquid", delete it
-        else if (elements[key].state !== "liquid") {
-            if (elements[key].state !== "solid" && elements[key].state !== undefined) {
-                delete elements[key].state;
-            }
-            // add heat glow to solid if applicable
-            else if (elements[key].tempHigh > 400 && elements[key].renderer === undefined && elements[elements[key].stateHigh] && elements[elements[key].stateHigh].state === "liquid") {
-                elements[key].renderer = renderPresets.HEATGLOW;
-            }
+        else if (elements[key].state !== "solid" && elements[key].state !== "liquid") {
+            delete elements[key].state;
         }
-
         // If the element has reactions, loop through each one (it is an object), if the value for elem1 or elem2 is not an element and is not null, remove that key
         if (elements[key].reactions) {
             for (var reaction in elements[key].reactions) {
+                if(!(elements[key].reactions[reaction])) {
+                    console.error(`Nonexistent reaction ${reaction} in element ${key}`);
+                    continue
+                }
                 // If elem1 exists
                 if (elements[key].reactions[reaction].elem1) {
                     // If elem1 is an array, loop through each element, else check once. Don't delete if it === null
@@ -134,7 +125,6 @@
                 }
             }
         }
-
         // If the element's stateHigh or stateLow is not an element, remove it and tempHigh/Low
         if (elements[key].stateHigh) {
             // If it's an array, do it for each item, otherwise, just do it once
@@ -205,7 +195,6 @@
                 if (elements[key].breakInto[i]!==null && !elements[elements[key].breakInto]) { delete elements[key].breakInto; }
             }
         }
-
         if (elements[key].colorPattern) {
             if (!elements[key].colorKey) {
                 delete elements[key].colorPattern;
@@ -219,14 +208,13 @@
                 for (var j = 0; j < line.length; j++) {
                     var char = line[j];
                     if (elements[key].colorKey[char]) {
-                        // if (elements[key].colorKey[char].startsWith("#")) {
-                        //     var rgb = hexToRGB(elements[key].colorKey[char]);
-                        //     elements[key].colorKey[char] = "rgb("+rgb.r+","+rgb.g+","+rgb.b+")";
-                        // }
+                        if (elements[key].colorKey[char].startsWith("#")) {
+                            elements[key].colorKey[char] = convertColorFormats(elements[key].colorKey[char],"rgb");
+                        }
                         newPattern[i].push(elements[key].colorKey[char]);
                     }
                     else {
-                        newPattern[i].push("#ffffff");
+                        newPattern[i].push(_cc.w.r);
                     }
                 }
             }
@@ -234,6 +222,5 @@
             delete elements[key].colorKey;
             }
         }
-
-
     }
+}
