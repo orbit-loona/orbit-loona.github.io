@@ -1,226 +1,41 @@
-    nextid = 1; //mod
-    for (key in elements) {
-        if(!elements[key]) {
-            console.error(`Nonexistent element ${key}`);
-            continue
-        };
-        elements[key].id = nextid;
-        nextid++;
-        // If the element has no behavior, set it to behaviors.WALL
-        if (!elements[key].behavior && !elements[key].tick) {
-            elements[key].tick = function(pixel) {};
+    elementCount = 0; //Vanilla
+    hiddenCount = 0;
+    categoryList = [];
+    for (var element in elements) {
+        if (elementCount === 0) { currentElement = element; firstElement = element }
+        elementCount++;
+        if (settings.cheerful && elements[element].nocheer) {
+            elements[element].hidden = true;
+            hiddenCount++;
+            continue;
         }
-        // If the behavior is a function, delete it and set tick to it instead
-        if (typeof elements[key].behavior === "function") {
-            if (elements[key].tick) {
-                elements[key].tick1 = elements[key].tick;
-                elements[key].tick2 = elements[key].behavior;
-                elements[key].tick = function(pixel) {
-                    if (pixel.start === pixelTicks) {return}
-                    var id = elements[pixel.element].id;
-                    elements[pixel.element].tick1(pixel);
-                    if (!pixel.del && id === elements[pixel.element].id) {
-                        elements[pixel.element].tick2(pixel);
-                    }
-                }
-            }
-            else {
-                elements[key].tick = elements[key].behavior;
-            }
-            delete elements[key].behavior;
+        if (element === "unknown") {continue;}
+        var category = elements[element].category;
+        if (category==null) {category="other"}
+        if (categoryList.indexOf(category) === -1) {
+            categoryList.push(category);
         }
-        // If the element has no color, set it to white
-        if (elements[key].color === undefined) {
-            elements[key].color = _cc.w.r;
-            elements[key].colorObject = _cc.w.j;
+        if (elements[element].hidden && (!settings["unhide"] || ( settings["unhide"]===2 && !settings.unlocked[element] ))) { hiddenCount++; continue; }
+        var categoryDiv = document.getElementById("category-"+category);
+        if (categoryDiv == null) {
+            createCategoryDiv(category);
+            categoryDiv = document.getElementById("category-"+category);
         }
-        if (elements[key].movable === undefined) {
-            // If the element's behavior is an array and contains M1 or M2, set its movable to true
-            if (elements[key].behavior && typeof elements[key].behavior[0] === "object") {
-                var bstring = JSON.stringify(elements[key].behavior);
-                if (bstring.indexOf("M1")!==-1 || bstring.indexOf("M2")!==-1) { elements[key].movable = true; }
-            }
-            if (elements[key].tick) { elements[key].movable = true; }
-        }
-        if (elements[key].behavior) {
-            var behavior = elements[key].behavior;
-            var behaviorCenterY = behavior[Math.floor(behavior.length/2)]
-            var behaviorCenter = behaviorCenterY[Math.floor(behaviorCenterY.length/2)]
-            // If the element's behavior[1][1] includes "FX", set it's flippableX to true
-            if (behaviorCenter.indexOf("FX") !== -1) {
-                elements[key].flippableX = true;
-            }
-            // If the element's behavior[1][1] includes "FY", set it's flippableY to true
-            if (behaviorCenter.indexOf("FY") !== -1) {
-                elements[key].flippableY = true;
-            }
-            // If the element's behavior[1][1] includes "RT", set it's rotatable to "true"
-            if (behaviorCenter.indexOf("RT") !== -1) {
-                elements[key].rotatable = true;
-            }
-            // If the element's behavior stringified includes "BO", loop through the behavior
-            if (elements[key].behavior.toString().indexOf("BO") !== -1 && !elements[key].rotatable) {
-                for (var i = 0; i < elements[key].behavior.length; i++) {
-                    // Loop through each array in the behavior
-                    for (var j = 0; j < elements[key].behavior[i].length; j++) {
-                        // If the behavior includes "BO", set the behaviorOn to the behavior
-                        if (elements[key].behavior[i][j].indexOf("BO") !== -1) {
-                            if ((i==0 && j==0) || (i==0 && j==2) || (i==2 && j==0) && (i==2 && j==2)) {
-                                elements[key].flippableX = true;
-                                elements[key].flippableY = true;
-                            }
-                            else if (i==0 || i==2) {
-                                elements[key].flippableY = true;
-                            }
-                            else if (j==0 || j==2) {
-                                elements[key].flippableX = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        // If the element's state is "gas", isGas = true
-        if (elements[key].state === "gas") {
-            elements[key].isGas = true;
-        }
-        // Else if the state is not "solid" or "liquid", delete it
-        else if (elements[key].state !== "solid" && elements[key].state !== "liquid") {
-            delete elements[key].state;
-        }
-        // If the element has reactions, loop through each one (it is an object), if the value for elem1 or elem2 is not an element and is not null, remove that key
-        if (elements[key].reactions) {
-            for (var reaction in elements[key].reactions) {
-                if(!(elements[key].reactions[reaction])) {
-                    console.error(`Nonexistent reaction ${reaction} in element ${key}`);
-                    continue
-                }
-                // If elem1 exists
-                if (elements[key].reactions[reaction].elem1) {
-                    // If elem1 is an array, loop through each element, else check once. Don't delete if it === null
-                    if (Array.isArray(elements[key].reactions[reaction].elem1)) {
-                        for (var i = 0; i < elements[key].reactions[reaction].elem1.length; i++) {
-                            if (elements[key].reactions[reaction].elem1[i] && !elements[elements[key].reactions[reaction].elem1[i]]) {
-                                elements[key].reactions[reaction].elem1.splice(i,1);
-                            }
-                        }
-                    }
-                    else if (elements[key].reactions[reaction].elem1 && !elements[elements[key].reactions[reaction].elem1]) {
-                        delete elements[key].reactions[reaction].elem1;
-                    }
-                }
-                // If elem2 exists
-                if (elements[key].reactions[reaction].elem2) {
-                    // If elem2 is an array, loop through each element, else check once. Don't delete if it === null
-                    if (Array.isArray(elements[key].reactions[reaction].elem2)) {
-                        for (var i = 0; i < elements[key].reactions[reaction].elem2.length; i++) {
-                            if (elements[key].reactions[reaction].elem2[i] && !elements[elements[key].reactions[reaction].elem2[i]]) {
-                                elements[key].reactions[reaction].elem2.splice(i,1);
-                            }
-                        }
-                    }
-                    else if (elements[key].reactions[reaction].elem2 && !elements[elements[key].reactions[reaction].elem2]) {
-                        delete elements[key].reactions[reaction].elem2;
-                    }
-                }
-            }
-        }
-        // If the element's stateHigh or stateLow is not an element, remove it and tempHigh/Low
-        if (elements[key].stateHigh) {
-            // If it's an array, do it for each item, otherwise, just do it once
-            if (Array.isArray(elements[key].stateHigh)) {
-                for (var i = 0; i < elements[key].stateHigh.length; i++) {
-                    if (!elements[elements[key].stateHigh[i]] && elements[key].stateHigh[i] !== null) {
-                        elements[key].stateHigh.splice(i,1);
-                    }
-                }
-                if (elements[key].stateHigh.length == 0) {
-                    delete elements[key].stateHigh;
-                    delete elements[key].tempHigh;
-                }
-            }
-            else {
-                if (!elements[elements[key].stateHigh] && elements[key].stateHigh !== null) {
-                    delete elements[key].stateHigh;
-                    delete elements[key].tempHigh;
-                }
-            }
-        }
-        if (elements[key].stateLow) {
-            if (Array.isArray(elements[key].stateLow)) {
-                for (var i = 0; i < elements[key].stateLow.length; i++) {
-                    if (!elements[elements[key].stateLow[i]] && elements[key].stateLow[i] !== null) {
-                        elements[key].stateLow.splice(i,1);
-                    }
-                }
-                if (elements[key].stateLow.length == 0) {
-                    delete elements[key].stateLow;
-                    delete elements[key].tempLow;
-                }
-            }
-            else {
-                if (!elements[elements[key].stateLow] && elements[key].stateLow !== null) {
-                    delete elements[key].stateLow;
-                    delete elements[key].tempLow;
-                }
-            }
-        }
-        // same for burnInto
-        if (elements[key].burnInto) {
-            if (Array.isArray(elements[key].burnInto)) {
-                for (var i = 0; i < elements[key].burnInto.length; i++) {
-                    if (!elements[elements[key].burnInto[i]]) {
-                        delete elements[key].burnInto[i];
-                    }
-                }
-                if (elements[key].burnInto.length == 0) {
-                    delete elements[key].burnInto;
-                }
-            }
-            else {
-                if (!elements[elements[key].burnInto]) {
-                    delete elements[key].burnInto;
-                }
-            }
-        }
-        // same for breakInto
-        if (elements[key].breakInto) {
-            if (Array.isArray(elements[key].breakInto)) {
-                for (var i = 0; i < elements[key].breakInto.length; i++) {
-                    if (elements[key].breakInto[i]!==null && !elements[elements[key].breakInto[i]]) { delete elements[key].breakInto[i]; }
-                }
-                if (elements[key].breakInto.length == 0) { delete elements[key].breakInto; }
-            }
-            else {
-                if (elements[key].breakInto[i]!==null && !elements[elements[key].breakInto]) { delete elements[key].breakInto; }
-            }
-        }
-        if (elements[key].colorPattern) {
-            if (!elements[key].colorKey) {
-                delete elements[key].colorPattern;
-            }
-            else {
-            var newPattern = [];
-            for (var i = 0; i < elements[key].colorPattern.length; i++) {
-                newPattern.push([]);
-                var line = elements[key].colorPattern[i];
-                // loop through each character in the line
-                for (var j = 0; j < line.length; j++) {
-                    var char = line[j];
-                    if (elements[key].colorKey[char]) {
-                        if (elements[key].colorKey[char].startsWith("#")) {
-                            elements[key].colorKey[char] = convertColorFormats(elements[key].colorKey[char],"rgb");
-                        }
-                        newPattern[i].push(elements[key].colorKey[char]);
-                    }
-                    else {
-                        newPattern[i].push(_cc.w.r);
-                    }
-                }
-            }
-            elements[key].colorPattern = newPattern;
-            delete elements[key].colorKey;
-            }
+        createElementButton(element);
+    }
+    if (document.getElementById("categoryButton-states")) {
+        // move it to the end of its parent
+        document.getElementById("categoryButton-states").parentNode.appendChild(document.getElementById("categoryButton-states"));
+    }
+    // Set the first button in categoryControls div to be the current category
+    document.getElementById("categoryControls").children[0].click()
+    document.getElementById("extraInfo").insertAdjacentHTML("beforeend", "<small><p>v" + currentversion + " • " + elementCount + " elements, with <span id='hiddenCount'>" + hiddenCount + "</span> hidden.</p><p>©2021-" + new Date().getFullYear() + ". <a href='https://sandboxels.R74n.com/license.txt' rel='license' target='_blank'>All Rights Reserved</a>. <a style='color:#00ffff' rel='author' href='https://r74n.com'>R74n</a></p></small>");
+    selectElement(currentElement);
+    focusGame();
+    // For every button element, onkeyup="event.preventDefault()"
+    var buttonElements = document.getElementsByTagName("button");
+    for (var i = 0; i < buttonElements.length; i++) {
+        buttonElements[i].onkeyup = function(e) {
+            e.preventDefault();
         }
     }
-}
