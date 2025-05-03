@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>(WIP) Project Rarity interface</title>
+		<style>
+			body {
+				font-family: 'PixulBrush', PixulBrush, 'PixulBrush Regular', 'Body - Font - Pixelated', sans-serif;
+				background: linear-gradient(45deg, #111 25%, transparent 25%) -10px 0,
+					  linear-gradient(-45deg, #111 25%, transparent 25%) -10px 0,
+					  linear-gradient(45deg, transparent 75%, #111 75%) -10px 0,
+					  linear-gradient(-45deg, transparent 75%, #111 75%) -10px 0;
+				background-color: #1a1a1a;
+				background-size: 20px 20px;
+				color: #e0e0e0;
+				min-height: 100vh;
+				margin: 0;
+				padding: 20px;
+			}
+			
+			body > .flex-div {
+				display: flex;
+			}
+			
+			body.hide-cards .card-color-related, .optional:has(input[disabled]) {
+				display: none;
+			}
+			
+			.number {
+				color: #ffcc00;
+			}
+			
+			label.disabled {
+				color: #afafaf;
+			}
+
+			label + input {
+				margin-left: 5px;
+			}
+
+			.library-section {
+				width: 300px;
+				min-width: 200px;
+				padding: 20px;
+				background: #1a1a1a;
+				border-right: 2px solid #ff3333;
+				overflow-y: auto;
+				height: 100%;
+				box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+				display: flex;
+				flex-direction: column;
+			}
+			
+			#rarityProperties {
+				background-color: #FFFFFF3F;
+				padding: 3px;
+			}
+
+			#rarityProperties h3 {
+				color: #ff7f7f;
+			}
+
+			#rarityProperties h4 {
+				color: #ffbfbf;
+			}
+
+			#rarityProperties > section {
+				background-color: #ff7f7f3f;
+			}
+
+			.main-section {
+				flex: 1;
+				padding: 20px;
+				margin-left: 20px;
+				margin-right: 60px;
+			}
+
+			.weapon-list-item {
+				padding: 10px;
+				margin-bottom: 8px;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: all 0.2s;
+				text-align: center;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+			}
+			
+			.weapon-list-item:hover {
+			  transform: scale(1.02);
+			  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+			}
+
+			.weapon-card {
+				padding: 30px;
+				margin-bottom: 20px;
+				padding-bottom: 50px;
+				min-height: 300px;
+				position: relative;
+				background: #1a1a1a;
+				border-radius: 10px;
+				margin-bottom: 10px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+			}
+
+			.weapon-card .flavor-blurb {
+				font-family: 'Double Pixel-7', 'Blurb - Font - In Italics', sans-serif;
+				font-style: italic;
+				margin: 5px 0 15px 0;
+				font-size: 1.3em;
+				line-height: 1.4;
+				opacity: 1;
+				color: white;
+			}
+
+			.weapon-card .number {
+			  color: #ffcc00;
+			  font-weight: bold;
+			}
+
+			.weapon-card h3 { 
+			  color: white !important;
+			}
+
+			.element-None { color: #ffffff; }
+			.element-Fire { color: #ff4444; }
+			.element-Ice { color: #00ffff; }
+			.element-Water { color: #4444ff; }
+			.element-Plant { color: #44ff44; }
+			.element-Electric { color: #ffff44; }
+			.element-Darkness { color: #4b0082; }
+			.element-Light { color: #ffff80; }
+			.element-Earth { color: #8b4513; }
+			.element-Wind { color: #008080; }
+			.element-Poison { color: #800080; }
+			.element-Cute { color: #FFB6C1; }
+			.element-Noble { color: #9370DB; }
+			.element-Undead { color: #808000; }
+			.element-Arcane { color: #8B008B; }
+			.element-Transformation { color: #B8860B; }
+			.element-Reality { color: #FF1493; }
+			.element-Spirit { color: #98FB98; }
+			.element-Inanimate { color: #00008B; }
+			.element-Metal { color: #4A4A4A; }
+			.element-Animal { color: #654321; }
+			.element-Justice { color: #ffff00; }
+			.element-Bone { color: #dddddd; }
+			.element-Ultrakill (The Game) { color: #3483eb; }
+			.element-Robot { color: #8DAFBC; }
+			.element-Lava { color: #ff5900; }
+			.element-Fiction { color: #D5B9E8; }
+			.element-Planet { color: #E9C479; }
+			.element-Text { color: #FFFFFF; }
+			.element-Hate { color: #3E383A; }
+			.element-Love { color: #FA327C; }
+			.element-Psychic { color: #E9CED3; }
+			.element-Color { color: #E558F4; }
+			.element-Sugar { color: #FFFFFF; }
+			.element-Plastic { color: #E0E0E0; }
+			.element-Luck { color: #35BA00; }
+			.element-Force { color: #AEAAAA; }
+			.element-Gold { color: #F9D32B; }
+			.element-Flower { color: #FF7DCF; }
+			.element-Speed { color: #FAB1B1; }
+			.element-Weather { color: #8E909B; }
+			.element-Glass { color: #B0D5C9; }
+			.element-Sand { color: #F0EAB0; }
+			.element-Fruit { color: #6BD623; }
+			.element-Direction { color: #ffffff; }
+			.element-Amber { color: #ba4a00; }
+			.element-Chaos { color: #42f5c8; }
+			.element-Placeholder, replace me in fusions! { color: #ffffff; }
+			.element-Strawberry Lemonade { color: #f5425d; }
+			.element-Energy { color: #daf542; }
+			.element-Portal { color: #ffa600; }
+			.element-Cursed { color: #a80000; }
+			.element-Abstract { color: #e38da4; }
+			.element-Antimatter { color: #3d2657; }
+			.element-Calamity { color: #4d00a6; }
+			.element-Omniversal { color: #b612fc; }
+			.element-Multiversal { color: #7312fc; }
+			.element-Demonic { color: #914ab0; }
+			.element-Insanity (Madness) { color: #000000; }
+			.element-Life { color: #8deb00; }
+			.element-Statue { color: #7f7f7f; }
+			.element-Quantum { color: #9c27b0; }
+			.element-Ash { color: #7f7f7f; }
+			.element-Yin Yang { color: #626262; }
+			.element-Teto { color: #ff2e38; }
+			.element-Cat { color: #333333; }
+			.element-Fish / Shark { color: #5d9afc; }
+			.element-Goth { color: #444444; }
+			.element-Pure Elemental. { color: #ffffff; }
+			.element-8-bit { color: #DFE5D7; }
+			.element-Gravity { color: #150236; }
+			.element-Decay { color: #81995d; }
+			.element-Disease { color: #22ff22; }
+			.element-Crystal { color: #0000ff; }
+			.element-Magnetic { color: #ff0000; }
+			.element-Explosion { color: #994444; }
+			.element-Acid { color: #00ff55; }
+			.element-Holy { color: #fcff69; }
+			.element-Void { color: #111111; }
+			.element-Frutiger Aero { color: #286fc7; }
+			.element-Dystopia { color: #222222; }
+			.element-Infinity { color: #35c4f0; }
+			.element-Time { color: #999999; }
+			.element-Flesh { color: #6e000d; }
+			.element-Blood { color: #6e000d; }
+			.element-Hatsune Miku { color: #74e2f7; }
+			.element-Solar { color: #e4f774; }
+			.element-Lunar { color: #e4f774; }
+			.element-bnuuy { color: #c4c4c4; }
+			.element-Health { color: #78ff7f; }
+			.element-Tech { color: #537054; }
+			.element-Fusion (Intended for use in fusions.) { color: #ffffff; }
+			.element-Weirdcore { color: #efc9ff; }
+			.element-Celebration { color: #fc03ec; }
+			.element-Cyberpunk { color: #6b00cf; }
+			.element-Vaporwave { color: #b942f5; }
+			.element-Sound { color: #777777; }
+			.element-Radiation { color: #b4ff12; }
+			.element-Humanoid { color: White; }
+			.element-Random { color: #FFFFFF; }
+			.element-Telekinesis { color: #80004a; }
+			.element-Space { color: #0b0080; }
+			.element-Death { color: #292929; }
+			.element-Justice { color: #ffff00; }
+			.element-Bone { color: #dddddd; }
+			.element-Ultrakill (The Game) { color: #3483eb; }
+			.element-Robot { color: #8DAFBC; }
+			.element-Lava { color: #ff5900; }
+			.element-Fiction { color: #D5B9E8; }
+			.element-Planet { color: #E9C479; }
+			.element-Text { color: #FFFFFF; }
+			.element-Hate { color: #3E383A; }
+			.element-Love { color: #FA327C; }
+			.element-Psychic { color: #E9CED3; }
+			.element-Color { color: #E558F4; }
+			.element-Sugar { color: #FFFFFF; }
+			.element-Plastic { color: #E0E0E0; }
+			.element-Luck { color: #35BA00; }
+			.element-Force { color: #AEAAAA; }
+			.element-Gold { color: #F9D32B; }
+			.element-Flower { color: #FF7DCF; }
+			.element-Speed { color: #FAB1B1; }
+			.element-Weather { color: #8E909B; }
+			.element-Glass { color: #B0D5C9; }
+			.element-Sand { color: #F0EAB0; }
+			.element-Fruit { color: #6BD623; }
+			.element-Direction { color: #ffffff; }
+			.element-Amber { color: #ba4a00; }
+			.element-Chaos { color: #42f5c8; }
+			.element-Placeholder, replace me in fusions! { color: #ffffff; }
+			.element-Strawberry Lemonade { color: #f5425d; }
+			.element-Energy { color: #daf542; }
+			.element-Portal { color: #ffa600; }
+			.element-Cursed { color: #a80000; }
+			.element-Abstract { color: #e38da4; }
+			.element-Antimatter { color: #3d2657; }
+			.element-Calamity { color: #4d00a6; }
+			.element-Omniversal { color: #b612fc; }
+			.element-Multiversal { color: #7312fc; }
+			.element-Demonic { color: #914ab0; }
+			.element-Insanity (Madness) { color: #000000; }
+			.element-Life { color: #8deb00; }
+			.element-Statue { color: #7f7f7f; }
+			.element-Quantum { color: #9c27b0; }
+			.element-Ash { color: #7f7f7f; }
+			.element-Yin Yang { color: #626262; }
+			.element-Teto { color: #ff2e38; }
+			.element-Cat { color: #333333; }
+			.element-Fish / Shark { color: #5d9afc; }
+			.element-Goth { color: #444444; }
+			.element-Pure Elemental. { color: #ffffff; }
+			.element-8-bit { color: #DFE5D7; }
+			.element-Gravity { color: #150236; }
+			.element-Decay { color: #81995d; }
+			.element-Disease { color: #22ff22; }
+			.element-Crystal { color: #0000ff; }
+			.element-Magnetic { color: #ff0000; }
+			.element-Explosion { color: #994444; }
+			.element-Acid { color: #00ff55; }
+			.element-Holy { color: #fcff69; }
+			.element-Void { color: #111111; }
+			.element-Frutiger Aero { color: #286fc7; }
+			.element-Dystopia { color: #222222; }
+			.element-Infinity { color: #35c4f0; }
+			.element-Time { color: #999999; }
+			.element-Flesh { color: #6e000d; }
+			.element-Blood { color: #6e000d; }
+			.element-Hatsune Miku { color: #74e2f7; }
+			.element-Solar { color: #e4f774; }
+			.element-Lunar { color: #e4f774; }
+			.element-bnuuy { color: #c4c4c4; }
+			.element-Health { color: #78ff7f; }
+			.element-Tech { color: #537054; }
+			.element-Fusion (Intended for use in fusions.) { color: #ffffff; }
+			.element-Weirdcore { color: #efc9ff; }
+			.element-Celebration { color: #fc03ec; }
+			.element-Cyberpunk { color: #6b00cf; }
+			.element-Vaporwave { color: #b942f5; }
+			.element-Sound { color: #777777; }
+			.element-Radiation { color: #b4ff12; }
+			.element-Humanoid { color: White; }
+			.element-Random { color: #FFFFFF; }
+			.element-Telekinesis { color: #80004a; }
+			.element-Space { color: #0b0080; }
+			.element-Death { color: #292929; }
+
+			.weapon-card.rarity-Transcendent,
+			.weapon-list-item.rarity-Transcendent {
+			  --transcendent-gradient: linear-gradient(45deg, #ffffff, #eeeeee);
+			  --transcendent-color: #ffffff;
+			  --transcendent-glow: rgba(255,255,255,0.4);
+			}
+			@keyframes transcendentGlow {
+			  0% { box-shadow: 0 0 20px var(--transcendent-glow); }
+			  50% { box-shadow: 0 0 30px white; }
+			  100% { box-shadow: 0 0 20px var(--transcendent-glow); }
+			}
+			
+		</style>
+		<style id="preStyle">@keyframes cosmicHackedGlow { 0% { box-shadow: 0 0 20px rgba(95, 0, 191, 0.4); } 50% { box-shadow: 0 0 30px #5f00bf; } 100% { box-shadow: 0 0 20px rgba(95, 00, 191, 0.4); } } @keyframes celestialHackedGlow { 0% { box-shadow: 0 0 20px rgba(191, 127, 255, 0.4); } 50% { box-shadow: 0 0 30px #bf7fff; } 100% { box-shadow: 0 0 20px rgba(191, 127, 255, 0.4); } } @keyframes transcendentHackedGlow { 0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); } 50% { box-shadow: 0 0 30px #0ff; } 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); } } @keyframes eternalHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 191, 0, 0.4); } 50% { box-shadow: 0 0 30px #ffbf00; } 100% { box-shadow: 0 0 20px rgba(255, 191, 0, 0.4); } } @keyframes abstractedHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 127, 127, 0.4); } 50% { box-shadow: 0 0 30px #7f7f7f; } 100% { box-shadow: 0 0 20px rgba(127, 127, 127, 0.4); } } @keyframes exaltedHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 127, 127, 0.4); } 50% { box-shadow: 0 0 30px #ff7f7f; } 100% { box-shadow: 0 0 20px rgba(255, 127, 127, 0.4); } } @keyframes omniscientHackedGlow { 0% { box-shadow: 0 0 20px rgba(143, 255, 0, 0.4); } 50% { box-shadow: 0 0 30px #8fff00; } 100% { box-shadow: 0 0 20px rgba(143, 255, 0, 0.4); } } @keyframes deityHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 127, 0, 0.4); } 50% { box-shadow: 0 0 30px #ff7f00; } 100% { box-shadow: 0 0 20px rgba(255, 127, 0, 0.4); } } @keyframes godlyHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 159, 255, 0.4); } 50% { box-shadow: 0 0 30px #ff9fff; } 100% { box-shadow: 0 0 20px rgba(255, 159, 255, 0.4); } } @keyframes omnipotentHackedGlow { 0% { box-shadow: 0 0 20px rgba(0, 0, 255, 0.4); } 50% { box-shadow: 0 0 30px #00f; } 100% { box-shadow: 0 0 20px rgba(00, 00, 255, 0.4); } } @keyframes apexHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 0, 79, 0.4); } 50% { box-shadow: 0 0 30px #7f004f; } 100% { box-shadow: 0 0 20px rgba(127, 00, 79, 0.4); } } @keyframes beyondOmnipotentHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 63, 0, 0.4); } 50% { box-shadow: 0 0 30px #7f3f00; } 100% { box-shadow: 0 0 20px rgba(127, 63, 00, 0.4); } } @keyframes absoluteHackedMainAnimation { 0% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background: linear-gradient(45deg, #000, #200800); border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background: linear-gradient(45deg, #000, #201000); border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background: linear-gradient(45deg, #000, #201800); border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background: linear-gradient(45deg, #000, #202000); border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background: linear-gradient(45deg, #000, #182000); border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background: linear-gradient(45deg, #000, #102000); border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background: linear-gradient(45deg, #000, #082000); border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background: linear-gradient(45deg, #000, #002000); border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background: linear-gradient(45deg, #000, #002008); border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background: linear-gradient(45deg, #000, #002010); border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background: linear-gradient(45deg, #000, #002018); border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background: linear-gradient(45deg, #000, #002020); border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background: linear-gradient(45deg, #000, #001820); border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background: linear-gradient(45deg, #000, #001020); border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background: linear-gradient(45deg, #000, #000820); border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background: linear-gradient(45deg, #000, #000020); border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background: linear-gradient(45deg, #000, #080020); border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background: linear-gradient(45deg, #000, #100020); border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background: linear-gradient(45deg, #000, #180020); border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background: linear-gradient(45deg, #000, #200020); border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background: linear-gradient(45deg, #000, #200018); border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background: linear-gradient(45deg, #000, #200010); border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background: linear-gradient(45deg, #000, #200008); border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes absoluteHackedOptionAnimation { 0% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #200800; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background-color: #201000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #201800; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background-color: #202000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #182000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background-color: #102000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #082000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background-color: #002000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #002008; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background-color: #002010; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #002018; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background-color: #002020; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #001820; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background-color: #001020; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #000820; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background-color: #000020; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #080020; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background-color: #100020; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #180020; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background-color: #200020; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #200018; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background-color: #200010; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #200008; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes heavenlyGamerAnimation { 0% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #401000; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.6); } 8.333% { background-color: #402000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #403000; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.6); } 16.667% { background-color: #404000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #304000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.6); } 25% { background-color: #204000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #104000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.6); } 33.333% { background-color: #004000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #004010; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.6); } 41.667% { background-color: #004020; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #004030; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.6); } 50% { background-color: #004040; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #003040; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.6); } 58.333% { background-color: #002040; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #001040; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.6); } 66.667% { background-color: #000040; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #100040; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.6); } 75% { background-color: #200040; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #300040; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.6); } 83.333% { background-color: #400040; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #400030; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.6); } 91.667% { background-color: #400020; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #400010; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.6); } 100% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes rainbowTextColorAnimation { 0% { color: #ff0000; } 4.167% { color: #ff4000; } 8.333% { color: #ff8000; } 12.5% { color: #ffbf00; } 16.667% { color: #ffff00; } 20.833% { color: #bfff00; } 25% { color: #80ff00; } 29.167% { color: #40ff00; } 33.333% { color: #00ff00; } 37.5% { color: #00ff40; } 41.667% { color: #00ff80; } 45.833% { color: #00ffbf; } 50% { color: #00ffff; } 54.167% { color: #00bfff; } 58.333% { color: #0080ff; } 62.5% { color: #0040ff; } 66.667% { color: #0000ff; } 70.833% { color: #4000ff; } 75% { color: #8000ff; } 79.167% { color: #bf00ff; } 83.333% { color: #ff00ff; } 87.5% { color: #ff00bf; } 91.667% { color: #ff0080; } 95.833% { color: #ff0040; } 100% { color: #ff0000; } } </style>
+		<style id="newRaritiesStyle"></style>
+		<style id="singleRarityPreviewStyle"></style>
+		<script name="rarityInfrastructureScript">
+			/*.rarity-Hyper-Cosmic:not(.Hacked){
+				background:linear-gradient(45deg,#00003F,#FF7F3F);
+				color:#fff;
+				text-shadow:1px 1px 2px black;
+				box-shadow:0 0 15px rgba(255,255,255,0.5);
+			}
+			.weapon-card.rarity-Hyper-Cosmic:not(.Hacked){
+				background:linear-gradient(45deg,#00003F,#FF7F3F);
+				border:2px solid #FFFFFF;
+				box-shadow:0 0 20px rgba(255,255,255,0.3);
+			}
+			option.rarity-Hyper-Cosmic:not(.Hacked){
+				background:#CF9F3F;color:#000;
+			}*/
+			
+			colorNames = {
+				aliceblue: [240, 248, 255],
+				antiquewhite: [250, 235, 215],
+				aqua: [0, 255, 255],
+				aquamarine: [127, 255, 212],
+				azure: [1240, 255, 255],
+				beige: [245, 245, 220],
+				bisque: [255, 228, 196],
+				black: [0, 0, 0],
+				blanchedalmond: [255, 235, 205],
+				blue: [0, 0, 255],
+				blueviolet: [138, 43, 226],
+				brown: [165, 42, 42],
+				burlywood: [222, 184, 135],
+				cadetblue: [95, 158, 160],
+				chartreuse: [95, 158, 160],
+				chocolate: [210, 105, 30],
+				coral: [255, 127, 80],
+				cornflowerblue: [100, 149, 237],
+				cornsilk: [255, 248, 220],
+				crimson: [220, 20, 60],
+				cyan: [0, 255, 255],
+				darkblue: [0, 0, 139],
+				darkcyan: [0, 139, 139],
+				darkgoldenrod: [184, 134, 11],
+				darkgray: [169, 169, 169],
+				darkgreen: [0, 100, 0],
+				darkkhaki: [189, 183, 107],
+				darkmagenta: [139, 0, 139],
+				darkolivegreen: [85, 107, 47],
+				darkorange: [255, 140, 0],
+				darkorchid: [153, 50, 204],
+				darkred: [139, 0, 0],
+				darksalmon: [233, 150, 122],
+				darkseagreen: [143, 188, 143],
+				darkslateblue: [72, 61, 139],
+				darkslategray: [47, 79, 79],
+				darkturquoise: [0, 206, 209],
+				darkviolet: [148, 0, 211],
+				deeppink: [255, 20, 147],
+				deepskyblue: [0, 191, 255],
+				dimgray: [0, 191, 255],
+				dodgerblue: [30, 144, 255],
+				firebrick: [178, 34, 34],
+				floralwhite: [255, 250, 240],
+				forestgreen: [34, 139, 34],
+				fuchsia: [255, 0, 255],
+				gainsboro: [220, 220, 220],
+				ghostwhite: [248, 248, 255],
+				gold: [255, 215, 0],
+				goldenrod: [218, 165, 32],
+				gray: [127, 127, 127],
+				green: [0, 128, 0],
+				greenyellow: [173, 255, 47],
+				honeydew: [240, 255, 240],
+				hotpink: [255, 105, 180],
+				indianred: [205, 92, 92],
+				indigo: [75, 0, 130],
+				ivory: [255, 255, 240],
+				khaki: [240, 230, 140],
+				lavender: [230, 230, 250],
+				lavenderblush: [255, 240, 245],
+				lawngreen: [124, 252, 0],
+				lemonchiffon: [255, 250, 205],
+				lightblue: [173, 216, 230],
+				lightcoral: [240, 128, 128],
+				lightcyan: [224, 255, 255],
+				lightgoldenrodyellow: [250, 250, 210],
+				lightgreen: [144, 238, 144],
+				lightgrey: [211, 211, 211],
+				lightpink: [255, 182, 193],
+				lightsalmon: [255, 160, 122],
+				lightseagreen: [32, 178, 170],
+				lightskyblue: [135, 206, 250],
+				lightslategray: [119, 136, 153],
+				lightsteelblue: [176, 196, 222],
+				lightyellow: [255, 255, 224],
+				lime: [0, 255, 0],
+				limegreen: [50, 205, 50],
+				linen: [250, 240, 230],
+				magenta: [255, 0, 255],
+				maroon: [128, 0, 0],
+				mediumaquamarine: [102, 205, 170],
+				mediumblue: [0, 0, 205],
+				mediumorchid: [186, 85, 211],
+				mediumpurple: [147, 112, 219],
+				mediumseagreen: [60, 179, 113],
+				mediumslateblue: [123, 104, 238],
+				mediumspringgreen: [0, 250, 154],
+				mediumturquoise: [72, 209, 204],
+				mediumvioletred: [199, 21, 133],
+				midnightblue: [25, 25, 112],
+				mintcream: [245, 255, 250],
+				mistyrose: [255, 228, 225],
+				moccasin: [255, 228, 181],
+				navajowhite: [255, 222, 173],
+				navy: [0, 0, 128],
+				navyblue: [159, 175, 223],
+				oldlace: [253, 245, 230],
+				olive: [128, 128, 0],
+				olivedrab: [107, 142, 35],
+				orange: [255, 165, 0],
+				orangered: [255, 69, 0],
+				orchid: [218, 112, 214],
+				palegoldenrod: [238, 232, 170],
+				palegreen: [152, 251, 152],
+				paleturquoise: [175, 238, 238],
+				palevioletred: [219, 112, 147],
+				papayawhip: [255, 239, 213],
+				peachpuff: [255, 218, 185],
+				peru: [205, 133, 63],
+				pink: [255, 192, 203],
+				plum: [221, 160, 221],
+				powderblue: [176, 224, 230],
+				purple: [128, 0, 128],
+				red: [255, 0, 0],
+				rosybrown: [188, 143, 143],
+				royalblue: [65, 105, 225],
+				saddlebrown: [139, 69, 19],
+				salmon: [250, 128, 114],
+				sandybrown: [244, 164, 96],
+				seagreen: [46, 139, 87],
+				seashell: [255, 245, 238],
+				sienna: [160, 82, 45],
+				silver: [192, 192, 192],
+				skyblue: [135, 206, 235],
+				slateblue: [106, 90, 205],
+				slategray: [112, 128, 144],
+				snow: [255, 250, 250],
+				springgreen: [0, 255, 127],
+				steelblue: [70, 130, 180],
+				tan: [210, 180, 140],
+				teal: [0, 128, 128],
+				thistle: [216, 191, 216],
+				tomato: [255, 99, 71],
+				turquoise: [64, 224, 208],
+				violet: [238, 130, 238],
+				wheat: [245, 222, 179],
+				white: [255, 255, 255],
+				whitesmoke: [245, 245, 245],
+				yellow: [255, 255, 0],
+				yellowgreen: [139, 205, 50]
+			}
+			userFriendlyColorNameAliases = {
+				//actual desired aliases for the web colors
+				darkgrey: [169, 169, 169],
+				lightgray: [211, 211, 211],
+				lightred: [242, 123, 118],
+				grey: [127, 127, 127],
+				//gap filling and new colors
+				navyred: [96, 0, 16],
+				whitishgray: [227, 227, 227],
+				whitishgrey: [227, 227, 227],
+				lightpurple: [190, 144, 255],
+				lightindigo: [156, 82, 229],
+				lightorange: [249, 178, 98],
+				lightbrown: [195, 131, 70],
+				truebrown: [159, 79, 0],
+				armygreen: [75, 83, 32],
+				militarygreen: [75, 83, 32],
+				darkbrown: [111, 47, 0],
+				lightteal: [60, 185, 185],
+				brightyellow: [255, 255, 158],
+				brightcyan: [158, 255, 255],
+				lightviolet: [234, 176, 242],
+				lightrose: [255, 61, 158],
+				rose: [255, 0, 127],
+				darkrose: [219, 0, 110],
+				burgundy: [159, 0, 79],
+				darkburgundy: [127, 0, 63],
+				lightburgundy: [208, 22, 115],
+				darkyellow: [187, 187, 7],
+				darkindigo: [41, 0, 92],
+				darkpurple: [97, 2, 110],
+				royalpurple: [127, 0, 255],
+				lightroyalpurple: [153, 51, 255],
+				darkroyalpurple: [107, 0, 214],
+				darkmintgreen: [116, 158, 120],
+				mintgreen: [173, 235, 179],
+				lightmintgreen: [205, 249, 212],
+				lightcherenkovblue: [99, 249, 248],
+				cherenkovblue: [4, 199, 219],
+				darkcherenkovblue: [1, 67, 134],
+				darkpink: [213, 108, 167],
+				lighttan: [224, 196, 159],
+				darktan: [175, 143, 100],
+				darkbeige: [181, 170, 140],
+				lightbeige: [232, 224, 201],
+				forge: [255, 51, 51],
+				forgehover: [255, 68, 68],
+				forgefocus: [255, 85, 85],
+				arena: [255, 215, 0],
+				arenahover: [255, 237, 74],
+				arenafocus: [255, 237, 91],
+				suggestions: [76, 175, 80],
+				suggestionshover: [69, 160, 73],
+				suggestionsfocus: [93, 175, 97],
+				admin: [224, 124, 39],
+				adminhover: [208, 107, 31],
+				adminfocus: [238, 151, 76],
+				rules: [255, 105, 180], 
+				ruleshover: [255, 130, 184],
+				rulesfocus: [254, 152, 196],
+				about: [180, 105, 255], 
+				abouthover: [184, 130, 255],
+				aboutfocus: [200, 158, 255],
+				more: [156, 39, 176],
+				morehover: [123, 31, 162],
+				morefocus: [174, 84, 190],
+				battlelogs: [33, 150, 243],
+				battlelogshover: [25, 118, 210],
+				battlelogsfocus: [78, 172, 247],
+				codes: [53, 218, 207],
+				codeshover: [47, 194, 185],
+				codesfocus: [71, 207, 199],
+				merge: [114, 214, 0],
+				mergehover: [150, 227, 61],
+				mergefocus: [174, 235, 103],
+				rpg: [98, 18, 201],
+				rpghover: [123, 59, 213],
+				rpgfocus: [147, 89, 228],
+				voting: [51, 68, 255],
+				votinghover: [68, 85, 255],
+				votingfocus: [85, 102, 255],
+				chat: [255, 51, 102],
+				chathover: [255, 68, 119],
+				chatfocus: [255, 85, 136],
+				chaewon: [199, 163, 224],
+				chaeyeon: [141, 191, 65],
+				chaeyoung: [232, 25, 51],
+				choerry: [150, 44, 196],
+				chuu: [255, 191, 127],
+				dahyun: [255, 205, 235],
+				gowon: [48, 225, 146],
+				haseul: [0, 191, 0],
+				hayeon: [83, 217, 190],
+				heejin: [255, 0, 143],
+				hyeju: [143, 143, 143],
+				hyerin: [146, 0, 255],
+				hyunjin: [255, 234, 0],
+				jeongyeon: [188, 215, 118],
+				jihyo: [250, 200, 87],
+				jinsoul: [20, 135, 236],
+				jiwoo: [255, 248, 1],
+				jiyeon: [255, 171, 98],
+				joobin: [183, 245, 76],
+				kaede: [255, 201, 53],
+				kimdahyun: [255, 255, 255],
+				kimlip: [234, 2, 1],
+				kotone: [253, 224, 0],
+				lynn: [172, 98, 183],
+				mayu: [254, 142, 118],
+				mina: [111, 197, 194],
+				momo: [248, 207, 215],
+				nakyoung: [101, 153, 164],
+				nayeon: [128, 202, 241],
+				nien: [255, 149, 63],
+				sana: [156, 158, 207],
+				seoah: [207, 243, 255],
+				seodahyun: [255, 154, 214],
+				seoyeon: [34, 174, 255],
+				shion: [255, 66, 138],
+				sohyun: [20, 35, 180],
+				soomin: [252, 131, 164],
+				sullin: [123, 186, 141],
+				tzuyu: [1, 108, 186],
+				vivi: [255, 162, 210],
+				xinyu: [213, 19, 19],
+				yeojin: [244, 111, 31],
+				yeonji: [89, 116, 255],
+				yooyeon: [219, 12, 116],
+				yubin: [255, 227, 226],
+				yves: [128, 0, 64],
+				copper: [191, 124, 81],
+				'448c': [74, 65, 42],
+				pantone448c: [74, 65, 42],
+				bakermillerpink: [255, 145, 175],
+				cocacola: [177, 0, 25],
+				coke: [177, 0, 25],
+				tiffany: [129, 216, 208],
+				//s***post
+				[(![]+[])[+!![]+!![]+!![]]+'h'+([][![]]+[])[+!![]+!![]+!![]+!![]+!![]]+((+!![]+!![]+!![]+!![]+!![])**((+!![]+!![]+!![]+!![]+!![])**(+!![]+!![]+!![]+!![]+!![]))+[])[+!![]+!![]+!![]+!![]+!![]+!![]]]: [70, 43, 14],
+				poo: [70, 43, 14],
+				crap: [70, 43, 14],
+				['p'+([][![]]+[])[+!![]+!![]+!![]+!![]+!![]]+(![]+[])[+!![]+!![]+!![]]+(![]+[])[+!![]+!![]+!![]]]: [221, 191, 102],
+				pee: [221, 191, 102],
+				urine: [221, 191, 102],
+				blood: [93, 2, 7],
+				communism: [204, 0, 0],
+				['p'+([][![]]+[])[+![]]+(![]+[])[+!![]+!![]+!![]]+(![]+[])[+!![]+!![]+!![]]+'y']: [242, 115, 115],
+				[((([])[(![]+[])[(+!![])]+(!![]+[])[+[]]])+[])[!![]+!![]+!![]]+([][![]]+[])[+![]]+'m']: [176, 178, 181],
+				//roblox colors
+				robloxwhite: [242, 243, 243],
+				robloxgrey: [161, 165, 162],
+				robloxgray: [161, 165, 162],
+				robloxlightyellow: [249, 233, 153],
+				brickyellow: [215, 197, 154],
+				lightgreenmint: [194, 218, 184],
+				lightreddishviolet: [232, 186, 200],
+				pastelblue: [128, 187, 219],
+				lightorangebrown: [203, 132, 66],
+				nougat: [204, 142, 105],
+				brightred: [196, 40, 28],
+				medreddishviolet: [196, 112, 160],
+				brightblue: [13, 105, 172],
+				robloxbrightyellow: [245, 205, 48],
+				earthorange: [98, 71, 50],
+				robloxblack: [27, 42, 53],
+				robloxdarkgrey: [109, 110, 108],
+				robloxdarkgreen: [40, 127, 71],
+				mediumgreen: [161, 196, 140],
+				ligyellowichorange: [243, 207, 155], //[sic]
+				ligyellowishorange: [243, 207, 155],
+				brightgreen: [75, 151, 75],
+				robloxdarkorange: [160, 95, 53],
+				lightbluishviolet: [193, 202, 222],
+				transparent: [236, 236, 236],
+				trred: [205, 84, 75],
+				trlgblue: [193, 223, 240],
+				trblue: [123, 182, 232],
+				tryellow: [247, 241, 141],
+				robloxlightblue: [180, 210, 228],
+				trflureddishorange: [217, 133, 108],
+				trgreen: [132, 182, 141],
+				trflugreen: [248, 241, 132],
+				phosphwhite: [236, 232, 222],
+				robloxlightred: [238, 196, 182],
+				mediumred: [218, 134, 122],
+				robloxmediumblue: [110, 153, 202],
+				robloxlightgrey: [199, 193, 183],
+				brightviolet: [107, 50, 124],
+				bryellowishorange: [226, 155, 64],
+				brightorange: [218, 133, 65],
+				brightbluishgreen: [0, 143, 156],
+				earthyellow: [104, 92, 67],
+				brightbluishviolet: [67, 84, 147],
+				trbrown: [191, 183, 177],
+				mediumbluishviolet: [104, 116, 172],
+				trmedireddishviolet: [229, 173, 200],
+				medyellowishgreen: [199, 210, 60],
+				medbluishgreen: [85, 165, 175],
+				lightbluishgreen: [183, 215, 213],
+				bryellowishgreen: [164, 189, 71],
+				ligyellowishgreen: [217, 228, 167],
+				medyellowishorange: [231, 172, 88],
+				brreddishorange: [211, 111, 76],
+				brightreddishviolet: [146, 57, 120],
+				robloxlightorange: [234, 184, 146],
+				trbrightbluishviolet: [165, 165, 203],
+				robloxgold: [239, 184, 56],
+				darknougat: [174, 122, 89],
+				robloxsilver: [156, 163, 168],
+				neonorange: [213, 115, 61],
+				neongreen: [216, 221, 86],
+				sandblue: [116, 134, 157],
+				sandviolet: [135, 124, 144],
+				mediumorange: [224, 152, 100],
+				sandyellow: [149, 138, 115],
+				earthblue: [32, 58, 86],
+				earthgreen: [39, 70, 45],
+				trflublue: [207, 226, 247],
+				sandbluemetallic: [121, 136, 161],
+				sandvioletmetallic: [149, 142, 163],
+				sandyellowmetallic: [147, 135, 103],
+				darkgreymetallic: [87, 88, 87],
+				blackmetallic: [22, 29, 50],
+				lightgreymetallic: [171, 173, 172],
+				sandgreen: [120, 144, 130],
+				sandred: [149, 121, 119],
+				robloxdarkred: [123, 46, 47],
+				trfluyellow: [255, 246, 123],
+				trflured: [225, 164, 194],
+				gunmetallic: [117, 108, 98],
+				redflipflop: [151, 105, 91],
+				yellowflipflop: [180, 132, 85],
+				silverflipflop: [137, 135, 136],
+				curry: [215, 169, 75],
+				fireyellow: [249, 214, 46],
+				flameyellowishorange: [232, 171, 45],
+				reddishbrown: [105, 64, 40],
+				flamereddishorange: [207, 96, 36],
+				mediumstonegrey: [163, 162, 165],
+				robloxroyalblue: [70, 103, 164],
+				darkroyalblue: [35, 71, 139],
+				brightreddishlilac: [142, 66, 133],
+				darkstonegrey: [99, 95, 98],
+				lemonmetalic: [130, 138, 93],
+				lightstonegrey: [229, 228, 223],
+				darkcurry: [176, 142, 68],
+				fadedgreen: [112, 149, 120],
+				robloxturquoise: [121, 181, 181],
+				lightroyalblue: [159, 195, 233],
+				mediumroyalblue: [108, 129, 183],
+				rust: [143, 76, 42],
+				robloxbrown: [124, 92, 70],
+				reddishlilac: [150, 112, 159],
+				lilac: [167, 94, 155],
+				lightlilac: [167, 169, 206],
+				brightpurple: [205, 98, 152],
+				robloxlightpurple: [228, 173, 200],
+				robloxlightpink: [220, 144, 149],
+				lightbrickyellow: [240, 213, 160],
+				warmyellowishorange: [235, 184, 127],
+				coolyellow: [253, 234, 141],
+				doveblue: [125, 187, 221],
+				mediumlilac: [52, 43, 117],
+				slimegreen: [80, 109, 84],
+				smokygrey: [91, 93, 105],
+				robloxdarkblue: [0, 16, 176],
+				parsleygreen: [44, 101, 29],
+				robloxsteelblue: [82, 124, 174],
+				stormblue: [51, 88, 130],
+				lapis: [16, 42, 220],
+				robloxdarkindigo: [61, 21, 133],
+				robloxseagreen: [52, 142, 64],
+				shamrock: [91, 154, 76],
+				fossil: [159, 161, 172],
+				mulberry: [89, 34, 89],
+				robloxforestgreen: [31, 128, 29],
+				robloxcadetblue: [159, 173, 192],
+				electricblue: [9, 137, 207],
+				eggplant: [123, 0, 123],
+				moss: [124, 156, 107],
+				artichoke: [138, 171, 133],
+				sagegreen: [185, 196, 177],
+				ghostgrey: [202, 203, 209],
+				robloxplum: [123, 47, 123],
+				olivine: [148, 190, 129],
+				laurelgreen: [168, 189, 153],
+				quillgrey: [223, 223, 222],
+				robloxcrimson: [151, 0, 0],
+				mint: [177, 229, 166],
+				babyblue: [152, 194, 219],
+				carnationpink: [255, 152, 220],
+				persimmon: [255, 89, 89],
+				robloxmaroon: [117, 0, 0],
+				daisyorange: [248, 217, 109],
+				pearl: [231, 231, 236],
+				fog: [199, 212, 228],
+				robloxsalmon: [255, 148, 148],
+				terracotta: [190, 104, 98],
+				cocoa: [86, 36, 36],
+				robloxwheat: [241, 231, 199],
+				buttermilk: [254, 243, 187],
+				mauve: [224, 178, 208],
+				sunrise: [212, 144, 189],
+				tawny: [150, 85, 85],
+				cashmere: [211, 190, 150],
+				robloxkhaki: [226, 220, 188],
+				lilywhite: [237, 234, 234],
+				robloxseashell: [233, 218, 218],
+				robloxburgundy: [136, 62, 62],
+				cork: [188, 155, 93],
+				burlap: [199, 172, 120],
+				robloxbeige: [202, 191, 163],
+				oyster: [187, 179, 178],
+				pinecone: [108, 88, 75],
+				fawnbrown: [160, 132, 79],
+				hurricanegrey: [149, 137, 136],
+				cloudygrey: [171, 168, 158],
+				robloxlinen: [175, 148, 131],
+				robloxcopper: [150, 103, 102],
+				mediumbrown: [86, 66, 54],
+				bronze: [126, 104, 63],
+				flint: [105, 102, 92],
+				darktaupe: [90, 76, 66],
+				burntsienna: [106, 57, 9],
+				institutionalwhite: [248, 248, 248],
+				midgray: [205, 205, 205],
+				reallyblack: [17, 17, 17],
+				reallyred: [255, 0, 0],
+				deeporange: [255, 175, 0],
+				alder: [180, 128, 255],
+				dustyrose: [163, 75, 75],
+				robloxolive: [193, 190, 66],
+				newyeller: [255, 255, 0],
+				reallyblue: [0, 0, 255],
+				robloxnavyblue: [0, 32, 96],
+				deepblue: [33, 84, 185],
+				robloxcyan: [4, 175, 236],
+				cgabrown: [170, 85, 0],
+				robloxmagenta: [170, 0, 170],
+				robloxpink: [255, 102, 204],
+				robloxteal: [18, 238, 212],
+				toothpaste: [0, 255, 255],
+				robloxlimegreen: [0, 255, 0],
+				camo: [58, 125, 21],
+				grime: [127, 142, 100],
+				robloxlavender: [140, 91, 159],
+				pastellightblue: [175, 221, 255],
+				pastelorange: [255, 201, 201],
+				pastelviolet: [177, 167, 255],
+				pastelbluegreen: [159, 243, 233],
+				pastelgreen: [204, 255, 204],
+				pastelyellow: [255, 255, 204],
+				pastelbrown: [255, 204, 153],
+				robloxroyalpurple: [98, 37, 209],
+				robloxhotpink: [255, 0, 191],
+				poke6460: [0, 0, 0],
+				poke6461: [255, 255, 255],
+				poke6462: [150, 72, 77],
+				poke6463: [138, 216, 211],
+				poke6464: [161, 81, 169],
+				poke6465: [108, 99, 187],
+				poke6466: [66, 64, 172],
+				poke6467: [241, 244, 135],
+				poke6468: [161, 103, 61],
+				poke6469: [107, 77, 0],
+				poke64610: [207, 130, 135],
+				poke64611: [96, 96, 96],
+				poke64612: [144, 144, 144],
+				poke64613: [185, 255, 176],
+				poke64614: [133, 131, 240],
+				poke64615: [192, 192, 192],
+				ink0: [0, 0, 0],
+				ink1: [0, 0, 216],
+				ink2: [216, 0, 0],
+				ink3: [216, 0, 216],
+				ink4: [0, 216, 0],
+				ink5: [0, 216, 216],
+				ink6: [216, 216, 0],
+				ink7: [216, 216, 216]
+			}
+			function hslToHex(h, s, l) { //by Juraj on StackOverflow: https://stackoverflow.com/a/44134328
+			  l /= 100;
+			  s = Math.max(-100,Math.min(s,100));
+			  l = Math.max(-0,Math.min(l,1));
+			  const a = s * Math.min(l, 1 - l) / 100;
+			  const f = n => {
+				const k = (n + h / 30) % 12;
+				const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+				return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
+			  };
+			  return `#${f(0)}${f(8)}${f(4)}`;
+			}
+			function normalizeColorToHexTripletWithoutAlpha(color) {
+				if(typeof(color) == "bigint") { color = Number(color) }
+				if(typeof(color) == "number") {
+					color = Math.trunc(color);
+					if(color < 0) { color += (2**32 * (Math.ceil(Math.abs(color)/(2**32)))) }
+					if(color > 16777215) { color = parseInt(color.toString(16).padStart(8,"0").slice(2,8),16) };
+					return "#" + color.toString(16).padStart(6,"0")
+				}
+				var ctlclano = color?.toLowerCase?.()?.replace?.(/[^a-z0-9]/gi,'') ?? null //Color To LowerCase Letters And Numbers Only
+				var colorCodes = colorNames[ctlclano] ?? userFriendlyColorNameAliases[ctlclano] ?? null;
+				if(Array.isArray(color)) {
+					colorCodes ??= color
+				};
+				if(color.r != undefined && color.g != undefined && color.b != undefined) {
+					colorCodes ??= [color.r,color.g,color.b]
+				};
+				if((typeof(color) === "string") && (color?.toLowerCase?.()?.startsWith?.("hsl") || color?.match?.(/[°%]/))) {
+					var colors = color.match(/-?\d+(\.\d+|)/g) ?? [];
+					if(color.length < 3) { throw new Error("Invalid HSL color") };
+					colors = colors.slice(0,3).map(x=>parseFloat(x));
+					var r = hslToHex(...colors);
+					if(r.indexOf(NaN) === -1) { return r };
+					throw new Error("Invalid HSL color")
+				}
+				if((typeof(color) === "string") && (color?.toLowerCase?.()?.startsWith?.("rgb") || color?.match?.(/\d, *\d/) || color?.match?.(/ *\d+(\.\d+|) \d+(\.\d+|) \d+(\.\d+|) */))) {
+					var colors = color.match(/-?\d+(\.\d+|)/g) ?? [];
+					if(color.length < 3) { throw new Error("Invalid RGB color") };
+					colors = colors.slice(0,3).map(x=>parseFloat(x));;
+					colorCodes ??= colors
+				}
+				if(colorCodes) {
+					if(colorCodes.length < 3) { throw new Error("Invalid color") }
+					colorCodes.length = 3;
+					return "#" + colorCodes.map(n=>
+						Math.round(Math.max(0,Math.min(255,n)))
+						.toString(16).padStart(2,"0")
+					).join("")
+				};
+				if(!(color.startsWith("#"))) { color = "#" + color
+				} else if(color.startsWith("##")) {
+					color = color.replace(/^##+/,"#")
+				}
+				if(color.match(/^#*[0-9A-F]{3}$/i)) {
+					var hex = color.slice(1).split("");
+					return "#" + hex.map(x=>x+x).join("")
+				};
+				if(color.match(/^#*[0-9A-F]{4}$/i)) {
+					var hex = color.slice(1,4).split("");
+					return "#" + hex.map(x=>x+x).join("")
+				};
+				if(color.match(/^#*[0-9A-F]{6}$/i)) {
+					return color
+				};
+				if(color.match(/^#*[0-9A-F]{8}$/i)) {
+					return "#" + color.slice(1,7)
+				};
+				throw new Error("Invalid color")
+			};
+
+			function getLightness(R, G, B) {
+				if(Array.isArray(R) && (G == undefined) && (B == undefined)) {
+					B = R[2];
+					G = R[1];
+					R = R[0];
+				} else if(typeof(R) == "object" && typeof(R.r ?? R.R) !== undefined) {
+					B = R.b ?? R.B;
+					G = R.g ?? R.G;
+					R = R.r ?? R.R;
+				};
+				
+				return (0.2126*R+0.7152*G+0.0722*B)
+			}
+
+			function averageNumericArray(array) {
+				var total = array.reduce((a,b) => a + b,0)
+				return total / array.length
+			};
+
+			function averageColors(colorsArray,outputType) {
+				var result;
+				if(colorsArray.length == 1) {
+					result = colorsArray[0]
+				} else if(Array.isArray(colorsArray) === false) {
+					result = convertColorFormats(colorsArray,outputType)
+				} else {
+					var reds = [];
+					var greens = [];
+					var blues = [];
+					for(k = 0; k < colorsArray.length; k++) {
+						var color = convertColorFormats(colorsArray[k],"array");
+						var red = color[0];
+						reds.push(red)
+						var green = color[1];
+						greens.push(green)
+						var blue = color[2];
+						blues.push(blue)
+					};
+					redAverage = Math.round(averageNumericArray(reds));
+					greenAverage = Math.round(averageNumericArray(greens));
+					blueAverage = Math.round(averageNumericArray(blues));
+					result = {r: redAverage, g: greenAverage, b: blueAverage};
+				}
+				return convertColorFormats(result,outputType);
+			};
+
+			function convertColorFormats(color,outputType="rgb",stripAlpha=false) {
+				if(typeof(color) === "undefined") {
+					throw new Error("Color is undefined!");
+				};
+				//console.log("Logged color for convertColorFormats: " + color);
+				var oldColor = color;
+				var bytes,r,g,b,a;
+				if(typeof(color) === "string") {
+					//Hex input case
+					if(colorNames[oldColor.toLowerCase()]) {
+						var namedColor = colorNames[oldColor.toLowerCase()];
+						bytes = namedColor;
+						r = namedColor[0];
+						g = namedColor[1];
+						b = namedColor[2];
+						a = null;
+						color = {"r": r, "g": g, "b": b}
+					} else if(/^#?[A-Za-z0-9]{1,8}$/.test(oldColor)) {
+						if(color.startsWith("#")) {
+							oldColor = oldColor.match(/[A-Za-z0-9]{1,8}/)[0];
+						};
+						switch(oldColor.length) {
+							case 0:
+								throw new Error("convertColorFormats: hexadecimal input but color bytes are somehow missing?");
+							case 1: //A => AAAAAA (bs)
+								oldColor = oldColor.repeat(6);
+								break
+							case 2: //AB => AAAAAABB (bs)
+								oldColor = (oldColor[0].repeat(6)) + (oldColor[1].repeat(2));
+								break
+							case 3: //ABC => AABBCC, ABCD => AABBCCDD (real)
+							case 4:
+								oldColor = oldColor.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")
+								break
+							case 5: //ABCDE => AABBCCDE (bs)
+								var _rgb = oldColor.slice(0,3);
+								var _alpha = oldColor.slice(3,5);
+								oldColor = (_rgb.match(/[A-Za-z0-9]/g).map(x => x.repeat(2)).join("")) + alpha
+							case 7: //9ABCDEF => 9ABCDEFF (bs)
+								var _rgb = oldColor.slice(0,6);
+								var _alpha = oldColor.slice(6,7);
+								oldColor = _rgb + (_alpha.repeat(2))
+							case 6: //no change
+							case 8: //no change
+								break
+						};
+						bytes = oldColor.toLowerCase().match(/[a-z0-9]{2}/g).map(x => parseInt(x,16));
+						r = bytes[0];
+						g = bytes[1];
+						b = bytes[2];
+						a = stripAlpha ? null : (bytes[3] ?? null);
+						if(a !== null) { a = bound(a,0,1) };
+						//to JSON for ease of use
+						color = {"r": r, "g": g, "b": b};
+						if(typeof(a) == "number") { color["a"] = a };
+					} else {
+						//otherwise assume rgb() input
+						bytes = color.match(/[\d\.]+/g);
+						if(typeof(bytes?.map) == "undefined") {
+							console.error(`convertColorFormats: Invalid color ${JSON.stringify(color)} producing null bytes ${bytes}`);
+							bytes = [255,0,255]
+						} else {
+							bytes = bytes.map(x => Number(x));
+						};
+						r = bytes[0];
+						g = bytes[1];
+						b = bytes[2];
+						a = stripAlpha ? null : (bytes[3] ?? null);
+						if(a !== null) { a = bound(a,0,1) };
+						//to JSON for ease of use
+						color = {"r": r, "g": g, "b": b}
+						if(typeof(a) == "number") { color["a"] = a };
+					};
+				} else if(Array.isArray(color)) {
+					bytes = color;
+					r = bytes[0];
+					g = bytes[1];
+					b = bytes[2];
+					a = stripAlpha ? null : (bytes[3] ?? null);
+					//to JSON for ease of use
+					color = {"r": r, "g": g, "b": b}
+					if(typeof(a) == "number") { color["a"] = a };
+				} else if(typeof(color) == "object") {
+					//variable mappings only
+					r = color.r;
+					g = color.g;
+					b = color.b;
+					a = stripAlpha ? null : (color.a ?? null);
+				};
+				//Colors are now objects
+				if(a !== null) { a /= 255 };
+				switch(outputType.toLowerCase()) {
+					case "rgb":
+					case "rgba":
+						var _r,_g,_b,_a;
+						_r = r;
+						_g = g;
+						_b = b;
+						if(typeof(a) == "number") { _a = a } else { _a = null };
+						var values;
+						if(stripAlpha || _a == null) {
+							values = [_r,_g,_b];
+						} else {
+							values = [_r,_g,_b,_a];
+						};
+						for(var i = 0; i <= 2; i++) {
+							values[i] = Math.round(values[i])
+						};
+						return (typeof(a) == "number" ? "rgba" : "rgb") + `(${values.join(",")})`
+					case "hex":
+						var _r,_g,_b,_a;
+						_r = r;
+						_g = g;
+						_b = b;
+						if(typeof(a) == "number") { _a = Math.round(a * 255) } else { _a = null };
+						var bytesToBe;
+						if(stripAlpha || _a == null) {
+							bytesToBe = [_r,_g,_b];
+						} else {
+							bytesToBe = [_r,_g,_b,_a];
+						};
+						return "#" + bytesToBe.map(x => Math.round(x).toString(16).padStart(2,"0")).join("");
+					case "json":
+						return color;
+					case "array":
+						return [r,g,b];
+						break;
+					default:
+						throw new Error("outputType must be \"rgb\", \"hex\", \"json\", or \"array\"");
+				}
+			};
+
+			function invertColor(color,outputType) {
+				var _color = convertColorFormats(color,"array");
+				var result = _color.map(x => 255 - x)
+				return convertColorFormats(result,outputType)
+			}
+
+			//Do not include in published style
+			productExcludedRarities = ['Common', 'Uncommon', 'Rare', 'Epic', 'Super-Epic', 'Legendary', 'Mythical', 'Transcendent', 'Rarity']
+			
+			const foFf = 0xF/0xFF; //frost over Frosty-frost
+			const FoFf = 0xF0/0xFF; //Frosty over Frosty-frost
+			
+			// Rarity class, with attributes such as rank, color set, text color, shadow color, border color, and single color
+			class Rarity {
+				constructor(name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride, forceLibraryPillBorder,
+							noGlow, noTextShadow, forceWhiteTop, optionColor, optionTextColor, glowAlphasMainCard, isHacked, isBuffed, animation, animationTime, cssOverride=null) {
+					/*singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride, forceLibraryPillBorder, noGlow, noTextShadow,
+												forceWhiteTop, optionColor, optionTextColor, glowAlphasMainCard, isHacked, isBuffed, animation, animationTime, and cssOverride can be null*/
+					var gamc = glowAlphasMainCard ?? [0.5,0.3]
+					if(typeof(gamc) == "number") {
+						throw new TypeError("glowAlphasMainCard must be null or an array of up to 2 numbers/nulls. It cannot be just one number that isn't in an array.")
+					}
+
+					this.name = name;
+
+					this.rank = rank;
+					
+					if(cssOverride) {
+						this.cssOverride = cssOverride; return
+					}
+
+					this.colors = colors;
+					//console.log('name:',this.name,'colors:',this.colors)
+					if(this.colors !== null && typeof(this.colors) == "string") {
+						this.colors = [this.colors]
+					}
+
+					var averageColor = null;
+					if(this.colors !== null && this.colors !== undefined) {
+						averageColor = averageColors(this.colors)
+					};
+					this.singleColor = singleColor ?? averageColor;
+					
+					var hackedColorAutogen = null;
+					var hackedGradientAutogen = null;
+					var hackedBorderAutogen = null;
+					var hackedTextColorAutogen = null;
+					var hackedOptionBackgroundAutogen = null;
+					var hackedOptionTextColorAutogen = null;
+					this.isHacked = isHacked ?? (this.name.endsWith("Hacked") ? 1 : 0);
+					var ifHacked = !!isHacked
+					if(this.isHacked === 1 && this.singleColor !== null) {
+						var newColor = convertColorFormats(this.singleColor,"json");
+						newColor.r *= foFf; newColor.g *= foFf; newColor.b *= foFf;
+						newColor = convertColorFormats(newColor,"hex")
+						hackedGradientAutogen = ["#000",newColor]; this.colors ??= hackedGradientAutogen;
+						hackedBorderAutogen = this.singleColor;
+						hackedTextColorAutogen = this.singleColor;
+						hackedOptionBackgroundAutogen = newColor;
+						hackedColorAutogen = this.singleColor;
+					} else if(this.isHacked === 2 && this.singleColor !== null) {
+						var json = convertColorFormats(this.singleColor,"json");
+						var brighter = {r: json.r * FoFf, g: json.g * FoFf, b: json.b * FoFf};
+						var darker = {r: json.r * foFf, g: json.g * foFf, b: json.b * foFf};
+						var newColorB; var newColorD;
+						newColorB = convertColorFormats(brighter,"hex");
+						newColorD = convertColorFormats(darker,"hex");
+						json = null;
+						hackedGradientAutogen = [this.singleColor,newColorB];
+						hackedBorderAutogen = "#000"; this.colors ??= hackedGradientAutogen;
+						hackedTextColorAutogen = "#000";
+						hackedOptionTextColorAutogen = this.newColorD;
+						hackedOptionBackgroundAutogen = this.singleColor;
+						hackedColorAutogen = this.singleColor;
+					};
+					averageColor ??= averageColors(this.colors ?? logAndReturn(this.singleColor));
+
+					if(this.colors === null && !hackedColorAutogen) { throw new TypeError(`[colors] cannot be null unless it is being auto-generated for a hacked rarity (in "${this.name}")`) }
+					if(!Array.isArray(this.colors)) { this.colors = [this.colors] };
+
+					this.borderColor = borderColor ?? hackedBorderAutogen ?? this.singleColor;
+
+					this.isBuffed = isBuffed ?? this.name.endsWith("Buffed");
+
+					this.deFactoClassName = this.name.replaceAll(" ",".");
+					
+					var lightness = getLightness(...(convertColorFormats(averageColor,"array")));
+
+					if(textColor ?? hackedTextColorAutogen !== null) {
+						this.textColor = textColor ?? hackedTextColorAutogen
+					} else {
+						if(lightness > 159) {
+							this.textColor = "#000"
+						} else {
+							this.textColor = "#FFF"
+						}
+					}
+					
+					if(!shadowColor && !this.isHacked) {
+						this.shadowColor = invertColor(this.textColor)
+					} else if(shadowColor == "fromLightness") {
+						if(lightness > 159) {
+							this.shadowColor = "#FFF"
+						} else {
+							this.shadowColor = "#000"
+						}
+					} else {
+						this.shadowColor = shadowColor
+					}
+					
+					this.shadowOpacity = shadowOpacity ?? 0.3
+					
+					this.cardColorsOverride = cardColorsOverride ?? null
+					this.glowColorOverride = glowColorOverride ?? null
+					if((this.cardColorsOverride !== null) && (!Array.isArray(this.cardColorsOverride))) { this.cardColorsOverride = [this.cardColorsOverride] };
+
+					this.forceLibraryPillBorder = forceLibraryPillBorder ?? ifHacked ?? false
+
+					this.noGlow = noGlow ?? false
+					
+					this.noTextShadow = noTextShadow ?? ifHacked ?? false
+
+					this.forceWhiteTop = forceWhiteTop ?? false
+
+					this.optionColor = optionColor ?? hackedOptionBackgroundAutogen ?? null
+
+					this.optionTextColor = optionTextColor ?? hackedOptionTextColorAutogen ?? null
+					
+					if(gamc.length == 0 || gamc[0] == null) { gamc[0] = 0.5 };
+					if(gamc.length == 1 || gamc[1] == null) { gamc[1] = 0.3 };
+					this.glowAlphasMainCard = gamc					
+
+					this.animation = animation ?? null
+					this.animationTime = animationTime ?? 2
+				};
+				getRank() { //test function
+					return this.rank
+				};
+				getStyle() { //test function
+					if(this.cssOverride) {
+						return this.cssOverride
+					}
+					var scArray = convertColorFormats(this.shadowColor ?? "#000","array");
+					var gcArray = convertColorFormats(this.glowColorOverride ?? this.singleColor,"array");
+					//console.log(this.name,this.glowColorOverride,this.singleColor,gcArray)
+
+					var spacedRarityExcluder = "";
+					if(!this.isHacked) { spacedRarityExcluder += ":not(.Hacked)" };
+					if(!this.isBuffed) { spacedRarityExcluder += ":not(.Buffed)" };
+					if(this.name == 'Heavenly') { spacedRarityExcluder += ":not(.Gamer)" }; //KLUDGE
+					
+					var cardColorsToUse = this.cardColorsOverride ?? this.colors;
+					
+					var textColorToUse = this.textColor ?? "#FFF";
+					var optionTextColorToUse = this.optionTextColor ?? textColorToUse;
+
+					var optionColorToUse = this.optionColor ?? this.singleColor;
+					
+					var gamc = this.glowAlphasMainCard;
+					var mainGlowAlpha = gamc[0] ?? 0.5;
+					var cardGlowAlpha = gamc[1] ?? 0.3;
+					
+					var hasHeadingAndBlurbSection = ((textColorToUse !== "#FFF" && !this.forceWhiteTop) || this.isHacked);
+					var headingSection = "";
+					if(hasHeadingAndBlurbSection) {
+						headingSection = [
+							`.weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder} .flavor-blurb{`
+						]
+						
+						if(textColorToUse !== "#FFF" && !this.forceWhiteTop) {
+							headingSection.push(`	color:${textColorToUse} !important;`)
+						}
+						
+						if(this.isHacked) {
+							headingSection.push(`	font-family:monospace;`)
+						}
+
+						headingSection.push(`}\n.weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder} h3{`)
+						
+						if(textColorToUse !== "#FFF" && !this.forceWhiteTop) {
+							headingSection.push(`	color:${textColorToUse} !important;`)
+						}
+						
+						if(this.isHacked) {
+							headingSection.push(
+								"	font-family:monospace;",
+								"	font-size:2.8em;",
+								"	margin-top:10px;",
+								"	margin-bottom:15px;",
+							)
+						}
+						
+						headingSection.push(`}\n`)
+						
+						headingSection = headingSection.join("\n")
+					}
+
+var css = `.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
+	background:${this.colors.length == 1 ? this.colors[0] : `linear-gradient(45deg,${this.colors.join(",")})`};
+	color:${textColorToUse};${!(this.forceLibraryPillBorder) ? "" : `
+	border:2px solid ${this.borderColor};`}${(this.noTextShadow || (this.shadowOpacity == 0) || this.shadowColor === null) ? "" : `
+	text-shadow:1px 1px 2px ${this.shadowOpacity == 1 ? `${convertColorFormats(this.shadowColor,"hex",true)};` : `rgba(${scArray.join(",")},${this.shadowOpacity});`}`}${this.noGlow ? "" : `
+	box-shadow:0 0 15px rgba(${gcArray.join(",")},${mainGlowAlpha});`}${(this.animation !== null && typeof(this.animation) == "string")? `
+	animation:${this.animation} ${this.animationTime ?? 2}s infinite` : ""}
+}
+.weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
+	background:${cardColorsToUse.length == 1 ? cardColorsToUse[0] : `linear-gradient(45deg,${cardColorsToUse.join(",")})`};
+	border:2px solid ${this.borderColor};${this.noGlow ? "" : `
+	box-shadow:0 0 15px rgba(${gcArray.join(",")},${cardGlowAlpha});`}
+}
+${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
+	background:${optionColorToUse};${optionTextColorToUse == "#FFF" ? "" : `color:${optionTextColorToUse};`}
+}`;
+					return css
+				}
+			}
+
+		var tralse = false;
+		var bull = null;
+		var bOHG = "beyondOmnipotentHackedGlow"
+		rarities = [
+			/*
+				Design notes:
+				* "Modified" rarities are generally +2.5 for the first instance, and +2 for any chaining instances. Super-Epic (being a +1 change) is exempt by being vanilla and a "main" step, and Ultra-Epic is an exception by being treated as a first modification of Super-Epic and not a second modification of Epic (or else it would be rank=6 and collide with Mythic(al))
+				* "Transcendent" word-variants are 6.9998 (and not 7) to separate them from the "true" Transcendents, as I can't mimic the element-color effects.
+				* Celestial Buffed is 12.5002 to separate it from Meta-Cosmic. It is slightly higher as it is derived from Celestial, which is after Cosmic.
+				* Besides the case of Transcendent, rarities with the same rank are meant to be "aliases" that style the same way and sort at the same position (i.e. interleave randomly with each other).
+				* The "Hacked" chain does not follow the same order as the "main" chain because it was progressively constructed ad-hoc as new "Hacked XYZ" rarities showed up
+				* I'd rather have a system for aliases without creating a whole set of CSS declarations for "duplicates", but I don't know how. Regardless, for CSS reasons, Mythic might as well be its own "rarity" anyway as it's impractical to overwrite the vanilla CSS, which would be required to insert a comma-delimited selector there as such.
+				* [colors] describes the color of the library item. This usually matches the color of the card in the added rarities, but not from Common to Epic.
+				* As for [singleColor]: if the border, glow, and option colors are all different, then it is arbitrary.
+			*/
+			/*'undefined':-1,
+			[undefined]:-1,
+			'null':-1,
+			[null]:-1,
+			*/
+			//		  
+			/*
+		(name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride, forceLibraryPillBorder, noGlow, noTextShadow, forceWhiteTop, optionColor, optionTextColor, glowAlphasMainCard, isHacked, isBuffed, animation, animationTime, cssOverride)
+																																										glow		force													glow															
+																																				card					Color		Library					force				option		Alphas													anima	css
+																								single		border		text	shadow	shadow	Colors					Over		Pill			noText	White	option		Text		Main		is		is		anima						tion	Over
+					name						rank		colors								Color		Color		Color	Color	Opacity	Override				ride		Border	noGlow	Shadow	Top		Color		Color		Card		Hacked	Buffed	tion						Time	ride*/
+		new Rarity('Basic',						-1, 		'#808080',							null,		null,		'#000',	null,	null,	['#303030', '#404040'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Common',					10, 		'#a0a0a0',							null,		null,		'#000',	null,	null,	['#404040', '#606060'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Uncommon',					10, 		'#4CAF50',							null,		'#4CAF50',	'#FFF',	null,	null,	['#1a4a1c', '#2a6e2c'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Rare',						10, 		'#2196F3',							null,		'#2196F3',	'#FFF',	null,	null,	['#0d47a1', '#1565c0'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Zayin',						10.5,		['#21f900', '#18b700'],				'#21f900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#18b700',	null,		null,		false,	false,	null,						null),
+		new Rarity('Epic',						10, 		'#9C27B0',							null,		'#9C27B0',	'#FFF',	null,	null,	['#4a148c', '#6a1b9a'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Heroic',					10,			'#00dd00',							null,		null,		'#FFF',	null,	null,	['#006400', '#008000'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Super-Epic',				10,			['#ff00ff', '#ffd700'],				'#ff00ff',	'#ff69b4',	'#FFF',	null,	null,	null,					null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Teth',						10.5,		['#1aa1ff', '#1376bb'],				'#1aa1ff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#1376bb',	null,		null,		false,	false,	null,						null),
+		new Rarity('Legendary',					10,			['#FFD700', '#FFDF00'],				'#FFD700',	'#FFD700',	'#000',	'#000',	0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Mythical',					10,			['#8B0000', '#FF0000'],				'#FF0000',	'#FF0000',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Mythic',					10,			['#8B0000', '#FF0000'],				'#FF0000',	'#FF0000',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('Ultra-Epic',				10.5,		'#BF005F',							null,		null,		'#FFF',	null,	null,	['#850077', '#990070'],	null,		false,	false,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Transcendental',			10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Transcended',				10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('TRANSCENDENT',				10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('Transcendent',				10,			['#ffffff', '#eeeeee'],				'#FFFFFF',	'#FFFFFF',	'#000',	'#000', 0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Cosmic', 					10,			['#00003f', '#ffff3f'],				'#FFFFFF',	null,		'#FFF',	null, 	1,		null,					null,		false,	false,	false,	false,	"#cfcf3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Heh',						10.5002,	['#fef900', '#bab700'],				'#fef900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bab700',	null,		null,		false,	false,	null,						null),
+		new Rarity('EXTREME-MYTHIC', 			10.5,		['#FF0000', '#ff7272'],				'#ff7272',	'#ff7272',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Exotic',					10,			['#ff7f00', '#ff7f7f'],				'#ff5f5f',	'#ff5f5f',	'#FFF',	null, 	1,		null,					"#FF7F5F",	false,	false,	false,	false,	"#ff7f3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Celestial',					10,			['#00003f', '#2f005f'],				'#1f003f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Hyper-Cosmic',				10.5,		['#00003f', '#ff7f3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf9f3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Secret',					10,			['#000000', '#2f2f2f'],				'#1F1F1F',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[0.6,0.4],	false,	false,	null,						null),
+		new Rarity('Eternal',					10,			['#ff5f00', '#ff9f00'],				'#FF7F00',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Meta-Cosmic',				10.5,		['#00003f', '#ff3f7f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf3f7f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Celestial Buffed',			10.5002,	['#00002f', '#3f008f'],				'#2f004f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	true,	null,						null),
+		new Rarity('Abstracted',				10,			['#bfbf7f', '#cf9f5f'],				'#cfaf6f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Abstract',					10,			['#bfbf7f', '#cf9f5f'],				'#cfaf6f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('Omni-Cosmic',				10.5,		['#00003f', '#7fff3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#9fcf3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Divine',					10,			['#ff007f', '#ff7fff'],				'#ff3fbf',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Super",						10,			["#5900ff", "#9efffd", "#ffea00"],	"#a7a3a9",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null	,	null,		null,		false,	false,	null,						null),
+		new Rarity("Heavenly",					10,			["#89b4e1", "#dbdbdb", "#fff8bd"],	"#d3eed3",	null,		"#000",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Ultra-Cosmic',				10.5,		['#00003f', '#3f7fff'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#3f9fcf",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Ascended',					10,			['#00007f', '#bfbfff'],				'#7f7fff',	'#7f7fff',	'#FFF',	null,	1,		null,					'#0000FF',	false,	false,	false,	false,	'#9f9fef',	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Exalted',					10,			['#00bf5f', '#df7f00'],				'#7fff00',	'#7fff00',	'#FFF',	null,	1,		null,					'#7DBF00',	false,	false,	false,	false,	'#7f9f2f',	null,		null,		false,	false,	null,						null),
+		new Rarity("Forgotten",					10,			["#e2c797", "#ab9869", "#c9b578"],	"#c7b17d",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Heirloom",					10,			["#00ced1","#0ff","#ccf","#ffb6c1"],"#00ffff",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	"#00CED1",	null,		null,		false,	false,	null,						null),
+		new Rarity("Unique",					10,			["#ff7af4", "#af85ff"],				"#d780fa",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Undisclosed',				10,			["#000000"],						'#000000',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[1,0.6],	false,	false,	null,						null),
+		new Rarity('Waw',						10.5,		['#7b2bf3', '#5a20b2'],				'#7b2bf3',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#5a20b2',	null,		null,		false,	false,	null,						null),
+		new Rarity('Heavenly Gamer',			10.5,		['#3F0000','#3F3F00','#003F00',
+																'#003F3F','#00003F','#3F003F'],	'#FF0000',	'#FF0000',	'#000',	null,	1,		null,					"#00FF00",	false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null,	"[class*='rarity-Heavenly Gamer'] {\n  animation: heavenlyGamerAnimation 12s infinite linear,\n  rainbowTextColorAnimation 12s infinite linear;\n  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);\n}\n.weapon-card[class*='rarity-Heavenly Gamer'] {\n  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.weapon-card[class*='rarity-Heavenly Gamer'] > h3, .weapon-card[class*='rarity-Heavenly Gamer'] > .flavor-blurb {\n  color: inherit !important;\n}\noption[class*='rarity-Heavenly Gamer'] {\n  animation: heavenlyGamerAnimation 12s infinite linear,\n  rainbowTextColorAnimation 12s infinite linear;\n}"),
+		new Rarity('Godly',						10,			['#005fbf', '#bf00bf'],				'#7F00FF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#9f1fbf',	null,		null,		false,	false,	null,						null),
+		new Rarity('Godlike',					10,			['#005fbf', '#bf00bf'],				'#7F00FF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#9f1fbf',	null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('Aleph',						10,			['#ff0000', '#bb0000'],				'#ff0000',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bb0000',	null,		null,		false,	false,	null,						null),
+		new Rarity('Apotheotic',				10,			['#0000ff', '#ffff00'],				'#7f007f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000ff',	'#ffff7f',	null,		false,	false,	null,						null),
+		new Rarity('Supreme',					10,			['#0000ff', '#00bfff'],				'#006fff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Impune", 					10,			["#0000ff", "#ff0000"], 			"#bf00bf",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null, 		null,		null,		false,	false,	null,						null),
+		new Rarity('Omnipotent',				10,			['#7f7f7f', '#ffffff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bfbfbf',	null,		null,		false,	false,	null,						null),
+		new Rarity('Absolute',					10,			['#ff7f7f', '#7fff7f', '#7f7fff'],	'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#6fff9f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Apex',						10,			['#9f3fff', '#df8f8f', '#ffff00'],	'#ef0fbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#df9f8f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Zenith',					10,			['#ffffff', '#dfbfff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#dfbfff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Nadir',						10.5,		['#000000', '#204000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#204000',	null,		null,		false,	false,	null,						null),
+		new Rarity('Yod',						10,			['#ffffff', '#bbbbbb'],				'#ffffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bbbbbb',	null,		null,		false,	false,	null,						null),
+		new Rarity("Classified",				10,			["#566520","#334115","#6c6737",
+																					"#000"],	"#516232",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Singular',					10,			['#ffff00', '#c3ff7f', '#00ffff'],	'#7fff7f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#cfff7f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Forbidden',					10,			['#730300', '#630500'],				'#FF0000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#630500',	null,		null,		false,	false,	null,						null),
+		new Rarity('Beyond Zenith',				10.5,		['#ffffff', '#bf7fff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bf7fff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Ascendant',					10,			['#0000ff', '#af4fff', '#ff00ff'],	'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#cf20ff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Superlative',				10,			['#00ff7f', '#ffffff'],				'#7fffbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Limitless',					10,			['#111111', '#000000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Prime',						10,			['#7f00ff', '#6c13c6'],				'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Unparalleled",				10,			["#1aa7ff","#00ff7b","#ef0","#00ff7b",
+																					"#1aa7ff"],	"#3adc97",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Ultimate',					10,			['#7f7f7f', '#7f003f'],				'#7f3f5f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Omega',						10,			'#0000bf',							'#0000ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000bf',	null,		null,		false,	false,	null,						null),
+		new Rarity('God-Killer',				10,			['#f5a10e', '#612f1b', '#312c29'],	'#783609',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Sovereign',					10,			['#d52500', '#ffebbd', '#a0c3eb'],	'#f8ca9e',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Ultra',						10,			['#ff11ff', '#bf00bf'],				'#ff00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Infinite',					10,			['#00ffff', '#ffffff', '#ffff00'],	'#ddffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Hyper',						10,			['#000','#421','#FFAB1A','#421',
+																					'#000'],	'#c88614',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Premier",					10,			["#ff7f50", "#ff4500"],				"#ff4500",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	"borderShimmer",			null),
+		new Rarity('Unfathomable',				10,			['#63ce96', '#2c5262'],				'#418276',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Magnificent",				10,			["#ffd700", "#ffffe0"],				"#ffd700",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Thanatotic",				10,			["#c4d7de","#5a5d64","#222421",
+																					"#c40001"],	"#815659",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Pantheonic",				10,			["#c7c7c7", "#e2e2e2", "#f3e2b6",
+																		"#dfc580", "#e2e2e2"],	"#f3e2b6",	"#e1ef79",	"#000",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Tav',						11,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null),
+		new Rarity("Glitched",					10,			["#000","#000","#f00","#f00","#00f",
+																					"#00f"],	"#550055",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		"#FFF",		null,		false,	false,	null,						null),
+		new Rarity("Quantum Fluctuation",		10,			["#008080","#000","#780080","#000",
+																					"#808000"],	"#8e729d",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Quantum",					10,			["#008080","#000","#780080","#000",
+																					"#808000"],	"#8e729d",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
+		new Rarity('Anomaly',					10, 		['#74cdf6','#eaeef0','#5f4fa2'],	'#bbe3f6',	null,		'#000',	null,	null,	null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Rarity',					10, 		['#74cdf6','#eaeef0','#5f4fa2'],	'#bbe3f6',	null,		'#000',	null,	null,	null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Soft alias
+		new Rarity("Perfect",					10,			["#ff0000", "#ff7f00", "#ffff00",
+															"#00ff00", "#0000ff", "#3f007f",
+																					"#7f00ff"],	"#ffabab",	null,		"#fff",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		"#000",		null,		false,	false,	null,						null),
+		new Rarity("Pluperfect",				10,			["#7f0000", "#ff0000", "#ff7f00",
+															"#ffff00", "#8fff00", "#00ff09",
+															"#00ff8f", "#00ffff", "#007fff",
+															"#0000ff", "#8f00ff", "#47007f"],	"#ff00ff",	null,		"#fff",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Hacked',					10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Supreme Hacked',			10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Godlike Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Beyond Hacked',				10.5,		null,								'#007F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Mythic Hacked',				10,			null,								'#FFFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Cosmic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Celestial Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"celestialHackedGlow",		null),
+		new Rarity('Transcendent Hacked',		10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"transcendentHackedGlow",	null),
+		new Rarity('Eternal Hacked',			10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"eternalHackedGlow",		null),
+		new Rarity('Abstracted Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"abstractedHackedGlow",		null),
+		new Rarity('Abstract Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"abstractedHackedGlow",		null), //Hard alias
+		new Rarity('Exalted Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"exaltedHackedGlow",		null),
+		new Rarity('Omniscient Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"omniscientHackedGlow",		null),
+		new Rarity('Deity Hacked',				10,			null,								'#FF7F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"deityHackedGlow",			null),
+		new Rarity('Godly Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"godlyHackedGlow",			null),
+		new Rarity('Omnipotent Hacked',			10,			null,								'#0000FF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"omnipotentHackedGlow",		null),
+		new Rarity('Absolute Hacked',			10,			['#030000','#030300','#000300',
+																'#000303','#000003','#030003'],	'#030003',	'#030003',	'#F0F',	null,	0,		null,					"#FF00FF",	false,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null,	"div[class*='rarity-Absolute Hacked'],\np[class*='rarity-Absolute Hacked'],\ndiv[class*='rarity-Absolute Hacked'],\np[class*='rarity-Absolute Hacked'].Hacked,\ndiv[class*='rarity-Absolute hacked'],\np[class*='rarity-Absolute hacked'],\ndiv[class*='rarity-Absolute hacked'],\np[class*='rarity-Absolute hacked'].hacked,\noption[class*='rarity-Absolute Hacked'],\noption[class*='rarity-Absolute hacked'] {\n  animation: absoluteHackedMainAnimation 16s infinite linear;\n}\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked .flavor-blurb,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked .flavor-blurb {\n  animation: rainbowTextColorAnimation 16s infinite linear !important;\n  font-family: monospace;\n}\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked > h3,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked > h3 {\n  font-size: 2.8em;\n  margin-top: 10px;\n  margin-bottom: 15px;\n  color: inherit !important;\n  animation: rainbowTextColorAnimation 16s infinite linear !important;\n}\noption[class*='rarity-Absolute Hacked'] {\n  animation: absoluteHackedOptionAnimation 16s infinite linear,\n    rainbowTextColorAnimation 16s infinite linear;\n}"),
+		new Rarity('Apex Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"apexHackedGlow",			null),
+		new Rarity('Zenith Hacked',				10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Beyond Omnipotent Hacked',	10.5,		null,								'#7F3F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	bOHG,						null),
+		new Rarity('Nadir Hacked',				10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Singular Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Beyond Zenith Hacked',		10.5,		null,								'#008000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Forbidden Hacked',			10,			null,								'#800000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Ascendant Hacked',			10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Ultra-Omni-Zenith Hacked',	10.5,		null,								'#88FF88',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Superlative Hacked',		10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Limitless Hacked',			10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Prime Hacked',				10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Ultimate Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Omega Hacked',				10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('God-Killer Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Sovereign Hacked',			10,			null,								'#FF7F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Ultra Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Infinite Hacked',			10,			null,								'#0000FF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Hyper Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Unfathomable Hacked',		10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null)
+	]
+	
+	newRarities = [];
+	demoRarity = null;
+
+			//qaf = new Rarity("Stupid",-1,"#7F4FFF",null,"#7F4FFF","#7F4FFF","fromLightness")
+			
+			let t0 = new Date();
+			renderCSS = document.getElementById("newRaritiesStyle");
+			var _cssResult = "";
+			rarities.sort((a,b) => a.rank - b.rank);
+			rarityOrderText = "{'undefined':-1, [undefined]:-1, 'null':-1, [null]:-1, "
+			for(var i = 0; i < rarities.length; i++) {
+				var rarity = rarities[i];
+				var newStyle = rarity.getStyle();
+				_cssResult += (newStyle + "\n");
+				rarityOrderText += `'${rarity.name}': ${rarity.rank}${i == rarities.length - 1 ? "" : ","}`
+			}
+			_cssResult += demoRarity ? demoRarity.getStyle() : '';
+			renderCSS.textContent = _cssResult
+			rarityOrderText += "}"
+			let t1 = new Date();
+			let elapsedSeconds = (t1 - t0) / 1000;
+			console.log(`Generated all rarity CSS in ${elapsedSeconds.toLocaleString()} second${elapsedSeconds === 1.0 ? '' : 's'}`)
+
+			function updateRarityCountDisplay() {
+				var rc = document.getElementById("rarityCount");
+				var rawCount = rarities.length;
+				rc.innerText = `${rawCount.toString()} rarit${rawCount == 1 ? "y" : "ies"}`
+			};
+			
+			window.addEventListener("load",updateRarityCountDisplay)
+
+			function logAndReturn(t){console.log(t);return(t)}
+		</script>
+	</head>
+	<body class="hide-cards">
+		<header>
+			<table><tbody><tr>
+				<td>
+					<div class="weapon-list-item rarity-Rarity" style="width: 300px;"><img src="https://images.steamusercontent.com/ugc/943935063847241639/B7767401431698FB9430C888CA06ECC9C3602BFB/?imw=512&amp;&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=false" style="width: 48px; height: 48px; vertical-align: middle;"> Project Rarity GUI</div>
+				</td>
+				<td id="status">
+					<p><span>&nbsp;</span><span id="rarityCount">? rarities</span> loaded</p>
+				</td>
+			</tr></tbody></table>
+		</header>
+		<div class="flex-div">
+			<div class="library-section">
+				<div id="weaponLibrary">
+					<div class="weapon-list-item rarity-Super-Epic" id="weaponPill" data-weapon-id="0195bf36-f1fc-76a0-a327-509f73729c10">Fragment of the Universe</div>
+					<div id="rarityProperties">
+						<section>
+							<h3>Preview</h3>
+							<p><label for="rRarityPreview">Preview existing rarity:</label> <select id="rRarityPreview"></select></p>
+							<p>MAKE SURE TO COPY THE NEW CLASS DEFINITION TO HARD-CODE INTO THIS FILE<br/>
+							<button id="newRarityPreviewButton">Try the rarity specified by the options</button>
+							<select id="dummyPreviewSelector">
+								<option value="">Open the dropdown to see how its option looks</option>
+								<option id="dummyPreviewOption"></option>
+							</select></p>
+						</section>
+						<hr/>
+						<h2>Basic properties</h2>
+						<section>
+							<h3>Name</h3>
+
+							<p><label for="rName">Name:</label> <input id="rName"/></p>
+
+							<p><label for="rRank">Sort rank:</label> <input type="number" id="rRank"/></p>
+
+							<p><label for="rIsHacked">Is hacked:</label> <input type="number" min="0" max="2" value="0" step="1" id="rIsHacked"/><br/><small>0: no, 1 or 2 = yes (with different appearances)</small></p>
+
+							<!--<p><label for="rIsBuffed">Is buffed:</label> <input type="checkbox" id="rIsBuffed"/></p>-->
+						</section>
+						<section class="hacked optional">
+							<h3>Hacked</h3>
+
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>What is this?</summary>Auto-generates the rarity based on the single-color given below. Disregards all parameters except for name, rank, hacked-value, single-color, any animation name and duration, and any hard-coded CSS.</details></p>
+							<p class="optional"><label for="rHackedAuto">Hacked rarity autogeneration</label><input id="rHackedAuto" type="checkbox" disabled></p>
+
+							<!--<p><label for="rIsBuffed">Is buffed:</label> <input type="checkbox" id="rIsBuffed"/></p>-->
+						</section>
+						<section>
+						<h3>Main colors</h3>
+							<p><label for="rColorAmount">Amount of colors:</label> <input type="number" min="1" max="30" id="rColorAmount" value="2"/></p>
+
+							<div id="colorPickers"></div>
+							
+							<!--<div id="colorsResult" class="weapon-card">&nbsp;</div>-->
+
+							<h4 style="margin-block-end: 0.5em;">Single color</h4>
+
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>What is this?</summary>The color for the rarity's glow, border, and option background, which can't be gradients.</details></p>
+
+							<p><label for="rAutoTextColor">Use automatic single color?</label><input type="checkbox" id="rAutoSingleColor"></p>
+
+							<p class="optional"><label for="rSingleColor">Single color</label><input id="rSingleColor" type="color"></p>
+
+							<h4 style="margin-block-end: 0.5em;">Text color</h4>
+
+							<p><label for="rAutoTextColor">Use automatic text color?</label><input type="checkbox" id="rAutoTextColor" checked></p>
+
+							<p class="optional"><label for="rTextColor">Text color</label><input id="rTextColor" type="color" disabled></p>
+						</section>
+						<section>
+						<h3>Other colors</h3>
+							<p><label for="rUseBorderColor">Override border color?</label><input type="checkbox" id="rUseBorderColor"></p>
+							<p class="optional"><label for="rBorderColor">Border color</label><input id="rBorderColor" type="color" disabled></p>
+
+							<p><label for="rNoTextShadow">NO text shadow?</label><input type="checkbox" id="rNoTextShadow"></p>
+
+							<p class="optional"><label for="rUseShadowColor">Override text shadow color?</label><input type="checkbox" id="rUseShadowColor"></p>
+							<p class="optional"><label for="rShadowColor">Text shadow color</label><input id="rShadowColor" type="color" disabled></p>
+
+							<p><label for="rShadowOpacity">Shadow opacity?</label><input id="rShadowOpacity" type="number" min="0", max="1", step="0.1"></p>
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>Normal conventions?</summary>Vanilla Legendary: 0.3<br/>Hacked: no shadow (noTextShadow true, this value is not used/does not matter).<br/>Other rarities: 1.0</details></p>
+
+							<p><label for="rUseCardColors">Different colors for pill and card?</label><input type="checkbox" id="rUseCardColors"></p>
+
+							<p><label for="rCardColorAmount" class="card-color-related">Amount of colors:</label> <input type="number" min="1" max="30" id="rCardColorAmount" cardpicker value="2" class="card-color-related"/></p>
+
+							<div id="cardColorPickers" class="card-color-related"></div>
+
+							<p><label for="rNoGlow">NO glow?</label><input type="checkbox" id="rNoGlow"></p>
+
+							<p class="optional"><label for="rUseGlowColor">Override glow color?</label><input type="checkbox" id="rUseGlowColor"></p>
+							<p class="optional"><label for="rGlowColor">Glow color</label><input id="rGlowColor" type="color" disabled></p>
+
+							<p><label for="rForcePillBorder">Force border around library pill?</label><input type="checkbox" id="rForcePillBorder"></p>
+							<p><label for="rForceWhiteTop">Force white color of header and blurb?</label><input type="checkbox" id="rForceWhiteTop"></p>
+
+							<p><label for="rUseOptionColor">Override option background color?</label><input type="checkbox" id="rUseOptionColor"></p>
+							<p class="optional"><label for="rOptionColor">Option background color</label><input id="rOptionColor" type="color" disabled></p>
+
+							<p><label for="rUseOptionTextColor">Override option text color?</label><input type="checkbox" id="rUseOptionTextColor"></p>
+							<p class="optional"><label for="rOptionTextColor">Option text color</label><input id="rOptionTextColor" type="color" disabled></p>
+
+							<p><label for="rUseAlphas">Override glow opacities?</label><input type="checkbox" id="rUseAlphas"></p>
+							<p class="optional"><label for="rPillAlpha">Glow opacity for weapon PILL</label><input id="rPillAlpha" type="number" min="0" max="1" step="0.01" value="0.5" disabled></p>
+							<p class="optional"><label for="rCardAlpha">Glow opacity for weapon CARD</label><input id="rCardAlpha" type="number" min="0" max="1" step="0.01" value="0.3" disabled></p>
+						</section>
+						<h3>Advanced</h3>
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about animations</summary>Animation design is not supported by this tool. Animations must be manually defined in the source code, and this is only an input facility for them alongside hard-coding.</details></p>
+							<p><label for="rAnimationName">Animation name:</label> <input id="rAnimationName"/></p>
+
+							<p class="optional"><label for="rAnimationTime">Animation duration:</label> <input type="number" min="0.5" value="2" step="0.5" id="rAnimationTime"/><br/><small>Default = 2. Value not used if no animation.</small></p>
+
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about CSS override</summary>This is only for hard-coding complex legacy CSS. It bypasses the entire creator system.</details></p>
+							<p><label for="rCssOverride">Manual CSS:</label> <textarea id="rCssOverride"></textarea></p>
+						</section>
+
+						<section>
+							<h3>Results</h3>
+							<textarea id="rarityClassDefinitions"></textarea>
+						</section>
+						<script>
+							var lsSaveListener = function() {
+								//console.log('Peeeeeeeee')
+								var type = this.getAttribute('type');
+								var value = type === 'checkbox' ? this.checked : this.value;
+								//console.log('this holds',value);
+								var targetLocalStorageID = `project-rarity-input-${this.id}`;
+								localStorage.setItem(targetLocalStorageID,JSON.stringify(value));
+								//console.log('and it placed',localStorage.getItem(targetLocalStorageID));
+							}
+
+							window.addEventListener('load', function() {
+								var allInputs = document.body.querySelectorAll('input[id], textarea[id]');
+								for(var i = 0; i < allInputs.length; i++) {
+									var input = allInputs[i];
+									input.addEventListener('input', lsSaveListener)
+									input.addEventListener('change', lsSaveListener)
+
+									var id = input.id;
+									//console.log('found an input with id',id)
+									var type = input.getAttribute('type');
+									var value = type === 'checkbox' ? input.checked : input.value;
+									var targetLocalStorageID = `project-rarity-input-${input.id}`;
+									//console.log('its value should be at',targetLocalStorageID);
+									var localStorageEntry = localStorage.getItem(targetLocalStorageID);
+									//console.log('and the key holds',localStorageEntry);
+									if(localStorageEntry !== null) {
+										if(type === 'checkbox') {
+											input.checked = JSON.parse(localStorageEntry)
+										} else {
+											input.value = JSON.parse(localStorageEntry)
+										}
+									};
+								}
+
+								//manually trigger the hiding listeners
+								listenerDisablingTheAutomaticSingleColorInputForHackedWeaponsAndControllingTheDisplayOfTheHackedSection.bind(hack)();
+								uotcListener.bind(uotc)();
+								uaListener.bind(ua)();
+								uocListener.bind(uoc)();
+								ugcListener.bind(ugc)();
+								uscListener.bind(usc)();
+								ntsListener.bind(nts)();
+								uccListener.bind(ucc)();
+								ubcListener.bind(ubc)();
+								atcListener.bind(atc)();
+								ascListener.bind(asc)();
+							})
+
+							gebi = function(id) { return document.getElementById(id) };
+
+							function quoteWrapString(s) {
+								var delim = "'";
+								var SQ = s.includes("'");
+								var DQ = s.includes('"');
+								var BT = s.includes('`');
+								if(!SQ && !DQ && !BT) {
+									delim = '"'
+								} else if(  SQ && !DQ && !BT ) {
+									delim = '"'
+								} else if( !SQ &&  DQ && !BT ) {
+									delim = "'"
+								} else if( !SQ && !DQ &&  BT ) {
+									delim = "'"
+								} else if( !SQ &&  DQ &&  BT ) {
+									delim = "'"
+								} else if(  SQ && !DQ &&  BT ) {
+									delim = '"'
+								} else if(  SQ &&  DQ && !BT ) {
+									delim = '`'
+								} else if(  SQ &&  DQ &&  BT ) {
+									s = (s + '').replace(/[\\]/g, '\\\\')
+												.replace(/[\"]/g, '\\"')
+												.replace(/[\n]/g, '\\n')
+												.replace(/[\r]/g, '\\r')
+												.replace(/[\t]/g, '\\t');
+									delim = '"'
+								};
+								
+								return `${delim}${s}${delim}`
+							}
+							
+							function qwslbanm(thing) { //Quote Wrap Strings Leave Booleans And Numbers Alone
+								t = typeof(thing);
+								switch(t) {
+									case 'number':
+									case 'boolean':
+										return thing;
+									case 'string':
+										return quoteWrapString(thing);
+									case 'bigint':
+										return Math.trunc(number) + 'n'
+									case 'undefined':
+										return 'undefined'
+									case 'object':
+										if(thing === null) { return 'null' }
+									default:
+										throw new TypeError('Must be number, boolean, string, bigint, undefined, or null');
+								}
+							}
+
+							function qwslbanmbrta(thing) { //Quote Wrap Strings Leave Booleans And Numbers Alone But Recurse Through Arrays
+								t = typeof(thing);
+								switch(t) {
+									case 'number':
+									case 'boolean':
+										return thing;
+									case 'string':
+										return quoteWrapString(thing);
+									case 'bigint':
+										return Math.trunc(number) + 'n'
+									case 'undefined':
+										return 'undefined'
+									case 'object':
+										if(thing === null) { return 'null' }
+										if(Array.isArray(thing)) {
+											var r = `[${thing.map(qwslbanmbrta).join(', ')}]`;
+											return r
+										}
+									default:
+										console.error(thing);
+										throw new TypeError('Must be number, boolean, string, bigint, undefined, or null or array object');
+								}
+							}
+
+							nrb = gebi('newRarityPreviewButton');
+							nrb.addEventListener('click', function() {
+								try {
+									const processedChoices = makeRarityFromChoices();
+									if(!processedChoices) { alert('Invalid rarity'); return }
+									
+									output = gebi('rarityClassDefinitions');
+									if(output) {
+										newRarityDefinitionText = `new Rarity(${processedChoices.map(qwslbanmbrta).join(', ')}),\n`
+										output.value += newRarityDefinitionText
+									}
+									
+									previewSingleNewRarity = new Rarity(...processedChoices);
+									option = gebi('dummyPreviewOption');
+									if(option) {
+										option.setAttribute('class',`rarity-${previewSingleNewRarity.name}`);
+										option.setAttribute('value',previewSingleNewRarity.name);
+										option.innerText = previewSingleNewRarity.name
+									}
+									singleRarityPreviewStyle.innerText = previewSingleNewRarity.getStyle();
+									applyRarity(previewSingleNewRarity.name)
+								} catch(error) {
+									console.error(error);
+									alert(error);
+								}
+							})
+							//Color picker maker
+							function makeColorPicker(index,cardOverridePicker=false) {
+								var id = `r${cardOverridePicker ? 'Card' : ''}Color${index.toString()}`;
+								var rootP = document.createElement("p");
+									var label = document.createElement("label");
+										label.setAttribute("for",id);
+										label.innerText = `${cardOverridePicker ? 'Card c' : 'C'}olor ${(index + 1).toLocaleString()}`;
+										rootP.appendChild(label);
+									var input = document.createElement("input");
+										input.setAttribute("id",id);
+										input.setAttribute("type","color");
+										//lsSaveListener.bind(input)()
+										var targetLocalStorageID = `project-rarity-input-${id}`;
+										var localStorageEntry = localStorage.getItem(targetLocalStorageID);
+										if(localStorageEntry !== null) {
+											input.value = JSON.parse(localStorageEntry)
+										};
+										input.addEventListener('input', lsSaveListener)
+
+										//input.addEventListener("input",updateExample);
+										rootP.appendChild(input);
+								return rootP
+							}
+
+							function clearColorPickers(cardOverridePicker=false) {
+								var pickersDiv = document.getElementById(`c${cardOverridePicker ? 'ardC' : ''}olorPickers`);
+								if(!pickersDiv) { return };
+								pickersDiv.textContent = ""
+							}
+							
+							function colorPickerCreatorListener() {
+								var card = this.getAttribute('cardpicker') !== null;
+								var _this = document.getElementById(`r${card ? 'Card' : ''}ColorAmount`);
+								var pickersDiv = document.getElementById(`c${card ? 'ardC' : ''}olorPickers`);
+								if(!pickersDiv) { return };
+								if(!_this) { return };
+								pickersDiv.textContent = ""
+
+								var value = Number(_this.value ?? "") ?? 0;
+								if(isNaN(value)) { return false };
+								value = Math.trunc(Math.max(1,Math.min(Number.MAX_SAFE_INTEGER,value)));
+								for(var i = 0; i < value; i++) {
+									pickersDiv.appendChild(makeColorPicker(i,card))
+								}
+							}
+							
+							var raritySelector = document.getElementById("rRarityPreview");
+							for(var i = 0; i < rarities.length; i++) {
+								var rarity = rarities[i];
+								var rarityName = rarity.name;
+								var rarityRank = rarity.rank;
+								var newOption = document.createElement("option");
+									newOption.classList.add(...(`rarity-${rarityName}`.split(" ")));
+									newOption.setAttribute("value",rarityName);
+									if(rarityName == "Super-Epic") { newOption.setAttribute("selected","") };
+									newOption.innerText = `${rarityName} (${rarityRank})`;
+								raritySelector.appendChild(newOption)
+							}
+							
+							function applyRarity(rarity) {
+								var pill = document.getElementById("weaponPill");
+								var card = document.getElementById("weaponCard");
+								var item = document.getElementById("rarityItem");
+								
+								if(pill) { pill.setAttribute("class",`weapon-list-item rarity-${rarity}`) }
+								if(card) { card.setAttribute("class",`weapon-card rarity-${rarity}`) }
+								if(item) {
+									item.innerText = `Rarity: ${rarity}`;
+									item.setAttribute("class",`rarity-${rarity}`)
+								}
+							}
+							
+							raritySelector.addEventListener("change",function() {
+								var rarity = this.value;
+								var pill = document.getElementById("weaponPill");
+								var card = document.getElementById("weaponCard");
+								var item = document.getElementById("rarityItem");
+								
+								if(pill) { pill.setAttribute("class",`weapon-list-item rarity-${rarity}`) }
+								if(card) { card.setAttribute("class",`weapon-card rarity-${rarity}`) }
+								if(item) {
+									item.innerText = `Rarity: ${rarity}`;
+									item.setAttribute("class",`rarity-${rarity}`)
+								}
+							})
+
+							colorAmount = document.getElementById("rColorAmount");
+							colorAmount.addEventListener("change",colorPickerCreatorListener)
+							cardColorAmount = document.getElementById("rCardColorAmount");
+							cardColorAmount.addEventListener("change",colorPickerCreatorListener)
+							window.addEventListener("load",function() {
+								colorPickerCreatorListener.bind(colorAmount)();
+								colorPickerCreatorListener.bind(cardColorAmount)();
+							})
+
+							function listenerDisablingTheAutomaticSingleColorInputForHackedWeaponsAndControllingTheDisplayOfTheHackedSection() {
+								var autoSingle = gebi('rAutoSingleColor');
+								//console.log(this,this.value);
+								if(autoSingle) {
+									if(!!this.value && this.value !== '0') {
+										autoSingle.setAttribute('disabled','');
+										if(autoSingle.checked) { autoSingle.checked = false };
+										//console.log('branch +')
+									} else if(!this.value || this.value == '0') {
+										autoSingle.removeAttribute('disabled');
+										//console.log('branch -')
+									}
+								}
+								var hackedAutogen = gebi('rHackedAuto');
+								if(hackedAutogen) {
+									if(!this.value || this.value == '0') {
+										hackedAutogen.setAttribute('disabled','');
+										if(hackedAutogen.checked) { hackedAutogen.checked = false };
+									} else if(!!this.value && this.value !== '0') {
+										hackedAutogen.removeAttribute('disabled');
+									}
+								}
+							}
+
+							var hack = gebi('rIsHacked');
+							hack.addEventListener('change',listenerDisablingTheAutomaticSingleColorInputForHackedWeaponsAndControllingTheDisplayOfTheHackedSection)
+
+							var asc = gebi('rAutoSingleColor');
+							ascListener = function() {
+								var singleColor = gebi('rSingleColor');
+								if(singleColor) {
+									if(this.checked) {
+										singleColor.setAttribute('disabled','')
+									} else {
+										singleColor.removeAttribute('disabled')
+									}
+								}
+							};
+							asc.addEventListener('change',ascListener)
+
+							var atc = gebi('rAutoTextColor');
+							atcListener = function() {
+								var textColor = gebi('rTextColor');
+								if(textColor) {
+									if(this.checked) {
+										textColor.setAttribute('disabled','')
+									} else {
+										textColor.removeAttribute('disabled')
+									}
+								}
+							};
+							atc.addEventListener('change',atcListener)
+
+							var ubc = gebi('rUseBorderColor');
+							ubcListener = function() {
+								var customBorderColor = gebi('rBorderColor');
+								if(customBorderColor) {
+									if(!this.checked) {
+										customBorderColor.setAttribute('disabled','')
+									} else {
+										customBorderColor.removeAttribute('disabled')
+									}
+								}
+							};
+							ubc.addEventListener('change',ubcListener)
+
+							var ucc = gebi('rUseCardColors');
+							uccListener = function() {
+								if(!this.checked) {
+									document.body.classList.add('hide-cards')
+								} else {
+									document.body.classList.remove('hide-cards')
+								}
+							};
+							ucc.addEventListener('change',uccListener)
+
+							var nts = gebi('rNoTextShadow');
+							ntsListener = function() {
+								var overrideShadowColor = gebi('rUseShadowColor');
+								var customShadowColor = gebi('rShadowColor');
+								if(overrideShadowColor) {
+									if(this.checked) {
+										overrideShadowColor.setAttribute('disabled','')
+									} else {
+										overrideShadowColor.removeAttribute('disabled')
+									}
+								}
+								if(customShadowColor) {
+									var disable = this.checked || (overrideShadowColor && !(overrideShadowColor.checked));
+									if(disable) {
+										customShadowColor.setAttribute('disabled','')
+									} else {
+										customShadowColor.removeAttribute('disabled')
+									}
+								}
+							};
+							nts.addEventListener('change',ntsListener)
+
+							var usc = gebi('rUseShadowColor');
+							uscListener = function() {
+								var customShadowColor = gebi('rShadowColor');
+								if(customShadowColor) {
+									if(!this.checked) {
+										customShadowColor.setAttribute('disabled','')
+									} else {
+										customShadowColor.removeAttribute('disabled')
+									}
+								}
+							};
+							usc.addEventListener('change',uscListener)
+
+							var ng = gebi('rNoGlow');
+							ngListener = function() {
+								var overrideGlowColor = gebi('rUseGlowColor');
+								var customGlowColor = gebi('rGlowColor');
+								if(overrideGlowColor) {
+									if(this.checked) {
+										overrideGlowColor.setAttribute('disabled','')
+									} else {
+										overrideGlowColor.removeAttribute('disabled')
+									}
+								}
+								if(customGlowColor) {
+									var disable = this.checked || (overrideGlowColor && !(overrideGlowColor.checked));
+									if(disable) {
+										customGlowColor.setAttribute('disabled','')
+									} else {
+										customGlowColor.removeAttribute('disabled')
+									}
+								}
+							};
+							ng.addEventListener('change',ngListener)
+
+							var ugc = gebi('rUseGlowColor');
+							ugcListener = function() {
+								var customGlowColor = gebi('rGlowColor');
+								if(customGlowColor) {
+									if(!this.checked) {
+										customGlowColor.setAttribute('disabled','')
+									} else {
+										customGlowColor.removeAttribute('disabled')
+									}
+								}
+							};
+							ugc.addEventListener('change',ugcListener)
+
+							var uoc = gebi('rUseOptionColor');
+							uocListener = function() {
+								var optionColor = gebi('rOptionColor');
+								if(optionColor) {
+									if(!this.checked) {
+										optionColor.setAttribute('disabled','')
+									} else {
+										optionColor.removeAttribute('disabled')
+									}
+								}
+							};
+							uoc.addEventListener('change',uocListener)
+
+							var uotc = gebi('rUseOptionTextColor');
+							uotcListener = function() {
+								var optionTextColor = gebi('rOptionTextColor');
+								if(optionTextColor) {
+									if(!this.checked) {
+										optionTextColor.setAttribute('disabled','')
+									} else {
+										optionTextColor.removeAttribute('disabled')
+									}
+								}
+							};
+							uotc.addEventListener('change',uotcListener)
+
+							var ua = gebi('rUseAlphas');
+							uaListener = function() {
+								var pillAlpha = gebi('rPillAlpha');
+								var cardAlpha = gebi('rCardAlpha');
+								if(!this.checked) {
+									pillAlpha?.setAttribute?.('disabled','')
+									cardAlpha?.setAttribute?.('disabled','')
+								} else {
+									pillAlpha?.removeAttribute?.('disabled')
+									cardAlpha?.removeAttribute?.('disabled')								
+								}
+							};
+							ua.addEventListener('change',uaListener)
+
+							//Rarity generation/input processing code
+							
+							//name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride,
+							//forceLibraryPillBorder, noGlow, noTextShadow, forceWhiteTop, optionColor, optionTextColor, glowAlphasMainCard, isHacked, isBuffed, animation,
+							//animationTime, cssOverride
+							function makeRarityFromChoices() {
+								//fronted because it affects whether an automatic single color is allowed, and so must be defined before that
+								var hackValue = parseInt(gebi('rIsHacked').value);
+								if(hackValue == 0) { hackValue = false }; //consistency
+
+								var name = gebi('rName').value;
+
+								var rank = parseFloat(gebi('rRank').value || '0');
+								
+								if(!name || !rank) { alert('Name and rank are required!'); return false };
+
+								var colors = Array.from(document.querySelectorAll('#colorPickers input[id^="rColor"]')).map(x => x.value);
+
+								var autoSingle = gebi('rAutoSingleColor').checked;
+								if(autoSingle && hackValue) { alert('Hacked rarities must have a predefined single color'); return false }
+								var singleColor = null;
+								if(autoSingle) {
+									singleColor = averageColors(colors,'hex'); //if it's from a color picker it will likely always be hex, so this is for consistency
+								} else {
+									singleColor = gebi('rSingleColor').value;
+								}
+
+								var manualBorder = gebi('rUseBorderColor').checked;
+								var borderColor = null;
+								if(manualBorder) {
+									borderColor = gebi('rBorderColor').value;
+								} else {
+									//borderColor = singleColor
+								}
+
+								const scLightness = getLightness(...convertColorFormats(gebi('rSingleColor').value,'array')); //common constant
+								const lightnessThreshold = 159;
+
+								var autoText = gebi('rAutoTextColor').checked;
+								var textColor = null;
+								if(autoText === true) {
+									textColor = scLightness > lightnessThreshold ? "#000" : "#FFF";
+								} else {
+									textColor = gebi('rTextColor').value;
+								}
+
+								var noShadow = gebi('rNoTextShadow').checked;
+								var manualShadow = gebi('rUseShadowColor').checked;
+								var shadowOpacityInputValue = gebi('rShadowOpacity').value;
+								var shadowColor = null;
+								var shadowOpacity = null;
+								if(!noShadow) {
+									shadowOpacity = shadowOpacityInputValue === '' ? 0 : parseFloat(shadowOpacityInputValue || '1')
+									if(manualShadow) {
+										shadowColor = gebi('rShadowColor').value;
+									} else {
+										shadowColor = scLightness > lightnessThreshold ? "#FFF" : "#000";
+									}
+								}
+
+								var doCardColorsOverride = gebi('rUseCardColors').checked;
+								var cardColorsOverride = null;
+								if(doCardColorsOverride) {
+									cardColorsOverride = Array.from(document.querySelectorAll('#colorPickers input[id^="rCardColor"]')).map(x => x.value);
+								};
+								
+								var noGlow = gebi('rNoGlow').checked;
+								var manualGlow = gebi('rUseGlowColor').checked;
+								var glowColor = null;
+								if(!noGlow) {
+									if(manualGlow) {
+										glowColor = gebi('rGlowColor').value;
+									} else {
+										//glowColor = singleColor;
+									}
+								}
+								
+								var flpb = gebi('rForcePillBorder').checked;
+								var fwt = gebi('rForceWhiteTop').checked;
+								
+								var manualOptionBG = gebi('rUseOptionColor').checked;
+								var optionBG = null;
+								if(manualOptionBG) {
+									optionBG = gebi('rOptionColor').value;
+								} else {
+									//optionBG = singleColor;
+								}
+								
+								var manualOptionTextColor = gebi('rUseOptionTextColor').checked;
+								var optionTextColor = null;
+								if(manualOptionTextColor) {
+									optionTextColor = gebi('rOptionTextColor').value;
+								} else {
+									//optionTextColor = scLightness > lightnessThreshold ? "#000000" : "#FFFFFF";
+								}
+								
+								var manualAlphas = gebi('rUseAlphas').checked;
+								var glowAlphasMainCard = null;
+								if(manualAlphas) {
+									alpha1 = gebi('rPillAlpha').value; var alpha1parse = parseFloat(alpha1 || '0'); if(isNaN(alpha1parse)) { alpha1parse = null }; alpha1parse ??= 0.5; alpha1parse = Math.min(1,Math.max(0,alpha1parse));
+									alpha2 = gebi('rCardAlpha').value; var alpha2parse = parseFloat(alpha2 || '0'); if(isNaN(alpha2parse)) { alpha2parse = null }; alpha2parse ??= 0.3; alpha2parse = Math.min(1,Math.max(0,alpha2parse));
+									glowAlphasMainCard = [alpha1,alpha2]
+								} else {
+									//glowAlphasMainCard = [0.5,0.3]
+								}
+								
+								//var hasBuffedSuffix = parseInt(gebi('rIsBuffed').value);
+								var hasBuffedSuffix = name.endsWith(' Buffed');
+
+								var animation = null;
+								var animationText = gebi('rAnimationName').value.trim();
+								var hasAnimation = (animationText && animationText.length > 0);
+								if(hasAnimation) {
+									animation = animationText
+								}
+
+								var animationTime = null;
+								var animationTimeText = gebi('rAnimationTime').value.trim();
+								if(hasAnimation && animationTimeText && animationTimeText.length > 0) {
+									var parse = parseFloat(animationTimeText);
+									if(isNaN(parse) == false && parse > 0) {
+										animationTime = parse;
+										if(animationTime == 2) { animationTime = null }; //consistency, will default to 2
+									}
+								}
+
+								var cssOverride = null;
+								var manualCSS = gebi('rCssOverride').value.trim();
+								if(manualCSS && manualCSS.length > 0) {
+									cssOverride = manualCSS
+								}
+
+								var hackedAutogenerate = gebi('rHackedAuto').checked;
+
+								if(hackedAutogenerate && hackValue) {
+									return [name, rank, null, singleColor, null, null, null, null, null, null, null, null, null, null, null, null, null, hackValue, hasBuffedSuffix, animation, animationTime, cssOverride]
+								} else {
+									return [name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColor, flpb, noGlow, noShadow, fwt, optionBG, optionTextColor, glowAlphasMainCard, hackValue, hasBuffedSuffix, animation, animationTime, cssOverride]
+								}
+							}
+						</script>
+					</div>
+				</div>
+			</div>
+			<div class="main-section">
+				<div id="selectedWeapon" w-tid="513">
+					<div class="weapon-card rarity-Super-Epic" id="weaponCard" data-weapon-id="0195bf36-f1fc-76a0-a327-509f73729c10">
+						<h3>Fragment of the Universe</h3>
+						<div class="flavor-blurb">A symphony of the stars, reshaped as a weapon, capable of shattering minds and bending reality.</div>
+						<p>Description: Fragment of the Universe (O-03-60) is an Abnormality whose form is a black ball made of a material not found on Earth, with five appendages coming off of it in an asymmetrical manner. The main portion of the body has three brightly colored heart shaped spots on it. The four long appendages are referred to as tentacles. The fifth appendage coming off of the top of the body has a shape similar to a poorly drawn heart. It has been described as having a "metaphysical form [that] can hardly be explained in human language."
+
+						<details><summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit</summary>According to its story, the Fragment of the Universe belongs to an extraterrestrial race that arrived on Earth from outer space, having lacked a stable form when it first arrived. When it was said to have been found by the company and brought to the facility, the workers started experimenting on it, focusing on the Abnormality's reactions. Its responses were documented, such as its attempts at recreating human laughter, as well as its currently assumed form of a scribbled, black ball with crudely shaped colorful hearts being a response to having seen a child's drawing. Furthermore, it is able to produce unknown sounds implied to be a 'song,' named "Echoes From Beyond" by the employees. In some cases, when employees attempted to investigate further into the nature of the Abnormality, they received severe mental damage and underwent psychosis, eventually leading to their placement in psychiatric facilities.
+
+						"Do not attempt to understand it, just use it.
+						The spear often tries to lead the wielder into a long and endless realm of mind, but they must try to not be swayed by it.
+
+						It took a different form every time it was produced, but we managed to stabilize the gestalt after a lot of effort and trouble.
+
+						There is a rumor that this spear emits a bright light when it hears an echo from another world."
+
+						"An Abnormality that resembles a child's innocent doodles. Originally, it had no stable form, its shape would continually morph. To this day its aspects still change, albeit at a much slower pace. Component analysis has revealed that the Abnormality consists of matter that does not exist on Earth. It is notable for its metaphysical appearance that one cannot explain with words."
+						"It often shows incomprehensible linguistic activity. One employee tried to decipher its speech (see Document #1 <employee david’s="" song="">), but their mental contamination level rose beyond the limit within several days. They suffered severe psychosis and had to be quarantined."
+						"The Abnormality's tentacles (which are quite different from what we consider the average tentacle; for simplicity’s sake we’ve monickered them as “tentacles”) can pierce through the barrier of humanity. Employees impaled by the tentacles will suffer semi-permanent brain damage."
+						"When the Abnormality escapes its Containment Unit, it will emit noises in the corridor. As the sounds it makes have what could be considered a melody and syllables, we consider it “singing”. However, none of our staff can precisely remember it, given that most of the time they are unable to describe it due to their serious brain damage. Those who were within 100 meters of the “singing” called it a sound unheard of in this world. Because of these descriptions, we’ve titled it “Echoes from the Beyond”. (See Document #2 <singing>)"
+						"Experiment_1 <the possibility="" of="" communication="">
+						We have determined that the Abnormality has an intelligence similar to (or even higher than) that of humans, and gave it a simple language learning course. As a result, a crude communication by combining words has become possible. The following is a segment of the communication record with the Abnormality. 
+
+						Q: Are all of your kind similar in appearance?
+						A: Negative. Outside. Child. See. Picture. Face. Happy. Change. Form. 
+
+						Q: Why have you come here? 
+						A: Knowledge. Share. Human. 
+
+						Q: Why do you want to share your knowledge with us? 
+						A: Understanding. Knowledge. Moment. Know. Universe. Coincidence. Negative; None. 
+
+						This section is an attempt to decipher the conversation with the Abnormality. 
+						1. It based its form on a picture drawn by a child. It changed its form because the child's expression while drawing it was happy.
+						2. It came here to share its species’ knowledge with us. The moment we fully understand that knowledge, we will know their ultimate goal. 
+						3. There is no such thing as a coincidence in the universe."
+						"Experiment_2 <an experiment="" on="" laughter=""> 
+						After watching a video about laughing for 30 minutes, the Abnormality understood the concept of “laughing”. After that, when employees entered its Containment Unit to work with it, it would sometimes emit a strange noise with what appeared to be the shape of a smile on its face. It looked like it was mimicking laughter."
+						"Experiment_3 <comprehension of="" symbols="">
+						We taught it the meaning of various symbols along with language. Among them was the shape of a heart. This symbol provoked a distinct change from the Abnormality.
+
+						Q (Showing the Abnormality a picture of a heart): This is the symbol of the “heart”. Many people believe that emotions come from the heart, and this symbol is used to express positive emotions or a liking towards someone. (Omitted) 
+
+						Afterwards, several symbols resembling hearts were seen on the Abnormality’s body. It seemed to understand that the symbol could be used to express friendliness towards humans. Combining the results of the previous two experiments, we can confirm that this Abnormality is non-hostile to humans, and wishes to become friends."
+						"Document #1 <employee david’s="" song=""> 
+						David was famous in his department for his attempts to communicate with the 'Fragment of the Universe'. He was an intellectual who enjoyed reading philosophical books and gazing at the stars. He held interest in the Abnormality and as such he got the job; he researched its language and behaviour purely out of personal interest. 
+						So what became of David? Eventually, he succeeded in entering the domain of the Fragment of the Universe. However, it was obvious that his small brain couldn't withstand it. He was transferred to the psychiatric ward, and died of starvation while singing an unrecognizable song. This is why the Abnormality’s voice cannot be revealed to the public. 
+						Audio Record: Echoes in the Universe (Currently Removed)"
+						"Document #2 <singing>
+						...Why didn't you tell me earlier that the Abnormality was responsible for their condition? I have no idea if there’s any pattern, but they all show the same strange behavior on the exact same days. Can you imagine a group of patients staring at the sky with dazed faces, wailing strange noises in the corridor at night while everyone is asleep? I had such a difficult time persuading the other patients that they must have been practicing for the company’s upcoming Halloween event. Psychiatric treatment and medicine won't help.
+						"Coming, coming, still coming," they keep repeating these words, and anything else they utter is not from any language we know. I think sending them to a general hospital was an unwise decision.
+						-Doctor from the (Record Deleted) Ward."</singing></employee></comprehension></an></the></singing></employee></details></p>
+						<p>Damage: <span class="number">45</span></p>
+						<p class="rarity-Super-Epic" id="rarityItem">Rarity: Super-Epic</p>
+						<p>Price: <span class="number">2750</span> gold</p>
+						<p class="element-Space + Transformation + Sound">Element:  Space + Transformation + Sound</p>
+						<p>Appearance: A slender, black spear constantly shifting in shape, adorned with crudely drawn heart symbols that glow with an otherworldly light. It faintly hums with an unidentifiable melody.</p>
+						<p>Regular Attack: Tentacle Pierce: Launches a piercing attack that deals black damage and has a chance to inflict semi-permanent brain damage. The spear emits a short burst of 'Echoes From Beyond', disorienting enemies.</p>
+						<p>Passive: Dimensional Shift: When the wielder's health drops below 30%, they gain a temporary shield that absorbs 50% of incoming damage. This shield lasts for 5 seconds and warps their appearance, making them difficult to target.</p>
+						<p style="text-align: right; margin: 10px 0; color: #666;">Created by: TotallyNotAlien</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
