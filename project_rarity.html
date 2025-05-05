@@ -17,6 +17,10 @@
 				padding: 20px;
 			}
 			
+			option {
+				font-family: 'PixulBrush', PixulBrush, 'PixulBrush Regular', 'Body - Font - Pixelated', sans-serif;
+			}
+			
 			body > .flex-div {
 				display: flex;
 			}
@@ -72,6 +76,34 @@
 				padding: 20px;
 				margin-left: 20px;
 				margin-right: 60px;
+			}
+			
+			#rarityClassDefinitions {
+				width: 97%;
+				min-height: 50px;
+				font-family: monospace;
+				font-size: 90%;
+			}
+
+			#rarityAutoAnimations {
+				width: 97%;
+				background-color: #8888884f;
+				min-height: 30px;
+				font-family: sans-serif;
+				font-size: 3px;
+				line-height: 3px;
+				padding: 3px;
+			}
+
+			#rarityAutoAnimations2 {
+				width: 97%;
+				min-height: 30px;
+				font-family: monospace;
+				font-size: 50%;
+			}
+
+			#rarityAutoAnimations2::placeholder {
+				font-size: 200%;
 			}
 
 			.weapon-list-item {
@@ -319,7 +351,7 @@
 			}
 			
 		</style>
-		<style id="preStyle">@keyframes cosmicHackedGlow { 0% { box-shadow: 0 0 20px rgba(95, 0, 191, 0.4); } 50% { box-shadow: 0 0 30px #5f00bf; } 100% { box-shadow: 0 0 20px rgba(95, 00, 191, 0.4); } } @keyframes celestialHackedGlow { 0% { box-shadow: 0 0 20px rgba(191, 127, 255, 0.4); } 50% { box-shadow: 0 0 30px #bf7fff; } 100% { box-shadow: 0 0 20px rgba(191, 127, 255, 0.4); } } @keyframes transcendentHackedGlow { 0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); } 50% { box-shadow: 0 0 30px #0ff; } 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); } } @keyframes eternalHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 191, 0, 0.4); } 50% { box-shadow: 0 0 30px #ffbf00; } 100% { box-shadow: 0 0 20px rgba(255, 191, 0, 0.4); } } @keyframes abstractedHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 127, 127, 0.4); } 50% { box-shadow: 0 0 30px #7f7f7f; } 100% { box-shadow: 0 0 20px rgba(127, 127, 127, 0.4); } } @keyframes exaltedHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 127, 127, 0.4); } 50% { box-shadow: 0 0 30px #ff7f7f; } 100% { box-shadow: 0 0 20px rgba(255, 127, 127, 0.4); } } @keyframes omniscientHackedGlow { 0% { box-shadow: 0 0 20px rgba(143, 255, 0, 0.4); } 50% { box-shadow: 0 0 30px #8fff00; } 100% { box-shadow: 0 0 20px rgba(143, 255, 0, 0.4); } } @keyframes deityHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 127, 0, 0.4); } 50% { box-shadow: 0 0 30px #ff7f00; } 100% { box-shadow: 0 0 20px rgba(255, 127, 0, 0.4); } } @keyframes godlyHackedGlow { 0% { box-shadow: 0 0 20px rgba(255, 159, 255, 0.4); } 50% { box-shadow: 0 0 30px #ff9fff; } 100% { box-shadow: 0 0 20px rgba(255, 159, 255, 0.4); } } @keyframes omnipotentHackedGlow { 0% { box-shadow: 0 0 20px rgba(0, 0, 255, 0.4); } 50% { box-shadow: 0 0 30px #00f; } 100% { box-shadow: 0 0 20px rgba(00, 00, 255, 0.4); } } @keyframes apexHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 0, 79, 0.4); } 50% { box-shadow: 0 0 30px #7f004f; } 100% { box-shadow: 0 0 20px rgba(127, 00, 79, 0.4); } } @keyframes beyondOmnipotentHackedGlow { 0% { box-shadow: 0 0 20px rgba(127, 63, 0, 0.4); } 50% { box-shadow: 0 0 30px #7f3f00; } 100% { box-shadow: 0 0 20px rgba(127, 63, 00, 0.4); } } @keyframes absoluteHackedMainAnimation { 0% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background: linear-gradient(45deg, #000, #200800); border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background: linear-gradient(45deg, #000, #201000); border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background: linear-gradient(45deg, #000, #201800); border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background: linear-gradient(45deg, #000, #202000); border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background: linear-gradient(45deg, #000, #182000); border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background: linear-gradient(45deg, #000, #102000); border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background: linear-gradient(45deg, #000, #082000); border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background: linear-gradient(45deg, #000, #002000); border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background: linear-gradient(45deg, #000, #002008); border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background: linear-gradient(45deg, #000, #002010); border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background: linear-gradient(45deg, #000, #002018); border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background: linear-gradient(45deg, #000, #002020); border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background: linear-gradient(45deg, #000, #001820); border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background: linear-gradient(45deg, #000, #001020); border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background: linear-gradient(45deg, #000, #000820); border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background: linear-gradient(45deg, #000, #000020); border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background: linear-gradient(45deg, #000, #080020); border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background: linear-gradient(45deg, #000, #100020); border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background: linear-gradient(45deg, #000, #180020); border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background: linear-gradient(45deg, #000, #200020); border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background: linear-gradient(45deg, #000, #200018); border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background: linear-gradient(45deg, #000, #200010); border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background: linear-gradient(45deg, #000, #200008); border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes absoluteHackedOptionAnimation { 0% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #200800; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background-color: #201000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #201800; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background-color: #202000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #182000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background-color: #102000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #082000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background-color: #002000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #002008; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background-color: #002010; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #002018; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background-color: #002020; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #001820; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background-color: #001020; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #000820; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background-color: #000020; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #080020; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background-color: #100020; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #180020; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background-color: #200020; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #200018; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background-color: #200010; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #200008; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes heavenlyGamerAnimation { 0% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #401000; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.6); } 8.333% { background-color: #402000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #403000; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.6); } 16.667% { background-color: #404000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #304000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.6); } 25% { background-color: #204000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #104000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.6); } 33.333% { background-color: #004000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #004010; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.6); } 41.667% { background-color: #004020; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #004030; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.6); } 50% { background-color: #004040; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #003040; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.6); } 58.333% { background-color: #002040; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #001040; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.6); } 66.667% { background-color: #000040; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #100040; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.6); } 75% { background-color: #200040; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #300040; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.6); } 83.333% { background-color: #400040; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #400030; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.6); } 91.667% { background-color: #400020; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #400010; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.6); } 100% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes rainbowTextColorAnimation { 0% { color: #ff0000; } 4.167% { color: #ff4000; } 8.333% { color: #ff8000; } 12.5% { color: #ffbf00; } 16.667% { color: #ffff00; } 20.833% { color: #bfff00; } 25% { color: #80ff00; } 29.167% { color: #40ff00; } 33.333% { color: #00ff00; } 37.5% { color: #00ff40; } 41.667% { color: #00ff80; } 45.833% { color: #00ffbf; } 50% { color: #00ffff; } 54.167% { color: #00bfff; } 58.333% { color: #0080ff; } 62.5% { color: #0040ff; } 66.667% { color: #0000ff; } 70.833% { color: #4000ff; } 75% { color: #8000ff; } 79.167% { color: #bf00ff; } 83.333% { color: #ff00ff; } 87.5% { color: #ff00bf; } 91.667% { color: #ff0080; } 95.833% { color: #ff0040; } 100% { color: #ff0000; } } </style>
+		<style id="hardCodedStyle">@keyframes absoluteHackedMainAnimation { 0% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background: linear-gradient(45deg, #000, #200800); border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background: linear-gradient(45deg, #000, #201000); border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background: linear-gradient(45deg, #000, #201800); border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background: linear-gradient(45deg, #000, #202000); border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background: linear-gradient(45deg, #000, #182000); border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background: linear-gradient(45deg, #000, #102000); border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background: linear-gradient(45deg, #000, #082000); border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background: linear-gradient(45deg, #000, #002000); border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background: linear-gradient(45deg, #000, #002008); border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background: linear-gradient(45deg, #000, #002010); border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background: linear-gradient(45deg, #000, #002018); border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background: linear-gradient(45deg, #000, #002020); border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background: linear-gradient(45deg, #000, #001820); border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background: linear-gradient(45deg, #000, #001020); border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background: linear-gradient(45deg, #000, #000820); border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background: linear-gradient(45deg, #000, #000020); border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background: linear-gradient(45deg, #000, #080020); border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background: linear-gradient(45deg, #000, #100020); border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background: linear-gradient(45deg, #000, #180020); border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background: linear-gradient(45deg, #000, #200020); border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background: linear-gradient(45deg, #000, #200018); border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background: linear-gradient(45deg, #000, #200010); border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background: linear-gradient(45deg, #000, #200008); border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background: linear-gradient(45deg, #000, #200000); border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes absoluteHackedOptionAnimation { 0% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #200800; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.4); } 8.333% { background-color: #201000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #201800; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.4); } 16.667% { background-color: #202000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #182000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.4); } 25% { background-color: #102000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #082000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.4); } 33.333% { background-color: #002000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #002008; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.4); } 41.667% { background-color: #002010; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #002018; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.4); } 50% { background-color: #002020; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #001820; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.4); } 58.333% { background-color: #001020; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #000820; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.4); } 66.667% { background-color: #000020; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #080020; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.4); } 75% { background-color: #100020; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #180020; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); } 83.333% { background-color: #200020; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #200018; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.4); } 91.667% { background-color: #200010; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #200008; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.4); } 100% { background-color: #200000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes heavenlyGamerAnimation { 0% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } 4.167% { background-color: #401000; border: 2px solid #ff4000; color: #ff4000; box-shadow: 0 0 30px rgba(255, 64, 0, 0.6); } 8.333% { background-color: #402000; border: 2px solid #ff8000; color: #ff8000; box-shadow: 0 0 30px #ff8000; } 12.5% { background-color: #403000; border: 2px solid #ffbf00; color: #ffbf00; box-shadow: 0 0 30px rgba(255, 191, 0, 0.6); } 16.667% { background-color: #404000; border: 2px solid #ffff00; color: #ffff00; box-shadow: 0 0 30px #ffff00; } 20.833% { background-color: #304000; border: 2px solid #bfff00; color: #bfff00; box-shadow: 0 0 30px rgba(191, 255, 0, 0.6); } 25% { background-color: #204000; border: 2px solid #80ff00; color: #80ff00; box-shadow: 0 0 30px #80ff00; } 29.167% { background-color: #104000; border: 2px solid #40ff00; color: #40ff00; box-shadow: 0 0 30px rgba(64, 255, 0, 0.6); } 33.333% { background-color: #004000; border: 2px solid #00ff00; color: #00ff00; box-shadow: 0 0 30px #00ff00; } 37.5% { background-color: #004010; border: 2px solid #00ff40; color: #00ff40; box-shadow: 0 0 30px rgba(0, 255, 64, 0.6); } 41.667% { background-color: #004020; border: 2px solid #00ff80; color: #00ff80; box-shadow: 0 0 30px #00ff80; } 45.833% { background-color: #004030; border: 2px solid #00ffbf; color: #00ffbf; box-shadow: 0 0 30px rgba(0, 255, 191, 0.6); } 50% { background-color: #004040; border: 2px solid #00ffff; color: #00ffff; box-shadow: 0 0 30px #00ffff; } 54.167% { background-color: #003040; border: 2px solid #00bfff; color: #00bfff; box-shadow: 0 0 30px rgba(0, 191, 255, 0.6); } 58.333% { background-color: #002040; border: 2px solid #0080ff; color: #0080ff; box-shadow: 0 0 30px #0080ff; } 62.5% { background-color: #001040; border: 2px solid #0040ff; color: #0040ff; box-shadow: 0 0 30px rgba(0, 64, 255, 0.6); } 66.667% { background-color: #000040; border: 2px solid #0000ff; color: #0000ff; box-shadow: 0 0 30px #0000ff; } 70.833% { background-color: #100040; border: 2px solid #4000ff; color: #4000ff; box-shadow: 0 0 30px rgba(64, 0, 255, 0.6); } 75% { background-color: #200040; border: 2px solid #8000ff; color: #8000ff; box-shadow: 0 0 30px #8000ff; } 79.167% { background-color: #300040; border: 2px solid #bf00ff; color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.6); } 83.333% { background-color: #400040; border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 30px #ff00ff; } 87.5% { background-color: #400030; border: 2px solid #ff00bf; color: #ff00bf; box-shadow: 0 0 30px rgba(255, 0, 191, 0.6); } 91.667% { background-color: #400020; border: 2px solid #ff0080; color: #ff0080; box-shadow: 0 0 30px #ff0080; } 95.833% { background-color: #400010; border: 2px solid #ff0040; color: #ff0040; box-shadow: 0 0 30px rgba(255, 0, 64, 0.6); } 100% { background-color: #400000; border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 30px #ff0000; } } @keyframes rainbowTextColorAnimation { 0% { color: #ff0000; } 4.167% { color: #ff4000; } 8.333% { color: #ff8000; } 12.5% { color: #ffbf00; } 16.667% { color: #ffff00; } 20.833% { color: #bfff00; } 25% { color: #80ff00; } 29.167% { color: #40ff00; } 33.333% { color: #00ff00; } 37.5% { color: #00ff40; } 41.667% { color: #00ff80; } 45.833% { color: #00ffbf; } 50% { color: #00ffff; } 54.167% { color: #00bfff; } 58.333% { color: #0080ff; } 62.5% { color: #0040ff; } 66.667% { color: #0000ff; } 70.833% { color: #4000ff; } 75% { color: #8000ff; } 79.167% { color: #bf00ff; } 83.333% { color: #ff00ff; } 87.5% { color: #ff00bf; } 91.667% { color: #ff0080; } 95.833% { color: #ff0040; } 100% { color: #ff0000; } }</style>
 		<style id="newRaritiesStyle"></style>
 		<style id="singleRarityPreviewStyle"></style>
 		<script name="rarityInfrastructureScript">
@@ -970,10 +1002,10 @@
 						var blue = color[2];
 						blues.push(blue)
 					};
-					redAverage = Math.round(averageNumericArray(reds));
-					greenAverage = Math.round(averageNumericArray(greens));
-					blueAverage = Math.round(averageNumericArray(blues));
-					result = {r: redAverage, g: greenAverage, b: blueAverage};
+					red_Average = Math.round(averageNumericArray(reds));
+					green_Average = Math.round(averageNumericArray(greens));
+					blue_Average = Math.round(averageNumericArray(blues));
+					result = {r: red_Average, g: green_Average, b: blue_Average};
 				}
 				return convertColorFormats(result,outputType);
 			};
@@ -1115,13 +1147,37 @@
 				var result = _color.map(x => 255 - x)
 				return convertColorFormats(result,outputType)
 			}
+			
+			animationOutput = '';
 
 			//Do not include in published style
 			productExcludedRarities = ['Common', 'Uncommon', 'Rare', 'Epic', 'Super-Epic', 'Legendary', 'Mythical', 'Transcendent', 'Rarity']
 			
 			const foFf = 0xF/0xFF; //frost over Frosty-frost
 			const FoFf = 0xF0/0xFF; //Frosty over Frosty-frost
+
+
+			function capitalizeFirstLetter(string) {
+				return string[0].toUpperCase() + string.slice(1)
+			};
+
+			function camelCase(string) {
+				let t = string.replace(/[-_]/g," ").replace(/['\,\.\?\!\:\;]/g,"").split(" ");
+				for(let i = 0; i < t.length; i++) {
+					let lc = t[i].toLowerCase();
+					if(i === 0) {
+						t[i] = lc
+					} else {
+						t[i] = capitalizeFirstLetter(lc)
+					}
+				}
+				return t.join('')
+			};
 			
+			animationOutputTextBuffer = "";
+			
+			gebi = function(id) { return document.getElementById(id) };
+
 			// Rarity class, with attributes such as rank, color set, text color, shadow color, border color, and single color
 			class Rarity {
 				constructor(name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride, forceLibraryPillBorder,
@@ -1243,6 +1299,18 @@
 					this.glowAlphasMainCard = gamc					
 
 					this.animation = animation ?? null
+					if(animation === 1) {
+						var autoAnimationName = camelCase(name) + 'Glow';
+						var color = convertColorFormats(singleColor,'json');
+						var colorPartial = `rgba(${color.r}, ${color.g}, ${color.b}, 0.4)`;
+						var colorFull = convertColorFormats(singleColor,'hex');
+						animation = autoAnimationName;
+						this.animation = animation;
+						animationOutput = `@keyframes ${autoAnimationName} { 0% { box-shadow: 0 0 20px ${colorPartial}; } 50% { box-shadow: 0 0 30px ${colorFull}; } 100% { box-shadow: 0 0 20px ${colorPartial}; } }`;
+						animationOutputTextBuffer += animationOutput
+						//console.log(animationOutputTextBuffer);
+					}
+
 					this.animationTime = animationTime ?? 2
 				};
 				getRank() { //test function
@@ -1284,7 +1352,7 @@
 						}
 						
 						if(this.isHacked) {
-							headingSection.push(`	font-family:monospace;`)
+							headingSection.push(`	font-family:monospace; font-size: 90%;`)
 						}
 
 						headingSection.push(`}\n.weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder} h3{`)
@@ -1295,8 +1363,7 @@
 						
 						if(this.isHacked) {
 							headingSection.push(
-								"	font-family:monospace;",
-								"	font-size:2.8em;",
+								"	font-size:1.5em;",
 								"	margin-top:10px;",
 								"	margin-bottom:15px;",
 							)
@@ -1313,7 +1380,8 @@ var css = `.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 	border:2px solid ${this.borderColor};`}${(this.noTextShadow || (this.shadowOpacity == 0) || this.shadowColor === null) ? "" : `
 	text-shadow:1px 1px 2px ${this.shadowOpacity == 1 ? `${convertColorFormats(this.shadowColor,"hex",true)};` : `rgba(${scArray.join(",")},${this.shadowOpacity});`}`}${this.noGlow ? "" : `
 	box-shadow:0 0 15px rgba(${gcArray.join(",")},${mainGlowAlpha});`}${(this.animation !== null && typeof(this.animation) == "string")? `
-	animation:${this.animation} ${this.animationTime ?? 2}s infinite` : ""}
+	animation:${this.animation} ${this.animationTime ?? 2}s infinite` : ""}${this.isHacked ? `
+	font-family: monospace; font-size: 180%;` : ''}
 }
 .weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 	background:${cardColorsToUse.length == 1 ? cardColorsToUse[0] : `linear-gradient(45deg,${cardColorsToUse.join(",")})`};
@@ -1321,15 +1389,21 @@ var css = `.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 	box-shadow:0 0 15px rgba(${gcArray.join(",")},${cardGlowAlpha});`}
 }
 ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
-	background:${optionColorToUse};${optionTextColorToUse == "#FFF" ? "" : `color:${optionTextColorToUse};`}
-}`;
-					return css
+	background:${optionColorToUse};${optionTextColorToUse == "#FFF" ? "" : `color:${optionTextColorToUse};`}${this.isHacked ? `
+	font-weight: normal; font-size: 160%;` : ''}
+}${this.isHacked ? `
+	.weapon-card.rarity-${this.deFactoClassName} p.rarity-${this.deFactoClassName} {
+	  font-size: 100%;
+	}
+` : ''}`;
+					return css.replaceAll('\t','')
 				}
 			}
 
 		var tralse = false;
 		var bull = null;
 		var bOHG = "beyondOmnipotentHackedGlow"
+		var qfh = "Quantum Fluctuation Hacked"
 		rarities = [
 			/*
 				Design notes:
@@ -1349,148 +1423,237 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 			*/
 			//		  
 			/*
+
+		//new Rarity('Transcendental',			9.9998,		['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
 		(name, rank, colors, singleColor, borderColor, textColor, shadowColor, shadowOpacity, cardColorsOverride, glowColorOverride, forceLibraryPillBorder, noGlow, noTextShadow, forceWhiteTop, optionColor, optionTextColor, glowAlphasMainCard, isHacked, isBuffed, animation, animationTime, cssOverride)
 																																										glow		force													glow															
 																																				card					Color		Library					force				option		Alphas													anima	css
 																								single		border		text	shadow	shadow	Colors					Over		Pill			noText	White	option		Text		Main		is		is		anima						tion	Over
 					name						rank		colors								Color		Color		Color	Color	Opacity	Override				ride		Border	noGlow	Shadow	Top		Color		Color		Card		Hacked	Buffed	tion						Time	ride*/
 		new Rarity('Basic',						-1, 		'#808080',							null,		null,		'#000',	null,	null,	['#303030', '#404040'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Common',					10, 		'#a0a0a0',							null,		null,		'#000',	null,	null,	['#404040', '#606060'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Uncommon',					10, 		'#4CAF50',							null,		'#4CAF50',	'#FFF',	null,	null,	['#1a4a1c', '#2a6e2c'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Rare',						10, 		'#2196F3',							null,		'#2196F3',	'#FFF',	null,	null,	['#0d47a1', '#1565c0'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Zayin',						10.5,		['#21f900', '#18b700'],				'#21f900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#18b700',	null,		null,		false,	false,	null,						null),
-		new Rarity('Epic',						10, 		'#9C27B0',							null,		'#9C27B0',	'#FFF',	null,	null,	['#4a148c', '#6a1b9a'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Heroic',					10,			'#00dd00',							null,		null,		'#FFF',	null,	null,	['#006400', '#008000'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Super-Epic',				10,			['#ff00ff', '#ffd700'],				'#ff00ff',	'#ff69b4',	'#FFF',	null,	null,	null,					null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Teth',						10.5,		['#1aa1ff', '#1376bb'],				'#1aa1ff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#1376bb',	null,		null,		false,	false,	null,						null),
-		new Rarity('Legendary',					10,			['#FFD700', '#FFDF00'],				'#FFD700',	'#FFD700',	'#000',	'#000',	0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Mythical',					10,			['#8B0000', '#FF0000'],				'#FF0000',	'#FF0000',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Mythic',					10,			['#8B0000', '#FF0000'],				'#FF0000',	'#FF0000',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity("Unreal",					10,			["#00ffff", "#bfffff", "#ffffff"],	"#bfffff", null, "#000", "#FFF", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
-		new Rarity('Ultra-Epic',				10.5,		'#BF005F',							null,		null,		'#FFF',	null,	null,	['#850077', '#990070'],	null,		false,	false,	true,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Transcendental',			10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Transcended',				10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity('TRANSCENDENT',				10.9998,	['#00007f', '#00bfbf'],				'#008fbf',	'#00ffff',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity('Transcendent',				10,			['#ffffff', '#eeeeee'],				'#FFFFFF',	'#FFFFFF',	'#000',	'#000', 0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Common',					0,	 		'#a0a0a0',							null,		null,		'#000',	null,	null,	['#404040', '#606060'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Uncommon',					1, 			'#4CAF50',							null,		'#4CAF50',	'#FFF',	null,	null,	['#1a4a1c', '#2a6e2c'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Rare',						2, 			'#2196F3',							null,		'#2196F3',	'#FFF',	null,	null,	['#0d47a1', '#1565c0'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Very Rare',					2.5,		'#0046eb',							null,		'#0046eb',	'#FFF',	null,	null,	['#012e98', '#0746ab'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Zayin',						2.75,		['#21f900', '#18b700'],				'#21f900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#18b700',	null,		null,		false,	false,	null,						null),
+		new Rarity('Epic',						3, 			'#9C27B0',							null,		'#9C27B0',	'#FFF',	null,	null,	['#4a148c', '#6a1b9a'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Super-Rare',				3.5, 		'#031de2',							null,		'#031de2',	'#FFF',	null,	null,	['#02177e', '#0f20a3'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Heroic',					4,			'#00dd00',							null,		null,		'#FFF',	null,	null,	['#006400', '#008000'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Ultra-Rare',				4.5, 		'#2806d0',							null,		'#2806d0',	'#FFF',	null,	null,	['#0c047c', '#100e95'],	null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Super-Epic',				5,			['#ff00ff', '#ffd700'],				'#ff00ff',	'#ff69b4',	'#FFF',	null,	null,	null,					null,		false,	true,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Teth',						5.5,		['#1aa1ff', '#1376bb'],				'#1aa1ff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#1376bb',	null,		null,		false,	false,	null,						null),
+		new Rarity('Legendary',					6,			['#FFD700', '#FFDF00'],				'#FFD700',	'#FFD700',	'#000',	'#000',	0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Mythical',					7,			['#8B0000', '#FF0000'],				'#FF0000',	'#FF0000',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Unreal",					8,			["#00ffff", "#bfffff", "#ffffff"],	"#bfffff", null, "#000", "#FFF", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Ultra-Epic',				8.5,		'#BF005F',							null,		null,		'#FFF',	null,	null,	['#850077', '#990070'],	null,		false,	false,	true,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Transcendent',				9,			['#ffffff', '#eeeeee'],				'#FFFFFF',	'#FFFFFF',	'#000',	'#000', 0.3,	null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Extreme Mythical', 			9.5,		['#FF0000', '#ff7272'],				'#ff7272',	'#ff7272',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
 		new Rarity('Cosmic', 					10,			['#00003f', '#ffff3f'],				'#FFFFFF',	null,		'#FFF',	null, 	1,		null,					null,		false,	false,	false,	false,	"#cfcf3f",	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Heh',						10.5002,	['#fef900', '#bab700'],				'#fef900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bab700',	null,		null,		false,	false,	null,						null),
-		new Rarity('EXTREME-MYTHIC', 			10.5,		['#FF0000', '#ff7272'],				'#ff7272',	'#ff7272',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	true,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Exotic',					10,			['#ff7f00', '#ff7f7f'],				'#ff5f5f',	'#ff5f5f',	'#FFF',	null, 	1,		null,					"#FF7F5F",	false,	false,	false,	false,	"#ff7f3f",	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Celestial',					10,			['#00003f', '#2f005f'],				'#1f003f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Hyper-Cosmic',				10.5,		['#00003f', '#ff7f3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf9f3f",	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Secret',					10,			['#000000', '#2f2f2f'],				'#1F1F1F',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[0.6,0.4],	false,	false,	null,						null),
-		new Rarity('Eternal',					10,			['#ff5f00', '#ff9f00'],				'#FF7F00',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Meta-Cosmic',				10.5,		['#00003f', '#ff3f7f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf3f7f",	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Celestial Buffed',			10.5002,	['#00002f', '#3f008f'],				'#2f004f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	true,	null,						null),
-		new Rarity('Abstracted',				10,			['#bfbf7f', '#cf9f5f'],				'#cfaf6f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Abstract',					10,			['#bfbf7f', '#cf9f5f'],				'#cfaf6f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity('Omni-Cosmic',				10.5,		['#00003f', '#7fff3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#9fcf3f",	"#000",		null,		false,	false,	null,						null),
-		new Rarity("Astral",					10,			["#ffdb8f", "#190548", "#e76bef"],	"#a07efb",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Divine',					10,			['#ff007f', '#ff7fff'],				'#ff3fbf',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Super",						10,			["#5900ff", "#9efffd", "#ffea00"],	"#a7a3a9",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null	,	null,		null,		false,	false,	null,						null),
-		new Rarity("Heavenly",					10,			["#89b4e1", "#dbdbdb", "#fff8bd"],	"#d3eed3",	null,		"#000",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Ultra-Cosmic',				10.5,		['#00003f', '#3f7fff'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#3f9fcf",	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Ascended',					10,			['#00007f', '#bfbfff'],				'#7f7fff',	'#7f7fff',	'#FFF',	null,	1,		null,					'#0000FF',	false,	false,	false,	false,	'#9f9fef',	"#000",		null,		false,	false,	null,						null),
-		new Rarity('Exalted',					10,			['#00bf5f', '#df7f00'],				'#7fff00',	'#7fff00',	'#FFF',	null,	1,		null,					'#7DBF00',	false,	false,	false,	false,	'#7f9f2f',	null,		null,		false,	false,	null,						null),
-		new Rarity("Forgotten",					10,			["#e2c797", "#ab9869", "#c9b578"],	"#c7b17d",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Heirloom",					10,			["#00ced1","#0ff","#ccf","#ffb6c1"],"#00ffff",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	"#00CED1",	null,		null,		false,	false,	null,						null),
-		new Rarity("Unique",					10,			["#ff7af4", "#af85ff"],				"#d780fa",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Undisclosed',				10,			["#000000"],						'#000000',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[1,0.6],	false,	false,	null,						null),
-		new Rarity('Waw',						10.5,		['#7b2bf3', '#5a20b2'],				'#7b2bf3',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#5a20b2',	null,		null,		false,	false,	null,						null),
-		new Rarity('Heavenly Gamer',			10.5,		['#3F0000','#3F3F00','#003F00',
+		new Rarity("Meta",						11,			["#28ffe0","#ab1191","#ff8a03",
+																					"#0006cc"],	"#01b621", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Heh',						11.5,		['#fef900', '#bab700'],				'#fef900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bab700',	null,		null,		false,	false,	null,						null),
+		new Rarity('Exotic',					12,			['#ff7f00', '#ff7f7f'],				'#ff5f5f',	'#ff5f5f',	'#FFF',	null, 	1,		null,					"#FF7F5F",	false,	false,	false,	false,	"#ff7f3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Super-Cosmic',				12.5,		['#00003f', '#ff4f4f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf4f4f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Celestial',					13,			['#00003f', '#2f005f'],				'#1f003f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Galactic",					14,			["#19002a","#54146e","#e175a1",
+																					"#fff994"],	"#a354ab", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Hyper-Cosmic',				14.5,		['#00003f', '#ff7f3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf9f3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Secret',					15,			['#000000', '#2f2f2f'],				'#1F1F1F',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[0.6,0.4],	false,	false,	null,						null),
+		new Rarity('Celestial Buffed',			15.5,		['#00002f', '#3f008f'],				'#2f004f',	'#3f007f',	'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	true,	null,						null),
+		new Rarity('Eternal',					16,			['#ff5f00', '#ff9f00'],				'#FF7F00',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Meta-Cosmic',				16.5,		['#00003f', '#ff3f7f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#cf3f7f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Abstracted',				17,			['#bfbf7f', '#cf9f5f'],				'#cfaf6f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Astral",					18,			["#ffdb8f", "#190548", "#e76bef"],	"#a07efb",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Omni-Cosmic',				18.5,		['#00003f', '#7fff3f'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#9fcf3f",	"#000",		null,		false,	false,	null,						null),
+		new Rarity('Divine',					19,			['#ff007f', '#ff7fff'],				'#ff3fbf',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Super",						20,			["#5900ff", "#9efffd", "#ffea00"],	"#a7a3a9",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null	,	null,		null,		false,	false,	null,						null),
+		new Rarity('Ultra-Cosmic',				20.5,		['#00003f', '#3f7fff'],				'#FFFFFF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	"#3f9fcf",	"#000",		null,		false,	false,	null,						null),
+		new Rarity("Elevated",					21,			["#f2f2f2", "#85caff", "#fff266"], "#d2e5c8", null, "#000", "#FFF", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Ascended',					22,			['#00007f', '#bfbfff'],				'#7f7fff',	'#7f7fff',	'#FFF',	null,	1,		null,					'#0000FF',	false,	false,	false,	false,	'#9f9fef',	"#000",		null,		false,	false,	null,						null),
+		new Rarity("Fabled",					23,			["#e63b7a","#ddc3ad","#feb43f"],	"#eb9177", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Oneiric",					24,			["#320656", "#ff66eb", "#4c55d6"], "#7f40b2", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Confidential",				25,			["#fff","#ebebeb","#fff","#e22",
+																					"#e22"],	"#f4a3a3", null, "#000000", "#ffffff", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Exalted',					26,			['#00bf5f', '#df7f00'],				'#7fff00',	'#7fff00',	'#FFF',	null,	1,		null,					'#7DBF00',	false,	false,	false,	false,	'#7f9f2f',	null,		null,		false,	false,	null,						null),
+		new Rarity("Forgotten",					27,			["#e2c797", "#ab9869", "#c9b578"],	"#c7b17d",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Heirloom",					28,			["#00ced1","#0ff","#ccf",
+																					"#ffb6c1"],	"#00ffff",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	"#00CED1",	null,		null,		false,	false,	null,						null),
+		new Rarity("Unique",					29,			["#ff7af4", "#af85ff"],				"#d780fa",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Undisclosed',				30,			["#000000"],						'#000000',	null,		'#FFF',	null,	1,		null,					"#080808",	false,	false,	false,	false,	null,		null,		[1,0.6],	false,	false,	null,						null),
+		new Rarity("Heavenly",					31,			["#89b4e1", "#dbdbdb", "#fff8bd"],	"#d3eed3",	null,		"#000",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Waw',						31.5,		['#7b2bf3', '#5a20b2'],				'#7b2bf3',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#5a20b2',	null,		null,		false,	false,	null,						null),
+		new Rarity('Heavenly Gamer',			31.5,		['#3F0000','#3F3F00','#003F00',
 																'#003F3F','#00003F','#3F003F'],	'#FF0000',	'#FF0000',	'#000',	null,	1,		null,					"#00FF00",	false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null,	"[class*='rarity-Heavenly Gamer'] {\n  animation: heavenlyGamerAnimation 12s infinite linear,\n  rainbowTextColorAnimation 12s infinite linear;\n  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);\n}\n.weapon-card[class*='rarity-Heavenly Gamer'] {\n  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);\n}\n.weapon-card[class*='rarity-Heavenly Gamer'] > h3, .weapon-card[class*='rarity-Heavenly Gamer'] > .flavor-blurb {\n  color: inherit !important;\n}\noption[class*='rarity-Heavenly Gamer'] {\n  animation: heavenlyGamerAnimation 12s infinite linear,\n  rainbowTextColorAnimation 12s infinite linear;\n}"),
-		new Rarity('Godly',						10,			['#005fbf', '#bf00bf'],				'#7F00FF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#9f1fbf',	null,		null,		false,	false,	null,						null),
-		new Rarity('Godlike',					10,			['#005fbf', '#bf00bf'],				'#7F00FF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#9f1fbf',	null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity('Aleph',						10,			['#ff0000', '#bb0000'],				'#ff0000',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bb0000',	null,		null,		false,	false,	null,						null),
-		new Rarity('Apotheotic',				10,			['#0000ff', '#ffff00'],				'#7f007f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000ff',	'#ffff7f',	null,		false,	false,	null,						null),
-		new Rarity('Supreme',					10,			['#0000ff', '#00bfff'],				'#006fff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Impune", 					10,			["#0000ff", "#ff0000"], 			"#bf00bf",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null, 		null,		null,		false,	false,	null,						null),
-		new Rarity('Omnipotent',				10,			['#7f7f7f', '#ffffff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bfbfbf',	null,		null,		false,	false,	null,						null),
-		new Rarity('Absolute',					10,			['#ff7f7f', '#7fff7f', '#7f7fff'],	'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#6fff9f',	null,		null,		false,	false,	null,						null),
-		new Rarity('Apex',						10,			['#9f3fff', '#df8f8f', '#ffff00'],	'#ef0fbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#df9f8f',	null,		null,		false,	false,	null,						null),
-		new Rarity('Zenith',					10,			['#ffffff', '#dfbfff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#dfbfff',	null,		null,		false,	false,	null,						null),
-		new Rarity('Nadir',						10.5,		['#000000', '#204000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#204000',	null,		null,		false,	false,	null,						null),
-		new Rarity('Yod',						10,			['#ffffff', '#bbbbbb'],				'#ffffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bbbbbb',	null,		null,		false,	false,	null,						null),
-		new Rarity("Classified",				10,			["#566520","#334115","#6c6737",
+		new Rarity("Godlike",					32,			["#66ff00","#ff7300","#ff1fec"],	"#ffb638", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, "#000000", null, false, false, null, null, null), //TODO
+		new Rarity('Godly',						33,			['#005fbf', '#bf00bf'],				'#7F00FF',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#9f1fbf',	null,		null,		false,	false,	null,						null),
+		new Rarity('Aleph',						34,			['#ff0000', '#bb0000'],				'#ff0000',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bb0000',	null,		null,		false,	false,	null,						null),
+		new Rarity("Enigmatic",					35,			["#5c5c5c","#c2c2c2","#5c5c5c"],	"#7e7e7e", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Apotheotic',				36,			['#0000ff', '#ffff00'],				'#7f007f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000ff',	'#ffff7f',	null,		false,	false,	null,						null),
+		new Rarity('Supreme',					37,			['#0000ff', '#00bfff'],				'#006fff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Impune", 					38,			["#0000ff", "#ff0000"], 			"#bf00bf",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null, 		null,		null,		false,	false,	null,						null),
+		new Rarity("Omniscient",				39,			["#ddacb3", "#fff47a"],				"#eed097", null, "#000000", "#ffffff", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Deity",						40,			["#006eb3", "#6eb93c", "#9ecdff"],	"#5ee8bf", null, "#000", "#FFF", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Omnipotent',				41,			['#7f7f7f', '#ffffff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bfbfbf',	null,		null,		false,	false,	null,						null),
+		new Rarity('Absolute',					42,			['#ff7f7f', '#7fff7f', '#7f7fff'],	'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#6fff9f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Apex',						43,			['#9f3fff', '#df8f8f', '#ffff00'],	'#ef0fbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#df9f8f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Zenith',					44,			['#ffffff', '#dfbfff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#dfbfff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Nadir',						44.5,		['#000000', '#204000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#204000',	null,		null,		false,	false,	null,						null),
+		new Rarity('Yod',						45,			['#ffffff', '#bbbbbb'],				'#ffffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#bbbbbb',	null,		null,		false,	false,	null,						null),
+		new Rarity("Classified",				46,			["#566520","#334115","#6c6737",
 																					"#000"],	"#516232",	null,		"#FFF",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Singular',					10,			['#ffff00', '#c3ff7f', '#00ffff'],	'#7fff7f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#cfff7f',	null,		null,		false,	false,	null,						null),
-		new Rarity('Forbidden',					10,			['#730300', '#630500'],				'#FF0000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#630500',	null,		null,		false,	false,	null,						null),
-		new Rarity('Beyond Zenith',				10.5,		['#ffffff', '#bf7fff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bf7fff',	null,		null,		false,	false,	null,						null),
-		new Rarity('Ascendant',					10,			['#0000ff', '#af4fff', '#ff00ff'],	'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#cf20ff',	null,		null,		false,	false,	null,						null),
-		new Rarity('Superlative',				10,			['#00ff7f', '#ffffff'],				'#7fffbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Limitless',					10,			['#111111', '#000000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Prime',						10,			['#7f00ff', '#6c13c6'],				'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Unparalleled",				10,			["#1aa7ff","#00ff7b","#ef0","#00ff7b",
+		new Rarity('Singular',					47,			['#ffff00', '#c3ff7f', '#00ffff'],	'#7fff7f',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#cfff7f',	null,		null,		false,	false,	null,						null),
+		new Rarity('Forbidden',					48,			['#730300', '#630500'],				'#FF0000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#630500',	null,		null,		false,	false,	null,						null),
+		new Rarity("Censored",					49,			["#000","#000","#b51a00","#000",
+																					"#000"],	"#270803", null, "#c67e7a", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Beyond Zenith',				49.5,		['#ffffff', '#bf7fff'],				'#FFFFFF',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	'#bf7fff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Ascendant',					50,			['#0000ff', '#af4fff', '#ff00ff'],	'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#cf20ff',	null,		null,		false,	false,	null,						null),
+		new Rarity('Superlative',				51,			['#00ff7f', '#ffffff'],				'#7fffbf',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Limitless',					52,			['#111111', '#000000'],				'#000000',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		[1.0,0.7],	false,	false,	null,						null),
+		new Rarity('Prime',						53,			['#7f00ff', '#6c13c6'],				'#7f00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		[1.0,0.7],	false,	false,	null,						null),
+		new Rarity("Unparalleled",				54,			["#1aa7ff","#00ff7b","#ef0","#00ff7b",
 																					"#1aa7ff"],	"#3adc97",	null,		"#000",	"#FFF",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Ultimate',					10,			['#7f7f7f', '#7f003f'],				'#7f3f5f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Omega',						10,			'#0000bf',							'#0000ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000bf',	null,		null,		false,	false,	null,						null),
-		new Rarity('God-Killer',				10,			['#f5a10e', '#612f1b', '#312c29'],	'#783609',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Sovereign',					10,			['#d52500', '#ffebbd', '#a0c3eb'],	'#f8ca9e',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Ultra',						10,			['#ff11ff', '#bf00bf'],				'#ff00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Infinite',					10,			['#00ffff', '#ffffff', '#ffff00'],	'#ddffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Hyper',						10,			['#000','#421','#FFAB1A','#421',
+		new Rarity('Ultimate',					55,			['#7f7f7f', '#7f003f'],				'#7f3f5f',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Omega',						56,			'#0000bf',							'#0000ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	'#0000bf',	null,		[1.0,0.7],	false,	false,	null,						null),
+		new Rarity('God-Killer',				57,			['#f5a10e', '#612f1b', '#312c29'],	'#783609',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Redacted",					58,			["#fff","#ebebeb","#fff","#000",
+																					"#000"],	"#989898", null, "#000000", "#ffffff", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Majestic",					59,			["#4797ff", "#5600d6"], "#4f4ceb", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Sovereign',					60,			['#d52500', '#ffebbd', '#a0c3eb'],	'#f8ca9e',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Ultra',						61,			['#ff11ff', '#bf00bf'],				'#ff00ff',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Infinite',					62,			['#00ffff', '#ffffff', '#ffff00'],	'#ddffff',	null,		'#000',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity('Hyper',						63,			['#000','#421','#FFAB1A','#421',
 																					'#000'],	'#c88614',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Premier",					10,			["#ff7f50", "#ff4500"],				"#ff4500",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	"borderShimmer",			null),
-		new Rarity('Unfathomable',				10,			['#63ce96', '#2c5262'],				'#418276',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Magnificent",				10,			["#ffd700", "#ffffe0"],				"#ffd700",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Thanatotic",				10,			["#c4d7de","#5a5d64","#222421",
+		new Rarity("Grand",						64,			["#7b00ff","#ebb618","#e21b2a",
+																					"#cbf0ff"],	"#c57090", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity('Unfathomable',				65,			['#63ce96', '#2c5262'],				'#418276',	null,		'#FFF',	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Desolate",					66,			["#362d26", "#68140d", "#633c1d", "#706251"], "#5c3828", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Abyssal",					67,			["#002347", "#00002e", "#000000"], "#00134d", "#000ed1", "#749ac3", "#394047", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Premier",					68,			["#ff7f50", "#ff4500"],				"#ff4500",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	"borderShimmer",			null),
+		new Rarity("Magnificent",				69,			["#ffd700", "#ffffe0"],				"#ffd700",	null,		null,	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Phenomenal",				70,			["#b51a00","#ff6a00","#feb43f"],	"#e66815", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Thanatotic",				71,			["#c4d7de","#5a5d64","#222421",
 																					"#c40001"],	"#815659",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Pantheonic",				10,			["#c7c7c7", "#e2e2e2", "#f3e2b6",
+		new Rarity("Expunged",					72,			["#ebebeb","#000","#000"],			"#6f5f5f", "#4e4e4e", "#ffffff", "#000000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Hadean",					73,			["#573300", "#3e1000", "#000000"], "#4d1300", "#d10e00", "#c39a74", "#474039", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Primordial",				74,			["#000000", "#3d291a", "#a2ac15"], "#8e761f", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, "#ffffff", null, false, false, null, null, null), //TODO
+		new Rarity("Absurd",					75,			["#2effb2", "#d14900", "#ff0000", "#a600ff", "#a8a800", "#00ff09"], "#33ccff", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, "#000000", null, false, false, null, null, null), //TODO
+		new Rarity("Undefined",					76,			["#f0f","#000","#f0f","#000"],		"#ff00ff", null, "#ffffff", "#000000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Pantheonic",				77,			["#c7c7c7", "#e2e2e2", "#f3e2b6",
 																		"#dfc580", "#e2e2e2"],	"#f3e2b6",	"#e1ef79",	"#000",	null,	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Tav',						11,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null),
-		new Rarity("Glitched",					10,			["#000","#000","#f00","#f00","#00f",
+		new Rarity("Preeminent",				78,			["#660047","#ff0085"],				"#b30066", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Uncomputable",				79,			["#0ff","#0ff","#f0f","#f0f","#ff0","#ff0"], "#007fff", null, "#000", "#FFF", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Extra-Universal",			80,			["#301e33", "#264a5a", "#ffab5c", "#3c1646", "#2c2c2a", "#6e4771"], "#e18937", null, "#FFF", "#000", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null), //TODO
+		new Rarity("Glitched",					81,			["#000","#000","#f00","#f00","#00f",
 																					"#00f"],	"#550055",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		"#FFF",		null,		false,	false,	null,						null),
-		new Rarity("Quantum Fluctuation",		10,			["#008080","#000","#780080","#000",
+		new Rarity("Quantum Fluctuation",		82,			["#008080","#000","#780080","#000",
 																					"#808000"],	"#8e729d",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity("Quantum",					10,			["#008080","#000","#780080","#000",
-																					"#808000"],	"#8e729d",	null,		"#FFF",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Hard alias
-		new Rarity('Anomaly',					10, 		['#74cdf6','#eaeef0','#5f4fa2'],	'#bbe3f6',	null,		'#000',	null,	null,	null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Rarity',					10, 		['#74cdf6','#eaeef0','#5f4fa2'],	'#bbe3f6',	null,		'#000',	null,	null,	null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null), //Soft alias
-		new Rarity("Perfect",					10,			["#ff0000", "#ff7f00", "#ffff00",
+		new Rarity('Anomaly',					83, 		['#74cdf6','#eaeef0','#5f4fa2'],	'#bbe3f6',	null,		'#000',	null,	null,	null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
+		new Rarity("Seraphic",					84,			["#ffecd4","#d3e2ff","#ebebeb",
+																		"#ffab01","#ff4015"],	"#f2ba91", null, "#000000", "#ffffff", 1, null, null, false, false, false, false, null, null, null, false, false, null, null, null),
+		new Rarity("Perfect",					85,			["#ff0000", "#ff7f00", "#ffff00",
 															"#00ff00", "#0000ff", "#3f007f",
 																					"#7f00ff"],	"#ffabab",	null,		"#fff",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		"#000",		null,		false,	false,	null,						null),
-		new Rarity("Pluperfect",				10,			["#7f0000", "#ff0000", "#ff7f00",
+		new Rarity("Pluperfect",				86,			["#7f0000", "#ff0000", "#ff7f00",
 															"#ffff00", "#8fff00", "#00ff09",
 															"#00ff8f", "#00ffff", "#007fff",
 															"#0000ff", "#8f00ff", "#47007f"],	"#ff00ff",	null,		"#fff",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Hacked',					10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Supreme Hacked',			10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Godlike Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Tav',						87,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null),
+		new Rarity('Common Hacked',				88,			null,								'#3FBF3F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Hacked',					89,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Uncommon Hacked',			90,			null,								'#7FBF3F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Rare Hacked',				91,			null,								'#00FFBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
 		new Rarity('Beyond Hacked',				10.5,		null,								'#007F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Epic Hacked',				10,			null,								'#7F3FBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Heroic Hacked',				10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Super-Epic Hacked',			10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Legendary Hacked',			10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
 		new Rarity('Mythic Hacked',				10,			null,								'#FFFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Cosmic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Celestial Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"celestialHackedGlow",		null),
-		new Rarity('Transcendent Hacked',		10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"transcendentHackedGlow",	null),
-		new Rarity('Eternal Hacked',			10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"eternalHackedGlow",		null),
-		new Rarity('Abstracted Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"abstractedHackedGlow",		null),
-		new Rarity('Abstract Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"abstractedHackedGlow",		null), //Hard alias
-		new Rarity('Exalted Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"exaltedHackedGlow",		null),
-		new Rarity('Omniscient Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"omniscientHackedGlow",		null),
-		new Rarity('Deity Hacked',				10,			null,								'#FF7F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"deityHackedGlow",			null),
-		new Rarity('Godly Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"godlyHackedGlow",			null),
-		new Rarity('Omnipotent Hacked',			10,			null,								'#0000FF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"omnipotentHackedGlow",		null),
+		new Rarity('Unreal Hacked',				10,			null,								'#FFFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Transcendent Hacked',		10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Cosmic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Meta Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Exotic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Celestial Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Galactic Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Secret Hacked',				10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Eternal Hacked',			10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Abstracted Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Astral Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Divine Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Super Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Elevated Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Ascended Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Fabled Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Oneiric Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Confidential Hacked',		10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Exalted Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Forgotten Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Heirloom Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Unique Hacked',				10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Undisclosed Hacked',		10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Heavenly Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Godlike Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Godly Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Aleph Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Enigmatic Hacked',			10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Apotheotic Hacked',			10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Supreme Hacked',			10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Impune Hacked',				10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Omniscient Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Deity Hacked',				10,			null,								'#FF7F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Omnipotent Hacked',			10,			null,								'#0000FF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Absolute Hacked',			10,			['#030000','#030300','#000300',
 																'#000303','#000003','#030003'],	'#030003',	'#030003',	'#F0F',	null,	0,		null,					"#FF00FF",	false,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null,	"div[class*='rarity-Absolute Hacked'],\np[class*='rarity-Absolute Hacked'],\ndiv[class*='rarity-Absolute Hacked'],\np[class*='rarity-Absolute Hacked'].Hacked,\ndiv[class*='rarity-Absolute hacked'],\np[class*='rarity-Absolute hacked'],\ndiv[class*='rarity-Absolute hacked'],\np[class*='rarity-Absolute hacked'].hacked,\noption[class*='rarity-Absolute Hacked'],\noption[class*='rarity-Absolute hacked'] {\n  animation: absoluteHackedMainAnimation 16s infinite linear;\n}\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked .flavor-blurb,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked .flavor-blurb {\n  animation: rainbowTextColorAnimation 16s infinite linear !important;\n  font-family: monospace;\n}\n.weapon-card[class*='rarity-Absolute Hacked'] > h3,\n.weapon-card[class*='rarity-Absolute Hacked'].Hacked > h3,\n.weapon-card[class*='rarity-Absolute hacked'] > h3,\n.weapon-card[class*='rarity-Absolute hacked'].hacked > h3 {\n  font-size: 2.8em;\n  margin-top: 10px;\n  margin-bottom: 15px;\n  color: inherit !important;\n  animation: rainbowTextColorAnimation 16s infinite linear !important;\n}\noption[class*='rarity-Absolute Hacked'] {\n  animation: absoluteHackedOptionAnimation 16s infinite linear,\n    rainbowTextColorAnimation 16s infinite linear;\n}"),
-		new Rarity('Apex Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	"apexHackedGlow",			null),
+		new Rarity('Apex Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Beyond Omnipotent Hacked',	10.5,		null,								'#7F3F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Zenith Hacked',				10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
-		new Rarity('Beyond Omnipotent Hacked',	10.5,		null,								'#7F3F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	bOHG,						null),
-		new Rarity('Nadir Hacked',				10,			null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
-		new Rarity('Singular Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Nadir Hacked',				10.5,		null,								'#FF0000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Yod Hacked',				10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Classified Hacked',			10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Beyond Zenith Hacked',		10.5,		null,								'#008000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Singular Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Forbidden Hacked',			10,			null,								'#800000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
-		new Rarity('Ascendant Hacked',			10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Ultra-Omni-Zenith Hacked',	10.5,		null,								'#88FF88',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Censored Hacked',			10,			null,								'#800000',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Ascendant Hacked',			10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Superlative Hacked',		10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Limitless Hacked',			10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Prime Hacked',				10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Unparalleled Hacked',		10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Ultimate Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Omega Hacked',				10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('God-Killer Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Redacted Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Majestic Hacked',			10,			null,								'#8FFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Sovereign Hacked',			10,			null,								'#FF7F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Ultra Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Infinite Hacked',			10,			null,								'#0000FF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity('Hyper Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
-		new Rarity('Unfathomable Hacked',		10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null)
+		new Rarity('Grand Hacked',				10,			null,								'#7F004F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Unfathomable Hacked',		10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Desolate Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Abyssal Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Premier Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Magnificent Hacked",		10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Phenomenal Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Thanatotic Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Expunged Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Hadean Hacked",				10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Absurd Hacked",				10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Undefined Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Pantheonic Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Preeminent Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Uncomputable Hacked",		10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Extra-Universal Hacked",	10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Extra-universal Hacked",	10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Glitched Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity(qfh,							10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Quantum Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Anomaly Hacked',			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Rarity Hacked',				10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Seraphic Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Perfect Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity("Pluperfect Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null)
 	]
 	
 	newRarities = [];
@@ -1509,6 +1672,7 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 				_cssResult += (newStyle + "\n");
 				rarityOrderText += `'${rarity.name}': ${rarity.rank}${i == rarities.length - 1 ? "" : ","}`
 			}
+			_cssResult += animationOutputTextBuffer;
 			_cssResult += demoRarity ? demoRarity.getStyle() : '';
 			renderCSS.textContent = _cssResult
 			rarityOrderText += "}"
@@ -1544,9 +1708,16 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 					<div class="weapon-list-item rarity-Super-Epic" id="weaponPill" data-weapon-id="0195bf36-f1fc-76a0-a327-509f73729c10">Fragment of the Universe</div>
 					<div id="rarityProperties">
 						<section>
+							<h3>Results</h3>
+							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>Please read this fucking warning (/nm i cursed to get your attention, but do read them)</summary><p style="color: #ff7f7f;">Don't "i ain't reading allat" me, this is <em>important</em>. If you don't read all of it, don't get pissed off at me when the thing doesn't work.</p><p>This tool is intended for my personal use, but since I posted it on the open web for my remote access, I should at least warn people who stumble upon it.</p><p>This constructs JS definitions for rarity classes; from these, this page's code can generate CSS. It is, in some regard, designed for the CSS to be compiled manually into a file. The main thing it asks for is the color scheme, because that's the main thing that makes each rarity different. At minimum, you should fill out the "Main colors" section; the "Other colors" section allows you to manually change/override some things if you want; some of the things it specifies matter in original-game and existing injected rarities (it can get complicated).</p><p>Making rarities here will not add them to the game, and will not create a script to inject them in. It will output a line of JS in the format this tool uses to define a rarity's properties (which are mostly colors. It needs to be coded into the page to be recognized. You can't do that, but if you want to make a rarity, please provide me with the resulting JS, lines of which should appear in the box below as you preview the rarities you make, by clicking "Try the rarity specified by the options". Each time you click that, it generates a new definition, so just backspace the old versions of the rarity class. (It is an editable text field, so don't accidentally delete them. Copy and paste them into a text file or other document for safe-keeping)</details></p>
+							<textarea id="rarityClassDefinitions" placeholder="new Rarity(..."></textarea>
+							<p id="rarityAutoAnimations">Initial auto-generated animations from existing rarities appeared here</p>
+							<textarea id="rarityAutoAnimations2" placeholder="Auto-generated animations from previewed rarities appear here"></textarea>
+						</section>
+						<section>
 							<h3>Preview</h3>
 							<p><label for="rRarityPreview">Preview existing rarity:</label> <select id="rRarityPreview"></select></p>
-							<p>MAKE SURE TO COPY THE NEW CLASS DEFINITION TO HARD-CODE INTO THIS FILE<br/>
+							<p><small style="font-size: 85%;">MAKE SURE TO COPY THE NEW CLASS DEFINITION TO HARD-CODE INTO THIS FILE</small><br/>
 							<button id="newRarityPreviewButton">Try the rarity specified by the options</button>
 							<select id="dummyPreviewSelector">
 								<option value="">Open the dropdown to see how its option looks</option>
@@ -1571,6 +1742,7 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 
 							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>What is this?</summary>Auto-generates the rarity based on the single-color given below. Disregards all parameters except for name, rank, hacked-value, single-color, any animation name and duration, and any hard-coded CSS.</details></p>
 							<p class="optional"><label for="rHackedAuto">Hacked rarity autogeneration</label><input id="rHackedAuto" type="checkbox" disabled></p>
+							<p class="optional"><label for="rHackedAutoAnimate">Hacked animation autogeneration</label><input id="rHackedAutoAnimate" type="checkbox" disabled></p>
 
 							<!--<p><label for="rIsBuffed">Is buffed:</label> <input type="checkbox" id="rIsBuffed"/></p>-->
 						</section>
@@ -1633,20 +1805,17 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 							<p class="optional"><label for="rPillAlpha">Glow opacity for weapon PILL</label><input id="rPillAlpha" type="number" min="0" max="1" step="0.01" value="0.5" disabled></p>
 							<p class="optional"><label for="rCardAlpha">Glow opacity for weapon CARD</label><input id="rCardAlpha" type="number" min="0" max="1" step="0.01" value="0.3" disabled></p>
 						</section>
-						<h3>Advanced</h3>
-							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about animations</summary>Animation design is not supported by this tool. Animations must be manually defined in the source code, and this is only an input facility for them alongside hard-coding.</details></p>
-							<p><label for="rAnimationName">Animation name:</label> <input id="rAnimationName"/></p>
-
-							<p class="optional"><label for="rAnimationTime">Animation duration:</label> <input type="number" min="0.5" value="2" step="0.5" id="rAnimationTime"/><br/><small>Default = 2. Value not used if no animation.</small></p>
-
-							<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about CSS override</summary>This is only for hard-coding complex legacy CSS. It bypasses the entire creator system.</details></p>
-							<p><label for="rCssOverride">Manual CSS:</label> <textarea id="rCssOverride"></textarea></p>
-						</section>
-
 						<section>
-							<h3>Results</h3>
-							<textarea id="rarityClassDefinitions"></textarea>
+							<h3>Advanced</h3>
+								<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about animations</summary>Animation design is not supported by this tool. Animations must be manually defined in the source code, and this is only an input facility for them alongside hard-coding.</details></p>
+								<p><label for="rAnimationName">Animation name:</label> <input id="rAnimationName"/></p>
+
+								<p class="optional"><label for="rAnimationTime">Animation duration:</label> <input type="number" min="0.5" value="2" step="0.5" id="rAnimationTime"/><br/><small>Default = 2. Value not used if no animation.</small></p>
+
+								<p><details style="margin-block-start: 0em; margin-block-end: 1.333em; font-size: 80%;"><summary>WARNING about CSS override</summary>This is only for hard-coding complex legacy CSS. It bypasses the entire creator system.</details></p>
+								<p><label for="rCssOverride">Manual CSS:</label> <textarea id="rCssOverride"></textarea></p>
 						</section>
+
 						<script>
 							var lsSaveListener = function() {
 								//console.log('Peeeeeeeee')
@@ -1695,8 +1864,6 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 								atcListener.bind(atc)();
 								ascListener.bind(asc)();
 							})
-
-							gebi = function(id) { return document.getElementById(id) };
 
 							function quoteWrapString(s) {
 								var delim = "'";
@@ -1772,6 +1939,8 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 								}
 							}
 
+							animationOutput = ""
+							
 							nrb = gebi('newRarityPreviewButton');
 							nrb.addEventListener('click', function() {
 								try {
@@ -1791,7 +1960,7 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 										option.setAttribute('value',previewSingleNewRarity.name);
 										option.innerText = previewSingleNewRarity.name
 									}
-									singleRarityPreviewStyle.innerText = previewSingleNewRarity.getStyle();
+									gebi('singleRarityPreviewStyle').innerText = previewSingleNewRarity.getStyle() + (animationOutput ?? '');
 									applyRarity(previewSingleNewRarity.name)
 								} catch(error) {
 									console.error(error);
@@ -1907,12 +2076,16 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 									}
 								}
 								var hackedAutogen = gebi('rHackedAuto');
+								var hackedAutoAnimGen = gebi('rHackedAutoAnimate');
 								if(hackedAutogen) {
 									if(!this.value || this.value == '0') {
 										hackedAutogen.setAttribute('disabled','');
 										if(hackedAutogen.checked) { hackedAutogen.checked = false };
+										hackedAutoAnimGen.setAttribute('disabled','');
+										if(hackedAutoAnimGen.checked) { hackedAutoAnimGen.checked = false };
 									} else if(!!this.value && this.value !== '0') {
 										hackedAutogen.removeAttribute('disabled');
+										hackedAutoAnimGen.removeAttribute('disabled');
 									}
 								}
 							}
@@ -2189,10 +2362,25 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 								var hasBuffedSuffix = name.endsWith(' Buffed');
 
 								var animation = null;
+								var doAutoAnimation = gebi('rHackedAutoAnimate').checked && gebi('rHackedAuto').checked; if(doAutoAnimation) { animation = 1 };
 								var animationText = gebi('rAnimationName').value.trim();
-								var hasAnimation = (animationText && animationText.length > 0);
+								var hasAnimation = doAutoAnimation || (animationText && animationText.length > 0);
 								if(hasAnimation) {
-									animation = animationText
+									if(animation === 1 || doAutoAnimation) {
+										var autoAnimationName = camelCase(name) + 'Glow';
+										var color = convertColorFormats(singleColor,'json');
+										var colorPartial = `rgba(${color.r}, ${color.g}, ${color.b}, 0.4)`;
+										var colorFull = convertColorFormats(singleColor,'hex');
+										animation = autoAnimationName;
+										animationOutput = `@keyframes ${autoAnimationName} { 0% { box-shadow: 0 0 20px ${colorPartial}; } 50% { box-shadow: 0 0 30px ${colorFull}; } 100% { box-shadow: 0 0 20px ${colorPartial}; } }`;
+										animationOutputText2 = gebi('rarityAutoAnimations2');
+										if(animationOutput && animationOutputText2) { animationOutputText2.value += animationOutput }
+									} else {
+										animation = animationText;
+										animationOutput = ''
+									}
+								} else {
+									animationOutput = ''
 								}
 
 								var animationTime = null;
@@ -2287,5 +2475,12 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 				</div>
 			</div>
 		</div>
+		<script>
+			var animationOutputText = gebi('rarityAutoAnimations');
+			//console.log(3);
+			animationOutputText.innerText = animationOutputTextBuffer
+			//console.log(3);
+			//console.log(animationOutputText)
+		</script>
 	</body>
 </html>
