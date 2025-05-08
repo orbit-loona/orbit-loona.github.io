@@ -338,8 +338,8 @@
 			.element-Space { color: #0b0080; }
 			.element-Death { color: #292929; }
 
-			.weapon-card.rarity-Transcendent,
-			.weapon-list-item.rarity-Transcendent {
+			.weapon-card.rarity-Transcendent:not(.Hacked),
+			.weapon-list-item.rarity-Transcendent:not(.Hacked) {
 			  --transcendent-gradient: linear-gradient(45deg, #ffffff, #eeeeee);
 			  --transcendent-color: #ffffff;
 			  --transcendent-glow: rgba(255,255,255,0.4);
@@ -1325,7 +1325,7 @@
 					//console.log(this.name,this.glowColorOverride,this.singleColor,gcArray)
 
 					var spacedRarityExcluder = "";
-					if(!this.isHacked) { spacedRarityExcluder += ":not(.Hacked)" };
+					if(!this.isHacked || this.name === "Transcendent") { spacedRarityExcluder += ":not(.Hacked)" };
 					if(!this.isBuffed) { spacedRarityExcluder += ":not(.Buffed)" };
 					if(this.name == 'Heavenly') { spacedRarityExcluder += ":not(.Gamer)" }; //KLUDGE
 					
@@ -1380,7 +1380,7 @@ var css = `.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 	border:2px solid ${this.borderColor};`}${(this.noTextShadow || (this.shadowOpacity == 0) || this.shadowColor === null) ? "" : `
 	text-shadow:1px 1px 2px ${this.shadowOpacity == 1 ? `${convertColorFormats(this.shadowColor,"hex",true)};` : `rgba(${scArray.join(",")},${this.shadowOpacity});`}`}${this.noGlow ? "" : `
 	box-shadow:0 0 15px rgba(${gcArray.join(",")},${mainGlowAlpha});`}${(this.animation !== null && typeof(this.animation) == "string")? `
-	animation:${this.animation} ${this.animationTime ?? 2}s infinite` : ""}${this.isHacked ? `
+	animation:${this.animation} ${this.animationTime ?? 2}s infinite;` : ""}${this.isHacked ? `
 	font-family: monospace; font-size: 180%;` : ''}
 }
 .weapon-card.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
@@ -1557,32 +1557,46 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 															"#ffff00", "#8fff00", "#00ff09",
 															"#00ff8f", "#00ffff", "#007fff",
 															"#0000ff", "#8f00ff", "#47007f"],	"#ff00ff",	null,		"#fff",	"#000",	1,		null,					null,		false,	false,	false,	false,	null,		null,		null,		false,	false,	null,						null),
-		new Rarity('Tav',						87,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null),
-		new Rarity('Common Hacked',				88,			null,								'#3FBF3F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Hacked',					89,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Uncommon Hacked',			90,			null,								'#7FBF3F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Rare Hacked',				91,			null,								'#00FFBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Beyond Hacked',				10.5,		null,								'#007F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Epic Hacked',				10,			null,								'#7F3FBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Heroic Hacked',				10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Super-Epic Hacked',			10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Legendary Hacked',			10,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Mythic Hacked',				10,			null,								'#FFFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Unreal Hacked',				10,			null,								'#FFFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
-		new Rarity('Transcendent Hacked',		10,			null,								'#00FFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Cosmic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Meta Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Exotic Hacked',				10,			null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Celestial Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Galactic Hacked',			10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Secret Hacked',				10,			null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Eternal Hacked',			10,			null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Abstracted Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Astral Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Divine Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Super Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Elevated Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
-		new Rarity('Ascended Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Tav',						87,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	0,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null),
+		new Rarity('Basic Hacked',				88,			null,								'#808080',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Common Hacked',				89,			null,								'#a0a0a0',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Hacked',					90,			null,								'#00FF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Uncommon Hacked',			91,			null,								'#4CAF50',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Rare Hacked',				92,			null,								'#2196F3',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Very Rare Hacked',			93,			null,								'#0046eb',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Zayin Hacked',				94,			null,								'#21d900',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Beyond Hacked',				95,			null,								'#007F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Epic Hacked',				96,			null,								'#9C27B0',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Super-Rare Hacked',			97, 		null,								'#031de2',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Heroic Hacked',				98,			null,								'#00ee33',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Ultra-Rare Hacked',			99, 		null,								'#2806d0',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Super-Epic Hacked',			100,		null,								'#ff00ff',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Teth Hacked',				101,		null,								'#1aa1ff',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Legendary Hacked',			102,		null,								'#FFD700',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Mythic Hacked',				103,		null,								'#FFBFBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null), //Not "Mythical Hacked', for historical reasons
+		new Rarity('Unreal Hacked',				104,		null,								'#bfffff',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Ultra-Epic Hacked',			105,		null,								'#BF005F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
+		new Rarity('Transcendent Hacked',		106,		null,								'#7FFFFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Extreme Mythic Hacked',		107,		null,								'#ff7272',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Cosmic Hacked',				108,		null,								'#5F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Meta Hacked',				109,		null,								'#01b621',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Heh Hacked',				110,		null,								'#dcd800',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Exotic Hacked',				111,		null,								'#BF5F00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Super-Cosmic Hacked',		112,		null,								'#9F00BF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Celestial Hacked',			113,		null,								'#2f005f',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Galactic Hacked',			114,		null,								'#d86f9f',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Hyper-Cosmic Hacked',		115,		null,								'#9F3FBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Secret Hacked',				116,		null,								'#BF7FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Eternal Hacked',			117,		null,								'#FFBF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Meta-Cosmic Hacked',		118,		null,								'#7F00DF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Abstracted Hacked',			119,		null,								'#7F7F9F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Astral Hacked',				120,		null,								'#2F9F8F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Omni-Cosmic Hacked',		121,		null,								'#5F3FBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Divine Hacked',				122,		null,								'#7FBF7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Super Hacked',				123,		null,								'#BF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Ultra-Cosmic Hacked',		124,		null,								'#5F2FEF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Elevated Hacked',			125,		null,								'#BFBFBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		/*new Rarity('Ascended Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Fabled Hacked',				10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Oneiric Hacked',			10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Confidential Hacked',		10,			null,								'#7F7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
@@ -1592,6 +1606,7 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 		new Rarity('Unique Hacked',				10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Undisclosed Hacked',		10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Heavenly Hacked',			10,			null,								'#FF7F7F',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
+		new Rarity('Waw Hacked',				31.5,		null,								'#7F3FBF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	null,						null),
 		new Rarity('Godlike Hacked',			10,			null,								'#FFFF00',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Godly Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
 		new Rarity('Aleph Hacked',				10,			null,								'#FF9FFF',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		1,		false,	1,							null),
@@ -1653,7 +1668,8 @@ ${headingSection}option.rarity-${this.deFactoClassName}${spacedRarityExcluder}{
 		new Rarity('Rarity Hacked',				10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity("Seraphic Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
 		new Rarity("Perfect Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
-		new Rarity("Pluperfect Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null)
+		new Rarity("Pluperfect Hacked",			10,			null,								'#FCCA93',	null,		null,	null,	0,		null,					null,		true,	false,	false,	false,	null,		null,		null,		2,		false,	null,						null),
+		new Rarity('Tav Hacked',				87,			['#feb900', '#ba7700'],				'#feb900',	null,		'#000',	null,	1,		null,					null,		false,	false,	true,	false,	'#ba7700',	null,		null,		false,	false,	null,						null)*/
 	]
 	
 	newRarities = [];
