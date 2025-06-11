@@ -1,0 +1,4285 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Conlangs</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Conlangs" />
+		<meta property="og:url" content="https://orbit-loona.github.io/wuianese.html" />
+		<meta property="og:description" content="A few languages made up for funsies" />
+		<meta property="og:locale" content="en_US" />
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<style>
+			#date {
+				border: 1px solid #ccc;
+				padding: 1px;
+			}
+
+			#qqwSearchQuery {
+				width: 350px;
+			}
+
+			table, tr, th, td {
+				border: 1px solid white;
+			}
+
+			tr {
+				line-height: 130%;
+			}
+
+			th, td {
+				padding: 7px 2px 5px 2px;
+				text-align: center;
+				vertical-align: middle;
+			}
+
+			em.underline {
+				font-style: normal;
+				text-decoration: underline;
+			}
+
+			table {
+				border-collapse: collapse;
+			}
+
+			.plain-font {
+				font-family: "Arial", sans-serif;
+				font-size: 80%;
+			}
+
+			td.part-small {
+				font-size: 70%;
+				letter-spacing: -1px;
+				line-height: 90%;
+			}
+
+			.plain-font small {
+				font-size: 80%;
+			}
+
+			.dnone {
+				display: none;
+			}
+
+			#errorWarning, .warning {
+				background-color: #2f0000;
+				color: white;
+				border: 1px solid red;
+				padding: 8px;
+			}
+
+			.alert {
+				background-color: #2f2f00;
+				color: white;
+				border: 1px solid yellow;
+				padding: 8px;
+			}
+
+			.advisory {
+				background-color: #00182f;
+				color: white;
+				border: 1px solid #007fff;
+				padding: 8px;
+			}
+
+			table tr th {
+				font-family: 'Gamja Flower', 'Comic Mono', 'Arial', sans-serif;
+				font-size: 140%;
+				font-weight: bold;
+			}
+
+			section section, section main {
+				padding-left: 1em;
+			}
+
+			.disclaimer {
+				font-size: 90%;
+				opacity: 0.8;
+			}
+
+			.box {
+				border: 1px solid white;
+				padding: 1px;
+				line-height: 150%;
+				font-size: 100%;
+			}
+
+			.box2 {
+				border: 1px solid #2bd;
+				padding: 1px;
+				line-height: 150%;
+			}
+
+			.box3 {
+				border: 1px solid #f58;
+				padding: 1px;
+				line-height: 150%;
+			}
+
+			.height {
+				line-height: 150%;
+				display: inline-block;
+			}
+
+			[g1] {
+				color: #ff9f9f;
+			}
+
+			[g1a] {
+				color: #ff8f5f;
+			}
+
+			[g2] {
+				color: #7f7fff;
+			}
+
+			[g2a] {
+				color: #cf7fff;
+			}
+
+			[g2b] {
+				color: #bf7fff;
+				background-color: #0000FF55;
+			}
+
+			[g3] {
+				color: #7fff7f;
+			}
+
+			[g3a] {
+				color: #7fffbf;
+			}
+
+			[g4] {
+				color: #ffff7f;
+			}
+
+			[g4a] {
+				color: #ffaf7f;
+			}
+
+			[g4b] {
+				color: #cfff7f;
+			}
+
+			[g4].box {
+				border: 1px solid #ffff7f;
+				padding: 1px;
+			}
+
+			[g5] {
+				color: #ff7fff;
+			}
+
+			[g5a] {
+				color: #ff00ff;
+			}
+
+			[g6] {
+				color: #7fffff;
+			}
+
+			[g6a] {
+				color: #7fbfff;
+			}
+
+			[g7a] {
+				color: #9f004f;
+			}
+
+			[g7b] {
+				color: #bf005f;
+			}
+
+			[g7c] {
+				color: #df006f;
+			}
+
+			[g7d] {
+				color: #ff007f;
+			}
+
+			[g8] {
+				color: #dfaf7f;
+			}
+
+			[gnull] {
+				color: #8f8f8f;
+			}
+
+			.censor {
+				background-color: #111;
+			}
+
+			.obsolete {
+				color: #cfbfbf;
+			}
+
+			abbr {
+				text-decoration: 1px white dotted underline !important;
+			}
+
+			.merged-out {
+				background-color: #333;
+			}
+
+			abbr:hover::after {
+				content: ' (' attr(title) ')';
+				opacity: 0.8;
+			}
+
+			abbr:hover::after::after {
+				content: ' ';
+				text-decoration: none;
+			}
+
+			.censor:not(:hover) {
+				color: #00000000;
+				font-size: 0px;
+				line-height: 1px;
+			}
+
+			.censor:not(:hover)::after {
+				color: #ff3f3f;
+				content: "Censored, hover to reveal";
+				font-size: 16px;
+				line-height: 18px;
+			}
+
+			.censor:hover {
+				color: #ffffff;
+			}
+
+			.screenreader {
+				position: absolute !important;
+				height: 1px; width: 1px;
+				overflow: hidden;
+				clip: rect(1px 1px 1px 1px);
+				clip: rect(1px, 1px, 1px, 1px);
+			}
+
+			#orthography main table td {
+				min-width: 1.2em;
+				font-size: 80%;
+			}
+
+			#wuianLore > br, #wuianLore *:not(li) > br {
+				height: 3px;
+				width: 2px;
+				border: 1px solid #0000;
+				display: block;
+				content: " ";
+			}
+
+			sup {
+				line-height: 80%;
+			}
+
+			.info-value li {
+				margin-bottom: 5px;
+			}
+
+			table+p {
+				margin-top: 1em;
+			}
+
+			.indent {
+				margin-left: 1em;
+				display: inline-block;
+			}
+
+			.indent2 {
+				margin-left: 2em;
+			}
+
+			.indent3 {
+				margin-left: 3em;
+			}
+
+			#version {
+				font-size: 80%;
+				opacity: 0.8;
+			}
+
+			h1.subh1 {
+				font-size: 195%;
+			}
+
+			.plain-font code {
+				font-size: 100%;
+			}
+
+			code {
+				background-color: #7f7f7f1f;
+				padding-left: 1px;
+				padding-right: 1px;
+				border: 1px solid #7f7f7f3f;
+			}
+
+			#qstReductionTable td {
+				min-width: 12px;
+			}
+
+			.canonical {
+				color: #8fff8f;
+			}
+
+			#wuiania [lang="qqw-Latn"] {
+				color: #8fcf8f;
+			}
+
+			#wuiania [lang="qqw-Khmr"] {
+				color: #bfdf6f;
+			}
+
+			#wuiania [lang="qsw"] {
+				color: #cfcf8f;
+			}
+
+			#wuiania [lang="qsm"] {
+				color: #df9fcf;
+			}
+
+			#wuiania [lang="qpt"] {
+				color: #9fdfcf;
+			}
+
+			#wuiania .translation {
+				color: #5fbf9f;
+			}
+
+			#wuiania #description em {
+				color: #afafff;
+			}
+
+			em.ui {
+				text-decoration: underline;
+			}
+
+			#wuiania [lang="qqw-Latn"], #wuiania [lang="qqw-Khmr"], #wuiania .translation {
+				margin-left: 1px;
+				margin-right: 1px;
+			}
+
+			#wuiania p, #wuiania div[aria-role="paragraph"], #wuiania .info-pair, #wuiania > span.indent[style] {
+				font-size: 115%;
+				line-height: 118%;
+			}
+
+			#wuiania div[aria-role="paragraph"] ul li .info-pair {
+				font-size: 100%;
+			}
+
+			.phoneme, .phonemes td {
+				color: #d5d5ff;
+			}
+
+			.marginal-allophone .phoneme {
+				opacity: 0.8;
+			}
+
+			td.loaneme, div[id$="Key"] span.loaneme {
+				background-color: #171917;
+			}
+			
+			.loaneme .phoneme, td.loaneme.phoneme {
+				color: #b5f5ff;
+			}
+			
+			td.loaneme span.phoneme, td.loaneme span.grapheme {
+				opacity: 0.9;
+			}
+
+			.loaneme .grapheme, td.loaneme.grapheme {
+				color: #dfeece;
+			}
+
+			.marginal-allophone .grapheme {
+				opacity: 0.9;
+			}
+
+			.grapheme, .graphemes td {
+				color: #ffcece;
+			}
+
+			details {
+				display:inline;
+			}
+			
+			details.outlined-details {
+				border: 1px solid #7f7f7f3f;
+				background-color: #7f7f7f1f;
+			}
+			
+			details summary {
+				cursor:pointer;
+				display:inline;
+			}
+			
+			details:not([open]) {
+				cursor: pointer;
+			}
+
+			details:not([open]) .details-expanded {
+				display:none;
+			}
+			
+			details[open] .details-hidden {
+				display:none;
+			}
+
+		</style>
+		<script>
+			function NOTIMPLEMENTED_getqqwStartLetterIndex(string) {
+				//Not implemented
+			};
+
+			urlParams = new URLSearchParams(window.location.search);
+
+			function randomChoice(array) {
+				return array[Math.floor(Math.random() * array.length)]
+			}
+
+			function capitalizeFirstLetter(string,locale=null) {
+				return string[0][locale ? "toLocaleUpperCase" : "toUpperCase"](locale) + string.slice(1)
+			};
+
+			partOfSpeechAbbreviations = {
+				"adjective": "adj.",
+				"adverb": "adv.",
+				"pronoun": "prn.",
+				"postposition": "postp.",
+				"interjection": "int.",
+				"conjunction": "conj.",
+				"marker": "m.",
+				"article": "art.",
+				"affix": "aff.",
+				"classifier": "cl.", //CL FROM 2NE1??!?!??!?!?!?!!!?!?!?
+				"noun": "n.",
+				"verb": "v.",
+				"noun/verb": "n/v.",
+			};
+			
+			languageNames = {
+				qqw: "Wuianese",
+				qsw: "Sissinese",
+				qsm: "Ssanamese",
+				qpt: "Sptyanim"
+			};
+			
+			nonPhoneticLangs = ["qpt"]
+
+			function logAndReturn(t) { console.log(t); return t };
+			
+			multiwordTerms = {}
+
+			String.prototype.startsAndEndsWith = function(query) {
+				return this.startsWith(query) && this.endsWith(query);
+			}
+
+			function doTable(data,languageName,languageCode,tableDestinationID) {
+				var length = data.length;
+				var countText = document.getElementById(languageCode + "EntryCount");
+				if(countText) {
+					var unit = (length == 1 ? "entry" : "entries");
+					countText.innerText = `${length.toLocaleString()} ${unit}`
+				};
+
+				var fragment = window.location.hash;
+				var fragmentValue = fragment?.slice?.(1) ?? null;
+
+				var tableDestination = document.getElementById(tableDestinationID);
+
+				var oldTable = document.getElementById(languageCode + "WordTable");
+				if(oldTable) { oldTable.parentElement.removeChild(oldTable); oldTable = null };
+				
+				var needsIpaColumn = nonPhoneticLangs.includes(languageCode);
+				var thIPA = null;
+				var tdIPA = null;
+
+				var newTable = document.createElement("table");
+				tableDestination.insertAdjacentElement("afterbegin",newTable)
+					newTable.classList.add("plain-font");
+					newTable.id = languageCode + "WordTable";
+					var newTbody = document.createElement("tbody");
+					newTable.appendChild(newTbody);
+						var headerRow = document.createElement("tr");
+						newTbody.appendChild(headerRow);
+							var thConlang = document.createElement("th");
+							headerRow.appendChild(thConlang);
+								thConlang.innerText = languageName;
+
+							if(needsIpaColumn) {
+								thIPA = document.createElement("th");
+								headerRow.appendChild(thIPA);
+									thIPA.innerText = "IPA";
+							}
+
+							var thEnglish = document.createElement("th");
+							headerRow.appendChild(thEnglish);
+								thEnglish.innerText = "English";
+
+							var thPart = document.createElement("th");
+							headerRow.appendChild(thPart);
+								thPart.innerText = "Part of speech";
+
+							var thEtymology = document.createElement("th");
+							headerRow.appendChild(thEtymology);
+								thEtymology.innerText = "Etymology";
+
+							var thNotes = document.createElement("th");
+							headerRow.appendChild(thNotes);
+								thNotes.innerText = "Notes";
+
+						var showNSF = 0;
+						if(urlParams.get("sh_vu") !== null) { showNSF = 1 };
+						if(urlParams.get("un_ce") !== null) { showNSF = 2 };
+						for(var i = 0; i < data.length; i++) {
+							if((data[i].censor) && !showNSF) { continue };
+							var newTr = document.createElement("tr");
+							newTbody.appendChild(newTr);
+								var tdConlang = document.createElement("td");
+								newTr.appendChild(tdConlang);
+									var term = data[i][languageCode] ?? "";
+									if(term) {
+										tdConlang.innerText = term ?? "";
+										tdConlang.setAttribute("id",`${languageCode}-${term}`);
+										if(term.includes(" ")) {
+											multiwordTerms[languageCode] ??= [];
+											multiwordTerms[languageCode].push(term)
+										}
+									} else {
+										console.error(data[i]);
+									};
+									if(data[i].qqw == fragmentValue) {
+										tdConlang.scrollIntoView?.()
+									};
+
+								if(needsIpaColumn) {
+									tdIPA = document.createElement("td");
+									newTr.appendChild(tdIPA);
+										tdIPA.innerText = data[i].ipa ?? "";
+									};
+
+								var tdEnglish = document.createElement("td");
+								newTr.appendChild(tdEnglish);
+									var termEng = data[i].eng;
+									if(data[i].html_title) { tdEnglish.setAttribute("title",data[i].html_title) };
+									if((showNSF == 1) && (data[i].censor)) { tdEnglish.classList.add("censor") };
+										var censor = (data[i].censor == true);
+										if((data[i].censor) && Array.isArray(termEng)) {
+											if(showNSF == 1) {
+												termEng = termEng.map(function(x) {
+													if((x.length) > 1) {
+														if(x.endsWith("#")) {
+															x = x.replace(/#+$/,"")
+														} else {
+															x = x.slice(0,-1) + "*"
+														}
+													};
+													return x
+												})
+											} else if(showNSF == 2) {
+												termEng = termEng.map(function(x) {
+													if(x.endsWith("#")) {
+														x = x.replace(/#+$/,"")
+													};
+													return x
+												})
+											};
+											termEng = termEng.toReversed().join("")
+										};
+									if(data[i].eng_href) {
+										var link = document.createElement("a");
+										tdEnglish.appendChild(link);
+											link.innerText = termEng ?? "";
+											link.setAttribute("href",data[i].eng_href)
+									} else {
+										tdEnglish.innerText = termEng ?? "";
+									};
+
+								var tdPart = document.createElement("td");
+								newTr.appendChild(tdPart);
+									var partData = data[i].part ?? "";
+									var displayPart = partData; for(var textToFind in partOfSpeechAbbreviations) { displayPart = displayPart.replace(textToFind,partOfSpeechAbbreviations[textToFind]) };
+									tdPart.innerText = displayPart;
+									if(displayPart.length > 7) { tdPart.classList.add("part-small") };
+
+								var tdEtymology = document.createElement("td");
+								newTr.appendChild(tdEtymology);
+									tdEtymology.innerText = data[i].etym ?? "";
+
+								var tdNotes = document.createElement("td");
+								newTr.appendChild(tdNotes);
+									tdNotes.innerText = data[i].extra ?? "";
+
+								var tags = data[i].tags ?? [];
+								if(term.indexOf(" ") > -1) {
+									tags.push("multi-word")
+								};
+
+								if(tags) {
+									if(typeof(tags) == "number") {
+										tags = tags.toString()
+									};
+									if(typeof(tags) == "string") { 
+										tags = [tags]
+									};
+									if(tags.length > 0) {
+										newTr.classList.add(...(tags.map(x => x.toLowerCase().replaceAll(" ","-"))))
+									}
+								}
+						};
+
+				if(fragmentValue) {
+					var destination = document.getElementById(fragmentValue);
+					if(destination) {
+						destination.scrollIntoView?.()
+					}
+				}
+			}
+
+			function findHomonyms(sourceData,languageCode) {
+				let totals = {};
+				for(let i = 0; i < sourceData.length; i++) {
+					var term = sourceData[i][languageCode];
+					totals[term] ??= 0;
+					totals[term]++;
+				};
+				return Object.entries(totals).filter(x => x[1] > 1).map(x => x[0])
+			}
+
+			function searchLexicon(languageCode) {
+				var languageName = languageNames[languageCode];
+				var query = (document.getElementById(languageCode + "SearchQuery")?.value) ?? "";
+				var noDia = (document.getElementById(languageCode + "IgnoreDiacritics") ?? {checked: false}).checked;
+				var sEng = (document.getElementById(languageCode + "SearchEnglish") ?? {checked: true}).checked;
+				var sCon = (document.getElementById(languageCode + "Search" + languageName) ?? {checked: true}).checked;
+				var sEty = (document.getElementById(languageCode + "SearchEtymology") ?? {checked: false}).checked;
+				var sExt = (document.getElementById(languageCode + "SearchExtraInfo") ?? {checked: false}).checked;
+				var sPar = (document.getElementById(languageCode + "SearchPartOfSpeech") ?? {checked: false}).checked;
+				var anchorStart = (document.getElementById(languageCode + "SearchStart") ?? {checked: false}).checked + 0;
+				var anchorEnd = (document.getElementById(languageCode + "SearchEnd") ?? {checked: false}).checked * 2;
+				var anchorStatus = anchorStart + anchorEnd;
+				var stringFunction;
+				switch(anchorStatus) {
+					case 1:
+						stringFunction = "startsWith";
+						break
+					case 2:
+						sConn = "endsWith";
+						break
+					case 3:
+						stringFunction = "startsAndEndsWith";
+						break
+					default:
+					case 0:
+						stringFunction = "includes";
+				};
+
+				var dataSource = langs[languageCode];
+				var filteredData = structuredClone(dataSource);
+				
+				if(query && (query.length > 1)) {
+					filteredData = structuredClone(dataSource).filter(function(itemData) {
+						if(Array.isArray(itemData.eng) && itemData.censor) { itemData.eng = itemData.eng.toReversed().join() };
+						if(noDia) {
+							if(!(itemData[languageCode])) { return };
+							return (
+								(sEng && ((itemData.eng.normalize("NFD") ?? "").toLowerCase()[stringFunction](query.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")))) ||
+								(sCon && ((itemData[languageCode].normalize("NFD") ?? "").toLowerCase()[stringFunction](query.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")))) ||
+								(sEty && itemData.etym.normalize("NFD") && (itemData.etym.toLowerCase()[stringFunction](query.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")))) ||
+								(sExt && itemData.extra.normalize("NFD") && (itemData.extra.toLowerCase()[stringFunction](query.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")))) ||
+								(sPar && itemData.part.normalize("NFD") && (itemData.part.toLowerCase()[stringFunction](query.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""))))
+							)
+						} else {
+							return (
+								(sEng && ((itemData.eng ?? "").toLowerCase()[stringFunction](query.toLowerCase()))) ||
+								(sCon && ((itemData[languageCode] ?? "").toLowerCase()[stringFunction](query.toLowerCase()))) ||
+								(sEty && itemData.etym && (itemData.etym.toLowerCase()[stringFunction](query.toLowerCase()))) ||
+								(sExt && itemData.extra && (itemData.extra.toLowerCase()[stringFunction](query.toLowerCase()))) ||
+								(sPar && itemData.part && (itemData.part.toLowerCase()[stringFunction](query.toLowerCase())))
+							)
+						};
+					});
+					
+					doTable(filteredData,languageName,languageCode,languageCode+"Wordlist");
+					filteredData = null;
+				} else if(!query) {
+					doTable(dataSource,languageName,languageCode,languageCode+"Wordlist");
+				}
+			};
+
+			body = document.body;
+			html = document.documentElement;
+
+			function getPageHeight() {
+				body = document.body;
+				html = document.documentElement;
+				var height = Math.max(
+					body.scrollHeight ?? 0,
+					body.offsetHeight ?? 0,
+					body.offsetHeight ?? 0,
+					html.clientHeight ?? 0,
+					html.offsetHeight ?? 0
+				);
+				return height
+			};
+			
+			nbsp = String.fromCharCode(0xA0);
+
+			function cf(){return Math.random()<.5}
+
+			function getScrollFraction() {
+				return window.scrollY / getPageHeight()
+			};
+
+			function saveScroll() {
+				localStorage.setItem("lastScrollPosition",getScrollFraction());
+			};
+
+			function loadScroll() {
+				var fragment = window.location.hash.slice(1);
+				if(fragment !== "") {
+					var fragmentedElement = document.getElementById(fragment);
+					if(fragmentedElement !== null) {
+						fragmentedElement.scrollIntoView();
+						saveScroll();
+						return
+					}
+				}
+				var savedScroll = localStorage.getItem("lastScrollPosition");
+				var pfss = parseFloat(savedScroll);
+				if((savedScroll == null) || isNaN(pfss)) { return false };
+				window.scroll(window.scrollY,pfss * getScrollFraction())
+			}
+
+			window.onresize = function() { loadScroll };
+			
+			phoneticInventories = {
+				//Bucketed based on phonotactical relevance
+				qqw: {
+					initials: [],
+					nasals: [],
+					vowels: [],
+					//tones: [],
+					finals: []
+				},
+				qsw: {
+					consonants: [],
+					vowels: []
+				},
+				qsm: {
+					initials: [],
+					vowels: [],
+					finals: []
+				},
+				qpt: {
+					consonants: [],
+					vowels: []
+				}
+			}
+			
+			window.addEventListener("load", function() {
+				var abbrevs = document.getElementById("qqwAbbreviations");
+				var warning = document.getElementById("errorWarning");
+
+				//var ___ = ["qsm","qpt"];
+				let missingNodes = [];
+				for(var langCode in languageNames) {
+					//While QSM and QST aren't implemented
+					//if(___.indexOf(langCode) > -1) { continue };
+					var langName = languageNames[langCode];
+					var searchOptions = [
+						langCode + "SearchQuery",
+						langCode + "IgnoreDiacritics",
+						langCode + "SearchEnglish",
+						langCode + "Search" + langName,
+						langCode + "SearchEtymology",
+						langCode + "SearchExtraInfo",
+						langCode + "SearchPartOfSpeech",
+						langCode + "SearchStart",
+						langCode + "SearchEnd"
+					]
+					for(var i = 0; i < searchOptions.length; i++) {
+						var nodeID = searchOptions[i];
+						var node = document.getElementById(nodeID);
+						if(node == null) { missingNodes.push(nodeID); continue };
+						node.setAttribute("_language",langCode);
+						if(node.getAttribute("type") == "checkbox") {
+							node.addEventListener("change",function() { searchLexicon(this.getAttribute("_language")) })
+						} else {
+							node.addEventListener("keyup",function() { searchLexicon(this.getAttribute("_language")) })
+							node.addEventListener("paste",function() { searchLexicon(this.getAttribute("_language")) })
+						}
+					}
+				};
+				if(missingNodes.length > 0) {
+					console.error("Nonexistent search-related nodes: " + missingNodes.join(", "))
+				}
+
+				//Feature counting
+					//Wuianese
+						var initialsTable = document.getElementById("qqwInitialsTable");
+						var initialCells = initialsTable.querySelectorAll("tr td");
+						var initialCount = 0;
+						for(var i = 0; i < initialCells.length; i++) {
+							var text = initialCells[i].textContent;
+							if((text.length) > 0 && text !== nbsp) {
+								initialCount++
+								var isNasal = (initialCells[i].getAttribute("nasal") !== null)
+								var ipa = null;
+								var alpha = null;
+								var data = text.split(" ");
+								ipa = data[0].replaceAll("/","").split("~")[0];
+								alpha = data[1].replace(/[〈〉]/g,"").split("/")[0];
+								if(isNasal) { phoneticInventories.qqw.nasals.push([ipa,alpha]) }
+								phoneticInventories.qqw.initials.push([ipa,alpha])
+							}
+						};
+						var initialsText = document.getElementById("qqwInitialsCount");
+						initialsText.textContent = `${initialCount.toLocaleString()} initial consonant${initialCount == 1 ? "" : "s"}`
+
+						//Display the number of vowels
+						var vowelsTable = document.getElementById("qqwVowelsTable");
+						var vowelCells = vowelsTable.querySelectorAll("tr td");
+						var vowelCount = 0;
+						for(var i = 0; i < vowelCells.length; i++) {
+							var text = vowelCells[i].textContent;
+							if((text.length) > 0 && text !== nbsp) {
+								vowelCount++
+								let ipa = null;
+								let alpha = null;
+								let data = text.split(" ");
+								ipa = data[0].replaceAll("/","").split("~")[0];
+								alpha = data[1].replace(/[〈〉]/g,"").split("/")[0];
+								phoneticInventories.qqw.vowels.push([ipa,alpha])
+							};
+						};
+						var vowelsText = document.getElementById("qqwVowelsCount");
+						vowelsText.textContent = `${vowelCount.toLocaleString()} vowel${vowelCount == 1 ? "" : "s"}`
+						//vowelsText.removeAttribute("id");
+						//vowelsText = null
+
+						//Display the number of finals
+						var finalsTable = document.getElementById("qqwFinalsTable");
+						var finalCells = finalsTable.querySelectorAll("tr td:not(.marginal-allophone)");
+						var finalCount = 0;
+						for(var i = 0; i < finalCells.length; i++) {
+							var text = finalCells[i].textContent;
+							if(text.length > 0 && text !== nbsp) {
+								finalCount++
+								var ipa = null;
+								var alpha = null;
+								var data = text.split(" ");
+								ipa = data[0].replaceAll("/","").split("~")[0];
+								alpha = data[1].replace(/[〈〉]/g,"").split("/")[0];
+								phoneticInventories.qqw.finals.push([ipa,alpha])
+							};
+						};
+						var finalsText = document.getElementById("qqwFinalsCount");
+						finalsText.textContent = `${finalCount.toLocaleString()} phonemic final consonant${finalCount == 1 ? "" : "s"}`
+
+						/* //Display the number of tones
+						var toneDiacritic = document.getElementById("qqwRomanRow").querySelectorAll("th")[1];
+						var toneIPA = document.getElementById("finalRow").querySelectorAll("th")[1];
+						while(toneDiacritic !== null) {
+							toneDiacritic = toneDiacritic.nextElementSibling;
+							if(toneDiacritic == null) { break };
+							toneIPA = toneIPA.nextElementSibling;
+							tdText = toneDiacritic.textContent;
+							tdIpaText = toneIPA.textContent.split("~")[0];
+							if(tdText.includes("None")) { tdText = "" };
+							tdText = tdText.replaceAll("◌","");
+							phoneticInventories.qqw.tones.push([tdIpaText,tdText])
+						}; */
+
+						//Display the number of letters (based on Latin count)
+						var lettersTable = document.getElementById("qqwRomanRow");
+						var letterCells = lettersTable.childNodes;
+						var letterCount = 0;
+						var cellsCounted = 0;
+						for(var i = 0; i < letterCells.length; i++) {
+							var cell = letterCells[i];
+							var tagName = cell.tagName;
+							if(tagName == undefined) { continue };
+							if(cellsCounted == 0 && tagName == "TH") { continue };
+							if(cellsCounted > 0 && tagName == "TH") {
+								break
+							};
+							if(tagName == "TD") {
+								letterCount++
+							};
+							cellsCounted++
+						};
+						var lettersText = document.getElementById("qqwLettersCount");
+						lettersText.textContent = `${letterCount.toLocaleString()} letter${letterCount == 1 ? "" : "s"}`
+
+						//Root generator
+						qqwGenerateRoot = function() {
+							//Does not account for allophonies
+							var word = [[],[]];
+							var randomNasal = randomChoice(phoneticInventories.qqw.nasals);
+
+							/* First medial number codes
+								0 = No medial
+								1 = /l/ medial
+								2 = Nasal medial
+								3 = L-N medial
+								4 = N-L medial
+							*/
+							var hasInitial = (Math.random() < 0.9);
+
+							var hasFinal = (Math.random() < 0.8);
+
+							var firstMedialDecider;
+							var firstMedialType;
+							if(!hasInitial) {
+								firstMedialDecider = 0
+							} else {
+								firstMedialDecider = Math.random()
+							}
+							if(firstMedialDecider < 0.70) {
+								firstMedialType = 0
+							} else if(firstMedialDecider < 0.90) {
+								firstMedialType = 1
+							} else if(firstMedialDecider < 0.95) {
+								firstMedialType = 2
+							} else {
+								firstMedialType = 3 + cf()
+							};
+
+							var hasSemivowel = (hasInitial && cf());
+
+							var vowelDecider = Math.random();
+							var howManyVowels;
+							if(vowelDecider < 0.7) {
+								howManyVowels = 1
+							} else if(vowelDecider < 0.95) {
+								howManyVowels = 2
+							} else {
+								howManyVowels = 3
+							};
+
+							if(hasInitial) {
+								var newInitial = randomChoice(phoneticInventories.qqw.initials);
+								word[0].push(newInitial[0]);
+								word[1].push(newInitial[1]);
+							};
+
+							switch(firstMedialType) {
+								case 1:
+									word[0].push("l");
+									word[1].push("l");
+									break
+								case 2:
+									word[0].push(randomNasal[0]);
+									word[1].push(randomNasal[1]);
+									break
+								case 3:
+									word[0].push("l",randomNasal[0]);
+									word[1].push("l",randomNasal[1]);
+									break
+								case 4:
+									word[0].push(randomNasal[0],"l");
+									word[1].push(randomNasal[1],"l");
+									break
+								default:
+								case 0:
+									break
+							};
+
+							if(hasSemivowel) {
+								if(cf()) {
+									word[0].push("j");
+									word[1].push("y");
+								} else {
+									word[0].push("w");
+									word[1].push("w");
+								}
+							}
+
+							//var randomTone = randomChoice(phoneticInventories.qqw.tones);
+
+							var lastVowel = null;
+
+							for(var i = 0; i < howManyVowels; i++) {
+								var pushTone = false;
+								var randomVowel = JSON.parse(JSON.stringify(randomChoice(phoneticInventories.qqw.vowels)));
+								if(i > 0) {
+									lastVowel = randomVowel[0];
+									randomVowel[0] += "̯"
+								};
+								/*if(i === (howManyVowels - 1)) {
+									if((randomTone[1] !== "") && (randomTone[1] === "i")) {
+										randomVowel[1] += "̇"
+									};
+									pushTone = true;
+								};*/
+								if(lastVowel == randomVowel[0]) {
+									word[0].push("ː")
+								} else {
+									word[0].push(randomVowel[0])
+								};
+								word[1].push(randomVowel[1]);
+								//if(pushTone) { word[1].push(randomTone[1]) };
+							};
+
+							if(hasFinal) {
+								var newFinal = randomChoice(phoneticInventories.qqw.finals);
+								word[0].push(newFinal[0]);
+								word[1].push(newFinal[1]);
+							};
+
+							//word[0].push(randomTone[0]);
+
+							return word.map(x => x.join(""))
+						};
+
+					//Sissinese
+						//Display the number of consonants
+						var initialsTable = document.getElementById("qstConsonantsTable");
+						var initialCells = initialsTable.querySelectorAll("tr td");
+						var initialCount = 0;
+						for(var i = 0; i < initialCells.length; i++) {
+							var text = initialCells[i].textContent;
+							if((text.length) > 0 && text !== nbsp) {
+								initialCount++
+							};
+						};
+						var initialsText = document.getElementById("qstConsonantsCount");
+						initialsText.textContent = `${initialCount.toLocaleString()} consonant${initialCount == 1 ? "" : "s"}`
+
+						//Display the number of letters (based on Latin count)
+						var lettersTable = document.getElementById("qstRomanRow");
+						var letterCells = lettersTable.childNodes;
+						var letterCount = 0;
+						var cellsCounted = 0;
+						for(var i = 0; i < letterCells.length; i++) {
+							var cell = letterCells[i];
+							var tagName = cell.tagName;
+							if(tagName == undefined) { continue };
+							if(cellsCounted == 0 && tagName == "TH") { continue };
+							if(cellsCounted > 0 && tagName == "TH") {
+								break
+							};
+							if(tagName == "TD") {
+								letterCount++
+							};
+							cellsCounted++
+						};
+						var lettersText = document.getElementById("qstLettersCount");
+						lettersText.textContent = `${letterCount.toLocaleString()} letter${letterCount == 1 ? "" : "s"}`
+
+					//Ssanamese
+
+					//Sptyanim
+					
+					console.warn("Root generation for languages besides Wuianese has not been implemented, so their phoneticInventories objects are not currently used.")
+				//End of section
+
+				function hideCode() {
+					var targetStyle = document.getElementById("removeMeIfScripted");
+					targetStyle.textContent = "";
+					targetStyle.parentElement.removeChild(targetStyle)
+				};
+
+				loadScroll();
+
+				document.addEventListener("scroll",saveScroll);
+				document.addEventListener("scrollend",saveScroll);
+
+				try {
+					doTable(langs.qqw,"Wuianese","qqw","qqwWordlist");
+					doTable(langs.qsw,"Sissinese","qsw","qstWordlist");
+					doTable(langs.qsm,"Ssanamese","qsm","qsmWordlist");
+					doTable(langs.qpt,"Sptyanim","qpt","qptWordlist");
+					abbrevs.classList.remove("dnone");
+					hideCode()
+				} catch(error) {
+					console.error(error);
+					warning.classList.remove("dnone");
+				}
+			})
+		</script>
+		<h1>Wuiania and its languages</h1>
+		<span id="version" title="b0.0: Blow up the lexicon and start over">Version b0.0</span>
+		<p class="warning">This version of the page is rapidly changing.&#8203;&nbsp;&nbsp;&#8203;The previous version is now non-canonical.<br/>All lexicons have been <strong>reset</strong> and restarted.</p><br/>
+		<p class="advisory">This page uses the American convention for numbers.&#8203;&nbsp;&nbsp;&#8203;Unless otherwise noted, a dot "." is the decimal separator, and a comma "," is the thousands separator; and -illion numbers are in the short scale.</p><br/>
+		<p class="advisory">This page uses <span class="plain-font" style="font-size: 80%;">〈ᴀ〉</span> in its phonetic notation to represent the open central unrounded vowel, and <span class="plain-font" style="font-size: 80%;">〈a〉</span> to represent the open front unrounded vowel.</p><br/>
+		<div aria-role="paragraph" class="advisory">Base-19 (Enneadecimal) numbers on this page are conveyed with an ad-hoc extension of the <a href="https://en.wikipedia.org/wiki/Hexadecimal#Verbal_and_digital_representations">Magnuson system</a> (the man's name is spelled very inconsistently<!-- to the point where you'd think it was a romanized Arabic name-->).<ol>
+			<li class="canonical">10: Ann(-ty/-teen)</li>
+			<li class="canonical">11: Bet(-ty/-teen)</li>
+			<li class="canonical">12: Chris(-ty/-teen)</li>
+			<li class="canonical">13: Dot(-ty/-teen)</li>
+			<li class="canonical">14: Ernest(-y/-een)</li>
+			<li class="canonical">15: Frost(-y/-een)</li>
+			<li>16: Grace(-ty/-teen)</li>
+			<li>17: Hope(-ty/-teen)</li>
+			<li>18: Ian(-ty/-teen)</li>
+			<li>19: <i>ten</i></li>
+		</ol></div><br/>
+
+		<p id="errorWarning" class="dnone">There is a syntax error in the data definition that prevents the table from being generated.&#8203;&nbsp;&nbsp;&#8203;Its source code is being shown below instead.</p>
+		<noscript><p class="warning">With JavaScript disabled, this page will instead show the contents of the script that holds the data. Unfortunately, as for &lt;script&gt; elements, even if they are set to display in text, Ctrl+F may still ignore their contents.</p></noscript>
+		<script id="languageDataTables">
+			langs = { //Lexicons are here
+				qqw: [
+					{ part: 'affix', qqw: '-ŝi', eng: '(Plural marker)', etym: '', extra: 'Was occasionally used as an intensifier in some derivations' },
+					{ part: 'affix', qqw: '-ed̃', eng: '(Dual marker)', etym: 'Related to TWO', extra: 'This morpheme is obsolete as the dual number has fallen out of use, and only survives in the inflection of a few irregularized words.', tags: ['obsolete'] },
+					{ part: 'affix', qqw: '-nyep', eng: '(Past tense marker), -ed' },
+					{ part: 'affix', qqw: '-k̋ép', eng: '(Present tense marker)', extra: 'Can usually be omitted, but can also be included for emphasis.' },
+					{ part: 'affix', qqw: '-f̌ép', eng: '(Future tense marker)' },
+					{ part: 'affix', qqw: '-yu̇n', eng: '(Turns verbs into determiners: -ing as in "the burning building", -y as in "stinky", -ive as in "reflective")' },
+					{ part: 'affix', qqw: '-o', eng: '(Possessive marker: \'s)' },
+					{ part: 'adverb', qqw: 'dyów', eng: 'not', etym: 'May be contracted to "dyó" or even "d́ó"' },
+					{ part: 'verb', qqw: 'źep', eng: '(present tense copula: to be, is)', etym: 'This verb inflects for tense irregularly' },
+					{ part: 'verb', qqw: 'zińe', eng: '(past tense copula: was)' },
+					{ part: 'verb', qqw: 'zif', eng: '(future tense copula: will be)' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeg̋i', eng: 'I, me', etym: '', extra: 'First person pronoun. Unlike English with its "I"-"me" distinction, this pronoun is not cased.' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeg̋yee', eng: 'you (singular)', etym: 'The origin of this mutation to show person is unknown', extra: 'Second person pronoun' },
+					{ part: 'adverb, pronoun', qqw: 'ŝegui', eng: 'they, them (singular)', etym: 'See "ŝeg̋yee"', extra: 'Third person pronoun. As with "ŝeg̋i" meaning both "I" and "me", this pronoun is not cased.' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeiŝ', eng: 'us, we (plural)', etym: 'From "ŝeg̋i" + "-ŝi", after erosion', extra: 'For referring to a group of 3 or more people, that you are a part of. Not cased, see "ŝeg̋i"' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeg̋yeŝ', eng: 'you (plural), you all, y\'all, yinz', etym: 'From "ŝeg̋yee" + "-ŝi", after erosion', extra: 'For referring to a group of 3 or more people, that you are directly addressing' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeguiŝi', eng: 'they, them (plural)', etym: 'ŝegui + -ŝi', extra: 'For referring to a group of 3 or more people, that you are not directly addressing. Not cased, see "ŝegui"' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeg̋et', eng: 'us, we (dual)', etym: 'From "ŝeg̋i" + "-ed̃", after erosion', extra: 'For referring to you with exactly one other person. Not cased, see "ŝeg̋i"' },
+					{ part: 'adverb, pronoun', qqw: 'ŝeg̋yede', eng: 'you (dual), you all, y\'all, yinz', etym: 'From "ŝeg̋yee" + "-ed̃", after phonetic changes', extra: 'For referring to exactly two people that you are directly addressing' },
+					{ part: 'adverb, pronoun', qqw: 'ŝegüd', eng: 'they, them (dual)', etym: 'From "ŝegui" + "-ed̃", after erosion', extra: 'For referring to exactly two people that you are not directly addressing. Not cased, see "ŝegui"' },
+					{ part: 'adjective', qqw: 's̀oň', eng: 'big, large; long, wide, tall; (of a hole or deficit) deep; severe' },
+					{ part: 'affix', qqw: 's̀o-', eng: 'big, large; long, wide, tall; (of a hole or deficit) deep; severe', etym: 'Common compounding form of "s̀o"' },
+					{ part: 'adjective', qqw: 'yeŋ', eng: 'small; short, thin; (of a hole or deficit) shallow; mild' },
+					{ part: 'affix', qqw: 'ye-', eng: 'small; short, thin; (of a hole or deficit) shallow; mild', etym: 'Common compounding form of "ye"' },
+					{ part: 'adjective', qqw: 's̀oňŝi', eng: 'huge, colossal, vast, enormous, massive (in size)' },
+					{ part: 'affix', qqw: 's̀oc᷉-', eng: 'huge, colossal, vast, enormous, massive (in size)', etym: 'Common compounding form of "s̀oňŝi"' },
+					{ part: 'adjective', qqw: 'yeŋŝi', eng: 'tiny, diminutive' },
+					{ part: 'affix', qqw: 'yeč-', eng: 'tiny, diminutive', etym: 'Common compounding form of "yeŋŝi"' },
+					{ part: 'conjunction', qqw: 'twu̇', eng: 'and', etym: 'Joins two nouns or two clauses' },
+					{ part: 'noun', qqw: 'yu̇', eng: 'air' },
+					{ part: 'noun', qqw: "žmo'aa", eng: 'dirt, soil' },
+					{ part: 'noun', qqw: 't́ið', eng: 'fire' },
+					{ part: 'noun', qqw: 'néme', eng: 'water' },
+					{ part: 'noun', qqw: 'x̋ye', eng: 'wind' },
+					{ part: 'noun', qqw: 's̀áþa', eng: 'dust' },
+					{ part: 'noun', qqw: 'ɣoið', eng: 'heat' },
+					{ part: 'noun', qqw: 's̀ösí', eng: 'mist, water spray; aerosol (specifically of liquid, or mixed liquid and solid)' },
+					{ part: 'noun', qqw: 'naral', eng: 'hill' },
+					{ part: 'noun', qqw: 'áxon', eng: 'lava' },
+					{ part: 'noun', qqw: 's̀an̏', eng: 'mud' },
+					{ part: 'noun', qqw: "t́iẑi", eng: 'wildfire, large blaze, inferno', etym: 'From "t́ið" + "ŝi", after assimilation' },
+					{ part: 'noun', qqw: 't̃am', eng: 'steam' },
+					{ part: 'noun', qqw: 'nupu', eng: 'puddle' },
+					{ part: 'noun', qqw: 'bara', eng: 'current, flow' },
+					{ part: 'noun', qqw: 'enín̏', eng: 'erosion' },
+					{ part: 'noun', qqw: 't́ishéí', eng: 'firestorm', etym: 'Unknown but related to "t́iẑi"' },
+					{ part: 'noun', qqw: 'ae', eng: 'wave' },
+					{ part: 'noun', qqw: 'hu̇s̀', eng: 'haze; lack or absence of visibility' },
+					{ part: 'noun', qqw: 'sán', eng: 'dusty air, aerosol (specifically of a solid in air, with no or negligible liquid)' },
+					{ part: 'noun', qqw: 'fúlme', eng: 'smoke, soot' },
+					{ part: 'noun', qqw: 'néḿu̇s̀', eng: 'dirty water', etym: 'From "neme" + "hu̇s̀", after erosion' },
+					{ part: 'noun', qqw: 'l̰̀ėm', eng: 'dry climate, aridity' },
+					{ part: 'noun', qqw: 'x́al', eng: 'drought' },
+					{ part: 'noun', qqw: 'karap', eng: 'radiative heat' },
+					{ part: 'noun', qqw: 'as̀ané', eng: 'water heater; boiler', etym: 'From "as̀a" + "ť̰anép", after erosion' },
+					{ part: 'noun', qqw: 'ara', eng: 'air humidity, humid weather/climate' },
+					{ part: 'noun', qqw: 'dan', eng: 'fog' },
+					{ part: 'noun', qqw: 'fúdan', eng: 'smog', etym: 'Contraction of "fúlme" + "dan"' },
+					{ part: 'noun', qqw: 'kna', eng: 'sweat; condensation [obsolete sense]' },
+					{ part: 'noun', qqw: 'wé', eng: 'large cloud' },
+					{ part: 'noun', qqw: 'mwán', eng: 'mound of dirt' },
+					{ part: 'noun', qqw: 't̃ákpa', eng: 'bonfire' },
+					{ part: 'noun', qqw: 'čanai', eng: 'island' },
+					{ part: 'noun', qqw: 'yan', eng: 'rock (material)' },
+					{ part: 'noun', qqw: 'teči', eng: 'basalt (material)' },
+					{ part: 'noun', qqw: 'da', eng: 'stone, pebble, boulder (a piece or mass of rock, regardless of size)' },
+					{ part: 'verb', qqw: 'hė', eng: 'to melt' },
+					{ part: 'noun', qqw: 'ameke', eng: 'Hell' },
+					{ part: 'noun', qqw: 'juxa', eng: 'obsidian' },
+					{ part: 'verb', qqw: 'čiþa', eng: 'to crumble; to shatter' },
+					{ part: 'adjective', qqw: 's̀ǹa', eng: 'dirty' },
+					{ part: 'noun', qqw: 'kan', eng: 'clay' },
+					{ part: 'noun', qqw: 'túq', eng: 'brown' },
+					{ part: 'noun', qqw: "qáá", eng: 'the Sun', etym: '' },
+					{ part: 'noun', qqw: "amuk", eng: 'char (substance), carbon [obsolete sense]' },
+					{ part: 'noun', qqw: "t́ípun", eng: 'incinerator', etym: 'Contraction of "t́ið" and "ápun"' },
+					{ part: 'verb', qqw: "as̀", eng: 'to boil' },
+					{ part: 'noun', qqw: 'áma', eng: 'cloud, clouds' },
+					{ part: 'noun', qqw: 'xan', eng: 'geyser' },
+					{ part: 'noun', qqw: "ť̰ana", eng: 'food steamer' },
+					{ part: 'noun', qqw: 'as̀a', eng: 'boiling water', etym: 'Related to "as̀"' },
+					{ part: 'verb', qqw: 'iné', eng: 'to reflect light; to shine' },
+					{ part: 'verb', qqw: 'nëm', eng: 'to absorb, to soak up' },
+					{ part: 'noun', qqw: 'v́alí', eng: 'fuel; fire accelerant' },
+					{ part: 'noun', qqw: 'ḱeń', eng: 'lake' },
+					{ part: 'noun', qqw: 'xe', eng: 'gale' },
+					{ part: 'noun', qqw: 'ėń', eng: 'dust storm' },
+					{ part: 'noun', qqw: 'av', eng: 'convection' },
+					{ part: 'noun', qqw: 'x́euk', eng: 'hurricane' },
+					{ part: 'verb', qqw: 'gek', eng: 'to block' },
+					{ part: 'noun', qqw: 'goþyané', eng: 'heater', etym: 'From "ɣoið" + "ť̰anép"' },
+					{ part: 'verb', qqw: 'k̃aň', eng: 'to dry' },
+					{ part: 'verb', qqw: "q̃lu̇", eng: 'to spread something' },
+					{ part: 'verb', qqw: 'z̀aq', eng: 'to spread on the wind, to be blown around' },
+					{ part: 'verb', qqw: 'ďwu̇k̃', eng: 'to ripple, (by extension) to affect', extra: 'This noun can be intransitive or transitive. In the second sense, it is always transitive.' },
+					{ part: 'noun', qqw: 'vih', eng: 'powder' },
+					{ part: 'noun', qqw: 'k̃wuip', eng: 'friction' },
+					{ part: 'verb', qqw: 'źoyáǹ', eng: 'to sublimate' },
+					{ part: 'noun', qqw: 'ť̰́os', eng: 'pile' },
+					{ part: 'noun', qqw: 'ɣ̋wüei', eng: 'rock dust' },
+					{ part: 'noun', qqw: 'd̀wė', eng: 'dirt dust' },
+					{ part: 'noun', qqw: "k̃wot", eng: 'ash' },
+					{ part: 'noun', qqw: 'k̰̋ėǹ', eng: 'snow' },
+					{ part: 'noun', qqw: 'x̋yöö', eng: 'sediment' },
+					{ part: 'noun', qqw: 't́iðan', eng: 'burner, lighter', etym: 'From "t́ið" + "ť̰anép", after erosion' },
+					{ part: 'noun', qqw: 'rwoox́', eng: 'pyroclastic flow' },
+					{ part: 'noun', qqw: 'v̌oe', eng: 'tired' },
+					{ part: 'verb', qqw: 'þwáx', eng: 'to burn', extra: 'May be pronounced as "ðwáx" or "ðwáɣ" in rapid speech' },
+					{ part: 'noun', qqw: 'g̋ëél', eng: 'compost' },
+					{ part: 'noun', qqw: "þwáńu̇ė", eng: 'burn (injury)', etym: 'From "þwáxnyep s̀u̇ėn̏", after erosion' },
+					{ part: 'verb', qqw: 'rëag̃', eng: 'to cook' },
+					{ part: 'noun', qqw: 'ėx́ném', eng: 'still water, stagnant water', etym: 'From "ëx́ néme"' },
+					{ part: 'noun', qqw: 's̀ösís̀i', eng: 'a dense mist, spray, or fog; [usually clarified with other words] heavy rain', etym: 'From "s̀ösíŝi"' },
+					{ part: 'noun', qqw: 'slyaenn̏', eng: 'mountain' },
+					{ part: 'noun', qqw: 'áóňḱeň', eng: 'lava lake', etym: 'From "áxon ḱeń"' },
+					{ part: 'noun', qqw: 'lahal', eng: 'lahar', etym: 'From Javanese "ꦭꦲꦂ"', tags: ["loanword", "Javanese"] },
+					{ part: 'noun', qqw: 'yeëf', eng: 'swamp' },
+					{ part: 'noun', qqw: 'nieu̇ň', eng: 'puddle' },
+					{ part: 'noun', qqw: 'ǵlyaz', eng: 'large puddle' },
+					{ part: 'noun', qqw: 's̀u̇ėn̏', eng: 'injury' },
+					{ part: 'noun', qqw: 'pun', eng: 'coal' },
+					{ part: 'noun', qqw: 'þalé', eng: 'brick' },
+					{ part: 'noun', qqw: "z̀wamuk", eng: 'charcoal', etym: 'From "z̀o" + "amuk"' },
+					{ part: 'noun', qqw: 'gën̏gwé', eng: 'pyrocumulonimbus cloud', etym: 'From "gëln̏wíþ wé"' },
+					{ part: 'noun', qqw: 'gëlgwíþ', eng: 'volcano' },
+					{ part: 'noun', qqw: 't́iþané', eng: 'furnace', etym: 'From "t́ið" + "ť̰anép"' },
+					{ part: 'noun', qqw: 'tugaiɣ́', eng: 'landslide, mudslide' },
+					{ part: 'noun', qqw: "yanjmá", eng: 'packed earth', etym: `From "yan žmo'aa"` },
+					{ part: 'noun', qqw: 'níŝmi', eng: 'sea; ocean', etym: 'From "némeŝi"' },
+					{ part: 'noun', qqw: 'níŝińk̋e', eng: 'sea', etym: 'From "níŝmi ḱeń"' },
+					{ part: 'noun', qqw: 'níŝmiza', eng: 'ocean', etym: 'From "níŝmi žámtwàì"' },
+					{ part: 'adjective', qqw: 'ëx́', eng: 'still, stagnant' },
+					{ part: 'noun', qqw: 'fyaiɣ́', eng: 'eruption, explosion', etym: 'Originally "p̃yök̰̋", then 〈p̃〉 /pʰ/ merged with 〈f〉 /f/ and the sound changed some more' },
+					{ part: 'noun', qqw: 'gëlwáíx', eng: 'volcanic eruption', etym: 'From "gëlgwíþ fyaiɣ́"' },
+					{ part: 'noun', qqw: 'x́yéx', eng: 'eruption, explosion', etym: 'From "x̋ye fyaiɣ́"' },
+					{ part: 'noun', qqw: 't̃amyéx', eng: 'BLEVE (boiling liquid expanding vapor explosion)', etym: 'From "t̃am x́yéx"' },
+					{ part: 'noun', qqw: 'ápun', eng: 'hole' },
+					{ part: 'noun', qqw: "žámj́i" , eng: 'the ground', etym: `From "žmo'aa ŝi"`},
+					{ part: 'noun', qqw: 'wáí', eng: 'sky' },
+					{ part: 'noun', qqw: 'žámtwàì', eng: 'the world, Earth (planet)', etym: 'From "žámj́i twu̇ wáí"' },
+					{ part: 'noun', qqw: 'wáyu̇', eng: 'atmosphere', etym: 'From "wai yu̇"' },
+					{ part: 'noun', qqw: 'z̀o', eng: 'wood' },
+					{ part: 'noun', qqw: 'ṕwév', eng: 'thing' },
+					{ part: 'adjective', qqw: 'd́eil', eng: 'heavy, dense, [by extension] severe, intense; burdensome, unpleasant' },
+					{ part: 'noun', qqw: 'ť̰anép', eng: 'tool, device', etym: 'Derived from "ť̰ana" and "ṕwev"; food steamers were among the first very common examples of a ť̰anep' },
+					{ part: 'noun', qqw: 'd́eila', eng: 'metal; copper', etym: 'Derived from "d́eil da"' },
+					{ part: 'noun', qqw: 'lyeþ', eng: 'p*ss, [vulgar] urine', etym: 'An old word for "urine" that pejorated' },
+					{ part: 'noun', qqw: 'l̃ėxė', eng: 'sh*t, [vulgar] feces', etym: 'An old word for "feces" that pejorated' },
+					{ part: 'noun', qqw: 'qeál', eng: 'day', etym: 'Related to "qáá"' },
+					{ part: 'noun', qqw: 'ńweǹ', eng: 'night' },
+					{ part: 'noun', qqw: 'aelí', eng: 'leaf' },
+					{ part: 'adjective', qqw: 'ńua', eng: 'dark', etym: 'Related to "ńweǹ"' },
+					{ part: 'noun', qqw: 'ẑíó', eng: 'blood' },
+					{ part: 'noun', qqw: 'd̀ëiq', eng: 'grass' },
+					{ part: 'noun', qqw: 'mulu', eng: 'sand' },
+					{ part: 'noun', qqw: 'z᷉ye', eng: 'color' },
+					{ part: 'noun', qqw: 'ta', eng: 'house' },
+					{ part: 'noun', qqw: 'mërya', eng: 'head' },
+					{ part: 'noun', qqw: 'atéli', eng: 'chief, mayor' },
+					{ part: 'noun', qqw: 'tocíl', eng: 'first-level administrative subdivision: state, province, oblast, etc.', etym: 'Used to mean "village; neighborhood"' },
+					{ part: 'noun', qqw: 'tocílàt', eng: 'governor (of a state, province, or other 1LAS)', etym: 'From "tocíl" + "atéli", after "tocíl" had already changed in meaning' },
+					{ part: 'noun', qqw: 'táŝi', eng: 'village; neighborhood', etym: 'From "taŝi"' },
+					{ part: 'noun', qqw: 'íli', eng: 'town, small city' },
+					{ part: 'noun', qqw: 'makiþ', eng: 'big city' },
+					{ part: 'noun', qqw: 'ílc᷉i', eng: 'a country, nation, nation-state', etym: 'From "iliŝi"' },
+					{ part: 'noun', qqw: 'ílc᷉àt', eng: 'president, prime minister', etym: 'From "ílc᷉i atéli"' },
+					{ part: 'noun', qqw: 'tini', eng: 'parliament, ruling council' },
+					{ part: 'noun', qqw: 'irúy', eng: 'glass' },
+					{ part: 'noun', qqw: 'tup', eng: 'door' },
+					{ part: 'noun', qqw: 'fes̀', eng: 'floor' },
+					{ part: 'noun', qqw: 'ilném', eng: 'window' },
+					{ part: 'noun', qqw: 'ťoėg̃́', eng: 'school' },
+					{ part: 'noun', qqw: 'ťėkoc', eng: 'school district', etym: 'From "ťoėg̃́" + "tocíl"' },
+					{ part: 'noun', qqw: 'ťoėgat', eng: 'principal', etym: 'From "ťoėg̃́" + "atéli"' },
+					{ part: 'noun', qqw: 'ťėgosá', eng: 'school district superintendent', etym: 'From "ťėkoc" + "atéli"' },
+					{ part: 'noun', qqw: 's̀oťoėg̃́', eng: 'university, college' },
+					{ part: 'noun', qqw: 't́yėn', eng: 'electricity', etym: 'From Mandarin "電"' },
+					{ part: 'noun', qqw: 't́end̀ëi', eng: 'electric wire', etym: 'From "t́yėn" + "d̀ëiq"' },
+					{ part: 'noun, adjective', qqw: 'ẑím', eng: 'red', etym: 'Related to "ẑíó"' },
+					{ part: 'noun, adjective', qqw: 't́iim', eng: 'orange', etym: 'Related to "t́ið"' },
+					{ part: 'noun, adjective', qqw: 'liþim', eng: 'yellow', etym: 'Related to "lyeþ"' },
+					{ part: 'noun, adjective', qqw: 'd́ǘím', eng: 'green', etym: 'Related to "d̀ëiq"' },
+					{ part: 'noun, adjective', qqw: 'wéím', eng: 'light blue', etym: 'Related to "wáí"' },
+					{ part: 'noun, adjective', qqw: 'nìŝím', eng: 'blue, dark blue, deep blue, cyan, tealish blue', etym: 'Related to "níŝmi"' },
+					{ part: 'noun, adjective', qqw: 'ailìŝím', eng: 'purple', etym: 'Related to "aelí" + "ŝi"' },
+					{ part: 'noun, adjective', qqw: 'yies', eng: 'white' },
+					{ part: 'noun, adjective', qqw: 'hes̀', eng: 'gray' },
+					{ part: 'noun, adjective', qqw: 'mulwím', eng: 'light yellow, peach (color), apricot (color), off-white' },
+					{ part: 'noun, adjective', qqw: 'tečím', eng: 'dark gray', etym: 'Related to "teči"' },
+					{ part: 'noun, adjective', qqw: 'ńǘéím', eng: 'black', etym: 'Related to "ńweǹ"' },
+				], //Jan ŝeiŝo ťėkoco ťėgosá źep.
+				qsw: [],
+				qsm: [], 
+				qpt: [] 
+			}
+			let seen = [];
+			for(var i = 0; i < langs.qqw.length; i++) {
+				var data = langs.qqw[i];
+				var word = data.qqw;
+				if(seen.indexOf(word) !== -1) {
+					console.error('Duplicated word in qqw: ' + word)
+				};
+				seen.push(word)
+			}
+		</script>
+		<style id="removeMeIfScripted">
+			script#languageDataTables {
+				display: block;
+				white-space: pre-wrap;
+				font-family: monospace;
+				letter-spacing: -1px;
+				background-color: #0a0a0a;
+				color: #cfc;
+			}
+
+			div.searchControls {
+				display: none;
+			}
+		</style>
+	</head>
+	<body style="font-size: 110%;">
+		<section id="wuianese">
+			<h1 class="subh1">Wuianese</h1>
+			<!--PHONEMIC-->
+			<section id="qqwPhonology">
+				<h2>Phonology:</h2>
+				<section id="qqwInitials">
+					<h3>Initials:</h3>
+					<main>
+						<div id="qqwInitialCounter"><span id="qqwInitialsCount">&nbsp;</span></div>
+						<div id="qqwTableKey">
+							<span style="display: inline-block; padding: 2px; border: 1px solid white;" class="merged-out">Involved in a shift or merger</span>
+						</div>
+						<table class="plain-font" id="qqwInitialsTable">
+							<tbody>
+								<tr>
+									<th colspan="2">&nbsp;</th>
+									<th colspan="2">Labial</th>
+									<th colspan="2">Labiodental</th>
+									<th colspan="2">Dental</th>
+									<th colspan="2">Alveolar</th>
+									<th colspan="2">Post-alveolar</th>
+									<th colspan="2">Palatal</th>
+									<th colspan="2">(Pre-)Velar</th>
+									<th>Glottal</th>
+								</tr>
+								<tr>
+									<th colspan="2">&nbsp;</th>
+									<th><abbr title="Voiceless">V'less</abbr></th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+								</tr>
+								<tr>
+									<th rowspan="4">Plosive</th>
+									<th>Plain</th>
+									<td><span class="phoneme">/p/</span> <span class="grapheme">〈p〉</span></td>
+									<td><span class="phoneme">/b/</span> <span class="grapheme">〈b〉</span></td>
+									<td class="merged-out">&nbsp;</td>
+									<td class="merged-out">&nbsp;</td>
+									<td><span class="phoneme">/t̪͆/</span> <span class="grapheme">〈ť〉</span></td>
+									<td><span class="phoneme">/d̪͆/</span> <span class="grapheme">〈ď〉</span></td>
+									<td><span class="phoneme">/t/</span> <span class="grapheme">〈t〉</span></td>
+									<td><span class="phoneme">/d/</span> <span class="grapheme">〈d〉</span></td>
+									<td><span class="phoneme">/t̠/</span> <span class="grapheme">〈t̀〉</span></td>
+									<td><span class="phoneme">/d̠/</span> <span class="grapheme">〈d̀〉</span></td>
+									<td><span class="phoneme">/c/</span> <span class="grapheme">〈k̋〉</span></td>
+									<td><span class="phoneme">/ɟ/</span> <span class="grapheme">〈g̋〉</span></td>
+									<td><span class="phoneme">/k/</span> <span class="grapheme">〈k〉</span></td>
+									<td><span class="phoneme">/g/</span> <span class="grapheme">〈g〉</span></td>
+									<td><span class="phoneme">/ʰʔ/</span> <span class="grapheme">〈q〉</span></td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<th>Aspirated</th>
+									<td class="merged-out">&nbsp;</td>
+									<td class="merged-out">&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̪͆ʰ~θ/</span> <span class="grapheme">〈ť̰〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/d̪͆ʱ~ð/</span> <span class="grapheme">〈ď̰〉</span></td>-->
+									<td><span class="phoneme">/tʰ/</span> <span class="grapheme">〈t̃〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/dʱ/</span> <span class="grapheme">〈d̃〉</span></td>-->
+									<td><span class="phoneme">/t̠ʰ/</span> <span class="grapheme">〈t̰̀〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/d̠ʱ/</span> <span class="grapheme">〈d̰̀〉</span></td>-->
+									<td><span class="phoneme">/cʰ~c͡ç/</span> <span class="grapheme">〈k̰̋〉</span></td>
+									<td class="merged-out">&nbsp;</td>
+									<td><span class="phoneme">/kʰ~k͡x/</span> <span class="grapheme">〈k̃〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/gʱ/</span> <span class="grapheme">〈g̃〉</span></td>-->
+									<td><span class="phoneme">/ʰʔʰ~ʰʔ͡h/</span> <span class="grapheme">〈q̃〉</span></td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<th>Palatalized</th>
+									<td><span class="phoneme">/pʲ/</span> <span class="grapheme">〈ṕ〉</span></td>
+									<td><span class="phoneme">/bʲ/</span> <span class="grapheme">〈b́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̪͆ʲ/</span> <span class="grapheme">〈ť́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/tʲ/</span> <span class="grapheme">〈t́〉</span></td>
+									<td><span class="phoneme">/dʲ/</span> <span class="grapheme">〈d́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k̟/</span> <span class="grapheme">〈ḱ〉</span></td>
+									<td><span class="phoneme">/g̟/</span> <span class="grapheme">〈ǵ〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<th><small style="font-size: 80%;">Palatalized aspirated</small></th>
+									<td class="merged-out">&nbsp;</td>
+									<td class="merged-out">&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̪͆ʲʰ/</span> <span class="grapheme">〈ť̰́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/tʲʰ/</span> <span class="grapheme">〈t̰́〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/dʲʱ/</span> <span class="grapheme">〈d̰́〉</span></td>-->
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k̟ʰ/</span> <span class="grapheme">〈ḱ̰〉</span></td>
+									<td class="merged-out">&nbsp;</td><!--<td><span class="phoneme">/g̟ʱ/</span> <span class="grapheme">〈ǵ̰〉</span></td>-->
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Nasal</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/m/</span> <span class="grapheme">〈m〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/n̪~n/</span> <span class="grapheme">〈n〉</span></td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/n̠/</span> <span class="grapheme">〈ǹ〉</span></td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/ɲ/</span> <span class="grapheme">〈ń〉</span></td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/ŋ/</span> <span class="grapheme">〈n̏〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Nasal-->
+									<th>Palatalized</th>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/mʲ/</span> <span class="grapheme">〈ḿ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/n̪ʲ~nʲ/</span> <span class="grapheme">〈ń〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/ŋ̟/</span> <span class="grapheme">〈ň〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Flap</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɾ~r/</span> <span class="grapheme">〈r〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Fricative</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɸ~f/</span> <span class="grapheme">〈f〉</span></td>
+									<td><span class="phoneme">/v/</span> <span class="grapheme">〈v〉</span></td>
+									<td><span class="phoneme">/θ/</span> <span class="grapheme">〈þ〉</span></td>
+									<td><span class="phoneme">/ð/</span> <span class="grapheme">〈ð〉</span></td>
+									<td><span class="phoneme">/s/</span> <span class="grapheme">〈s〉</span></td>
+									<td><span class="phoneme">/z/</span> <span class="grapheme">〈z〉</span></td>
+									<td><span class="phoneme">/ʃ/</span> <span class="grapheme">〈s̀〉</span></td>
+									<td><span class="phoneme">/ʒ/</span> <span class="grapheme">〈z̀〉</span></td>
+									<td><span class="phoneme">/ç/</span> <span class="grapheme">〈x̋〉</span></td>
+									<td><span class="phoneme">/ʝ/</span> <span class="grapheme">〈ɣ̋〉</span></td>
+									<td><span class="phoneme">/x/</span> <span class="grapheme">〈x〉</span></td>
+									<td><span class="phoneme">/ɣ/</span> <span class="grapheme">〈ɣ〉</span></td>
+									<td><span class="phoneme">/h/</span> <span class="grapheme">〈h〉</span></td>
+								</tr>
+								<tr>
+									<!--Fricative-->
+									<th>Palatalized</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/fʲ/</span> <span class="grapheme">〈f́〉</span></td>
+									<td><span class="phoneme">/vʲ/</span> <span class="grapheme">〈v́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/sʲ/</span> <span class="grapheme">〈ś〉</span></td>
+									<td><span class="phoneme">/zʲ/</span> <span class="grapheme">〈ź〉</span></td>
+									<td><span class="phoneme">/ɕ/</span> <span class="grapheme">〈ŝ〉</span></td>
+									<td><span class="phoneme">/ʑ/</span> <span class="grapheme">〈ẑ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/x̟/</span> <span class="grapheme">〈x́〉</span></td>
+									<td><span class="phoneme">/ɣ̟/</span> <span class="grapheme">〈ɣ́〉</span></td><!--Ɣ-->
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Affricate</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/p̪͡f/</span> <span class="grapheme">〈f̌〉</span></td>
+									<td><span class="phoneme">/b̪͡v/</span> <span class="grapheme">〈v̌〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡s/</span> <span class="grapheme">〈c〉</span></td>
+									<td><span class="phoneme">/d͡z/</span> <span class="grapheme">〈ž〉</span></td>
+									<td><span class="phoneme">/t̠͡ʃ/</span> <span class="grapheme">〈č〉</span></td>
+									<td><span class="phoneme">/d̠͡ʒ/</span> <span class="grapheme">〈j〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Affricate-->
+									<th>Palatalized</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/p̪͡fʲ/</span> <span class="grapheme">〈f᷉〉</span></td>
+									<td><span class="phoneme">/b̪͡vʲ/</span> <span class="grapheme">〈v᷉〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡sʲ/</span> <span class="grapheme">〈ć〉</span></td>
+									<td><span class="phoneme">/d͡zʲ/</span> <span class="grapheme">〈z᷉〉</span></td>
+									<td><span class="phoneme">/t̠͡ɕ/</span> <span class="grapheme">〈c᷉〉</span></td>
+									<td><span class="phoneme">/d̠͡ʑ/</span> <span class="grapheme">〈j́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Lateral fricative</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɬ~ɮ/</span> <span class="grapheme">〈l̃〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɬ̠~ɮ̠~<abbr title="Under-fonted extIPA symbol: U+A78E ꞎ">ɭ̊˔</abbr>~<abbr title="Under-fonted extIPA symbol: U+1DF05 𝼅"/>ɭ˔</abbr>/</span> <span class="grapheme">〈l̰̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Approximant</th>
+									<td><span class="phoneme">/w~β̞/</span> <span class="grapheme">〈w〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/l/</span> <span class="grapheme">〈l〉</span></td>
+									<td><span class="phoneme">/ɹ~ɻ/</span> <span class="grapheme">〈l̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/j/</span> <span class="grapheme">〈y〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<!--Shifts, merges, and exceptions:
+					*/pʰ/ shifted into /ɸ~f/ and /bʱ/ merged with /b/
+					*/p̪/ and */b̪/ merged into /p̪͡f/ and /b̪͡v/
+					*/ɟʱ/ merged into /j/
+
+					*/cʰ/ became freely variant with /c͡ç/
+
+					*/pʲʰ/ and */bʲʱ/ became /fʲ/ and /vʲ/
+					*/l̠/ became /ɭ/ and then /ɹ~ɻ/
+
+					#/d̪͆ʲ/ and #/d̪͆ʲʱ/ never developed
+					#/ȶ/ and #/ȡ/ never developed
+					#/t̠ʲ/, #/d̠ʲ/, #/t̠ʲʰ/, and #/d̠ʲʱ/ never developed
+					#/cʲ/, #/cʲʰ/, #/ɟʲ/, and #/ɟʲʱ/ never developed (you can't really palatalize a palatal consonant)
+				-->
+
+				<section id="qqwVowels">
+					<h3>Vowels</h3>
+					<main>
+						<div id="qqwVowelCounter"><span id="qqwVowelsCount">&nbsp;</span></div>
+						<table class="plain-font" id="qqwVowelsTable">
+							<tbody>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Front</th>
+									<th>Near-front</th>
+									<th>Central</th>
+									<th>Back</th>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Unround</th>
+									<th>Rounded</th>
+									<th>Unround</th>
+									<th>Rounded</th>
+								</tr>
+								<tr>
+									<th>Close</th>
+									<td><span class="phoneme">/i/</span> <span class="grapheme">〈i〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɯ̟~ɨ/</span> <span class="grapheme">〈u̇〉</span></td>
+									<td><span class="phoneme">/u/</span> <span class="grapheme">〈u〉</span></td>
+								</tr>
+								<tr>
+									<th>Near-close</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʏ/</span> <span class="grapheme">〈ü〉</span></td></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Close-mid</th>
+									<td><span class="phoneme">/e/</span> <span class="grapheme">〈e〉</span></td></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/o/</span> <span class="grapheme">〈o〉</span></td></td>
+								</tr>
+								<tr>
+									<th>Mid</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ə/</span> <span class="grapheme">〈ë〉</span></td></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Open-mid</th>
+									<td><span class="phoneme">/ė/</span> <span class="grapheme">〈ɛ〉</span></td></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɔ/</span> <span class="grapheme">〈ö〉</span></td></td>
+								</tr>
+								<!--<tr>
+									<th>Near-open</th>
+									<td><span class="phoneme">/æ/</span> <span class="grapheme">〈ä〉</span></td></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>-->
+								<tr>
+									<th>Open</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ᴀ~a/</span> <span class="grapheme">〈a〉</span></td></td>
+									<td>&nbsp;</td><!--<td><span class="phoneme">/ɑ~ɒ/</span> <span class="grapheme">〈ȯ〉</span></td></td>-->
+								</tr>
+							</tbody>
+						</table>
+
+						
+						<h4 id="qqwStress">Stress accent</h4><!--Remove this section if tone is reinstated--></p>
+						<p class="indent">Wuianese words usually have up to one stressed syllable; words compounded from multiple stress-bearing words will have two stressed syllables, but the most stressed of the two will usually be the first one.&#8203;&nbsp;&nbsp;&#8203;Stress is marked with an acute accent diacritic <span class="grapheme">◌́</span>, with the "lesser" stressed syllables in compounds being marked with a grave accent <span class="grapheme">◌̀</span>.&#8203;&nbsp;&nbsp;&#8203;However, stress may not be marked in writing on words where stress does not form a minimal pair (that is, if stress will not change the meaning); it is always marked in learning materials and dictionaries.&#8203;&nbsp;&nbsp;&#8203;In a word with stressed syllables, the <em>un</em>stressed syllables will be at a slightly lower pitch than those in a word without stressed syllables.&#8203;&nbsp;&nbsp;&#8203;Grammatical affixes are exempt from this rule and <em>do not</em> change the pitches of the word they are attached to.</p>
+
+						<h4 id="qqwPolyphthongs">Diphthongs and polyphthongs (multiphthongs)</h4>
+						<p id="qqwDiphthongs" class="indent"> <!--old anchor kept for backward compatibility-->
+							Any vowel may follow any other vowel; duplicate vowels are equivalent to long vowels.&#8203;&nbsp;&nbsp;&#8203;Wuianese phonotactics allow for up to <span id="maxPhthongs">3</span> vowels in a syllable; triphthongs' components can exhibit considerable allophony.&#8203;&nbsp;&nbsp;&#8203;If a polyphthong is stressed, the entire polyphthong bears the stress (there cannot be mixed stress across a polyphthong's vowels), and all of the vowel letters are marked with the diacritic.
+						</p>
+					</main>
+				</section>
+
+				<section id="qqwFinals">
+					<h3>Finals:</h3>
+					<main>
+						<div id="qqwFinalCounter"><span id="qqwFinalsCount">&nbsp;</span></div>
+						<table class="plain-font" id="qqwFinalsTable">
+							<tbody>
+								<tr>
+									<th colspan="3">&nbsp;</th>
+									<th colspan="2">Labial</th>
+									<th colspan="2">Labiodental</th>
+									<th colspan="2">Dental</th>
+									<th colspan="2">Alveolar</th>
+									<th colspan="2">Post-alveolar</th>
+									<th colspan="2">Palatal</th>
+									<th colspan="2">Pre-velar</th>
+									<th colspan="2">Velar</th>
+									<th>Glottal</th>
+								</tr>
+								<tr>
+									<th colspan="3">&nbsp;</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+								</tr>
+								<tr>
+									<th rowspan="3">Plosive</th>
+									<th rowspan="2">Plain</th>
+									<th>Unreleased</th>
+									<td><span class="phoneme">/p̚/</span> <span class="grapheme">〈p/ṕ/b/b́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̚/</span> <span class="grapheme">〈t/ď/t́/d/d́/ť/ť́/t̀/d̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k̚/</span> <span class="grapheme">〈k/g/ḱ/ǵ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʔ/</span> <span class="grapheme">〈q〉</span></td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<!--Plain-->
+									<th rowspan="2">Released</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̪͆/</span> <span class="grapheme">〈ť̰〉</span></td>
+									<td><span class="phoneme">/d̪͆/</span> <span class="grapheme">〈ď̰〉</span></td>
+									<td><span class="phoneme">/t/</span> <span class="grapheme">〈t̃〉</span></td>
+									<td><span class="phoneme">/d/</span> <span class="grapheme">〈d̃〉</span></td>
+									<td><span class="phoneme">/t̠/</span> <span class="grapheme">〈t̰̀〉</span></td>
+									<td><span class="phoneme">/d̠/</span> <span class="grapheme">〈d̰̀〉</span></td>
+									<td><span class="phoneme">/c/</span> <span class="grapheme">〈k̰̋〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k̟/</span> <span class="grapheme">〈ḱ̰〉</span></td>
+									<td><span class="phoneme">/g̟/</span> <span class="grapheme">〈g̃́〉</span></td>
+									<td><span class="phoneme">/k/</span> <span class="grapheme">〈k̃〉</span></td>
+									<td><span class="phoneme">/g/</span> <span class="grapheme">〈g̃〉</span></td>
+									<td><span class="phoneme">/ʔʰ/</span> <span class="grapheme">〈q̃〉</span></td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<th>Palatalized</th>
+									<!--Released-->
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t̪͆ʲ/</span> <span class="grapheme">〈ť̰́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/tʲ/</span> <span class="grapheme">〈t̰́〉</span></td>
+									<td><span class="phoneme">/dʲ/</span> <span class="grapheme">〈d̰́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2" rowspan="2">Nasal</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/m/</span> <span class="grapheme">〈m〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n̪~n/</span> <span class="grapheme">〈n〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n̠~ɳ/</span> <span class="grapheme">〈ǹ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɲ/</span> <span class="grapheme">〈ń〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ŋ/</span> <span class="grapheme">〈n̏〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Nasal-->
+									<th>Palatalized</th>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/mʲ/</span> <span class="grapheme">〈ḿ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/n̪ʲ~nʲ/</span> <span class="grapheme">〈ń〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td nasal><span class="phoneme">/ŋ̟/</span> <span class="grapheme">〈ň〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="3">Fricative</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/f/</span> <span class="grapheme">〈f/f́/f̌〉</span></td>
+									<td><span class="phoneme">/v/</span> <span class="grapheme">〈v/v́/v̌〉</span></td>
+									<td><span class="phoneme">/θ/</span> <span class="grapheme">〈þ〉</span></td>
+									<td><span class="phoneme">/ð/</span> <span class="grapheme">〈ð〉</span></td>
+									<td><span class="phoneme">/s/</span> <span class="grapheme">〈s〉</span></td>
+									<td><span class="phoneme">/z~s~<abbr title="Under-fonted extIPA representation of partial devoicing of /z/">z̥᪽</abbr>/</span> <span class="grapheme">〈z〉</span></td>
+									<td><span class="phoneme">/ʃ/</span> <span class="grapheme">〈s̀〉</span></td>
+									<td><span class="phoneme">/ʒ/</span> <span class="grapheme">〈z̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ç̟/</span> <span class="grapheme">〈x́〉</span></td>
+									<td><span class="phoneme">/ɣ́~i̯/</span> <span class="grapheme">〈ɣ́〉</span></td>
+									<td><span class="phoneme">/x/</span> <span class="grapheme">〈x〉</span></td>
+									<td><span class="phoneme">/ɣ/</span> <span class="grapheme">〈ɣ〉</span></td>
+									<td><span class="phoneme">/h/</span> <span class="grapheme">〈h〉</span></td>
+								</tr>
+								<tr>
+									<th colspan="2" rowspan="2">Affricate</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡s/</span> <span class="grapheme">〈c〉</span></td>
+									<td><span class="phoneme">/d͡z/</span> <span class="grapheme">〈ž〉</span></td>
+									<td><span class="phoneme">/t̠͡ʃ/</span> <span class="grapheme">〈č〉</span></td>
+									<td><span class="phoneme">/d̠͡ʒ/</span> <span class="grapheme">〈j〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Affricate-->
+									<th>Palatalized</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡sʲ/</span> <span class="grapheme">〈ć〉</span></td>
+									<td><span class="phoneme">/d͡zʲ/</span> <span class="grapheme">〈z᷉〉</span></td>
+									<td><span class="phoneme">/t̠͡ɕ/</span> <span class="grapheme">〈c᷉〉</span></td>
+									<td><span class="phoneme">/d̠͡ʑ/</span> <span class="grapheme">〈j́〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="3">Approximant</th>
+									<td><span class="phoneme">/u̯/</span> <span class="grapheme">〈w〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/l/</span> <span class="grapheme">〈l/l̃〉</span></td>
+									<td><span class="phoneme">/ɹ~ɻ/</span> <span class="grapheme">〈l̀/l̰̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/i̯/</span> <span class="grapheme">〈y/ǵ/g̋/k̋/x̋/ɣ̋〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<!--Shifts, merges, and exceptions:
+					Final */c/ became /i̯/ (final */cʰ/ took its place as /c/)
+					Second sound shift on top of the one that created /fʲ/ and /vʲ/: */fʲ/ and */vʲ/ depalatalized word-finally to /f/ and /v/
+				-->
+
+			<!--ORTHOGRAPHIC-->
+				<section id="qqwOrthography"> <!--formerly "Roman orthography"-->
+					<h2 id="qqwRoman">Orthography</h2> <!--old anchor for compatibility-->
+					<main>
+						<div id="qqwLetterCounter"><span id="qqwLettersCount">&nbsp;</span></div>
+						<table class="plain-font" style="font-size: 68%;" id="qqwLettersTable">
+							<tbody>
+								<tr id="qqwRomanRow" class="graphemes">
+									<th style="min-width: 100px;">Roman&nbsp;letter</th>
+									<td rowspan="2">a</td>
+									<td>ä</td>
+									<td rowspan="2">b</td>
+									<td>b́</td>
+									<td rowspan="2">c</td>
+									<td>č</td>
+									<td>ď</td>
+									<td>ď̰</td>
+									<td rowspan="2">d</td>
+									<td>d́</td>
+									<td>d̀</td>
+									<td>d̃</td>
+									<td>d̰́</td>
+									<td>d̰̀</td>
+									<td rowspan="2">e</td>
+									<td>ė</td>
+									<td>ë</td>
+									<td rowspan="2">f</td>
+									<td>f́</td>
+									<td>f̌</td>
+									<td>g̋</td>
+									<td>ǵ</td>
+									<td>ǵ̰</td>
+									<td>g̃</td>
+									<td rowspan="2">g</td>
+									<td rowspan="2">h</td>
+									<td rowspan="2">i</td>
+									<td>u̇</td>
+									<td rowspan="2">j</td>
+									<td>k̋</td>
+									<td>ḱ</td>
+									<td>k̰̋</td>
+									<td>ḱ̰</td>
+									<td>k̃</td>
+									<td rowspan="2">k</td>
+									<td rowspan="2">l</td>
+									<td>l̀</td>
+									<td>l̃</td>
+									<td>l̰̀</td>
+									<td rowspan="2">m</td>
+									<td>ń</td>
+									<td rowspan="2">n</td>
+									<td>ǹ</td>
+									<td>n̏</td>
+									<td rowspan="2">o</td>
+									<td>ȯ</td>
+									<td>ö</td>
+									<td rowspan="2">p</td>
+									<td>ṕ</td>
+									<td rowspan="2">q</td>
+									<td>q̃</td>
+									<td rowspan="2">r</td>
+									<td rowspan="2">s</td>
+									<td>ś</td>
+									<td>ŝ</td>
+									<td>s̀</td>
+									<td>ť</td>
+									<td>ť́</td>
+									<td>ť̰</td>
+									<td>ť̰́</td>
+									<td rowspan="2">t</td>
+									<td>t́</td>
+									<td>t̀</td>
+									<td>t̃</td>
+									<td>t̰́</td>
+									<td>t̰̀</td>
+									<td rowspan="2">u</td>
+									<td>ü</td>
+									<td rowspan="2">v</td>
+									<td>v́</td>
+									<td>v̌</td>
+									<td rowspan="2">w</td>
+									<td>x̋</td>
+									<td>x́</td>
+									<td rowspan="2">x</td>
+									<td>ɣ̋</td>
+									<td>ɣ́</td>
+									<td>ɣ</td>
+									<td rowspan="2">y</td>
+									<td rowspan="2">z</td>
+									<td>ź</td>
+									<td>ẑ</td>
+									<td>z̀</td>
+									<td>ž</td>
+									<td>þ</td>
+									<td>ð</td>
+									<!--<th>Tone diacritic</th>
+									<td>None / ◌̍</td>
+									<td>◌̠</td>
+									<td>◌̀</td>
+									<td>◌̄</td>
+									<td>◌́</td>
+									<td>◌̌</td>
+									<td>◌̂</td>
+									<td>◌᷄</td>
+									<td>◌̚</td>
+									<td>◌᷅</td>
+									<td>◌᷈</td>-->
+								</tr>
+								<tr class="graphemes">
+									<th>ASCII</th>
+									<td>ae</td>
+									<td>by</td>
+									<td>ch</td>
+									<td>hdd</td>
+									<td>hddh</td>
+									<td>dy</td>
+									<td>dr</td>
+									<td>dh</td>
+									<td>dyh</td>
+									<td>drh</td>
+									<td>ea</td>
+									<td>oe</td>
+									<td>fy</td>
+									<td>pf</td>
+									<td>ygy</td>
+									<td>gy</td>
+									<td>gyh</td>
+									<td>gh</td>
+									<td>iu</td>
+									<td>yky</td>
+									<td>ky</td>
+									<td>ykyh</td>
+									<td>kyh</td>
+									<td>kh</td>
+									<td>lr</td>
+									<td>lh</td>
+									<td>lrh</td>
+									<td>ny</td>
+									<td>nr</td>
+									<td>ng</td>
+									<td>ao</td>
+									<td>uo</td>
+									<td>py</td>
+									<td>qh</td>
+									<td>sy</td>
+									<td>sry</td>
+									<td>sr</td>
+									<td>htt</td>
+									<td>htty</td>
+									<td>htth</td>
+									<td>httyh</td>
+									<td>ty</td>
+									<td>tr</td>
+									<td>th</td>
+									<td>tyh</td>
+									<td>trh</td>
+									<td>ui</td>
+									<td>vy</td>
+									<td>bv</td>
+									<td>yxy</td>
+									<td>xy</td>
+									<td>yghy</td>
+									<td>ghy</td>
+									<td>gh</td>
+									<td>zy</td>
+									<td>zry</td>
+									<td>zr</td>
+									<td>dz</td>
+									<td>ht</td>
+									<td>hd</td>
+									<!--<th rowspan="2">Tone number</th>
+									<td rowspan="2">1</td>
+									<td rowspan="2">2</td>
+									<td rowspan="2">3</td>
+									<td rowspan="2">4</td>
+									<td rowspan="2">5</td>
+									<td rowspan="2">6</td>
+									<td rowspan="2">7</td>
+									<td rowspan="2">8</td>
+									<td rowspan="2">9</td>
+									<td rowspan="2">10</td>
+									<td rowspan="2">11</td>-->
+								</tr>
+								<tr id="firstSoundRow" class="phonemes">
+									<th>Initial sound</th>
+									<td rowspan="2"><span>[ᴀ~a]</span></td></td>
+									<td rowspan="2"><span>[æ]</span></td></td>
+									<td><span>[b]</span></td>
+									<td><span>[bʲ]</span></td>
+									<td rowspan="2"><span>[t͡s]</span></td>
+									<td rowspan="2"><span>[t̠͡ʃ]</span></td>
+									<td><span>[d̪͆]</span></td>
+									<td><span>[d̪͆ʱ]</span></td>
+									<td><span>[d]</span></td>
+									<td><span>[dʲ]</span></td>
+									<td><span>[d̠]</span></td>
+									<td><span>[dʱ]</span></td>
+									<td><span>[dʲʱ]</span></td>
+									<td><span>[d̠ʱ]</span></td>
+									<td rowspan="2"><span>[e]</span></td></td>
+									<td rowspan="2"><span>[ɛ]</span></td></td>
+									<td rowspan="2"><span>[ə]</span></td></td>
+									<td><span>[f~ɸ]</span></td>
+									<td><span>[fʲ]</span></td>
+									<td><span>[p̪͡f]</span></td>
+									<td><span>[ɟ]</span></td>
+									<td><span>[g̟]</span></td>
+									<td><span>[g̟ʱ]</span></td>
+									<td><span>[gʱ]</span></td>
+									<td><span>[g]</span></td>
+									<td rowspan="2"><span>[h]</span></td>
+									<td rowspan="2"><span>[i]</span></td>
+									<td rowspan="2"><span>[ɯ̟~ɨ]</span></td>
+									<td rowspan="2"><span>[d̠͡ʒ]</span></td>
+									<td><span>[c]</span></td>
+									<td><span>[k̟]</span></td>
+									<td><span>[cʰ~c͡ç]</span></td>
+									<td><span>[k̟ʰ]</span></td>
+									<td><span>[kʰ~k͡x]</span></td>
+									<td><span>[k]</span></td>
+									<td><span>[l]</span></td>
+									<td><span>[ɹ~ɻ]</span></td>
+									<td><span>[ɬ~ɮ]</span></td>
+									<td><span>[ɬ̠~ɮ̠~ɭ̊˔ɭ˔]</span></td>
+									<td rowspan="2"><span>[m]</span></td>
+									<td rowspan="2"><span>[ɲ]</span></td>
+									<td rowspan="2"><span>[n̪~n]</span></td>
+									<td rowspan="2"><span>[n̠]</span></td>
+									<td rowspan="2"><span>[ŋ]</span></td>
+									<td rowspan="2"><span>[o]</span></td></td>
+									<td rowspan="2"><span>[ɒ]</span></td></td>
+									<td rowspan="2"><span>[ɔ]</span></td></td>
+									<td><span>[p]</span></td>
+									<td><span>[pʲ]</span></td>
+									<td><span>[ʰʔ]</span></td>
+									<td><span>[ʰʔʰ~ʰʔ͡h]</span></td>
+									<td><span>[ɾ~r]</span></td>
+									<td rowspan="2"><span>[s]</span></td>
+									<td rowspan="2"><span>[sʲ]</span></td>
+									<td rowspan="2"><span>[ɕ]</span></td>
+									<td rowspan="2"><span>[ʃ]</span></td>
+									<td><span>[t̪͆]</span></td>
+									<td><span>[t̪͆ʲ]</span></td>
+									<td><span>[t̪͆ʰ]</span></td>
+									<td><span>[t̪͆ʲʰ]</span></td>
+									<td><span>[t]</span></td>
+									<td><span>[tʲ]</span></td>
+									<td><span>[t̠]</span></td>
+									<td><span>[tʰ]</span></td>
+									<td><span>[tʲʰ]</span></td>
+									<td><span>[t̠ʰ]</span></td>
+									<td rowspan="2"><span>[u]</span></td>
+									<td rowspan="2"><span>[ʏ]</span></td></td>
+									<td><span>[v]</span></td>
+									<td><span>[vʲ]</span></td>
+									<td><span>[b̪͡v]</span></td>
+									<td><span>[w~β̞]</span></td>
+									<td rowspan="2"><span>[ç]</span></td>
+									<td rowspan="2"><span>[x̟]</span></td>
+									<td rowspan="2"><span>[x]</span></td>
+									<td><span>[ʝ]</span></td>
+									<td><span>[ɣ̟]</span></td>
+									<td rowspan="2"><span>[ɣ]</span></td>
+									<td><span>[j]</span></td>
+									<td rowspan="2"><span>[z]</span></td>
+									<td rowspan="2"><span>[zʲ]</span></td>
+									<td rowspan="2"><span>[ʑ]</span></td>
+									<td rowspan="2"><span>[ʒ]</span></td>
+									<td rowspan="2"><span>[d͡z]</span></td>
+									<td rowspan="2"><span>[θ]</span></td>
+									<td rowspan="2"><span>[ð]</span></td>
+								</tr>
+								<tr class="phonemes" id="finalRow">
+									<th>Final sound</th>
+									<!--Vowel-->
+									<td colspan="2"><span>[p̚]</span></td>
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<td><span>[t̚]</span></td>
+									<td><span>[d̪͆]</span></td>
+									<td colspan="3"><span>[t̚]</span></td>
+									<td><span>[d]</span></td>
+									<td><span>[dʲ]</span></td>
+									<td><span>[d̠]</span></td>
+									<!--Vowel-->
+									<!--Vowel-->
+									<td colspan="3"><span>[f]</span></td>
+									<td colspan="2"><span>[i̯]</span></td>
+									<td><span>[g̟]</span></td>
+									<td><span>[g]</span></td>
+									<td><span>[k̚]</span></td>
+									<!--Unchanged-->
+									<!--Vowel-->
+									<!--Vowel-->
+									<!--Unchanged-->
+									<td><span>[i̯]</span></td>
+									<td><span>[k̚]</span></td>
+									<td><span>[c]</span></td>
+									<td><span>[k̟]</span></td>
+									<td><span>[k]</span></td>
+									<td><span>[k̚]</span></td>
+									<td><span>[l]</span></td>
+									<td><span>[ɹ~ɻ]</span></td>
+									<td><span>[l]</span></td>
+									<td><span>[ɹ~ɻ]</span></td>
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Vowel-->
+									<td colspan="2"><span>[p̚]</span></td>
+									<td><span>[ʔ]</span></td>
+									<td><span>[ʔʰ~ʔ͡h]</span></td>
+									<td><span>[l]</span></td>
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<td colspan="2"><span>[t̚]</span></td>
+									<td><span>[t̪͆]</span></td>
+									<td><span>[t̪͆ʲ]</span></td>
+									<td colspan="3"><span>[t̚]</span></td>
+									<td><span>[t]</span></td>
+									<td><span>[tʲ]</span></td>
+									<td><span>[t̠]</span></td>
+									<!--Vowel-->
+									<!--Vowel-->
+									<td colspan="3"><span>[v]</span></td>
+									<td><span>[u̯]</span></td>
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<td><span>[i̯]</span></td>
+									<td><span>[ɣ̟~i̯]</span></td>
+									<!--Unchanged-->
+									<td><span>[i̯]</span></td>
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--Unchanged-->
+									<!--<th>Tone</th>
+									<td>˧</td>
+									<td>˩</td>
+									<td>˥˩~˦˩~˥˨</td>
+									<td>˥</td>
+									<td>˩˥~˨˥~˩˦ </td>
+									<td>˥˩˥~˥˧˥~ ˨˩˥~˦˧˥</td>
+									<td>˩˧˩~˧˦~˦˧</td>
+									<td>˧˥</td>
+									<td>˧˩</td>
+									<td>˥˧</td>
+									<td>˩˧</td>-->
+								</tr>
+							</tbody>
+						</table>
+						<p class="plain-font">Polyphthongs are not considered their own letters.&#8203;&nbsp;&nbsp;&#8203;Ambiguities in are disambiguated with the apostrophe '.&#8203;&nbsp;&nbsp;&#8203;<!--Polyphthongs carry a single overarching tone, which is marked with a diacritic on the last vowel.&#8203;&nbsp;&nbsp;&#8203;The mid tone is unmarked, but when it becomes necessary to orhographically separate it from an adjacent vowel with its own tone, it is marked with the vertical line ◌̍. The letter "i" keeps its <abbr title="The dot over the lowercase I or J">tittle</abbr> under a tone diacritic (e.g. "i̇̌") unless vertical space limitations necessitate its omission.&#8203;&nbsp;&nbsp;&#8203;-->Many consonants make the same sounds as finals, but the orthography has been mostly regularized.</p>
+					</main>
+				</section>
+
+			<!--PHONOTACTIC-->
+				<section id="qqwPhonotactics">
+					<h2>Phonotactics:</h2>
+					<main class="plain-font" aria-role="paragraph">
+						The syllable structure is (<abbr title="C: Any consonant">C</abbr>)(<abbr title="L: Any liquid (/ɾ/ or /l/)">L</abbr>)(<abbr title="N: Any nasal">N</abbr>)(L)(<abbr title="S: Any semivowel (/j/ or /w/)">S</abbr>)<abbr title="V: Any vowel (or polyphthong)">V</abbr>(V)(V)<!--<abbr title="tone">T</abbr>-->(C).<ul>
+							<!--<li>Polyphthongs carry one tone.</li>-->
+							<li>When an aspirated plosive precedes a liquid medial, the aspiration is moved to after the liquid and the liquid becomes aspirated or breathy-voiced.</li>
+							<li>Interdental plosives before an /l/ medial (/t̪͆l/, /d̪͆l/, /t̪͆ʰl/, /d̪͆ʱl/, /t̪͆ʲl/, /t̪͆ʲʰl/) become laterally released. With the above rule, they respectively become ([ t̪͆ˡl ], [ d̪͆ˡl ], [ t̪͆lʱ~t̪͆l̤ ], [ d̪͆lʱ~d̪͆l̤ ], [ t̪͆ʲl ], [ t̪͆ʲlʱ~t̪͆ʲl̤ ]).<ul> 
+							<li>Vowels following aspirated plosives may be pronounced with a breathy voice.</li>
+							<li>/j/ palatalizes an initial plosive or affricate, if one is present, whereas the vowel [i] alone may or may not.&#8203;&nbsp;&nbsp;&#8203;/ŋ/ palatalizes to [ŋ̟]/[ɲ̠] (the pre-velar nasal).</li>
+							<li>/e/ shifts to /e̞/ after an aspirated consonant.</li>
+							<li>/ji/ shifts /n/ to [ɲ] and /ŋ/ to [n].</li>
+							<li>A syllable cannot have more than one liquid medial.</li>
+							<li>Likewise, /w/ labializes a preceding plosive (but not necessarily an affricate).</li>
+							<li>&lt;ww&gt; is realized as [wː~ʰw~wu̯~u̯w] and &lt;yy&gt; is realized as [jː~ji̯~i̯j].</li>
+							<li>[j] palatalizes &lt;č&gt; [t̠͡ʃ] to [t͡ʲɕ] and &lt;j&gt; [d̠͡ʒ] to [d͡ʲʑ].</li>
+							<li>A final aspirated consonant before its unaspirated counterpart assimilates into a single aspirated consonant; &lt;l̃&gt; /ɬ̆~ɮ̆/ is considered the aspirated form of &lt;l&gt; /l/. for this rule. The rule considering interdental plosives overrides this rule.</li>
+							<li><span class="grapheme">〈u̇〉</span> <span class="phoneme">/ɯ̟~ɨ/</span> is likely to front to [ɨ] after palatal consonants.</li>
+						</ul>
+					</main>
+				</section>
+			</section>
+
+			<!--GRAMMATICAL-->
+			<section id="qqwGrammar">
+				<h3>Grammar</h3>
+				<main>
+					<p class="plain-font">
+						Most verbs do not conjugate by changing in form, instead using affixes or subsequent spaced markers to indicate information such as tense; the citation form of a verb is marked for tense (past, present, or future), but the present marker can generally be omitted.&#8203;&nbsp;&nbsp;&#8203;Present tense, simple aspect, and indicative mood are default.&#8203;&nbsp;&nbsp;&#8203;Polyphthongs are not considered their own letters.&#8203;&nbsp;&nbsp;&#8203;Aspect markers come between the verb and the tense marker; mood markers come after aspect markers (<abbr title="Verb">V</abbr>-<abbr title="Aspect">A</abbr>-<abbr title="Mood">M</abbr>-<abbr title="Tense">T</abbr>).&#8203;&nbsp;&nbsp;&#8203;Wuianese has a minimal or nonexistent class distinction between adjectives and adverbs, such that adjectives can also serve as adverbs.&#8203;&nbsp;&nbsp;&#8203;Adverbs and adjectives acting as adverbs come after the verb and T.A.M markers.&#8203;&nbsp;&nbsp;&#8203;Despite this, some words which do not make sense as adjectives do exist solely as adverbs (and thus come after the verb).&#8203;&nbsp;&nbsp;&#8203;This placement rule excepts "<span lang="qqw-Latn">dyów</span>", which comes before the thing it negates.&#8203;&nbsp;&nbsp;&#8203;Modifiers come before the nouns they modify (e.g. <span style="color: #4f7fff;">blue</span>&nbsp;car), and this is often the order in which compounding usually proceeds; but often compounds deviate from this order due to phonotactics.&#8203;&nbsp;&nbsp;&#8203;Wuianese uses an <abbr title="Object">O</abbr><abbr title="Subject">S</abbr>V (<abbr title="Indirect object">I</abbr>-<abbr title="Direct object">D</abbr>-S-V) order and postpositions, which can be chained and, despite their name, come before the object(s) (they are called "postpositions" here because they come after the thing they relate to, as in the "chair" in "on a chair").&#8203;&nbsp;&nbsp;&#8203;The subject can be omitted in an imperative statement.&#8203;&nbsp;&nbsp;&#8203;Adjectives do not follow a set order, and may be ordered for emphasis (with the emphasized adjectives coming first).&#8203;&nbsp;&nbsp;&#8203;However, demonstrative adjectives come before all other adjectives.
+						<!--i'm with the boomers on this one, using 2 spaces after each sentence is more readable to me-->
+					</p>
+				</main>
+			</section>
+
+			<!--LEXICAL-->
+			<section id="qqwWords">
+				<h3>Word table (<span id="qqwEntryCount" title="This is not indicative of completeness or comprehensiveness, as it includes all words including sequential derivatives, and it does not account for the subjects of all of these words or their usefulness.  It is for advisory purposes only.">Uncounted total entries</span>)</h3>
+				<script>let e = document.getElementById("qqwEntryCount") ?? {innerText: 'Uncounted entries'}; let c = langs.qqw.length; let plural = c !== 1; e.innerText = `${c.toLocaleString()} total entr${plural ? 'ies' : 'y'}`</script>
+					<div id="qqwAbbreviations" class="dnone">
+						<h4>Abbreviations</h4>
+						<p class="indent">
+							<span class="part-abbreviation">n.</span>: <span class="full-part">noun</span><br/>
+							<span class="part-abbreviation">prn.</span>: <span class="full-part">pronoun</span><br/>
+							<span class="part-abbreviation">v.</span>: <span class="full-part">verb</span><br/>
+							<span class="part-abbreviation">adj.</span>: <span class="full-part">adjective</span><br/>
+							<span class="part-abbreviation">adv.</span>: <span class="full-part">adverb</span><br/>
+							<span class="part-abbreviation">postp.</span>: <span class="full-part">postposition</span><br/>
+							<span class="part-abbreviation">int.</span>: <span class="full-part">interjection</span><br/>
+							<span class="part-abbreviation">conj.</span>: <span class="full-part">conjunction</span><br/>
+							<span class="part-abbreviation">m.</span>: <span class="full-part">marker</span><br/>
+							<span class="part-abbreviation">art.</span>: <span class="full-part">article</span>
+						</p>
+					</div>
+
+
+					<noscript>With JavaScript disabled, this page will instead show the contents of the script that holds the data.</noscript>
+
+					<div id="qqwSearch">
+						<h4>Search (Likely to be slow)</h4>
+						<input placeholder="Enter your query (2 characters or longer)" id="qqwSearchQuery" class="plain-font"/><br/>
+						<input type="checkbox" id="qqwIgnoreDiacritics"> <label for="qqwIgnoreDiacritics">Ignore diacritics</label><br/>
+						<!--<input type="checkbox" id="qqwSearchIsRegex"> <label for="qqwSearchIsRegex">Use regex</label>-->
+						<input type="checkbox" id="qqwSearchEnglish" checked> <label for="qqwSearchEnglish">Search English</label>
+						<input type="checkbox" id="qqwSearchWuianese" checked> <label for="qqwSearchWuianese">Search Wuianese</label>
+						<input type="checkbox" id="qqwSearchEtymology"> <label for="qqwSearchEtymology">Search in etymologies</label>
+						<input type="checkbox" id="qqwSearchExtraInfo"> <label for="qqwSearchExtraInfo">Search in extra info</label>
+						<input type="checkbox" id="qqwSearchPartOfSpeech"> <label for="qqwSearchPartOfSpeech">Search in parts of speech</label>
+						<input type="checkbox" id="qqwSearchStart"> <label for="qqwSearchStart">Anchor search to starts of cells</label>
+						<input type="checkbox" id="qqwSearchEnd"> <label for="qqwSearchEnd">Anchor search to ends of cells</label>
+					</div>
+				<main id="qqwWordlist">
+					<!--<h4>Additional information</h4>
+					<p class="plain-font">
+						<span>Animate pronouns (cain, caun, cu̇n, cwu̇n, cën, cwën) also apply to animals.&#8203;&nbsp;&nbsp;&#8203;Plants are mostly referred to with either, as the Wuianians' opinions differ on whether plants are animate.&#8203;&nbsp;&nbsp;&#8203;Substances are always considered inanimate, except sometimes for living flesh of an organism (sometimes including living plant matter).<br/>
+					</p>-->
+				</main>
+
+		<section id="sissinese">
+			<h1 class="subh1">Sissinese</h1>
+			<section id="qstPhonology">
+				<h2>Phonology:</h2>
+				<section id="qstConsonants">
+					<h3>Consonants:</h3>
+					<main>
+						<div id="qstConsonantCounter"><span id="qstConsonantsCount">&nbsp;</span></div>
+						<table class="plain-font" id="qstConsonantsTable">
+							<tbody>
+								<tr>
+									<th colspan="3" rowspan="2">&nbsp;</th>
+									<th colspan="2">Labial</th>
+									<th colspan="2">Pre-alveolar</th>
+									<th colspan="2">Palatalized pre-alveolar</th>
+									<th colspan="2">Alveolar</th>
+									<th colspan="2">Palatalized alveolar</th>
+									<th colspan="2">Retracted alveolar</th>
+									<th colspan="2">Alveolo-palatal</th>
+									<th colspan="2">Post-alveolopalatal</th>
+									<th colspan="2">Pre-post-alveolar</th>
+									<th colspan="2">Post-alveolar</th>
+									<th colspan="2">Retroflex</th>
+									<th colspan="2">Palatal</th>
+									<th colspan="2">Velar</th>
+									<th colspan="2">Uvular</th>
+								</tr>
+								<tr>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+								</tr>
+								<tr>
+									<th colspan="3">Plosive</th>
+									<td><span class="phoneme">/p/</span> <span class="grapheme">〈p〉</span></td>
+									<td><span class="phoneme">/b/</span> <span class="grapheme">〈b〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t/</span> <span class="grapheme">〈t〉</span></td>
+									<td><span class="phoneme">/d/</span> <span class="grapheme">〈d〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʈ/</span> <span class="grapheme">〈ŧ〉</span></td>
+									<td><span class="phoneme">/ɖ/</span> <span class="grapheme">〈đ〉</span></td>
+									<td><span class="phoneme">/c/</span> <span class="grapheme">〈ҟ〉</span></td>
+									<td><span class="phoneme">/ɟ/</span> <span class="grapheme">〈ǥ〉</span></td>
+									<td><span class="phoneme">/k/</span> <span class="grapheme">〈k〉</span></td>
+									<td><span class="phoneme">/g/</span> <span class="grapheme">〈g〉</span></td>
+									<td><span class="phoneme">/q/</span> <span class="grapheme">〈q〉</span></td>
+									<td><span class="phoneme">/ɢ/</span> <span class="grapheme">〈ɔ̦〉</span></td>
+								</tr>
+								<tr>
+									<th rowspan="2">Nasal</th>
+									<th colspan="2">Plain</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/m/</span> <span class="grapheme">〈m〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n/</span> <span class="grapheme">〈n〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n̠/</span> <span class="grapheme">〈ǹ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɳ/</span> <span class="grapheme">〈n̏〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɲ/</span> <span class="grapheme">〈ñ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ŋ/</span> <span class="grapheme">〈n̏̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Labial</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/m/</span> <span class="grapheme">〈m̊〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n/</span> <span class="grapheme">〈n̊〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n̠ʷ/</span> <span class="grapheme">〈ǹ̊〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɳʷ/</span> <span class="grapheme">〈n̏̊〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɲʷ/</span> <span class="grapheme">〈ñ̊〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ŋʷ/</span> <span class="grapheme">〈n̥̏̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="4">Fricative</th>
+									<th rowspan="2">Plain</th>
+									<th>Normal</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s̟/</span> <span class="grapheme">〈ṡ〉</span></td>
+									<td><span class="phoneme">/z̟/</span> <span class="grapheme">〈ż〉</span></td>
+									<td><span class="phoneme">/s̟ʲ/</span> <span class="grapheme">〈ṡ́〉</span></td>
+									<td><span class="phoneme">/z̟ʲ/</span> <span class="grapheme">〈ż́〉</span></td>
+									<td><span class="phoneme">/s/</span> <span class="grapheme">〈s〉</span></td>
+									<td><span class="phoneme">/z/</span> <span class="grapheme">〈z〉</span></td>
+									<td><span class="phoneme">/sʲ/</span> <span class="grapheme">〈ś〉</span></td>
+									<td><span class="phoneme">/zʲ/</span> <span class="grapheme">〈ź〉</span></td>
+									<td><span class="phoneme">/s̠/</span> <span class="grapheme">〈s̀〉</span></td>
+									<td><span class="phoneme">/z̠/</span> <span class="grapheme">〈z̀〉</span></td>
+									<td><span class="phoneme">/ɕ/</span> <span class="grapheme">〈š〉</span></td>
+									<td><span class="phoneme">/ʑ/</span> <span class="grapheme">〈ž〉</span></td>
+									<td><span class="phoneme">/ɕ̠/</span> <span class="grapheme">〈s᷈〉</span></td>
+									<td><span class="phoneme">/ʑ̠/</span> <span class="grapheme">〈z᷈〉</span></td>
+									<td><span class="phoneme">/ʃ̟/</span> <span class="grapheme">〈s̏̇〉</span></td>
+									<td><span class="phoneme">/ʒ̟/</span> <span class="grapheme">〈z̏̇〉</span></td>
+									<td><span class="phoneme">/ʃ/</span> <span class="grapheme">〈s̏〉</span></td>
+									<td><span class="phoneme">/ʒ/</span> <span class="grapheme">〈z̏〉</span></td>
+									<td><span class="phoneme">/ʂ/</span> <span class="grapheme">〈s̏̀〉</span></td>
+									<td><span class="phoneme">/ʐ/</span> <span class="grapheme">〈z̏̀〉</span></td>
+									<td><span class="phoneme">/ç/</span> <span class="grapheme">〈h́〉</span></td>
+									<td><span class="phoneme">/ʝ/</span> <span class="grapheme">〈ý〉</span></td>
+									<td><span class="phoneme">/x/</span> <span class="grapheme">〈x〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/χ/</span> <span class="grapheme">〈x̀〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Normal</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s̟͈/</span> <span class="grapheme">〈ṡ̄〉</span></td>
+									<td><span class="phoneme">/z̟͈/</span> <span class="grapheme">〈ż̄〉</span></td>
+									<td><span class="phoneme">/s̟͈ʲ/</span> <span class="grapheme">〈ṣ᷄〉</span></td>
+									<td><span class="phoneme">/z̟͈ʲ/</span> <span class="grapheme">〈ẓ᷄〉</span></td>
+									<td><span class="phoneme">/s͈/</span> <span class="grapheme">〈s̄〉</span></td>
+									<td><span class="phoneme">/z͈/</span> <span class="grapheme">〈z̄〉</span></td>
+									<td><span class="phoneme">/s͈ʲ/</span> <span class="grapheme">〈s᷄〉</span></td>
+									<td><span class="phoneme">/z͈ʲ/</span> <span class="grapheme">〈z᷄〉</span></td>
+									<td><span class="phoneme">/s̠͈/</span> <span class="grapheme">〈s᷅〉</span></td>
+									<td><span class="phoneme">/z̠͈/</span> <span class="grapheme">〈z᷅〉</span></td>
+									<td><span class="phoneme">/ɕ͈/</span> <span class="grapheme">〈š̄〉</span></td>
+									<td><span class="phoneme">/ʑ͈/</span> <span class="grapheme">〈ž̄〉</span></td>
+									<td><span class="phoneme">/ɕ̠͈/</span> <span class="grapheme">〈s᷈̄〉</span></td>
+									<td><span class="phoneme">/ʑ̠͈/</span> <span class="grapheme">〈z᷈̄〉</span></td>
+									<td><span class="phoneme">/ʃ̟͈/</span> <span class="grapheme">〈ṣ̏̄〉</span></td>
+									<td><span class="phoneme">/ʒ̟͈/</span> <span class="grapheme">〈ẓ̏̄〉</span></td>
+									<td><span class="phoneme">/ʃ͈/</span> <span class="grapheme">〈s̏̄〉</span></td>
+									<td><span class="phoneme">/ʒ͈/</span> <span class="grapheme">〈z̏̄〉</span></td>
+									<td><span class="phoneme">/ʂ͈/</span> <span class="grapheme">〈s̠̏̀〉</span></td>
+									<td><span class="phoneme">/ʐ͈/</span> <span class="grapheme">〈z̠̏̀〉</span></td>
+									<td><span class="phoneme">/ç͈/</span> <span class="grapheme">〈h᷄〉</span></td>
+									<td><span class="phoneme">/ʝ͈/</span> <span class="grapheme">〈y᷄〉</span></td>
+									<td><span class="phoneme">/x͈/</span> <span class="grapheme">〈x̄〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/χ͈/</span> <span class="grapheme">〈x᷅〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Labial</th>
+									<th>Normal</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s̟ʷ/</span> <span class="grapheme">〈ṡ̊〉</span></td>
+									<td><span class="phoneme">/z̟ʷ/</span> <span class="grapheme">〈ż̊〉</span></td>
+									<td><span class="phoneme">/s̟ʲʷ/</span> <span class="grapheme">〈ṡ̥́〉</span></td>
+									<td><span class="phoneme">/z̟ʲʷ/</span> <span class="grapheme">〈ż́〉</span></td>
+									<td><span class="phoneme">/sʷ/</span> <span class="grapheme">〈s̊〉</span></td>
+									<td><span class="phoneme">/zʷ/</span> <span class="grapheme">〈z̊〉</span></td>
+									<td><span class="phoneme">/sʲʷ/</span> <span class="grapheme">〈ś̊〉</span></td>
+									<td><span class="phoneme">/zʲʷ/</span> <span class="grapheme">〈ź̊〉</span></td>
+									<td><span class="phoneme">/s̠ʷ/</span> <span class="grapheme">〈s̀̊〉</span></td>
+									<td><span class="phoneme">/z̠ʷ/</span> <span class="grapheme">〈z̀̊〉</span></td>
+									<td><span class="phoneme">/ɕʷ/</span> <span class="grapheme">〈š̊〉</span></td>
+									<td><span class="phoneme">/ʑʷ/</span> <span class="grapheme">〈ž̊〉</span></td>
+									<td><span class="phoneme">/ɕ̠ʷ/</span> <span class="grapheme">〈s᷈̊〉</span></td>
+									<td><span class="phoneme">/ʑ̠ʷ/</span> <span class="grapheme">〈z᷈̊〉</span></td>
+									<td><span class="phoneme">/ʃ̟ʷ/</span> <span class="grapheme">〈s̥̏̇〉</span></td>
+									<td><span class="phoneme">/ʒ̟ʷ/</span> <span class="grapheme">〈z̥̏̇〉</span></td>
+									<td><span class="phoneme">/ʃʷ/</span> <span class="grapheme">〈s̏̊〉</span></td>
+									<td><span class="phoneme">/ʒʷ/</span> <span class="grapheme">〈z̏̊〉</span></td>
+									<td><span class="phoneme">/ʂʷ/</span> <span class="grapheme">〈s̥̏̀〉</span></td>
+									<td><span class="phoneme">/ʐʷ/</span> <span class="grapheme">〈z̥̏̀〉</span></td>
+									<td><span class="phoneme">/çʷ/</span> <span class="grapheme">〈h̥́〉</span></td>
+									<td><span class="phoneme">/ʝʷ/</span> <span class="grapheme">〈ý̊〉</span></td>
+									<td><span class="phoneme">/xʷ/</span> <span class="grapheme">〈x̊〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/χʷ/</span> <span class="grapheme">〈x̀̊〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Tense</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s̟͈ʷ/</span> <span class="grapheme">〈ṡ̥̄〉</span></td>
+									<td><span class="phoneme">/z̟͈ʷ/</span> <span class="grapheme">〈ż̥̄〉</span></td>
+									<td><span class="phoneme">/s̟͈ʲʷ/</span> <span class="grapheme">〈s̤᷄〉</span></td>
+									<td><span class="phoneme">/z̟͈ʲʷ/</span> <span class="grapheme">〈z̤᷄〉</span></td>
+									<td><span class="phoneme">/s͈ʷ/</span> <span class="grapheme">〈s̄̊〉</span></td>
+									<td><span class="phoneme">/z͈ʷ/</span> <span class="grapheme">〈z̄̊〉</span></td>
+									<td><span class="phoneme">/s͈ʲʷ/</span> <span class="grapheme">〈s̥᷄〉</span></td>
+									<td><span class="phoneme">/z͈ʲʷ/</span> <span class="grapheme">〈z̥᷄〉</span></td>
+									<td><span class="phoneme">/s̠͈ʷ/</span> <span class="grapheme">〈s̥᷅〉</span></td>
+									<td><span class="phoneme">/z̠͈ʷ/</span> <span class="grapheme">〈z̥᷅〉</span></td>
+									<td><span class="phoneme">/ɕ͈ʷ/</span> <span class="grapheme">〈š̥̄〉</span></td>
+									<td><span class="phoneme">/ʑ͈ʷ/</span> <span class="grapheme">〈ž̥̄〉</span></td>
+									<td><span class="phoneme">/ɕ̠͈ʷ/</span> <span class="grapheme">〈s̥᷈̄〉</span></td>
+									<td><span class="phoneme">/ʑ̠͈ʷ/</span> <span class="grapheme">〈z̥᷈̄〉</span></td>
+									<td><span class="phoneme">/ʃ̟͈ʷ/</span> <span class="grapheme">〈s̤̏̄〉</span></td>
+									<td><span class="phoneme">/ʒ̟͈ʷ/</span> <span class="grapheme">〈z̤̏̄〉</span></td>
+									<td><span class="phoneme">/ʃ͈ʷ/</span> <span class="grapheme">〈s̥̏̄〉</span></td>
+									<td><span class="phoneme">/ʒ͈ʷ/</span> <span class="grapheme">〈z̥̏̄〉</span></td>
+									<td><span class="phoneme">/ʂ͈ʷ/</span> <span class="grapheme">〈s̜̏̀〉</span></td>
+									<td><span class="phoneme">/ʐ͈ʷ/</span> <span class="grapheme">〈z̜̏̀〉</span></td>
+									<td><span class="phoneme">/ç͈ʷ/</span> <span class="grapheme">〈h̥᷄〉</span></td>
+									<td><span class="phoneme">/ʝ͈ʷ/</span> <span class="grapheme">〈y᷄̊〉</span></td>
+									<td><span class="phoneme">/x͈ʷ/</span> <span class="grapheme">〈x̄̊〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/χ͈ʷ/</span> <span class="grapheme">〈x̥᷅〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="3">Approximant</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/w/</span> <span class="grapheme">〈w〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/l/</span> <span class="grapheme">〈l〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/j/</span> <span class="grapheme">〈y〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<!--Shifts, merges, and exceptions:
+					*/ɣ/ disappeared
+					*/ɣʷ/ merged into /w/
+					#/β/ never developed
+					*/β̞/ merged into /w/
+					#/χ/, #/χʷ/, and #/ɴ/ never developed
+				-->
+
+				<section id="qstVowels">
+					<h3>Vowels</h3>
+					<main>
+						<table class="plain-font">
+							<tbody>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Front</th>
+									<th>Back</th>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Unround</th>
+									<th>Rounded</th>
+								</tr>
+								<tr>
+									<th>Close</th>
+									<td><span class="phoneme">/i/</span> <span class="grapheme">〈i〉</span></td>
+									<td><span class="phoneme">/u/</span> <span class="grapheme">〈u〉</span></td>
+								</tr>
+								<tr>
+									<th>Close-mid</th>
+									<td><span class="phoneme">/e/</span> <span class="grapheme">〈e〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Mid</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/o̞~o/</span> <span class="grapheme">〈o〉</span></td>
+								</tr>
+								<tr>
+									<th>Open-mid</th>
+									<td><span class="phoneme">/ɛ/</span> <span class="grapheme">〈ê〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Open</th>
+									<td><span class="phoneme">/a/</span> <span class="grapheme">〈a〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<section id="qstPolyphthongs">
+							<h4>Diphthongs and polyphthongs</h4>
+							<p class="indent">
+								TBD.&#8203;&nbsp;&nbsp;&#8203;
+							</p>
+						</section>
+
+						<section id="qstReduction">
+							<h4>Vowel reduction</h4>
+							<table class="plain-font indent" id="qstReductionTable">
+								<tbody>
+									<tr>
+										<th>Unreduced</th>
+										<td>i</td>
+										<td>e</td>
+										<td rowspan="2">ɛ</td>
+										<td>a</td>
+										<td>o~o̞</td>
+										<td>u</td>
+									</tr>
+									<tr>
+										<th>Reduced</th>
+										<td>ɪ</td>
+										<td>e</td>
+										<td>ᴀ</td>
+										<td>ə</td>
+										<td>ʊ</td>
+									</tr>
+								</tbody>
+							</table><br/>
+							<p class="indent plain-font">
+								Sissinese vowels reduce when they are in low-pitch syllables according to Sissinese pitch accent.&#8203;&nbsp;&nbsp;&#8203;The vowel /ɛ/ does not reduce. /i/ does not reduce before a palatal consonant.
+							</p>
+						</section>
+					</main>
+				</section>
+
+				<section id="qstOrthography">
+					<h2>Orthography</h2>
+					<main>
+						<div id="qstLetterCounter"><span id="qstLettersCount">&nbsp;</span></div>
+						<table class="plain-font" style="font-size: 68%;" id="qstLettersTable">
+							<tbody>
+								<tr id="qstRomanRow" class="graphemes">
+									<th style="min-width: 100px;">Roman&nbsp;letter</th>
+									<td rowspan="2">p</td>
+									<td rowspan="2">b</td>
+									<td rowspan="2">t</td>
+									<td rowspan="2">d</td>
+									<td>ŧ</td>
+									<td>đ</td>
+									<td>ҟ</td>
+									<td>ǥ</td>
+									<td rowspan="2">k</td>
+									<td rowspan="2">g</td>
+									<td rowspan="2">q</td>
+									<td>ɔ̦</td>
+									<td>ṡ</td>
+									<td>ṡ̄</td>
+									<td>ż</td>
+									<td>ż̄</td>
+									<td>ṡ́</td>
+									<td>ṣ᷄</td>
+									<td>ż́</td>
+									<td>ẓ᷄</td>
+									<td rowspan="2">s</td>
+									<td>s̄</td>
+									<td rowspan="2">z</td>
+									<td>z̄</td>
+									<td>ś</td>
+									<td>s᷄</td>
+									<td>ź</td>
+									<td>z᷄</td>
+									<td>s̀</td>
+									<td>s᷅</td>
+									<td>z̀</td>
+									<td>z᷅</td>
+									<td>š</td>
+									<td>š̄</td>
+									<td>ž</td>
+									<td>ž̄</td>
+									<td>s᷈</td>
+									<td>s᷈̄</td>
+									<td>z᷈</td>
+									<td>z᷈̄</td>
+									<td>s̏̇</td>
+									<td>ṣ̏̄</td>
+									<td>z̏̇</td>
+									<td>ẓ̏̄</td>
+									<td>s̏</td>
+									<td>s̏̄</td>
+									<td>z̏</td>
+									<td>z̏̄</td>
+									<td>s̏̀</td>
+									<td>s̠̏̀</td>
+									<td>z̏̀</td>
+									<td>z̠̏̀</td>
+									<td>h́</td>
+									<td>h᷄</td>
+									<td>ý</td>
+									<td>y᷄</td>
+									<td>x</td>
+									<td>x̄</td>
+									<td>x̀</td>
+									<td>x᷅</td>
+									<td>ṡ̊</td>
+									<td>ṡ̥̄</td>
+									<td>ż̊</td>
+									<td>ż̥̄</td>
+									<td>ṡ̥́</td>
+									<td>s̤᷄</td>
+									<td>ż́</td>
+									<td>z̤᷄</td>
+									<td>s̊</td>
+									<td>s̄̊</td>
+									<td>z̊</td>
+									<td>z̄̊</td>
+									<td>ś̊</td>
+									<td>s̥᷄</td>
+									<td>ź̊</td>
+									<td>z̥᷄</td>
+									<td>s̀̊</td>
+									<td>s̥᷅</td>
+									<td>z̀̊</td>
+									<td>z̥᷅</td>
+									<td>š̊</td>
+									<td>š̥̄</td>
+									<td>ž̊</td>
+									<td>ž̥̄</td>
+									<td>s᷈̊</td>
+									<td>s̥᷈̄</td>
+									<td>z᷈̊</td>
+									<td>z̥᷈̄</td>
+									<td>s̥̏̇</td>
+									<td>s̤̏̄</td>
+									<td>z̥̏̇</td>
+									<td>z̤̏̄</td>
+									<td>s̏̊</td>
+									<td>s̥̏̄</td>
+									<td>z̏̊</td>
+									<td>z̥̏̄</td>
+									<td>s̥̏̀</td>
+									<td>s̜̏̀</td>
+									<td>z̥̏̀</td>
+									<td>z̜̏̀</td>
+									<td>h̥́</td>
+									<td>h̥᷄</td>
+									<td>ý̊</td>
+									<td>y᷄̊</td>
+									<td>x̊</td>
+									<td>x̄̊</td>
+									<td>x̀̊</td>
+									<td>x̥᷅</td>
+									<td rowspan="2">m</td>
+									<td rowspan="2">n</td>
+									<td>ǹ</td>
+									<td>n̏</td>
+									<td>ñ</td>
+									<td>n̏̀</td>
+									<td>m̊</td>
+									<td>n̊</td>
+									<td>ǹ̊</td>
+									<td>n̏̊</td>
+									<td>ñ̊</td>
+									<td>n̥̏̀</td>
+									<td rowspan="2">w</td>
+									<td rowspan="2">l</td>
+									<td rowspan="2">y</td>
+									<td rowspan="2">a</td>
+									<td rowspan="2">e</td>
+									<td>ê</td>
+									<td rowspan="2">i</td>
+									<td rowspan="2">o</td>
+									<td rowspan="2">u</td>
+									<th>Pitch accent diacritic</th>
+									<td>◌́</td>
+									<td>◌̀</td>
+								</tr>
+								<tr class="graphemes">
+									<th>ASCII</th>
+									<td>tr</td>
+									<td>dr</td>
+									<td>ky</td>
+									<td>gy</td>
+									<td>qg</td>
+									<td>sx</td>
+									<td>ssx</td>
+									<td>zx</td>
+									<td>zzx</td>
+									<td>sxy</td>
+									<td>ssxy</td>
+									<td>zxy</td>
+									<td>zzxy</td>
+									<td>ss</td>
+									<td>zz</td>
+									<td>sy</td>
+									<td>ssy</td>
+									<td>zy</td>
+									<td>zzy</td>
+									<td>sr</td>
+									<td>ssr</td>
+									<td>zr</td>
+									<td>zzr</td>
+									<td>shy</td>
+									<td>sshy</td>
+									<td>zhy</td>
+									<td>zzhy</td>
+									<td>shyr</td>
+									<td>sshyr</td>
+									<td>zhyr</td>
+									<td>zzhyr</td>
+									<td>shx</td>
+									<td>sshx</td>
+									<td>zhx</td>
+									<td>zzhx</td>
+									<td>sh</td>
+									<td>ssh</td>
+									<td>zh</td>
+									<td>zzh</td>
+									<td>sr</td>
+									<td>ssr</td>
+									<td>zr</td>
+									<td>zzr</td>
+									<td>hy</td>
+									<td>hhy</td>
+									<td>yh</td>
+									<td>yyh</td>
+									<td>x</td>
+									<td>xx</td>
+									<td>qh</td>
+									<td>qqh</td>
+									<td>sxw</td>
+									<td>ssxw</td>
+									<td>zxw</td>
+									<td>zzxw</td>
+									<td>sxyw</td>
+									<td>ssxyw</td>
+									<td>zxyw</td>
+									<td>zzxyw</td>
+									<td>sw</td>
+									<td>ssw</td>
+									<td>zw</td>
+									<td>zzw</td>
+									<td>syw</td>
+									<td>ssyw</td>
+									<td>zyw</td>
+									<td>zzyw</td>
+									<td>srw</td>
+									<td>ssrw</td>
+									<td>zrw</td>
+									<td>zzrw</td>
+									<td>shyw</td>
+									<td>sshyw</td>
+									<td>zhyw</td>
+									<td>zzhyw</td>
+									<td>shyrw</td>
+									<td>sshyrw</td>
+									<td>zhyrw</td>
+									<td>zzhyrw</td>
+									<td>shxw</td>
+									<td>sshxw</td>
+									<td>zhxw</td>
+									<td>zzhxw</td>
+									<td>shw</td>
+									<td>sshw</td>
+									<td>zhw</td>
+									<td>zzhw</td>
+									<td>srw</td>
+									<td>ssrw</td>
+									<td>zrw</td>
+									<td>zzrw</td>
+									<td>hyw</td>
+									<td>hhyw</td>
+									<td>yhw</td>
+									<td>yyhw</td>
+									<td>khw</td>
+									<td>kkhw</td>
+									<td>qhw</td>
+									<td>qqhw</td>
+									<td>rn</td>
+									<td>nr</td>
+									<td>ny</td>
+									<td>ng</td>
+									<td>mw</td>
+									<td>nw</td>
+									<td>rnw</td>
+									<td>nrw</td>
+									<td>nyw</td>
+									<td>ngw</td>
+									<td>ae</td>
+									<th>ASCII pitch accent indicator</th>
+									<td>^</td>
+									<td>h</td>
+								</tr>
+								<tr class="phonemes">
+									<th>Sound</th>
+									<td>p</td>
+									<td>b</td>
+									<td>t</td>
+									<td>d</td>
+									<td>ʈ</td>
+									<td>ɖ</td>
+									<td>c</td>
+									<td>ɟ</td>
+									<td>k</td>
+									<td>g</td>
+									<td>q</td>
+									<td>ɢ</td>
+									<td>s̟</td>
+									<td>s̟͈</td>
+									<td>z̟</td>
+									<td>z̟͈</td>
+									<td>s̟ʲ</td>
+									<td>s̟͈ʲ</td>
+									<td>z̟ʲ</td>
+									<td>z̟͈ʲ</td>
+									<td>s</td>
+									<td>s͈</td>
+									<td>z</td>
+									<td>z͈</td>
+									<td>sʲ</td>
+									<td>s͈ʲ</td>
+									<td>zʲ</td>
+									<td>z͈ʲ</td>
+									<td>s̠</td>
+									<td>s̠͈</td>
+									<td>z̠</td>
+									<td>z̠͈</td>
+									<td>ɕ</td>
+									<td>ɕ͈</td>
+									<td>ʑ</td>
+									<td>ʑ͈</td>
+									<td>ɕ̠</td>
+									<td>ɕ̠͈</td>
+									<td>ʑ̠</td>
+									<td>ʑ̠͈</td>
+									<td>ʃ̟</td>
+									<td>ʃ̟͈</td>
+									<td>ʒ̟</td>
+									<td>ʒ̟͈</td>
+									<td>ʃ</td>
+									<td>ʃ͈</td>
+									<td>ʒ</td>
+									<td>ʒ͈</td>
+									<td>ʂ</td>
+									<td>ʂ͈</td>
+									<td>ʐ</td>
+									<td>ʐ͈</td>
+									<td>ç</td>
+									<td>ç͈</td>
+									<td>ʝ</td>
+									<td>ʝ͈</td>
+									<td>x</td>
+									<td>x͈</td>
+									<td>χ</td>
+									<td>χ͈</td>
+									<td>s̟ʷ</td>
+									<td>s̟͈ʷ</td>
+									<td>z̟ʷ</td>
+									<td>z̟͈ʷ</td>
+									<td>s̟ʲʷ</td>
+									<td>s̟͈ʲʷ</td>
+									<td>z̟ʲʷ</td>
+									<td>z̟͈ʲʷ</td>
+									<td>sʷ</td>
+									<td>s͈ʷ</td>
+									<td>zʷ</td>
+									<td>z͈ʷ</td>
+									<td>sʲʷ</td>
+									<td>s͈ʲʷ</td>
+									<td>zʲʷ</td>
+									<td>z͈ʲʷ</td>
+									<td>s̠ʷ</td>
+									<td>s̠͈ʷ</td>
+									<td>z̠ʷ</td>
+									<td>z̠͈ʷ</td>
+									<td>ɕʷ</td>
+									<td>ɕ͈ʷ</td>
+									<td>ʑʷ</td>
+									<td>ʑ͈ʷ</td>
+									<td>ɕ̠ʷ</td>
+									<td>ɕ̠͈ʷ</td>
+									<td>ʑ̠ʷ</td>
+									<td>ʑ̠͈ʷ</td>
+									<td>ʃ̟ʷ</td>
+									<td>ʃ̟͈ʷ</td>
+									<td>ʒ̟ʷ</td>
+									<td>ʒ̟͈ʷ</td>
+									<td>ʃʷ</td>
+									<td>ʃ͈ʷ</td>
+									<td>ʒʷ</td>
+									<td>ʒ͈ʷ</td>
+									<td>ʂʷ</td>
+									<td>ʂ͈ʷ</td>
+									<td>ʐʷ</td>
+									<td>ʐ͈ʷ</td>
+									<td>çʷ</td>
+									<td>ç͈ʷ</td>
+									<td>ʝʷ</td>
+									<td>ʝ͈ʷ</td>
+									<td>xʷ</td>
+									<td>x͈ʷ</td>
+									<td>χʷ</td>
+									<td>χ͈ʷ</td>
+									<td>m</td>
+									<td>n</td>
+									<td>n̠</td>
+									<td>ɳ</td>
+									<td>ɲ</td>
+									<td>ŋ</td>
+									<td>mʷ</td>
+									<td>nʷ</td>
+									<td>n̠ʷ</td>
+									<td>ɳʷ</td>
+									<td>ɲʷ</td>
+									<td>ŋʷ</td>
+									<td>w</td>
+									<td>l</td>
+									<td>j</td>
+									<td>a</td>
+									<td>e</td>
+									<td>ɛ</td>
+									<td>i</td>
+									<td>o</td>
+									<td>u</td>
+									<th>Pitch accent</th>
+									<td>ꜛ</td>
+									<td>ꜜ</td>
+
+								</tr>
+							</tbody>
+						</table>
+						<p class="plain-font">
+							The capital form of ʃ is ʆ.&#8203;&nbsp;&nbsp;&#8203;<br/>
+						</p>
+					</main>
+				</section>
+
+				<section id="qstPhonotactics">
+					<h2>Phonotactics:</h2>
+					<main class="plain-font">
+						<p>The syllable structure is (C)(<abbr title="A: Any approximant">A</abbr>)V(<abbr title="N: Any nasal">N</abbr>).&#8203;&nbsp;&nbsp;&#8203;Velar sounds and /i/ may undergo assimilation in one of two ways: either the velar plosives /k/ and /g/ palatalize or front respectively into [kʲ~k̟] and [gʲ~g̟] before /i/, or the /i/ may back into /ɪ̝/ before those velar sounds.&#8203;&nbsp;&nbsp;&#8203;/i/ undergoes the same assimilation as below when next to a retroflex fricative.</p>
+
+						<h3>Vowels' uvular assimilation</h3>
+						<table class="plain-font indent" id="qstReductionTable">
+							<tbody>
+								<tr>
+									<th>Unassimilated</th>
+									<td>i</td>
+									<td>e</td>
+									<td>ɛ</td>
+									<td>a</td>
+									<td rowspan="2">o~o</td>
+									<td rowspan="2">u</td>
+								</tr>
+								<tr>
+									<th>Assimilated</th>
+									<td>ɪ~ɪ̝~ɨ~ɨ̞</td>
+									<td>e~e̞~əe̯</td>
+									<td>ɛ~e̞</td>
+									<td>ᴀ</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+			</section>
+
+			<section id="qstGrammar">
+				<h3>Grammar</h3>
+				<main>
+					<p class="plain-font">
+						The default word order is SVO (SVDI).&#8203;&nbsp;&nbsp;&#8203;TAM affixes are applied in the order "aspect-tense-mood".&#8203;&nbsp;&nbsp;&#8203;Sissinese is somewhat agglutinative and highly inflectional.&#8203;&nbsp;&nbsp;&#8203;It uses numeral classifiers, which go between the number and the thing being counted.
+					</p>
+				</main>
+			</section>
+
+			<section id="qstWords">
+				<h3>Word table (<span id="qstEntryCount" title="This is not indicative of completeness or comprehensiveness, as it includes all words including sequential derivatives, and it does not account for the subjects of all of these words or their usefulness.  It is for advisory purposes only.">Uncounted entries</span>)</h3>
+					<div id="qstAbbreviations" class="dnone">
+						<h4>Abbreviations</h4>
+						<p class="indent">
+							<span class="part-abbreviation">adj.</span>: <span class="full-part">adjective</span><br/>
+							<span class="part-abbreviation">adv.</span>: <span class="full-part">adverb</span><br/>
+							<span class="part-abbreviation">prn.</span>: <span class="full-part">pronoun</span><br/>
+							<span class="part-abbreviation">postp.</span>: <span class="full-part">postposition</span><br/>
+							<span class="part-abbreviation">int.</span>: <span class="full-part">interjection</span><br/>
+							<span class="part-abbreviation">conj.</span>: <span class="full-part">conjunction</span><br/>
+							<span class="part-abbreviation">m.</span>: <span class="full-part">marker</span><br/>
+							<span class="part-abbreviation">art.</span>: <span class="full-part">article</span><br/>
+							<span class="part-abbreviation">aff.</span>: <span class="full-part">affix</span><br/>
+							<span class="part-abbreviation">cl.</span>: <span class="full-part">classifier</span><br/>
+							<span class="part-abbreviation">n.</span>: <span class="full-part">noun</span><br/>
+							<span class="part-abbreviation">v.</span>: <span class="full-part">verb</span>
+						</p>
+					</div>
+
+					<div id="qstSearch">
+						<h4>Search (Likely to be slow)</h4>
+						<input placeholder="Enter your query (2 characters or longer)" id="qstSearchQuery" class="plain-font"/><br/>
+						<input type="checkbox" id="qstIgnoreDiacritics"> <label for="qstIgnoreDiacritics">Ignore diacritics</label><br/>
+						<!--<input type="checkbox" id="qstSearchIsRegex"> <label for="qstSearchIsRegex">Use regex</label>-->
+						<input type="checkbox" id="qstSearchEnglish" checked> <label for="qstSearchEnglish">Search English</label>
+						<input type="checkbox" id="qstSearchSissinese" checked> <label for="qstSearchSissinese">Search Sissinese</label>
+						<input type="checkbox" id="qstSearchEtymology"> <label for="qstSearchEtymology">Search in etymologies</label>
+						<input type="checkbox" id="qstSearchExtraInfo"> <label for="qstSearchExtraInfo">Search in extra info</label>
+						<input type="checkbox" id="qstSearchPartOfSpeech"> <label for="qstSearchPartOfSpeech">Search in parts of speech</label>
+						<input type="checkbox" id="qstSearchStart"> <label for="qstSearchStart">Anchor search to starts of cells</label>
+						<input type="checkbox" id="qstSearchEnd"> <label for="qstSearchEnd">Anchor search to ends of cells</label>
+					</div>
+
+				<main id="qstWordlist">
+					<h4>Additional information</h4>
+					<p class="plain-font">
+						<span>Sissinese uses a base 19 number system, as they count on their fingers in a certain way.</span><br/>
+						<table id="sissineseFingerTable">
+							<thead>
+								<tr style="border-top: none; border-left: none; border-right: none; text-align: left;" rowspan="2">
+									<td style="border-top: none; border-left: none; border-right: none; text-align: left;" colspan="2">
+										<p>The fingers are given the following designations.&#8203;&nbsp;&nbsp;&#8203;The Sissinese people consider the thumb to be a finger.</p>
+										<p>Each hand may be denoted with the string "1-2-3-4-5", with non-extended fingers' numbers replaced with underscores.&#8203;&nbsp;&nbsp;&#8203;Fingers touching are denoted with a comma and the touching fingers separated by x.&#8203;&nbsp;&nbsp;&#8203;Hands are separated by a semicolon and space. In the Sissinese finger count, the hands are head with the palms facing towards the person counting.</p>
+									</td>
+								</tr>
+								<tr>
+									<th>Number</th>
+									<th>Finger</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Thumb</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Index/Pointer</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Middle</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Ring</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Pinky</td>
+								</tr>
+								<tr style="border-top: none; border-left: none; border-right: none; text-align: left;">
+									<td colspan="2">&nbsp;</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Finger pattern</th>
+									<th>Value</th>
+								</tr>
+								<tr>
+									<td>No fingers extended</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td><abbr title="Thumb extended on one hand">1-_-_-_-_</abbr></td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td><abbr title="Thumb and pointer (index) extended on one hand">1-2-_-_-_</abbr></td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td><abbr title="Thumb, pointer, and middle extended on one hand">1-2-3-_-_</abbr></td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td><abbr title="All fingers except pinky extended on one hand">1-2-3-4-_</abbr></td>
+									<td>4</td>
+								</tr>
+								<tr>
+									<td><abbr title="All fingers extended on one hand">1-2-3-4-5</abbr></td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,<abbr title="Thumb and pointer touching">1x2</abbr></td>
+									<td>6</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,<abbr title="Thumb and middle touching">1x3</abbr></td>
+									<td>7</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,<abbr title="Thumb and ring touching">1x4</abbr></td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,<abbr title="Thumb and pinky touching">1x5</abbr></td>
+									<td>9</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; <abbr title="No fingers extended">1-_-_-_-_<abbr></td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-_-_-_</td>
+									<td>11</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-_-_</td>
+									<td>12</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-_</td>
+									<td>13</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-5</td>
+									<td>14</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-5,1x2</td>
+									<td>15</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-5,1x3</td>
+									<td>16</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-5,1x4</td>
+									<td>17</td>
+								</tr>
+								<tr>
+									<td>1-2-3-4-5,1x5; 1-2-3-4-5,1x5</td>
+									<td>18</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+				</main>
+			</section>
+		</section>
+
+		<section id="ssanamese">
+			<h1 class="subh1">Ssanamese</h1>
+			<section id="qsmPhonology">
+				<h2>Phonology:</h2>
+				<section id="qsmConsonants">
+					<h3>Consonants:</h3>
+					<main>
+						<div id="qsmConsonantCounter"><span id="qsmConsonantsCount">&nbsp;</span></div>
+						<div id="qsmTableKey">
+							<span style="display: inline-block; padding: 2px; border: 1px solid white;" class="loaneme">Loan phoneme (does not appear in native words)</span>
+						</div>
+						<table class="plain-font" id="qsmConsonantsTable">
+							<tbody>
+								<tr>
+									<th rowspan="2" colspan="2">&nbsp;</th>
+									<th colspan="2">Labial</th>
+									<th colspan="2">Interdental</th>
+									<th colspan="2">Alveolar</th>
+									<th colspan="2">Retroflex</th>
+									<th colspan="2">Palatal</th>
+									<th colspan="2">Velar</th>
+									<th>Uvular</th>
+									<th colspan="2">Pharyngeal</th>
+									<th>Glottal</th>
+								</tr>
+								<tr>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+								</tr>
+								<tr>
+									<th rowspan="2">Plosive</th>
+									<th>Plain</th>
+									<td><span class="phoneme">/p/</span> <span class="grapheme">〈p〉</span></td>
+									<td><span class="phoneme">/b/</span> <span class="grapheme">〈b〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t/</span> <span class="grapheme">〈t〉</span></td>
+									<td><span class="phoneme">/d/</span> <span class="grapheme">〈d〉</span></td>
+									<td><span class="phoneme">/ʈ/</span> <span class="grapheme">〈t̀〉</span></td>
+									<td><span class="phoneme">/ɖ/</span> <span class="grapheme">〈d̀〉</span></td>
+									<td><span class="phoneme">/c/</span> <span class="grapheme">〈ḱ〉</span></td>
+									<td><span class="phoneme">/ɟ/</span> <span class="grapheme">〈ǵ〉</span></td>
+									<td><span class="phoneme">/k/</span> <span class="grapheme">〈k〉</span></td>
+									<td><span class="phoneme">/g/</span> <span class="grapheme">〈g〉</span></td>
+									<td class="loaneme"><span class="phoneme">/q/</span> <span class="grapheme">〈q〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ʔ/</span> <span class="grapheme">〈Ꞌ/ꞌ〉</span></td>
+								</tr>
+								<tr>
+									<!--Plosive-->
+									<th>Tense</th>
+									<td><span class="phoneme">/p͈/</span> <span class="grapheme">〈ṗ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͈/</span> <span class="grapheme">〈ṭ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʈ͈/</span> <span class="grapheme">〈ṭ̀〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/c͈/</span> <span class="grapheme">〈ḳ́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k͈/</span> <span class="grapheme">〈ḳ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Nasal</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/m/</span> <span class="grapheme">〈m〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n/</span> <span class="grapheme">〈n〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɳ/</span> <span class="grapheme">〈ǹ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɲ/</span> <span class="grapheme">〈ñ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ŋ/</span> <span class="grapheme">〈ň〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Fricative</th>
+									<th>Plain</th>
+									<td><span class="phoneme">/ɸ/</span> <span class="grapheme">〈f〉</span></td>
+									<td><span class="phoneme">/β/</span> <span class="grapheme">〈v〉</span></td>
+									<td class="loaneme"><span class="phoneme">/θ/</span> <span class="grapheme">〈t́〉</span></td>
+									<td class="loaneme"><span class="phoneme">/ð/</span> <span class="grapheme">〈d́〉</span></td>
+									<td><span class="phoneme">/s/</span> <span class="grapheme">〈s〉</span></td>
+									<td><span class="phoneme">/z/</span> <span class="grapheme">〈z〉</span></td>
+									<td><span class="phoneme">/ʂ/</span> <span class="grapheme">〈s̀〉</span></td>
+									<td><span class="phoneme">/ʐ/</span> <span class="grapheme">〈z̀〉</span></td>
+									<td><span class="phoneme">/ç/</span> <span class="grapheme">〈h́〉</span></td>
+									<td><span class="phoneme">/ʝ/</span> <span class="grapheme">〈ý〉</span></td>
+									<td><span class="phoneme">/x/</span> <span class="grapheme">〈x〉</span></td>
+									<td><span class="phoneme">/ɣ/</span> <span class="grapheme">〈ğ〉</span></td>
+									<td class="loaneme"><span class="phoneme">/χ/</span> <span class="grapheme">〈x̀〉</span></td>
+									<td class="loaneme"><span class="phoneme">/ħ/</span> <span class="grapheme">〈x̏〉</span></td>
+									<td class="loaneme"><span class="phoneme">/ʕ/</span> <span class="grapheme">〈ğ̏〉</span></td>
+									<td><span class="phoneme">/h/</span> <span class="grapheme">〈h〉</span></td>
+								</tr>
+								<tr>
+									<!--Fricative-->
+									<th>Tense</th>
+									<td><span class="phoneme">/ɸ͈/</span> <span class="grapheme">〈f̣〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s͈/</span> <span class="grapheme">〈ṣ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʂ͈/</span> <span class="grapheme">〈ṣ̀〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ç͈/</span> <span class="grapheme">〈ḥ́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/x͈/</span> <span class="grapheme">〈x̣〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/h͈/</span> <span class="grapheme">〈ḥ〉</span></td>
+								</tr>
+								<tr>
+									<th rowspan="2">Affricate</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡s/</span> <span class="grapheme">〈ts〉</span></td>
+									<td><span class="phoneme">/d͡z/</span> <span class="grapheme">〈dz〉</span></td>
+									<td><span class="phoneme">/ʈ͡ʂ/</span> <span class="grapheme">〈ts̀〉</span></td>
+									<td><span class="phoneme">/ɖ͡ʐ/</span> <span class="grapheme">〈dz̀〉</span></td>
+									<td><span class="phoneme">/c͡ç/</span> <span class="grapheme">〈kh́〉</span></td>
+									<td><span class="phoneme">/ɟ͡ʝ/</span> <span class="grapheme">〈gý〉</span></td>
+									<td><span class="phoneme">/k͡x/</span> <span class="grapheme">〈kx〉</span></td>
+									<td><span class="phoneme">/g͡ɣ/</span> <span class="grapheme">〈gğ〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Affricate-->
+									<th>Tense</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t͡s/</span> <span class="grapheme">〈tṣ〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ʈ͡ʂ/</span> <span class="grapheme">〈tṣ̀〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/c͡ç/</span> <span class="grapheme">〈kḥ́〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k͡x/</span> <span class="grapheme">〈kx̣〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th rowspan="2">Lateral fricative</th>
+									<th>Plain</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɬ/</span> <span class="grapheme">〈ł〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<!--Lateral fricative-->
+									<th>Tense</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɬ͈/</span> <span class="grapheme">〈ł̣〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Lateral approximant</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/l/</span> <span class="grapheme">〈l〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Approximant</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/w/</span> <span class="grapheme">〈w〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ɹ/</span> <span class="grapheme">〈r̂〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/j/</span> <span class="grapheme">〈y〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Flap</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɾ/</span> <span class="grapheme">〈r〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɽ/</span> <span class="grapheme">〈r̀〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="2">Trill</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/r~ɾ~ɾɾ~θ̠~θ̠ɾ/</span> <span class="grapheme">〈r̄〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<!--Shifts, merges, and exceptions:
+					*/ɸ/ became /f/
+				-->
+
+				<section id="qsmVowels">
+					<h3>Vowels</h3>
+					<main>
+						<table class="plain-font">
+							<tbody>
+								<tr>
+									<th rowspan="2">&nbsp;</th>
+									<th rowspan="2">Front</th>
+									<th rowspan="2">Near-front</th>
+									<th rowspan="2">Central</th>
+									<th rowspan="2">Near-back</th>
+									<th colspan="2">Back</th>
+								</tr>
+								<tr>
+									<th>Unrounded</th>
+									<th>Rounded</th>
+								</tr>
+								<tr>
+									<th>Close</th>
+									<td><span class="phoneme">/i/</span> <span class="grapheme">〈i〉</span></td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ɨ/</span> <span class="grapheme">〈ï〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/u/</span> <span class="grapheme">〈u〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Near-close</th>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ɪ/</span> <span class="grapheme">〈ì〉</span></td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ʊ/</span> <span class="grapheme">〈ù〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Mid</th>
+									<td><span class="phoneme">/e̞/</span> <span class="grapheme">〈e〉</span></td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ə/</span> <span class="grapheme">〈ë〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/o̞/</span> <span class="grapheme">〈o〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Open-mid</th>
+									<td class="loaneme"><span class="phoneme">/ɛ/</span> <span class="grapheme">〈è〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="loaneme"><span class="phoneme">/ʌ/</span> <span class="grapheme">〈ȕ〉</span></td>
+									<td class="loaneme"><span class="phoneme">/ɔ/</span> <span class="grapheme">〈ò〉</span></td>
+								</tr>
+								<tr>
+									<th>Open</th>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ᴀ/</span> <span class="grapheme">〈a〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ɑ/</span> <span class="grapheme">〈ä〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="7">Syllabic consonant</th>
+								</tr>
+								<tr>
+									<td colspan="3">&nbsp;</td>
+									<td><span class="phoneme">/ʒ̩/</span> <span class="grapheme">〈ź〉</span></td>
+									<td colspan="3">&nbsp;</td>
+								</tr>
+								<tr>
+									<th colspan="7">Other features</th>
+								</tr>
+								<tr>
+									<td colspan="7"><span class="phoneme">/ː/</span> <span class="grapheme">〈◌̄〉</span><br/><span>Goes after all other diacritics</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<p>
+							Stress is determined by phonology.
+							<ol>
+								<li>The first syllable is usually stressed.</li>
+								However, a penultimate syllable that precedes an ultimate syllable with null onset will receive primary stress instead, and the first syllable in such a word <li>will receive secondary stress.</li>
+								Length attracts primary stress instead, but a syllable that would otherwise have had primary stress will have secondary stress. If there are multiple long <li>syllables, the first receives primary stress.</li>
+								<li>Monosyllabic prepositions and monosyllabic grammar words are unstressed.</li>
+							</ol>
+						</p>
+					</main>
+				</section>
+
+				<section id="qsmOrthography">
+					<h2>Orthography</h2>
+					<p>The Ssanamese script is an abugida. Tensed consonants are indicated with dotted versions of their "base" glyphs. Each glyph has a subscript form for codas; subscript forms exist even for glyphs whose consonants cannot be codas. The inherent vowel is /i/. There is a virama. There is a diacritic for a long vowel, which goes above a vowel diacritic if one is present (or above the letter itself for /i/ syllables, whose vowel quality is implied). There is a diacritic-bearing romanization and an ASCII romanization.</p>
+					<main>
+						<div id="qsmLetterCounter"><span id="qsmLettersCount">&nbsp;</span></div>
+						<table class="plain-font" id="qsmLettersTable">
+							<tbody>
+								<tr id="qsmRomanRow" class="graphemes">
+									<th style="min-width: 100px;">Letter</th>
+									<td rowspan="2">a</td>
+									<td>ä</td>
+									<td rowspan="2">b</td>
+									<td rowspan="2">c</td>
+									<td rowspan="2">c̣</td>
+									<td rowspan="2">d</td>
+									<td rowspan="2">dz</td>
+									<td>d̀</td>
+									<td rowspan="2">e</td>
+									<td>ë</td>
+									<td>è</td>
+									<td rowspan="2">f</td>
+									<td>f̣</td>
+									<td rowspan="2">g</td>
+									<td>gğ</td>
+									<td>gý</td>
+									<td>ǵ</td>
+									<td>ğ</td>
+									<td rowspan="2">h</td>
+									<td>h́</td>
+									<td>ḥ́</td>
+									<td>ḥ</td>
+									<td rowspan="2">i</td>
+									<td>ï</td>
+									<td>ì</td>
+									<td rowspan="2">j</td>
+									<td rowspan="2">k</td>
+									<td>kh́</td>
+									<td>kḥ́</td>
+									<td rowspan="2">kx</td>
+									<td>kx̣</td>
+									<td>ḱ</td>
+									<td>ḳ́</td>
+									<td>ḳ</td>
+									<td rowspan="2">l</td>
+									<td>ł</td>
+									<td>ł̣</td>
+									<td rowspan="2">m</td>
+									<td rowspan="2">n</td>
+									<td>ǹ</td>
+									<td>ñ</td>
+									<td>ň</td>
+									<td rowspan="2">o</td>
+									<td>ò</td>
+									<td rowspan="2">p</td>
+									<td>ṗ</td>
+									<td rowspan="2">r</td>
+									<td>r̀</td>
+									<td rowspan="2">s</td>
+									<td>s̀</td>
+									<td>ṣ̀</td>
+									<td>ṣ</td>
+									<td rowspan="2">t</td>
+									<td rowspan="2">ts</td>
+									<td>tṣ</td>
+									<td>t̀</td>
+									<td>ṭ̀</td>
+									<td>ṭ</td>
+									<td rowspan="2">u</td>
+									<td>ù</td>
+									<td>ȕ</td>
+									<td rowspan="2">v</td>
+									<td rowspan="2">w</td>
+									<td rowspan="2">x</td>
+									<td>x̣</td>
+									<td rowspan="2">y</td>
+									<td>ý</td>
+									<td rowspan="2">z</td>
+									<td>z̀</td>
+									<td>ź</td>
+								</tr>
+								<tr class="graphemes">
+									<th>ASCII</th>
+									<td>ah</td>
+									<td>dr</td>
+									<td>oe</td>
+									<td>eh</td>
+									<td>ff</td>
+									<td>ggh</td>
+									<td>gyh</td>
+									<td>gy</td>
+									<td>gh</td>
+									<td>hy</td>
+									<td>hhy</td>
+									<td>hh</td>
+									<td>iu</td>
+									<td>ih</td>
+									<td>khy</td>
+									<td>kkhy</td>
+									<td>kxx</td>
+									<td>ky</td>
+									<td>kky</td>
+									<td>kk</td>
+									<td>lh</td>
+									<td>llh</td>
+									<td>nr</td>
+									<td>ny</td>
+									<td>ng</td>
+									<td>oh</td>
+									<td>pp</td>
+									<td>rr</td>
+									<td>sr</td>
+									<td>ssr</td>
+									<td>ss</td>
+									<td>tts</td>
+									<td>tr</td>
+									<td>ttr</td>
+									<td>tt</td>
+									<td>ue</td>
+									<td>uh</td>
+									<td>xx</td>
+									<td>yh</td>
+									<td>zr</td>
+									<td>zh</td>
+								</tr>
+								<tr class="phonemes">
+									<th>Sound</th>
+									<td>ᴀ</td>
+									<td>ɑ</td>
+									<td>b</td>
+									<td>ʈ͡ʂ</td>
+									<td>ʈ͡ʂ͈</td>
+									<td>d</td>
+									<td>d͡z</td>
+									<td>ɖ</td>
+									<td>e̞</td>
+									<td>ə</td>
+									<td>ɛ</td>
+									<td>ɸ</td>
+									<td>ɸ͈</td>
+									<td>g</td>
+									<td>g͡ɣ</td>
+									<td>ɟ͡ʝ</td>
+									<td>ɟ</td>
+									<td>ɣ</td>
+									<td>h</td>
+									<td>ç</td>
+									<td>ç͈</td>
+									<td>h͈</td>
+									<td>i</td>
+									<td>ɨ</td>
+									<td>ɪ</td>
+									<td>ɖ͡ʐ</td>
+									<td>k</td>
+									<td>c͡ç</td>
+									<td>c͡ç</td>
+									<td>k͡x</td>
+									<td>k͡x</td>
+									<td>c</td>
+									<td>c͈</td>
+									<td>k͈</td>
+									<td>l</td>
+									<td>ɬ</td>
+									<td>ɬ͈</td>
+									<td>m</td>
+									<td>n</td>
+									<td>ɳ</td>
+									<td>ɲ</td>
+									<td>ŋ</td>
+									<td>o̞</td>
+									<td>ɔ</td>
+									<td>p</td>
+									<td>p͈</td>
+									<td>ɾ</td>
+									<td>ɽ</td>
+									<td>s</td>
+									<td>ʂ</td>
+									<td>ʂ͈</td>
+									<td>s͈</td>
+									<td>t</td>
+									<td>t͡s</td>
+									<td>t͡s</td>
+									<td>ʈ</td>
+									<td>ʈ͈</td>
+									<td>t͈</td>
+									<td>u</td>
+									<td>ʊ</td>
+									<td>ʌ</td>
+									<td>β</td>
+									<td>w</td>
+									<td>x</td>
+									<td>x͈</td>
+									<td>j</td>
+									<td>ʝ</td>
+									<td>z</td>
+									<td>ʐ</td>
+									<td>ʒ̩</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<section id="qsmPhonotactics">
+					<h2>Phonotactics:</h2>
+					<main class="plain-font">
+						<p>The syllable structure is (C)V(C). The last (C) may be a fricative (including the lateral fricatives), a plain stop (which becomes unreleased ◌̚), /w/ (which becomes u̯), /j/ (which becomes i̯), /l/, or a nasal.</p>
+					</main>
+				</section>
+			</section>
+
+			<section id="qsmGrammar">
+				<h3>Grammar</h3>
+				<main>
+					<p class="plain-font">
+						Verbs conjugate for tense (of which there are 3: past, present, and future; as in English) and are marked for aspect. There are two verb classes, -<span lang="qsm">i</span> and -<span lang="qsm">fe</span>.&#8203;&nbsp;&nbsp;&#8203;-<span lang="qsm">i</span> class verbs' tense forms are -<span lang="qsm">lu</span> (past), -<span lang="qsm">kʒ̩</span> (present), and -<span lang="qsm">c͈in</span> (future); and -<span lang="qsm">fe</span> class verbs' tense forms are -<span lang="qsm">ne̞ŋ</span> (past), -<span lang="qsm">jᴀ</span> (present), and -<span lang="qsm">hɑ</span> (future).&#8203;&nbsp;&nbsp;&#8203;Aspect is marked with suffixes, which are the same for all verb classes.&#8203;&nbsp;&nbsp;&#8203;The suffix for progressive aspect depends on tense: -<span lang="qsm">g͡ɣᴀ</span> for past, -<span lang="qsm">un</span> for present, and -<span lang="qsm">dil</span> for future progressives.&#8203;&nbsp;&nbsp;&#8203;Mood markers do not depend on tense or verb class; the interrogative mood's suffix is always -<span lang="qsm">ʐi</span> and the imperative mood's is always -<span lang="qsm">s͈e̞h͈</span>.<br/>
+						Verbs in their forms ending with -<span lang="qsm">i</span> or -<span lang="qsm">fe</span> are in the infinitive, and those suffixes are replaced by the tense markers.&#8203;&nbsp;&nbsp;&#8203;Aspect and mood markers append to the verb, in that order after the tense suffix.
+					</p>
+					<p class="plain-font">
+						Adjectives come after their nouns.&#8203;&nbsp;&nbsp;&#8203;There are five cases: nominative, accusative, dative, genitive, and instrumental; each is marked with its own suffix on the noun.&#8203;&nbsp;&nbsp;&#8203;The default word order is SVO.
+					</p>
+				</main>
+			</section>
+
+			<section id="qsmWords">
+				<h3>Word table (<span id="qsmEntryCount" title="This is not indicative of completeness or comprehensiveness, as it includes all words including sequential derivatives, and it does not account for the subjects of all of these words or their usefulness.  It is for advisory purposes only.">Uncounted entries</span>)</h3>
+					<div id="qsmSearch">
+						<h4>Search (Likely to be slow)</h4>
+						<input placeholder="Enter your query (2 characters or longer)" id="qsmSearchQuery" class="plain-font"/><br/>
+						<input type="checkbox" id="qsmIgnoreDiacritics"> <label for="qsmIgnoreDiacritics">Ignore diacritics</label><br/>
+						<!--<input type="checkbox" id="qsmSearchIsRegex"> <label for="qsmSearchIsRegex">Use regex</label>-->
+						<input type="checkbox" id="qsmSearchEnglish" checked> <label for="qsmSearchEnglish">Search English</label>
+						<input type="checkbox" id="qsmSearchSsanamese" checked> <label for="qsmSearchSsanamese">Search Ssanamese</label>
+						<input type="checkbox" id="qsmSearchEtymology"> <label for="qsmSearchEtymology">Search in etymologies</label>
+						<input type="checkbox" id="qsmSearchExtraInfo"> <label for="qsmSearchExtraInfo">Search in extra info</label>
+						<input type="checkbox" id="qsmSearchPartOfSpeech"> <label for="qsmSearchPartOfSpeech">Search in parts of speech</label>
+						<input type="checkbox" id="qsmSearchStart"> <label for="qsmSearchStart">Anchor search to starts of cells</label>
+						<input type="checkbox" id="qsmSearchEnd"> <label for="qsmSearchEnd">Anchor search to ends of cells</label>
+					</div>
+
+				<main id="qsmWordlist">
+				</main>
+			</section>
+		</section>
+
+		<section id="sptyanim">
+			<h1 class="subh1">Sptyanim</h1>
+			<section id="qptPhonology">
+				<h2>Phonology:</h2>
+				<section id="qptConsonants">
+					<h3>Consonants:</h3>
+					<main>
+						<div id="qptConsonantCounter"><span id="qptConsonantsCount">&nbsp;</span></div>
+						<table class="plain-font" id="qptConsonantsTable">
+							<tbody>
+								<tr>
+									<th rowspan="2">&nbsp;</th>
+									<th colspan="2">Labial</th>
+									<th colspan="2">Alveolar</th>
+									<th>Palatal</th>
+									<th colspan="2">Velar</th>
+								</tr>
+								<tr>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+									<th>Voiced</th>
+									<th>V'less</th>
+									<th>Voiced</th>
+								</tr>
+								<tr>
+									<th>Nasal</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/m/</span> <span class="grapheme">〈m〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/n/</span> <span class="grapheme">〈n〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ŋ/</span> <span class="grapheme">〈ng〉</span></td>
+								</tr>
+								<tr>
+									<th>Plosive</th>
+									<td><span class="phoneme">/p/</span> <span class="grapheme">〈p〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/t/</span> <span class="grapheme">〈t〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/k/</span> <span class="grapheme">〈k〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Fricative</th>
+									<td><span class="phoneme">/f/</span> <span class="grapheme">〈f〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/s/</span> <span class="grapheme">〈s〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/x/</span> <span class="grapheme">〈x〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Approximant</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/w/</span> <span class="grapheme">〈w〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/l~ɹ/</span> <span class="grapheme">〈l〉</span></td>
+									<td><span class="phoneme">/j/</span> <span class="grapheme">〈y〉</span></td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<!--Shifts, merges, and exceptions:
+					*/ɸ/ became /f/
+				-->
+
+				<section id="qptVowels">
+					<h3>Vowels</h3>
+					<main>
+						<table class="plain-font">
+							<tbody>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Front</th>
+									<th>Central</th>
+									<th>Back</th>
+								</tr>
+								<tr>
+									<th>Close</th>
+									<td><span class="phoneme">/i/</span> <span class="grapheme">〈i〉</span></td>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/u/</span> <span class="grapheme">〈u〉</span></td>
+								</tr>
+								<tr>
+									<th>Open</th>
+									<td>&nbsp;</td>
+									<td><span class="phoneme">/ᴀ/</span> <span class="grapheme">〈a〉</span></td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<section id="qptOrthography">
+					<h2>Orthography</h2>
+					<p>The Sptyanim script is an impure abjad. Vowel marks are mainly used in learning materials, though they are always used when writing personal names. A vowel carrier exists for lone-vowel syllables, though vowel marks are not necessarily written over it (except in names and learning materials). There is a "vowel mark" for the absence of a vowel. Its romanization is detailed below. As stress and certain phonological changes are not predictable, they are also marked in dictionaries and learning materials.<!--unlike Turkish--></p>
+					<main>
+						<div id="qptLetterCounter"><span id="qptLettersCount">&nbsp;</span></div>
+						<table class="plain-font" id="qptLettersTable">
+							<tbody>
+								<tr id="qptRomanRow" class="graphemes">
+									<th style="min-width: 100px;">Primary graph/digraph</th>
+									<td rowspan="2">a</td>
+									<td rowspan="2">f</td>
+									<td rowspan="2">i</td>
+									<td rowspan="2">k</td>
+									<td rowspan="2">l</td>
+									<td rowspan="2">m</td>
+									<td rowspan="2">n</td>
+									<td rowspan="2">ng</td>
+									<td rowspan="2">p</td>
+									<td rowspan="2">s</td>
+									<td rowspan="2">t</td>
+									<td rowspan="2">u</td>
+									<td rowspan="2">w</td>
+									<td rowspan="2">x</td>
+									<td rowspan="2">y</td>
+									<th rowspan="3">Other markers</th>
+									<td>◌̂</td>
+									<td>◌̌</td>
+									<td>◌̽</td>
+									<td>◌̄</td>
+									<td>ľ</td>
+								</tr>
+								<tr class="graphemes">
+									<th>ASCII-only variant</th>
+									<td>^</td>
+									<td>v</td>
+									<td>'</td>
+									<td>(Double letter)</td>
+									<td>lh</td>
+								</tr>
+								<tr class="phonemes">
+									<th>Sound</th>
+									<td>ᴀ</td>
+									<td>f</td>
+									<td>i</td>
+									<td>k</td>
+									<td>l~ɹ</td>
+									<td>m</td>
+									<td>n</td>
+									<td>ŋ</td>
+									<td>p</td>
+									<td>s</td>
+									<td>t</td>
+									<td>u</td>
+									<td>w</td>
+									<td>x</td>
+									<td>j</td>
+									<td title="Primary stress">ˈ</td>
+									<td title="Secondary stress">ˌ</td>
+									<td>◌̚</td>
+									<td>◌̩</td>
+									<td>ɬ</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+				</section>
+
+				<section id="qptPhonotactics">
+					<h2>Phonotactics:</h2>
+					<main class="plain-font">
+						<p>The syllable structure is (C)(V)(C), with no theoretical limit to consonant clusters. The syllable /w/ is realized as [wʊ̯̆] and the syllable /j/ is realized as [jɪ̯̆]. A syllable consisting only of a plosive has its plosive strongly aspirated (/p/ -> [pʰ̩], /t/ -> [tʰ̩], /k/ -> [kʰ̩]). Only syllables with vowels can bear stress; if a polysyllabic word has only one syllable with a vowel, that syllable is stressed. Otherwise, the stress is unpredictable. The syllables /w/ and /j/ do not count as having vowels, even if they are phonetically realized with vowel sounds.</p>
+					</main>
+				</section>
+			</section>
+
+			<section id="qptGrammar">
+				<h3>Grammar</h3>
+				<main>
+					<p class="plain-font">
+						The word order is SOV. There are minimal or no adpositions. Tense and aspect are marked using auxiliary verbs. Adjectives precede their nouns and adverbs precede their modificands. Cases are not marked except for the dative (indirect object) and genitive (possessor). There are several derivational suffixes.
+					</p>
+				</main>
+			</section>
+
+			<section id="qptWords">
+				<h3>Word table (<span id="qptEntryCount" title="This is not indicative of completeness or comprehensiveness, as it includes all words including sequential derivatives, and it does not account for the subjects of all of these words or their usefulness.  It is for advisory purposes only.">Uncounted entries</span>)</h3>
+					<div id="qptSearch">
+						<h4>Search (Likely to be slow)</h4>
+						<input placeholder="Enter your query (2 characters or longer)" id="qptSearchQuery" class="plain-font"/><br/>
+						<input type="checkbox" id="qptIgnoreDiacritics"> <label for="qptIgnoreDiacritics">Ignore diacritics</label><br/>
+						<!--<input type="checkbox" id="qptSearchIsRegex"> <label for="qptSearchIsRegex">Use regex</label>-->
+						<input type="checkbox" id="qptSearchEnglish" checked> <label for="qptSearchEnglish">Search English</label>
+						<input type="checkbox" id="qptSearchSptyanim" checked> <label for="qptSearchSptyanim">Search Sptyanim</label>
+						<input type="checkbox" id="qptSearchEtymology"> <label for="qptSearchEtymology">Search in etymologies</label>
+						<input type="checkbox" id="qptSearchExtraInfo"> <label for="qptSearchExtraInfo">Search in extra info</label>
+						<input type="checkbox" id="qptSearchPartOfSpeech"> <label for="qptSearchPartOfSpeech">Search in parts of speech</label>
+						<input type="checkbox" id="qptSearchStart"> <label for="qptSearchStart">Anchor search to starts of cells</label>
+						<input type="checkbox" id="qptSearchEnd"> <label for="qptSearchEnd">Anchor search to ends of cells</label>
+					</div>
+
+				<main id="qptWordlist">
+				</main>
+			</section>
+		</section>
+
+		<!--<section id="credits">
+			<h1 class="subh1">Credits</h1>
+			<p class="indent">
+				<span>Thanks to <a href="http://ahoy.tk-jk.net/macslog/BoxingtheCompas.html" title="May he rest in peace.">Mackenzie J. Gregory's site</a> for the compass words.</span><br/>
+			</p>
+		</section>-->
+
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+
+	</body>
+</html>
