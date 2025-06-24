@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Proto-Kegedo-Leiykan</title>
+		<style>
+			html {
+				background-color: #010;
+				color: #fff;
+				font-family: Arial, sans-serif;
+			}
+			
+			body {
+				font-size: 18px;
+			}
+
+			code, .gloss {
+				font-size: 19px;
+				font-family: Consolas, monospace;
+			}
+			
+			table {
+				border-collapse: collapse;
+			}
+
+			table, tbody, tr, td, th {
+				border: 1px solid white;
+			}
+			
+			td {
+				padding: 2px;
+			}
+			
+			.phonology-table td {
+				text-align: center;
+			}
+			
+			.english-approximation {
+				font-size: 0.5px;
+				opacity: 0.2;
+			}
+		</style>
+		<script>
+			const consonants = [['p'],['d'],['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['g'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['h'],['d͡ʒ','j'],['s'],['z'],['tʰ','th'],['cʰ','ḱh','kyh'],['ɖ','ḍ','dr'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['pʰ','ph'],['ɾ','r'],['c','ḱ','ky'],['tʰ','th'],['ɳ','ṇ','nr'],['ɟ','ǵ','gy'],['kʰ','kh'],['w'],['j','y'],['']];
+			const codaConsonants = [['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['ː','h'],['d͡ʒ','j'],['s'],['z'],['c','ḱ','ky'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['ɳ','ṇ','nr'],['w'],['j','y'],['']];
+			const vowels = [['i'],['u'],['a'],['e'],['o'],['ə','ë','oe']];
+			const nasalsIPA = ['ŋ','ɲ','ɳ','n','m'];
+			const nasalAssimilationMap = {
+				'kʰ':	'ŋ',
+				'k':	'ŋ',
+				'g':	'ŋ',
+				'cʰ':	'ɲ',
+				'c':	'ɲ',
+				'ɟ':	'ɲ',
+				'ʈʰ':	'ɳ',
+				'ʈ':	'ɳ',
+				'ɖ':	'ɳ',
+				'tʰ':	'n',
+				't':	'n',
+				'd':	'n',
+				'pʰ':	'm',
+				'p':	'm',
+				'b':	'm'
+			};
+			const nasalAssimilates = Array.from(new Set(Object.entries(nasalAssimilationMap)));
+			const syllableStartsWithNasalAssimilatorRegex = new RegExp(`^(${Object.keys(nasalAssimilationMap).join('|')})`);
+			const syllableEndsWithAssimilatedNasalRegex = new RegExp(`(${nasalAssimilates.join('|')})$`);
+			function randomChoice(array) {
+				return array[Math.floor(Math.random() * array.length)]
+			}
+			function syll() {
+				let data = [
+					randomChoice(consonants),
+					randomChoice(vowels),
+					Math.random() < 0.1 ? randomChoice(codaConsonants) : ['']
+				]
+				
+				let syllable = {
+					ipa:		'',
+					unicode:	'',
+					ascii:		''
+				};
+
+				for(let i = 0; i < data.length; i++) {
+					let part = data[i];        
+					//console.log(part);
+					syllable.ipa += 	part[0];
+					syllable.unicode += part[1] ?? part[0];
+					syllable.ascii += 	part[2] ?? part[1] ?? part[0];
+				};
+				return syllable
+			}
+
+			function word() {
+				let length = 1 + (Math.random() < 0.6) + (Math.random() < 0.25) + (Math.random() < 0.05);
+				let word = {
+					ipa:		[],
+					unicode:	[],
+					ascii:		[]
+				}
+				for(let j = 0; j < length; j++) {
+					var newSyllable = syll();
+					//console.log(newSyllable)
+					var previousSyllable = word[j - 0];
+
+					word.ipa.push(newSyllable.ipa);
+					word.unicode.push(newSyllable.unicode);
+					word.ascii.push(newSyllable.ascii);
+
+					if(previousSyllable) {
+						if(newSyllable.ipa.startsWith('h')) {
+							if(previousSyllable.ipa.endsWith('ʰ')) {
+								previousSyllable.ipa = previousSyllable.ipa.slice(0,-1)
+							} else if(previousSyllable.ipa.match(/[ptkcʈ]/)) {
+								previousSyllable.ipa += 'ʰ'
+							}
+						}
+						let assimMatch1 = null;
+						let assimMatch2 = null;
+						console.log(assimMatch1,assimMatch2)
+						if(!!(assimMatch1 = previousSyllable.ipa.match(syllableEndsWithAssimilatedNasalRegex)) && !!(assimMatch2 = newSyllable.ipa.match(syllableStartsWithNasalAssimilatorRegex))) {
+							var newNasal = nasalAssimilationMap(assimMatch1);
+							previousSyllable.ipa = previousSyllable.ipa.replace(syllableEndsWithAssimilatedNasalRegex,newNasal)
+						}
+					
+						if(previousSibling.ipa.match(syllableEndsWithAssimilatedNasalRegex) && newSyllable.ipa.startsWith('ɾ')) {
+							var newNasal = nasalAssimilationMap(assimMatch1);
+							newSyllable.ipa = newSyllable.ipa.replace(/^ɾ/,'d')
+						}
+					}
+				};
+				return word
+			}
+
+			function formatWord() {
+				let result = word();
+				return [result.ipa.join(''),result.ascii.join(''),result.unicode.join('')].join('\t');
+			}
+			
+globalThis.wordTable = `English meaning	Part of <br>speech	Estimated <br>IPA	ASCII <br>romanization	Unicode romanization	Etymology	Notes
+plain	noun	mi	mi	mi		
+shore	noun	ɳeməte	nremoete	ṇemëte		
+river	noun	tewo	tewo	tewo		
+hill	noun	ja	ya	ya		
+mountain	noun	suməcʰojo	sumoekyhoyo	sumëḱhoyo		
+plain	noun	ʈe	tre	ṭe		
+valley	noun	jalgu	yalgu	yalgu		
+water spring	noun	ɖi	dri	ḍi		
+field	noun	ɭe	lre	ḷe		
+clearing	noun	ɲəjə	nyoeyoe	ñëyë		
+flower	noun	piwə	piwoe	piwë		
+tree	noun	tʰeʒe	thezhe	theže		
+apple	noun	tʰəka	thoeka	thëka		
+wood	noun	doma	doma	doma		
+a mass of leaves	noun	sattʰu	satthu	satthu		
+leaf	noun	gəhe	goehe	gëhe		
+grass	noun	ʃəbə	shoeboe	šëbë		
+a blade of grass	noun	d͡ʒot͡ʃo	jocho	jočo		
+dirt	noun	tʰituce	thitukye	thituḱe		
+mud	noun	wu	wu	wu		
+sand	noun	mut	mut	mut		
+wet sand	noun	ɾoɭto	rolrto	roḷto		
+stone, rock	noun	soʒa	sozha	soža		
+a pebble, a piece of rock	noun	ʒətʰe	zhoethe	žëthe
+tree log	noun	ɲeɖo	nyedro	ñeḍo
+to walk	verb	gə	goe	gë		
+to run	verb	kepoɭede	kepolrede	kepoḷede		
+to see	verb	to	to	to		
+to kill	verb	ho	ho	ho		
+to eat	verb	se	se	se		
+to search for, to find	verb	teʃəʃi	teshoeshi	tešëši		
+to not find	verb	ɖot͡ʃa	drocha	ḍoča		
+to make	verb	copə	kyopoe	ḱopë		
+to fall	verb	po	po	po		
+to break, to fracture (of a bone)	verb	gogocu	gogokyu	gogoḱu		
+to go	verb	d͡ʒekʰə	jekhoe	jekhë		
+to swim	verb	ziʃo	zisho	zišo		
+to return	verb	le	le	le		
+to dig, to excavate	verb	ɳaɲsu	nranysu	ṇañsu
+to bury	ce	kye	ḱe
+to sleep	verb	ʈehi	trehi	ṭehi		
+to drown	verb	ɭi	lri	ḷi		
+to relieve oneself, to urinate, to defecate	verb	tʰoj	thoy	thoy		
+to ignite, to burn	verb	ɾapi	rapi	rapi		
+to die, to go out (of a fire)	verb	pə	poe	pë		
+to have sexual intercourse	verb	kəkʰe	koekhe	këkhe		
+to give birth	verb	kʰiɭa	khilra	khiḷa		
+to carve	verb	dəʈaʈ	doetratr	dëṭaṭ		
+to place, put	verb	wəbəʒi	woeboezhi	wëbëži		
+to cook	verb	hipo	hipo	hipo		
+to hunt	verb	ɖala	drala	ḍala
+to gather	verb	wuɲwe	wunywe	wuñwe
+to farm	verb	tecʰa	tekyha	teḱha
+to build	verb	kut͡ʃɖi	kuchdri	kučḍi
+to travel	verb	ŋiji	ngiyi	ňiyi
+to trade	verb	ʒəʈəkʰoʈ	zhoetroekhotr	žëṭëkhoṭ
+to craft	verb	t͡ʃəɭu	choelru	čëḷu
+to sing	verb	opʰe	ophe	ophe
+to dance	verb	ɖeka	dreka	ḍeka
+to pray	verb	ʃobe	shobe	šobe
+to remember	verb	tʰe	the	the
+to forget	verb	kejpo	keypo	keypo
+to love	verb	ɟi	gyi	ǵi
+to hate	verb	ɖana	drana	ḍana
+to fear	verb	ho	ho	ho
+to drink	verb	tʰokuɳ	thokunr	thokuṇ
+to speak	verb	jitut	yitut	yitut
+to listen	verb	hopi	hopi	hopi
+to smell	verb	ŋa	nga	ňa
+to touch	verb	bənə	boenoe	bënë
+to fight	verb	wim	wim	wim
+to heal	verb	cəʒo	kyoezho	ḱëžo
+to protect	verb	biɾepʰa	birepha	birepha
+to lead	verb	ɳəɳu	nroenru	ṇëṇu
+to follow	verb	niwtʰə	niwthoe	niwthë
+moon	noun	tʰə	thoe	thë
+earth, dirt, soil, ground	noun	wot͡ʃeʈi	wochetri	wočeṭi
+animal	noun	ɟat͡ʃə	gyachoe	ǵačë
+plant	noun	leda	leda	leda
+wood	noun	səɟə	soegyoe	sëǵë
+house	noun	peɲeɲ	penyeny	peñeñ
+tool	noun	sutiʈaɭu	sutitralru	sutiṭaḷu
+weapon	noun	pʰuid͡ʒi	phuiji	phuiji
+family	noun	ɾitʰə	rithoe	rithë
+man	noun	maʒoːsu	mazhohsu	mažohsu
+woman	noun	ɖipʰə	driphoe	ḍiphë
+child	noun	ɭuɾul	lrurul	ḷurul
+chief	noun	hə	hoe	hë
+friend	noun	kʰupo	khupo	khupo
+enemy	noun	gəkʰiɭu	goekhilru	gëkhiḷu
+good	adjective	ʒopʰo	zhopho	žopho
+bad	adjective	cʰipe	kyhipe	ḱhipe
+sky	noun	tʰo	tho	tho		
+sun	noun	ge	ge	ge		
+the clouds	noun	ɲu	nyu	ñu		
+a cloud	noun	nekʰə	nekhoe	nekhë		
+water	noun	tʰiwe	thiwe	thiwe		
+salt	noun	d͡ʒicɟi	jikygyi	jiḱǵi		
+salt water	noun	tʰiwd͡ʒicɟiʈ	thiwjikygyitr	thiwjiḱǵiṭ	From "thiwe jiḱǵiḍethi"
+lake	noun	ɳiŋime	nringime	ṇiňime		
+fish	noun	bəwiɖi	boewidri	bëwiḍi	
+fishes, school of fish	noun	pazatʰə	pazathoe	pazathë	
+marble	noun	d͡ʒeʈa	jetra	jeṭa		
+granite	noun	ɭekʰo	lrekho	ḷekho		
+iron, ferronickel	noun	hi	hi	hi		
+hematite	noun	ʒida	zhida	žida		
+rust	noun	ʃəpʰəŋ	shoephoeng	šëphëň		
+magnetite	noun	nud͡ʒu	nuju	nuju		
+limonite	noun	tʰepo	thepo	thepo		
+malachite	noun	ɖe	dre	ḍe		
+copper	noun	d͡ʒitsi	jitsi	jitsi		
+tin	noun	hatʰa	hatha	hatha		
+coal	noun	patʰə	pathoe	pathë		
+fire	noun	tʰiɖe	thidre	thiḍe		
+smoke	noun	nəʒəco	noezhoekyo	nëžëḱo		
+ash	noun	ɟupʰəpʰi	gyuphoephi	ǵuphëphi		
+furnace	noun	sətʰə	soethoe	sëthë		
+lead	noun	ɳaga	nraga	ṇaga		
+arsenic	noun	d͡ʒodu	jodu	jodu		
+sulfur	noun	hudiʈə	huditroe	hudiṭë		
+bronze	noun	seti	seti	seti		
+zinc	noun	d͡ʒupʰopu	juphopu	juphopu		
+brass	noun	mə	moe	më		
+gravel	noun	tʰu	thu	thu		
+flint	noun	na	na	na		
+table	noun	lu	lu	lu		
+cave	noun	ʃobwi	shobwi	šobwi		
+forest	noun	latʰəneʈ	lathoenetr	lathëneṭ		
+gold	noun	ʒutʰe	zhuthe	žuthe		
+hole	noun	gega	gega	gega		
+blood	noun	ju	yu	yu		
+cow	noun	ʒuɟupʰu	zhugyuphu	žuǵuphu		
+sheep	noun	pə	poe	pë		
+bird	noun	woɟa	wogya	woǵa		
+deer	noun	jisuʈ	yisutr	yisuṭ		
+pig	noun	ɖa	dra	ḍa		
+wool	noun	ʃubatʰe	shubathe	šubathe		
+meat	noun	beɳedo	benredo	beṇedo		
+milk	noun	la	la	la		
+baby	noun	huʒʃacu	huzhshakyu	hužšaḱu		
+mother	noun	ɳoki	nroki	ṇoki		
+father	noun	gəwu	goewu	gëwu		
+child	noun	tʰekʰe	thekhe	thekhe		
+dwelling	noun	ʒuc	zhuky	žuḱ		
+torch	noun	pesac	pesaky	pesaḱ		
+path	noun	ca	kya	ḱa		
+a light	noun	cʰe	kyhe	ḱhe		
+wind	noun	tʰənwot͡ʃi	thoenwochi	thënwoči		
+rain	noun	pinə	pinoe	pinë		
+arm	noun	ʃaɖi	shadri	šaḍi		
+hand, five	noun	ʈejə	treyoe	ṭeyë		
+finger, toe	noun	d͡ʒicʰə	jikyhoe	jiḱhë		
+foot	noun	nemi	nemi	nemi		
+human	noun	ba	ba	ba		
+face	noun	kej	key	key		
+hair	noun	ɟaɾuː	gyaruh	ǵaruh		
+eye, eyes	noun	lu	lu	lu		
+nose	noun	cʰə	kyhoe	ḱhë		
+mouth	noun	koca	kokya	koḱa		
+ears	noun	deto	deto	deto		
+bone	noun	ɖanə	dranoe	ḍanë		
+injury	noun	ʒo	zho	žo		
+a fracture, a break (section where an object is broken), a discontinuity	noun	loʈə	lotroe	loṭë		
+pain; in pain; to be in pain, to hurt	noun, adjective, verb	gizo	gizo	gizo		
+breath; breathing (the act or cycle of taking breaths), to breathe	noun, verb	ʒeɲiʃos	zhenyishos	žeñišos		
+gray	adjective	d͡ʒe	je	je		
+green	adjective	pʰi	phi	phi		
+red	adjective	ɖaʃə	drashoe	ḍašë		
+sky blue	adjective	a	a	a		
+white	adjective	hi	hi	hi		
+blue	adjective	dikʰucə	dikhukyoe	dikhuḱë		
+yellow	adjective	ʒono	zhono	žono		
+black	adjective	cʰoʃa	kyhosha	ḱhoša		
+maroon, blood-red	adjective	tʰe	the	the		
+wet	adjective	pʰicə	phikyoe	phiḱë		
+cold	adjective	gi	gi	gi		
+vivid	adjective	ɲoge	nyoge	ñoge		
+light (of weight)	adjective	kelepʰəj	kelephoey	kelephëy
+heavy	adjective	ga	ga	ga
+shiny	adjective	ɲo	nyo	ño
+light, bright	adjective	cəkʰamo	kyoekhamo	ḱëkhamo		
+dark, dim	adjective	ɟumə	gyumoe	ǵumë		
+hot	adjective	da	da	da		
+broken	adjective	ɾiɳa	rinra	riṇa		
+injured	adjective	wicʰa	wikyha	wiḱha		
+to walk	verb	gə	goe	gë		
+to run	verb	kepoɭede	kepolrede	kepoḷede		
+to see	verb	to	to	to		
+to kill	verb	ho	ho	ho		
+to eat	verb	se	se	se		
+to search for, to find	verb	teʃəʃi	teshoeshi	tešëši		
+to not find	verb	ɖot͡ʃa	drocha	ḍoča		
+to make	verb	copə	kyopoe	ḱopë		
+to fall	verb	po	po	po		
+to break, to fracture (of a bone)	verb	gogocu	gogokyu	gogoḱu		
+to go	verb	d͡ʒekʰə	jekhoe	jekhë		
+to swim	verb	ziʃo	zisho	zišo		
+to return	verb	le	le	le		
+to dig, to excavate	verb	ɳaɲsu	nranysu	ṇañsu
+to bury	ce	kye	ḱe
+to sleep	verb	ʈehi	trehi	ṭehi		
+to drown	verb	ɭi	lri	ḷi		
+to relieve oneself, to urinate, to defecate	verb	tʰoj	thoy	thoy		
+to ignite, to burn	verb	ɾapi	rapi	rapi		
+to die, to go out (of a fire)	verb	pə	poe	pë		
+to have sexual intercourse	verb	kəkʰe	koekhe	këkhe		
+to give birth	verb	kʰiɭa	khilra	khiḷa		
+to carve	verb	dəʈaʈ	doetratr	dëṭaṭ		
+to place, put	verb	wəbəʒi	woeboezhi	wëbëži		
+to cook	verb	hipo	hipo	hipo		
+above	preposition	tutʰəː	tuthoeh	tuthëh		
+on, atop, perched on	preposition	ɭae	lrae	ḷae		
+beneath (touching)	preposition	ləgula	loegula	lëgula		
+down in, at the bottom of (a hole, dip, trough, or valley)	preposition	nakecʰo	nakekyho	nakeḱho		
+below (not touching)	preposition	tʰə	thoe	thë		
+in front of	preposition	kena	kena	kena		
+behind	preposition	ɟə	gyoe	ǵë		
+within (a structure or boundary, something with a door, or an image)	preposition	u	u	u		
+amid, among (a medium, such as a liquid or fluid; a crowd or group of people or things)	preposition	ʒopʰo	zhopho	žopho		
+left of	preposition	gapə	gapoe	gapë		
+right of	preposition	cʰiɲe	kyhinye	ḱhiñe		
+between, surrounded by	preposition	tetʰi	tethi	tethi		
+surrounded by, encircled by	preposition	ʒo	zho	žo		
+around, surrounding, on both sides of	preposition	ɟo	gyo	ǵo		
+before (in time)	preposition	kəɟiwu	koegyiwu	këǵiwu		
+after (in time)	preposition	ŋimi	ngimi	ňimi		
+for the purpose of, intended for	preposition	puɖitʰi	pudrithi	puḍithi		
+because of	preposition	t͡ʃəʃi	choeshi	čëši		
+I, me	pronoun	soŋpʰagə	songphagoe	soňphagë		
+we, us	pronoun	gad͡ʒiɲ	gajiny	gajiñ		
+you (singular), thou (no connotation of antiquity)	pronoun	ɟecət͡ʃub	gyekyoechub	ǵeḱëčub		
+you (plural)	pronoun	lelet	lelet	lelet		
+they, them (singular and plural)	pronoun	ɭəɭi	lroelri	ḷëḷi		
+nothing, no, zero	noun, numeral (adjective)	d͡ʒəɖo	joedro	jëḍo		
+one	numeral (adjective)	d͡ʒima	jima	jima		
+two	numeral (adjective)	o	o	o		
+three	numeral (adjective)	taɲe	tanye	tañe		
+four	numeral (adjective)	ʒiʈau	zhitrau	žiṭau		
+six	numeral (adjective)	ʈejəɟid͡ʒi	treyoegyiji	ṭeyëǵiji	From "ṭeyëǵaǵijima"		
+seven	numeral (adjective)	ʈejəɟio	treyoegyio	ṭeyëǵio	From "ṭeyëǵaǵio"	
+eight	numeral (adjective)	ʈejəɟita	treyoegyita	ṭeyëǵita	From "ṭeyëǵaǵiotañe"	
+nine	numeral (adjective)	ʈejəɟiʒi	treyoegyizhi	ṭeyëǵiži	From "ṭeyëǵaǵiožiṭau"	
+ten	numeral (adjective)	oʈej	otrey	oṭey	From "o ṭeyë"	
+eleven	numeral (adjective)	oʈej taɲe	otrey tanye	oṭey jima		
+twelve	numeral (adjective)	oʈej jima	otrey tanye	oṭey jima		
+thirteen	numeral (adjective)	oʈej o	otrey o	oṭey o		
+fourteen	numeral (adjective)	oʈej ʒiʈau	otrey zhitrau	oṭey žiṭau		
+fifteen	numeral (adjective)	taɲeʈej	tanyetrey	tañeṭey	From "tañeṭey"	
+sixteen	numeral (adjective)	taɲeʈej d͡ʒima	tanyetrey jima	tañeṭey jima	
+twenty	numeral (adjective)	ʒiʈaʈej	zhitratrey	žiṭaṭey	From "žiṭau ṭeyë"	
+twenty-five	numeral (adjective)	ʈejəʈej	treyoetrey	ṭeyëṭey	From "ṭeyë ṭeyë"	
+thirty	numeral (adjective)	ɟid͡ʒiʈej	gyijitrey	ǵijiṭey	From "ṭeyëǵiji ṭeyë"	
+thirty-five	numeral (adjective)	ɟioʈej	gyiotrey	ǵioṭey	From "ṭeyëǵio ṭeyë"	
+forty	numeral (adjective)	ɟitaʈej	gyitatrey	ǵitaṭey	From "ṭeyëǵita ṭeyë"	
+forty-five	numeral (adjective)	ɟiʒiʈej	gyizhitrey	ǵižiṭey	From "ṭeyëǵiži ṭeyë"	
+fifty	numeral (adjective)	oʈejʈejə	otreytreyoe	oʈejṭeyë			
+fifty-five	numeral (adjective)	oʈejd͡ʒiʈejə	otreyjitreyoe	oṭejiṭeyë	From "oṭey jima ṭeyë"	
+sixty	numeral (adjective)	oʈejtaʈejə	otreytreyoe	oṭetaṭeyë	From "oṭey tañe ṭeyë"	
+into, towards; to (a recipient or purpose)	preposition	ɳecaʈ	nrekyatr	ṇeḱaṭ		
+out of, away from	preposition	ɲotʰicu	nyothikyu	ñothiḱu		
+through	preposition	jeɳa	yenra	yeṇa		
+and (joins two nouns, verbs, or clauses)	conjunction	ɟaɟi	gyagyi	ǵaǵi		
+or (exclusive)	conjunction	ŋiho	ngiho	ňiho		
+or (inclusive)	conjunction	ŋuha	nguha	ňuha		
+without	conjunction	u	u	u			
+please	adverb	peɲu	penyu	peñu		Goes after the action being requested.
+(NOM.SG)	suffix	t͡ʃa	cha	ča		
+(NOM.PL)	suffix	ɟu	gyu	ǵu		
+(ACC.SG)	suffix	ŋoku	ngoku	ňoku		
+(ACC.PL)	suffix	sə	soe	së		
+(GEN.SG)	suffix	ɖepʰe	drephe	ḍephe		
+(GEN.PL)	suffix	ɖetʰi	drethi	ḍethi		
+(INS.SG)	suffix	ɟecu	gyekyu	ǵeḱu		
+(INS.PL)	suffix	tʰikekləʃ	thikekloesh	thikeklëš		
+(ILL.SG)	suffix	zekəbi	zekoebi	zekëbi		
+(ILL.PL)	suffix	ɭu	lru	ḷu		
+(ELA.SG)	suffix	kewaɲɟaʈ	kewanygyatr	kewañǵaṭ		
+(ELA.PL)	suffix	d͡ʒəpo	joepo	jëpo		
+(COM.SG)	suffix	d͡ʒəkʰegel	joekhegel	jëkhegel		
+(COM.PL)	suffix	tiji	tiyi	tiyi		
+(PST.SG)	suffix	ŋəbi	ngoebi	ňëbi		
+(PST.PL)	suffix	beɲit͡ʃad͡ʒ	benyichaj	beñičaj		
+(PRS.SG)	suffix	tʰoʃtʰən	thoshthoen	thošthën		
+(PRS.PL)	suffix	neɳe	nenre	neṇe		
+(FUT.SG)	suffix	gəco	goekyo	gëḱo		
+(FUT.PL)	suffix	ɖuʈu	drutru	ḍuṭu		
+(PST.SG.PF)	suffix	ŋəbe	ngoebe	ňëbe		
+(PST.PL.PF)	suffix	beɲit͡ʃed͡ʒ	benyichej	beñičej		
+(PRS.SG.PF)	suffix	tʰoʃtʰen	thoshthen	thošthen		
+(PRS.PL.PF)	suffix 	nebe	nebe	nebe		
+(FUT.SG.PF)	suffix	gəce	goekye	gëḱe		
+(FUT.PL.PF)	suffix	ɖuʈe	drutre	ḍuṭe		
+(PST.SG.HAB)	suffix	ŋebo	ngebo	ňebo		
+(PST.PL.HAB)	suffix	beɲet͡ʃod͡ʒ	benyechoj	beñečoj		
+(PRS.SG.HAB)	suffix	tʰeʃtʰon	theshthon	thešthon		
+(PRS.PL.HAB)	suffix	neɳo	neno	neṇo		
+(FUT.SG.HAB)	suffix	geco	gekyo	geḱo		
+(FUT.PL.HAB)	suffix	ɖeʈo	dretro	ḍeṭo		
+(PST.SG.PF.HAB)	suffix	ŋobo	ngobo	ňobo		
+(PST.PL.PF.HAB)	suffix	beɲot͡ʃod͡ʒ	benyochoj	beñočoj		
+(PRS.SG.PF.HAB)	suffix	tʰoʃtʰon	thoshthon	thošthon		
+(PRS.PL.PF.HAB)	suffix	noɳo	nonro	noṇo		
+(FUT.SG.PF.HAB)	suffix	goco	gokyo	goḱo		
+(FUT.PL.PF.HAB)	suffix	ɖoʈo	drotro	ḍoṭo		
+(IMP)	suffix	t͡ʃeɾal	cheral	čeral		
+(INT)	suffix	t͡ʃeɾal	cheral	čeral		
+(MIR)	suffix	noɳi	nonri	noṇi		
+(DEF)	prefix	au	au	au		`.split('\n').map(x => x.split('\t').map(y => y));
+		</script>
+	</head>
+	<body>
+		<section id="intro">
+			<h1>Proto-Kegedo-Leiykan</h1>
+			<p>Proto-Kegedo-Leiykan was a language spoken in and around present day Eirenia at an estimated date between 6,200 and 4,200 B.C.(E.), being the ancestor of the Kegedo-Leiykans languages. It is known to have been in use by 5,200 B.C.(E.); I guess it's oddly convenient that those paper dictionaries the Proto-Kegedo-Leiykans left got fossilized in West Slovenia...</p>
+		</section>
+
+		<section id="phonologyAndPhonotactics">
+			<section id="phonology">
+				<h2>Phonology</h2>
+				<table class="phonology-table">
+					<tbody>
+						<tr><th colspan="2">&nbsp;</th>							<th colspan="2">Bilabial</th>			<th colspan="2">Alveolar</th>		<th colspan="2">Retroflex</th>			<th colspan="2">Palatal</th>		<th colspan="2">Velar</th>			<th>Glottal</th>	</tr>
+						<tr><th rowspan="2">Plosive</th>	<th>Plain</th>		<td>/p/ 〈p〉</td>		<td>〈b〉 /b/</td>		<td>/t/ 〈t〉</td>		<td>/d/ 〈d〉</td>	<td>/ʈ/ 〈ṭ〉</td>		<td>/ɖ/ 〈ḍ〉</td>		<td>/c/ 〈ḱ〉</td>		<td>/ɟ/ 〈ǵ〉</td>	<td>/k/ 〈k〉</td>		<td>/g/ 〈g〉</td>	<td>&nbsp;</td>		</tr>
+						<tr><!--Plosive-->					<th>Aspirated</th>	<td>/pʰ/ 〈ph〉</td>	<td>&nbsp;</td>		<td>/tʰ/ 〈th〉</td>	<td>&nbsp;</td>	<td>/ʈʰ/ 〈ṭh〉</td>	<td>&nbsp;</td>		<td>/cʰ/ 〈ḱh〉</td>	<td>&nbsp;</td>	<td>/kʰ/ 〈kh〉</td>	<td>&nbsp;</td>	<td>&nbsp;</td>		</tr>
+						<tr><th colspan="2">Nasal</th>							<td>&nbsp;</td>		<td>/m/ 〈m〉</td>		<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		<td>/ɳ/ 〈ṇ〉</td>		<td>&nbsp;</td>		<td>/ɲ/ 〈ñ〉</td>	<td>&nbsp;</td>		<td>/ŋ/ 〈ň〉</td>	<td>&nbsp;</td>		</tr>
+						<tr><th colspan="2">Fricative</th>						<td>&nbsp;</td>		<td>&nbsp;</td>		<td>/s/ 〈s〉</td>		<td>/z/ 〈z〉</td>	<td>/ʃ/ 〈š〉</td>		<td>/ʒ/ 〈ž〉</td>		<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		<td>&nbsp;</td> <td>/h/ 〈h〉</td>		</tr>
+						<tr><th colspan="2">Affricate</th>						<td>&nbsp;</td>		<td>&nbsp;</td>		<td>&nbsp;</td>		<td>&nbsp;</td>	<td>/t͡ʃ/ 〈č〉</td>	<td>/d͡ʒ/ 〈j〉</td>	<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		</tr>
+						<tr><th colspan="2">Approximant</th>					<td>&nbsp;</td>		<td>/w/ 〈w〉</td>		<td>&nbsp;</td>		<td>/l/ 〈l〉</td>	<td>&nbsp;</td>		<td>/ɭ/ 〈ḷ〉</td>		<td>&nbsp;</td>		<td>/j/ 〈y〉</td>	<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		</tr>
+						<tr><th colspan="2">Flap</th>							<td>&nbsp;</td>		<td>&nbsp;</td>		<td>&nbsp;</td>		<td>/ɾ/ 〈r〉</td>	<td>&nbsp;</td>		<td>&nbsp;</td>		<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		<td>&nbsp;</td>	<td>&nbsp;</td>		</tr>
+					</tbody>
+				</table>
+				
+				<p>The table above provides the IPA phonemes and their romanizations with diacritics. When diacritics are not available or practical to use, 〈ṭ〉, 〈ḍ〉, 〈ḱ〉, 〈ǵ〉, 〈ṭh〉, 〈ḱh〉, 〈kh〉, 〈ṇ〉, 〈ñ〉, 〈ň〉, 〈š〉, 〈ž〉, 〈č〉, and 〈ḷ〉 can respectively be written respectively as 〈tr〉, 〈dr〉, 〈ky〉, 〈gy〉, 〈trh〉, 〈kyh〉, 〈kh〉, 〈nr〉, 〈ny〉, 〈ng〉, 〈sh〉, 〈zh〉, 〈ch〉, and 〈lr〉. There is no phonemic consonant gemination</p>
+			</section>
+
+			<section id="phonotactics">
+				<h2>Phonotactics</h2>
+				<p>My balls</p>
+			</section>
+		</section>
+
+		<section id="grammar">
+			<h2>Grammar</h2>
+			<p>Proto-Kegedo-Leiykan marks case (nominative, accusative, genitive (marking both possessorness and modifierness for nouns), instrumental, comitative, illative, and elative); case markings must agree in number with their nouns. Personal pronouns can be dropped when context or conjugation makes the referent clear, especially in imperative statements. Though it marks cases, Proto-Kegedo-Leiykan but defaults to an SVO order. It places adjectives and adverbs* after what they modify, and prepositional phrases are treated as adjectives or adverbs. When there is an indirect object, it comes before the direct object. It is partly fusional, and verb endings (which mark number and aspect) must agree with the performer in number; there are some suffixes which indicate mood, which are exempt and do not decline for number. The imperative mood implies the present tense. Indefiniteness is implicit, and there is a definiteness marker prefix.</p>
+			<p>* Exceedingly few words can be classified as adverbs; as there is no grammatical distinction between adjectives and adverbs, only the words on which it does not make sense to modify a noun could really be called adverbs.</p>
+			
+			<table>
+				<tbody>
+					<tr>  <td>&nbsp;</td>  <th>Nominative</th>  <th>Accusative</th>  <th>Genitive</th>  <th>Instrumental</th>  <th>Comitative</th>  <th>Illative</th>  <th>Elative</td>  </tr>
+					<tr> <th>Singular</th> <td>ča</td> <td>ňoku</td> <td>ḍephe</td> <td>ǵeḱu</td> <td>jëkhegel</td> <td>zekëbi</td> <td>kewañǵaṭ</td></tr>
+					<tr>  <th>Plural</th>  <td>ǵu</td> <td>së</td> <td>ḍethi</td> <td>thike</td> <td>tiyi</td> <td>ḷu</td> <td>jëpo</td> </tr>
+				</tbody>
+			</table>
+			<br>
+			<table>
+				<tbody>
+					<tr>	<td>&nbsp;</td>			<th>Simple aspect</th>  <th>Pefective</th>  <th>Habitual</th>  <th>Perfective habitual</th>  <th>Simple aspect</th>  <th>Pefective</th>  <th>Habitual</th>  <th>Perfective habitual</th>  </tr>
+					<tr>	<td>&nbsp;</td>			<th colspan="4">Singular</th><th colspan="4">Plural</th>  </tr>
+					<tr>	<th>Past tense</th>		<td>ňëbi</td> <td>ňëbe</td> <td>ňebo</td> <td>ňobo</td> <td>beñičaj</td> <td>beñičej</td> <td>beñečoj</td> <td>beñočoj</td></tr>
+					<tr>	<th>Present tense</th>	<td>thošthën</td>  <td>thošthen</td>  <td>thešthon</td>  <td>thošthon</td> <td>neṇe</td>  <td>nebe</td>  <td>neṇo</td>  <td>noṇo</td> </tr>
+					<tr>	<th>Future tense</th>	<td>gëḱo</td>  <td>gëḱe</td>  <td>geḱo</td>  <td>goḱo</td> <td>ḍuṭu</td>  <td>ḍuṭe</td>  <td>ḍeṭo</td>  <td>ḍoṭo</td></tr>
+				</tbody>
+			</table>
+		</section>
+		
+		<section id="lexicon">
+			<h2 id="vocabulary">Vocabulary</h2>
+			<p>This is a list of words in Proto-Kegedo-Leiykan. We are so fortunate that their dictionary survived so long, or rather, that they made one at all. Reconstructing all of this would have been a pain.</p>
+			<p>The dictionary had a description of each speech sound's articulation, but as the descriptions were not in IPA, some interpretation is needed.</p>
+			<table id="wordTable"></table>
+			<script>
+				let html = globalThis.wordTable.map(x => x = `<tr><td>${x[0]}</td> <td>${x[1]}</td> <td>${x[2] ?? '&nbsp;'}</td> <td>${x[3] || '&nbsp;'}</td> <td>${x[4] || '&nbsp;'} <td>${x[5] || '&nbsp;'} <td>${x[6] || '&nbsp;'}</td></tr>`);
+				html[0] = html[0].replaceAll('td>','th>');
+				let dest = document.getElementById('wordTable');
+				console.log(html)
+				if(dest) { dest.innerHTML = html.join('\n') };
+			</script>
+		</section>
+		
+		<section id="examples">
+			<h2 id="exampleSentences">Example sentences</h2>
+			<div class="example-entry">
+				<span class="pkl-text">Rapičeral peñu authiḍeňoku.</span>
+				<span class="english-approximation">Raw pee chair all peh new ow-tee-dreng oh-koo.</span>
+				<div class="gloss">
+<span class="pkl-text">Rapi&nbsp;&nbsp;&hyphen;čeral&nbsp;peñu&nbsp;&nbsp;&nbsp;&nbsp;au&hyphen;&nbsp;thiḍe&hyphen;ňoku.</span><br>
+<span&nbsp;class="english-text"&nbsp;lang="en">ignite&hyphen;IMP&nbsp;&nbsp;&nbsp;please&nbsp;&nbsp;DEF&hyphen;fire<span style="display: inline-block; width: 20.9px; transform: scale(2.5,1) translate(5.225px, 0px);">&hyphen;</span>ACC.SG</span>
+				</div>
+				<span class="english-text" lang="en">"Please light the fire"</span>
+			</div>
+		</section>
+	</body>
+</html>
+
+cəgəda	kyoegoeda	ḱëgëda
+ɭəijco	lroeiykyo	ḷëiyḱo
