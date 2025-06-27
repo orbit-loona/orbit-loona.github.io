@@ -701,14 +701,17 @@ noIpaWords = wordTable.filter(x => !x[3]);
 							try{
 								let text = ((gebi("rootAmt") ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || "1";
 								let amt = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
-								//alert(text,"/",typeof(amount),amount)
+								alert(text,"/",typeof(amount),amount)
 								let output = gebi("rootDest");
+								console.log(output !== null);
 								let result = [];
 								for(var i = 0; i < amt; i++) {
 									result.push(formatWord())
 								};
 								result = result.join("\n");
-								output.innerText = result}catch(error){alert(error)}
+								if(output) { output.innerText = result }
+							} catch(error) {
+								alert(error)
 							}
 						})
 					}
