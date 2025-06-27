@@ -675,7 +675,7 @@ noIpaWords = wordTable.filter(x => !x[3]);
 			<div style="white-space: pre;" id="rootDest">&nbsp;</div>
 			<script>
 				let gebi=function(id){return document.getElementById(id)};
-				let inpute=gebi(rootAmt);
+				let inpute=gebi("rootAmt");
 				try{if(inpute) { inpute.addEventListener("input",function() {
 					try{let text = (this ?? {value:1}).value;
 					let number = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
