@@ -667,6 +667,34 @@ noIpaWords = wordTable.filter(x => !x[3]);
 				<span class="english-text" lang="en">"Drinking that water gave me diarrhea."</span>
 			</div>
 		</section>
+
+		<section id="dev">
+			<h2 id="development">Development</h2>
+			<input id="rootAmt" type="number" step="1" min="1" max="99999" maxlength="5" placeholder="How many roots?" value="10"></input>
+			<button id="makeRootsBtn">Generate 10 roots</button>
+			<div style="white-space: pre;" id="rootDest">&nbsp;</div>
+			<script>
+				let gebi=function(id){return document.getElementById(id)};
+				let input=gebi(rootAmt);
+				i(input) { input.addEventListener("input",function() {
+					let text = this.value;
+					let number = Math.min(99999,Math.max(1,parseInt(this.value.replaceAll(",",""))));
+					let btn = gebi("makeRootsBtn")
+					btn.innerText = `Generate ${number.toLocaleString()} root${number == 1 ? "" : "s"}`;
+				}) }
+				let btn = gebi("makeRootsBtn");
+				if(btn) { btn.addEventListener("click",function() {
+					let amt = Math.min(99999,Math.max(1,parseInt((gebi(rootAmt) ?? {value:"1"})value.replaceAll(",",""))));
+					let output = gebi("rootDest");
+					let result = [];
+					for(var i = 0; i < amt; i++) {
+						result.push(formatWord())
+					};
+					result = result.join("\n");
+					output.innerText = result
+				}) }
+			</script>
+		</section>
 	</body>
 </html>
 <!--acid - noun
