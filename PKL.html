@@ -677,15 +677,19 @@ noIpaWords = wordTable.filter(x => !x[3]);
 				let gebi=function(id){return document.getElementById(id)};
 				let inpute=gebi("rootAmt");
 				try{if(inpute) { inpute.addEventListener("input",function() {
-					try{let text = ((this ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || 1;
-					let number = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
-					let btn = gebi("makeRootsBtn")
-					btn.innerText = `Generate ${number.toLocaleString()} root${number == 1 ? "" : "s"}`;}catch(error){alert(error)}
-				}) }}catch(error){alert(error)}
+					try{
+						alert(typeof(this.value)+this.value);
+						let text = ((this ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || "1"
+						let number = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
+						alert(number);
+						let btn = gebi("makeRootsBtn");
+						btn.innerText = `Generate ${number.toLocaleString()} root${number == 1 ? "" : "s"}`;
+					} catch(error){alert(error)}
+				})}
 				let btn = gebi("makeRootsBtn");
 				try{if(btn) { btn.addEventListener("click",function() {
 					try { 
-					try{let text = ((gebi("rootAmt") ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || 1;
+					try{let text = ((gebi("rootAmt") ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || "1";
 					let amt = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
 					let output = gebi("rootDest");
 					let result = [];
