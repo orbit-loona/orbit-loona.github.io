@@ -683,7 +683,7 @@ noIpaWords = wordTable.filter(x => !x[3]);
 								//alert(typeof(this.value)+this.value)
 								let text = ((this ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || "1";
 								let number = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
-								alert(number);
+								//alert(number);
 								let btn = gebi("makeRootsBtn");
 								btn.innerText = `Generate ${number.toLocaleString()} root${number == 1 ? "" : "s"}`;
 							} catch(error) {
@@ -701,7 +701,7 @@ noIpaWords = wordTable.filter(x => !x[3]);
 							try{
 								let text = ((gebi("rootAmt") ?? {value:"1"}).value).replace(/[^0-9,]/g,"") || "1";
 								let amt = Math.min(99999,Math.max(1,parseInt(text.replaceAll(",",""))));
-								alert(text,"/",typeof(amount),amount)
+								alert(text,"/",typeof(amt),amt)
 								let output = gebi("rootDest");
 								console.log(output !== null);
 								let result = [];
