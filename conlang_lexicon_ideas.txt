@@ -1,0 +1,231 @@
+Conlang Context:
+----------------
+My conlang is a proto-language spoken in southwestern Central Europe (near present-day Slovenia) in 5,200 B.C. I need words for basic/common social concepts and interactions (sociological concepts that are common and evident to a people without a modern field of sociology, positive interactions, negative interactions, neutral interactions); meteorological concepts (weathers, wind, temperatures, humidity); astronomical concepts (stars, constellations, the Milky Way, I already have words for the Sun and Moon); botanical concepts (stems, bark, roots, pollen, petals; I already have grass, leaves, trees, and a word for "plants"); anatomical concepts (fat, muscle, skeletons, notable bones, human and animal body parts, skin and hide, externally visible body parts, mouth parts, reproductive organs, commonly known body parts); common animals; culinary concepts (food, meats of common animals, the concept of seasoning (such as with salt and herbs), broth, raw vs cooked, places for various steps of food preparation); epidemiological concepts (outbreaks; food-borne illness, common causes of illness); basic mathematical concepts (addition, subtraction, multiplication, division, the concept of an amount or quantity, the concept of nothing); and common tools among early man.
+
+Generated Lexicon Ideas:
+========================
+
+kin - noun
+clan - noun
+tribe - noun
+friend - noun
+enemy - noun
+stranger - noun
+leader - noun
+follower - noun
+gift - noun
+trade - verb
+agreement - noun
+disagreement - noun
+help - verb
+harm - verb
+respect - noun
+dishonor - noun
+law - noun
+punishment - noun
+fair - adjective
+unfair - adjective
+promise - noun
+lie - noun
+truth - noun
+peace - noun
+war - noun
+victory - noun
+defeat - noun
+warning - noun
+fear - noun
+courage - noun
+shame - noun
+envy - noun
+hope - noun
+memory - noun
+dream - noun
+fog - noun
+rain - noun
+snow - noun
+hail - noun
+wind (gentle) - noun
+wind (strong) - noun
+storm - noun
+lightning - noun
+thunder - noun
+cold - adjective
+hot - adjective
+warm - adjective
+cool - adjective
+wet - adjective
+dry - adjective
+dew - noun
+cloud - noun
+shadow - noun
+star(s) - noun
+constellation (bear) - noun
+constellation (hunter) - noun
+north star - noun
+Milky Way - noun
+twilight - noun
+dawn - noun
+horizon - noun
+sky - noun
+bark - noun
+root - noun
+stem - noun
+petal - noun
+pollen - noun
+seed - noun
+fruit - noun
+thorn - noun
+forest - noun
+mushroom - noun
+berry - noun
+flower - noun
+vine - noun
+bone - noun
+skull - noun
+rib - noun
+spine - noun
+joint - noun
+muscle - noun
+fat - noun
+skin - noun
+blood - noun
+heart - noun
+stomach - noun
+hand - noun
+foot - noun
+head - noun
+eye - noun
+nose - noun
+mouth - noun
+tooth - noun
+tongue - noun
+ear - noun
+neck - noun
+arm - noun
+leg - noun
+male - adjective
+female - adjective
+baby - noun
+man - noun
+woman - noun
+deer - noun
+boar - noun
+wolf - noun
+bear - noun
+fox - noun
+hare - noun
+aurochs - noun
+bird - noun
+fish - noun
+snake - noun
+insect - noun
+meat - noun
+broth - noun
+herb - noun
+salt - noun
+spice - noun
+raw - adjective
+cooked - adjective
+firewood - noun
+fireplace - noun
+cooking pot - noun
+seasoning - noun
+salty - adjective
+bitter - adjective
+sweet - adjective
+sour - adjective
+good food - noun
+bad food - noun
+hunger - noun
+thirst - noun
+sickness - noun
+fever - noun
+pain - noun
+poison - noun
+illness - noun
+outbreak - noun
+vomit - verb
+weakness - noun
+wound - noun
+remedy - noun
+swelling - noun
+cough - verb
+plus - noun
+minus - noun
+times - noun
+share - noun
+amount - noun
+quantity - noun
+nothing - noun
+one - numeral
+two - numeral
+three - numeral
+many - adjective
+all - adjective
+more - adjective
+less - adjective
+heavy - adjective
+light - adjective
+long - adjective
+short - adjective
+big - adjective
+small - adjective
+stone - noun
+wood - noun
+bone (tool) - noun
+rope - noun
+basket - noun
+knife - noun
+axe - noun
+spear - noun
+arrow - noun
+bow - noun
+needle - noun
+thread - noun
+clothing - noun
+shelter - noun
+fire - noun
+seed storage - noun
+quern-stone - noun
+adze - noun
+awl - noun
+digging stick - noun
+clay - noun
+weave - verb
+grind - verb
+hunt - verb
+gather - verb
+dig - verb
+strike (fire) - verb
+herd - verb
+village - noun
+field - noun
+path - noun
+cave - noun
+mountain - noun
+river - noun
+lake - noun
+well - noun
+sacred place - noun
+dance - verb
+song - noun
+story - noun
+magic - noun
+spirits - noun
+sick person - noun
+healthy person - noun
+dream (vision) - noun
+shadow (soul) - noun
+life - noun
+death - noun
+bury - verb
+ceremony - noun
+taboo - noun
+totem - noun
+soul - noun
+afterlife - noun
+destiny - noun
+luck - noun
+curse - noun
+blessing - noun
+omen - noun
