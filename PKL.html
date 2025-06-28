@@ -58,7 +58,7 @@
 		<script>
 			let params = new URLSearchParams(window.location.search);
 			if(params.lightMode !== null) {
-				document.classList.add('light-mode')
+				document.body.parentElement.classList.add('light-mode')
 			};
 			const consonants = [['p'],['d'],['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['g'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['h'],['d͡ʒ','j'],['s'],['z'],['tʰ','th'],['cʰ','ḱh','kyh'],['ɖ','ḍ','dr'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['pʰ','ph'],['ɾ','r'],['c','ḱ','ky'],['tʰ','th'],['ɳ','ṇ','nr'],['ɟ','ǵ','gy'],['kʰ','kh'],['w'],['j','y'],['']];
 			const codaConsonants = [['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['ː','h'],['d͡ʒ','j'],['s'],['z'],['c','ḱ','ky'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['ɳ','ṇ','nr'],['w'],['j','y'],['']];
