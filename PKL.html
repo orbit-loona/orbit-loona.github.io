@@ -161,7 +161,6 @@ shore	noun	ɳeməte	nremoete	ṇemëte
 river	noun	tewo	tewo	tewo
 hill	noun	ja	ya	ya
 mountain	noun	suməcʰojo	sumoekyhoyo	sumëḱhoyo
-plain	noun	ʈe	tre	ṭe
 valley	noun	jalgu	yalgu	yalgu
 water spring	noun	ɖi	dri	ḍi
 the heat	noun	pʰubacʰe	phubakyhe	phubaḱhe
@@ -188,7 +187,6 @@ moon	noun	tʰə	thoe	thë
 earth, dirt, soil, ground	noun	wot͡ʃeʈi	wochetri	wočeṭi
 animal	noun	ɟat͡ʃə	gyachoe	ǵačë
 plant	noun	leda	leda	leda
-wood	noun	səɟə	soegyoe	sëǵë
 house	noun	peɲeɲ	penyeny	peñeñ
 tool	noun	sutiʈaɭu	sutitralru	sutiṭaḷu
 weapon	noun	pʰuid͡ʒi	phuiji	phuiji
@@ -260,7 +258,6 @@ cow	noun	ʒuɟupʰu	zhugyuphu	žuǵuphu
 sheep	noun	pə	poe	pë
 bird	noun	woɟa	wogya	woǵa
 deer	noun	jisuʈ	yisutr	yisuṭ
-pig	noun	ɖa	dra	ḍa
 wool	noun	ʃubatʰe	shubathe	šubathe
 meat	noun	beɳedo	benredo	beṇedo
 milk	noun	la	la	la
@@ -699,11 +696,47 @@ please	adverb	peɲu	penyu	peñu		Goes after the action being requested.
 this	adjective (demonstrative)	ɟa	gya	ǵa
 that	adjective (demonstrative)	ɖəje	droeye	ḍëye		
 (GT), -er, (comparative), (the) more	prefix	cʰu	kyhu	ḱhu
-(SUP), -est, (the) most	prefix	ʈe	tre	ṭe
+(SUP), -est, (the) most	prefix	ɭe	lre	ḷe
 (Agentive suffix), (AGT), -er	suffix	ʒeca	zhekya	žeḱa
 (Suffix turning a verb or verb please into an adjective meaning "one that does X/that which does X/X-ing"), -ing, (AGT.ADJZ)	suffix	zitʰiz	zithiz	zithiz
 (Geminitive conjunctive infix)	infix	ce	kye	ḱe		Joins parts of compound words<br/>thiweḱejiḱǵi: saltwater`.split('\n').map(x => x.split('\t'));
-noIpaWords = wordTable.filter(x => !x[3]);
+noIpaWords = [];
+let homonymMap = {};
+homonyms = [];
+let exactSynonymMap = {};
+exactSynonyms = [];
+for(let i = 0; i < wordTable.length; i++) {
+	let item = wordTable[i];
+	let ipa = item[2];
+	let word = item[4] ?? item[3] ?? ipa;
+	let english = `${item[0]} (${item[1]})${!!item[6] ? ` [${item[6]}]` : ''}`;
+	if(!ipa) {
+		noIpaWords.push(i,item) 
+	} else {
+		//Homonyms and homophones are conflated here (by using the IPA for the determination) because the script is perfectly phonetic. This is because if I make it non-phonetic, then I have to make sound changes based on an earlier form of the language and eventually we get infinite recursion. I'm just going to keep the protolang phonetic and only start the diachronics from there.
+		homonymMap[ipa] ??= [];
+		homonymMap[ipa].push(item);
+	}
+	if(word) {
+		exactSynonymMap[english] ??= [];
+		exactSynonymMap[english].push(item);
+	}
+}
+logAndReturn = function(t){console.log(t);return(t)}
+for(let key in homonymMap) {
+	let data = homonymMap[key];
+	if(data.length > 1) {
+		homonyms.push(`${key}: ${data.map(wordEntry => `${wordEntry[0]} (${wordEntry[1]})${!!wordEntry[6] ? ` [${wordEntry[6]}]` : ''}`).join(' AND ')}`)
+	}
+}; homonymMap = null;
+console.log((homonyms.length > 0 ? `${homonyms.length.toLocaleString()} homonymous term${homonyms.length == 1 ? '' : 's'} found\n` : '') + homonyms.join('\n') || 'No homonyms found.')
+for(let key in exactSynonymMap) {
+	let data = exactSynonymMap[key];
+	if(data.length > 1) {
+		exactSynonyms.push(`${key}: ${data.map(wordEntry => wordEntry[4] ?? wordEntry[3] ?? wordEntry[2]).join(' AND ')}`)
+	}
+}; exactSynonymMap = null;
+console.log((exactSynonyms.length > 0 ? `${exactSynonyms.length.toLocaleString()} term${exactSynonyms.length == 1 ? '' : 's'} exact terms with multiple translations found\n` : '') + exactSynonyms.join('\n') || 'No EXACT synonyms found. The check is sensitive to the exact wording, case, markup, and punctuation used in the definition, so some would likely have been missed.')
 		</script>
 	</head>
 	<body>
@@ -772,7 +805,7 @@ noIpaWords = wordTable.filter(x => !x[3]);
 				let html = globalThis.wordTable.map(x => x = `<tr><td>${x[0]}</td> <td>${x[1]}</td> <td>${x[2] ?? '&nbsp;'}</td> <td>${x[3] || '&nbsp;'}</td> <td>${x[4] || '&nbsp;'} <td>${x[5] || '&nbsp;'} <td>${x[6] || '&nbsp;'}</td></tr>`);
 				html[0] = html[0].replaceAll('td>','th>');
 				let dest = document.getElementById('wordTable');
-				console.log(html)
+				//console.log(html)
 				if(dest) { dest.innerHTML = html.join('\n') };
 				
 				let count = wordTable.length - 1;
@@ -861,242 +894,3 @@ noIpaWords = wordTable.filter(x => !x[3]);
 		<br>
 	</body>
 </html>
-<!--acid - noun
-adze - noun
-agreement - noun
-alliance - noun
-ancestor - noun
-animal skin - noun
-armor - noun
-army - noun
-arrow (poisoned) - noun
-arrow - noun
-axe - noun
-barley - noun
-basket - noun
-battle - noun
-beam - noun
-belt - noun
-betrayal - noun
-blanket - noun
-blood - noun
-blue (dye) - noun
-boat - noun
-bow - noun
-bravery - noun
-bread - noun
-bridge (simple log or rope) - noun
-brown (dye) - noun
-builder - noun
-burden - noun
-care - noun
-carefully - adverb
-cart - noun
-cattle - noun
-cave - noun
-ceremonial cloth - noun
-chaff - noun
-chieftain - noun
-child - noun
-clan - noun
-clay - noun
-cloak - noun
-cloth - noun
-clothing - noun
-clothing decoration - noun
-club (weapon) - noun
-debt - noun
-credit (money) - noun
-community - noun
-container - noun
-cowardice - noun
-craftsman - noun
-crop - noun
-cure (from burning) - noun
-cure - noun
-death - noun
-defeat - noun
-defense - noun
-deficit - noun
-descendant - noun
-digging stick - noun
-disease - noun
-door - noun
-dough - noun
-duty - noun
-dwelling - noun
-dye (natural) - noun
-earth - noun
-elder - noun
-enclosure - noun
-exchange - noun
-excrement - noun
-fabric - noun
-family - noun
-famine - noun
-farm - noun
-farmer - noun
-father - noun
-fear - noun
-fence - noun
-fertilizer - noun
-field - noun
-fire - noun
-flax - noun
-floor - noun
-flour - noun
-ford (shallow river crossing) - noun
-fortress - noun
-foundation - noun
-fragment - noun
-gardening - noun
-gatherer - noun
-goat - noun
-goods - noun
-grain - noun
-guard - noun
-guide - noun
-hammer - noun
-hearth - noun
-helmet - noun
-herdsman - noun
-home - noun
-hut - noun
-infection - noun
-inside - adverb
-irrigation - noun
-journey - noun
-kin - noun
-knife - noun
-lake - noun
-law - noun
-leader - noun
-leather - noun
-lentil - noun
-lineage - noun
-livestock - noun
-loom - noun
-loss - noun
-love - noun
-loyalty - noun
-market - noun
-meat - noun
-milk - noun
-mortar - noun
-mother - noun
-mud - noun
-name - noun
-needle (bone/stone) - noun
-obligation - noun
-opening - noun
-outside - adverb
-ownership - noun
-paddle - noun
-pain - noun
-path - noun
-pattern - noun
-pest - noun
-pig - noun
-pit - noun
-plow - noun
-poison (noun) - noun
-poison - noun
-poisonous plant - noun
-post - noun
-pouch - noun
-powder - noun
-profit - noun
-promise - noun
-property - noun
-quickly - adverb
-raft - noun
-red (dye) - noun
-respect - noun
-revenge - noun
-river - noun
-road - noun
-roof - noun
-rope - noun
-scout - noun
-secret - noun
-seed - noun
-settlement - noun
-shade - noun
-sheep - noun
-shelter - noun
-shield - noun
-shirt - noun
-shore - noun
-sibling - noun
-sickle - noun
-skirt - noun
-sling (weapon) - noun
-smoke - noun
-soil - noun
-spear - noun
-spindle - noun
-stable - noun
-stone (for sulfur mining) - noun
-stone (grenade casing) - noun
-stone - noun
-storage - noun
-strategy - noun
-straw - noun
-suffering - noun
-sulfur - noun
-sulfuric acid - noun
-surplus - noun
-sword - noun
-tailor/weaver (person) - noun
-territory - noun
-thatch - noun
-thread - noun
-thread maker - noun
-threshing - noun
-together - adverb
-trade (textiles) - noun
-trade - noun
-trade route - noun
-traveler - noun
-tribe - noun
-truce - noun
-unit - noun
-uranyl sulfide - noun
-victory - noun
-village - noun
-wall - noun
-war - noun
-warrior - noun
-water (for irrigation) - noun
-water (source) - noun
-water - noun
-wealth - noun
-weapon - noun
-wheat - noun
-wheel - noun
-wind (to carry smoke) - noun
-wood - noun
-wool - noun
-wound (noun) - noun
-wound - noun
-yellow (dye) - noun
-yield - noun
-urine (polite)	noun	
-urine (vulgar)	noun	
-feces (polite)	noun	
-feces (vulgar)	noun	
-cesspit	noun	
-dry waste	noun	
-wet waste	noun	
-pollution, polluted material, a pollutant	noun	
-dysentery	noun	
-cholera	noun	
-disease	noun	
-dirty	adjective	
-clean	adjective	
-latrine	noun	
-stench	noun	
-to piss	verb	Vulgar term for urination	
-to shit	verb	Vulgar term for defecation	
-to clean, to purify	verb	
-(an act of ritual cleansing)	noun	-->
