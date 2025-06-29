@@ -10,8 +10,8 @@
 			}
 
 			html.light-mode {
-				background-color: #010;
-				color: #fff;
+				background-color: #f8fffa;
+				color: black;
 				font-family: Arial, sans-serif;
 			}
 
@@ -27,9 +27,17 @@
 			table {
 				border-collapse: collapse;
 			}
+			
+			small.smaller {
+				font-size: 60%;
+			}
 
 			table, tbody, tr, td, th {
 				border: 1px solid white;
+			}
+
+			html.light-mode table, html.light-mode tbody, html.light-mode tr, html.light-mode td, html.light-mode th {
+				border: 1px solid black;
 			}
 
 			td {
@@ -45,6 +53,11 @@
 				opacity: 0.2;
 			}
 			
+			.noncanonical {
+				background-color: #ff00007f;
+				opacity: 0.75;
+			}
+			
 			.double-hyphen {
 				display: inline-block;
 				width: 20.9px;
@@ -56,10 +69,7 @@
 			}
 		</style>
 		<script>
-			let params = new URLSearchParams(window.location.search);
-			if(params.lightMode !== null) {
-				//document.body.parentElement.classList.add('light-mode')
-			};
+			globalThis.params = new URLSearchParams(window.location.search);
 			const consonants = [['p'],['d'],['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['g'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['h'],['d͡ʒ','j'],['s'],['z'],['tʰ','th'],['cʰ','ḱh','kyh'],['ɖ','ḍ','dr'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['pʰ','ph'],['ɾ','r'],['c','ḱ','ky'],['tʰ','th'],['ɳ','ṇ','nr'],['ɟ','ǵ','gy'],['kʰ','kh'],['w'],['j','y'],['']];
 			const codaConsonants = [['k'],['ŋ','ň','ng'],['t'],['ɲ','ñ','ny'],['b'],['t͡ʃ','č','ch'],['m'],['n'],['ʃ','š','sh'],['ʒ','ž','zh'],['ː','h'],['d͡ʒ','j'],['s'],['z'],['c','ḱ','ky'],['l'],['ɭ','ḷ','lr'],['ʈ','ṭ','tr'],['ɳ','ṇ','nr'],['w'],['j','y'],['']];
 			const vowels = [['i'],['u'],['a'],['e'],['o'],['ə','ë','oe']];
@@ -155,7 +165,7 @@
 				return [result.ipa.join(''),result.ascii.join(''),result.unicode.join('')].join('\t');
 			}
 
-globalThis.wordTable = `English meaning	Part of <br>speech	Estimated <br>IPA	ASCII <br>romanization	Unicode romanization	Etymology	Notes
+globalThis.wordTable = `English meaning	Part of <br>speech	Estimated <br>IPA	ASCII <br>romanization	Unicode romanization	Etymology	Notes	<small class="smaller">Canon?</small>
 plain	noun	mi	mi	mi
 sandy shore, beach	noun	ɳeməte	nremoete	ṇemëte
 river	noun	tewo	tewo	tewo
@@ -271,6 +281,7 @@ father	noun	gəwu	goewu	gëwu
 dependent, one under care	noun	tʰekʰe	thekhe	thekhe
 dwelling, home, place of residence	noun	ʒuc	zhuky	žuḱ
 torch	noun	pesac	pesaky	pesaḱ
+bog	noun	d͡ʒiju	jiyu	jiyu
 path	noun	ca	kya	ḱa
 a light	noun	cʰe	kyhe	ḱhe
 wind	noun	tʰənwot͡ʃi	thoenwochi	thënwoči
@@ -521,7 +532,7 @@ pollution, polluted material, a pollutant	noun	kʰatmu	khatmu	khatmu
 dysentery	noun	ned͡ʒəɭeʈ	nejoelretr	nejëḷeṭ		
 cholera	noun	ɲəgot	nyoegot	ñëgot		
 outhouse	noun	cʰiʒu	kyhizhu	ḱhižu		
-latrine	noun	tʰa	tha	tha		
+latrine	noun	tʰape	thape	thape		
 stench	noun	tʰu	thu	thu		
 (an act of ritual cleansing)	noun	t͡ʃuɾa	chura	čura		
 layered rock, sedimentary rock	noun	ɳəʒoz	nroezhoz	ṇëžoz
@@ -806,8 +817,9 @@ that	adjective (demonstrative)	ɖəje	droeye	ḍëye
 (Casual vocative), hey	interjection, suffix	a	a	a
 (Agentive suffix), (AGT), -er	suffix	ʒeca	zhekya	žeḱa
 (Suffix turning a verb or verb please into an adjective meaning "one that does X/that which does X/X-ing"), -ing, (AGT.ADJZ)	suffix	zitʰiz	zithiz	zithiz
-(Geminitive conjunctive infix)	infix	ce	kye	ḱe		Joins parts of compound words<br/>thiweḱewu: muddy water<br/>Also turns its attachment into a noun`.split('\n').map(x => x.split('\t'));
-partsOfSpeechRegex = /(?:noun|(?:ad|)verb|adjective|(?:pre|suf|in)fix|interjection|phrase|pronoun|(?:pre|post|ad)position|conjunction)/
+(Geminitive compounding infix)	infix	ce	kye	ḱe		Joins parts of compound words<br/>thiweḱewu: muddy water<br/>Also turns its attachment into a noun
+Skibidi Toilet	proper noun	tʰape səkibidi	Thape Soekibidi	Thape Sëkibidi			no`.split('\n').map(x => x.split('\t'));
+partsOfSpeechRegex = /(?:(?:proper |)noun|(?:ad|)verb|adjective|(?:pre|suf|in)fix|interjection|phrase|pronoun|(?:pre|post|ad)position|conjunction)/
 invalidPartWords = [];
 noIpaWords = [];
 let homonymMap = {};
@@ -858,6 +870,12 @@ console.log((invalidPartWords.length > 0 ? `${invalidPartWords.length.toLocaleSt
 		</script>
 	</head>
 	<body>
+		<script>
+			if(params.get('lightMode') !== null || params.get('light-mode') !== null || params.get('lightmode') !== null) {
+				//console.log(document.body);
+				document.body.parentElement.classList.add('light-mode')
+			};
+		</script>
 		<section id="intro">
 			<h1>Proto-Kegedo-Leiykan</h1>
 			<p>Proto-Kegedo-Leiykan was a language spoken in and around present day Eirenia at an estimated date between 6,200 and 4,200 B.C.(E.), being the ancestor of the Kegedo-Leiykans languages. It is known to have been in use by 5,200 B.C.(E.); I guess it's oddly convenient that those paper dictionaries the Proto-Kegedo-Leiykans left got fossilized in that bog in West Slovenia...</p>
@@ -920,7 +938,13 @@ console.log((invalidPartWords.length > 0 ? `${invalidPartWords.length.toLocaleSt
 			<p>The dictionary had a description of each speech sound's articulation, but as the descriptions were not in IPA, some interpretation is needed.</p>
 			<table id="wordTable"></table>
 			<script>
-				let html = globalThis.wordTable.map(x => x = `<tr><td>${x[0]}</td> <td>${x[1]}</td> <td>${x[2] ?? '&nbsp;'}</td> <td>${x[3] || '&nbsp;'}</td> <td>${x[4] || '&nbsp;'} <td>${x[5] || '&nbsp;'} <td>${x[6] || '&nbsp;'}</td></tr>`);
+				let noStrings = ['no','false','not','non-canonical','noncanonical','un-canonical','uncanonical','non-canon','noncanon','un-canon','uncanon','0']
+				globalThis.showedNonCanonical = (params.get('showNonCanonWords') !== null || params.get('show-non-canon-words') !== null || params.get('shownoncanonwords') !== null)
+				let html = globalThis.wordTable.map(function(x) {
+					let canonical = !(noStrings.includes((x[7] || 'yes').toLowerCase().trim()));
+					if(!canonical && !showedNonCanonical) { return '' };
+					return `<tr${canonical ? '' : ' class="noncanonical"'}><td>${x[0]}</td> <td>${x[1]}</td> <td>${x[2] ?? '&nbsp;'}</td> <td>${x[3] || '&nbsp;'}</td> <td>${x[4] || '&nbsp;'} <td>${x[5] || '&nbsp;'} <td>${x[6] || '&nbsp;'}</td> <td>${canonical ? x[7] || 'Yes' : 'No'}</td></tr>`
+				}).filter(Boolean);
 				html[0] = html[0].replaceAll('td>','th>');
 				let dest = document.getElementById('wordTable');
 				//console.log(html)
