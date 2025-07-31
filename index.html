@@ -337,7 +337,7 @@ ID={//idolBdData
 "11-6":[{e:"Seoah",c:"#cff3ff",g:G.ts,y:30},{e:G.bn,c:"#61c4cf",i:true,y:41}],
 "13-6":[{e:"JinSoul",c:"#1487ec",g:G.ln,y:17},{e:"Aini",c:S.W,g:G.pf,y:11}],
 "14-6":[{e:"Seeun",c:"#87ceeb",g:G.st,y:23},{e:"Tzuyu",c:"#016cba",g:G.tw,y:19}],
-"16-6":{e:"Huihyeon",c:"#674ea7",g:G.da,y:15},
+"16-6":[{e:"Huihyeon",c:"#674ea7",g:G.da,y:15},{e:"Lim Young Woong",c:S.LB,y:11}],
 "18-6":[{e:"Nako",c:"#b7d3e9",g:G.io,y:21},{e:"Arin",c:"#1e90ff",g:G.og,y:19}],
 "19-6":[{e:G.mm,i:true,y:34},{e:"Gwen",c:"#f4793d",g:G.bn,y:23}],
 "20-6":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
@@ -491,7 +491,7 @@ ID={//idolBdData
 }
 function getGroupsInID(){return Array.from(new Set(Object.values(ID).flat().map(o=>o.g??o.e).flat()))}
 var sh="sulli-hara";var shs="body.sulli-hara .vivi,body.sulli-hara a.vivi:visited{color:#ee5fcf;}@keyframes loonaonethird{00.00%{color:#FF007F;}12.50%{color:#FF007F;}25.00%{color:#FF0;}37.50%{color:#FF0;}50.00%{color:#00BF00;}62.50%{color:#00BF00;}68.75%{color:#A99;}75.00%{color:#EE5FCF;}87.50%{color:#EE5FCF;}100.0%{color:#FF007F;}}";R={
-"19-04":{e:"Moonbin",cn:"moonbin"},
+"19-4":{e:"Moonbin",cn:"moonbin"},
 "18-12":{e:"Jonghyun",cn:"jonghyun",s:"body.jonghyun .jinsoul,body.jonghyun a.jinsoul:visited{color:#337fff;}@keyframes loonaoddeyecircle{00.00%{color:#F22;}16.66%{color:#F22;}33.33%{color:#337fff;}50.00%{color:#337fff;}66.67%{color:#C027D0;}83.33%{color:#C027D0;}100.0%{color:#FF2222;}}"},
 "14-10":{e:"Sulli",cn:sh,s:shs},
 "24-11":{e:"Goo Hara",cn:sh,s:shs}
@@ -584,7 +584,7 @@ dT.st(`${cwd}, ${cD.toLocaleString()}${nbsp} (KST ${ksts})`)
 var marquee=gebi("headerMarquee")
 /*loona stan length updater interval*/
 loonaInterval=setInterval(updateLoonaTime, 100)
-if((dm()=="16-06")||(dm(1)=="16-06")){
+if((dm()=="16-6")||(dm(1)=="16-6")){
 	marquee.childNodes[0].before(ctn("(Happy Loona Independence Day) "))
 	marquee.style.fontSize="120%"
 }
@@ -836,7 +836,7 @@ details#noticeToggle[open] #ntCol{display:none;}
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop* :3<br/>
+			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop*<br/>
 			<script>
 				var marquee=gebi("headerMarquee")
 				if(reduceMotion){
@@ -852,7 +852,7 @@ details#noticeToggle[open] #ntCol{display:none;}
 					marquee=nsh
 				}
 			</script>
-			<small style="font-size:50%">*and also Hinatazaka46+f5ve+BINI</small></span></marquee>
+			<small style="font-size:50%">*and also Hinatazaka46, and f5ve, and BINI, and Lim Young Woong</small></span></marquee>
 		</div>
 		<div id="main">
 			<p id="birthdays"><noscript>(Birthdays/anniversaries require JavaScript to display)</noscript>&nbsp;</p><br/>
