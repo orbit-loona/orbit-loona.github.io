@@ -1,0 +1,155 @@
+<html><head>
+	<title>Colorizer?</title>
+	<style>
+		:root {
+			--spacings: 2px;
+			--size: 1.35em;
+		}
+
+		body {
+			background-color: #000000;
+			color: white;
+		}
+		
+		#out {
+			font-size: 250%;
+		}
+		
+		#out span {
+			padding: var(--spacings);
+			margin: var(--spacings);
+			min-width: var(--size);
+			min-height: var(--size);
+			line-height: var(--size);
+			display: inline-block;
+			text-align: center;
+			vertical-align: bottom;
+		}
+		
+		#buttonHolder {
+			background-color: #7f7f7f7f;
+			color: black;
+		}
+		
+		#in {
+			width: 500px;
+			height: 100px;
+			background-color: black;
+			color: white;
+		}
+		
+		#out span.u0009 {
+			min-width: calc((var(--size) * 4) + (var(--spacings) * 2 * 2 * 3));
+		}
+	</style>
+	<style id="autoStyle">
+	</style>
+	<script>
+		window.colorMap = {};
+		window.shiftDown = false;
+		regIsNewline = /^[\n\r]+$/;
+		regIsMark = /^\p{M}$/u;
+		nbsp = String.fromCharCode(0xA0);
+		let css = document.getElementById('autoStyle').sheet;
+		let cssInsertIndex = 0;
+		function renderColorizedText(text) {
+			let split = [...(text.replace(/(\r\n|\r)/g,'\n'))];
+			dest = document.getElementById('out');
+			dest.textContent = '';
+			for(let i = 0; i < split.length; i++) {
+				let iChar = split[i];
+				if(regIsMark.test(iChar)) {
+					let lastChild = dest.childNodes[dest.childNodes.length - 1];
+					if(lastChild) {
+						lastChild.innerText += iChar;
+						continue
+					}
+				}
+				let nameCode = 'u'+(iChar.charCodeAt(0).toString(16).padStart(4,'0'));
+				if(!isNaN(iChar.charCodeAt(1))) {
+					nameCode += (iChar.charCodeAt(1).toString(16).padStart(4,'0'))
+				}
+				let colors = [
+					document.documentElement.style.getPropertyValue(`--${nameCode}-bg`),
+					document.documentElement.style.getPropertyValue(`--${nameCode}-text`)
+				];
+				if(colors[0] == '' || colors[1] == '') {
+					let r = Math.floor(Math.random() * 256);
+					let g = Math.floor(Math.random() * 256);
+					let b = Math.floor(Math.random() * 256);
+					let l = ((r / 255) * 0.2126) + ((g / 255) * 0.7152) * ((b / 255) * 0.0722);
+					let bgTriplet = '#' + ([r,g,b].map(x => x.toString(16).padStart(2,'0')).join(''));
+					let textColor = (l > 0.079) ? '#000' : '#fff';
+					document.documentElement.style.setProperty(`--${nameCode}-bg`,bgTriplet),
+					document.documentElement.style.setProperty(`--${nameCode}-text`,textColor)
+					css.insertRule(`.${nameCode} { background-color: var(--${nameCode}-bg); }`, cssInsertIndex++);
+					css.insertRule(`.${nameCode} { box-shadow: 0px 0px 1px 1px var(--${nameCode}-bg); }`, cssInsertIndex++);
+					css.insertRule(`.${nameCode} { color: var(--${nameCode}-text); }`, cssInsertIndex++);
+					colors = [bgTriplet, textColor];
+				}
+				let newElement;
+				if(iChar == '\n') {
+					newElement = document.createElement('br')
+				} else {
+					newElement = document.createElement('span');
+					if(iChar == ' ') { iChar = nbsp; }
+					newElement.textContent = iChar;
+					newElement.classList.add(nameCode);
+				}
+				dest.appendChild(newElement)
+			}
+		}
+		
+		function feedFieldValueIntoRenderer() {
+			let node = document.getElementById('in');
+			let text = node.value;
+			renderColorizedText(text)
+		}
+		
+		function loadTextLS() {
+			let loaded = localStorage.getItem('lastText');
+			if(loaded !== null) {
+				let field = document.getElementById('in');
+				field.value = loaded;
+				updateCounter()
+			}
+		}
+		
+		function saveTextLS() {
+			let field = document.getElementById('in');
+			let text = field?.value;
+			if(text) {
+				localStorage.setItem('lastText',text)
+			}
+		}
+		
+		function updateCounter() {
+			let field = document.getElementById('in');
+			let text = field?.value ?? '';
+			let dest = document.getElementById('count');
+			dest.textContent = text.length.toLocaleString()
+		}
+		
+		window.addEventListener('load',function() {
+			document.getElementById('do').addEventListener('click',feedFieldValueIntoRenderer);
+
+			document.getElementById('pageBgColor').addEventListener('input',function() {
+				document.body.style.backgroundColor = this.value
+			});
+
+			document.getElementById('in').addEventListener('input',saveTextLS)
+			document.getElementById('in').addEventListener('keydown',updateCounter)
+
+			document.getElementById('in').addEventListener('click',function(e) {
+				if (e.key === 'Enter' && e.shiftKey) {
+					feedFieldValueIntoRenderer();
+				}
+			});
+			loadTextLS()
+		})
+	</script>
+</head><body>
+	<textarea id="in" placeholder="Input text to colorize character-by-character"></textarea>
+	<p id="buttonHolder"><button id="do">Colorize</button> &nbsp; <span id="count">0</span> &nbsp; <span><input type="color" value="#ffffff" id="pageBgColor"/> <label for="pageBgColor">Page background color</label></span></p>
+	<div id="out">Nothing done yet</div>
+</body></html>
