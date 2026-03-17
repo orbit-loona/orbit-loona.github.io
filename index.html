@@ -89,36 +89,16 @@ if(bruhs===1n){bd.style.removeProperty("display")}
 if(bd){
 if(bruhCounter){bruhCounter.st(bigintCommas(bruhs))}
 var sB=bruhs-50n;//not shifting all of those values down
-if(sB===0n){
-bd.ac("amethyst")
-}else if(sB===50n){
-bd.ac("silver")
-bd.rc("amethyst")
-}else if(sB===200n){
-bd.ac("diamond")
-bd.rc("silver")
-}else if(sB===450n){
-bd.ac("gold")
-bd.rc("diamond")
-}else if(sB===950n){
-bd.ac("platinum")
-bd.rc("gold")
-}else if(sB===1950n){
-bd.ac("sapphire")
-bd.rc("platinum")
-}else if(sB===2950n){
-bd.ac("iridium")
-bd.rc("sapphire")
-}else if(sB===4950n){
-bd.ac("emerald")
-bd.rc("iridium")
-}else if(sB===9950n){
-bd.ac("ruby")//not yeojin
-bd.rc("emerald")
-}else if(sB===14950n){
-bd.ac("spinel")
-bd.rc("ruby")
-}
+if(sB===0n){bd.ac("amethyst")
+}else if(sB===50n){bd.ac("silver");bd.rc("amethyst")
+}else if(sB===200n){bd.ac("diamond");bd.rc("silver")
+}else if(sB===450n){bd.ac("gold");bd.rc("diamond")
+}else if(sB===950n){bd.ac("platinum");bd.rc("gold")
+}else if(sB===1950n){bd.ac("sapphire");bd.rc("platinum")
+}else if(sB===2950n){bd.ac("iridium");bd.rc("sapphire")
+}else if(sB===4950n){bd.ac("emerald");bd.rc("iridium")
+}else if(sB===9950n){bd.ac("ruby");bd.rc("emerald")
+}else if(sB===14950n){bd.ac("spinel");bd.rc("ruby")}
 if(bruhS){if(bruhs===1n){
 	bruhS.st("")
 }else if(bruhs===2n){
@@ -136,19 +116,25 @@ function updateLoonaTime(){
 	var textSeconds=gebi("ltsS")
 	var textDays=gebi("ltsD")
 	var textWeeks=gebi("ltsW")
+	var textYears=gebi("ltsY")
 	var valueS=secondsSinceLoona()
 	var valueD=valueS/86400
 	var valueW=valueD/7
+	var valueY=valueS/31556952
 	valueD=Math.round(valueD*1000)/1000
 	valueW=Math.round(valueW*1000)/1000
+	valueY=Math.round(valueY*10000)/10000
 	if(textSeconds){
-		textSeconds.st(valueS.toLocaleString('en-US'))
+		textSeconds.st(valueS.toLocaleString())
 	}
 	if(textDays){
-		textDays.st(valueD.toLocaleString('en-US'))
+		textDays.st(valueD.toLocaleString())
 	}
 	if(textWeeks){
-		textWeeks.st(valueW.toLocaleString('en-US'))
+		textWeeks.st(valueW.toLocaleString())
+	}
+	if(textYears){
+		textYears.st(valueY.toLocaleString())
 	}
 }
 var PHC="#E6E6E6"
@@ -777,28 +763,29 @@ span.hoverTest:hover #realParen {display:inline;}
 .bd-idol{padding:1px 2px 1px 2px;border:1px solid #ccc;}
 #birthdays,#biases{line-height:125%;}
 #headerMarquee{overflow:visible;line-height:100%;}
-#groups .g2{color:#7fcfff;}
-#groups .g3{color:#afff3f;}
-#groups .g4{color:#bf9fff;}
-#groups .g5{color:#dfbf8f;}
-#groups .g6{color:#777;}
-#groups .g7{color:#27d1c8;text-shadow:0px -1px 1px var(--g7oc),1px -1px 1px var(--g7oc),1px 0px 1px var(--g7oc),1px 1px 1px var(--g7oc),0px 1px 1px var(--g7oc),-1px 1px 1px var(--g7oc),-1px 0px 1px var(--g7oc),-1px -1px 1px var(--g7oc)}
-#groups .g8{color:#c8d147;text-shadow:0px -1px 1px var(--g8oc),1px -1px 1px var(--g8oc),1px 0px 1px var(--g8oc),1px 1px 1px var(--g8oc),0px 1px 1px var(--g8oc),-1px 1px 1px var(--g8oc),-1px 0px 1px var(--g8oc),-1px -1px 1px var(--g8oc)}
-#groups .g9{color:#967b14;}
-#groups .g10{color:#a69b64;}
-#groups .g11{color:#81a398;}
-#groups .gC,.white{color:#fff;}
+#entities .e2{color:#7fcfff;}
+#entities .e3{color:#afff3f;}
+#entities .e4{color:#bf9fff;}
+#entities .e5{color:#dfbf8f;}
+#entities .e6{color:#777;}
+#entities .e7{color:#27d1c8;text-shadow:0px -1px 1px var(--g7oc),1px -1px 1px var(--g7oc),1px 0px 1px var(--g7oc),1px 1px 1px var(--g7oc),0px 1px 1px var(--g7oc),-1px 1px 1px var(--g7oc),-1px 0px 1px var(--g7oc),-1px -1px 1px var(--g7oc)}
+#entities .e8{color:#c8d147;text-shadow:0px -1px 1px var(--g8oc),1px -1px 1px var(--g8oc),1px 0px 1px var(--g8oc),1px 1px 1px var(--g8oc),0px 1px 1px var(--g8oc),-1px 1px 1px var(--g8oc),-1px 0px 1px var(--g8oc),-1px -1px 1px var(--g8oc)}
+#entities .e9{color:#967b14;}
+#entities .e10{color:#a69b64;}
+#entities .e11{color:#81a398;}
+#entities .eC,.white{color:#fff;}
 *[red],.warning{color:red;}
-.gl.warning{color:#ff7f7f;}
+.el.warning{color:#ff7f7f;}
 p.warning,div.warning,li.warning{background-color:#FF00007F;color:#FFBFBF;border:1px solid red;padding:1px;}
 p.high-advisory,div.high-advisory,li.high-advisory{background-color:#FF7F007F;color:#FFDFBF;border:1px solid orange;padding:1px;}
 p.advisory,div.advisory,li.advisory{background-color:#FFFF003F;color:#FFFFBF;border:1px solid yellow;padding:1px;}
 .high-warning{color:#ff3f43;text-shadow:0px -1px 1px #4F3F009F,1px -1px 1px #4F3F009F,1px 0px 1px #4F3F009F,1px 1px 1px #4F3F009F,0px 1px 1px #4F3F009F,-1px 1px 1px #4F3F009F,-1px 0px 1px #4F3F009F,-1px -1px 1px #4F3F009F,0px -2px 2px #4F3F009F,2px -2px 2px #4F3F009F,2px 0px 2px #4F3F009F,2px 2px 2px #4F3F009F,0px 2px 2px #4F3F009F,-2px 2px 2px #4F3F009F,-2px 0px 2px #4F3F009F,-2px -2px 2px #4F3F009F;}
 p.high-warning,div.high-warning,li.high-warning{background-color:#7F0000AF;color:#FFFF00;border:1px solid red;padding:1px;text-shadow:0px -1px 1px #FF0000,1px -1px 1px #FF0000,1px 0px 1px #FF0000,1px 1px 1px #FF0000,0px 1px 1px #FF0000,-1px 1px 1px #FF0000,-1px 0px 1px #FF0000,-1px -1px 1px #FF0000;font-size:110%;letter-spacing:0.5px;}
 p.high-warning a,div.high-warning a,li.high-warning a,p.high-warning a:visited,div.high-warning a:visited,li.high-warning a:visited{color:#fff;}
-#groups.warning{color:#ff7f7f;}
+#entities.warning{color:#ff7f7f;}
 small,.small{font-size:80%;}
 .TZW.small{font-size:70%;}
+#exceptions{margin-left:2em;}
 #rem em .TZW{font-style:normal;padding-left:2px;}
 .image-button,.image-button img{width:88px;height:31px;display:inline-block;}
 a.image-button{display:inline-block;border:1px solid #333;font-size:60%;line-height:75%;word-wrap:anywhere;overflow:visible;}
@@ -824,9 +811,10 @@ small#bcf.platinum,small#bcf.diamond{font-size:90%;filter:saturate(1.35) brightn
 small#bcf.iridium{font-size:90%;filter:saturate(5) brightness(0.9) contrast(1.13) hue-rotate(335deg);}
 small#bcf.ruby,small#bcf.emerald,small#bcf.sapphire,small#bcf.spinel,small#bcf.amethyst{font-size:90%;filter:saturate(5) brightness(0.9) contrast(1.13) hue-rotate(335deg);}
 span.counter{font-family:monospace;font-size:95%;border:1px solid #777;text-align:center;display:inline-block;}
-#ltsS{min-width:6em;}
-#ltsD{min-width:4em;}
-#ltsW{min-width:4em;}
+#ltsS{min-width:6.5em;}
+#ltsD{min-width:5.5em;}
+#ltsW{min-width:4.5em;}
+#ltsY{min-width:3.5em;}
 #mainLinks>a{font-size:110%;}
 .lg{background:linear-gradient(to right,#ff008f 0%,#ff008f 8.32917%,#ffea00 8.37917%,#ffea00 16.7083%,#00bf00 16.7583%,#00bf00 25.0875%,#f46f1f 25.1375%,#f46f1f 33.4667%,#ffa2d2 33.5167%,#ffa2d2 41.8458%,#ea0201 41.8958%,#ea0201 50.225%,#1487ec 50.275%,#1487ec 58.6042%,#962cc4 58.6542%,#962cc4 66.9833%,#800040 67.0333%,#800040 75.3625%,#ffbf7f 75.4125%,#ffbf7f 83.7417%,#30e192 83.7917%,#30e192 92.1208%,#8f8f8f 92.1708%,#8f8f8f 100.5%);color:#fff;border-color:#fff;}
 [gn]{font-style:italic;position:relative;}
@@ -843,7 +831,7 @@ details#noticeToggle[open] #ntCol{display:none;}
 	</head>
 	<body>
 		<div id="header">
-			<marquee class="ot12" direction="right" scrolldelay="70" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop*<br/>
+			<marquee class="ot12" direction="right" scrolldelay="80" behavior="alternate" id="headerMarquee">helo this is my github page <span>i really love loona and kpop et al.<br/><br/>
 			<script>
 				var marquee=gebi("headerMarquee")
 				if(reduceMotion){
@@ -859,81 +847,75 @@ details#noticeToggle[open] #ntCol{display:none;}
 					marquee=nsh
 				}
 			</script>
-			<small style="font-size:50%">*and also Hinatazaka46, and f5ve, and BINI, and Lim Young Woong</small></span></marquee>
+			</span></marquee>
 		</div>
 		<div id="main">
 			<p id="birthdays"><noscript>(Birthdays/anniversaries require JavaScript to display)</noscript>&nbsp;</p><br/>
-			<p id="date">This page was loaded on <span id="dateText"><noscript>a date that can't be determined automatically without JavaScript.</noscript></span></p>
-			<p id="note"><em><small style="font-size:80%">The birthday script on this version of the page is currently <span title="Missing:X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, Yukika, and Say My Name">incomplete</span>.</small></em></p>
-			<p id="opening">I'm an <em>Orbit</em> and I really love Loona.<br/>
-			<p>i love all of the members and all of their songs too (and it's too hard to pick a bias<span id="fakeParen">)</span> <span class="hoverTest">but my current bias line is <span class="heejin">Hee</span><span class="haseul">Ha</span><span class="yeojin">Yeo</span><span class="vivi">Vi</span><span class="yves">Ves</span><span id="realParen">)</span></span><br/>
-			<p>this site is a f. mess</p><br/>
-			i love orbits<br/>
-			loona ot12 forever</p>
-			<details id="noticeToggle" open><summary class="text-outlined">Click to <span id="ntCol">show</span><span id="ntExp">hide</span> notices</summary>
+			<p id="date">This page was loaded on <span id="dateText"><noscript>a date that can't be displayed within the page without JavaScript.</noscript></span></p>
+			<p id="note"><em><small style="font-size:80%">The birthday script on this version of the page is currently <span title="Missing:X:IN, Gugudan, Lovelyz, Ladies' Code, Purple Kiss, Yukika, Say My Name, and Enhypen">incomplete</span>.</small></em></p>
+			<p id="opening">Welcome to <code>orbit-loona.github.io</code>. This website is mostly for personal miscellanea.</p>
+			<details id="noticeToggle"><summary class="text-outlined">Click to <span id="ntCol">show</span><span id="ntExp">hide</span> notices</summary>
 			<ul>
 				<li class="high-warning"><div aria-role="paragraph">143 Entertainment's CEO <details style="display: inline;" class="text-outlined"><summary style="display; inline;">(<abbr title="Trigger Warning">TW</abbr>/click to show)</summary><span style="white-space: pre;"> </span><a href="https://www.instagram.com/p/DCrWv4CCHEO/" title="Instagram link, account NOT required to view">sexually assaulted</a> <a href="https://tribune.com.pk/story/2511266/madeins-gaeun-allegedly-sexually-assaulted-by-agency-ceo" title="Express Tribune link, account NOT required to view">Gaeun and released a statement denying the allegations but still blaming Gaeun for it (this incident occurred when Gaeun was 18, which is still a minor under Korean law)</a> and <a href="https://www.instagram.com/p/DCsCnqFpICP/" title="Instagram link, account NOT required to view">placed her on hiatus and threatened the members with fees</a></details> and is thus a dangerous and abusive company for MADEIN. They must be boycotted immediately and absolutely for this.</div></li>
 				<li class="high-advisory">Remember to do your <a href="https://arab.org/click-to-help/palestine/">daily click for Palestine</a>.</li>
-				<li class="warning"><p>Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. Not only do the <em class="chuu">twelve</em> members <a href="https://reddit.com/r/LOONA/comments/zrd8di">not get paid from it</a>, but the money that <em>BBC</em> receives <a href="https://www.reddit.com/r/kpop/comments/14hdh12">will fund continued legal action against the members</a>; just recently BBC <a href="https://www.reddit.com/r/LOONA/comments/1blrjow">had appealed Chuu's contract nullification again</a><br/>As Orbits return to streaming pre-split Loona songs on official platforms, each one thinking that "it's just me so it will be fine" or "BBC only gets 0.3 cents anyway", then <em>a lot</em> of people will contribute money to BBC over time and the money will go towards persecuting Loona. Blockberry is allegedly in capital impairment, but we should not let up until Blockberry's bankruptcy is confirmed. This does not apply to songs released under Modhaus, ATRP, CTD ENM (collapsed), Paix Per Mil, MUMW, or PLFIL.<br/></p></li>
+				<li class="advisory"><p>Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. The rights have been transferred to the CEO's other subsidiary "Levite United". This does not apply to songs released under Modhaus, ATRP, CTD ENM (collapsed), Paix Per Mil, MUMW, or PLFIL.<br/></p></li>
+				<li class="advisory"><p>Loona is 12 and Enhypen is 7.<br/></p></li>
 			</ul></details>
 			<span id="rem">&nbsp;</span>
-			<h1 class="ot12">my epic pages with great quality code</h1>
-				<p class="warning">Many of the links below are outdated because I forgot and/or didn't have the time to update them and I don't even know where to start. They should still work but are missing some things.</p></br>
+			<h1 class="ot12">Pages</h1>
 				<div id="mainLinks">
-					<a href="modded-char8/index.html" class="heejin">heavily modded char8.js</a> <em class="warning">Outdated</em><br/>
-					<a href="starbound.html" class="hyunjin">starbound color text renderer</a><br/>
-					<a href="mp3.html" class="haseul">ersatz mp3 player</a> <em class="warning">Outdated</em><br/>
-					<a href="thirds.html" class="yeojin">two-way extension of seconds and thirds</a><br/>
-					<a href="illions.html" class="vivi">Pseudo-Bowers illion name generator</a><br/>
-					<a href="urltoimg.html" class="kimlip">Dumb HTML image loader</a><br/>
-					<a href="eod-paths/index.html" class="jinsoul">EoD paths</a><br/>
-					<a href="sandboxels-worldgen.html" class="choerry">Sandboxels worldgen</a> <em class="high-warning">Obsolete</em><br/>
-					<a href="bookmarklets.html" class="yves">JS bookmarklets</a><br/>
-					<a href="roman.html" class="chuu">Roman numeral thing</a><br/>
-					<a href="R74moji.html" class="gowon">R74moji renderer</a><br/>
-					<a href="discord-vertical-text.html" class="hyeju">Sideways Discord text generator</a><br/>
-					<a href="adder.html" class="third">Quick number summer</a><br/>
-					<a href="niji.html" class="circle">Online Niji keyboard</a><br/>
-					<a href="test-numbers.html" class="youth">Test numerals</a><br/>
-					<a href="wuianese.html" class="ot12">Wuianese</a> <em class="warning">Abandoned</em><br/>
-					<a href="project_rarity.html" class="heejin">praughajek'kt raryteigh</a> <em class="warning">Hiatus</em><br/>
+					<a href="modded-char8/index.html">heavily modded char8.js</a><br/> <!--update was lost-->
+					<a href="starbound.html">starbound color text renderer</a><br/>
+					<a href="mp3.html">ersatz mp3 player</a><br/> <!--update was lost-->
+					<a href="thirds.html">two-way extension of seconds and thirds</a><br/>
+					<a href="illions.html">Pseudo-Bowers illion name generator</a><br/>
+					<a href="urltoimg.html">Dumb HTML image loader</a><br/>
+					<a href="eod-paths/index.html">EoD paths</a><br/>
+					<a href="sandboxels-worldgen.html">Old Sandboxels worldgen</a><br/>
+					<a href="bookmarklets.html">JS bookmarklets</a><br/>
+					<a href="roman.html">Roman numeral thing</a><br/>
+					<a href="R74moji.html">R74moji renderer</a><br/>
+					<a href="discord-vertical-text.html">Sideways Discord text generator</a><br/>
+					<a href="adder.html">Quick number adder</a><br/>
 				</div>
-			<h1 class="ot12">not epic code</h1>
+			<h1 class="ot12">Enjoyed artists</h1>
 				<div id="groupList">
-					<h2 class="third">artists:</h2>
-					<div id="groups"><!--gl=groupList, gt=groupType, gn=groupName, yes it includes a soloist now but i am NOT replacing all of those-->
-						<span class="gl g1 ot12"><span class="gt">Ult</span>: <span gn>LOONA</span> <small>+<span gn>ARTMS</span>, <span gn>Loossemble</span>, <span gn>Chuu</span>, <span gn>Yves</span></small></span><br/>
-						<span class="gl g2"><span class="gt">Semi-ult</span>: <span gn>Yoon Jin-hee</span></span><br/>
-						<span class="gl g3"><span class="gt">Stan</span>: <span gn>Girls' Generation</span>, <span gn>TWICE</span>, <span gn>Lim Young Woong</span>, <span gn>Jang Yoon-jeong</span></span><br/>
-						<span class="gl g4"><span class="gt">Sub-stan (want to stan and get into more)</span>:  <span gn>Kep1er</span>, <span gn>TWICE</span>, <span gn>BLACKPINK</span>, <span gn>IVE</span>, <span gn>(G)I-DLE</span>, <span gn>2NE1</span>, <span gn>Dreamcatcher</span>, <span gn>IZ*ONE</span>, <span gn>EVERGLOW</span>, <span gn>ILLIT</span>, <span gn>STAYC</span>, <span gn>tripleS</span></span><br/>
-						<span class="gl g5"><span class="gt">Just becoming interested in/Pre-backlog</span>: <span gn>Apink</span>, <span gn>April</span>, <span gn>aespa</span>, <span gn>BINI</span>, <span gn>fromis_9</span>, <span gn>Hinatazaka46</span>, <span gn>Red Velvet</span></span><br/>
-						<span class="gl g6"><span class="gt">Backlog</span>: <span gn>ALICE</span>, <span gn>Billlie</span>, <span gn>Cherry Bullet</span>, <span gn>cignature</span>, <span gn>CLC</span>, <span gn>CSR</span>, <span gn>DIA</span>, <span gn>DreamNote</span>, <span gn>f5ve</span>, <span gn>ITZY</span>, <span gn>Le Sserafim</span>, <span gn>MADEIN</span>, <span gn>Mamamoo</span>, <span gn>Miss A</span>, <span gn>NMIXX</span></span><br/>
-						<span class="gl g7"><span class="gt">Super backlog</span>: <span gn>WJSN</span>, <span gn>GWSN</span>, <span gn>Weeekly</span>, <span gn>woo!ah!</span>, <span gn>Rocket Punch</span>, <span gn>Hashtag</span>, <span gn>Pixy</span>, <span gn>Oh My Girl</span>, <span gn>Saturday</span>, <span gn>Pink Fantasy</span>, <span gn>Floria</span>, <span gn>GFriend</span>, <span gn>VIVIZ</span>, <span gn>Nature</span>, <span gn>Momoland</span>, <span gn>Wonder Girls</span>, <span gn>f(x)</span>, <span gn>X:IN</span>, <span gn>Gugudan</span>, <span gn>Say My Name</span>, <span gn>Weki Meki</span>, <span gn>Exid</span>, <span gn>Lovelyz</span>, <span gn>Ladies' Code</span>, <span gn>Unis</span>, <span gn>Rescene</span>, <span gn>Izna</span>, <span gn>Purple Kiss</span></span><br/><!--and Lee Chaeyeon (also under IZ*ONE)-->
-						<span class="gl g8"><span class="gt">Super duper backlog</span>: <span gn>IU</span>, <span gn>Yukika</span></span><br/>
-						<span class="gl g9"><span class="gt">In the birthday script for oomfs</span>: <span gn>TXT</span>, <span gn title="excluding Seungri per below">BIGBANG</span>, <span gn>NCT <small>+<span gn>~ 127</span>, <span gn>~ Dream</span>, <span gn>WayV</span>, <span gn>~ DoJaeJung</span>, <span gn>~ Wish</span></small></span></span><br/>
-						<span class="gl g10"><span class="gt">Chad</span>: <span gn>Seungkwan (SVT)</span>, <span gn>Sun Yinghao (IXFORM)</span>, <span gn>Jungkook (BTS)</span> (+ all of LOONA)</span><br/>
-						<span class="gl g11"><span class="gt">To spite netizens</span>: <span gn>Kelly Kim (I.MET.U)</span></span><br/>
-						<span class="gl gC"><span class="gt">It's complicated</span>: <span gn>NewJeans</span></span><br/>
-						<span class="gl warning"><span class="gt"><small>Note: <span class="white">Hyuna</span> is included only for completeness's sake and she's on thin ice.<small>(but with that said, I am not including <span red>Seungri</span>, <span red>Taeil</span>, or <span red>Lucas</span>)</small>. I do not accept or endorse her relationship with <span red>someone</span> involved in the Burning Sun scandal.</small></span></span>
+					<div id="entities"><!--el=entityList, et=entityType, en=entityName-->
+						<span class="circle">i have stanned loona for about <span class="counter" id="ltsS">113 million</span> seconds (<span class="counter" id="ltsD">1,304</span> days, <span class="counter" id="ltsW">186</span> weeks), about <span class="counter" id="ltsY">3.57</span> years)</span> <noscript>(Requires JavaScript to update. Last manual update 3/17/2026.)</noscript><br/>
+						<span class="el e1 ot12"><span class="et">Ult</span>: <span en>LOONA</span> <small>+<span en>ARTMS</span>, <span en>Loossemble</span>, <span en>Chuu</span>, <span en>Yves</span></small></span><br/>
+						<span class="el e2"><span class="et">Semi-ult</span>: <span en>Yoon Jin-hee</span> <small> who literally isn't even a singer</small></span><br/>
+						<span class="el e3"><span class="et">Stan</span>: <span en>Girls' Generation</span>, <span en>TWICE</span>, <span en>Lim Young Woong</span>, <span en>Jang Yoon-jeong</span></span><br/>
+						<span class="el e4"><span class="et">Sub-stan (want to stan and get into more)</span>:  <span en>Kep1er</span>, <span en>TWICE</span>, <span en>BLACKPINK</span>, <span en>IVE</span>, <span en>(G)I-DLE</span>, <span en>2NE1</span>, <span en>Dreamcatcher</span>, <span en>IZ*ONE</span>, <span en>EVERGLOW</span>, <span en>ILLIT</span>, <span en>STAYC</span>, <span en>tripleS</span></span><br/>
+						<span class="el e5"><span class="et">Just becoming interested in/Pre-backlog</span>: <span en>Enhypen</span></span><br/>
+						<span class="el e6"><span class="et">Backlog</span>: <span en>aespa</span>, <span en>ALICE</span>, <span en>Apink</span>, <span en>April</span>, <span en>Billlie</span>, <span en>BINI</span>, <span en>Cherry Bullet</span>, <span en>cignature</span>, <span en>CLC</span>, <span en>CSR</span>, <span en>DIA</span>, <span en>DreamNote</span>, <span en>Exid</span>, <span en>f(x)</span>, <span en>f5ve</span>, <span en>Floria</span>, <span en>fromis_9</span>, <span en>GFriend</span>, <span en>Gugudan</span>, <span en>GWSN</span>, <span en>Hashtag</span>, <span en>Hearts2Hearts</span>, <span en>Hinatazaka46</span>, <span en>ITZY</span>, <span en>IU</span>, <span en>Izna</span>, <span en>Ladies' Code</span>, <span en>Le Sserafim</span>, <span en>Lovelyz</span>, <span en>MADEIN</span>, <span en>Mamamoo</span>, <span en>Miss A</span>, <span en>Momoland</span>, <span en>Nature</span>, <span en>NMIXX</span>, <span en>Oh My Girl</span>, <span en>Pink Fantasy</span>, <span en>Pixy</span>, <span en>Purple Kiss</span>, <span en>Red Velvet</span>, <span en>Rescene</span>, <span en>Rocket Punch</span>, <span en>Saturday</span>, <span en>Say My Name</span>, <span en>Unis</span>, <span en>VIVIZ</span>, <span en>Weeekly</span>, <span en>Weki Meki</span>, <span en>WJSN</span>, <span en>Wonder Girls</span>, <span en>woo!ah!</span>, <span en>X:IN</span>, <span en>Yukika</span></span><br/>
+						<section id="exceptions">
+							<p>Several entities have been put in the birthday script which I don't necessarily intend to stan, but have been added for other reasons.</p>
+							<span class="el e7"><span class="et">Personal reasons</span>: <span en>TXT</span>, <span en title="excluding Seungri per below">BIGBANG <small>excluding Seungri</small></span>, <span en>NCT <small> and its subunits but excluding Taeil</small></span></span><br/>
+							<span class="el e8"><span class="et">Because they did something good</span>: <span en>Seungkwan (SVT)</span></span><br/>
+							<span class="el e9"><span class="et">I forgot why I'd put them in here but I don't want to upset anyone by removing them</span>: <span en>Sun Yinghao (IXFORM)</span>, <span en>Jungkook (BTS)</span></span><br/>
+							<span class="el e10"><span class="et">Out of spite for netizens</span>: <span en>Kelly Kim (I.MET.U)</span></span><br/>
+							<span class="el eC"><span class="et">It's complicated</span>: <span en>NewJeans</span></span><br/>
+							<span class="el warning"><span class="et"><small><span class="white">Hyuna</span> is included only for completeness's sake, and she's on thin ice. I do not support her relationship with Yong Jun-hyung. I absolutely condemn the violent or abusive actions of <span red>Seungri</span>, <span red>Taeil</span>, and Lucas</small>.</span></span>
+
+						</section>
 					</div>
 				</div>
 				<div id="groupList">
-					<h2 class="circle">biases:</h2>
+					<h2 class="circle">Biases:</h2>
 					<div id="biases">
-						<p class="ot12"><span gn class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span>; Wreckers: <span class="bd-idol" style="background-color:#ea0201;color:#fff;">Kim Lip</span>, <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
-						<p><span gn class="bd-idol" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bd-idol" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
-						<p><span gn class="bd-idol" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bd-idol" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
-						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right,#f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bd-idol" style="background-color:#fac857;color:#000;">Jihyo</span></p>
+						<p><span gn class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span>; Wreckers: <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
 						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right,#000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color:white;">BlackPink</span>: <span class="bd-idol" style="background-color:#cc6ca9;color:white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
-						<p><span gn class="bd-idol" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bd-idol" style="background-color:#d10056;color:#fff;">Jessica</span></p>
 						<p><span gn class="bd-idol" style="background-color:#ee047f;color:#fff;">2NE1</span>: <span class="bd-idol" style="background-color:#e2d989;color:#000;">CL</span></p>
 						<p><span gn class="bd-idol" style="background-color:#f1f1f1;color:#000;">IVE</span>: <span class="bd-idol" style="background-color:#69c32d;color:#000;">Rei</span><span class="wreckerList">; Wreckers: <span class="bd-idol black-outline" style="background: linear-gradient(to right,#FF001E 0%,#FF001E 49.975%,#D9598C 50.025%,#D9598C 100%);color:#FFF;">Wonyoung</span></span></p>
+						<p><span gn class="bd-idol" style="background-color:#000;color:#fff;">tripleS</span>: <span class="bd-idol" style="background-color:#1423b4;color:#fff;">SoHyun</span></p>
+						<p><span gn class="bd-idol" style="background-color:#dcb4fb;color:#000;">ILLIT</span>: <span class="bd-idol" style="background-color:#d86d9d;color:#fff;">Moka</span></p>
+						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right,#f8c596 0%,#f8c596 49.975%,#fc5d9d 50.025%,#fc5d9d 100%);color:#fff;">TWICE</span>: <span class="bd-idol" style="background-color:#fac857;color:#000;">Jihyo</span></p>
+						<p><span gn class="bd-idol" style="background-color:#fe4c80;color:#fff;">Girls' Generation</span>: <span class="bd-idol" style="background-color:#d10056;color:#fff;">Jessica*?</span></p>
 						<p><span gn class="bd-idol black-outline" style="background: linear-gradient(to right, #7f00ff 0%, #7f00ff 33.3167%, blue 33.3667%, blue 66.6833%, red 66.7333%, red 100.05%); color: white;">VIVIZ</span>: <span class="bd-idol black-outline" style="background: linear-gradient(to right, #ff6090 0%, #ff6090 49.975%, #7f00ff 50.025%, #7f00ff 100%); color: white;">Eunha</span>
 					</p>
 				</div>
 				<div id="other">
-					<span class="yeojin">DNI/These people suck: antis; akgaes <em>(notably skz/kep1er member/sakura/madein antis or yeshiro akgaes; member solo stans are fine but hating a group's other members makes one an akgae <small class="squished">(likewise, yeshiro solo stans are fine, but hating on the rest of madein is akgae behavior)</small>)</em>; people who keep talking about how "it's okay to not like Chuus's songs" (using the subjectivity of music taste as a cover to hate on Chuu); people who blame NewJeans for actions they take as a result of being groomed <small class="squished">(hoping to hold them accountable is fine—albeit a bit far-fetched right now—but some of the things people say are just appalling)</small>; people who send Hwang Hyunjin or any other idol death threats</span><br/>
-					<span class="circle">i have stanned loona for about <span class="counter" id="ltsS">66 million</span> seconds (about <span class="counter" id="ltsD">760</span> days, or <span class="counter" id="ltsW">109</span> weeks)</span> <noscript>(Requires JavaScript to update. Last manual update 9/19.)</noscript><br/>
+					<span class="yeojin">I additionally condemn all antis; akgaes <em>(with a notable mention of SKZ, Kep1er member, LSF Sakura, or Kep1er-akgae Madein antis; this does not apply to member solo stans as long as they do not hate a group's other members)</em></span><br/>
 				</div>
 				<h2 class="circle">88x31 buttons:</h2>
 					<a href="https://viian.neocities.org" class="image-button" style="border-color:#a5a;background-color:#f8f;color:#504;"><img src="bin/viian.png" title="viian.neocities.org 88x31 button" alt="[https://viian.neocities.org/]"/></a> <a href="https://R74n.com" class="image-button" style="border-color:#222;background-color:#333;color:#0ff;"><img src="bin/R74n.png" title="R74n.com 88x31 button" alt="[https://R74n.com/]"></a> <a href="https://orbit-loona.github.io/" class="image-button" style="border-color:#242424;background-color:#444;color:#fbf;"><img src="bin/forever-12.png" title="orbit-loona.github.io 88x31 button" alt="[https://orbit-loona.github.io/]"></a>
