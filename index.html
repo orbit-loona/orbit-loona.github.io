@@ -45,7 +45,7 @@ function dumbBruh(){
 	return true
 }
 bruhs=0n
-//Modified from code by FishBasketGordo on StackOverflow:https://stackoverflow.com/a/7033705
+//Modified, cr FishBasketGordo on StackOverflow:https://stackoverflow.com/a/7033705
 function SSIC(str,cS,FCS=null){
 	var chunks=[]
 	var chunkIsFirst=true
@@ -88,7 +88,7 @@ var bruhS=gebi("bruhsPlural")
 if(bruhs===1n){bd.style.removeProperty("display")}
 if(bd){
 if(bruhCounter){bruhCounter.st(bigintCommas(bruhs))}
-var sB=bruhs-50n;//not shifting all of those values down
+var sB=bruhs-50n;//not gna -50 all of those
 if(sB===0n){bd.ac("amethyst")
 }else if(sB===50n){bd.ac("silver");bd.rc("amethyst")
 }else if(sB===200n){bd.ac("diamond");bd.rc("silver")
@@ -110,7 +110,7 @@ function tryJoin(SoA,joiner){
 	if((Object.prototype.toString.call(SoA).split(" ")[1]??"")=="Object]"){return JSON.stringify(SoA)}
 	return SoA.toString()
 }
-LSU=1661127423000
+LSU=1661127423e3
 function secondsSinceLoona(formatString=false){return Math.floor((new Date().getTime()-LSU)/1000)}
 function updateLoonaTime(){
 	var textSeconds=gebi("ltsS")
@@ -619,7 +619,7 @@ if(BD.length>0){
 	if(yBd){label.push("Birthdays")}
 	if(yAn){label.push("Anniversaries")}
 	label=label.join("/")+": "
-	if(label==""){console.log("Events exist but they are neither birthdays nor anniversaries. Something is wrong.");label="unknown event to"}
+	if(label==": "){console.log("Events exist but they are neither birthdays nor anniversaries. Something is wrong.");label="unknown event to"}
 	btx.apc(ctn(label))
 	var eventsListed=0
 	for(var ibd_cdI in BD){
