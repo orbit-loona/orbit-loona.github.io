@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8"></meta>
 		<style>
 			:root {
 				--fgc: white;
@@ -47,15 +48,38 @@
 			}
 			@media screen and (min-width: 912px) {
 			  table#main {
-				min-width: calc(2723.06px + 640px + 2px); /*magic numbers are the original width of the 10-song table plus the width of the table with just Forever 1 and So Bad*/
+				min-width: calc(2723.06px); /*magic number is the original width of the 10-song table*/
 				/*font-family: Arial;*/
 			  }
 			}
 			.squeezed {
-				letter-spacing: -0.9px;
+				letter-spacing: -1.1px;
 			}
 			.squeezed2 {
 				letter-spacing: -1.8px;
+			}
+			.foobar2 {
+				line-height: 100%;
+			}
+			.foobar2 span {
+				display: inline-block;
+				font-size: 99%;
+				transform: scale(1,0.95);
+			}
+			td span span.paren {
+				display: inline-block;
+				position: relative;
+				top: -1px;
+			}
+			td > span, td section > span {
+				display: inline-block;
+				margin-bottom: 1px;
+				padding-right: 1px;
+				padding-bottom: 1px;
+			}
+			td mark {
+				background-color: unset;
+				color: unset;
 			}
 		</style>
 	</head>
@@ -71,479 +95,366 @@
 					<th><h2>나의 이십대</h2></th>
 					<th><h2>Day &amp; Night</h2></th> 
 					<th><h2>Another Dream</h2></th>
-					<th><h2>So Bad</h2></th>
-					<th><h2>Forever 1</h2></th>
 				</tr>
 				<tr>
 					<td rowspan="3">
-						<span>너무 아름다워</span><br>
-						<span>그저 널 눈으로 바라만 봐도 반하네</span><br>
-						<span>스쳐 지나가도</span><br>
-						<span>달콤한 향기에 더 빠져버리도록</span><br>
-						<span>So fascinated</span><br>
-						<span>화려함 속에 가려진 활짝 핀 미소 뒤에</span><br>
-						<span>감춰둔 네 모습은 보이는 것처럼 예쁠까</span><br>
+						<span lang="ko">너무 아름다워</span><br>
+						<span lang="ko">그저 널 눈으로 바라만 봐도 반하네</span><br>
+						<span lang="ko">스쳐 지나가도</span><br>
+						<span lang="ko">달콤한 향기에 더 빠져버리도록</span><br>
+						<span lang="en">So fascinated</span><br>
+						<span lang="ko">화려함 속에 가려진 활짝 핀 미소 뒤에</span><br>
+						<span lang="ko">감춰둔 네 모습은 보이는 것처럼 <mark class="frrk">예쁠까</mark></span><br>
 						<span>믿지 마요 Dahlia 위험해요 Darling</span><br>
-						<span>나 혼자 간직한 채로 널 보고 싶어</span><br>
-						<span>My love is Dahlia</span><br>
-						<span>Our love is Dahlia</span><br>
-						<span>너란 꽃에 취해 버린 내게</span><br>
-						<span>No matter what they say</span><br>
-						<span>I'll choose to love you anyway</span><br>
-						<span>Cuz you're my Dahlia</span><br>
+						<span lang="ko">나 혼자 간직한 채로 널 보고 싶어</span><br>
+						<span lang="en">My love is Dahlia</span><br>
+						<span lang="en">Our love is Dahlia</span><br>
+						<span lang="ko">너란 꽃에 취해 버린 내게</span><br>
+						<span lang="en">No matter what they say</span><br>
+						<span lang="en">I'll choose to love you anyway</span><br>
+						<span lang="en">Cuz you're my Dahlia</span><br>
 						<span>Love is whim 또다시 사랑에 덤빈</span><br>
 						<span>My name is fool 변할 걸 알고도 던진</span><br>
-						<span>붉은 향에 취한 걸음은 단 한 번 멈칫 없이</span><br>
-						<span>달려가는 중이야 별빛처럼 노란 품에</span><br>
-						<span>점점 짙어지는 사랑의 컬러</span><br>
-						<span>돌이킬 수 없이 깊어져 벽을 다 헐어</span><br>
+						<span lang="ko">붉은 향에 취한 걸음은 단 한 번 멈칫 없이</span><br>
+						<span lang="ko">달려가는 중이야 별빛처럼 노란 품에</span><br>
+						<span lang="ko">점점 짙어지는 사랑의 컬러</span><br>
+						<span lang="ko">돌이킬 수 없이 깊어져 벽을 다 헐어</span><br>
 						<span>모든 걸 뺏긴 난 그저 이 순간 I pray to God</span><br>
-						<span>제발 이 꽃은 영원히 아름답기를</span><br>
-						<span>화려함 속에 가려진 활짝 핀 미소 뒤에</span><br>
-						<span>감춰둔 네 모습은 보이는 것처럼 예쁠까</span><br>
+						<span lang="ko">제발 이 꽃은 영원히 <mark class="trailing-rieul-form">아름답기를</mark></span><br>
+						<span lang="ko">화려함 속에 가려진 활짝 핀 미소 뒤에</span><br>
+						<span lang="ko">감춰둔 네 모습은 보이는 것처럼 <mark class="frrk">예쁠까</mark></span><br>
 						<span>믿지 마요 Dahlia 위험해요 Darling</span><br>
-						<span>나 혼자 간직한 채로 널 보고 싶어</span><br>
-						<span>My love is Dahlia</span><br>
-						<span>Our love is Dahlia</span><br>
-						<span>너란 꽃에 취해 버린 내게</span><br>
-						<span>No matter what they say</span><br>
-						<span>I'll choose to love you anyway</span><br>
-						<span>Cuz you're my Dahlia</span><br>
-						<span>점점 물들여져 네게 깊어지는 내 맘속에</span><br>
-						<span>어느새 피어난 꽃처럼</span><br>
-						<span>너로 가득 채워지고 있어</span><br>
-						<span>My love is Dahlia</span><br>
-						<span>Our love is Dahlia</span><br>
-						<span>헤어 나올 수 없으니까 네게</span><br>
-						<span>No matter what they say</span><br>
-						<span>I'll let me love you anyway</span><br>
-						<span>Cuz you're my Dahlia</span><br>
-						<span>너무 아름다워</span><br>
-						<span>그저 눈으로 바라만 봐도</span><br>
-						<span>스쳐 지나가도</span><br>
-						<span>매료된 향기에 빠져드네</span><br>
-						<span>Keep falling</span>
+						<span lang="ko">나 혼자 간직한 채로 널 보고 싶어</span><br>
+						<span lang="en">My love is Dahlia</span><br>
+						<span lang="en">Our love is Dahlia</span><br>
+						<span lang="ko">너란 꽃에 취해 버린 내게</span><br>
+						<span lang="en">No matter what they say</span><br>
+						<span lang="en">I'll choose to love you anyway</span><br>
+						<span lang="en">Cuz you're my Dahlia</span><br>
+						<span lang="ko">점점 물들여져 네게 깊어지는 내 맘속에</span><br>
+						<span lang="ko">어느새 피어난 꽃처럼</span><br>
+						<span lang="ko">너로 가득 채워지고 있어</span><br>
+						<span lang="en">My love is Dahlia</span><br>
+						<span lang="en">Our love is Dahlia</span><br>
+						<span lang="ko">헤어 나올 수 없으니까 네게</span><br>
+						<span lang="en">No matter what they say</span><br>
+						<span lang="en">I'll let me love you anyway</span><br>
+						<span lang="en">Cuz you're my Dahlia</span><br>
+						<span lang="ko">너무 아름다워</span><br>
+						<span lang="ko">그저 눈으로 바라만 봐도</span><br>
+						<span lang="ko">스쳐 지나가도</span><br>
+						<span lang="ko">매료된 향기에 빠져드네</span><br>
+						<span lang="en">Keep falling</span>
 					</td>
 					<td rowspan="3">
-						<span>손 뻗어봐도 닿지 않아</span><br>
-						<span>까마득한 이 거리 너를 향해 더 멀리</span><br>
-						<span>흘러가듯 한걸음 또 한걸음</span><br>
-						<span>어둠 아래 저 깊이</span><br>
+						<span lang="ko">손 뻗어봐도 닿지 않아</span><br>
+						<span lang="ko">까마득한 이 거리 너를 향해 더 멀리</span><br>
+						<span lang="ko"><mark class="emt">흘러가듯</mark> 한걸음 또 한걸음</span><br>
+						<span lang="ko">어둠 아래 저 깊이</span><br>
 						<span>너를 향해 더 멀리 Oh yeah</span><br>
-						<span>아무도 없는 거리 위를 홀로 걸어</span><br>
+						<span lang="ko">아무도 없는 거리 위를 홀로 걸어</span><br>
 						<span>Oh yeah yeah yeah 넌</span><br>
-						<span>Oh yeah yeah yeah</span><br>
-						<span>멈춘 시선 끝을 따라</span><br>
-						<span>언제라도 여기 날 봐</span><br>
-						<span>널 비춰줄게</span><br>
-						<span>어두운 밤 머나먼 빛 (Alright)</span><br>
-						<span>저 막막하고 아득한 세상을 넘어 너에게</span><br>
-						<span>우린 손을 잡고서 발걸음을 맞춰</span><br>
-						<span>더 가까이 춤을 추듯이 꿈처럼 번져</span><br>
-						<span>Du du du du du du ru du ru</span><br>
-						<span>Du du du du du ru du ru</span><br>
-						<span>My number 1, my number 1</span><br>
-						<span>Du du du du du du ru du ru</span><br>
-						<span>Du du du du du ru du ru</span><br>
-						<span>My number 1, my number 1</span><br>
-						<span>문득 누군가 느껴진다면</span><br>
-						<span>고개를 들어줘 (Oh no)</span><br>
-						<span>고작 한 줌에 가려질 내가</span><br>
+						<span lang="en">Oh yeah yeah yeah</span><br>
+						<span lang="ko">멈춘 시선 끝을 따라</span><br>
+						<span lang="ko">언제라도 여기 날 봐</span><br>
+						<span lang="ko">널 <mark class="frp">비춰줄게</mark></span><br>
+						<span>어두운 밤 머나먼 빛 <span class="paren">(</span>Alright<span class="paren">)</span></span><br>
+						<span lang="ko">저 막막하고 아득한 세상을 넘어 너에게</span><br>
+						<span lang="ko">우린 손을 잡고서 발걸음을 맞춰</span><br>
+						<span lang="ko">더 가까이 춤을 <mark class="emt">추듯이</mark> 꿈처럼 번져</span><br>
+						<span lang="en">Du du du du du du ru du ru</span><br>
+						<span lang="en">Du du du du du ru du ru</span><br>
+						<span lang="en">My number 1, my number 1</span><br>
+						<span lang="en">Du du du du du du ru du ru</span><br>
+						<span lang="en">Du du du du du ru du ru</span><br>
+						<span lang="en">My number 1, my number 1</span><br>
+						<span lang="ko">문득 누군가 느껴진다면</span><br>
+						<span>고개를 들어줘 <span class="paren">(</span>Oh no<span class="paren">)</span></span><br>
+						<span lang="ko">고작 한 줌에 가려질 내가</span><br>
 						<span>물들인 이 세상 Oh yeah</span><br>
-						<span>어느 하늘 아래 울고 있어도</span><br>
+						<span lang="ko">어느 하늘 아래 울고 있어도</span><br>
 						<span>네 모습을 놓치지 않아 Oh 난</span><br>
-						<span>아무도 없는 시간 속에 홀로 남아</span><br>
+						<span lang="ko">아무도 없는 시간 속에 홀로 남아</span><br>
 						<span>Oh yeah yeah yeah 난</span><br>
-						<span>Oh yeah yeah yeah</span><br>
-						<span>다시 까만 밤이 오면</span><br>
-						<span>웅크린 그 어깰 감싸 위로해줄게</span><br>
-						<span>어두운 밤 머나먼 빛 (Alright)</span><br>
-						<span>저 막막하고 아득한 세상을 넘어 너에게</span><br>
-						<span>우린 손을 잡고서 발걸음을 맞춰</span><br>
-						<span>더 가까이 춤을 추듯이</span><br>
-						<span>Huh 수많았던 날 혼자였대도</span><br>
-						<span>나를 떠올려줄래</span><br>
-						<span>언제라도 여기 있으니 (있으니)</span><br>
-						<span>다시 어둠이 (어둠이)</span><br>
-						<span>너를 찾아도 (찾아도)</span><br>
-						<span>곁에 있을게 (곁에 있을게)</span><br>
-						<span>포근한 밤 따스한 빛 (Alright)</span><br>
-						<span>내 맘에 가득 번지는 온기를 전해 너에게</span><br>
-						<span>우린 마주 보면서 그림자를 맞춰</span><br>
-						<span>더 천천히 꿈을 꾸듯이 이 밤을 건너</span><br>
-						<span>Du du du du du du ru du ru</span><br>
-						<span>Du du du du du ru du ru</span><br>
-						<span>My number 1, my number 1</span><br>
-						<span>Du du du du du du ru du ru</span><br>
-						<span>Du du du du du ru du ru</span><br>
-						<span>My number 1, my number 1</span>
+						<span lang="en">Oh yeah yeah yeah</span><br>
+						<span lang="ko">다시 까만 밤이 오면</span><br>
+						<span lang="ko">웅크린 그 어깰 감싸 <mark class="frp">위로해줄게</mark></span><br>
+						<span>어두운 밤 머나먼 빛 <span class="paren">(</span>Alright<span class="paren">)</span></span><br>
+						<span lang="ko">저 막막하고 아득한 세상을 넘어 너에게</span><br>
+						<span lang="ko">우린 손을 잡고서 발걸음을 맞춰</span><br>
+						<span lang="ko">더 가까이 춤을 <mark class="emt">추듯이</mark></span><br>
+						<span>Huh <mark class="ejs">수많았던</mark> 날 혼자였대도</span><br>
+						<span lang="ko">나를 <mark class="ffo">떠올려줄래</mark></span><br>
+						<span lang="ko">언제라도 여기 있으니 <span class="paren">(</span>있으니<span class="paren">)</span></span><br>
+						<span lang="ko">다시 어둠이 <span class="paren">(</span>어둠이<span class="paren">)</span></span><br>
+						<span lang="ko">너를 찾아도 <span class="paren">(</span>찾아도<span class="paren">)</span></span><br>
+						<span lang="ko">곁에 <mark class="frp">있을게</mark> <span class="paren">(</span>곁에 <mark class="frp">있을게</mark><span class="paren">)</span></span><br>
+						<span>포근한 밤 따스한 빛 <span class="paren">(</span>Alright<span class="paren">)</span></span><br>
+						<span lang="ko">내 맘에 가득 번지는 온기를 전해 너에게</span><br>
+						<span lang="ko">우린 마주 <mark class="austj">보면서</mark> 그림자를 맞춰</span><br>
+						<span lang="ko">더 천천히 꿈을 <mark class="emt">꾸듯이</mark> 이 밤을 건너</span><br>
+						<span lang="en">Du du du du du du ru du ru</span><br>
+						<span lang="en">Du du du du du ru du ru</span><br>
+						<span lang="en">My number 1, my number 1</span><br>
+						<span lang="en">Du du du du du du ru du ru</span><br>
+						<span lang="en">Du du du du du ru du ru</span><br>
+						<span lang="en">My number 1, my number 1</span>
 					</td>
 					<td rowspan="3">
 						<span>Ayy 뜨거워진 열기</span><br>
-						<span>Eyy 멈춰줄래 Windy</span><br>
-						<span>You know you know</span><br>
-						<span>You know you know</span><br>
+						<span>Eyy <mark class="ffo">멈춰줄래</mark> Windy</span><br>
+						<span lang="en">You know you know</span><br>
+						<span lang="en">You know you know</span><br>
 						<span>Hey 원래 그런 거야</span><br>
 						<span>High 오를수록 숨차</span><br>
-						<span>You know you know</span><br>
-						<span>하나도 겁낼 필요 없는데</span><br>
-						<span>나랑 높이 위로 붕붕</span><br>
-						<span>하늘 높이 위로 붕붕</span><br>
-						<span>우리에겐 시간이 좀 모자라</span><br>
-						<span>나랑 높이 위로 붕붕</span><br>
-						<span>하늘 높이 위로 붕붕</span><br>
-						<span>오늘 딱 하루 너를 초대할게</span><br>
-						<span>내일 내 맘이 전부 변하기 전에</span><br>
-						<span>무겁게 안고 있는 걱정들은 여기 두고 가</span><br>
+						<span lang="en">You know you know</span><br>
+						<span lang="ko">하나도 겁낼 필요 <mark class="smsep">없는데</mark></span><br>
+						<span lang="ko">나랑 높이 위로 붕붕</span><br>
+						<span lang="ko">하늘 높이 위로 붕붕</span><br>
+						<span lang="ko">우리에겐 시간이 좀 모자라</span><br>
+						<span lang="ko">나랑 높이 위로 붕붕</span><br>
+						<span lang="ko">하늘 높이 위로 붕붕</span><br>
+						<span lang="ko">오늘 딱 하루 너를 <mark class="frp">초대할게</mark></span><br>
+						<span lang="ko">내일 내 맘이 전부 변하기 전에</span><br>
+						<span lang="ko" class="squeezed">무겁게 안고 있는 걱정들은 여기 두고 가</span><br>
 						<span>이제 발이 떠 Tonight</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span><br>
 						<span>Hey 더 멀리 가도 좋아</span><br>
 						<span>Right 알 수 없는 비행</span><br>
 						<span>콜록콜록 You know you know</span><br>
 						<span>Try 손을 잡는 구름</span><br>
 						<span>Time 어느샌가 훌쩍</span><br>
-						<span>You know you know</span><br>
-						<span>You know you know</span><br>
-						<span>오늘 딱 하루 너를 초대할게</span><br>
-						<span>내일 내 맘이 전부 변하기 전에</span><br>
-						<span>무겁게 안고 있는 걱정들은 여기 두고 가</span><br>
+						<span lang="en">You know you know</span><br>
+						<span lang="en">You know you know</span><br>
+						<span lang="ko">오늘 딱 하루 너를 <mark class="frp">초대할게</mark></span><br>
+						<span lang="ko">내일 내 맘이 전부 변하기 전에</span><br>
+						<span lang="ko" class="squeezed">무겁게 안고 있는 걱정들은 여기 두고 가</span><br>
 						<span>이제 발이 떠 Tonight</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span><br>
-						<span>눈으로 보아도 너는 믿을 수가 없지</span><br>
-						<span>지금 기분을 다 다 다 알아</span><br>
-						<span>끝난 게 아니야</span><br>
-						<span>알 수 없는 우리 비행</span><br>
-						<span>널 데려가 더 위로</span><br>
-						<span>오늘 난 너를 위해 준비했어</span><br>
-						<span>아름다운 별 반짝 빛나고 있어</span><br>
-						<span>여기서 끝이 아냐 고갤 들고 나를 찾아봐</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span><br>
+						<span lang="ko">눈으로 보아도 너는 믿을 수가 <mark class="wy">없지</mark></span><br>
+						<span lang="ko">지금 기분을 다 다 다 알아</span><br>
+						<span lang="ko">끝난 게 아니야</span><br>
+						<span lang="ko">알 수 없는 우리 비행</span><br>
+						<span lang="ko">널 데려가 더 위로</span><br>
+						<span lang="ko">오늘 난 너를 위해 준비했어</span><br>
+						<span lang="ko">아름다운 별 반짝 빛나고 있어</span><br>
+						<span lang="ko" class="squeezed">여기서 끝이 아냐 고갤 들고 나를 찾아봐</span><br>
 						<span>저기 달이 뜬 Tonight</span><br>
-						<span>더 날아보자Trust me</span><br>
-						<span>더 채워줄게 하늘 위</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span><br>
 						<span>더 날아보자 Trust me</span><br>
-						<span>더 채워줄게 하늘 위</span><br>
-						<span>더 높이 붕붕 뜰래 위로</span>
+						<span lang="ko">더 <mark class="frp">채워줄게</mark> 하늘 위</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span><br>
+						<span>더 날아보자 Trust me</span><br>
+						<span lang="ko">더 <mark class="frp">채워줄게</mark> 하늘 위</span><br>
+						<span lang="ko">더 높이 붕붕 <mark class="ffo">뜰래</mark> 위로</span>
 					</td>
 					<td style="height: 29em;">
-						<span>나는 나밖에 모르고, 너는 너밖에 모르고</span><br>
-						<span>그래서 우리는 똑같은 길을 걷지 평행선</span><br>
-						<span>나는 나밖에 몰랐지, 너는 너밖에 몰랐지</span><br>
-						<span>그래서 우리는, 만날 수 없는 거야 평행선</span><br>
-						<span>아직 사랑하고 있는데, 서로 바라보고 싶은데</span><br>
-						<span>나는 다가서지 못하고, 다른 길을 가고 있어</span><br>
-						<span>우리 서로 다시 만날 수 없는가</span><br>
-						<span>캄캄한 미로를 헤매이네</span><br>
-						<span>우리 서로 사랑할 수는 없는가</span><br>
-						<span>끝없는 평행선 걷고 있네</span><br>
-						<span>나는 나밖에 모르고, 너는 너밖에 모르고</span><br>
-						<span>그래서 우리는, 똑같은 길을 걷지 평행선</span><br>
-						<span>나는 나밖에 몰랐지, 너는 너밖에 몰랐지</span><br>
-						<span>그래서 우리는, 만날 수 없는 거야 평행선</span><br>
-						<span>아직 사랑하고 있는데, 서로 바라보고 싶은데</span><br>
-						<span>나는 다가서지 못하고, 다른 길을 가고 있어</span><br>
-						<span>우리 서로 다시 만날 수 없는가</span><br>
-						<span>캄캄한 미로를 헤매이네</span><br>
-						<span>우리 서로 사랑할 수는 없는가</span><br>
-						<span>끝없는 평행선 걷고 있네</span>
+						<span lang="ko">나는 나밖에 모르고, 너는 너밖에 모르고</span><br>
+						<span lang="ko">그래서 우리는 똑같은 길을 걷지 평행선</span><br>
+						<span lang="ko">나는 나밖에 몰랐지, 너는 너밖에 <mark class="wy">몰랐지</mark></span><br>
+						<span lang="ko">그래서 우리는, 만날 수 없는 거야 평행선</span><br>
+						<span lang="ko">아직 사랑하고 <mark class="smsep">있는데</mark>, 서로 바라보고 <mark class="smsep">싶은데</mark></span><br>
+						<span lang="ko">나는 다가서지 못하고, 다른 길을 가고 있어</span><br>
+						<span lang="ko">우리 서로 다시 만날 수 없는가</span><br>
+						<span lang="ko">캄캄한 미로를 헤매이네</span><br>
+						<span lang="ko">우리 서로 사랑할 수는 없는가</span><br>
+						<span lang="ko">끝없는 평행선 걷고 있네</span><br>
+						<span lang="ko">나는 나밖에 모르고, 너는 너밖에 모르고</span><br>
+						<span lang="ko">그래서 우리는, 똑같은 길을 걷지 평행선</span><br>
+						<span lang="ko">나는 나밖에 몰랐지, 너는 너밖에 <mark class="wy">몰랐지</mark></span><br>
+						<span lang="ko">그래서 우리는, 만날 수 없는 거야 평행선</span><br>
+						<span lang="ko">아직 사랑하고 <mark class="smsep">있는데</mark>, 서로 바라보고 <mark class="smsep">싶은데</mark></span><br>
+						<span lang="ko">나는 다가서지 못하고, 다른 길을 가고 있어</span><br>
+						<span lang="ko">우리 서로 다시 만날 수 없는가</span><br>
+						<span lang="ko">캄캄한 미로를 헤매이네</span><br>
+						<span lang="ko">우리 서로 사랑할 수는 없는가</span><br>
+						<span lang="ko">끝없는 평행선 걷고 있네</span>
 					</td>
 					<td rowspan="3">
 						<span>함께 한 시작의 Clear blue sky</span><br>
-						<span>웃음 가득했던 첫 출발</span><br>
-						<span>기대 뒤 숨겨뒀던 우리 불안했던 뒷모습과</span><br>
-						<span>또 불확실한 정답들</span><br>
-						<span>But I don't care when I'm with you</span><br>
-						<span>이젠 나만 믿고 따라와</span><br>
-						<span>이젠 나만 보고 걸어와</span><br>
-						<span>거칠기만 했던 Off-road tracks</span><br>
-						<span>마냥 달렸다 해도</span><br>
-						<span>It was okay yeah</span><br>
+						<span lang="ko">웃음 <mark class="ejs">가득했던</mark> 첫 출발</span><br>
+						<span lang="ko">기대 뒤 <mark class="ejs">숨겨뒀던</mark> 우리 <mark class="ejs">불안했던</mark> 뒷모습과</span><br>
+						<span lang="ko">또 불확실한 정답들</span><br>
+						<span lang="en">But I don't care when I'm with you</span><br>
+						<span lang="ko">이젠 나만 믿고 따라와</span><br>
+						<span lang="ko">이젠 나만 보고 걸어와</span><br>
+						<span>거칠기만 <mark class="ejs">했던</mark> Off-road tracks</span><br>
+						<span lang="ko">마냥 달렸다 해도</span><br>
+						<span lang="en">It was okay yeah</span><br>
 						<span>함께할 Days 이젠 너와 나</span><br>
-						<span>Give me your hands just a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
-						<span>힘들고 지친 날에도 다시 설 수 있게</span><br>
-						<span>Can you stay with me a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
+						<span lang="en">Give me your hands just a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
+						<span lang="ko">힘들고 지친 날에도 다시 설 수 있게</span><br>
+						<span lang="en">Can you stay with me a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
 						<span>사랑으로 널 데려가 Highway 1009 yeah</span><br>
-						<span>I told you like a million times</span><br>
-						<span>With you everything will be alright</span><br>
-						<span>너를 꽉 안아줄게</span><br>
-						<span>Cause I'll be there be your engine now yeah</span><br>
-						<span>저 노을 넘어 달려가</span><br>
-						<span>끝없는 도로 위를 지나</span><br>
-						<span>이젠 나만 믿고 따라와</span><br>
-						<span>이젠 나만 보고 걸어와</span><br>
-						<span>서롤 비춰주던 Golden Hours</span><br>
-						<span>조금 아팠던 Timeline</span><br>
-						<span>But I'm on my way yeah</span><br>
-						<span>널 데리러 가 이젠 너와 나</span><br>
-						<span>Give me your hands just a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
-						<span>힘들고 지친 날에도 다시 설 수 있게</span><br>
-						<span>Can you stay with me a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
+						<span lang="en">I told you like a million times</span><br>
+						<span lang="en">With you everything will be alright</span><br>
+						<span lang="ko">너를 꽉 <mark class="frp">안아줄게</mark></span><br>
+						<span lang="en">Cause I'll be there be your engine now yeah</span><br>
+						<span lang="ko">저 노을 넘어 달려가</span><br>
+						<span lang="ko">끝없는 도로 위를 지나</span><br>
+						<span lang="ko">이젠 나만 믿고 따라와</span><br>
+						<span lang="ko">이젠 나만 보고 걸어와</span><br>
+						<span>서롤 <mark class="ejs">비춰주던</mark> Golden Hours</span><br>
+						<span>조금 <mark class="ejs">아팠던</mark> Timeline</span><br>
+						<span lang="en">But I'm on my way yeah</span><br>
+						<span lang="ko">널 데리러 가 이젠 너와 나</span><br>
+						<span lang="en">Give me your hands just a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
+						<span lang="ko">힘들고 지친 날에도 다시 설 수 있게</span><br>
+						<span lang="en">Can you stay with me a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
 						<span>사랑으로 널 데려가 Highway 1009 yeah</span><br>
-						<span>Give me your hands just a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
-						<span>넌 내 옆에 있으면 돼 어디든 데려갈게</span><br>
-						<span>Can you stay with me a little bit more</span><br>
-						<span>더 꽉 안아줘 날</span><br>
+						<span lang="en">Give me your hands just a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
+						<span lang="ko">넌 내 옆에 있으면 돼 어디든 <mark class="frp">데려갈게</mark></span><br>
+						<span lang="en">Can you stay with me a little bit more</span><br>
+						<span lang="ko">더 꽉 안아줘 날</span><br>
 						<span>모든 걱정 다 Throw away</span><br>
 						<span>영원히 사랑해 널 Yeah</span><br>
-						<span>Woah</span><br>
-						<span>Highway with you we ride</span><br>
-						<span>Woah</span><br>
-						<span>Last forever</span><br>
-						<span>나랑 영원히 함께 해줘</span>
+						<span lang="en">Woah</span><br>
+						<span lang="en">Highway with you we ride</span><br>
+						<span lang="en">Woah</span><br>
+						<span lang="en">Last forever</span><br>
+						<span lang="ko">나랑 영원히 함께 해줘</span>
 					</td>
 					<td class="saissibal">
-						<span>그리 되고 싶었던 스물을 넘길땐 꽤 많은 꿈들 중에</span><br>
-						<span>어느것을 이뤄야 할지 몰랐네<br></span><br>
-						<span>사랑 알게 되면서 노래를 만들고</span><br>
-						<span>어느새 그 노랠 매일 부르는 일을 하게 되었지<br></span><br>
-						<span>사람들은 다행히 내 노랠 좋아해주었고</span><br>
-						<span>내 꿈을 택하게 해주었지<br></span><br>
-						<span>난 서슴없이 예전 나의 얘기들을 즐기며 쓰기 시작했고</span><br>
-						<span>그렇게 잊으려고 했었던<br></span><br>
-						<span>지난날은 이젠 기억해내야 만하는 비싼 시간이 되었네</span><br>
-						<span>가끔은 그럴듯해 보이는 얘기들을 밤을 지새우며<br></span><br>
-						<span>만들어 뿌듯한 듯 웃음지었던</span><br>
-						<span>서글픈 나의 이십대<br></span><br>
-						<span>스무살을 바로 접어들때 한 친구 떠나가며</span><br>
-						<span>우정과 생명을 깨닫게 해주었고<br></span><br>
-						<span>몇해뒤 그제서야 사랑 알게 됐던</span><br>
-						<span>뭐든지 조금씩 늦었던 시절<br></span><br>
-						<span>유난히도 좋은 사람들이 함께 있어 든든해 했었던</span><br>
-						<span>운좋은 후회할 수 만은<br></span><br>
-						<span>없는 시간들 그저 노래가 좋아 부르다</span><br>
-						<span>남들 보다 늦게 떠나기에<br></span><br>
-						<span>조금은 이르게 뒤 돌아 보는 소중한 나의 이십대</span>
+						<span lang="ko">그리 되고 <mark class="ejs">싶었던</mark> 스물을 넘길땐 꽤 많은 꿈들 중에</span><br>
+						<span lang="ko">어느것을 이뤄야 할지 몰랐네<br></span><br>
+						<span lang="ko">사랑 알게 <mark class="austj">되면서</mark> 노래를 만들고</span><br>
+						<span lang="ko">어느새 그 노랠 매일 부르는 일을 하게 되었지<br></span><br>
+						<span lang="ko">사람들은 다행히 내 노랠 좋아해주었고</span><br>
+						<span lang="ko">내 꿈을 택하게 해주었지<br></span><br>
+						<span lang="ko">난 서슴없이 예전 나의 얘기들을 <mark class="au">즐기며</mark> 쓰기 시작했고</span><br>
+						<span lang="ko">그렇게 잊으려고 <mark class="ejs">했었던</mark><br></span><br>
+						<span lang="ko">지난날은 이젠 기억해내야 만하는 비싼 시간이 되었네</span><br>
+						<span lang="ko">가끔은 그럴듯해 보이는 얘기들을 밤을 <mark class="au">지새우며</mark><br></span><br>
+						<span lang="ko">만들어 뿌듯한 <mark class="emt">듯</mark> <mark class="ejs">웃음지었던</mark></span><br>
+						<span lang="ko">서글픈 나의 이십대<br></span><br>
+						<span lang="ko">스무살을 바로 접어들때 한 친구 <mark class="au">떠나가며</mark></span><br>
+						<span lang="ko">우정과 생명을 깨닫게 해주었고<br></span><br>
+						<span lang="ko">몇해뒤 그제서야 사랑 알게 <mark class="ejs">됐던</mark></span><br>
+						<span lang="ko">뭐든지 조금씩 <mark class="ejs">늦었던</mark> 시절<br></span><br>
+						<span lang="ko">유난히도 좋은 사람들이 함께 있어 든든해 <mark class="ejs">했었던</mark></span><br>
+						<span lang="ko">운좋은 후회할 수 만은<br></span><br>
+						<span lang="ko">없는 시간들 그저 노래가 좋아 부르다</span><br>
+						<span lang="ko">남들 보다 늦게 떠나기에<br></span><br>
+						<span lang="ko">조금은 이르게 뒤 돌아 보는 소중한 나의 이십대</span>
 					</td>
 					<td rowspan="3" class="ssibal">
 						<span>You and me 멀어진 빛</span><br>
-						<span>이젠 좁힐 수 없는 거리</span><br>
-						<span>넌 아직도 멈춰 있어</span><br>
-						<span>너무 어지럽게 비추는데<br></span><br>
-						<span>처음부터 달랐었지</span><br>
-						<span>모든 게 그랬어</span><br>
-						<span>취미 또 영화까지도</span><br>
-						<span>이미 다 알고 있던 결말인 걸 아는데</span><br>
-						<span>왜 머릿속은 또 바빠져<br></span><br>
-						<span>더 이상은 안돼 이젠 그만해야 해</span><br>
-						<span>알면서도</span><br>
-						<span>습관처럼 너의 빛을 따라 걸어가</span><br>
-						<span>언제쯤 멈춰질까<br></span><br>
-						<span>Day &amp; night</span><br>
-						<span>온종일 날 맴돌아</span><br>
-						<span>괴롭혀 또 난 up all night</span><br>
-						<span>Day &amp; night</span><br>
+						<span lang="ko">이젠 좁힐 수 없는 거리</span><br>
+						<span lang="ko">넌 아직도 멈춰 있어</span><br>
+						<span lang="ko">너무 어지럽게 <mark class="smsep">비추는데</mark><br></span><br>
+						<span lang="ko">처음부터 <mark class="wy">달랐었지</mark></span><br>
+						<span lang="ko">모든 게 그랬어</span><br>
+						<span lang="ko">취미 또 영화까지도</span><br>
+						<span lang="ko">이미 다 알고 <mark class="ejs">있던</mark> 결말인 걸 <mark class="smsep">아는데</mark></span><br>
+						<span lang="ko">왜 머릿속은 또 바빠져<br></span><br>
+						<span lang="ko">더 이상은 안돼 이젠 그만해야 해</span><br>
+						<span lang="ko"><mark class="austj">알면서도</mark></span><br>
+						<span lang="ko">습관처럼 너의 빛을 따라 걸어가</span><br>
+						<span lang="ko">언제쯤 <mark class="frrk">멈춰질까</mark><br></span><br>
+						<span lang="en">Day &amp; night</span><br>
+						<span lang="ko">온종일 날 맴돌아</span><br>
+						<span lang="ko">괴롭혀 또 난 up all night</span><br>
+						<span lang="en">Day &amp; night</span><br>
 						<span>기억의 시간을 넘어 move on<br></span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)</span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)<br></span><br>
-						<span>Baby, maybe</span><br>
-						<span>참 많이 다쳤던 우리</span><br>
-						<span>Love you, hate you</span><br>
-						<span>변해버린 마음의 온도차</span><br>
-						<span>서로 너무 다른 걸 원하고 있었나봐</span><br>
-						<span>잘한 일인걸 아마</span><br>
-						<span>후회할지도 몰라<br></span><br>
-						<span>전부터 알았었지</span><br>
-						<span>결국엔 이런 걸</span><br>
-						<span>모든 게 너무 뻔했어</span><br>
-						<span>계속 느껴왔던 사실인 걸 아는데</span><br>
-						<span>왜 이제야 실감이 나<br></span><br>
-						<span>더 이상은 안돼 이젠 그만해야 해</span><br>
-						<span>알면서도</span><br>
-						<span>습관처럼 너의 빛을 따라 걸어가</span><br>
-						<span>언제쯤 멈춰질까<br></span><br>
-						<span>Day &amp; night</span><br>
-						<span>온종일 날 맴돌아</span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span></span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span><br></span><br>
+						<span lang="en">Baby, maybe</span><br>
+						<span lang="ko">참 많이 <mark class="ejs">다쳤던</mark> 우리</span><br>
+						<span lang="en">Love you, hate you</span><br>
+						<span lang="ko">변해버린 마음의 온도차</span><br>
+						<span lang="ko">서로 너무 다른 걸 원하고 있었나봐</span><br>
+						<span lang="ko">잘한 일인걸 아마</span><br>
+						<span lang="ko">후회할지도 몰라<br></span><br>
+						<span lang="ko">전부터 <mark class="wy">알았었지</mark></span><br>
+						<span lang="ko">결국엔 이런 <mark class="trailing-rieul-form">걸</mark></span><br>
+						<span lang="ko">모든 게 너무 뻔했어</span><br>
+						<span lang="ko">계속 <mark class="ejs">느껴왔던</mark> 사실인 걸 <mark class="smsep">아는데</mark></span><br>
+						<span lang="ko">왜 이제야 실감이 나<br></span><br>
+						<span lang="ko">더 이상은 안돼 이젠 그만해야 해</span><br>
+						<span><mark class="austj">알면서도</mark></span><br>
+						<span lang="ko">습관처럼 너의 빛을 따라 걸어가</span><br>
+						<span>언제쯤 <mark class="frrk">멈춰질까</mark><br></span><br>
+						<span lang="en">Day &amp; night</span><br>
+						<span lang="ko">온종일 날 맴돌아</span><br>
 						<span>괴롭혀 또 난 up all night</span><br>
-						<span>Day &amp; night</span><br>
+						<span lang="en">Day &amp; night</span><br>
 						<span>기억의 시간을 넘어 move on<br></span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)</span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)<br></span><br>
-						<span>닿을 수 없는 저기 먼 곳에</span><br>
-						<span>희미하게 반짝거리는</span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span></span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span><br></span><br>
+						<span lang="ko">닿을 수 없는 저기 먼 곳에</span><br>
+						<span lang="ko">희미하게 반짝거리는</span><br>
 						<span>Day and night 네 생각이 날 맴돌아</span><br>
-						<span>이젠 그 빛을 가려<br></span><br>
-						<span>Day &amp; night</span><br>
-						<span>Day &amp; night<br></span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)</span><br>
-						<span>You're goin' around 'round</span><br>
-						<span>Goin' around and 'round (so what?)</span>
+						<span lang="ko">이젠 그 빛을 가려<br></span><br>
+						<span lang="en">Day &amp; night</span><br>
+						<span lang="en">Day &amp; night<br></span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span></span><br>
+						<span lang="en">You're goin' around 'round</span><br>
+						<span lang="en">Goin' around and 'round <span class="paren">(</span>so what?<span class="paren">)</span></span>
 					</td>
 					<td rowspan="3">
-						<span>저 멀리 바라만 보던</span><br>
-						<span>너무 아득했던 그곳은 어딜까</span><br>
-						<span>아무리 닿으려 해도</span><br>
-						<span>자꾸만 멀어져 갈 수가 없는걸 Uh</span><br>
-						<span>지쳐 쓰러진 내 맘에</span><br>
-						<span>선명하게 비춰오는</span><br>
+						<span lang="ko">저 멀리 바라만 <mark class="ejs">보던</mark></span><br>
+						<span lang="ko">너무 <mark class="ejs">아득했던</mark> 그곳은 <mark class="frrk">어딜까</mark></span><br>
+						<span lang="ko">아무리 닿으려 해도</span><br>
+						<span>자꾸만 멀어져 갈 수가 없는<mark class="trailing-rieul-form">걸</mark> Uh</span><br>
+						<span lang="ko">지쳐 쓰러진 내 맘에</span><br>
+						<span lang="ko">선명하게 비춰오는</span><br>
 						<span>비춰오는 Starlight</span><br>
-						<span>Starlight</span><br>
-						<span>다시 일어설 수 있게</span><br>
+						<span lang="en">Starlight</span><br>
+						<span lang="ko">다시 일어설 수 있게</span><br>
 						<span>나를 잡아줘 Uh</span><br>
 						<span>Another Dream 너와 함께</span><br>
-						<span>너와 함께</span><br>
-						<span>세상 그 무엇도 이제는 두렵지 않아</span><br>
+						<span lang="ko">너와 함께</span><br>
+						<span lang="ko">세상 그 무엇도 이제는 두렵지 않아</span><br>
 						<span>Another Day 난 길을 잃어도</span><br>
-						<span>또 넘어져도</span><br>
-						<span>언제나 내 안에 있죠</span><br>
-						<span>Another Dream</span><br>
-						<span>Take my hand look up the sky</span><br>
-						<span>눈 부신 빛을 따라 나와 걸어가</span><br>
-						<span>오랫동안 늘 그려왔던 꿈</span><br>
-						<span>온 세상 가득 색을 채워봐</span><br>
-						<span>우리가 함께한 순간</span><br>
-						<span>그곳이 어디든 나의 꿈이겠죠 Uh</span><br>
-						<span>지쳐 쓰러진 내 맘에</span><br>
-						<span>선명하게 비춰오는</span><br>
+						<span lang="ko">또 넘어져도</span><br>
+						<span lang="ko">언제나 내 안에 <mark class="wy">있죠</mark></span><br>
+						<span lang="en">Another Dream</span><br>
+						<span lang="en">Take my hand look up the sky</span><br>
+						<span lang="ko">눈 부신 빛을 따라 나와 걸어가</span><br>
+						<span lang="ko">오랫동안 늘 <mark class="ejs">그려왔던</mark> 꿈</span><br>
+						<span lang="ko">온 세상 가득 색을 채워봐</span><br>
+						<span lang="ko">우리가 함께한 순간</span><br>
+						<span>그곳이 어디든 나의 <mark class="wy">꿈이겠죠</mark> Uh</span><br>
+						<span lang="ko">지쳐 쓰러진 내 맘에</span><br>
+						<span lang="ko">선명하게 비춰오는</span><br>
 						<span>비춰오는 Starlight</span><br>
-						<span>Starlight</span><br>
+						<span lang="en">Starlight</span><br>
 						<span class="squeezed">다시 일어설 수 있게 나를 잡아줘 Uh</span><br>
 						<span>Another Dream 너와 함께</span><br>
-						<span>너와 함께</span><br>
-						<span>세상 그 무엇도 이제는 두렵지 않아</span><br>
+						<span lang="ko">너와 함께</span><br>
+						<span lang="ko">세상 그 무엇도 이제는 두렵지 않아</span><br>
 						<span>Another Day 난 길을 잃어도</span><br>
-						<span>또 넘어져도</span><br>
-						<span>언제나 내 안에 있죠</span><br>
-						<span>Another Dream</span><br>
-						<span>힘겨웠던 시간 나를 지켜준</span><br>
-						<span>(나를 지켜준)</span><br>
-						<span>소중했던 너의 마음을 잊지 않을게</span><br>
-						<span>기억해 저 구름 위를 꿈꿔왔던 순간</span><br>
-						<span>이렇게 서로 같은 곳을 바라보는 지금</span><br>
-						<span>이 꿈속을 함께 걸어요</span><br>
-						<span>영원히</span><br>
+						<span lang="ko">또 넘어져도</span><br>
+						<span lang="ko">언제나 내 안에 <mark class="wy">있죠</mark></span><br>
+						<span lang="en">Another Dream</span><br>
+						<span lang="ko"><mark class="ejs">힘겨웠던</mark> 시간 나를 지켜준</span><br>
+						<span lang="ko"><span class="paren">(</span>나를 지켜준<span class="paren">)</span></span><br>
+						<span lang="ko"><mark class="ejs">소중했던</mark> 너의 마음을 잊지 <mark class="frp">않을게</mark></span><br>
+						<span lang="ko">기억해 저 구름 위를 <mark class="ejs">꿈꿔왔던</mark> 순간</span><br>
+						<span lang="ko">이렇게 서로 같은 곳을 바라보는 지금</span><br>
+						<span lang="ko">이 꿈속을 함께 걸어요</span><br>
+						<span lang="ko">영원히</span><br>
 						<span>Another Dream 너와 함께</span><br>
-						<span>너와 함께</span><br>
-						<span>세상 그 무엇도 이제는 두렵지 않아</span><br>
+						<span lang="ko">너와 함께</span><br>
+						<span lang="ko">세상 그 무엇도 이제는 두렵지 않아</span><br>
 						<span>Another Day 난 길을 잃어도</span><br>
-						<span>(Another Day Ah)</span><br>
-						<span>또 넘어져도</span><br>
-						<span>언제나 내 안에 있죠</span><br>
-						<span>Another Dream</span><br>
-						<span>그대와 내가 그려온</span><br>
-						<span>Another Dream</span><br>
-					</td>
-					<td rowspan="3">
-						<span>STAYC girls it's going down</span><br>
-						<span>You stole my heart, 내 맘을 뺏지</span><br>
-						<span>I need your love, 사랑의 Patch가</span><br>
-						<span>필요해, 니 옆에</span><br>
-						<span>불러줘 And I'll never go away</span><br>
-						<span>마음속에 모든 걸</span><br>
-						<span>다 보여주면 서툴러</span><br>
-						<span>철이 없다 해도 괜찮아 난, 그게 좋아</span><br>
-						<span class="squeezed">Baby 아무리 밀어내도, 변하지가 않는 걸</span><br>
-						<span class="squeezed">너를 좋아하는 건 분명, 어쩔 수 없는 걸</span><br>
-						<span>정말야 I want you SO BAD</span><br>
-						<span>난 니가 필요해 Yeah</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 머리 머리 내 머릿</span>속이<br>
-						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
-						<span>멈출 수 없어 절대</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
-						<span>Never never never never never</span><br>
-						<span class="squeezed">숨기지 못해, 난 Nah nah nah nah nah nah nah</span><br>
-						<span>달라져 또 밀고 당기는거</span><br>
-						<span>한다고 더 내 맘 잘 알아줘</span><br>
-						<span class="squeezed">How do you think, how do you think yeah yeah</span><br>
-						<span>STAYC girls yeah it's going down</span><br>
-						<span>눈으로만 모든 걸</span><br>
-						<span>다 알 수 없어 섣불러</span><br>
-						<span>잘못 봤다 해도 괜찮아 난, 니가 좋아</span><br>
-						<span class="squeezed">Baby 아무리 밀어내도, 변하지가 않는 걸</span><br>
-						<span class="squeezed">너를 좋아하는 건 분명, 어쩔 수 없는 걸</span><br>
-						<span>정말야 I want you SO BAD</span><br>
-						<span>난 니가 필요해 Yeah</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 머리 머리 내 머릿</span>속이<br>
-						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
-						<span>멈출 수 없어 절대</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
-						<span>솔직히 난 사랑을 잘 몰라</span><br>
-						<span>그래서 겁이 나 그래도 난 좋아</span><br>
-						<span>서투른 내 맘을 알아줘 Baby</span><br>
-						<span>모른 척 떠나지 말아줘 You've got a feeling</span><br>
-						<span>You know you've got that feeling</span><br>
-						<span>I want you SO BAD</span><br>
-						<span>You stole my heart, 맘을 뺏겼지</span><br>
-						<span>I need your love, 니 맘도 같길</span><br>
-						<span>I want you bad, yeah so bad</span><br>
-						<span>불러줘 And I'll never go away</span><br>
-						<span>정말야 I want you SO BAD</span><br>
-						<span>난 니가 필요해 Yeah</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 머리 머리 내 머릿</span>속이<br>
-						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
-						<span>멈출 수 없어 절대</span><br>
-						<span><span class="squeezed2">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
-						<span>Never never never never never</span><br>
-						<span class="squeezed">숨기지 못해, 난 Nah nah nah nah nah nah nah</span>
-					</td>
-					<td rowspan="3" class="saissibal">
-						<span>FOREVER 1</span><br>
-						<span>It's love It's love<!--not a line-merge mistake, but how bugs.com had spaced it-->, we're not stopping<br></span><br>
-						<span>네가 머문 이 세상이 더, 아름다운 건</span><br>
-						<span>겁 없이 외치던 말 '사랑해 너를'</span><br>
-						<span>영원하기에, You and I<br></span><br>
-						<span>터지는 눈물이, 말하잖아</span><br>
-						<span>난 그냥 전부 던진 거야<br></span><br>
-						<span>아무런 망설임 따위도</span><br>
-						<span>멋대로 끌렸던 그대로</span><br>
-						<span>Oh my baby 달려가 안을게<br></span><br>
-						<span>I love 너의 모든 것, 내 전부인 너</span><br>
-						<span>우리는 영원, we are one<br></span><br>
-						<span>전율 속에 뜨거운 그 맘을 던져</span><br>
-						<span>Just like a love bomb, we are one<br></span><br>
-						<span>Girls, We are forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)<br></span><br>
-						<span>It's now or never</span><br>
-						<span>(We keep on, We're still FOREVER 1)<br></span><br>
-						<span>Yeah we're forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)<br></span><br>
-						<span>날 꼭 안아 절대 놓치지 마, 가슴이 뛰잖아<br></span><br>
-						<span>다시는 아파하지 마</span><br>
-						<span>너의 마음을, 우린 다 알아, 다 알아<br></span><br>
-						<span>내 곁에 있어 줘, 이 순간도 마지막처럼</span><br>
-						<span>You know your love is crazy 항상 그랬지</span><br>
-						<span>Oh my baby 사랑해 기억해<br></span><br>
-						<span>I love 너의 모든 것, 내 전부인 너</span><br>
-						<span>우리는 영원, we are one<br></span><br>
-						<span>전율 속에 뜨거운 그 맘을 던져</span><br>
-						<span>Just like a love bomb, we are one<br></span><br>
-						<span>Girls, We are forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)<br></span><br>
-						<span>It's now or never</span><br>
-						<span>(We keep on, We're still FOREVER 1)<br></span><br>
-						<span>Yeah we're forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)<br></span><br>
-						<span>언제나 너의 곁에 있고 싶은데</span><br>
-						<span>널 생각하면 강해져</span><br>
-						<span>There's no one like you, no one like you</span><br>
-						<span>우리 꼭 영원하자<br></span><br>
-						<span>우리 머문 이 세상에서, 네게 말했어</span><br>
-						<span>다시 태어나도 널 사랑할게</span><br>
-						<span>Cause we are the one<br></span><br>
-						<span>I love 너의 (Ooh I Love 나의)</span><br>
-						<span>모든 것 내 전부인 너 (전부인 너)</span><br>
-						<span>우리는 영원 (Ooh), we are one<br></span><br>
-						<span>전율 속에 (그 전율 속에)</span><br>
-						<span>뜨거운 그 맘을 던져</span><br>
-						<span class="squeezed">Just like a love bomb (Just like a love bomb)</span><br>
-						<span>We are one<br></span><br>
-						<span>Girls, We are forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)<br></span><br>
-						<span>It's now or never</span><br>
-						<span>(We keep on, We're still FOREVER 1)<br></span><br>
-						<span>Yeah we're forever</span><br>
-						<span>(Yeah we are, We're still FOREVER 1)</span>
+						<span lang="en"><span class="paren">(</span>Another Day Ah<span class="paren">)</span></span><br>
+						<span lang="ko">또 넘어져도</span><br>
+						<span lang="ko">언제나 내 안에 <mark class="wy">있죠</mark></span><br>
+						<span lang="en">Another Dream</span><br>
+						<span lang="ko">그대와 내가 그려온</span><br>
+						<span lang="en">Another Dream</span><br>
 					</td>
 				</tr>
 				<tr>
@@ -556,78 +467,556 @@
 				</tr>
 				<tr>
 					<td>
-						<span>아무도 모를 거야, 말한 적 없을 테니</span><br>
-						<span>아이처럼 울고 싶은 순간들</span><br>
-						<span>어른이란 말은 참 그댈 힘들게 하죠</span><br>
-						<span>더 외롭게 만들어</span><br>
-						<span>힘겨운 걸음으로 먼 길을 걸었는데</span><br>
-						<span>가고 싶은 곳은 어디였는지?</span><br>
-						<span>어둡고 깊은 곳에 웅크려 앉은 그댈</span><br>
-						<span>난 떠나지 않겠어요</span><br>
-						<span>아무리 먼 길을 떠났어도</span><br>
-						<span>아무리 긴 시간이 흘러도</span><br>
-						<span>이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
-						<span>난 곁에 있겠어요</span><br>
-						<span>힘겨운 걸음으로 먼 길을 걸었는데</span><br>
-						<span>가고 싶은 곳은 어디였는지?</span><br>
-						<span>세상이 지독하게 그댈 혼자 둘 때엔</span><br>
-						<span>단 하나만 기억해요</span><br>
-						<span>아무리 먼 길을 떠났어도</span><br>
-						<span>아무리 긴 시간이 흘러도</span><br>
-						<span>이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
-						<span>난 곁에 있어요</span><br>
-						<span>(I will be with you) 혼자인 것 같아</span><br>
-						<span>(I can be your only one) 그 어둠 속에</span><br>
-						<span>단 한 번의 용기,</span><br>
-						<span>단 한 사람의 온기 (Wanna be Warm)</span><br>
-						<span>그 작은 시작이 돼 줄 수 있어 (in your life)</span><br>
-						<span>또다시 먼 길을 떠나도</span><br>
-						<span>한 번 더 긴 시간이 가도</span><br>
-						<span>이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
-						<span>난 곁에 있겠어요</span><br>
-						<span>나 곁에 있어요</span>
+						<span lang="ko">아무도 모를 거야, 말한 적 없을 테니</span><br>
+						<span lang="ko">아이처럼 울고 싶은 순간들</span><br>
+						<span lang="ko">어른이란 말은 참 그댈 힘들게 <mark class="wy">하죠</mark></span><br>
+						<span lang="ko">더 외롭게 만들어</span><br>
+						<span lang="ko">힘겨운 걸음으로 먼 길을 <mark class="smsep">걸었는데</mark></span><br>
+						<span lang="ko">가고 싶은 곳은 <mark class="smswl">어디였는지</mark>?</span><br>
+						<span lang="ko">어둡고 깊은 곳에 웅크려 앉은 그댈</span><br>
+						<span lang="ko">난 떠나지 않겠어요</span><br>
+						<span lang="ko">아무리 먼 길을 떠났어도</span><br>
+						<span lang="ko">아무리 긴 시간이 흘러도</span><br>
+						<span lang="ko">이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
+						<span lang="ko">난 곁에 있겠어요</span><br>
+						<span lang="ko">힘겨운 걸음으로 먼 길을 <mark class="smsep">걸었는데</mark></span><br>
+						<span lang="ko">가고 싶은 곳은 <mark class="smswl">어디였는지</mark>?</span><br>
+						<span lang="ko">세상이 지독하게 그댈 혼자 둘 때엔</span><br>
+						<span lang="ko">단 하나만 기억해요</span><br>
+						<span lang="ko">아무리 먼 길을 떠났어도</span><br>
+						<span lang="ko">아무리 긴 시간이 흘러도</span><br>
+						<span lang="ko">이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
+						<span lang="ko">난 곁에 있어요</span><br>
+						<span><span class="paren">(</span>I will be with you<span class="paren">)</span> 혼자인 것 같아</span><br>
+						<span><span class="paren">(</span>I can be your only one<span class="paren">)</span> 그 어둠 속에</span><br>
+						<span lang="ko">단 한 번의 용기,</span><br>
+						<span>단 한 사람의 온기 <span class="paren">(</span>Wanna be Warm<span class="paren">)</span></span><br>
+						<span>그 작은 시작이 돼 줄 수 있어 <span class="paren">(</span>in your life<span class="paren">)</span></span><br>
+						<span lang="ko">또다시 먼 길을 떠나도</span><br>
+						<span lang="ko">한 번 더 긴 시간이 가도</span><br>
+						<span lang="ko">이 길 끝에 떠오르는 태양을 만날 때까지</span><br>
+						<span lang="ko">난 곁에 있겠어요</span><br>
+						<span lang="ko">나 곁에 있어요</span>
 					</td>
 					<td>
 						<span>You 그대와 함께하는 꿈을 꾸어요</span><br>
-						<span>너와 노래하는 꿈내 귓가에 맴도는</span><br>
+						<span lang="ko">너와 노래하는 꿈내 귓가에 맴도는</span><br>
 						<span>작은 멜로디 I just wanna be with u</span><br>
-						<span>비가 되어 하늘에 내리는 날이면</span><br>
-						<span>온 세상에 채워질 너의 향기</span><br>
-						<span>그대와 함께한 저 하늘에 환하게</span><br>
-						<span>파란별이 떠오르면</span><br>
-						<span>숨어버린 햇살의 얘길 밤새 나누며</span><br>
+						<span lang="ko">비가 되어 하늘에 내리는 날이면</span><br>
+						<span lang="ko">온 세상에 채워질 너의 향기</span><br>
+						<span lang="ko">그대와 함께한 저 하늘에 환하게</span><br>
+						<span lang="ko">파란별이 떠오르면</span><br>
+						<span lang="ko">숨어버린 햇살의 얘길 밤새 <mark class="au">나누며</mark></span><br>
 						<span>잠들고픈어린 날의 My fairy tale</span><br>
-						<span>Only u can make me feel this way baby</span><br>
-						<span>너에게 하고 싶은 말</span><br>
-						<span>Don't ever let me go</span><br>
-						<span>비가 되어 하늘에 내리는 날이면</span><br>
-						<span>온 세상에 채워질 너의 향기</span><br>
-						<span>그대와 함께한 저 하늘에</span><br>
-						<span>환하게 파란별이 떠오르면</span><br>
-						<span>숨어버린 햇살의 얘길 밤새 나누며</span><br>
+						<span lang="en">Only u can make me feel this way baby</span><br>
+						<span lang="ko">너에게 하고 싶은 말</span><br>
+						<span lang="en">Don't ever let me go</span><br>
+						<span lang="ko">비가 되어 하늘에 내리는 날이면</span><br>
+						<span lang="ko">온 세상에 채워질 너의 향기</span><br>
+						<span lang="ko">그대와 함께한 저 하늘에</span><br>
+						<span lang="ko">환하게 파란별이 떠오르면</span><br>
+						<span lang="ko">숨어버린 햇살의 얘길 밤새 <mark class="au">나누며</mark></span><br>
 						<span>잠들고픈어린 날의 My fairy tale</span><br>
-						<span>그대와 함께한 저 하늘에</span><br>
-						<span>환하게 파란별이 떠오르면</span><br>
-						<span>숨어버린 햇살의 얘길 밤새 나누며</span><br>
+						<span lang="ko">그대와 함께한 저 하늘에</span><br>
+						<span lang="ko">환하게 파란별이 떠오르면</span><br>
+						<span lang="ko">숨어버린 햇살의 얘길 밤새 <mark class="au">나누며</mark></span><br>
 						<span>잠들고픈어린 날의 My fairy tale</span>
+					</td>
+				</tr>
+				<tr>
+					<th><h2>So Bad</h2></th>
+					<th><h2>Forever 1</h2></th>
+					<th><h2>내게도 사랑이</h2></th>
+					<th><h2>Eclipse<!--which i said was not one of my top songs but there was a period where i got high off it so stfu this is MY html file and i can put in whatever i want--></h2></th>
+					<th><h2>Starlight</h2></th>
+					<th><h2>Egoist</h2></th>
+					<th><h2>Butterfly<!--see above--></h2></th>
+					<th><h2>Lovesick Girls</h2></th>
+				</tr>
+				<tr>
+					<td rowspan="5">
+						<span lang="en">STAYC girls it's going down</span><br>
+						<span>You stole my heart, 내 맘을 <mark class="wy">뺏지</mark></span><br>
+						<span>I need your love, 사랑의 Patch가</span><br>
+						<span lang="ko">필요해, 니 옆에</span><br>
+						<span>불러줘 And I'll never go away</span><br>
+						<span lang="ko">마음속에 모든 걸</span><br>
+						<span lang="ko">다 보여주면 서툴러</span><br>
+						<span lang="ko">철이 없다 해도 괜찮아 난, 그게 좋아</span><br>
+						<span class="squeezed">Baby 아무리 밀어내도, 변하지가 않는 <mark class="trailing-rieul-form">걸</mark></span><br>
+						<span class="squeezed" lang="ko">너를 좋아하는 건 분명, 어쩔 수 없는 <mark class="trailing-rieul-form">걸</mark></span><br>
+						<span>정말야 I want you SO BAD</span><br>
+						<span>난 니가 필요해 Yeah</span><br>
+						<span lang="ko"><span class="squeezed2" lang="ko">내 내 내 내 내 머리 머리 내 머릿</span>속이</span><br>
+						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
+						<span lang="ko">멈출 수 없어 절대</span><br>
+						<span lang="ko"><span class="squeezed2" lang="ko">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
+						<span lang="en">Never never never never never</span><br>
+						<span class="squeezed">숨기지 못해, 난 Nah nah nah nah nah nah nah</span><br>
+						<span lang="ko">달라져 또 밀고 당기는거</span><br>
+						<span lang="ko">한다고 더 내 맘 잘 알아줘</span><br>
+						<span class="squeezed" lang="en">How do you think, how do you think yeah yeah</span><br>
+						<span lang="en">STAYC girls yeah it's going down</span><br>
+						<span lang="ko">눈으로만 모든 걸</span><br>
+						<span lang="ko">다 알 수 없어 섣불러</span><br>
+						<span lang="ko">잘못 봤다 해도 괜찮아 난, 니가 좋아</span><br>
+						<span class="squeezed">Baby 아무리 밀어내도, 변하지가 않는 <mark class="trailing-rieul-form">걸</mark></span><br>
+						<span class="squeezed" lang="ko">너를 좋아하는 건 분명, 어쩔 수 없는 <mark class="trailing-rieul-form">걸</mark></span><br>
+						<span>정말야 I want you SO BAD</span><br>
+						<span>난 니가 필요해 Yeah</span><br>
+						<span lang="ko"><span class="squeezed2">내 내 내 내 내 머리 머리 내 머릿</span>속이</span><br>
+						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
+						<span lang="ko">멈출 수 없어 절대</span><br>
+						<span lang="ko"><span class="squeezed2">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
+						<span lang="ko">솔직히 난 사랑을 잘 몰라</span><br>
+						<span lang="ko">그래서 겁이 나 그래도 난 좋아</span><br>
+						<span>서투른 내 맘을 알아줘 Baby</span><br>
+						<span>모른 척 떠나지 말아줘 You've got a feeling</span><br>
+						<span lang="en">You know you've got that feeling</span><br>
+						<span lang="en">I want you SO BAD</span><br>
+						<span>You stole my heart, 맘을 <mark class="wy">뺏겼지</mark></span><br>
+						<span>I need your love, 니 맘도 같길</span><br>
+						<span lang="en">I want you bad, yeah so bad</span><br>
+						<span>불러줘 And I'll never go away</span><br>
+						<span>정말야 I want you SO BAD</span><br>
+						<span>난 니가 필요해 Yeah</span><br>
+						<span lang="ko"><span class="squeezed2">내 내 내 내 내 머리 머리 내 머릿</span>속이</span><br>
+						<span class="squeezed">너로 가득해 Baby, 첨부터 I want you SO BAD</span></span><br>
+						<span lang="ko">멈출 수 없어 절대</span><br>
+						<span lang="ko"><span class="squeezed2">내 내 내 내 내 맘이 맘이 내 맘이</span> 아파, 너땜에</span><br>
+						<span lang="en">Never never never never never</span><br>
+						<span class="squeezed">숨기지 못해, 난 Nah nah nah nah nah nah nah</span>
+					</td>
+					<td rowspan="5" class="saissibal">
+						<span lang="en">FOREVER 1</span><br>
+						<span lang="en">It's love, it's love, we're not stopping<br></span><br>
+						<span lang="ko">네가 머문 이 세상이 더, 아름다운 <mark class="trailing-rieul-form">건</mark></span><br>
+						<span lang="ko">겁 없이 <mark class="ejs">외치던</mark> 말 '사랑해 너를'</span><br>
+						<span>영원하기에, You and I<br></span><br>
+						<span lang="ko">터지는 눈물이, 말하잖아</span><br>
+						<span lang="ko">난 그냥 전부 던진 거야<br></span><br>
+						<span lang="ko">아무런 망설임 따위도</span><br>
+						<span lang="ko">멋대로 <mark class="ejs">끌렸던</mark> 그대로</span><br>
+						<span>Oh my baby 달려가 <mark class="frp">안을게</mark><br></span><br>
+						<span>I love 너의 모든 것, 내 전부인 너</span><br>
+						<span>우리는 영원, we are one<br></span><br>
+						<span lang="ko">전율 속에 뜨거운 그 맘을 던져</span><br>
+						<span lang="en">Just like a love bomb, we are one<br></span><br>
+						<span lang="en">Girls, We are forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">It's now or never</span><br>
+						<span lang="en"><span class="paren">(</span>We keep on, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">Yeah we're forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="ko">날 꼭 안아 절대 놓치지 마, 가슴이 뛰잖아<br></span><br>
+						<span lang="ko">다시는 아파하지 마</span><br>
+						<span lang="ko">너의 마음을, 우린 다 알아, 다 알아<br></span><br>
+						<span lang="ko">내 곁에 있어 줘, 이 순간도 마지막처럼</span><br>
+						<span>You know your love is crazy 항상 <mark class="wy">그랬지</mark></span><br>
+						<span>Oh my baby 사랑해 기억해<br></span><br>
+						<span>I love 너의 모든 것, 내 전부인 너</span><br>
+						<span>우리는 영원, we are one<br></span><br>
+						<span lang="ko">전율 속에 뜨거운 그 맘을 던져</span><br>
+						<span lang="en">Just like a love bomb, we are one<br></span><br>
+						<span lang="en">Girls, We are forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">It's now or never</span><br>
+						<span lang="en"><span class="paren">(</span>We keep on, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">Yeah we're forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="ko">언제나 너의 곁에 있고 <mark class="smsep">싶은데</mark></span><br>
+						<span lang="ko">널 생각하면 강해져</span><br>
+						<span lang="en">There's no one like you, no one like you</span><br>
+						<span lang="ko">우리 꼭 영원하자<br></span><br>
+						<span lang="ko">우리 머문 이 세상에서, 네게 말했어</span><br>
+						<span lang="ko">다시 태어나도 널 <mark class="frp">사랑할게</mark></span><br>
+						<span lang="en">Cause we are the one<br></span><br>
+						<span>I love 너의 <span class="paren">(</span>Ooh I Love 나의<span class="paren">)</span></span><br>
+						<span lang="ko">모든 것 내 전부인 너 <span class="paren">(</span>전부인 너<span class="paren">)</span></span><br>
+						<span>우리는 영원 <span class="paren">(</span>Ooh<span class="paren">)</span>, we are one<br></span><br>
+						<span lang="ko">전율 속에 <span class="paren">(</span>그 전율 속에<span class="paren">)</span></span><br>
+						<span lang="ko">뜨거운 그 맘을 던져</span><br>
+						<span class="squeezed" lang="en">Just like a love bomb <span class="paren">(</span>Just like a love bomb<span class="paren">)</span></span><br>
+						<span lang="en">We are one<br></span><br>
+						<span lang="en">Girls, We are forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">It's now or never</span><br>
+						<span lang="en"><span class="paren">(</span>We keep on, We're still FOREVER 1<span class="paren">)</span><br></span><br>
+						<span lang="en">Yeah we're forever</span><br>
+						<span lang="en"><span class="paren">(</span>Yeah we are, We're still FOREVER 1<span class="paren">)</span></span>
+					</td>
+					<td>
+						<span lang="ko" class="squeezed">긴 세월 흘러서 가고,</span><br>
+						<span lang="ko">그 시절 생각이 나면</span><br>
+						<span lang="ko" class="squeezed"><mark title="Intrusive N warning: 몬닞">못잊</mark>어 그리워지면, 내 마음 서글퍼지네</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span><br>
+						<span lang="ko">시간이 흘러서 가면,</span><br>
+						<span lang="ko">아픔은 잊혀진다고</span><br>
+						<span lang="ko">남들은 말을 하지만</span><br>
+						<span lang="ko">그 말을 믿을 수 없어</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span><br>
+						<span lang="ko">내게도 사랑이 사랑이 있었다면</span><br>
+						<span lang="ko">그것은 오로지 당신 뿐이라오</span>
+					</td>
+					<td rowspan="5">
+						<span>이건 우리의 Fantasy 내게 와줘 Follow me</span><br>
+						<span>가슴 속에 떨리는 <span class="paren">(</span>Hush<span class="paren">)</span> 숨막히게</span><br>
+						<span>Hey baby 아무도 모르게 <mark class="ejs">스쳤던</mark> 네 눈빛들이</span><br>
+						<span lang="ko">날 설레게 하는 것 같아</span><br>
+						<span class="squeezed"><span class="paren">(</span>Cupid love<span class="paren">)</span> 한 순간에 탁 힘이 풀려 흘려진 숨소리</span><br>
+						<span lang="ko">끝없이 퍼져가는걸</span><br>
+						<span lang="ko">꿈에 들린 달콤한 목소리 <span class="paren">(</span>뒤 돌아봐<span class="paren">)</span></span><br>
+						<span>시작됐어 Eclipse</span><br>
+						<span lang="ko">가려진 그림자 속 너와 내가 마주한 곳</span><br>
+						<span lang="ko">운명 속에서 일어난</span><br>
+						<span>서로가 이끌린 맘들이 밝히는 Love</span><br>
+						<span lang="ko">좀 더 가까이 다가와</span><br>
+						<span lang="en">This is Eclipse</span><br>
+						<span lang="ko">눈을 떼기 힘드니 계속 함께 <mark class="ffo">해줄래</mark></span><br>
+						<span>잊지 못할 Eclipse It's destiny</span><br>
+						<span lang="ko">나와 다른 색깔이 다양해서 신기해</span><br>
+						<span>마음 속에 숨겨진 <span class="paren">(</span>Color<span class="paren">)</span> <mark class="ffo">보여줄래</mark></span><br>
+						<span>Hey baby 아무도 모르게 혼자 불빛 아래 <mark class="ffo">볼래</mark></span><br>
+						<span lang="ko">나 궁금해 미칠 것 같아</span><br>
+						<span><span class="paren">(</span>Cupid love<span class="paren">)</span> 빛에 번진 네 맘이</span><br>
+						<span lang="ko">한 눈에 들어와 판도라 상자 같은 걸</span><br>
+						<span lang="ko">거울 속에 그림 같은 실루엣 널 불러봐</span><br>
+						<span><span class="paren">(</span>내 곁에 Yeah<span class="paren">)</span></span><br>
+						<span>시작됐어 Eclipse</span><br>
+						<span lang="ko">가려진 그림자 속 너와 내가 마주한 곳</span><br>
+						<span lang="ko">운명 속에서 일어난</span><br>
+						<span>서로가 이끌린 맘들이 밝히는 Love</span><br>
+						<span lang="ko">좀 더 가까이 다가와</span><br>
+						<span lang="en">This is Eclipse</span><br>
+						<span lang="ko">눈을 떼기 힘드니 계속 함께 <mark class="ffo">해줄래</mark></span><br>
+						<span>잊지 못 할 Eclipse It's destiny</span><br>
+						<span lang="ko">조용한 새벽 <span class="paren">(</span>날 감싸 안아줘<span class="paren">)</span></span><br>
+						<span lang="ko">핀 안개처럼 <span class="paren">(</span>소리 없이 핀듯해<span class="paren">)</span></span><br>
+						<span lang="ko">네 맘 속 안에 날 <mark class="ffo">피워낼래</mark></span><br>
+						<span lang="ko"><span class="paren">(</span>시간이 흘러도<span class="paren">)</span> 사라지지 않게 영원히</span><br>
+						<span>계속되는 Eclipse</span><br>
+						<span lang="ko">가려진 그림자 속 너와 내가 마주한 곳</span><br>
+						<span lang="ko">운명 속에서 일어난</span><br>
+						<span>서로가 이끌린 맘들이 밝히는 Love</span><br>
+						<span lang="ko">좀 더 가까이 다가와</span><br>
+						<span lang="en">This is Eclipse</span><br>
+						<span lang="ko">눈을 떼기 힘드니 계속 함께 <mark class="ffo">해줄래</mark></span><br>
+						<span lang="en">This is Eclipse It's destiny</span><br>
+						<span lang="ko">눈을 떼기 힘드니 계속 함께 <mark class="ffo">해줄래</mark></span><br>
+						<span>잊지 못할 Eclipse</span>
+					</td>
+					<td rowspan="5">
+						<span lang="ko">널 만난 순간 시작된 <mark class="frrk">걸까</mark></span><br>
+						<span lang="ko">어둠을 도망쳐 나온 곳에 니가 있어</span><br>
+						<span lang="ko">한 걸음씩 서로 맞춰간 걸음 속에</span><br>
+						<span lang="ko">난 너를 읽어 내려가</span><br>
+						<span>하늘 조명들처럼 조금씩 켜지는 starlight</span><br>
+						<span lang="ko">암호가 풀린 이 밤이 열려</span><br>
+						<span>Take me high 널 따라 걸어간 이 순간</span><br>
+						<span lang="ko">나도 모르게 움직인 맘</span><br>
+						<span lang="ko">너를 닮아간 움직임</span><br>
+						<span lang="ko">우리 둘만 아는 비밀</span><br>
+						<span lang="ko">이 밤 속에 담겨</span><br>
+						<span lang="ko">너의 한 걸음 나의 한 걸음 <span class="paren">(</span>조금씩 맞춰가<span class="paren">)</span></span><br>
+						<span lang="en">Can I make a move</span><br>
+						<span lang="ko">너도 따라와 <span class="paren">(</span>아직 조심스레<span class="paren">)</span></span><br>
+						<span>피어난 구름 달을 가리면 <span class="paren">(</span>uh<span class="paren">)</span></span><br>
+						<span>우리 둘만의 slow dancing all night</span><br>
+						<span lang="en">What's your favorite color?</span><br>
+						<span lang="ko">네가 원하는 걸로</span><br>
+						<span lang="ko">조금씩 내가 물들어가</span><br>
+						<span lang="ko">그게 좋아 니가 웃는 게 제일로</span><br>
+						<span lang="ko">문이 열리면 꽃잎이 춤을 추다</span><br>
+						<span lang="ko">걷는 걸음마다 흩날리고</span><br>
+						<span lang="ko">너와 걷는 길은 미소가 흘러나와-</span><br>
+						<span lang="ko">비가 와도 좋은걸</span><br>
+						<span>아무 소리 없이도 <mark class="ejs">빠져들어갔던</mark> your eyes</span><br>
+						<span lang="ko">암호가 풀린 내 맘이 열려</span><br>
+						<span>Take me high 널 따라 걸어간 이 순간</span><br>
+						<span lang="ko">나도 모르게 움직인 맘</span><br>
+						<span lang="ko">너를 닮아간 움직임</span><br>
+						<span lang="ko">우리 둘만 아는 비밀</span><br>
+						<span lang="ko">이 밤 속에 담겨</span><br>
+						<span lang="ko">너의 한 걸음 나의 한 걸음 <span class="paren">(</span>서로 맞춰가<span class="paren">)</span></span><br>
+						<span lang="en">Can I make a move</span><br>
+						<span lang="ko">너도 따라와 <span class="paren">(</span>아직 조심스레<span class="paren">)</span></span><br>
+						<span>피어난 구름 달을 가리면 <span class="paren">(</span>uh<span class="paren">)</span></span><br>
+						<span>우리 둘만의 slow dancing all night</span><br>
+						<span lang="ko">어떤 단어로도 표현 할 수 없는</span><br>
+						<span lang="ko">우리 둘만의 대화 너무나 자연스러워</span><br>
+						<span lang="ko">끊이지 않는 신호처럼 퍼져나가</span><br>
+						<span>새까만 우주 속 <span class="paren">(</span>hey<span class="paren">)</span></span><br>
+						<span lang="ko">뿌려진 너와 나 <span class="paren">(</span>그래 너와 나<span class="paren">)</span></span><br>
+						<span lang="ko">망설이다 다가간 너에게서 찾은 나</span><br>
+						<span lang="ko">알 수 없는 내 맘 속 비밀을 풀어줄</span><br>
+						<span lang="ko">열쇠가 되어준 너</span><br>
+						<span>Take me high 널 따라 걸어간 이 순간</span><br>
+						<span lang="ko">나도 모르게 움직인 맘</span><br>
+						<span lang="ko">서로 닮아간 움직임</span><br>
+						<span lang="ko">우리 둘만 아는 비밀</span><br>
+						<span lang="ko">이 밤 속에 담겨</span><br>
+						<span lang="ko">너의 한 걸음 나의 한 걸음 <span class="paren">(</span>서로 맞춰가<span class="paren">)</span></span><br>
+						<span lang="en">Can I make a move</span><br>
+						<span lang="ko">너도 따라와 <span class="paren">(</span>말하지 않아도<span class="paren">)</span></span><br>
+						<span>익숙한 듯한 자연스러움 <span class="paren">(</span>woo-<span class="paren">)</span></span><br>
+						<span lang="ko">서로가 하나돼 만들어가</span><br>
+					</td>
+					<td rowspan="5">
+						<span lang="ko">어느 순간 내게 싸늘해진 니 표정</span><br>
+						<span lang="ko">미워할래도 내 맘은 너를 보내지 못했어</span><br>
+						<span lang="ko">시간이 모두 잊게 한단 말</span><br>
+						<span lang="ko">그 말 조차 내겐 아픔이 되어 널 잊지 못했어</span><br>
+						<span lang="ko">내 맘에 가득 피었던 꽃잎들이 모두 떨어져</span><br>
+						<span lang="ko">발끝에는 내 눈물이</span><br>
+						<span lang="ko">해가 저물고 집으로 돌아오던 어둠 끝에서</span><br>
+						<span lang="ko">달빛을 보게 된 거야</span><br>
+						<span lang="ko">이제는 너 아닌 나를</span><br>
+						<span lang="ko">좀 더 사랑할거야 살아 갈 거야</span><br>
+						<span lang="ko">한발 더 다가가 나를</span><br>
+						<span lang="ko">더 안아 줄 거야 전부 줄 거야</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+						<span>Hey 너를 삼켜 버린 죄로</span><br>
+						<span lang="ko">아름다운 넌 점점 커져가</span><br>
+						<span lang="ko">너는 바로 나 이제 나는 너</span><br>
+						<span lang="ko">내 혈관까지 조금씩 더 스며든</span><br>
+						<span>On &amp; on 끝 없는 사이클 너와 나</span><br>
+						<span lang="ko">우린 떨어질 수 없어 보고싶을 땐</span><br>
+						<span lang="ko">눈을 감아 난 잠깐 너에게로 다가가</span><br>
+						<span lang="ko">눈을 감고 나에게 더 너 점점 다가와</span><br>
+						<span lang="ko">두 손을 모아 한 번만 너를 다시 돌려 달라고</span><br>
+						<span lang="ko">기도하던 내 꿈들이</span><br>
+						<span lang="ko">세 번의 키스 우리의 약속들이 빛이 되던 날</span><br>
+						<span lang="ko">비로소 알게 된 거야</span><br>
+						<span lang="ko">이제는 너 아닌 나를</span><br>
+						<span lang="ko">좀 더 사랑할거야 살아 갈 거야</span><br>
+						<span lang="ko">한발 더 다가가 나를</span><br>
+						<span lang="ko">더 안아 줄 거야 전부 줄 거야</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+						<span lang="ko">수 많은 별들 우주 속에서 나를 만난 건 아마</span><br>
+						<span lang="ko">우연이 아냐 운명일 거야 축복일 거야 내게</span><br>
+						<span lang="ko">이제는 너 아닌 나를</span><br>
+						<span lang="ko">좀 더 사랑할거야 살아 갈 거야</span><br>
+						<span lang="ko">한발 더 다가가 나를</span><br>
+						<span lang="ko">더 안아 줄 거야 전부 줄 거야</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+						<span lang="en">Love myself today</span><br>
+						<span lang="en">Let you go today</span><br>
+					</td>
+					<td rowspan="5">
+						<span>속삭여 줄래 넌 날 깨우는 Dejavu</span><br>
+						<span lang="en">Now, is it you now?</span><br>
+						<span lang="ko">피어날 듯해 날개 달린 신기루</span><br>
+						<span lang="en">How? Is it true now?<br></span><br>
+						<span>날 감싸 안아주는 Wind</span><br>
+						<span lang="ko">새로 깨어나는 느낌</span><br>
+						<span>나를 채워가는 눈빛 (You)</span><br>
+						<span lang="ko">어쩌면 꿈인 것 같아</span><br>
+						<span>이 순간 Dreams, Dreams may come true<br></span><br>
+						<span>넌 마치 Fly like a Butterfly</span><br>
+						<span>날 멀리 데려갈 Wings Wings</span><br>
+						<span>이대로 Fly like a Butterfly</span><br>
+						<span>귓가엔 바람 소리 Wing Wing Wing<br></span><br>
+						<span lang="en">Fly like a Butterfly</span><br>
+						<span lang="en">Fly like a Butterfly</span><br>
+						<span lang="ko">난 닿을 듯해</span><br>
+						<span lang="en">I better be around you</span><br>
+						<span lang="en">Fly like a Butterfly</span><br>
+						<span lang="en">Fly like a Butterfly</span><br>
+						<span lang="en">I better be around you<br></span><br>
+						<span>아찔해져 가 내 주위 모든 것이 Blue</span><br>
+						<span lang="en">Now, with you you now</span><br>
+						<span lang="ko">접힌 종이 달 그 사이를 맴돌 듯</span><br>
+						<span lang="en">I better be around you<br></span><br>
+						<span>시작은 작은 날개짓 이제 내 맘의 Hurricane</span><br>
+						<span lang="en">Been been there never been been there</span><br>
+						<span lang="ko">세계가 점점 작아져 가</span><br>
+						<span>데려가줘 Way too far 새로워져</span><br>
+						<span>이 순간 Dreams, Dreams may come true<br></span><br>
+						<span>넌 마치 Fly like a Butterfly</span><br>
+						<span>날 멀리 데려갈 Wings Wings</span><br>
+						<span>이대로 Fly like a Butterfly</span><br>
+						<span>귓가엔 바람 소리 Wing Wing Wing</span><br>
+						<span lang="ko">이대로</span><br>
+						<span lang="ko">난 닿을 듯해</span><br>
+						<span lang="en">I better be around you<br></span><br>
+						<span>Fly like a Butterfly 저 끝까지</span><br>
+						<span>Fly like a Butterfly 더 멀리까지</span><br>
+						<span>Fly like a Butterfly 저 끝까지</span><br>
+						<span lang="en">Fly like a Butterfly</span><br>
+						<span lang="en">I better be around you<br></span><br>
+						<span lang="ko">구름 위의 싱크로나이즈</span><br>
+						<span lang="ko">새로운 이 느낌</span><br>
+						<span lang="en">Bling, bling, shine like a starlight</span><br>
+						<span>숨이 멎을 듯한 Time</span><br>
+						<span lang="ko">점점 완벽해져 가</span><br>
+						<span lang="en">Let me fly right now<br></span><br>
+						<span>넌 마치 Fly like a Butterfly</span><br>
+						<span>더 높이 날아가줘 Wings Wings</span><br>
+						<span>이대로 Fly like a Butterfly</span><br>
+						<span>스치는 바람 소리 Wing Wing Wing</span><br>
+						<span lang="en">I better be around you<br></span><br>
+						<span>Fly like a Butterfly 저 끝까지</span><br>
+						<span>날 멀리 데려갈 Wings Wings</span><br>
+						<span lang="ko">더 멀리까지</span><br>
+						<span>이대로 Fly like a Butterfly</span><br>
+						<span lang="ko">귓가엔 바람 소리</span><br>
+						<span lang="ko">난 닿을 듯해</span><br>
+						<span lang="en">I better be around you</span><br>
+					</td>
+					<td class="ssibal" rowspan="5">
+						<span lang="ko">영원한 밤</span><br>
+						<span>창문 없는 방에 우릴 가둔 love</span><br>
+						<span lang="en">What can we say</span><br>
+						<span>매번 아파도 외치는 love<br></span><br>
+						<span lang="ko">다치고 망가져도 나</span><br>
+						<span lang="ko">뭘 믿고 버티는 거야</span><br>
+						<span lang="ko" class="squeezed">어차피 떠나면 상처투성인 채로 미워하게 <mark class="trailing-rieul-form">될걸</mark></span><br>
+						<span lang="ko">끝장을 보기 전 끝낼 순 없어</span><br>
+						<span lang="ko">이 아픔을 기다린 것처럼<br></span><br>
+						<span lang="ko">아마 다 잠깐 일지도 몰라</span><br>
+						<span lang="ko">우린 무얼 찾아서 헤매는 <mark class="frrk">걸까</mark><br></span><br>
+						<span lang="en">But I don’t care I’ll do it over and over</span><br>
+						<span lang="ko">내 세상 속엔 너만 있으면 돼<br></span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">네 멋대로 내 사랑을 끝낼순 없어</span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">이 아픔 없인 난 아무 의미가 없어<br></span><br>
+						<section class="foobar2">
+							<span lang="en">But we were born to be alone</span><br>
+							<span lang="en">Yeah we were born to be alone</span><br>
+							<span lang="en">Yeah we were born to be alone</span><br>
+							<span lang="en">But why we still looking for love<br></span><br>
+						</section>
+						<section class="foobar2">
+							<span lang="en">No love letters, no x and o’s</span><br>
+							<span lang="en">No love never, my exes know</span><br>
+							<span lang="en">No diamond rings, that set in stone</span><br>
+							<span lang="en">To the left, better left alone<br></span><br>
+							<span lang="en">Didn’t wanna be a princess, I’m priceless</span><br>
+							<span lang="en">A prince not even on my list</span><br>
+							<span lang="en">Love is a drug that I quit</span><br>
+							<span lang="en">No doctor could help when I’m lovesick<br></span><br>
+						</section>
+						<span lang="ko">아마 다 잠깐 일지도 몰라</span><br>
+						<span lang="ko">우린 무얼 찾아서 헤매는 <mark class="frrk">걸까</mark><br></span><br>
+						<span lang="ko">불안한 내 눈빛 속에 널 담아</span><br>
+						<span lang="ko">아프더라도 너만 있으면 돼<br></span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">네 멋대로 내 사랑을 끝낼 순 없어</span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">이 아픔 없인 난 아무 의미가 없어<br></span><br>
+						<section class="foobar2">
+							<span lang="en">But we were born to be alone</span><br>
+							<span lang="en">Yeah we were born to be alone</span><br>
+							<span lang="en">Yeah we were born to be alone</span><br>
+							<span lang="en">But why we still looking for love<br></span><br>
+						</section>
+						<span>사랑은 slippin’ and fallin’</span><br>
+						<span>사랑은 killin’ your darlin’</span><br>
+						<span lang="ko" class="squeezed">아프다 아물면 또 찾아오는 이 겁 없는 떨림<br></span><br>
+						<span>들리지 않아 what you say</span><br>
+						<span lang="ko">이 아픔이 난 행복해</span><br>
+						<span lang="ko">나를 불쌍해 하는 네가 내 눈엔 더 불쌍해<br></span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">네 멋대로 내 사랑을 끝낼 순 없어</span><br>
+						<span lang="en">We are the lovesick girls</span><br>
+						<span lang="ko">이 아픔없인 난 아무 의미가 없어<br></span><br>
+						<span lang="en">Lovesick girls</span><br>
+						<span lang="ko">모두 결국 떠나가고</span><br>
+						<span lang="en">Lovesick girls</span><br>
+						<span lang="ko">내 눈물이 무뎌져도</span><br>
+						<span lang="en">Lovesick girls</span><br>
+						<span lang="ko">아프고 또 아파도</span><br>
+						<span lang="en">Lovesick girls</span><br>
+						<span lang="en">But we’re still looking for love</span><br>
+					</td>
+				</tr>
+				<tr>	
+					<th><h2>나 어떡해</h2></th>
+				</tr>
+				<tr>
+					<td>
+						<span lang="ko">나 어떡해 너 갑자기 가버리면</span><br>
+						<span lang="ko">나 어떡해 너를 잃고 <mark class="frrk">살아갈까</mark></span><br>
+						<span lang="ko">나 어떡해 나를 두고 떠나가면</span><br>
+						<span lang="ko">그건 안돼 정말 안돼 가지 말아</span><br>
+						<span lang="ko">누구 <mark class="ffo">몰래</mark> <mark class="ejs">다짐했던</mark> 비밀 있었나</span><br>
+						<span lang="ko" class="squeezed"><mark class="ejs">다정했던</mark> 네가,</span><br>
+						<span><mark class="ejs">상냥했던</mark> 네가, 그럴 수 있나</span><br>
+						<span lang="ko">못 믿겠어 떠난다는 그 말을</span><br>
+						<span lang="ko">안 듣겠어 안녕이란 그 말을</span><br>
+						<span lang="ko">나 어떡해 나 어떡해</span><br>
+						<span lang="ko">나 어떡해 나 어떡해</span>
+					</td>
+				</tr>
+				</tr>
+					<th><h2>사랑아</h2></th>
+				<tr>
+					<td class="ssibal">
+						<span lang="ko">안 돼요 안 돼 날 두고 떠나면 안 돼</span><br>
+						<span lang="ko">그렇겐 못 해 난 절대 보낼 순 없어<br></span><br>
+						<span lang="ko">갈 테면 가봐 모든 걸 잊고 떠나봐</span><br>
+						<span lang="ko">그땐 뒤돌아서 후회를 할 거야<br></span><br>
+						<span lang="ko">희미한 기억 속에 너의 이름 불러도</span><br>
+						<span lang="ko">다신 볼 수 <mark class="ejs">없던</mark> 사랑한 사람<br></span><br>
+						<span lang="ko">사랑아 나를 두고 떠나가지 마</span><br>
+						<span lang="ko" class="squeezed">나만 두고 가려거든 다신 나를 찾지 마<br></span><br>
+						<span lang="ko">언젠가 그대 나를 찾는다 해도</span><br>
+						<span lang="ko">그땐 내가 먼저 뒤돌아서</span><br>
+						<span>그대 볼 수 없으니<br></span><br>
+						<span lang="ko">안 돼요 안 돼 날 두고 떠나면 안 돼</span><br>
+						<span lang="ko">그렇겐 못 해 난 절대 보낼 순 없어<br></span><br>
+						<span lang="ko">갈 테면 가봐 모든 걸 잊고 떠나봐</span><br>
+						<span lang="ko">그땐 뒤돌아서 후회를 할 거야<br></span><br>
+						<span lang="ko">희미한 기억 속에 너의 이름 불러도</span><br>
+						<span lang="ko">다신 볼 수 <mark class="ejs">없던</mark> 사랑한 사람<br></span><br>
+						<span lang="ko">사랑아 나를 두고 떠나가지 마</span><br>
+						<span lang="ko" class="squeezed">나만 두고 가려거든 다신 나를 찾지 마<br></span><br>
+						<span lang="ko">언젠가 그대 나를 찾는다 해도</span><br>
+						<span lang="ko">그땐 내가 먼저 뒤돌아서</span><br>
+						<span>그대 볼 수 없으니</span>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+
 		<p lang="en">The lyrics displayed are under copyright by various rights-holders.</p>
 		<ol lang="en">
+			<li>"<span lang="ko">나 어떡해</span>" © 1977 by Kim Chang-hoon;</li>
+			<li>"<span lang="ko">내게도 사랑이</span>" © 1977 by Ham Jung-a;</li>
 			<li>"<span lang="ko">나의 이십대</span>" © 1996 by <span lang="ko">대영AV</span>;</li>
-			<li>"Fairy Tale" © 2017 by <span title="who uniquely can eat a dick">Blockberry Creative</span>;</li>
+			<li>"<span lang="ko">사랑아</span>" © 2005 by Inwoo Production;</li>
+			<li>"<span lang="en">Fairy Tale</span>" © 2017 by <span title="who uniquely can eat a dick">Blockberry Creative</span>;</li>
+			<li>"<span lang="en">Eclipse</span>" © 2017 by Blockberry Creative;</li>
+			<li>"<span lang="en">Starlight</span>" © 2017 by Blockberry Creative;</li>
+			<li>"<span lang="en">Egoist</span>" © 2018 by Blockberry Creative;</li>
 			<li>"<span lang="ko">열기</span>" © 2018 by Blockberry Creative;</li>
+			<li>"<span lang="en">Butterfly</span>" © 2019 by Blockberry Creative;</li>
 			<li>"<span lang="ko">평행선</span>" © 2019 by YGK Entertainment;</li>
-			<li>"Number 1" © 2020 by Blockberry Creative;</li>
-			<li>"Day &amp; Night" © 2020 by Blockberry Creative;</li>
-			<li>"So Bad" © 2020 by High Up Entertainment;</li>
-			<li>"Dahlia" © 2021 by Cube Entertainment;</li>
-			<li>"Another Dream" © 2021 by WakeOne Entertainment;</li>
-			<li>"Forever 1" © 2022 by SM Entertainment;</li>
+			<li>"<span lang="en">Number 1</span>" © 2020 by Blockberry Creative;</li>
+			<li>"<span lang="en">Day &amp; Night</span>" © 2020 by Blockberry Creative;</li>
+			<li>"<span lang="en">Lovesick Girls</span>" © 2020 by YG Entertainment;</li>
+			<li>"<span lang="en">So Bad</span>" © 2020 by High Up Entertainment;</li>
+			<li>"<span lang="en">Dahlia</span>" © 2021 by Cube Entertainment;</li>
+			<li>"<span lang="en">Another Dream</span>" © 2021 by WakeOne Entertainment;</li>
+			<li>"<span lang="en">Forever 1</span>" © 2022 by SM Entertainment;</li>
 			<li>"<span lang="ko">온기</span>" © 2024 by Mulgogi Music; and</li>
-			<li>"Highway 1009" © 2024 by Belift Lab</li>
+			<li>"<span lang="en">Highway 1009</span>" © 2024 by Belift Lab</li>
 		</ol>
 		<p lang="en">They have been reformatted (some lines merged) due to table size constraints. They are only here for personal educational reference, so I would appreciate not being sued. This page is best viewed browser-zoomed way out and then pinch-zoomed back in.</p>
 	</body>
