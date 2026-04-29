@@ -166,11 +166,12 @@ function shuffleArray(array, seed) {
 				dest0.appendChild(document.createTextNode(` s. ${dayRole}`))
 				for(let i = 0; i < units.length; i++) {
 					let hidden = false;
-					if(dayRole == 0) {
+					if(dayRole == 1) {
+						hidden = false
 						//none hidden
-					} else if(dayRole < cohortBlockSize - 1) {
+					} else if(dayRole <= cohortBlockSize - 1) {
 						//right side hidden
-						hidden = i >= cohortPieceSize
+						hidden = (i >= cohortPieceSize)
 					} else {
 						//both sides hidden
 						hidden = true
