@@ -110,20 +110,23 @@ function tryJoin(SoA,joiner){
 	if((Object.prototype.toString.call(SoA).split(" ")[1]??"")=="Object]"){return JSON.stringify(SoA)}
 	return SoA.toString()
 }
-LSU=1661127423e3
-function secondsSinceLoona(formatString=false){return Math.floor((new Date().getTime()-LSU)/1000)}
-function updateLoonaTime(){
+const LSU=1661127423e3;const BE=new Date('2023-06-19T03:04:50.000Z');
+function secondsSinceLoona(formatString=false){return Math.floor((new Date().getTime()-LSU)/1000)}function ssbe(){return Math.floor((new Date().getTime()-BE)/1000)}
+function updateTimes(){
 	var textSeconds=gebi("ltsS")
 	var textDays=gebi("ltsD")
 	var textWeeks=gebi("ltsW")
 	var textYears=gebi("ltsY")
+	var textYearsBE=gebi("betsY")
 	var valueS=secondsSinceLoona()
 	var valueD=valueS/86400
 	var valueW=valueD/7
 	var valueY=valueS/31556952
+	var betsY=ssbe()/31556952;
 	valueD=Math.round(valueD*1000)/1000
 	valueW=Math.round(valueW*1000)/1000
 	valueY=Math.round(valueY*10000)/10000
+	textBE=Math.round(betsY*1000)/1000; let roundDiff=Math.round(textBE)-textBE;let almost=roundDiff>0&roundDiff<=0.201;
 	if(textSeconds){
 		textSeconds.st(valueS.toLocaleString())
 	}
@@ -135,6 +138,9 @@ function updateLoonaTime(){
 	}
 	if(textYears){
 		textYears.st(valueY.toLocaleString())
+	}
+	if(textYears){
+		textYearsBE.st((almost?'almost ':'')+Math.round(textBE).toString()+' years ago')
 	}
 }
 var PHC="#E6E6E6"
@@ -198,13 +204,13 @@ ID={//idolBdData
 "10-1":[{e:"Haeyoon",c:"#f6917d",g:G.cb,y:16},{e:"Yeoreum",c:"#1f5cf4",g:G.wj,y:19},{e:"Solji",c:"#ec08b1",g:G.ex,y:9}],
 "11-1":[{e:"Lee Chaeyeon",c:"#a6dcde",g:G.io,y:20},{e:"Dobashi Kaede",c:"#61bbb5",g:G.fv,y:16}],
 "12-1":{e:"Hyebin",c:"#eb6af2",g:G.mo,y:16},
-"13-1":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#f9c",g:G.bl,y:21}],
+"13-1":[{e:"Mia",c:"#670506",g:G.eg,y:20},{e:G.dc,c:["#8a2a2b","#f2c763","#101820"],i:true,y:37},{e:"Haram",c:"#f9c",g:G.bl,y:21},{e:"Kim Geon-mo",y:-12}],
 "14-1":{e:"Aurora",c:S.Pp,g:G.na,y:17},
 "15-1":[{e:"Su-hyeon",c:"#3fc460",g:G.bl,y:20},{e:"Noh Yunah",c:"#ffcf70",g:G.il,y:24},{e:"Shimizu Rio",c:[H.PG,H.O],g:G.hz,y:25}],
 "16-1":[{e:"Jennie",c:"#cc6ca9",g:G.bp,y:16},{e:"Joobin",c:"#b7f54c",g:G.ts,y:29},{e:G.gf,c:["#ececec","#00b3ca","#5f4a8b"],i:true,y:35},{e:"Seungkwan",c:[S.Pk,"#007"],g:G.sv,y:18}],
 "17-1":{e:G.wv,c:C.NC,y:39},
 "18-1":[{e:"Minzy",c:"#c36ce6",g:G.tn,y:14},{e:"Tomita Suzuka",c:H.P,g:G.hz,y:21}],
-"20-1":[{e:"Kim Chaewon",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
+"20-1":[{e:"Kim Chaewon (from Gwangju)",c:"#e778ed",g:G.sd,y:20},{e:"Kim Sohee",c:S.Pk,g:G.na, y:15}],
 "21-1":{e:G.cb,c:"#ee2b2b",i:true,y:39},
 "22-1":[{e:"Lee Seoyeon",c:"#005385",g:G.fr,y:20},{e:"JinE",c:"#06c1c1",g:G.og,y:15},{e:"Arang",c:S.R,g:G.pf,y:21},{e:"Daisy",c:"#d1442e",g:G.mo,y:19},{e:"Jeong Saebi",c:"#b2c38a",g:G.iz,y:28},{e:"Sasaki Kumi",c:[H.PB,H.P],g:G.hz,y:16}],
 "23-1":{e:"Isa",c:S.Bk,g:G.st,y:22},
@@ -235,7 +241,7 @@ ID={//idolBdData
 "21-2":[{e:"Leeseo",c:"#fff001",g:G.iv,y:27},{e:"Wendy",c:"#005fff",g:G.rv,y:14},{e:"Solar",c:"#29378e",g:G.mm,y:11},{e:"Sona",c:missingTexture,txO:S.M,boO:S.M,g:G.fl,y:25},{e:"Haru",c:"#87ceeb",g:G.na,y:20},{e:G.nw,c:C.NC,y:44,i:true}],
 //floria's so underdeveloped, how were 2 members never in a song, f**k dk entertainment, cu in hell
 "22-2":[{e:G.nm,i:true,y:42},{e:"Lola",c:"#9c9c9c",g:G.px,y:21}],//Lola=Choi Yoojung
-"23-2":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24},{e:"Amy Park",g:G.td,y:15}],
+"23-2":[{e:"Morimoto Marie",c:[H.O,H.B],g:G.hz,y:24},{e:"Yamaguchi Haruyo",c:[H.PG,H.Y],g:G.hz,y:24},{e:"Amy Park",g:G.td,y:15},{e:"Kim Da-hyun (from North Chungcheong)",y:29}],
 "24-2":[{e:"Choi Sua",c:S.Y,g:G.px,y:23},{e:G.px,i:true,y:41},{e:"Watanabe Miho",g:G.hz,y:20}],
 "25-2":[{e:"Haewon",c:S.W,g:G.nm,y:23},{e:G.wj,c:["#ffa18a","#003580","#d9d6d1"],i:true,y:36}],
 "26-2":{e:"CL",c:"#e2d989",g:G.tn,y:11},
@@ -276,7 +282,7 @@ ID={//idolBdData
 "14-4":{e:"Yoon",c:"#32cd32",g:G.st,y:24},
 "15-4":{e:"Namjoo",c:"#cb6cb0",g:G.ak,y:15},
 "16-4":[{e:"Jinni",c:"#c9f",g:G.nm,y:24},{e:"Seokyoung",c:"#c73aff",g:G.gw,y:19}],
-"17-4":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22},{e:G.ng,c:C.NC,y:43}],
+"17-4":[{e:"Jiheon",c:"#f9ea4d",g:G.fr,y:23},{e:"Wheein",c:"#fbfbfb",g:G.mm,y:15},{e:"Ryujin",c:"#af00ff",g:G.it,y:21},{e:"Lena",c:"#ff9cda",g:G.gw,y:22},{e:G.ng,c:C.NC,y:43},{e:"Yoon Jin-hee",y:-9,n:true}], //that birthday was such a pain in the d*** to find https://www.youtube.com/post/UgkxqaU5QqU7BWOq1wTzlx-ShDtiCTTtgVn6 and i forgot where i found the year from
 "18-4":[{e:"Jessica",c:"#d10056",g:G.gg,y:9},{e:"Elisia",c:"#c26400",g:G.un,y:29},{e:"Ryu Sarang",c:"#f7e58a",g:G.iz,y:27}],
 "19-4":{e:G.ak,c:"#e889b1",i:true,y:31},
 "20-4":{e:"Ji Suyeon",c:"#987654",g:G.wm,y:17},
@@ -287,8 +293,9 @@ ID={//idolBdData
 "27-4":[{e:"Fei",c:"#9957a7",g:G.ma,y:7},{e:"Matsuda Konoka",c:[H.SP,H.PG],g:G.hz,y:19}],
 "28-4":[{e:"Duna",c:"#e56fb6",g:G.cs,y:25},{e:"Miyata Manamo",c:[H.R,H.SP],g:G.hz,y:18}],
 "29-4":{e:"Jeong Dahyun",c:"#ff32ff",g:G.rp,y:25},
+"30-4":{e:"Jo Eun-sae",c:"#ff32ff",g:G.rp,y:0},
 "1-5":[{e:"Mimi",c:"#9e45e8",g:G.og,y:15},{e:"Hani (Ahn Heeyeon)",c:"#ff7d40",g:G.ex,y:12}],
-"2-5":[{e:G.id,c:["#580e8b","#e80037"],i:true,y:38},{e:"Kim Chaewon",c:"#c7a3e0",g:G.ts,y:27},{e:G.ls,c:"#7ba6de",i:true,y:42},{e:"Sunmi",c:"#e81655",g:G.wg,y:12}],
+"2-5":[{e:G.id,c:["#580e8b","#e80037"],i:true,y:38},{e:"Kim Chaewon (from Incheon)",c:"#c7a3e0",g:G.ts,y:27},{e:G.ls,c:"#7ba6de",i:true,y:42},{e:"Sunmi",c:"#e81655",g:G.wg,y:12}],
 "3-5":{e:"Serina",g:G.mi,y:26},
 "5-5":[{e:"Lee Naeun",c:"#ba4c81",g:G.ap,y:19},{e:"Rinji",c:"#008b8b",g:G.px,y:26}],
 "6-5":{e:G.tn,c:"#ee047f",i:true,y:29},
@@ -306,11 +313,11 @@ ID={//idolBdData
 "19-5":{e:"E:U",c:"#6b56a3",g:G.eg,y:18},
 "20-5":{e:"Yamashita Haruka",c:[S.W,H.EG],g:G.hz,y:23},
 "22-5":{e:"Yang Yena",c:"#ffb24f",g:G.ap,y:20},
-"24-5":[{e:"Yves",c:"#800040",g:G.ln,y:17},{e:"Yoon Jin-hee",y:-9,n:true}],
+"24-5":{e:"Yves",c:"#800040",g:G.ln,y:17},
 "25-5":[{e:"Xinyu",c:"#d51313",g:G.ts,y:22},{e:"Woni",c:"#bbb0f5",g:G.rs,y:24}],
 "26-5":[{e:"Eunchae (Kwon Chae Won)",c:"#2877ff",g:G.da,y:19},{e:"Yeji",c:"#3fafff",g:G.it,y:20},{e:"Kyujin",c:S.Pk,g:G.nm,y:26},{e:"Miya",c:"#663ac5",g:G.gw,y:13},{e:"Harin",c:S.Pk,g:G.pf,y:20},{e:"HA:TFELT (Yeeun/Yenny)",c:"#3aa9c5",g:G.wg,y:9}],
 "27-5":[{e:"Dawon",c:"#ff5400",g:G.wj,y:17},{e:"Eunseo",c:"#479bcc",g:G.wj,y:18},{e:"Maloi",c:"#fcc20e",g:G.bn,y:22}],
-"28-5":{e:"Kim Dahyun",c:S.W,g:G.tw,y:18},
+"28-5":{e:"Kim Da-hyun (from Seongnam)",c:S.W,g:G.tw,y:18},
 "30-5":[{e:"Im Yoona",c:"#006994",g:G.gg,y:10},{e:"Eunha",c:["#ff6090",S.Pp],g:[G.gf,G.vv],y:17}],
 "31-5":[{e:"Zoa",c:"#507595",g:G.we,y:25},{e:G.at,c:["#5db7f0","#c568ef"],i:true,y:44}],
 "1-6":[{e:G.al,c:"#e0cbf4",i:true,y:37},{e:"Nagyung",c:"#ff9166",g:G.fr,y:20}],
@@ -329,7 +336,7 @@ ID={//idolBdData
 "20-6":[{e:"Seline",c:"#f763d7",g:G.cg,y:20},{e:"Sunshine",c:"#ffd700",g:G.na,y:22}],
 "21-6":[{e:"Min",c:"#668a08",g:G.ma,y:11},{e:"Jaehee",g:[G.nc,G.nw],c:S.Gn,y:25}],
 "26-6":{e:"Wonhee",c:"#c6ffd9",g:G.il,y:27},
-"27-6":[{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},{e:"Moon Hee Ok",y:-11}],
+"27-6":[{e:"Ahn Sohee",c:"#9a36c8",g:G.wg,y:12},{e:"Moon Hee-ok",y:-11}],
 "28-6":[{e:"Seohyun",c:"#fbceb1",g:G.gg,y:11},{e:"Riku",g:[G.nc,G.nw],c:S.R,y:23}],
 "30-6":[{e:G.we,c:["#c4afd0","#ffd076","#97e0cf"],i:true,y:40},{e:"Hyunji",c:"#a991d6",g:G.ht,y:12}],
 "1-7":{e:"Taeyong",g:[G.nc,G.no],c:"#aa1944",y:15},
@@ -337,6 +344,7 @@ ID={//idolBdData
 "3-7":{e:G.ma,i:true,y:30},
 "5-7":[{e:"Hyewon",c:"#db706c",g:G.io,y:19},{e:"Linlin",c:"#bf1b2b",g:G.cb,y:23}],
 "7-7":[{e:"Chaekyung",c:"#ffb7c5",g:G.ap,y:16},{e:G.no,c:C.NC,y:36}],
+"11-7":{e:"Chu Ga-yeoul",c:"#ff3434",g:G.we,y:-12},
 "12-7":{e:"Jihan",c:"#ff3434",g:G.we,y:24},
 "13-7":[{e:"Yebin",c:"#d30000",g:G.da,y:17},{e:"Stacey",c:"#f25c73",g:G.bn,y:23}],
 "14-7":[{e:"Chaesol",c:"#64cfff",g:G.cg,y:18},{e:"Park Soobin",c:"#3be289",g:G.wj,y:16},{e:"Yoon Jiyoon",c:"#e4c09f",g:G.iz,y:25}],
@@ -351,7 +359,7 @@ ID={//idolBdData
 "27-7":[{e:"Huening Bahiyyih",c:"#ffb16d",g:G.kp,y:24},{e:G.cs,c:"#f26925",i:true,y:42}],
 "28-7":[{e:"Hyojung",c:"#fd35c7",g:G.og,y:14},{e:"Chaebin",c:S.Bk,g:G.na,y:19}],
 "31-7":[{e:"U_Chae (Jung Dajeong)",c:S.R,g:G.px,y:23},{e:"Nayun",c:"#ea1483",g:G.mo,y:18},{e:"Hirao Honoka",c:[H.PB,H.O],g:G.hz,y:23}],
-"1-8":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
+"1-8":[{e:"Sieun",c:S.W,g:G.st,y:21},{e:"Kim Chaewon (from Seoul)",c:["#cee5d5",S.S],g:[G.io,G.ls],y:20},{e:"Tiffany",c:"#a9203e",g:G.gg,y:9},{e:"Dohee",c:"#af1b3f",g:G.cg,y:22},{e:G.rv,c:"#ffd1c2",i:true,y:34},{e:"Jeong Hayeon",c:"#53d9be",g:G.ts,y:27},{e:"Yeonwoo",c:"#f49c3d",g:G.mo,y:16}],
 "2-8":{e:"Mark",g:[G.nc,G.no,G.nd],c:"#cc00ff",y:19},
 "3-8":[{e:"Yeonjung",c:"#6f30a0",g:G.wj,y:19},{e:G.na,i:true,y:38}],
 "4-8":[{e:"Choi Jungeun",c:"#bfcdea",g:G.iz,y:27},{e:"Ryo",g:[G.nc,G.nw],c:S.Y,y:27}],
@@ -359,7 +367,7 @@ ID={//idolBdData
 "6-8":[{e:"Yoon Seoyeon",c:"#22aeff",g:G.ts,y:23},{e:"Sumi",c:S.Y,g:G.fl,y:20},{e:"Ishizuka Tamaki",c:[H.SP,H.O],g:G.hz,y:24}],
 "7-8":[{e:G.rp,i:true,y:39},{e:"Fujishima Kaho",c:[H.SP,H.B],g:G.hz,y:26}],
 "8-8":[{e:"Xuan Yi",c:"#13e5f4",g:G.wj,y:15},{e:G.bp,c:[S.Bk,"#ec9bae"],i:true,y:36},{e:"Dajeong",c:"#36f",g:G.ht,y:15},{e:G.wm,c:["#e34132","#ffdc01"],i:true,y:37},{e:"Xiaojun",g:[G.nc,G.wv],c:"#1e9ad4",y:19}],
-"9-8":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23}],
+"9-8":[{e:"Lara",c:"#9156ff",g:G.dn,y:20},{e:"Kazuha",c:S.Bl,g:G.ls,y:23},{e:"Hong Jin-young",y:5}],
 "10-8":[{e:"SuA",c:S.R,g:G.dc,y:14},{e:"Yeeun",c:"#c20082",g:G.cl,y:18},{e:G.hz,c:"#8ec4e6",i:true,y:36}],
 "11-8":{e:G.fl,i:true,y:40},
 "12-8":[{e:"Choi Yujin",c:["#f97b90","#f77f0e"],g:[G.cl,G.kp],y:16},{e:"Kim Minseo",c:"#ffc32b",g:G.wa,y:24},{e:"Sunye",c:"#faa823",g:G.wg,y:9},{e:"Luna",c:S.Gn,g:G.fx,y:13}],
@@ -411,7 +419,7 @@ ID={//idolBdData
 "10-10":[{e:"Oh Seunghee",c:"#a16bfa",g:G.cl,y:15},{e:"Suzy",c:"#bb8848",g:G.ma,y:14},{e:"Yangyang",g:[G.nc,G.wv],c:"#ff0000",y:20}],
 "11-10":{e:"Liv",c:"#bdfff0",g:G.rs,y:26},
 "13-10":[{e:G.ht,c:S.R,i:true,y:37},{e:"HanByeol",c:"#ffee56",g:G.dn,y:23},{e:"Nakyoung",c:"#6599a4",g:G.ts,y:22},{e:"Sohyun",c:"#1423b4",g:G.ts,y:22}],
-"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#f90",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19}],
+"15-10":[{e:"Yeonje",c:"#ffe303",g:G.al,y:19},{e:"Mei Qi",c:"#f90",g:G.wj,y:18},{e:"Sunha",c:"#00a0c4",g:G.sd,y:19},{e:"Yoon Jong-shin",y:-11}],
 "17-10":[{e:"Lily",c:"#9cf",g:G.nm,y:22},{e:"Anne",c:"#e01458",g:G.gw,y:20}],
 "19-10":{e:"HeeJin",c:"#ff008f",g:[G.ln,G.at],y:20},
 "20-10":[{e:"Chuu",c:"#ffbf7f",g:G.ln,y:19},{e:G.tw,c:["#f8c596","#fc5d9d"],i:true,y:35}],
@@ -430,7 +438,7 @@ ID={//idolBdData
 "5-11":{e:"Lee Yukyung",c:"#37fdfc",g:G.al,y:19},
 "6-11":[{e:"Seungyeon",c:"#c7031e",g:G.cl,y:16},{e:"Exy",c:"#3b9b28",g:G.wj,y:15},{e:"Juyeon",c:"#fdfd96",g:G.sd,y:21}],
 "7-11":{e:G.dn,c:["#00b0a4","#ffcd05"],i:true,y:38},
-"8-11":[{e:"Kim Chaewon",c:"#ffff7a",g:G.ap,y:17},{e:"Ga-eun",g:G.mi,y:25},{e:"Mikha",c:"#dd3628",g:G.bn,y:23}],
+"8-11":[{e:"Kim Chaewon (from Gongju)",c:"#ffff7a",g:G.ap,y:17},{e:"Ga-eun",g:G.mi,y:25},{e:"Mikha",c:"#dd3628",g:G.bn,y:23}],
 "9-11":{e:"Momo",c:"#f8cfd7",g:G.tw,y:16},
 "10-11":[{e:G.bl,c:["#94b4e5","#c5b4e1"],i:true,y:41},{e:"Hong Eunchae",c:S.R,g:G.ls,y:26},{e:G.mo,i:true,y:36},{e:"Iguchi Mao",c:[H.R,H.O],g:G.hz,y:15}],
 "11-11":[{e:"YeoJin",c:"#f46f1f",g:[G.ln,G.lb],y:22},{e:"Yeseul",c:"#f0b",g:G.fl,y:20},{e:"Haeryung",c:"#cc6",g:G.ex,y:14}],
@@ -469,7 +477,7 @@ ID={//idolBdData
 "22-12":{e:"Moonbyul",c:"#b52624",g:G.mm,y:12},
 "24-12":{e:"SeolA",g:G.wj,y:14},
 "25-12":{e:"Daewang",c:"#90ee90",g:G.pf,y:9},
-"26-12":[{e:"Momoka",c:S.Y,g:G.pf,y:20},{e:"Ushio Sarina",c:[H.P,H.Y],g:G.hz,y:17}],
+"26-12":[{e:"Momoka",c:S.Y,g:G.pf,y:20},{e:"Ushio Sarina",c:[H.P,H.Y],g:G.hz,y:17},{e:"Song Ga-in",y:6}],
 "27-12":[{e:"Youngeun",c:"#93c572",g:G.kp,y:24},{e:"Gyuri",c:"#2196fe",g:G.fr,y:17},{e:"Loha",c:S.Bl,g:G.na,y:21}],
 "28-12":{e:"Bae",c:S.Y,g:G.nm,y:24},
 "29-12":[{e:"Sana",c:"#9c9ecf",g:G.tw,y:16},{e:"Yiren",c:S.W,g:G.eg,y:20}],
@@ -569,7 +577,7 @@ var dT=gebi("dateText");
 dT.st(`${cwd}, ${cD.toLocaleString()}${nbsp} (KST ${ksts})`)
 var marquee=gebi("headerMarquee")
 /*loona stan length updater interval*/
-loonaInterval=setInterval(updateLoonaTime, 100)
+loonaInterval=setInterval(updateTimes, 100)
 if((dm()=="16-6")||(dm(1)=="16-6")){
 	marquee.childNodes[0].before(ctn("(Happy Loona Independence Day) "))
 	marquee.style.fontSize="120%"
@@ -733,6 +741,9 @@ if(BD.length>0){
 		</script>
 		<style>
 body{line-height:110%;}
+.aa,.ab{display:inline-block;position:relative;}
+.aa{top:-0.25em;}
+.ab{top:0.25em;left:-0.85em;width:0px;overflow:visible;}
 :root{--g7oc:#0029c4;--g8oc:#00cf003f;--shp:#faf;}
 body.moonbin{background-color:#300436;}
 body.jonghyun{background-color:#000436;}
@@ -782,6 +793,8 @@ p.advisory,div.advisory,li.advisory{background-color:#FFFF003F;color:#FFFFBF;bor
 .high-warning{color:#ff3f43;text-shadow:0px -1px 1px #4F3F009F,1px -1px 1px #4F3F009F,1px 0px 1px #4F3F009F,1px 1px 1px #4F3F009F,0px 1px 1px #4F3F009F,-1px 1px 1px #4F3F009F,-1px 0px 1px #4F3F009F,-1px -1px 1px #4F3F009F,0px -2px 2px #4F3F009F,2px -2px 2px #4F3F009F,2px 0px 2px #4F3F009F,2px 2px 2px #4F3F009F,0px 2px 2px #4F3F009F,-2px 2px 2px #4F3F009F,-2px 0px 2px #4F3F009F,-2px -2px 2px #4F3F009F;}
 p.high-warning,div.high-warning,li.high-warning{background-color:#7F0000AF;color:#FFFF00;border:1px solid red;padding:1px;text-shadow:0px -1px 1px #FF0000,1px -1px 1px #FF0000,1px 0px 1px #FF0000,1px 1px 1px #FF0000,0px 1px 1px #FF0000,-1px 1px 1px #FF0000,-1px 0px 1px #FF0000,-1px -1px 1px #FF0000;font-size:110%;letter-spacing:0.5px;}
 p.high-warning a,div.high-warning a,li.high-warning a,p.high-warning a:visited,div.high-warning a:visited,li.high-warning a:visited{color:#fff;}
+p.notice,div.notice,li.notice{background-color:#00182f;color:white;border:1px solid #007fff;padding:1px;}
+
 #entities.warning{color:#ff7f7f;}
 small,.small{font-size:80%;}
 .TZW.small{font-size:70%;}
@@ -856,10 +869,10 @@ details#noticeToggle[open] #ntCol{display:none;}
 			<p id="opening">Welcome to <code>orbit-loona.github.io</code>. This website is mostly for personal miscellanea.</p>
 			<details id="noticeToggle"><summary class="text-outlined">Click to <span id="ntCol">show</span><span id="ntExp">hide</span> notices</summary>
 			<ul>
-				<li class="high-warning"><div aria-role="paragraph">143 Entertainment's CEO <details style="display: inline;" class="text-outlined"><summary style="display; inline;">(<abbr title="Trigger Warning">TW</abbr>/click to show)</summary><span style="white-space: pre;"> </span><a href="https://www.instagram.com/p/DCrWv4CCHEO/" title="Instagram link, account NOT required to view">sexually assaulted</a> <a href="https://tribune.com.pk/story/2511266/madeins-gaeun-allegedly-sexually-assaulted-by-agency-ceo" title="Express Tribune link, account NOT required to view">Gaeun and released a statement denying the allegations but still blaming Gaeun for it (this incident occurred when Gaeun was 18, which is still a minor under Korean law)</a> and <a href="https://www.instagram.com/p/DCsCnqFpICP/" title="Instagram link, account NOT required to view">placed her on hiatus and threatened the members with fees</a></details> and is thus a dangerous and abusive company for MADEIN. They must be boycotted immediately and absolutely for this.</div></li>
+				<li class="notice"><p>Loona is 12 and Enhypen is 7. Hybe can go to hell.<br/></p></li>
+				<li class="advisory"><p>I apologize for the length of this text.<br>The international ad-hoc Loona fan union "Loona Union" <a href="https://x.com/unionloona/status/1670628678869606400">announced on Twitter (X)</a> on June 19, 2023 (<span id="betsY">almost 3 years ago</span>) that the formal boycott is ended and so you can stream if you want to <small>(whether to refrain from streaming is now and has long been up to each individual fan or listener's personal freedom of choice)</small>.<br>There have been reports of people threatening or doxxing people who admit to streaming on official platforms, which is <strong>unacceptable and violent harassment</strong> and which I unequivocally condemn.<br><small>To those who choose to continue the desistance of streaming, there is a <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">Google Drive folder</a> available with the archives of the MP3 files for songs released under the now-defunct former agency <span red>Blockberry Creative</span> (BBC). In any case, please feel free to stream the new songs released under Modhaus, ATRP, CTD ENM (which is also defunct), Paix Per Mil, MUMW, or PLFIL.</small></p></li> <!-- Levite still sucks though, see https://blog.naver.com/hl2mlb59/223544825861 and its sources https://www.filmmakers.co.kr/board/21645592 and https://blog.naver.com/endingcredit2023/223538324002 and other coverage https://www.dispatch.co.kr/2341301 https://www.mediatoday.co.kr/news/articleView.html?idxno=320048 -->
 				<li class="high-advisory">Remember to do your <a href="https://arab.org/click-to-help/palestine/">daily click for Palestine</a>.</li>
-				<li class="advisory"><p>Please <a href="https://drive.google.com/drive/folders/15nOtXlSIKYD_anDn7PtDimHiyByzrjFa?usp=share_link">do not stream</a> songs released under <span red>Blockberry Creative</span> (BBC), their former agency. The rights have been transferred to the CEO's other subsidiary "Levite United". This does not apply to songs released under Modhaus, ATRP, CTD ENM (collapsed), Paix Per Mil, MUMW, or PLFIL.<br/></p></li>
-				<li class="advisory"><p>Loona is 12 and Enhypen is 7.<br/></p></li>
+				<li class="high-warning"><div aria-role="paragraph">143 Entertainment's CEO <details style="display: inline;" class="text-outlined"><summary style="display; inline;">(<abbr title="Trigger Warning">TW</abbr>/click to show)</summary><span style="white-space: pre;"> </span><a href="https://www.instagram.com/p/DCrWv4CCHEO/" title="Instagram link, account NOT required to view">sexually assaulted</a> <a href="https://tribune.com.pk/story/2511266/madeins-gaeun-allegedly-sexually-assaulted-by-agency-ceo" title="Express Tribune link, account NOT required to view">Gaeun and released a statement denying the allegations but still blaming Gaeun for it (this incident occurred when Gaeun was 18, which is still a minor under Korean law)</a> and <a href="https://www.instagram.com/p/DCsCnqFpICP/" title="Instagram link, account NOT required to view">placed her on hiatus and threatened the members with fees</a></details> and is thus a dangerous and abusive company for MADEIN. They must be boycotted immediately and absolutely for this.</div></li>
 			</ul></details>
 			<span id="rem">&nbsp;</span>
 			<h1 class="ot12">Pages</h1>
@@ -877,6 +890,7 @@ details#noticeToggle[open] #ntCol{display:none;}
 					<a href="R74moji.html">R74moji renderer</a><br/>
 					<a href="discord-vertical-text.html">Sideways Discord text generator</a><br/>
 					<a href="adder.html">Quick number adder</a><br/>
+					<a href="haengbok-ilgi.html">Taeri TV <i>Happiness Diary</i> archive</a><br/>
 				</div>
 			<h1 class="ot12">Enjoyed artists</h1>
 				<div id="groupList">
@@ -887,14 +901,15 @@ details#noticeToggle[open] #ntCol{display:none;}
 						<span class="el e3"><span class="et">Stan</span>: <span en>Girls' Generation</span>, <span en>TWICE</span>, <span en>Lim Young Woong</span>, <span en>Jang Yoon-jeong</span></span><br/>
 						<span class="el e4"><span class="et">Sub-stan (want to stan and get into more)</span>:  <span en>Kep1er</span>, <span en>TWICE</span>, <span en>BLACKPINK</span>, <span en>IVE</span>, <span en>(G)I-DLE</span>, <span en>2NE1</span>, <span en>Dreamcatcher</span>, <span en>IZ*ONE</span>, <span en>EVERGLOW</span>, <span en>ILLIT</span>, <span en>STAYC</span>, <span en>tripleS</span></span><br/>
 						<span class="el e5"><span class="et">Just becoming interested in/Pre-backlog</span>: <span en>Enhypen</span></span><br/>
-						<span class="el e6"><span class="et">Backlog</span>: <span en>aespa</span>, <span en>ALICE</span>, <span en>Apink</span>, <span en>April</span>, <span en>Billlie</span>, <span en>BINI</span>, <span en>Cherry Bullet</span>, <span en>cignature</span>, <span en>CLC</span>, <span en>CSR</span>, <span en>DIA</span>, <span en>DreamNote</span>, <span en>Exid</span>, <span en>f(x)</span>, <span en>f5ve</span>, <span en>Floria</span>, <span en>fromis_9</span>, <span en>GFriend</span>, <span en>Gugudan</span>, <span en>GWSN</span>, <span en>Hashtag</span>, <span en>Hearts2Hearts</span>, <span en>Hinatazaka46</span>, <span en>ITZY</span>, <span en>IU</span>, <span en>Izna</span>, <span en>Ladies' Code</span>, <span en>Le Sserafim</span>, <span en>Lovelyz</span>, <span en>MADEIN</span>, <span en>Mamamoo</span>, <span en>Miss A</span>, <span en>Momoland</span>, <span en>Nature</span>, <span en>NMIXX</span>, <span en>Oh My Girl</span>, <span en>Pink Fantasy</span>, <span en>Pixy</span>, <span en>Purple Kiss</span>, <span en>Red Velvet</span>, <span en>Rescene</span>, <span en>Rocket Punch</span>, <span en>Saturday</span>, <span en>Say My Name</span>, <span en>Unis</span>, <span en>VIVIZ</span>, <span en>Weeekly</span>, <span en>Weki Meki</span>, <span en>WJSN</span>, <span en>Wonder Girls</span>, <span en>woo!ah!</span>, <span en>X:IN</span>, <span en>Yukika</span></span><br/>
+						<span class="el e6"><span class="et">Backlog</span>: <span en>aespa</span>, <span en>ALICE</span>, <span en>Apink</span>, <span en>April</span>, <span en>Billlie</span>, <span en>BINI</span>, <span en>Cherry Bullet</span>, <span en>cignature</span>, <span en>CLC</span>, <span en>CSR</span>, <span en>DIA</span>, <span en>DreamNote</span>, <span en>Exid</span>, <span en>f(x)</span>, <span en>f5ve</span>, <span en>Floria</span>, <span en>fromis_9</span>, <span en>GFriend</span>, <span en>Gugudan</span>, <span en>GWSN</span>, <span en>Hashtag</span>, <span en>Hearts2Hearts</span>, <span en>Hinatazaka46</span>, <span en>ITZY</span>, <span en>IU</span>, <span en>Izna</span>, <span en>Ladies' Code</span>, <span en>Le Sserafim</span>, <span en>Lovelyz</span>, <span en>MADEIN</span>, <span en>Mamamoo</span>, <span en>Miss A</span>, <span en>Momoland</span>, <span en>Nature</span>, <span en>NMIXX</span>, <span en>Oh My Girl</span>, <span en>Pink Fantasy</span>, <span en>Pixy</span>, <span en>Purple Kiss</span>, <span en>Red Velvet</span>, <span en>Rescene</span>, <span en>Rocket Punch</span>, <span en>Saturday</span>, <span en>Say My Name</span>, <span en>Unis</span>, <span en>VIVIZ</span>, <span en>Weeekly</span>, <span en>Weki Meki</span>, <span en>WJSN</span>, <span en>Wonder Girls</span>, <span en>woo!ah!</span>, <span en>X:IN</span>, <span en>Yukika</span>, <span en>Hong Jin-young</span>, <span en>Jo Eun-sae</span>, <span en>Chu Ga-yeol</span>, <span en>Moon Hee-ok</span>, <span en>Shin Na</span>, <span en>Song Ga-in</span>, <span en>Yoon Jong-shin</span>, <span en>Kim Geon-mo</span></span><br/>
 						<section id="exceptions">
 							<p>Several entities have been put in the birthday script which I don't necessarily intend to stan, but have been added for other reasons.</p>
-							<span class="el e7"><span class="et">Personal reasons</span>: <span en>TXT</span>, <span en title="excluding Seungri per below">BIGBANG <small>excluding Seungri</small></span>, <span en>NCT <small> and its subunits but excluding Taeil</small></span></span><br/>
-							<span class="el e8"><span class="et">Because they did something good</span>: <span en>Seungkwan (SVT)</span></span><br/>
+							<span class="el e7"><span class="et">Other personal reasons</span>: <span en>TXT</span>, <span en title="excluding Seungri per below">BIGBANG <small>excluding Seungri</small></span>, <span en>NCT <small> and its subunits but excluding Taeil</small></span></span><br/>
+							<span class="el e8"><span class="et">Because they did something good<small style="letter-spacing:-1px;"> (it's my code and I can add who I want)</small></span>: <span en>Seungkwan (SVT)</span></span><br/>
 							<span class="el e9"><span class="et">I forgot why I'd put them in here but I don't want to upset anyone by removing them</span>: <span en>Sun Yinghao (IXFORM)</span>, <span en>Jungkook (BTS)</span></span><br/>
 							<span class="el e10"><span class="et">Out of spite for netizens</span>: <span en>Kelly Kim (I.MET.U)</span></span><br/>
 							<span class="el eC"><span class="et">It's complicated</span>: <span en>NewJeans</span></span><br/>
+							<span class="el eC"><small class="et" style="letter-spacing:-1px;">I like her song but who the <span class="aa">**</span><span class="ab">**</span> put a <span class="aa">**</span><span class="ab">**</span>ing 12<abbr title="-year-old">yo.</span> on a survival show like <i>Miss Trot 2</i>; she's younger than Hyein ffs</small>: <span en>Kim Da-hyun from North Chungcheong</span></span><br/>
 							<span class="el warning"><span class="et"><small><span class="white">Hyuna</span> is included only for completeness's sake, and she's on thin ice. I do not support her relationship with Yong Jun-hyung. I absolutely condemn the violent or abusive actions of <span red>Seungri</span>, <span red>Taeil</span>, and Lucas</small>.</span></span>
 
 						</section>
@@ -903,7 +918,7 @@ details#noticeToggle[open] #ntCol{display:none;}
 				<div id="groupList">
 					<h2 class="circle">Biases:</h2>
 					<div id="biases">
-						<p><span gn class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span>; Wreckers: <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span></span></p>
+						<p><span gn class="bd-idol black-outline lg">LOONA</span>: <span class="bd-idol" style="background-color:#00bf00;color:#fff;">HaSeul</span>, <span class="bd-idol" style="background-color:#f46f1f;color:#fff;">YeoJin</span>, <span class="bd-idol" style="background-color:#ffa2d2;color:#000;">ViVi</span>, <span class="bd-idol" style="background-color:#800040;color:#fff;">Yves</span>; Wreckers: <span class="bd-idol" style="background-color:#962cc4;color:#fff;">Choerry</span>, <span class="bd-idol" style="background-color:#ff008f;color:#fff;">HeeJin</span></span></p>
 						<p><span gn class="bd-idol black-outline" style="background:linear-gradient(to right,#000 0%,#000 49.975%,#FF9FFF 50.025%,#FF9FFF 100%);color:white;">BlackPink</span>: <span class="bd-idol" style="background-color:#cc6ca9;color:white;">Jennie</span><span class="wreckerList">; Wreckers: <span class="bd-idol" style="background-color:#005eff;color:#fff;">Rose'</span></span></p>
 						<p><span gn class="bd-idol" style="background-color:#ee047f;color:#fff;">2NE1</span>: <span class="bd-idol" style="background-color:#e2d989;color:#000;">CL</span></p>
 						<p><span gn class="bd-idol" style="background-color:#f1f1f1;color:#000;">IVE</span>: <span class="bd-idol" style="background-color:#69c32d;color:#000;">Rei</span><span class="wreckerList">; Wreckers: <span class="bd-idol black-outline" style="background: linear-gradient(to right,#FF001E 0%,#FF001E 49.975%,#D9598C 50.025%,#D9598C 100%);color:#FFF;">Wonyoung</span></span></p>
