@@ -140,6 +140,16 @@ function shuffleArray(array, seed) {
 			}
 			
 			testingDayOverride = null;
+
+			function getDay() {
+				let modulusDivisor = Math.ceil(6500 / cohortPieceSize);
+				let day = (testingDayOverride ?? Math.floor((((Date.now() - 10800000) / 86400000) - 1081))) % modulusDivisor;
+				if(day < 0) { day += Math.ceil(day / -(modulusDivisor)) * modulusDivisor };
+				return day
+			}
+			
+			console.log(getDay())
+			
 			
 			memes = {
 				[420]: 'blaze', //unused
@@ -147,9 +157,7 @@ function shuffleArray(array, seed) {
 			}
 			
 			function render() {
-				let modulusDivisor = Math.ceil(6500 / cohortPieceSize);
-				let day = (testingDayOverride ?? Math.floor((((Date.now() - 10800000) / 86400000) - 1068))) % modulusDivisor;
-				if(day < 0) { day += Math.ceil(day / -(modulusDivisor)) * modulusDivisor }
+				let day = getDay();
 				let units = cohort(day).map(x=>items[x]);
 				let dayRole = (day % cohortBlockSize) + 1;
 				let cohortNumber = (Math.floor((day) / cohortBlockSize)) + 1;
