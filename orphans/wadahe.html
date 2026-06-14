@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>blank page</title>
+		<meta property="og:site_name" content="orbit-loona.github.io" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="blank page" />
+		<meta property="og:url" content="https://orbit-loona.github.io/adder.html" />
+		<meta property="og:description" content="A blank page, a skeleton for the creation of new pages" />
+		<meta property="og:locale" content="en_US" />
+		<!--<meta property="og:image" content="https://orbit-loona.github.io/bin/ImageURL.png" />
+		<meta property="og:image:width" content="255" />
+		<meta property="og:image:height" content="255" />
+		<meta property="og:image:alt" content="image" />
+		<meta name="twitter:image:src" content="https://orbit-loona.github.io/bin/ImageURL.png" />
+		<meta name="twitter:title" content="blank page" />
+		<meta name="twitter:description" content="A blank page, a skeleton for the creation of new pages" />-->
+		<link rel="stylesheet" href="main.css"/>
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="An Orbit">
+		<meta charset="UTF-8">
+		<script>
+			nbsp = String.fromCharCode(0xA0);
+			makeTag = function(tag) { return document.createElement(tag) };
+			makeTextNode = function(text) { return document.createTextNode(text) };
+			GEBI = function(id) { return document.getElementById(id) };
+			GBCN = function(...classes) { return document.getElementsByClassName(...classes) };
+			HTMLElement.prototype.setText = function(text) { this.textContent = text; return this };
+			HTMLElement.prototype.ac = function(node) { return this.appendChild(node) };
+			HTMLElement.prototype.addChild = function(node) { this.appendChild(node); return this };
+			HTMLElement.prototype.appendToElement = function(parentElement) { parentElement.appendChild(this); return this };
+			HTMLElement.prototype.addAttribute = function(attribute,value) { this.setAttribute(attribute,value); return this };
+			HTMLElement.prototype.addClass = function(...classes) { this.classList.add(...classes); return this };
+			HTMLElement.prototype.addStyle = function(property,value) { this.style[property] = value; return this };
+			HTMLElement.prototype.addListener = function(type,listener,options=null) { this.addEventListener(type,listener,options); return this };
+			Text.prototype.appendToElement = function(parentElement) { parentElement.appendChild(this); return this };
+			HTMLElement.prototype.addStyle = function(property,value) { this.style[property] = value; return this };
+
+			function randomSkewNormal(mean = 0, stdev = 1, skew = 0) {
+			  let u0 = 0, v = 0;
+			  while (u0 === 0) u0 = Math.random(); 
+			  while (v === 0) v = Math.random();
+			  
+			  const num1 = Math.sqrt(-2.0 * Math.log(u0)) * Math.cos(2.0 * Math.PI * v);
+			  const num2 = Math.sqrt(-2.0 * Math.log(u0)) * Math.sin(2.0 * Math.PI * v);
+
+			  if (skew === 0) {return mean + stdev * num1 };
+
+			  const delta = skew / Math.sqrt(1 + skew * skew);
+			  const correlatedUnit = delta * num1 + Math.sqrt(1 - delta * delta) * num2;
+			  const z = num1 >= 0 ? correlatedUnit : -correlatedUnit;
+			  return mean + stdev * z;
+			}
+
+			function sumCost(baseMult,factor,offset,amount) {
+				return Math.round((baseMult/(factor - 1)) * (factor**offset) * ((factor ** amount) - 1))
+			}
+
+			const defaults = {
+				highestMaterial: 0,
+				currentMaterial: 0,
+				currentHP: 0,
+				currentMoney: 0,
+				toolDamage: 1,
+				reforgeFodder: 0,
+				reforgePity: 0,
+				upgrades: {
+					power: 0,
+					crit_chance: 0,
+					crit_damage: 0,
+					fodder_chance: 0,
+					better_upgrader: 0,
+					money: 0
+				}
+			}
+			
+			function sumCost(baseMult,offset,amount) {
+				return Math.round((baseMult*10) * (1.1**offset) * ((1.1 ** amount) - 1))
+			}
+
+			state = structuredClone(defaults);
+
+			materialData = [
+				{ name: "Hanium",		value: 1,		maxHP: 7,		hardness: 0 },
+				{ name: "Durium",		value: 10,		maxHP: 42,		hardness: 5 },
+				{ name: "Sesium",		value: 27,		maxHP: 109,		hardness: 10 },
+				{ name: "Nesium",		value: 53,		maxHP: 214,		hardness: 15 },
+				{ name: "Dasosium",		value: 93,		maxHP: 370,		hardness: 21 },
+				{ name: "Yososium",		value: 147,		maxHP: 572,		hardness: 27 },
+				{ name: "Ilgobium",		value: 217,		maxHP: 832,		hardness: 33 },
+				{ name: "Yodobium",		value: 302,		maxHP: 1140,	hardness: 39 },
+				{ name: "Ahobium",		value: 405,		maxHP: 1507,	hardness: 46 },
+				{ name: "Yorium",		value: 527,		maxHP: 1928,	hardness: 53 },
+				{ name: "Yorhanium",	value: 668,		maxHP: 2403,	hardness: 67 },
+				{ name: "Yoldurium",	value: 828,		maxHP: 2824,	hardness: 75 },
+				{ name: "Yolsesium",	value: 1000,	maxHP: 5000,	hardness: 150 },
+				{ name: "Yollesium",	value: 1500,	maxHP: 8000,	hardness: 225 },
+				{ name: "Yoldasium",	value: 5000,	maxHP: 17000,	hardness: 500 },
+				{ name: "Yoryosium",	value: 12000,	maxHP: 35000,	hardness: 1000 },
+				{ name: "Yorilgium",	value: 25000,	maxHP: 70000,	hardness: 2000 },
+				{ name: "Yoryodium",	value: 65000,	maxHP: 150000,	hardness: 5000 },
+				{ name: "Yorahium",		value: 155000,	maxHP: 325000,	hardness: 10000 },
+				{ name: "Sumurium",		value: 350000,	maxHP: 750000,	hardness: 20000 },
+				{ name: "Sumurhanium",	value: 1000000,	maxHP: 2000000,	hardness: 60000 },
+				{ name: "Sumursesium",	value: 3e7,		maxHP: 5e7,		hardness: 5e5 }
+			]
+			
+			invalidMaterialMessage = 'Index must be an integer';
+			function setMaterial(index) {
+				let errorType = null;
+				if(typeof(index) !== 'number') { throw new TypeError(invalidMaterialMessage) };
+				let data = materialData[index];
+				if(isNaN(index) || (!Number.isInteger(index))) { throw new RangeError(invalidMaterialMessage) };
+				if(!data) { throw new ReferenceError('No material exists at index ' + index) };
+
+				state.currentMaterial = index;
+				state.currentHP = data.maxHP;
+				updateStatus(data)
+			}
+			
+
+
+
+
+
+
+
+			upgradeData = { //only costs, not effects
+				power: {baseCost: 20},
+				crit_chance: {baseCost: 40, maxLevel: 18},
+				crit_damage: {baseCost: 30},
+				fodder_chance: {baseCost: 25, maxLevel: 180},
+				better_upgrader: {baseCost: 50},
+				money: {baseCost: 70}
+			}
+
+
+
+
+
+
+
+			
+			function buyUpgrade(name,amount,query=false) { //falsey = not a query, 1 = "how much will it cost?", 2 = "could you buy this?"
+				if(!!query && ([1,2].indexOf(query) == -1)) { throw new RangeError(`buyUpgrade: "query" value must be 1 or 2 if you're doing a query`) }
+				let uData = upgradeData[name];
+				let thisCost = sumCost(uData.baseCost,state.upgrades[name] ?? 0,amount)
+				let destinationLevel = (state.upgrades[name] ?? 0) + amount;
+				let beyondMax = false;
+				if(!!uData.maxLevel) { if(destinationLevel > uData.maxLevel) { beyondMax = true } }
+				if(query == 1) { return beyondMax ? NaN : thisCost }
+				if(beyondMax) { return false };
+				if(state.currentMoney >= thisCost) {
+					if(!query) {
+						state.currentMoney -= thisCost;
+						state.upgrades[name] = destinationLevel;
+						updateStatus(); localSave();
+					}
+					return true
+				}
+				return false
+			}
+			
+			function reforgeTool(justQuery=false) {
+				let _fodder = state.reforgeFodder;
+				let cost = 1;
+				if(cost > _fodder) { return justQuery ? false : null };
+				if(!justQuery) {
+					state.reforgeFodder -= cost;
+					state.reforgePity ??= 0;
+					let effectivePity = Math.max(0,state.reforgePity - 50);
+					let pityEffect = effectivePity * 0.01;
+					let currentDamage = state.toolDamage ?? 1;
+					let reforgeBuff = (state.upgrades.better_upgrader ?? 0) * 0.02;
+					let attemptedUpgradeDamage = randomSkewNormal((currentDamage - 0.1) + reforgeBuff + pityEffect, 0.3, 1 + pityEffect);
+					console.log(attemptedUpgradeDamage,attemptedUpgradeDamage>currentDamage);
+					if(attemptedUpgradeDamage > currentDamage) {
+						state.toolDamage = attemptedUpgradeDamage;
+						state.reforgePity = 0;
+						console.log(`YUGE!`);
+						updateStatus(); localSave();
+						return true
+					} else {
+						state.reforgePity++;
+						console.log('This has been the worst trade deal in the history of trade deals, maybe ever.');
+						updateStatus(); localSave();
+						return false
+					}
+				} else {
+					return true
+				};
+			}
+
+			function getDamage(_data,critlessQuery=false) {
+				let mData = _data ?? materialData[state.currentMaterial];
+				let toolBase = state.toolDamage ?? 1;
+				let p = (state.upgrades.power ?? 0);
+				let upgraded = Math.round((toolBase + p) * (1.05 ** p))
+				if(critlessQuery) {
+					return Math.max(0,upgraded - (mData.hardness ?? 0))
+				};
+				let damageWithoutCrit = getDamage(_data,true);
+				let ccBase = 10; //out of 1000
+				let critChance = Math.min(100,10 + ((state.upgrades.crit_chance ?? 0) * 5));
+				let critMult = damageWithoutCrit == 0 ? 1.5 + ((state.upgrades.crit_chance ?? 0) / 8) : 2 + ((state.upgrades.crit_chance ?? 0) / 4);
+				if((Math.random() * 1000) < critChance) { upgraded = Math.ceil(upgraded * critMult); console.log('kablowey') };
+				let unblocked = Math.max(0,upgraded - (mData.hardness ?? 0));
+				return unblocked
+			}
+
+			function advanceMaterial(direction,justQuery=false) {
+				let destination = state.currentMaterial + Math.sign(direction);
+				if((destination < 0) || (destination > state.highestMaterial)) {
+					return false
+				}; if(!justQuery) { setMaterial(state.currentMaterial + direction) };
+				return true;
+				updateStatus();
+			}
+			
+			const D = 'disabled';
+			function updateStatus(_data=null) {
+				let mData = _data ?? materialData[state.currentMaterial]
+				let mName = mData.name; let mValue = mData.value; let mMaxHP = mData.maxHP;
+				let currentHP = state.currentHP; let currentMoney = state.currentMoney;
+				const statusMat = GEBI("current-material"); if(statusMat) { statusMat.innerText = mName };
+				const statusVal = GEBI("current-value"); if(statusVal) { statusVal.innerText = Math.ceil(mValue * (1 + ((state.upgrades.money ?? 0) * 0.25))).toLocaleString() };
+				const statusHP = GEBI("current-hp"); if(statusHP) { statusHP.innerText = `${state.currentHP.toLocaleString()} / ${mMaxHP.toLocaleString()}` };
+				const statusDam = GEBI("current-damage"); if(statusDam) { statusDam.innerText = `${getDamage(mData,true).toLocaleString()}` };
+				const statusMon = GEBI("current-money"); if(statusMon) { statusMon.innerText = `${state.currentMoney.toLocaleString()}` };
+				const statusFod = GEBI("current-fodder"); if(statusFod) { statusFod.innerText = `${state.reforgeFodder.toLocaleString()}` };
+				const fodderPl = GEBI("fodder-plural"); if(fodderPl) { fodderPl.innerText = state.reforgeFodder == 1 ? '' : 's' };
+				const bPrev = GEBI("prev-mat"); if(bPrev) { let can = advanceMaterial(-1,true); if(can) { bPrev.removeAttribute(D) } else { bPrev.setAttribute(D,true) } };
+				const bNext = GEBI("next-mat"); if(bNext) { let can = advanceMaterial(1,true); if(can) { bNext.removeAttribute(D) } else { bNext.setAttribute(D,true) } };
+				const bReforge = GEBI("reforge-button"); if(bReforge) { let can = reforgeTool(true); if(can) { bReforge.removeAttribute(D) } else { bReforge.setAttribute(D,true) } };
+
+				const upgradeFields = document.querySelectorAll(".upgrades p");
+				for(let i = 0; i < upgradeFields.length; i++) {
+					let line = upgradeFields[i]; if(!line) { continue; }
+					let uName = line.getAttribute("upgrade"); if(!uName) { continue };
+
+					let cost = buyUpgrade(uName,1,1); let canBuy = buyUpgrade(uName,1,2); let level = state.upgrades[uName];
+					let button = line.querySelector('.u-buy'); canBuy ? button.removeAttribute(D) : button.setAttribute(D,true);
+					let costText = line.querySelector('.u-cost'); costText.innerText = isNaN(cost) ? "N/A" : cost.toLocaleString();
+					let levelText = line.querySelector('.u-level'); levelText.innerText = (level ?? 'undefined').toLocaleString();
+				}
+				return true
+			}
+
+			function mine() {
+				let mData = materialData[state.currentMaterial];
+				let dmg = getDamage(mData);
+				let miningFodderChance = (mData.maxHP <= dmg ? -1 : 0.02) * Math.min(0.5,0.025 + ((state.upgrades.fodder_chance ?? 0) * 0.0025));
+				if(Math.random() < miningFodderChance) {
+					state.reforgeFodder++;
+				}
+				state.currentHP -= dmg;
+				if(state.currentHP < 0.005) { //slight tolerance in case of floating-point precision error
+					state.currentMoney += Math.ceil(mData.value * (1 + ((state.upgrades.money ?? 0) * 0.25)));
+					let finishingFodderChance = (mData.maxHP <= dmg ? 0.5 : 1) * Math.min(0.5,0.025 + ((state.upgrades.fodder_chance ?? 0) * 0.0025));
+					if(Math.random() < finishingFodderChance) {
+						state.reforgeFodder++;
+					}
+					//regenerate material
+					state.currentHP = mData.maxHP;
+					let nextMaterial = state.currentMaterial + 1; state.highestMaterial = Math.max(state.highestMaterial,nextMaterial)
+				};
+				localSave();
+				updateStatus(mData);
+			}
+
+			function localSave() {
+				localStorage.setItem('mine-save',JSON.stringify(state))
+			}
+			
+			function localLoad() {
+				let save = JSON.parse(localStorage.getItem('mine-save') ?? 'null');
+				if(save) {
+					for(let key in defaults) { state[key] = save[key] ?? defaults[key] }
+					for(let subkey in defaults.upgrades) { state.upgrades[subkey] ??= defaults.upgrades[subkey] }
+				};
+				setMaterial(state.currentMaterial);
+			}
+			
+			function reset() {
+				state = structuredClone(defaults); localSave(); updateStatus()
+			}
+
+			window.addEventListener('load',function() {
+				GEBI("click").addEventListener('click',mine);
+				GEBI("prev-mat").addEventListener('click',function() { advanceMaterial(-1) });
+				GEBI("next-mat").addEventListener('click',function() { advanceMaterial(1) });
+				GEBI("reforge-button").addEventListener('click',function() { reforgeTool() });
+
+				const upgradeFields = document.querySelectorAll(".upgrades p");
+				for(let i = 0; i < upgradeFields.length; i++) {
+					let line = upgradeFields[i]; if(!line) { continue; }
+					let uName = line.getAttribute("upgrade"); if(!uName) { continue };
+
+					let button = line.querySelector('.u-buy'); button.setAttribute('_upgrade',uName)
+					button.addEventListener('click',function() {let name = this.getAttribute('_u') ?? this.parentElement.getAttribute("upgrade");if(name){buyUpgrade(name,1,false)}})
+				}
+				localLoad();
+			})
+		</script>
+		<style>
+			#description {
+				line-height: 110%;
+			}
+
+			#date {
+				border: 1px solid #ccc;
+				padding: 1px;
+			}
+			
+			button:not([disabled]) {
+				cursor: pointer;
+			}
+
+			button[disabled] {
+				color: #222;
+				background-color: #bb88bb;
+				border: 1px solid #775577;
+				cursor: not-allowed;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Template</h1>
+		<p id="description">You have $<span id="current-money">N/A</span> and <span id="current-fodder">N/A</span> artifact<span id="fodder-plural"></span>.</p><br/>
+		<button id="click">Mine</button><br/>
+		<button id="prev-mat">&lt; Prev.</button> <button id="next-mat">&gt; Next</button>
+		<p class="status">Currently mining <span id="current-material">nothing</span>. (Value: $<span id="current-value">unset</span>)<br>
+		Integrity: <span id="current-hp">N/A</span>, click damage: <span id="current-damage">N/A</span>.</p>
+
+		<div class="upgrades">
+			<p upgrade="power"><button class="u-buy">Buy</button> Power +1: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+			<p upgrade="crit_chance"><button class="u-buy">Buy</button> Crit chance +5%: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+			<p upgrade="crit_damage"><button class="u-buy">Buy</button> Crit damage +25%: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+			<p upgrade="fodder_chance"><button class="u-buy">Buy</button> Artifact chance +0.5%: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+			<p upgrade="better_upgrader"><button class="u-buy">Buy</button> Improve forge: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+			<p upgrade="money"><button class="u-buy">Buy</button> Material value +25%: $<span class="u-cost">N/A</span> (Current level: <span class="u-level">N/A</span>)</p>
+		</div>
+		<div class="reforge">
+			<button id="reforge-button">Reforge</button> (cost: 1 artifact)
+		</div>
+
+		<script>
+			console.log("Body-dependent code goes here (if any)")
+			var dateText = document.getElementById("date");
+			if(dateText) { dateText.innerText = new Date().toLocaleString() }
+		</script>
+		<br/><br/><a href="index.html"><small>go to main page</small></a>
+
+	</body>
+</html>
