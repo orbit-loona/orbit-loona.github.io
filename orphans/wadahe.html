@@ -74,20 +74,22 @@
 					money: 0
 				}
 			}
-			
-			function sumCost(baseMult,offset,amount) {
-				return Math.round((baseMult*10) * (1.1**offset) * ((1.1 ** amount) - 1))
-			}
+	
+			/*advisoryRatios = {
+				value: 2,
+				maxHP: 1.5,
+				hardness: 1.45
+			}*/
 
 			state = structuredClone(defaults);
 
 			materialData = [
 				{ name: "Hanium",		value: 1,		maxHP: 7,		hardness: 0 },
-				{ name: "Durium",		value: 10,		maxHP: 42,		hardness: 5 },
+				{ name: "Durium",		value: 10,		maxHP: 42,		hardness: 4 },
 				{ name: "Sesium",		value: 27,		maxHP: 109,		hardness: 10 },
 				{ name: "Nesium",		value: 53,		maxHP: 214,		hardness: 15 },
-				{ name: "Dasosium",		value: 93,		maxHP: 370,		hardness: 21 },
-				{ name: "Yososium",		value: 147,		maxHP: 572,		hardness: 27 },
+				{ name: "Dasosium",		value: 93,		maxHP: 370,		hardness: 25 },
+				{ name: "Yososium",		value: 147,		maxHP: 572,		hardness: 30 },
 				{ name: "Ilgobium",		value: 217,		maxHP: 832,		hardness: 33 },
 				{ name: "Yodobium",		value: 302,		maxHP: 1140,	hardness: 39 },
 				{ name: "Ahobium",		value: 405,		maxHP: 1507,	hardness: 46 },
@@ -127,7 +129,7 @@
 
 
 			upgradeData = { //only costs, not effects
-				power: {baseCost: 20},
+				power: {baseCost: 20, scale: 1.2},
 				crit_chance: {baseCost: 40, maxLevel: 18},
 				crit_damage: {baseCost: 30},
 				fodder_chance: {baseCost: 25, maxLevel: 180},
@@ -145,7 +147,7 @@
 			function buyUpgrade(name,amount,query=false) { //falsey = not a query, 1 = "how much will it cost?", 2 = "could you buy this?"
 				if(!!query && ([1,2].indexOf(query) == -1)) { throw new RangeError(`buyUpgrade: "query" value must be 1 or 2 if you're doing a query`) }
 				let uData = upgradeData[name];
-				let thisCost = sumCost(uData.baseCost,state.upgrades[name] ?? 0,amount)
+				let thisCost = sumCost(uData.baseCost,uData.scale ?? 1.1,state.upgrades[name] ?? 0,amount)
 				let destinationLevel = (state.upgrades[name] ?? 0) + amount;
 				let beyondMax = false;
 				if(!!uData.maxLevel) { if(destinationLevel > uData.maxLevel) { beyondMax = true } }
